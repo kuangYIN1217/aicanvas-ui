@@ -37,8 +37,14 @@ export class VisualizedNetworkComponent implements OnInit {
         d3.select(this).attr('x', d3.event.x).attr("y", d3.event.y);
     }
 
-    dragended(d): void {
-        //d3.select(this).classed("active", false);
+    makeDragended(layerId): any {
+        return (d) => {
+            var i = this.layerList.findIndex(l => l.id === layerId);
+            if (i >= 0) {
+                this.layerList[i].x = d3.event.x;
+                this.layerList[i].y = d3.event.y;
+            }
+        }
     }
 
     // TODO: specify the exact return type.
@@ -47,7 +53,7 @@ export class VisualizedNetworkComponent implements OnInit {
             if (e && layer) {
                 e.emit(layer)
             }
-        };
+        }
     }
 
     showALayerIcon(layer: Layer): void {
@@ -57,15 +63,14 @@ export class VisualizedNetworkComponent implements OnInit {
         var drag = d3.drag()
             .on('drag', this.dragged)
             .on('start', this.dragstarted)
-            .on('end', this.dragended);
+            .on('end', this.makeDragended(layer.id));
 
         var svg = this.container.append('svg')
             .attr('x', layer.x)
             .attr('y', layer.y)
+            .attr('id', layer.id)
             .on('click', this.makeClickHandler(this.onLayerSelected, layer))
             .call(drag);
-
-        svg.id = "id_" + layer.id;
 
         var circle = svg.append('circle')
             .attr('cx', 20)
@@ -87,33 +92,48 @@ export class VisualizedNetworkComponent implements OnInit {
 
     deleteAlayerIcon(layer: Layer): void {
         if (layer) {
-            this.container.select('#id_' + layer.id).remove();
+            this.container.select('#' + layer.id).remove();
         }
     };
 
-    createNewLayer(layerType: LayerType): Layer {
+    createLayer(layerType: LayerType): Layer {
         var layer = new Layer();
         layer.layerTypeId = layerType.id;
-        layer.id = this.count++;
+        layer.id = "id_" + this.count++;
         layer.name = layerType.name + '_' + (layer.id);
         layer.x = 50 + this.count;
         layer.y = 50 + this.count;
         this.layerList.push(layer);
         this.showALayerIcon(layer);
         return layer;
-    };
+    }
 
-    selected(layerType: LayerType): void {
-        this.createNewLayer(layerType);
-    };
+    deleteLayer(layer: Layer): void {
+        var i = this.layerList.findIndex(l => l.id === layer.id);
+        if (i >= 0) {
+            this.layerList.splice(i, 1);
+        }
+    }
+
+    onLayerTypeSelected(layerType: LayerType): void {
+        this.createLayer(layerType);
+    }
 
     onSetLayerParamClick(layer: Layer): void {
-        for (var i = 0; i < this.layerList.length; i++) {
-            if (this.layerList[i].id === layer.id) {
-                this.layerList[i] = layer;
-            }
+        // TODO Need to check and hint if there is a conflicting names.
+        var i = this.layerList.findIndex(l => l.id === layer.id);
+        if (i >= 0) {
+            this.layerList[i] = layer;
+            this.deleteAlayerIcon(layer);
+            this.showALayerIcon(layer);
         }
-        this.deleteAlayerIcon(layer);
-        this.showALayerIcon(layer);
-    };
+    }
+
+    onDeleteLayerClick(layer: Layer): void {
+        if (layer) {
+            this.deleteAlayerIcon(layer);
+            this.deleteLayer(layer);
+            this.onLayerSelected.emit(null);
+        }
+    }
 }

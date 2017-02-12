@@ -12,7 +12,23 @@ export class NetworkEditorComponent {
       selectedName: string = '';
 
       onLayerSelected(layer: Layer) {
-        this.selectedLayer = layer;
-        this.selectedName = layer.name;
+        if (layer) {
+          this.selectedLayer = layer;
+          this.selectedName = layer.name;
+        } else {
+          this.selectedLayer = null;
+          this.selectedName = '';
+        }
+      }
+
+      onInputChange(newName: string): void {
+        if(this.selectedLayer) {
+          this.selectedLayer.name = newName;
+          this.selectedName = newName;
+        }
+      }
+      clear() {
+        this.selectedName = '';
+        this.selectedLayer = null;
       }
 }

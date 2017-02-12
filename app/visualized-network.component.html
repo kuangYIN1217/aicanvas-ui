@@ -1,7 +1,10 @@
 
 
 <div class="controls"> 
-    <div class="cnn-layer" *ngFor="let layerType of layerTypeList" (click)="selected(layerType)"  class="{{layerType.cssClassName}}">
+    <div class="cnn-layer" 
+         *ngFor="let layerType of layerTypeList" 
+         (click)="onLayerTypeSelected(layerType)"
+         class="{{layerType.cssClassName}}">
     <svg class="widget">
         <g>
             <circle class="icon" r="15px" transform="translate(15, 15)"></circle>
@@ -12,13 +15,3 @@
 </div>
 
 <svg id="map" width="960" height="450"></svg>
-<!--
-<div *ngFor="let layer of layerList">    
-     <svg class="widget">
-      <g>
-        <circle class="icon" r="15" transform="translate(15, 15)"></circle>
-      </g>
-     </svg>
-     <label>{{layer.name}}</label>
-</div>
--->

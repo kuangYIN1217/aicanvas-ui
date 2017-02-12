@@ -9,7 +9,7 @@ export class LayerType {
 
 export class Layer {
     layerTypeId: number;
-    id: number;
+    id: string;
     name: string;
     x: number;
     y: number;
