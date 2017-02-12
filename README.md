@@ -1,3 +1,11 @@
-# aicanvas
-Aicanvas is used to visualize process of AI algorithm and make end-user customize AI algorithm by himself. 
-This is UI repo.
+[Install nodejs](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
+sudo apt install npm
+
+sudo apt install node-typescript
+
+npm install light-server
+
+npm install 
+
+
+npm start

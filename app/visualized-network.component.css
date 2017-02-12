@@ -1,0 +1,87 @@
+.widget {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+.widget g {
+    font-family: PatternFlyIcons-webfont;
+    font-size: 18px;
+    text-anchor: middle;
+    cursor: pointer;
+}
+
+.widget g text {
+    stroke: none;
+    stroke-width: 0px;
+}
+
+.widget g.weak use {
+    opacity: .6;
+}
+
+.input .icon {
+    font-family: FontAwesome;
+    font-size: 16px;
+    fill: #1186C1;
+}
+
+.output .icon  {
+    font-family: FontAwesome;
+    font-size: 16px;
+    fill: #636363;
+}
+
+.hidden .icon {
+    font-family: FontAwesome;
+    font-size: 16px;
+    fill: #ff7f0e;
+}
+
+.controls {
+    position: absolute;
+    bottom: 100px;
+    background-color: lightgray;
+    padding: 0 10px;
+    width: 150px;
+}
+
+.widget g {
+    stroke: #aaa;
+    fill: #fff;
+}
+
+.widget g.fixed use {
+    stroke-width: 2px;
+}
+
+.widget g.selected use,
+.widget g.selected circle {
+    stroke-width: 4px;
+}
+
+.widget line {
+    stroke: #aaa;
+    stroke-width: 1;
+}
+
+.cnn-layer {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin: 10px;
+    user-select: none;
+}
+
+.cnn-layer use {
+    opacity: 0.4;
+    margin-bottom: 10px;
+}
+
+.cnn-layer.active use {
+    opacity: 1;
+}
+
+.cnn-layer:hover use {
+    opacity: 0.7;
+}

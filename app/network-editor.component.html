@@ -1,0 +1,12 @@
+<div class="scratchpad">
+  <visualized-network (onLayerSelected)="onLayerSelected($event)" #vn> </visualized-network>
+
+  <div class="attr-editor">
+    <label> name: </label>
+    <input type="text" [value]="selectedName" (input)="selectedLayer.name = $event.target.value">
+    <input type="button" (click)="vn.onSetLayerParamClick(selectedLayer)" value="set">
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+
