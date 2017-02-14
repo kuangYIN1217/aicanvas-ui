@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Layer, LayerType } from './layer';
-import { LayerService } from './layer.service';
+import { DataService } from './data.service';
 import * as d3 from 'd3';
 
 @Component({
@@ -9,24 +9,24 @@ import * as d3 from 'd3';
     selector: 'visualized-network',
     templateUrl: 'visualized-network.component.html',
     styleUrls: ['visualized-network.component.css'],
-    providers: [LayerService]
 })
 export class VisualizedNetworkComponent implements OnInit {
-    layerTypeList: LayerType[] = [];
 
-    count: number = 0;
-    layerList: Layer[] = [];
-
+    // The counter used to be part of the layer name.
+    idCounter: number = 0;
+    
     @Output() onLayerSelected: EventEmitter<Layer> = new EventEmitter<Layer>();;
 
 
     // Container to visualize all layers.
     container = null;
 
-    constructor(private layerService: LayerService) { }
+    constructor(private dataService: DataService) { }
 
     ngOnInit(): void {
-        this.layerTypeList = this.layerService.getLayerTypeList();
+        if (this.container == null) {
+            this.container = d3.select('#map').append('g');
+        }
     }
 
     dragstarted(d): void {
@@ -39,11 +39,7 @@ export class VisualizedNetworkComponent implements OnInit {
 
     makeDragended(layerId): any {
         return (d) => {
-            var i = this.layerList.findIndex(l => l.id === layerId);
-            if (i >= 0) {
-                this.layerList[i].x = d3.event.x;
-                this.layerList[i].y = d3.event.y;
-            }
+            this.dataService.updateLayerPosition(layerId, d3.event.x, d3.event.y);
         }
     }
 
@@ -56,10 +52,7 @@ export class VisualizedNetworkComponent implements OnInit {
         }
     }
 
-    showALayerIcon(layer: Layer): void {
-        if (this.container == null) {
-            this.container = d3.select('#map').append('g');
-        }
+    showLayerIcon(layer: Layer): void {
         var drag = d3.drag()
             .on('drag', this.dragged)
             .on('start', this.dragstarted)
@@ -84,13 +77,13 @@ export class VisualizedNetworkComponent implements OnInit {
             .attr('cursor', 'pointer')
             .text(layer.name);
 
-        var layerType = this.layerService.getLayerTypeById(layer.layerTypeId);
+        var layerType = this.dataService.getLayerTypeById(layer.layerTypeId);
         if (layerType) {
             circle.attr('fill', layerType.color);
         }
     };
 
-    deleteAlayerIcon(layer: Layer): void {
+    deleteLayerIcon(layer: Layer): void {
         if (layer) {
             this.container.select('#' + layer.id).remove();
         }
@@ -99,41 +92,47 @@ export class VisualizedNetworkComponent implements OnInit {
     createLayer(layerType: LayerType): Layer {
         var layer = new Layer();
         layer.layerTypeId = layerType.id;
-        layer.id = "id_" + this.count++;
+        layer.id = "id_" + this.idCounter++;
         layer.name = layerType.name + '_' + (layer.id);
-        layer.x = 50 + this.count;
-        layer.y = 50 + this.count;
-        this.layerList.push(layer);
-        this.showALayerIcon(layer);
+        layer.x = 50 + this.idCounter;
+        layer.y = 50 + this.idCounter;
+        this.dataService.createLayer(layer);
+        this.showLayerIcon(layer);
         return layer;
-    }
-
-    deleteLayer(layer: Layer): void {
-        var i = this.layerList.findIndex(l => l.id === layer.id);
-        if (i >= 0) {
-            this.layerList.splice(i, 1);
-        }
-    }
-
-    onLayerTypeSelected(layerType: LayerType): void {
-        this.createLayer(layerType);
     }
 
     onSetLayerParamClick(layer: Layer): void {
         // TODO Need to check and hint if there is a conflicting names.
-        var i = this.layerList.findIndex(l => l.id === layer.id);
-        if (i >= 0) {
-            this.layerList[i] = layer;
-            this.deleteAlayerIcon(layer);
-            this.showALayerIcon(layer);
-        }
+        this.dataService.updateLayer(layer);
+        this.deleteLayerIcon(layer);
+        this.showLayerIcon(layer);
     }
 
     onDeleteLayerClick(layer: Layer): void {
         if (layer) {
-            this.deleteAlayerIcon(layer);
-            this.deleteLayer(layer);
+            this.dataService.deleteLayer(layer.id);
+            this.deleteLayerIcon(layer);
             this.onLayerSelected.emit(null);
+        }
+    }
+
+    // Link related functionalities.
+    showLinkLine(origLayer: Layer, destLayer: Layer): void {
+        this.container.append("line")          // attach a line
+            .style("stroke", "black")
+            .attr("x1", origLayer.x - 15)
+            .attr("y1", origLayer.y - 15)
+            .attr("x2", destLayer.x + 15)
+            .attr("y2", destLayer.y + 15);
+    }
+    
+    createLink(origLayer: Layer, destLayerId: string): void {
+        var destLayer = this.dataService.getLayerById(destLayerId);
+        if (origLayer && destLayer) {
+            
+          // TODO: record data. 
+
+          this.showLinkLine(origLayer, destLayer);
         }
     }
 }

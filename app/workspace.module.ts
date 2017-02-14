@@ -9,7 +9,8 @@ import { VisualizedNetworkComponent } from './visualized-network.component'
 import { AppRoutingModule }     from './app-routing.module';
 
 @NgModule({
-    imports: [BrowserModule,
+    imports: [
+        BrowserModule,
         FormsModule,
         AppRoutingModule],
     declarations: [NetworkEditorComponent, VisualizedNetworkComponent],

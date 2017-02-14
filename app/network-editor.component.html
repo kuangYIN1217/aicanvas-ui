@@ -1,13 +1,21 @@
 <div class="scratchpad">
-  <visualized-network (onLayerSelected)="onLayerSelected($event)" #vn> </visualized-network>
+	<visualized-network (onLayerSelected)="onLayerSelected($event)" #vn> </visualized-network>
 
-  <div class="attr-editor" [hidden]="!selectedLayer">
-    <label> name: </label>
-    <input type="text" [value]="selectedName" (input)="onInputChange($event.target.value)">
-    <input type="button" (click)="vn.onSetLayerParamClick(selectedLayer)" value="set">
-    <input type="button" (click)="vn.onDeleteLayerClick(selectedLayer)" value="delete">
-  </div>
+	<div class="attr-editor" *ngIf="editingLayer != null">
+		<label> name: </label>
+      <input type="text" [value]="editingLayer.name" (input)="onInputChange($event.target.value)">
+      <input type="button" (click)="vn.onSetLayerParamClick(selectedLayer)" value="set">
+      <input type="button" (click)="vn.onDeleteLayerClick(selectedLayer)" value="delete">
+      <br>
+      <div *ngIf="dataService.getLayerList().length > 1">
+        <label> output to: </label>
+        <select (change) = "vn.createLink(editingLayer, $event.target.value)">
+          <!-- TODO instead of get all the list, returning the valid list that the current layer could connect to -->
+          <option *ngFor="let layer of dataService.getLayerList()"
+                  [value]="layer.id"> {{layer.name}} </option>
+        </select>
+      </div>
+	</div>
 </div>
 
 <router-outlet></router-outlet>
-

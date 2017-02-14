@@ -1,34 +1,34 @@
 import { Component } from '@angular/core';
 import { Layer } from './layer';
+import { DataService } from './data.service';
 
 @Component({
   moduleId: module.id,
   selector: 'network-editor',
   styleUrls: ['network-editor.component.css'],
   templateUrl: 'network-editor.component.html',
+  providers: [DataService]
 })
 export class NetworkEditorComponent {
-      selectedLayer: Layer = null;
-      selectedName: string = '';
+      editingLayer: Layer = null;
+      
+      constructor(private dataService: DataService) { }
 
       onLayerSelected(layer: Layer) {
         if (layer) {
-          this.selectedLayer = layer;
-          this.selectedName = layer.name;
+          this.editingLayer = layer;
         } else {
-          this.selectedLayer = null;
-          this.selectedName = '';
+          this.editingLayer = null;
         }
       }
 
       onInputChange(newName: string): void {
-        if(this.selectedLayer) {
-          this.selectedLayer.name = newName;
-          this.selectedName = newName;
+        if(this.editingLayer) {
+          this.editingLayer.name = newName;
         }
       }
+
       clear() {
-        this.selectedName = '';
-        this.selectedLayer = null;
+        this.editingLayer = null;
       }
 }
