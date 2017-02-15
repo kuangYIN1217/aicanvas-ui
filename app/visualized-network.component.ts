@@ -14,7 +14,7 @@ export class VisualizedNetworkComponent implements OnInit {
 
     // The counter used to be part of the layer name.
     idCounter: number = 0;
-    
+
     @Output() onLayerSelected: EventEmitter<Layer> = new EventEmitter<Layer>();;
 
 
@@ -29,110 +29,151 @@ export class VisualizedNetworkComponent implements OnInit {
         }
     }
 
-    dragstarted(d): void {
-        //d3.select(this).raise().classed("active", true);
-    }
-
-    dragged(d): void {
-        d3.select(this).attr('x', d3.event.x).attr("y", d3.event.y);
-    }
-
-    makeDragended(layerId): any {
-        return (d) => {
-            this.dataService.updateLayerPosition(layerId, d3.event.x, d3.event.y);
+    layerIconDragStarted(c: VisualizedNetworkComponent): any {
+        return function (d): void {
+            c.hideLinkIcons();
         }
     }
 
-    // TODO: specify the exact return type.
-    makeClickHandler(e: EventEmitter<Layer>, layer: Layer): any {
-        return function () {
-            if (e && layer) {
-                e.emit(layer)
+    layerIconDragged(c: VisualizedNetworkComponent, redraw: boolean): any {
+        return function (d): void {
+            var draggedIcon = d3.select(this);
+            draggedIcon
+                .attr('x', d3.event.x)
+                .attr('y', d3.event.y);
+
+            c.dataService.updateLayerPosition(draggedIcon.attr('id'), d3.event.x, d3.event.y);
+            if (redraw) {
+                c.dataService.updateLinkList();
+                c.redraw();
             }
         }
     }
 
-    showLayerIcon(layer: Layer): void {
-        var drag = d3.drag()
-            .on('drag', this.dragged)
-            .on('start', this.dragstarted)
-            .on('end', this.makeDragended(layer.id));
+    layerIconClicked(c: VisualizedNetworkComponent): any {
+        return function (d): void {
+            var draggedIcon = d3.select(this);
+            var layer = c.dataService.getLayerById(draggedIcon.attr('id'));
+            if (c.onLayerSelected && layer) {
+                c.onLayerSelected.emit(layer);
+            }
+        }
+    }
 
-        var svg = this.container.append('svg')
-            .attr('x', layer.x)
-            .attr('y', layer.y)
-            .attr('id', layer.id)
-            .on('click', this.makeClickHandler(this.onLayerSelected, layer))
+    updateLayerIcons(): void {
+        var selection = this.container.selectAll('.layer-icon')
+            .data(this.dataService.getLayerList());
+
+        // Update 
+        selection
+            .attr('x', function (layer) { return layer.x + 'px'; })
+            .attr('y', function (layer) { return layer.y + 'px'; })
+            .attr('id', function (layer) { return layer.id; });
+        selection.select('text').text(function (layer) { return layer.name; });
+
+        // Create.
+        var dragStartHandler = this.layerIconDragStarted(this);
+        var dragHandler = this.layerIconDragged(this, false);
+        var dragEndHandler = this.layerIconDragged(this, true);
+        var drag = d3.drag()
+            .on('start', dragStartHandler)
+            .on('drag', dragHandler)
+            .on('end', dragEndHandler);
+
+        var clickHandler = this.layerIconClicked(this);
+
+        var svg = selection.enter().append('svg')
+            .attr('x', function (layer) { return layer.x + 'px'; })
+            .attr('y', function (layer) { return layer.y + 'px'; })
+            .attr('id', function (layer) { return layer.id; })
+            .attr('class', 'layer-icon')
+            .on('click', clickHandler)
             .call(drag);
 
-        var circle = svg.append('circle')
+        svg.append('circle')
             .attr('cx', 20)
             .attr('cy', 20)
-            .attr('r', 15);
+            .attr('r', 15)
+            .attr('fill', function (layer) { return layer.color; })
 
-        var text = svg.append('text')
+        svg.append('text')
             .attr('x', 20)
             .attr('y', 20)
             .attr('fill', '#000')
             .attr('cursor', 'pointer')
-            .text(layer.name);
+            .text(function (layer) { return layer.name; });
 
-        var layerType = this.dataService.getLayerTypeById(layer.layerTypeId);
-        if (layerType) {
-            circle.attr('fill', layerType.color);
-        }
-    };
-
-    deleteLayerIcon(layer: Layer): void {
-        if (layer) {
-            this.container.select('#' + layer.id).remove();
-        }
-    };
+        // Delete.
+        selection.exit().remove();
+    }
 
     createLayer(layerType: LayerType): Layer {
         var layer = new Layer();
         layer.layerTypeId = layerType.id;
         layer.id = "id_" + this.idCounter++;
         layer.name = layerType.name + '_' + (layer.id);
-        layer.x = 50 + this.idCounter;
+        layer.x = 50 + this.idCounter * 10;
         layer.y = 50 + this.idCounter;
+        layer.color = layerType.color;
         this.dataService.createLayer(layer);
-        this.showLayerIcon(layer);
+        this.redraw();
         return layer;
     }
 
     onSetLayerParamClick(layer: Layer): void {
         // TODO Need to check and hint if there is a conflicting names.
         this.dataService.updateLayer(layer);
-        this.deleteLayerIcon(layer);
-        this.showLayerIcon(layer);
+        this.redraw();
     }
 
     onDeleteLayerClick(layer: Layer): void {
         if (layer) {
             this.dataService.deleteLayer(layer.id);
-            this.deleteLayerIcon(layer);
             this.onLayerSelected.emit(null);
+            this.redraw()
         }
     }
 
     // Link related functionalities.
-    showLinkLine(origLayer: Layer, destLayer: Layer): void {
-        this.container.append("line")          // attach a line
-            .style("stroke", "black")
-            .attr("x1", origLayer.x - 15)
-            .attr("y1", origLayer.y - 15)
-            .attr("x2", destLayer.x + 15)
-            .attr("y2", destLayer.y + 15);
-    }
-    
-    createLink(origLayer: Layer, destLayerId: string): void {
-        var destLayer = this.dataService.getLayerById(destLayerId);
-        if (origLayer && destLayer) {
-            
-          // TODO: record data. 
+    updateLinkIcons(): void {
+        var selection = this.container.selectAll('.link-icon')
+            .data(this.dataService.getLinkList());
 
-          this.showLinkLine(origLayer, destLayer);
+        // Update.
+        selection
+            .attr('x1', function (link) { return link.srcx + 15; })
+            .attr('y1', function (link) { return link.srcy + 15; })
+            .attr('x2', function (link) { return link.destx + 15; })
+            .attr('y2', function (link) { return link.desty + 15; });
+
+        // Create.
+        selection.enter().append('line')
+            .attr('stroke', 'black')
+            .attr('class', 'link-icon')
+            .attr('x1', function (link) { return link.srcx + 15; })
+            .attr('y1', function (link) { return link.srcy + 15; })
+            .attr('x2', function (link) { return link.destx + 15; })
+            .attr('y2', function (link) { return link.desty + 15; });
+
+        // Delete.
+        selection.exit().remove();
+    }
+
+    hideLinkIcons(): void {
+        var selection = this.container.selectAll('.link-icon')
+            .data([]);
+        selection.exit().remove();
+    }
+
+    createLink(srcLayerId: string, destLayerId: string): void {
+        if (srcLayerId != destLayerId) {
+            this.dataService.addLink(srcLayerId, destLayerId);
+            this.redraw()
         }
+    }
+
+    redraw(): void {
+        this.updateLayerIcons();
+        this.updateLinkIcons();
     }
 }

@@ -13,4 +13,5 @@ export class Layer {
     name: string;
     x: number;
     y: number;
+    color: string;
 }
