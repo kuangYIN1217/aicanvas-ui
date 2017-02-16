@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 
 import { LayerType, Layer } from './layer';
 
-import {Link} from './link';
+import { Link } from './link';
 
 const LAYER_METADATA_LIST: LayerType[] = [
-  { id: 0, name: 'Input Layer', cssClassName: 'input', color: '#1186C1' },
-  { id: 1, name: 'Output Layer', cssClassName: 'output', color: '#636363'},
-  { id: 2, name: 'Hidden Layer', cssClassName: 'hidden', color: '#ff7f0e'},
+    { id: 0, name: 'Input Layer', cssClassName: 'input', color: '#1186C1' },
+    { id: 1, name: 'Output Layer', cssClassName: 'output', color: '#636363' },
+    { id: 2, name: 'Hidden Layer', cssClassName: 'hidden', color: '#ff7f0e' },
 ];
 
 @Injectable()
@@ -29,15 +29,20 @@ export class DataService {
         return this.getLayerTypeList().find(layerType => layerType.id === id);
     }
 
-    createLayer(layer: Layer) :void {
+    createLayer(layer: Layer): void {
         this.layerList.push(layer);
     }
 
     deleteLayer(layerId: string): void {
-        console.log('deleting '+ layerId);
         var i = this.layerList.findIndex(l => l.id === layerId);
         if (i >= 0) {
             this.layerList.splice(i, 1);
+            while (1) {
+                var i = this.linkList.findIndex(
+                    l => (l.srcLayerId === layerId || l.destLayerId === layerId));
+                if (i < 0) { break; }
+                this.linkList.splice(i, 1);
+            }
         }
     }
 
@@ -86,6 +91,12 @@ export class DataService {
     }
 
     addLink(srcLayerId, destLayerId) {
+        if (this.linkList.findIndex(
+            l => (l.srcLayerId === srcLayerId
+                  && l.destLayerId === destLayerId)) >= 0) {
+            return;
+        }
+
         var srcLayer = this.getLayerById(srcLayerId);
         var destLayer = this.getLayerById(destLayerId);
         if (srcLayer && destLayer) {

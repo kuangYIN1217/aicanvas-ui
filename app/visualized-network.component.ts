@@ -173,7 +173,7 @@ export class VisualizedNetworkComponent implements OnInit {
     }
 
     redraw(): void {
-        this.updateLayerIcons();
         this.updateLinkIcons();
+        this.updateLayerIcons();
     }
 }
