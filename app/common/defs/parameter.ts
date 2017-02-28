@@ -10,7 +10,7 @@ export enum ParameterType {
 
 export class Parameter {
   name: string;
-  // The translated label of the parameter.
+  // The translated name of the parameter.
   translation: string;
 
   // Human readable description.
