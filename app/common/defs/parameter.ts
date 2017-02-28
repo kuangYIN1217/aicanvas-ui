@@ -11,7 +11,7 @@ export enum ParameterType {
 export class Parameter {
   name: string;
   // The translated label of the parameter.
-  label: string;
+  translation: string;
 
   // Human readable description.
   description: string;
@@ -23,11 +23,11 @@ export class Parameter {
   // d_type should not be type ENUM/LIST/NETWORK.
   d_type: ParameterType;
 
-  // Define the shape of data if type = LIST
+  // Define the shape of data if type = LIST.
   shape: number[];
 
   // If type == enums, the options specifies the available values to choose from.
-  options: any[];
+  allowed_values: any[];
 
   default_value: any;
   set_value: any;
