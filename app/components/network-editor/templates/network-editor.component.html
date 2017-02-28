@@ -7,15 +7,13 @@
       <input type="button" (click)="vn.onSetLayerParamClick(editingLayer)" value="set">
       <input type="button" (click)="vn.onDeleteLayerClick(editingLayer)" value="delete">
       <br>
-      <div *ngIf="dataService.getLayerList().length > 1">
+      <div *ngIf="networkEditorService.getLayerList().length > 1">
         <label> output to: </label>
         <select (change) = "vn.createLink(editingLayer.id, $event.target.value)">
           <!-- TODO instead of get all the list, returning the valid list that the current layer could connect to -->
-          <option *ngFor="let layer of dataService.getLayerList()"
+          <option *ngFor="let layer of networkEditorService.getLayerList()"
                   [value]="layer.id"> {{layer.name}} </option>
         </select>
       </div>
 	</div>
 </div>
-
-<router-outlet></router-outlet>

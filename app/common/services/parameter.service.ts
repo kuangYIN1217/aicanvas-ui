@@ -1,4 +1,4 @@
-import { ParameterType, Parameter } from './parameter';
+import { ParameterType, Parameter } from '../defs/parameter';
 
 const PARAM_LIST: Parameter[] = [
     {

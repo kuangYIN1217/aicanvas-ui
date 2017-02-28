@@ -1,15 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
-import { Layer, LayerType } from './layer';
-import { DataService } from './data.service';
-import { ParameterService } from './parameter.service'
+import { Layer, LayerType } from './defs/layer';
+import { NetworkEditorService } from './services/network-editor.service';
+import { ParameterService } from '../../common/services/parameter.service'
 import * as d3 from 'd3';
 
 @Component({
     moduleId: module.id,
     selector: 'visualized-network',
-    templateUrl: 'visualized-network.component.html',
-    styleUrls: ['visualized-network.component.css'],
+    templateUrl: './templates/visualized-network.component.html',
+    styleUrls: ['./css/visualized-network.component.css'],
     providers: [ParameterService]
 })
 export class VisualizedNetworkComponent implements OnInit {
@@ -19,12 +19,11 @@ export class VisualizedNetworkComponent implements OnInit {
 
     @Output() onLayerSelected: EventEmitter<Layer> = new EventEmitter<Layer>();;
 
-
     // Container to visualize all layers.
     container = null;
 
-    constructor(private dataService: DataService,
-                private parameterService: ParameterService) { }
+    constructor(private networkEditorService: NetworkEditorService,
+        private parameterService: ParameterService) { }
 
     ngOnInit(): void {
         if (this.container == null) {
@@ -45,9 +44,9 @@ export class VisualizedNetworkComponent implements OnInit {
                 .attr('x', d3.event.x)
                 .attr('y', d3.event.y);
 
-            c.dataService.updateLayerPosition(draggedIcon.attr('id'), d3.event.x, d3.event.y);
+            c.networkEditorService.updateLayerPosition(draggedIcon.attr('id'), d3.event.x, d3.event.y);
             if (redraw) {
-                c.dataService.updateLinkList();
+                c.networkEditorService.updateLinkList();
                 c.redraw();
             }
         }
@@ -56,7 +55,7 @@ export class VisualizedNetworkComponent implements OnInit {
     layerIconClicked(c: VisualizedNetworkComponent): any {
         return function (d): void {
             var draggedIcon = d3.select(this);
-            var layer = c.dataService.getLayerById(draggedIcon.attr('id'));
+            var layer = c.networkEditorService.getLayerById(draggedIcon.attr('id'));
             if (c.onLayerSelected && layer) {
                 c.onLayerSelected.emit(layer);
             }
@@ -65,7 +64,7 @@ export class VisualizedNetworkComponent implements OnInit {
 
     updateLayerIcons(): void {
         var selection = this.container.selectAll('.layer-icon')
-            .data(this.dataService.getLayerList());
+            .data(this.networkEditorService.getLayerList());
 
         // Update 
         selection
@@ -118,20 +117,20 @@ export class VisualizedNetworkComponent implements OnInit {
         layer.x = 50 + this.idCounter * 10;
         layer.y = 50 + this.idCounter;
         layer.color = layerType.color;
-        this.dataService.createLayer(layer);
+        this.networkEditorService.createLayer(layer);
         this.redraw();
         return layer;
     }
 
     onSetLayerParamClick(layer: Layer): void {
         // TODO Need to check and hint if there is a conflicting names.
-        this.dataService.updateLayer(layer);
+        this.networkEditorService.updateLayer(layer);
         this.redraw();
     }
 
     onDeleteLayerClick(layer: Layer): void {
         if (layer) {
-            this.dataService.deleteLayer(layer.id);
+            this.networkEditorService.deleteLayer(layer.id);
             this.onLayerSelected.emit(null);
             this.redraw()
         }
@@ -140,7 +139,7 @@ export class VisualizedNetworkComponent implements OnInit {
     // Link related functionalities.
     updateLinkIcons(): void {
         var selection = this.container.selectAll('.link-icon')
-            .data(this.dataService.getLinkList());
+            .data(this.networkEditorService.getLinkList());
 
         // Update.
         selection
@@ -170,7 +169,7 @@ export class VisualizedNetworkComponent implements OnInit {
 
     createLink(srcLayerId: string, destLayerId: string): void {
         if (srcLayerId != destLayerId) {
-            this.dataService.addLink(srcLayerId, destLayerId);
+            this.networkEditorService.addLink(srcLayerId, destLayerId);
             this.redraw()
         }
     }

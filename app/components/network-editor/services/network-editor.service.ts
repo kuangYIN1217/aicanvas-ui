@@ -1,9 +1,9 @@
 
 import { Injectable } from '@angular/core';
 
-import { LayerType, Layer } from './layer';
+import { LayerType, Layer } from '../defs/layer';
 
-import { Link } from './link';
+import { Link } from '../defs/link';
 
 const LAYER_METADATA_LIST: LayerType[] = [
     { id: 0, name: 'Input Layer', cssClassName: 'input', color: '#1186C1' },
@@ -12,7 +12,7 @@ const LAYER_METADATA_LIST: LayerType[] = [
 ];
 
 @Injectable()
-export class DataService {
+export class NetworkEditorService {
 
     // The list of network layers created by the user.
     layerList: Layer[] = [];

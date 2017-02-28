@@ -1,0 +1,1 @@
+{"version":3,"file":"jobcreation.component.js","sourceRoot":"","sources":["jobcreation.component.ts"],"names":[],"mappings":";;;;;;;AAAA,wCAA0C;AAM1C,IAAa,oBAAoB,GAAjC;CAAoC,CAAA;AAAvB,oBAAoB;IALhC,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,aAAa;QACvB,WAAW,EAAE,8BAA8B;KAC5C,CAAC;GACW,oBAAoB,CAAG;AAAvB,oDAAoB"}

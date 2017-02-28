@@ -1,6 +1,6 @@
 <div class="controls"> 
     <div class="cnn-layer" 
-         *ngFor="let layerType of dataService.getLayerTypeList()" 
+         *ngFor="let layerType of networkEditorService.getLayerTypeList()" 
          (click)="createLayer(layerType)"
          class="{{layerType.cssClassName}}">
       <svg class="widget">
