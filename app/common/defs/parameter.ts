@@ -23,6 +23,9 @@ export class Parameter {
   // d_type should not be type ENUM/LIST/NETWORK.
   d_type: ParameterType;
 
+  // Define the shape of data if type = LIST
+  shape: number[];
+
   // If type == enums, the options specifies the available values to choose from.
   options: any[];
 
