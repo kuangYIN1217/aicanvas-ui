@@ -32,5 +32,5 @@ export class Parameter {
   default_value: any;
   set_value: any;
 
-  // More on minVal/maxVal/history_values.
+  // More on lvl/minVal/maxVal/history_values.
 }
