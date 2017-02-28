@@ -3,7 +3,7 @@ import { ParameterType, Parameter } from '../defs/parameter';
 const PARAM_LIST: Parameter[] = [
     {
         name: 'loss',
-        label: '损失',
+        translation: '损失',
         description: 'result of loss from model calculation?',
         type: ParameterType.FLOAT,
         d_type: ParameterType.FLOAT,
@@ -13,7 +13,7 @@ const PARAM_LIST: Parameter[] = [
     },
     {
         name: 'params',
-        label: 'label2',
+        translation: 'translation',
         description: 'example label2',
         type: ParameterType.STRING,
         d_type: ParameterType.STRING,
