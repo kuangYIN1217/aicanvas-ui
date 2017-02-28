@@ -1,1 +1,0 @@
-{"version":3,"file":"algchains.component.js","sourceRoot":"","sources":["algchains.component.ts"],"names":[],"mappings":";;;;;;;AAAA,wCAA0C;AAM1C,IAAa,kBAAkB,GAA/B;CAAkC,CAAA;AAArB,kBAAkB;IAL9B,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,WAAW;QACrB,WAAW,EAAE,4BAA4B;KAC1C,CAAC;GACW,kBAAkB,CAAG;AAArB,gDAAkB"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"algplugins.component.js","sourceRoot":"","sources":["algplugins.component.ts"],"names":[],"mappings":";;;;;;;AAAA,wCAA0C;AAM1C,IAAa,mBAAmB,GAAhC;CAAmC,CAAA;AAAtB,mBAAmB;IAL/B,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,YAAY;QACtB,WAAW,EAAE,6BAA6B;KAC3C,CAAC;GACW,mBAAmB,CAAG;AAAtB,kDAAmB"}
