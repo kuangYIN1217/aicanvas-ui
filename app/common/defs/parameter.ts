@@ -1,12 +1,4 @@
-export enum ParameterType {
-  STRING,
-  BOOL,
-  INT,
-  FLOAT,
-  ENUM,
-  LIST,
-  NETWORK
-}
+export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST'|'NETWORk';
 
 export class Parameter {
   name: string;

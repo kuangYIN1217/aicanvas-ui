@@ -5,8 +5,9 @@ const PARAM_LIST: Parameter[] = [
         name: 'loss',
         translation: '损失',
         description: 'result of loss from model calculation?',
-        type: ParameterType.FLOAT,
-        d_type: ParameterType.FLOAT,
+        type: 'FLOAT',
+        d_type: 'FLOAT',
+        shape:[1],
         allowed_values: [],
         default_value: 0.0,
         set_value: 0.4,
@@ -15,8 +16,9 @@ const PARAM_LIST: Parameter[] = [
         name: 'params',
         translation: 'translation',
         description: 'example label2',
-        type: ParameterType.STRING,
-        d_type: ParameterType.STRING,
+        type: 'STRING',
+        d_type: 'STRING',
+        shape:[1],
         allowed_values: [],
         default_value: 'default_value',
         set_value: 'set_value',
@@ -26,11 +28,24 @@ const PARAM_LIST: Parameter[] = [
 export class ParameterService {
 
     getParameterList(): Parameter[] {
-        return PARAM_LIST;
-    };
 
-    //saveParameters(): void {
-    //
-    // }
+        // Demo of how to convert between json and typescript object.
+        var jsonstr = JSON.stringify(PARAM_LIST);
+        console.log('jsonstr=' + jsonstr);
+
+        // Parse json object back to js object.
+        var jsObjs = JSON.parse(jsonstr);
+        console.log('jsObjs:'+ jsObjs, jsObjs)
+
+        var tsObjects = new Array<Parameter>();
+        for (let jsObj of jsObjs) {
+            console.log('jsObj:::', jsObj);
+            var tsObj = Object.assign(new Parameter(), jsObj);
+            tsObjects.push(tsObj);
+        }
+        
+        console.log('tsObjects:', tsObjects);
+        return tsObjects;
+    }
 }
 
