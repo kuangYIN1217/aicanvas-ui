@@ -1,4 +1,4 @@
-export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST'|'NETWORk';
+export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST'|'NETWORK';
 
 export class Parameter {
   name: string;

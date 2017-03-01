@@ -33,10 +33,11 @@ export class ParameterService {
         var jsonstr = JSON.stringify(PARAM_LIST);
         console.log('jsonstr=' + jsonstr);
 
-        // Parse json object back to js object.
+        // Parse json string back to js object.
         var jsObjs = JSON.parse(jsonstr);
         console.log('jsObjs:'+ jsObjs, jsObjs)
 
+        // Converts js object to ts object.
         var tsObjects = new Array<Parameter>();
         for (let jsObj of jsObjs) {
             console.log('jsObj:::', jsObj);
