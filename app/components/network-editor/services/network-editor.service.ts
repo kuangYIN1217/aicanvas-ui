@@ -1,9 +1,7 @@
 
 import { Injectable } from '@angular/core';
 
-import { LayerType, Layer } from '../defs/layer';
-
-import { Link } from '../defs/link';
+import { LayerType, Layer, Link } from '../../../common/defs/training-network';
 
 const LAYER_METADATA_LIST: LayerType[] = [
     { id: 0, name: 'Input Layer', cssClassName: 'input', color: '#1186C1' },

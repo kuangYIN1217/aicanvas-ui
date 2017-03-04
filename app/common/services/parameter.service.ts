@@ -1,4 +1,5 @@
 import { ParameterType, Parameter } from '../defs/parameter';
+import { plainToClass } from "class-transformer";
 
 const PARAM_LIST: Parameter[] = [
     {
@@ -37,16 +38,7 @@ export class ParameterService {
         var jsObjs = JSON.parse(jsonstr);
         console.log('jsObjs:'+ jsObjs, jsObjs)
 
-        // Converts js object to ts object.
-        var tsObjects = new Array<Parameter>();
-        for (let jsObj of jsObjs) {
-            console.log('jsObj:::', jsObj);
-            var tsObj = Object.assign(new Parameter(), jsObj);
-            tsObjects.push(tsObj);
-        }
-        
-        console.log('tsObjects:', tsObjects);
-        return tsObjects;
+        return plainToClass(Parameter, jsObjs);
     }
 }
 

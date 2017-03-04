@@ -40,15 +40,20 @@
       'ts':                        'npm:plugin-typescript@4.0.10/lib/plugin.js',
       'typescript':                'npm:typescript@2.0.3/lib/typescript.js',
       'd3':                        'npm:d3/build/d3.js',
+      'class-transformer':         'node_modules/class-transformer',
     },
 
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
-      app: {
+      'class-transformer': { 
+        main: 'index.js', 
+        defaultExtension: 'js'
+      },
+      'app': {
         main: './main.js',
         defaultExtension: 'js'
       },
-      rxjs: {
+      'rxjs': {
         defaultExtension: 'js'
       },
     }

@@ -1,4 +1,8 @@
-export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST'|'NETWORK';
+import { Layer } from './layer';
+import { Link } from './link';
+import {Type, plainToClass} from "class-transformer";
+
+export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';
 
 export class Parameter {
   name: string;
@@ -12,7 +16,7 @@ export class Parameter {
   type: ParameterType;
 
   // The basic data type of the param if type = ENUM or LIST.
-  // d_type should not be type ENUM/LIST/NETWORK.
+  // d_type should not be type ENUM/LIST.
   d_type: ParameterType;
 
   // Define the shape of data if type = LIST.
@@ -24,5 +28,24 @@ export class Parameter {
   default_value: any;
   set_value: any;
 
-  // More on lvl/minVal/maxVal/history_values.
+  // When ParamType is INT or FLOAT, allow the following attribute to specify the range of the input data.
+  has_min: boolean;
+  min_value: number;
+  has_max: boolean;
+  max_value: number;
+
+  // More on lvl/history_values.
+}
+
+export class TrainingNetwork {
+
+  // Refer to https://github.com/pleerock/class-transformer to type annotation.
+  @Type(()=>Layer)
+  layers: Layer[];
+
+  @Type(()=>Link)
+  links: Link[];
+
+  @Type(()=>Parameter)
+  layer_params: Parameter[];
 }

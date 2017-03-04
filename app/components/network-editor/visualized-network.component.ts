@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Layer, LayerType } from './defs/layer';
 import { NetworkEditorService } from './services/network-editor.service';
 import { ParameterService } from '../../common/services/parameter.service'
+import { TrainingNetworkService } from '../../common/services/training-network.service'
 import * as d3 from 'd3';
 
 @Component({
@@ -10,7 +11,7 @@ import * as d3 from 'd3';
     selector: 'visualized-network',
     templateUrl: './templates/visualized-network.component.html',
     styleUrls: ['./css/visualized-network.component.css'],
-    providers: [ParameterService]
+    providers: [ParameterService, TrainingNetworkService]
 })
 export class VisualizedNetworkComponent implements OnInit {
 
@@ -23,7 +24,8 @@ export class VisualizedNetworkComponent implements OnInit {
     container = null;
 
     constructor(private networkEditorService: NetworkEditorService,
-        private parameterService: ParameterService) { }
+        private parameterService: ParameterService,
+        private trainingNetworkService: TrainingNetworkService) { }
 
     ngOnInit(): void {
         if (this.container == null) {
