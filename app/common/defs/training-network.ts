@@ -43,7 +43,7 @@ export class Link {
 }
 
 export class TrainingNetwork {
-  // They layers of the network.
+  // The layers of the network.
   // @Type is used for parsing json object to ts object.
   // More on https://github.com/pleerock/class-transformer
   @Type(()=>Layer)
