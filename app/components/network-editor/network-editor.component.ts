@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Layer } from './defs/layer';
+import { Layer } from '../../common/defs/training-network';
 import { NetworkEditorService } from './services/network-editor.service';
 
 @Component({
