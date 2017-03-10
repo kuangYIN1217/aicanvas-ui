@@ -6,7 +6,7 @@ import { AlgPluginsComponent } from './components/algplugins/algplugins.componen
 import { DatasetsComponent } from './components/datasets/datasets.component'
 import { JobCreationComponent } from './components/jobcreation/jobcreation.component'
 import { NavigationComponent } from './components/navigation/navigation.component'
-import { NetworkEditorComponent } from './components/network-editor/network-editor.component';
+import { NetworkEditorComponent } from './components/network-editor/network-editor.component'
 import { OverviewComponent } from './components/overview/overview.component'
 import { TrainingJobsComponent } from './components/trainingjobs/trainingjobs.component'
 import { VisualizedNetworkComponent } from './components/network-editor/visualized-network.component'

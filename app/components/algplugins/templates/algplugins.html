@@ -1,1 +1,78 @@
-Alg Plugins.
+<div class="container">
+    <div id="modalDiv" [style.display]="ifshowDetail==0 ? '' : 'none'">
+      <div class="tabs">
+        <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [class.focus]="showSystemPlugin">系统模版</div>
+        <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [class.focus]="!showSystemPlugin">自定义模版</div>
+      </div>
+      <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
+          <div id="title"></div>
+        <table id="systemTable" class="table">
+          <th class="plugin_id">Id</th>
+          <th class="plugin_name">Name</th>
+          <th class="plugin_description">Description</th>
+          <th class="operation">Operation</th>
+          <tr *ngFor="let plugin of plugins; let i = index" >
+            <td *ngIf="plugin.plugin_owner=='admin'">{{ plugin.plugin_id }}</td>
+            <td *ngIf="plugin.plugin_owner=='admin'">{{ plugin.plugin_name }}</td>
+            <td *ngIf="plugin.plugin_owner=='admin'">{{ plugin.plugin_description }}</td>
+            <td *ngIf="plugin.plugin_owner=='admin'"><a class="showDetail" (click) = "showDetail(plugin.plugin_id)">查看详细</a></td>
+          </tr>
+        </table>
+      </div>
+      <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
+        <table id="selfTable" class="table">
+            <th class="plugin_id">Id</th>
+            <th class="plugin_name">Name</th>
+            <th class="plugin_description">Description</th>
+            <th class="operation">Operation</th>
+            <tr *ngFor="let plugin of plugins; let i = index">
+                <td *ngIf="plugin.plugin_owner!='admin'">{{ plugin.plugin_id }}</td>
+                <td *ngIf="plugin.plugin_owner!='admin'">{{ plugin.plugin_name }}</td>
+                <td *ngIf="plugin.plugin_owner!='admin'">{{ plugin.plugin_description }}</td>
+                <td *ngIf="plugin.plugin_owner!='admin'"><a class="showDetail" (click) = "showDetail(plugin.plugin_id)">查看详细</a></td>
+            </tr>
+        </table>
+      </div>
+  </div>
+      <div id = "detailDiv" [style.display]="ifshowDetail==1 ? '' : 'none'">
+          <div class="tabs">
+              <div (click)="backToModalDiv()" id="tab_item0" class="tab_item">返回</div>
+              <div (click)="detailDivChooseClick(1)" id="tab_item1" class="tab_item" [class.focus]="detailDivChoose==1">参数列表</div>
+              <div (click)="detailDivChooseClick(2)" id="tab_item2" class="tab_item" [class.focus]="detailDivChoose==2">网络层</div>
+              <div (click)="fork()" id="tab_item3" class="tab_item">修改</div>
+          </div>
+      </div>
+       <div [style.display]="detailDivChoose==1 ? '' : 'none'" id="systemDiv" class="status">
+
+       </div>
+       <div [style.display]="detailDivChoose==2 ? '' : 'none'" id="systemDiv" class="status">
+           <div class="content-container">
+               <div id="left">
+                 <div class="node radius" id="node1">Input</div>
+                 <div class="node" id="node2">Algorithm1</div>
+                 <div class="node" id="node3">Algorithm2</div>
+                 <div class="node radius" id="node4">Output</div>
+               </div>
+
+               <div id="right">
+                 <p align="center">拖拉到此区域</p>
+               </div>
+               <div class="save">
+                   <p align="center">属性配置</p>
+                   <div id="property1"></div>
+                     <!--<div id="property2">-->
+                       <!--属性二：<input type="text" name="property2" />-->
+                     <!--</div>-->
+                     <!--<div id="property3">-->
+                       <!--属性三：<input type="text" name="property3" />-->
+                     <!--</div>-->
+                     <!--<div id="property4">-->
+                       <!--属性四：<input type="text" name="property4" />-->
+                     <!--</div>-->
+                    <div id="saveBtn">
+                       <input type="button" value="保存" onclick="save()" />
+                    </div>
+              </div>
+           </div>
+       </div>
+ </div>

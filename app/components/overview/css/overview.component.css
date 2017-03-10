@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/*framework*/
+.tabs{
+  position: relative;
+  height: 4vw;
+  border-bottom: 1px solid grey;
+  margin-bottom: 4px;
+}
+.tab_item{
+  position: relative;
+  border: 2px solid grey;
+  border-radius: 4px;
+  width: 16vw;
+  height: 3vw;
+  float: left;
+  margin-right: 4px;
+  text-align: center;
+  line-height: 3vw;
+  font-size: 1.5vw;
+  cursor: pointer;
+
+  background-color: rgba(228,228,228,1);
+  font-weight: normal;
+}
+.focus{
+  background-color: white;
+  font-weight: bold;
+}
+.status{
+  margin-top: 0vw;
+}
+/*table*/
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th{
+  height: 2.4vw;
+  background: linear-gradient(rgb(220,235,248), rgb(206,229,248));
+  border-top: 1px solid rgba(170,211,214,1);
+  border-left: 1px solid rgba(170,211,214,1);
+  border-right: 1px solid rgba(170,211,214,1);
+  font-size: 1.3vw;
+  line-height: 2.4vw;
+}
+.table tr{
+  text-align: center;
+  background: rgb(242,255,251);
+  font-size: 1.3vw;
+}
+/*th*/
+.name{
+  width: 19%;
+}
+.scene{
+  width: 35%;
+}
+.time{
+  width: 21%;
+}
+.condition{
+  width: 14%;
+}
+.progress{
+  width: 11%;
+}

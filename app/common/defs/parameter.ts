@@ -1,5 +1,5 @@
-import { Layer } from './layer';
-import { Link } from './link';
+// import { Layer } from './layer';
+// import { Link } from './link';
 import {Type, plainToClass} from "class-transformer";
 
 export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';
@@ -38,14 +38,14 @@ export class Parameter {
 }
 
 export class TrainingNetwork {
-
-  // Refer to https://github.com/pleerock/class-transformer to type annotation.
-  @Type(()=>Layer)
-  layers: Layer[];
-
-  @Type(()=>Link)
-  links: Link[];
-
-  @Type(()=>Parameter)
-  layer_params: Parameter[];
+  //
+  // // Refer to https://github.com/pleerock/class-transformer to type annotation.
+  // @Type(()=>Layer)
+  // layers: Layer[];
+  //
+  // @Type(()=>Link)
+  // links: Link[];
+  //
+  // @Type(()=>Parameter)
+  // layer_params: Parameter[];
 }

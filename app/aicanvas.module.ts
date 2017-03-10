@@ -15,7 +15,6 @@ import { TrainingJobsComponent } from './components/trainingjobs/trainingjobs.co
 import { VisualizedNetworkComponent } from './components/network-editor/visualized-network.component'
 
 
-
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule],
     declarations: [

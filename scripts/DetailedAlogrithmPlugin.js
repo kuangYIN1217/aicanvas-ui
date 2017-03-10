@@ -1,0 +1,314 @@
+/**
+ * Created by fs on 17-3-9.
+ */
+// var str=window.location.search;
+// var id = str.split('?')[1];
+// $('#content').html(id);
+
+function save() {
+    var connects = [];
+    $.each(jsPlumb.getAllConnections(), function (idx, connection) {
+        var cont = connection.getLabel();
+        connects.push({
+            ConnectionId: connection.id,
+            PageSourceId: connection.sourceId,
+            PageTargetId: connection.targetId,
+            SourceText: connection.source.innerText,
+            TargetText: connection.target.innerText,
+            SourceAnchor: connection.endpoints[0].anchor.type,
+            TargetAnchor: connection.endpoints[1].anchor.type,
+            ConnectText: $(cont).html()
+        });
+    });
+    var blocks = [];
+    $("#right .node").each(function (idx, elem) {
+        var $elem = $(elem);
+        blocks.push({
+            BlockId: $elem.attr('id'),
+            BlockContent: $elem.html(),
+            BlockX: parseInt($elem.css("left"), 10),
+            BlockY: parseInt($elem.css("top"), 10)
+        });
+    });
+
+    var serliza = JSON.stringify(connects) + "&" + JSON.stringify(blocks);
+    $.ajax({
+        type: "post",
+        url: "ajax.aspx",
+        data: { id: serliza },
+        success: function (filePath) {
+            window.open("show-flowChart.aspx?path=" + filePath);
+        }
+    });
+}
+
+
+function singleclick(id) {
+    $(id).click(function () {
+        document.getElementById("property1").innerHTML = "属性" + id + "：<input type='text'" + "name='property1' class='property1' />";
+    });
+}
+
+function doubleclick(id) {
+    $(id).dblclick(function () {
+        var text = $(this).text();
+        $(this).html("");
+        $(this).append("<input type='text' value='" + text + "' />");
+        $(this).mouseleave(function () {
+            $(this).html($("input[type='text']").val());
+        });
+    });
+}
+
+function init(){
+    var i = 0,j = 0,k = 0,l = 0;
+    $(function () {
+        $("#left").children().draggable({
+            helper: "clone",
+            scope: "ss",
+        });
+        $("#right").droppable({
+            scope: "ss",
+            drop: function (event, ui) {
+                var left = parseInt(ui.offset.left - $(this).offset().left);
+                var top = parseInt(ui.offset.top - $(this).offset().top);
+                var name = ui.draggable[0].id;
+                switch (name) {
+                    case "node1":
+                        i++;
+                        var id = "state_start_" + i;
+                        $(this).append('<div class="node" style="border-radius: 25em;font-size:2px"  id="' + id + '" >' + '</div>');
+                         $("#"+id).html(""+id) ;
+
+                        $("#" + id).css("left", left).css("top", top);
+                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
+                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
+                        jsPlumb.draggable(id);
+                        $("#" + id).draggable({ containment: "parent" });
+                        //doubleclick("#" + id);
+                        singleclick("#" + id);
+                        break;
+                    case "node2":
+                        j++;
+                        id = "state_flow_" + j;
+                        $(this).append("<div class='node' style='font-size:2px' id='" + id + "'>"  + "</div>");
+                        $("#"+id).html(""+id);
+                        $("#" + id).css("left", left).css("top", top);
+                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
+                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
+                        jsPlumb.addEndpoint(id, hollowCircle);
+                        jsPlumb.draggable(id);
+                        $("#" + id).draggable({ containment: "parent" });
+                        //doubleclick("#" + id);
+                        singleclick("#" + id);
+                        break;
+                    case "node3":
+                        k++;
+                        id = "state_decide_" + k;
+                        //$(this).append("<div class='node' id='" + id + "'>" + $(ui.helper).html() + "</div>");
+                        $(this).append("<div class='node' style='font-size:2px' id='" + id + "'>"  + "</div>");
+                        $("#"+id).html(""+id);
+                        $("#" + id).css("left", left).css("top", top);
+                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
+                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
+                        jsPlumb.addEndpoint(id, hollowCircle);
+                        jsPlumb.draggable(id);
+                        $("#" + id).draggable({ containment: "parent" });
+                        //doubleclick("#" + id);
+                        singleclick("#" + id);
+                        break;
+                    case "node4":
+                        l++;
+                        id = "state_end_" + l;
+                        //$(this).append('<div class="node" style="border-radius: 25em"  id="' + id + '" >' + $(ui.helper).html() + '</div>');
+                        $(this).append("<div class='node' style='border-radius: 25em;font-size:2px' id='" + id + "'>"  + "</div>");
+                        $("#"+id).html(""+id);
+                        $("#" + id).css("left", left).css("top", top);
+                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
+                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
+                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
+                        jsPlumb.draggable(id);
+                        $("#" + id).draggable({ containment: "parent" });
+                        //doubleclick("#" + id);
+                        singleclick("#" + id);
+                        break;
+                }
+            }
+        });
+        $("#right").on("mouseenter", ".node", function () {
+            $(this).append('<img src="images/DetailedAlgorithmPlugin/close2.png"  style="position: absolute;" />');
+            if ($(this).text() == "开始" || $(this).text() == "结束") {
+                $("img").css("left", 78).css("top", 0);
+            } else {
+                $("img").css("left", 78).css("top", -10);
+            }
+        });
+        $("#right").on("mouseleave", ".node", function () {
+            $("img").remove();
+        });
+        $("#right").on("click", "img", function () {
+            if (confirm("确定要删除吗?")) {
+                jsPlumb.removeAllEndpoints($(this).parent().attr("id"));
+                $(this).parent().remove();
+
+            }
+        });
+        jsPlumb.bind("connection", function (connInfo, originalEvent) {
+         connInfo.connection.setLabel("");
+        });
+        var _time = null;
+        jsPlumb.bind("click", function (conn, originalEvent) {
+            clearTimeout(_time);
+            var str = conn.getLabel();
+            if (str == null) {
+                conn.setLabel("<input type='text' value=' ' />");
+            } else {
+                conn.setLabel("<input type='text' value='" + $(str).text() + "' />");
+            }
+            $("input[type='text']").mouseleave(function () {
+                if ($(this).val().trim() == "") {
+                    conn.setLabel("");
+                } else {
+                    conn.setLabel("<span style='display:block;padding:10px;opacity: 0.5;height:auto;background-color:white;border:1px solid #346789;text-align:center;font-size:12px;color:black;border-radius:0.5em;'>" + $(this).val() + "</span>");
+                }
+            });
+        });
+
+        jsPlumb.bind("dblclick", function (conn, originalEvent) {
+         clearTimeout(_time);
+         _time = setTimeout(function () {
+           if (confirm("确定删除吗？ "))
+             jsPlumb.detach(conn);
+         }, 300);
+
+        });
+        //基本连接线样式
+        var connectorPaintStyle = {
+            lineWidth: 4,
+            strokeStyle: "#61B7CF",
+            joinstyle: "round",
+            outlineColor: "white",
+            outlineWidth: 2
+        };
+        // 鼠标悬浮在连接线上的样式
+        var connectorHoverStyle = {
+            lineWidth: 4,
+            strokeStyle: "#216477",
+            outlineWidth: 2,
+            outlineColor: "white"
+        };
+        // var endpointHoverStyle = {
+        //     fillStyle: "#216477",
+        //     strokeStyle: "#216477"
+        // };
+        //空心圆端点样式设置
+        var hollowCircle = {
+            endpoint: ["Dot", { radius: 4}],  //端点的形状
+            ConnectorStyle: connectorPaintStyle,//连接线的颜色，大小样式
+            ConnectorHoverStyle: connectorHoverStyle,
+            PaintStyle: {
+                strokeStyle: "#1e8151",
+                fillStyle: "transparent",
+                radius: 2,
+                lineWidth: 2
+            },    //端点的颜色样式
+            //anchor: "AutoDefault",
+            isSource: true, //是否可以拖动（作为连线起点）
+            connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],  //连接线的样式种类有[Bezier],[Flowchart],[StateMachine ],[Straight ]
+            isTarget: true, //是否可以放置（连线终点）
+            maxConnections: -1, // 设置连接点最多可以连接几条线
+            connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
+        };
+        //实心圆样式
+        // var solidCircle = {
+        //     endpoint: ["Dot", { radius: 4 }],  //端点的形状
+        //     PaintStyle: { fillStyle: "rgb(122, 00, 00)" }, //端点的颜色样式
+        //     connectorStyle: { strokeStyle: "rgb(97, 183, 207)", lineWidth: 4 },   //连接线的颜色，大小样式
+        //     isSource: true, //是否可以拖动（作为连线起点）
+        //     connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }], //连接线的样式种类有[Bezier],[Flowchart],[StateMachine ],[Straight ]
+        //     isTarget: true,   //是否可以放置（连线终点）
+        //     //anchor: "AutoDefault",
+        //     maxConnections: 3,  // 设置连接点最多可以连接几条线
+        //     connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
+        // };
+
+    });
+    // //右折线
+    //     var rightConnector = {
+    //       connector: "Flowchart",
+    //       anchors: ["RightMiddle", "LeftMiddle"],
+    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
+    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
+    //       endpoint: ["Dot", { radius: 1 }]
+    //     };
+    //     //右直线
+    //     var rightStraightConnector = {
+    //       connector: "Straight",
+    //       anchors: ["RightMiddle", "LeftMiddle"],
+    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
+    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
+    //       endpoint: ["Dot", { radius: 1 }]
+    //     };
+
+    //     //上折线
+    //     var upConnector = {
+    //       connector: "Flowchart",
+    //       anchors: ["TopCenter", "BottomCenter"],
+    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
+    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
+    //       endpoint: ["Dot", { radius: 1 }]
+    //     };
+
+    //     var downConnector = {
+    //       connector: "Flowchart",
+    //       anchors: ["BottomCenter", "TopCenter"],
+    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
+    //       //paintStyle: { lineWidth: 2, strokeStyle: "#61b7cf", joinstyle: "round", outlineColor: "white", outlineWidth: 2 },
+    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
+    //       endpoint: ["Dot", { radius: 1 }]
+    //     };
+
+    //     var flowConnector = {
+    //       connector: "Flowchart",
+    //       //anchors: ["BottomCenter", "TopCenter"],
+    //       paintStyle: { lineWidth: 2, strokeStyle: "#61B7CF", fillStyle: "transparent" },
+    //       //paintStyle: { lineWidth: 2, strokeStyle: "#61b7cf", joinstyle: "round", outlineColor: "white", outlineWidth: 2 },
+    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
+    //       endpoint: ["Dot", { radius: 1 }]
+    //     };
+    //     jsPlumb.ready(function () {
+    //       //jsPlumb.draggable($(".node"));
+    //     });
+
+        // function autoAlign() {
+        //   var top = 10;
+        //   $(".node").each(function () {
+        //     $(this).css("top", top);
+        //     top += $(this).height() + 60;
+        //   });
+        // }
+        //
+        // function autoAlignDown() {
+        //   var arrLevel = new Array();
+        //   var i = 0;
+        //   $(".node").each(function () {
+        //    var id = $(this).attr("id");
+        //    var targetNodes = $(this).attr("targetNodes").split(',');
+        //    for (var j = 0; j < targetNodes.length; j++) {
+        //      arrLevel[targetNodes] = arrLevel[id] + 1;
+        //    }
+        //
+        //    arr[i] = [$(this), "", ""];
+        //    i++;
+        //    $(this).css("top", top);
+        //    top += $(this).height() + 60;
+        //   });
+        // }
+}
