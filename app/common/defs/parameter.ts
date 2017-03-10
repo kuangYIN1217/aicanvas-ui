@@ -1,5 +1,4 @@
-import { Layer } from './layer';
-import { Link } from './link';
+import { Layer, Link } from './training-network';
 import {Type, plainToClass} from "class-transformer";
 
 export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';

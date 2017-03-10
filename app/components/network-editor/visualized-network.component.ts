@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
-import { Layer, LayerType } from './defs/layer';
+import { Layer, LayerType } from '../../common/defs/training-network';
 import { NetworkEditorService } from './services/network-editor.service';
 import { ParameterService } from '../../common/services/parameter.service'
 import { TrainingNetworkService } from '../../common/services/training-network.service'
