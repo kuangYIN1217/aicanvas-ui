@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
 import { PluginInfo } from "../../common/defs/resources";
+import { Parameter, TrainingNetwork } from "../../common/defs/parameter";
 declare var $:any;
 declare var jsPlumb:any;
 @Component({
@@ -8,7 +9,7 @@ declare var jsPlumb:any;
   selector: 'algplugins',
   styleUrls: ['./css/algplugins.component.css'],
   templateUrl: './templates/algplugins.html',
-  providers: [ResourcesService]
+  providers: [ResourcesService],
 })
 export class AlgPluginsComponent implements OnInit{
     ngOnInit(){
@@ -330,6 +331,13 @@ export class AlgPluginsComponent implements OnInit{
     }
     // store data of Plugins
     plugins: PluginInfo[] = [];
+    // store the plugin now shoing
+    plugin_current: PluginInfo = new PluginInfo();
+    param_list_current: Parameter[] = [];
+    editable_param_list_current: Parameter[] = [];
+    // param_list_current: any;
+    // editable_param_list_current: any;
+    training_network_current: TrainingNetwork = new TrainingNetwork();
     // show one of two different table
     showSystemPlugin: number = 1;
     // show detail
@@ -350,10 +358,15 @@ export class AlgPluginsComponent implements OnInit{
         this.showSystemPlugin = 0;
     }
 
-    showDetail(plugin_id: number){
-        console.log(plugin_id);
+    showDetail(index: number){
         this.ifshowDetail = 1;
         this.detailDivChoose = 1;
+
+        this.plugin_current = this.plugins[index];
+        this.editable_param_list_current = this.plugin_current.editable_param_list;
+        this.training_network_current = this.plugin_current.training_network;
+
+        console.log(this.training_network_current.layers[0].name);
     }
 
     detailDivChooseClick(detailDivChoose: number){
@@ -366,6 +379,29 @@ export class AlgPluginsComponent implements OnInit{
     }
 
     fork(){
+        // test input change event
+        // console.log(this.editable_param_list_current[0].set_value);
+        // console.log(this.editable_param_list_current[1].set_value);
 
+        // set value of new Plugin, copy the unchanged data at the same time.
+        this.plugin_current.editable_param_list = this.editable_param_list_current;
+        this.plugin_current.training_network = this.training_network_current;
+
+        // store
+        // onwer id of the plugin
+        let userId = 1;
+        // plugin_id
+        let pluginId = this.plugin_current.plugin_id;
+        // plugin meta
+        let pluginMeta = this.plugin_current;
+        this.resourcesService.createPluginFrom(pluginId, userId);
+        this.resourcesService.savePlugin(pluginMeta);
+
+        // // chain_id
+        // let chainId = 1;
+        // // chain meta
+        // let chainMeta = 1;
+        // this.resourcesService.createChainFrom(chainId, userId);
+        // this.resourcesService.saveChain(chainMeta);
     }
 }

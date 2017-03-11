@@ -41,4 +41,3 @@ export class ParameterService {
         return plainToClass(Parameter, jsObjs);
     }
 }
-

@@ -18,8 +18,6 @@ body {
     position: relative;
     width: 89%;
     float: right;
-    height: 48vw;
-    border-bottom: 1px solid grey;
 }
 /* words cannot be select */
 html,body{

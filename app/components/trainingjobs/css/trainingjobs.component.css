@@ -1,0 +1,159 @@
+@charset "UTF-8";
+.createTask{
+  position: relative;
+  width: 100%;
+  height: 2.5vw;
+  width: 12vw;
+  margin-bottom: 2vw;
+  cursor: pointer;
+}
+.createTask img{
+  position: relative;
+  height: 100%;
+  float: left;
+  margin-right: 0.5vw;
+}
+.createTask p{
+  position: relative;
+  text-align: left;
+  line-height: 2.5vw;
+  font-size: 1.8vw;
+  margin: 1vw 0vw 0vw 0vw;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.menu{
+  position: relative;
+  width: 100%;
+  height: 2.5vw;
+  line-height: 2.5vw;
+  background: linear-gradient(rgb(241,250,250), rgb(212,230,241));
+}
+.funcionMenu{
+  margin-bottom: 2px;
+}
+.exportBtn{
+  position: relative;
+  left: 0.2vw;
+  height: 2.5vw;
+  width: 6vw;
+  float: left;
+  background: rgb(206,229,248);
+  color: rgb(41,119,168);
+  border: 2px solid rgb(174,206,235);
+  border-radius: 0.8vw;
+  font-size: 1vw;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+}
+.exportBtn:hover{
+    background: white;
+}
+#searchCondition{
+  position: relative;
+  top: 5%;
+  height: 95%;
+  width: 15vw;
+  float: right;
+  border: 1px solid rgb(174,206,235);
+  border-radius: 0.8vw;
+  margin-right: 0vw;
+  outline: none;
+}
+#searchCondition:hover{
+    border: 3px solid rgb(174,206,235);
+}
+.choosePageMenu{
+  width: 100%;
+}
+.discription{
+  width: 30vw;
+  float: left;
+  text-align: left;
+  font-size: 1vw;
+  margin-left: 1vw;
+}
+.num_select{
+  position: relative;
+  width: 8vw;
+  height: 80%;
+  top: 10%;
+  float: left;
+  margin-right: 1vw;
+}
+.span_description{
+  width: 10vw;
+  font-size: 1vw;
+  float: left;
+}
+.page_btn{
+  position: relative;
+  right: 1vw;
+  height: 2.5vw;
+  width: 6vw;
+  float: right;
+  background: rgb(206,229,248);
+  color: rgb(41,119,168);
+  border: 2px solid rgb(174,206,235);
+  border-radius: 0.8vw;
+  font-size: 1vw;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+}
+.page_btn:hover{
+    background: white;
+}
+#pre_btn{
+
+}
+#next_btn{
+
+}
+
+
+
+.table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2px;
+}
+.table th{
+  height: 2.6vw;
+  background: linear-gradient(rgb(220,235,248), rgb(206,229,248));
+  border-top: 1px solid rgba(170,211,214,1);
+  border-left: 1px solid rgba(170,211,214,1);
+  border-right: 1px solid rgba(170,211,214,1);
+}
+.table tr{
+  text-align: center;
+  background-color: white;
+  font-size: 2vw;
+}
+.table tr:nth-child(odd){
+  background: rgb(242,255,251);
+}
+.name{
+  width: 16%;
+}
+.scene{
+  width: 28%;
+}
+.time{
+  width: 19%;
+}
+.condition{
+  width: 12%;
+}
+.progress{
+  width: 9%;
+}
+.operation{
+  width: 8%;
+}
+.detail{
+  width: 8%;
+}

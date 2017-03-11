@@ -9,6 +9,9 @@ import 'rxjs/add/operator/catch';
 
 import { CpuInfo } from '../defs/resources'
 import { PluginInfo } from "../defs/resources";
+import { JobInfo } from "../defs/resources";
+
+import { Parameter, TrainingNetwork } from "../defs/parameter";
 
 @Injectable()
 export class ResourcesService {
@@ -38,19 +41,27 @@ export class ResourcesService {
             });
     }
 
-    getPluginInfo(plugin_id: Observable<string>): Observable<PluginInfo>{
+    getJobs(): Observable<JobInfo[]>{
         // TODO: what if it returns error?
         // Moving hostname to maybe tsconfig.json
-        return this.http.get('http://127.0.0.1:5000/algplugins')
+        return this.http.get('http://127.0.0.1:5000/jobs')
             .map((response: Response) => {
                 if (response && response.json()) {
-                    let plugins: PluginInfo[] = plainToClass(PluginInfo, response.json());
-                    for (let plugin of plugins) {
-                        if (plugin.plugin_id == plugin_id {
-                            return plugin;
-                        }
-                    }
+                    return plainToClass(JobInfo, response.json());
                 }
             });
+    }
+
+    createPluginFrom(pluginId: number, userId: number){
+
+    }
+    savePlugin(pluginMeta:any){
+
+    }
+    createChainFrom(chainId: number, userId: number){
+
+    }
+    saveChain(chainMeta:any){
+
     }
 }

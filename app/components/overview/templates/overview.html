@@ -1,24 +1,24 @@
 <div class="container">
+    <div class="tabs">
+        <div id="tab_item1" class="tab_item" (click)="changeTab(0)" [class.focus] = "!tabIndex">资源状态</div>
+        <div id="tab_item2" class="tab_item" (click)="changeTab(1)" [class.focus] = "tabIndex">任务状态</div>
+    </div>
+    <div id="showDiv" class="status"></div>
+    <div [style.display]="tabIndex?'none':''" id="resourceDiv" class="status">
+        资源状态～
+    </div>
+    <div [style.display]="tabIndex? '':'none'" id="taskDiv" class="status">
+        <table id="taskTable" class="table">
+            <th class="name">任务名称</th>
+            <th class="scene">场景名称</th>
+            <th class="time">创建时间</th>
+            <th class="condition">状态</th>
+            <th class="progress">进度</th>
+        </table>
+    </div>
     AiCavans - Overview tab  to show the status of current training jobs.
     <div *ngFor="let cpuInfo of cpuInfoArray">
         hz:{{cpuInfo.hz}}
         brand: {{cpuInfo.brand}}
-    </div>
-    <div class="tabs">
-      <div id="tab_item1" class="tab_item" (click)="changeTab(0)" [class.focus] = "!tabIndex">资源状态</div>
-      <div id="tab_item2" class="tab_item" (click)="changeTab(1)" [class.focus] = "tabIndex">任务状态</div>
-    </div>
-    <div id="showDiv" class="status"></div>
-    <div [style.display]="tabIndex?'none':''" id="resourceDiv" class="status">
-      资源状态～
-    </div>
-    <div [style.display]="tabIndex? '':'none'" id="taskDiv" class="status">
-      <table id="taskTable" class="table">
-        <th class="name">任务名称</th>
-        <th class="scene">场景名称</th>
-        <th class="time">创建时间</th>
-        <th class="condition">状态</th>
-        <th class="progress">进度</th>
-      </table>
     </div>
 </div>

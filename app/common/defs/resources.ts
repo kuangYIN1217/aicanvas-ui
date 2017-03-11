@@ -1,3 +1,5 @@
+import { Parameter, TrainingNetwork } from './parameter';
+
 export class CpuInfo {
     // Number of cpu cours
     cores: number;
@@ -22,5 +24,19 @@ export class PluginInfo{
     // if this Plugin has_training_network 0-- no 1-- has
     has_training_network: number;
     // training_network of this Plugin
-    training_network: string;
+    training_network: TrainingNetwork;
+    // parameters allowed to be modified
+    editable_param_list: Parameter[];
+}
+export class JobInfo{
+    // id of job
+    job_id: number;
+    // scene's name of job
+    job_scene: string;
+    // createTime of job
+    job_createTime: string;
+    // status of job
+    job_status: string;
+    // percent pg job progress
+    job_progress: number;
 }

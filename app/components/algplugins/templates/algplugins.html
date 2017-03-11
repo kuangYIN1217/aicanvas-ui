@@ -12,10 +12,10 @@
           <th class="plugin_description">Description</th>
           <th class="operation">Operation</th>
           <tr *ngFor="let plugin of plugins; let i = index" >
-            <td *ngIf="plugin.plugin_owner=='admin'">{{ plugin.plugin_id }}</td>
-            <td *ngIf="plugin.plugin_owner=='admin'">{{ plugin.plugin_name }}</td>
-            <td *ngIf="plugin.plugin_owner=='admin'">{{ plugin.plugin_description }}</td>
-            <td *ngIf="plugin.plugin_owner=='admin'"><a class="showDetail" (click) = "showDetail(plugin.plugin_id)">查看详细</a></td>
+            <td *ngIf="plugin.plugin_owner!='general'">{{ plugin.plugin_id }}</td>
+            <td *ngIf="plugin.plugin_owner!='general'">{{ plugin.plugin_name }}</td>
+            <td *ngIf="plugin.plugin_owner!='general'">{{ plugin.plugin_description }}</td>
+            <td *ngIf="plugin.plugin_owner!='general'"><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
           </tr>
         </table>
       </div>
@@ -26,10 +26,10 @@
             <th class="plugin_description">Description</th>
             <th class="operation">Operation</th>
             <tr *ngFor="let plugin of plugins; let i = index">
-                <td *ngIf="plugin.plugin_owner!='admin'">{{ plugin.plugin_id }}</td>
-                <td *ngIf="plugin.plugin_owner!='admin'">{{ plugin.plugin_name }}</td>
-                <td *ngIf="plugin.plugin_owner!='admin'">{{ plugin.plugin_description }}</td>
-                <td *ngIf="plugin.plugin_owner!='admin'"><a class="showDetail" (click) = "showDetail(plugin.plugin_id)">查看详细</a></td>
+                <td *ngIf="plugin.plugin_owner=='general'">{{ plugin.plugin_id }}</td>
+                <td *ngIf="plugin.plugin_owner=='general'">{{ plugin.plugin_name }}</td>
+                <td *ngIf="plugin.plugin_owner=='general'">{{ plugin.plugin_description }}</td>
+                <td *ngIf="plugin.plugin_owner=='general'"><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
             </tr>
         </table>
       </div>
@@ -38,12 +38,19 @@
           <div class="tabs">
               <div (click)="backToModalDiv()" id="tab_item0" class="tab_item">返回</div>
               <div (click)="detailDivChooseClick(1)" id="tab_item1" class="tab_item" [class.focus]="detailDivChoose==1">参数列表</div>
-              <div (click)="detailDivChooseClick(2)" id="tab_item2" class="tab_item" [class.focus]="detailDivChoose==2">网络层</div>
-              <div (click)="fork()" id="tab_item3" class="tab_item">修改</div>
+              <div (click)="detailDivChooseClick(2)" id="tab_item2" class="tab_item" [style.display]="plugin_current.has_training_network==0?'none':''" [class.focus]="detailDivChoose==2">网络层</div>
+              <div (click)="fork()" id="tab_item3" class="tab_item">保存</div>
           </div>
       </div>
        <div [style.display]="detailDivChoose==1 ? '' : 'none'" id="systemDiv" class="status">
-
+           <table id="paramTable" class="table">
+               <th id="param_name">Param_name</th>
+               <th id="param_value">Default Value</th>
+               <tr *ngFor="let parameter of editable_param_list_current">
+                   <td>{{ parameter.name }}</td>
+                   <td><input class="param_input" [value]="parameter.default_value" (input)="parameter.set_value=$event.target.value" /></td>
+               </tr>
+           </table>
        </div>
        <div [style.display]="detailDivChoose==2 ? '' : 'none'" id="systemDiv" class="status">
            <div class="content-container">

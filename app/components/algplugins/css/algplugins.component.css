@@ -75,7 +75,15 @@
     color: white;
 }
 /*data div*/
-
+#param_name{
+    width: 30%;
+}
+#param_value{
+    width: 70%;
+}
+.param_input{
+    width: 100%;
+}
 /*layer div*/
 .node {
     box-shadow: 2px 2px 19px #aaa;
