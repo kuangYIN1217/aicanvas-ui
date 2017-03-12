@@ -48,17 +48,22 @@
                <th id="param_value">Default Value</th>
                <tr *ngFor="let parameter of editable_param_list_current">
                    <td>{{ parameter.name }}</td>
-                   <td><input class="param_input" [value]="parameter.default_value" (input)="parameter.set_value=$event.target.value" /></td>
+                   <td>
+                       <input *ngIf="parameter.type!='ENUM'&&parameter.type!='LIST'" class="param_input" [value]="parameter.default_value" (input)="parameter.set_value=$event.target.value" />
+                   </td>
                </tr>
            </table>
        </div>
        <div [style.display]="detailDivChoose==2 ? '' : 'none'" id="systemDiv" class="status">
            <div class="content-container">
                <div id="left">
-                 <div class="node radius" id="node1">Input</div>
-                 <div class="node" id="node2">Algorithm1</div>
-                 <div class="node" id="node3">Algorithm2</div>
-                 <div class="node radius" id="node4">Output</div>
+                 <!--<div class="node radius" id="node1">Input</div>-->
+
+                 <div class="node" id="node1"*ngFor="let layer of training_network_current.layers; let i = index" style="top: 2vw" onchange="animate(5)">
+                     {{ layer.name }}
+                 </div>
+                 <!--<div class="node" id="node3">Algorithm2</div>-->
+                 <!--<div class="node radius" id="node4">Output</div>-->
                </div>
 
                <div id="right">

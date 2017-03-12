@@ -13,7 +13,7 @@ import { NetworkEditorComponent } from './components/network-editor/network-edit
 import { OverviewComponent } from './components/overview/overview.component'
 import { TrainingJobsComponent } from './components/trainingjobs/trainingjobs.component'
 import { VisualizedNetworkComponent } from './components/network-editor/visualized-network.component'
-
+import { LoginComponent } from './components/login/login.component'
 
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule],
@@ -26,7 +26,8 @@ import { VisualizedNetworkComponent } from './components/network-editor/visualiz
         NetworkEditorComponent,
         OverviewComponent,
         TrainingJobsComponent,
-        VisualizedNetworkComponent
+        VisualizedNetworkComponent,
+        LoginComponent
     ],
     bootstrap: [NavigationComponent]
 })

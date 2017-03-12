@@ -60,7 +60,14 @@ export class AlgPluginsComponent implements OnInit{
 
         function singleclick(id) {
             $(id).click(function () {
-                document.getElementById("property1").innerHTML = "属性" + id + "：<input type='text'" + "name='property1' class='property1' />";
+                for (let layer of this.training_network.layers) {
+                    for (let layer_params of layer){
+                        for (let layer_param of layer_params){
+                            document.getElementById("property1").innerHTML = "属性" + layer_param.name + "：<input type='text'" + "name='property1' class='property1' />";
+                        }
+                    }
+                }
+
             });
         }
 
@@ -73,6 +80,14 @@ export class AlgPluginsComponent implements OnInit{
                     $(this).html($("input[type='text']").val());
                 });
             });
+        }
+
+        function animate(offset) {
+            //获取的是style.left，是相对左边获取距离，所以第一张图后style.left都为负值，
+            //且style.left获取的是字符串，需要用parseInt()取整转化为数字。
+            var list = document.getElementById("node1");
+            var newLeft = parseInt(list.style.top) + offset;
+            list.style.top = newLeft + 'px';
         }
 
         function init(){

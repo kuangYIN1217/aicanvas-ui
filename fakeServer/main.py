@@ -117,7 +117,7 @@ class AlgpluginsHandler(tornado.web.RequestHandler):
             "editable_param_list": [
                 {"name": "param1", "type": "STRING", "d_type": "STRING", "default_value": "lalala1", "set_value": "lalala1"},
                 {"name": "param2", "type": "STRING", "d_type": "STRING", "default_value": "lalala2", "set_value": "lalala2"},
-                {"name": "param3", "type": "STRING", "d_type": "STRING", "default_value": "lalala3", "set_value": "lalala3"},
+                {"name": "param3", "type": "LIST", "d_type": "INT", "default_value": "[1,2,3]", "set_value": ""},
                 {"name": "param4", "type": "STRING", "d_type": "STRING", "default_value": "lalala4", "set_value": "lalala4"}
             ]
         },

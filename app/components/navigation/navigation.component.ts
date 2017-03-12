@@ -5,4 +5,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./css/navigation.component.css'],
   templateUrl: './templates/navigation.html'
 })
-export class NavigationComponent { }
+export class NavigationComponent {
+    focusTab: number = 1;
+    changeTab(nextFocus: number){
+        this.focusTab = nextFocus;
+    }
+}
