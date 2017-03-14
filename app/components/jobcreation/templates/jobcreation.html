@@ -1,124 +1,236 @@
 <div class="container">
-    <div class="step_pane">
-      <div (click)="toStep(1)" id="step1" class="steps" [class.step_on]="stepNumber==1">Step 1: Data</div>
-      <div (click)="toStep(1)" id="triangle1" class="triangle-right" [class.triangle_on]="stepNumber==1"></div>
-      <div (click)="toStep(2)" id="step2" class="steps" [class.step_on]="stepNumber==2">Step 2: Model</div>
-      <div (click)="toStep(2)" id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
-      <div (click)="toStep(3)" id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Parameter</div>
-      <div (click)="toStep(3)" id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
-      <div (click)="toStep(4)" id="step4" class="steps" [class.step_on]="stepNumber==4">Step 4: Training</div>
-      <div (click)="toStep(4)" id="triangle4" class="triangle-right" [class.triangle_on]="stepNumber==4"></div>
-    </div>
-
-    <div id="step_content" class="step_content">
-        <!-- step 1 -->
-        <div [style.display]="stepNumber==1 ? '' : 'none'" id="step1_content">
-          <div class="data">
-            <div class="choice">
-              <div id="scene">
-                <div class="scene_title">场景选择:</div>
-                <select class="select" name="scene_select">
-                  <option value="航拍图片识别" selected="selected">航拍图片识别</option>
-                  <option value="saab">Saab</option>
-                  <option value="fiat">Fiat</option>
-                  <option value="audi">Audi</option>
-                </select>
-              </div>
-              <div class="secondLine">
-                <div id="dataset">
-                  <div class="data_title">数据集:</div>
-                  <select class="select" name="data_select">
-                    <option value="航拍图片识别" selected="selected">航拍图片识别</option>
-                    <option value="saab">Saab</option>
-                    <option value="fiat">Fiat</option>
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-                <div id="rate">
-                  <div class="rate_title">训练/测试/验证集比例:</div>
-                  <select class="select" name="rate_select">
-                    <option value="航拍图片识别" selected="selected">航拍图片识别</option>
-                    <option value="saab">Saab</option>
-                    <option value="fiat">Fiat</option>
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-              </div>
-              <div class="thirdLine">
-                <div id="record_num">所选记录数:&nbsp;7000</div>
-                <div id="store_type">
-                  <div class="store_title">载入内存方式:</div>
-                  <select class="select" name="store_select">
-                    <option value="航拍图片识别" selected="selected">分批加载</option>
-                    <option value="saab">Saab</option>
-                    <option value="fiat">Fiat</option>
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-              </div>
+    <div class="manager" [style.display]="jobPageStatus=='manage'?'':'none'">
+        <div class="tabs">
+            <div class="tab_item sm_tab_item" (click)="createJob()"><img id="plusicon" src="images/jobcreation/icon_9.png" alt=""><span>创建任务</span></div>
+            <div class="tab_item sm_tab_item" (click)="CSV()">CSV</div>
+            <div class="tab_item sm_tab_item" (click)="XLS()">XLS</div>
+            <div class="tab_search">
+                <!-- if too slow for each search, should change to (change) according to the num of data -->
+                <input id="search_input" type="text" name="" value="" placeholder="&nbsp;&nbsp;搜索" (input)="search_input=$event.target.value;inputchange();" />
+                <img id="searchicon" src="images/jobcreation/search.png" alt="searchicon">
             </div>
-            <div class="label">
-              <div class="label_title">数据标注</div>
-              <div class="label_type">数据类型:</div>
-              <select class="select" name="label_select">
-                <option value="图片" selected="selected">图片</option>
-                <option value="saab">Saab</option>
-                <option value="fiat">Fiat</option>
-                <option value="audi">Audi</option>
-              </select>
-            </div>
-          </div>
         </div>
-        <!-- step 2 -->
-        <div [style.display]="stepNumber==2 ? '' : 'none'" id="step2_content">
-        </div>
-        <!-- step 3 -->
-        <div [style.display]="stepNumber==3 ? '' : 'none'" id="step3_content">
-          <div class="parameter">
-            <table id="parameterTable">
-              <th class="name_tab">参数名称</th>
-              <th class="input_tab">参数输入框</th>
-              <tr>
-                <td class="parameter_name">Number of Epoch</td>
-                <td><input id="input1" class="parameterInput"/></td>
-              </tr>
-              <tr>
-                <td class="parameter_name">Batch Size</td>
-                <td><input id="input2" class="parameterInput"/></td>
-              </tr>
-              <tr>
-                <td class="parameter_name">Loss Function</td>
-                <td><input id="input3" class="parameterInput"/></td>
-              </tr>
-              <tr>
-                <td class="parameter_name">Optimizer</td>
-                <td><input id="input4" class="parameterInput"/></td>
-              </tr>
-              <tr>
-                <td class="parameter_name">lr</td>
-                <td><input id="input5" class="parameterInput"/></td>
-              </tr>
-              <tr>
-                <td class="parameter_name">rho</td>
-                <td><input id="input6" class="parameterInput"/></td>
-              </tr>
-              <tr>
-                <td class="parameter_name">epsilon</td>
-                <td><input id="input7" class="parameterInput"/></td>
-              </tr>
-              <tr>
-                <td class="parameter_name">decay</td>
-                <td><input id="input8" class="parameterInput"/></td>
-              </tr>
+        <div class="status">
+            <table id="jobTable" class="table">
+                <th class="name">任务名称</th>
+                <th class="scene">场景名称</th>
+                <th class="time">创建时间</th>
+                <th class="condition">状态</th>
+                <th class="progress">进度</th>
+                <th class="operation">操作</th>
+                <th class="formore">详情</th>
+                <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="(((i+1)>=(page-1)*pageMaxItem+1)&&(i+1)<=(page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem))?'':'none'">
+                    <td>{{jobInfo.job_name}}</td>
+                    <td>{{jobInfo.job_scene}}</td>
+                    <td>{{jobInfo.job_createTime}}</td>
+                    <td>{{jobInfo.job_status}}</td>
+                    <td>{{jobInfo.job_progress}}%</td>
+                    <td class="operationTd">
+                        <div class="operationBtn stop" (click)="stop(jobInfo.job_id)"></div>
+                        <div class="operationBtn start" (click)="start(jobInfo.job_id)"></div>
+                        <div class="operationBtn pause" (click)="pause(jobInfo.job_id)"></div>
+                    </td>
+                    <td><a class="showDetailBtn" (click)="showDetail(jobInfo.job_id)">查看详情</a></td>
+                </tr>
             </table>
-          </div>
+            <div class="bottom_menu">
+                <div class="label">Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem}} of {{page*pageMaxItem>Jobs_current.length?Jobs_current.length-(page-1)*pageMaxItem:pageMaxItem}} items</div>
+                <div class="selectDiv" >
+                    <select class="select_pagemax"(change)="page=1;pageMaxItem=$event.target.value">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div class="pagebtn" (click)="nextPage()">Next</div>
+                <div class="pagebtn" (click)="previousPage()">Previous</div>
+            </div>
         </div>
-        <!-- step 4 -->
-        <div [style.display]="stepNumber==4 ? '' : 'none'" id="step4_content">
-          <div id="createBtn" class="createBtn">创建训练任务</div>
-          <div class="detail"></div>
+    </div>
+    <div class="detailPage" [style.display]="jobPageStatus=='jobDetail'?'':'none'">
+        <div class="tabs">
+          <div (click)="showManage()" id="tab_item1" class="tab_item">训练任务管理</div>
+          <div class="tab_item" [class.focus]="true">任务管理详情</div>
         </div>
-        <!-- next step button -->
-      <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=4 ? '' : 'none'">下一步</div>
+        <div class="status">
+            <div class="detailLine">
+                <span>任务民称:&nbsp;&nbsp;{{detailJob.job_name}}</span>
+                <span>场景民称:&nbsp;&nbsp;{{detailJob.job_scene}}</span>
+                <span>创建时间:&nbsp;&nbsp;{{detailJob.job_createTime}}</span>
+                <span>状态:&nbsp;&nbsp;{{detailJob.job_status}}</span>
+            </div>
+            <div class="detailLine">
+                <span>创建者:&nbsp;&nbsp;{{detailJob.job_name}}</span>
+            </div>
+            <div class="lossLine">
+                <div class="lossCard">
+                    <div class="title">LOSS</div>
+                    <div class="sub_title">Subtitle appears here if it exists.</div>
+                    <div class="chart"></div>
+                </div>
+                <div class="lossCard">
+                    <div class="title"></div>
+                    <div class="sub_title"></div>
+                    <div class="chart"></div>
+                </div>
+            </div>
+            <div class="propertyLine">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="propertyLine">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="propertyLine">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">
+        <div class="step_pane">
+          <div (click)="toStep(1)" id="step1" class="steps" [class.step_on]="stepNumber==1">Step 1: Data</div>
+          <div (click)="toStep(1)" id="triangle1" class="triangle-right" [class.triangle_on]="stepNumber==1"></div>
+          <div (click)="toStep(2)" id="step2" class="steps" [class.step_on]="stepNumber==2">Step 2: Model</div>
+          <div (click)="toStep(2)" id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
+          <div (click)="toStep(3)" id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Parameter</div>
+          <div (click)="toStep(3)" id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
+          <div (click)="toStep(4)" id="step4" class="steps" [class.step_on]="stepNumber==4">Step 4: Training</div>
+          <div (click)="toStep(4)" id="triangle4" class="triangle-right" [class.triangle_on]="stepNumber==4"></div>
+        </div>
+
+        <div id="step_content" class="step_content">
+            <!-- step 1 -->
+            <div [style.display]="stepNumber==1 ? '' : 'none'" id="step1_content">
+              <div class="data">
+                <div class="choice">
+                  <div id="scene">
+                    <div class="scene_title">场景选择:</div>
+                    <select class="select" name="scene_select">
+                      <option value="航拍图片识别" selected="selected">航拍图片识别</option>
+                      <option value="saab">Saab</option>
+                      <option value="fiat">Fiat</option>
+                      <option value="audi">Audi</option>
+                    </select>
+                  </div>
+                  <div class="secondLine">
+                    <div id="dataset">
+                      <div class="data_title">数据集:</div>
+                      <select class="select" name="data_select">
+                        <option value="航拍图片识别" selected="selected">航拍图片识别</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                    <div id="rate">
+                      <div class="rate_title">训练/测试/验证集比例:</div>
+                      <select class="select" name="rate_select">
+                        <option value="航拍图片识别" selected="selected">航拍图片识别</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="thirdLine">
+                    <div id="record_num">所选记录数:&nbsp;7000</div>
+                    <div id="store_type">
+                      <div class="store_title">载入内存方式:</div>
+                      <select class="select" name="store_select">
+                        <option value="航拍图片识别" selected="selected">分批加载</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="label">
+                  <div class="label_title">数据标注</div>
+                  <div class="label_type">数据类型:</div>
+                  <select class="select" name="label_select">
+                    <option value="图片" selected="selected">图片</option>
+                    <option value="saab">Saab</option>
+                    <option value="fiat">Fiat</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- step 2 -->
+            <div [style.display]="stepNumber==2 ? '' : 'none'" id="step2_content">
+            </div>
+            <!-- step 3 -->
+            <div [style.display]="stepNumber==3 ? '' : 'none'" id="step3_content">
+              <div class="parameter">
+                <table id="parameterTable">
+                  <th class="name_tab">参数名称</th>
+                  <th class="input_tab">参数输入框</th>
+                  <tr>
+                    <td class="parameter_name">Number of Epoch</td>
+                    <td><input id="input1" class="parameterInput"/></td>
+                  </tr>
+                  <tr>
+                    <td class="parameter_name">Batch Size</td>
+                    <td><input id="input2" class="parameterInput"/></td>
+                  </tr>
+                  <tr>
+                    <td class="parameter_name">Loss Function</td>
+                    <td><input id="input3" class="parameterInput"/></td>
+                  </tr>
+                  <tr>
+                    <td class="parameter_name">Optimizer</td>
+                    <td><input id="input4" class="parameterInput"/></td>
+                  </tr>
+                  <tr>
+                    <td class="parameter_name">lr</td>
+                    <td><input id="input5" class="parameterInput"/></td>
+                  </tr>
+                  <tr>
+                    <td class="parameter_name">rho</td>
+                    <td><input id="input6" class="parameterInput"/></td>
+                  </tr>
+                  <tr>
+                    <td class="parameter_name">epsilon</td>
+                    <td><input id="input7" class="parameterInput"/></td>
+                  </tr>
+                  <tr>
+                    <td class="parameter_name">decay</td>
+                    <td><input id="input8" class="parameterInput"/></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!-- step 4 -->
+            <div [style.display]="stepNumber==4 ? '' : 'none'" id="step4_content">
+              <div id="createBtn" class="createBtn">创建训练任务</div>
+              <div class="detail"></div>
+            </div>
+            <!-- next step button -->
+          <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=4 ? '' : 'none'">下一步</div>
+        </div>
     </div>
 </div>

@@ -31,6 +31,8 @@ export class PluginInfo{
 export class JobInfo{
     // id of job
     job_id: number;
+    // number of job
+    job_name: string;
     // scene's name of job
     job_scene: string;
     // createTime of job

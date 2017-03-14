@@ -11,11 +11,11 @@
           <th class="plugin_name">Name</th>
           <th class="plugin_description">Description</th>
           <th class="operation">Operation</th>
-          <tr *ngFor="let plugin of plugins; let i = index" >
-            <td *ngIf="plugin.plugin_owner!='general'">{{ plugin.plugin_id }}</td>
-            <td *ngIf="plugin.plugin_owner!='general'">{{ plugin.plugin_name }}</td>
-            <td *ngIf="plugin.plugin_owner!='general'">{{ plugin.plugin_description }}</td>
-            <td *ngIf="plugin.plugin_owner!='general'"><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
+          <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_owner!='general'?'':'none'">
+            <td>{{ plugin.plugin_id }}</td>
+            <td>{{ plugin.plugin_name }}</td>
+            <td>{{ plugin.plugin_description }}</td>
+            <td><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
           </tr>
         </table>
       </div>
@@ -25,11 +25,11 @@
             <th class="plugin_name">Name</th>
             <th class="plugin_description">Description</th>
             <th class="operation">Operation</th>
-            <tr *ngFor="let plugin of plugins; let i = index">
-                <td *ngIf="plugin.plugin_owner=='general'">{{ plugin.plugin_id }}</td>
-                <td *ngIf="plugin.plugin_owner=='general'">{{ plugin.plugin_name }}</td>
-                <td *ngIf="plugin.plugin_owner=='general'">{{ plugin.plugin_description }}</td>
-                <td *ngIf="plugin.plugin_owner=='general'"><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
+            <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_owner=='general'?'':'none'">
+                <td>{{ plugin.plugin_id }}</td>
+                <td>{{ plugin.plugin_name }}</td>
+                <td>{{ plugin.plugin_description }}</td>
+                <td><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
             </tr>
         </table>
       </div>
@@ -50,6 +50,14 @@
                    <td>{{ parameter.name }}</td>
                    <td>
                        <input *ngIf="parameter.type!='ENUM'&&parameter.type!='LIST'" class="param_input" [value]="parameter.default_value" (input)="parameter.set_value=$event.target.value" />
+                       <select *ngIf="parameter.type=='ENUM'"class="select" name="data_select" (change)="parameter.set_value=$event.target.value">
+                           <option  *ngFor="let value of parameter.allowed_values" value="{{ value }}">{{ parameter.set_value }}</option>
+                       </select>
+                       <!-- <select *ngIf="parameter.type=='LIST'"class="select" name="data_select">
+                           <div  *ngFor="let length of parameter.shape" value="{{ params }}">
+                                <option  *ngFor="let length of parameter.shape" value="{{ params }}">{{ params }}</option>
+                           </div>
+                       </select> -->
                    </td>
                </tr>
            </table>
@@ -59,9 +67,9 @@
                <div id="left">
                  <!--<div class="node radius" id="node1">Input</div>-->
 
-                 <div class="node" id="node1"*ngFor="let layer of training_network_current.layers; let i = index" style="top: 2vw" onchange="animate(5)">
-                     {{ layer.name }}
-                 </div>
+                 <!--<div class="node" id="node2" *ngFor="let layer of training_network_current.layers; let i = index">-->
+                     <!--{{ layer.name }}-->
+                 <!--</div>-->
                  <!--<div class="node" id="node3">Algorithm2</div>-->
                  <!--<div class="node radius" id="node4">Output</div>-->
                </div>

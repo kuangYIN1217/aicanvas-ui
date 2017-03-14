@@ -11,15 +11,59 @@ declare var jsPlumb:any;
   templateUrl: './templates/algplugins.html',
   providers: [ResourcesService],
 })
-export class AlgPluginsComponent implements OnInit{
-    ngOnInit(){
-        /**
-         * Created by fs on 17-3-9.
-         */
-        // var str=window.location.search;
-        // var id = str.split('?')[1];
-        // $('#content').html(id);
+export class AlgPluginsComponent{
+    // store data of Plugins
+    plugins: PluginInfo[] = [];
+    // store the plugin now shoing
+    plugin_current: PluginInfo = new PluginInfo();
+    param_list_current: Parameter[] = [];
+    editable_param_list_current: Parameter[] = [];
+    // param_list_current: any;
+    // editable_param_list_current: any;
+    training_network_current: TrainingNetwork = new TrainingNetwork();
+    // show one of two different table
+    showSystemPlugin: number = 1;
+    // show detail
+    ifshowDetail = 0;
+    // detail choose
+    detailDivChoose = 0;
 
+    constructor(private resourcesService: ResourcesService) {
+    resourcesService.getPlugins()
+        .subscribe(plugins => this.plugins = plugins);
+    }
+
+    sysTemplateClick(){
+        this.showSystemPlugin = 1;
+    }
+
+    selfTemplateClick(){
+        this.showSystemPlugin = 0;
+    }
+
+    getLayers(){
+        let defaultvw: number = 2;
+        let i: number = 1;
+        for (let layer of this.training_network_current.layers) {
+            document.getElementById("left").innerHTML = document.getElementById("left").innerHTML + "<div class='node' id='node" + i + "' style='top:" +defaultvw +"vw'>"+layer.name+"</div>";
+            defaultvw += 5;
+            i++;
+        }
+    }
+
+    showDetail(index: number){
+        this.ifshowDetail = 1;
+        this.detailDivChoose = 1;
+
+        this.plugin_current = this.plugins[index];
+        this.editable_param_list_current = this.plugin_current.editable_param_list;
+        this.training_network_current = this.plugin_current.training_network;
+        // prase type 'ENUM' to Array, prase type 'LIST'
+        let originList = this.editable_param_list_current;
+        // let resultList = this.editable_param_list_current;
+
+        // get layers of plugin
+        this.getLayers();
         function save() {
             var connects = [];
             $.each(jsPlumb.getAllConnections(), function (idx, connection) {
@@ -56,18 +100,20 @@ export class AlgPluginsComponent implements OnInit{
                 }
             });
         }
-
-
+        var test = new Array();
+        test = this.training_network_current.layers;
         function singleclick(id) {
             $(id).click(function () {
-                for (let layer of this.training_network.layers) {
-                    for (let layer_params of layer){
-                        for (let layer_param of layer_params){
-                            document.getElementById("property1").innerHTML = "属性" + layer_param.name + "：<input type='text'" + "name='property1' class='property1' />";
+                for (var i = 0;i < test.length; i++) {
+                    if (("#"+test[i].name +"_"+ "1") == id){
+                        for (var j=0; j<test[i].layer_params.length; j++){
+                            document.getElementById("property1").innerHTML = document.getElementById("property1").innerHTML + "属性" + test[i].layer_params[j].name + "：<input type='text'" + "name='property1' class='property1' />";
                         }
+                    }else {
+                        // console.log(id+"-=-=-=-=-=-"+test[i].name);
+                        break;
                     }
                 }
-
             });
         }
 
@@ -81,15 +127,6 @@ export class AlgPluginsComponent implements OnInit{
                 });
             });
         }
-
-        function animate(offset) {
-            //获取的是style.left，是相对左边获取距离，所以第一张图后style.left都为负值，
-            //且style.left获取的是字符串，需要用parseInt()取整转化为数字。
-            var list = document.getElementById("node1");
-            var newLeft = parseInt(list.style.top) + offset;
-            list.style.top = newLeft + 'px';
-        }
-
         function init(){
             var i = 0,j = 0,k = 0,l = 0;
             $(function () {
@@ -102,29 +139,31 @@ export class AlgPluginsComponent implements OnInit{
                     drop: function (event, ui) {
                         var left = parseInt(ui.offset.left - $(this).offset().left);
                         var top = parseInt(ui.offset.top - $(this).offset().top);
+                        var id = ui.draggable[0].id;
                         var name = ui.draggable[0].id;
-                        switch (name) {
-                            case "node1":
-                                i++;
-                                var id = "state_start_" + i;
-                                $(this).append('<div class="node" style="border-radius: 25em;font-size:2px"  id="' + id + '" >' + '</div>');
-                                 $("#"+id).html(""+id) ;
-
-                                $("#" + id).css("left", left).css("top", top);
-                                jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
-                                //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
-                                jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
-                                //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
-                                jsPlumb.draggable(id);
-                                $("#" + id).draggable({ containment: "parent" });
-                                //doubleclick("#" + id);
-                                singleclick("#" + id);
-                                break;
-                            case "node2":
+                        // // var test = $(this);
+                        // switch (name) {
+                        //     case "node1":
+                        //         i++;
+                        //         var id = "state_start_" + i;
+                        //         $(this).append('<div class="node" style="border-radius: 25em;font-size:2px"  id="' + id + '" >' + '</div>');
+                        //         $("#"+id).html(""+id) ;
+                        //
+                        //         $("#" + id).css("left", left).css("top", top);
+                        //         jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
+                        //         //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
+                        //         jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
+                        //         //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
+                        //         jsPlumb.draggable(id);
+                        //         $("#" + id).draggable({ containment: "parent" });
+                        //         //doubleclick("#" + id);
+                        //         singleclick("#" + id);
+                        //         break;
+                        //     case "node2":
                                 j++;
-                                id = "state_flow_" + j;
+                                id = id +"_"+ j;
                                 $(this).append("<div class='node' style='font-size:2px' id='" + id + "'>"  + "</div>");
-                                $("#"+id).html(""+id);
+                                $("#"+id).html(""+name);
                                 $("#" + id).css("left", left).css("top", top);
                                 jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
                                 //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
@@ -135,45 +174,45 @@ export class AlgPluginsComponent implements OnInit{
                                 $("#" + id).draggable({ containment: "parent" });
                                 //doubleclick("#" + id);
                                 singleclick("#" + id);
-                                break;
-                            case "node3":
-                                k++;
-                                id = "state_decide_" + k;
-                                //$(this).append("<div class='node' id='" + id + "'>" + $(ui.helper).html() + "</div>");
-                                $(this).append("<div class='node' style='font-size:2px' id='" + id + "'>"  + "</div>");
-                                $("#"+id).html(""+id);
-                                $("#" + id).css("left", left).css("top", top);
-                                jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
-                                //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
-                                jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
-                                //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
-                                jsPlumb.addEndpoint(id, hollowCircle);
-                                jsPlumb.draggable(id);
-                                $("#" + id).draggable({ containment: "parent" });
-                                //doubleclick("#" + id);
-                                singleclick("#" + id);
-                                break;
-                            case "node4":
-                                l++;
-                                id = "state_end_" + l;
-                                //$(this).append('<div class="node" style="border-radius: 25em"  id="' + id + '" >' + $(ui.helper).html() + '</div>');
-                                $(this).append("<div class='node' style='border-radius: 25em;font-size:2px' id='" + id + "'>"  + "</div>");
-                                $("#"+id).html(""+id);
-                                $("#" + id).css("left", left).css("top", top);
-                                jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
-                                //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
-                                jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
-                                //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
-                                jsPlumb.draggable(id);
-                                $("#" + id).draggable({ containment: "parent" });
-                                //doubleclick("#" + id);
-                                singleclick("#" + id);
-                                break;
-                        }
+                        //         break;
+                        //     case "node3":
+                        //         k++;
+                        //         id = "state_decide_" + k;
+                        //         //$(this).append("<div class='node' id='" + id + "'>" + $(ui.helper).html() + "</div>");
+                        //         $(this).append("<div class='node' style='font-size:2px' id='" + id + "'>"  + "</div>");
+                        //         $("#"+id).html(""+id);
+                        //         $("#" + id).css("left", left).css("top", top);
+                        //         jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
+                        //         //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
+                        //         jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
+                        //         //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
+                        //         jsPlumb.addEndpoint(id, hollowCircle);
+                        //         jsPlumb.draggable(id);
+                        //         $("#" + id).draggable({ containment: "parent" });
+                        //         //doubleclick("#" + id);
+                        //         singleclick("#" + id);
+                        //         break;
+                        //     case "node4":
+                        //         l++;
+                        //         id = "state_end_" + l;
+                        //         //$(this).append('<div class="node" style="border-radius: 25em"  id="' + id + '" >' + $(ui.helper).html() + '</div>');
+                        //         $(this).append("<div class='node' style='border-radius: 25em;font-size:2px' id='" + id + "'>"  + "</div>");
+                        //         $("#"+id).html(""+id);
+                        //         $("#" + id).css("left", left).css("top", top);
+                        //         jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
+                        //         //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
+                        //         jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
+                        //         //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
+                        //         jsPlumb.draggable(id);
+                        //         $("#" + id).draggable({ containment: "parent" });
+                        //         //doubleclick("#" + id);
+                        //         singleclick("#" + id);
+                        //         break;
+                        // }
                     }
                 });
                 $("#right").on("mouseenter", ".node", function () {
-                    $(this).append('<img src="images/DetailedAlgorithmPlugin/close2.png"  style="position: absolute;" />');
+                    $(this).append('<img src="images/algplugin/close2.png"  style="position: absolute;" />');
                     if ($(this).text() == "开始" || $(this).text() == "结束") {
                         $("img").css("left", 78).css("top", 0);
                     } else {
@@ -191,7 +230,7 @@ export class AlgPluginsComponent implements OnInit{
                     }
                 });
                 jsPlumb.bind("connection", function (connInfo, originalEvent) {
-                 connInfo.connection.setLabel("");
+                    connInfo.connection.setLabel("");
                 });
                 var _time = null;
                 jsPlumb.bind("click", function (conn, originalEvent) {
@@ -212,11 +251,19 @@ export class AlgPluginsComponent implements OnInit{
                 });
 
                 jsPlumb.bind("dblclick", function (conn, originalEvent) {
-                 clearTimeout(_time);
-                 _time = setTimeout(function () {
-                   if (confirm("确定删除吗？ "))
-                     jsPlumb.detach(conn);
-                 }, 300);
+                    clearTimeout(_time);
+                    _time = setTimeout(function () {
+                        if (confirm("确定删除吗？ "))
+                            jsPlumb.detach(conn);
+                    }, 300);
+
+                });
+                jsPlumb.bind("singleclick", function (conn, originalEvent) {
+                    clearTimeout(_time);
+                    _time = setTimeout(function () {
+                        // if (confirm("确定删除吗？ "))
+                            jsPlumb.detach(conn);
+                    }, 300);
 
                 });
                 //基本连接线样式
@@ -317,71 +364,39 @@ export class AlgPluginsComponent implements OnInit{
             //       //jsPlumb.draggable($(".node"));
             //     });
 
-                // function autoAlign() {
-                //   var top = 10;
-                //   $(".node").each(function () {
-                //     $(this).css("top", top);
-                //     top += $(this).height() + 60;
-                //   });
-                // }
-                //
-                // function autoAlignDown() {
-                //   var arrLevel = new Array();
-                //   var i = 0;
-                //   $(".node").each(function () {
-                //    var id = $(this).attr("id");
-                //    var targetNodes = $(this).attr("targetNodes").split(',');
-                //    for (var j = 0; j < targetNodes.length; j++) {
-                //      arrLevel[targetNodes] = arrLevel[id] + 1;
-                //    }
-                //
-                //    arr[i] = [$(this), "", ""];
-                //    i++;
-                //    $(this).css("top", top);
-                //    top += $(this).height() + 60;
-                //   });
-                // }
+            // function autoAlign() {
+            //   var top = 10;
+            //   $(".node").each(function () {
+            //     $(this).css("top", top);
+            //     top += $(this).height() + 60;
+            //   });
+            // }
+            //
+            // function autoAlignDown() {
+            //   var arrLevel = new Array();
+            //   var i = 0;
+            //   $(".node").each(function () {
+            //    var id = $(this).attr("id");
+            //    var targetNodes = $(this).attr("targetNodes").split(',');
+            //    for (var j = 0; j < targetNodes.length; j++) {
+            //      arrLevel[targetNodes] = arrLevel[id] + 1;
+            //    }
+            //
+            //    arr[i] = [$(this), "", ""];
+            //    i++;
+            //    $(this).css("top", top);
+            //    top += $(this).height() + 60;
+            //   });
+            // }
         }
         init();
-    }
-    // store data of Plugins
-    plugins: PluginInfo[] = [];
-    // store the plugin now shoing
-    plugin_current: PluginInfo = new PluginInfo();
-    param_list_current: Parameter[] = [];
-    editable_param_list_current: Parameter[] = [];
-    // param_list_current: any;
-    // editable_param_list_current: any;
-    training_network_current: TrainingNetwork = new TrainingNetwork();
-    // show one of two different table
-    showSystemPlugin: number = 1;
-    // show detail
-    ifshowDetail = 0;
-    // detail choose
-    detailDivChoose = 0;
-
-    constructor(private resourcesService: ResourcesService) {
-    resourcesService.getPlugins()
-        .subscribe(plugins => this.plugins = plugins);
+        // console.log(this.training_network_current.layers[0].name);
+        this.training_network_current.layers = test;
+        this.plugin_current.training_network = this.training_network_current;
     }
 
-    sysTemplateClick(){
-        this.showSystemPlugin = 1;
-    }
-
-    selfTemplateClick(){
-        this.showSystemPlugin = 0;
-    }
-
-    showDetail(index: number){
-        this.ifshowDetail = 1;
-        this.detailDivChoose = 1;
-
-        this.plugin_current = this.plugins[index];
-        this.editable_param_list_current = this.plugin_current.editable_param_list;
-        this.training_network_current = this.plugin_current.training_network;
-
-        console.log(this.training_network_current.layers[0].name);
+    isArray(object: string){
+        return (object.indexOf('[')!=-1);
     }
 
     detailDivChooseClick(detailDivChoose: number){
@@ -394,10 +409,6 @@ export class AlgPluginsComponent implements OnInit{
     }
 
     fork(){
-        // test input change event
-        // console.log(this.editable_param_list_current[0].set_value);
-        // console.log(this.editable_param_list_current[1].set_value);
-
         // set value of new Plugin, copy the unchanged data at the same time.
         this.plugin_current.editable_param_list = this.editable_param_list_current;
         this.plugin_current.training_network = this.training_network_current;

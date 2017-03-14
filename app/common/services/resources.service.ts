@@ -22,7 +22,7 @@ export class ResourcesService {
 
         // TODO: what if it returns error?
         // Moving hostname to maybe tsconfig.json
-        return this.http.get('http://223.3.91.147:5000/cpuinfo')
+        return this.http.get('http://127.0.0.1:5000/cpuinfo')
             .map((response: Response) => {
                 if (response && response.json()) {
                     return (plainToClass(CpuInfo, response.json()));
@@ -33,7 +33,7 @@ export class ResourcesService {
     getPlugins(): Observable<PluginInfo[]> {
         // TODO: what if it returns error?
         // Moving hostname to maybe tsconfig.json
-        return this.http.get('http://223.3.91.147:5000/algplugins')
+        return this.http.get('http://127.0.0.1:5000/algplugins')
             .map((response: Response) => {
                 if (response && response.json()) {
                     return plainToClass(PluginInfo, response.json());
@@ -44,7 +44,7 @@ export class ResourcesService {
     getJobs(): Observable<JobInfo[]>{
         // TODO: what if it returns error?
         // Moving hostname to maybe tsconfig.json
-        return this.http.get('http://223.3.91.147:5000/jobs')
+        return this.http.get('http://127.0.0.1:5000/jobs')
             .map((response: Response) => {
                 if (response && response.json()) {
                     return plainToClass(JobInfo, response.json());

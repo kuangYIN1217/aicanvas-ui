@@ -2,65 +2,80 @@
 /*framework*/
 .tabs{
   position: relative;
-  height: 4vw;
-  border-bottom: 1px solid grey;
-  margin-bottom: 4px;
+  height: 60px;
+  background-color: #131314;
+  margin-bottom: 0px;
+  border: 0px;
 }
 .tab_item{
   position: relative;
-  border: 2px solid grey;
-  border-radius: 4px;
-  width: 16vw;
-  height: 3vw;
+  top: 20px;
+  border-radius: 0px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border: 0px;
+  width: 150px;
+  height: 40px;
   float: left;
-  margin-right: 4px;
   text-align: center;
-  line-height: 3vw;
-  font-size: 1.5vw;
-  cursor: pointer;
-
-  background-color: rgba(228,228,228,1);
+  line-height: 40px;
+  font-size: 20px;
   font-weight: normal;
+  font-family: "MicrosoftYaHei";
+  color: #5e5e5f;
+  background-color: #0b0b0b;
+  cursor: pointer;
+  margin-right: 0px;
 }
 .focus{
-  background-color: white;
-  font-weight: bold;
+  background-color: #19191a;
+  color: #5158ff;
+  font-weight: normal;
 }
 .status{
-  margin-top: 0vw;
+  background-color: #19191a;
+  height: 1402px;
 }
 /*table*/
 .table{
-  width: 100%;
-  border-collapse: collapse;
+    position: relative;
+    top: 28px;
+    margin-left: 20px;
+    width: 1660px;
 }
 .table th{
-  height: 2.4vw;
-  background: linear-gradient(rgb(220,235,248), rgb(206,229,248));
-  border-top: 1px solid rgba(170,211,214,1);
-  border-left: 1px solid rgba(170,211,214,1);
-  border-right: 1px solid rgba(170,211,214,1);
-  font-size: 1.3vw;
-  line-height: 2.4vw;
+  height: 50px;
+  background: #4e3fa9;
+  border: 0px;
+  font-size: 20px;
+  line-height: 50px;
+  color: #ffffff;
+  font-weight: normal;
 }
 .table tr{
   text-align: center;
-  background: rgb(242,255,251);
-  font-size: 1.3vw;
+  background: #252525;
+  height: 50px;
+  font-size: 16px;
+  font-family: "MicrosoftYaHei";
+  color: #ededed;
+}
+.table tr:nth-child(even){
+  background: #202020;
 }
 /*th*/
 .name{
-  width: 19%;
+  width: 20%;
 }
 .scene{
-  width: 35%;
+  width: 20%;
 }
 .time{
-  width: 21%;
+  width: 20%;
 }
 .condition{
-  width: 14%;
+  width: 20%;
 }
 .progress{
-  width: 11%;
+  width: 20%;
 }

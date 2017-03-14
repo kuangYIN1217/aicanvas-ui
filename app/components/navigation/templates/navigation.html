@@ -1,4 +1,4 @@
-    <div class="header">
+    <div class="header" [style.display]="focusTab==0?'none':''">
         <div class="logo">
             <img src="images/navigation/logo.png">
         </div>
@@ -12,30 +12,33 @@
             <span>Logout</span>
         </div>
     </div>
-    <nav>
-        <div class="nav_element" [class.focusTab] = "focusTab==1" (click)="changeTab(1)">
+    <nav [style.display]="focusTab==0?'none':''">
+        <div class="nav_element" [class.focusTab] = "focusTab==1" >
             <img [src]="focusTab!=1?'images/navigation/icon_1.png':'images/navigation/icon_1_h.png'">
-            <a routerLinkActive="active" routerLink="/overview">信息总览</a>
+            <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1)">信息总览</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==2" (click)="changeTab(2)">
+        <div class="nav_element" [class.focusTab] = "focusTab==2">
             <img [src]="focusTab!=2?'images/navigation/icon_2.png':'images/navigation/icon_2_h.png'">
-            <a routerLinkActive="active" routerLink="/datasets">场景管理</a>
+            <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(2)">场景管理</a>
+            <div class="collapseImgDiv" (click)="changeCollapse()" >
+                <img id="collapseImg" [src]="collapse==0?'images/navigation/icon_8.png':'images/navigation/icon_7.png'">
+            </div>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==3" (click)="changeTab(3)">
+        <div class="nav_element" [class.focusTab] = "focusTab==3">
             <img [src]="focusTab!=3?'images/navigation/icon_3.png':'images/navigation/icon_3_h.png'">
-            <a routerLinkActive="active" routerLink="/algchains">训练任务管理</a>
+            <a routerLinkActive="active" routerLink="/jobcreation" (click)="changeTab(3)">训练任务管理</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==4" (click)="changeTab(4)">
+        <div class="nav_element" [class.focusTab] = "focusTab==4">
             <img [src]="focusTab!=4?'images/navigation/icon_4.png':'images/navigation/icon_4_h.png'">
-            <a routerLinkActive="active" routerLink="/datasets">数据集管理</a>
+            <a routerLinkActive="active" routerLink="/datasets" (click)="changeTab(4)">数据集管理</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==5" (click)="changeTab(5)">
+        <div class="nav_element" [class.focusTab] = "focusTab==5">
             <img [src]="focusTab!=5?'images/navigation/icon_5.png':'images/navigation/icon_5_h.png'">
-            <a routerLinkActive="active" routerLink="/algchains">模型服务管理</a>
+            <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(5)">模型服务管理</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==6" (click)="changeTab(6)">
+        <div class="nav_element" [class.focusTab] = "focusTab==6">
             <img [src]="focusTab!=6?'images/navigation/icon_6.png':'images/navigation/icon_6_h.png'">
-            <a routerLinkActive="active" routerLink="/algplugins">算法组件库</a>
+            <a routerLinkActive="active" routerLink="/algplugins" (click)="changeTab(6)">算法组件库</a>
         </div>
 
      <!-- <a routerLinkActive="active" routerLink="/overview">信息总览</a>

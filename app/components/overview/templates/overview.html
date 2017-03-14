@@ -3,22 +3,26 @@
         <div id="tab_item1" class="tab_item" (click)="changeTab(0)" [class.focus] = "!tabIndex">资源状态</div>
         <div id="tab_item2" class="tab_item" (click)="changeTab(1)" [class.focus] = "tabIndex">任务状态</div>
     </div>
-    <div id="showDiv" class="status"></div>
     <div [style.display]="tabIndex?'none':''" id="resourceDiv" class="status">
-        资源状态～
+        <div *ngFor="let cpuInfo of cpuInfoArray">
+            hz:{{cpuInfo.hz}}
+            brand: {{cpuInfo.brand}}
+        </div>
     </div>
     <div [style.display]="tabIndex? '':'none'" id="taskDiv" class="status">
-        <table id="taskTable" class="table">
+        <table id="jobTable" class="table">
             <th class="name">任务名称</th>
             <th class="scene">场景名称</th>
             <th class="time">创建时间</th>
             <th class="condition">状态</th>
             <th class="progress">进度</th>
+            <tr *ngFor="let jobInfo of jobArray">
+                <td>{{jobInfo.job_name}}</td>
+                <td>{{jobInfo.job_scene}}</td>
+                <td>{{jobInfo.job_createTime}}</td>
+                <td>{{jobInfo.job_status}}</td>
+                <td>{{jobInfo.job_progress}}%</td>
+            </tr>
         </table>
-    </div>
-    AiCavans - Overview tab  to show the status of current training jobs.
-    <div *ngFor="let cpuInfo of cpuInfoArray">
-        hz:{{cpuInfo.hz}}
-        brand: {{cpuInfo.brand}}
     </div>
 </div>

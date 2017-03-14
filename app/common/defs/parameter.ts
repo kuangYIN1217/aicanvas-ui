@@ -19,7 +19,7 @@ export class Parameter {
   d_type: ParameterType;
 
   // Define the shape of data if type = LIST.
-  shape: number[];
+  shape: number[];// 长度=纬度，13，14，15 = 13*14*15；
 
   // If type == enums, the options specifies the available values to choose from.
   allowed_values: any[];
