@@ -32,28 +32,28 @@
 
 		</div>
 		<div class="main">
-			<h5>登录</h5>
-			<!-- 0.5 opacity background -->
-			<div class="content"></div>
-			<!-- actual content -->
-			<div class="center">
-				<form action="" id="formOne" method="post"onsubmit="return submitB()" >
-
-					<p class="p1">用户名:</p>
-					<input type="text" name="uer" id="user" placeholder="请输入用户名" />
-
-					<br/>
-					<p>密码:</p>
-					<input type="password" name="pwd" id="pwd" placeholder="请输入密码" />
-
-					<br/>
-					<p>验证码:</p>
-					<input type="text" name="surePwd" id="surePwd" placeholder="请输入验证码" />
-					<br/>
-					<span class="surePwd">xxxxx</span><a>换一张？</a>
-					<input type="submit" value="登录" id="submit" name="submit">
-					<br/>
-				</form>
-			</div>
+		<h5>登录</h5>
+		<div class="content">
 		</div>
+		<div class="center">
+			<form action="" id="formOne" method="post"onsubmit="return submitB()" >
+
+				<p class="p1">用户名:</p>
+				<input type="text" name="uer" id="user" placeholder="请输入用户名"/>
+
+				<br/>
+				<p>密码:</p>
+				<input type="password" name="pwd" id="pwd" placeholder="请输入密码"/>
+
+				<br/>
+				<p>验证码:</p>
+				<input type="text" name="surePwd" id="surePwd" placeholder="请输入验证码"/>
+				<br/>
+				<canvas id="code" ></canvas><a id="change" (click)="changeValidCode()">换一张？</a>
+				<input type="submit" value="登录" id="submit" name="submit" onclick = "validate()">
+				<br/>
+			</form>
+		</div>
+
+	</div>
 	</div>

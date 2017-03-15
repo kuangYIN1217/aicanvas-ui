@@ -10,6 +10,7 @@ import 'rxjs/add/operator/catch';
 import { CpuInfo } from '../defs/resources'
 import { PluginInfo } from "../defs/resources";
 import { JobInfo } from "../defs/resources";
+import { SceneInfo } from "../defs/resources";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
 
@@ -48,6 +49,17 @@ export class ResourcesService {
             .map((response: Response) => {
                 if (response && response.json()) {
                     return plainToClass(JobInfo, response.json());
+                }
+            });
+    }
+
+    getScenes(): Observable<SceneInfo[]>{
+        // TODO: what if it returns error?
+        // Moving hostname to maybe tsconfig.json
+        return this.http.get('http://127.0.0.1:5000/scenes')
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(SceneInfo, response.json());
                 }
             });
     }

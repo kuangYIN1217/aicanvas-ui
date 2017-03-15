@@ -3,7 +3,7 @@ import { ResourcesService } from '../../common/services/resources.service'
 
 import { CpuInfo } from "../../common/defs/resources";
 import { JobInfo } from "../../common/defs/resources";
-
+declare var $:any;
 @Component({
   moduleId: module.id,
   selector: 'overview',
@@ -23,10 +23,16 @@ export class OverviewComponent {
             .subscribe(cpuInfoArray => this.cpuInfoArray = cpuInfoArray);
         resourcesService.getJobs()
             .subscribe(jobArray => this.jobArray = jobArray);
+
+        this.originPics();
     }
 
     changeTab(tabIndex: number){
         this.tabIndex = tabIndex;
+    }
+
+    originPics(){
+
     }
 
 }

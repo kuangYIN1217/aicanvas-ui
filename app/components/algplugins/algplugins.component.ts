@@ -56,6 +56,9 @@ export class AlgPluginsComponent{
         this.detailDivChoose = 1;
 
         this.plugin_current = this.plugins[index];
+        for (let param of this.plugin_current.editable_param_list){
+            param.set_value = param.default_value;
+        }
         this.editable_param_list_current = this.plugin_current.editable_param_list;
         this.training_network_current = this.plugin_current.training_network;
         // prase type 'ENUM' to Array, prase type 'LIST'
@@ -429,5 +432,55 @@ export class AlgPluginsComponent{
         // let chainMeta = 1;
         // this.resourcesService.createChainFrom(chainId, userId);
         // this.resourcesService.saveChain(chainMeta);
+    }
+
+    test(x:any){
+        //console.log(this.editable_param_list_current[x].set_value);
+        //console.log(this.plugin_current.editable_param_list[x].set_value);
+    }
+    setValue(parameter: Parameter,value: string){
+        if (parameter.type=='STRING'){
+            parameter.set_value = value;
+        }else if(parameter.type=='BOOL'){
+            // 当作string
+            parameter.set_value = value;
+        }else if(parameter.type=='INT'||parameter.type=='FLOAT'){
+            if (Number(value)+""==NaN+""){
+                alert('输入必须为数值!');
+            }else{
+                let condition: number = 1;
+                if(parameter.has_min){
+                    if(+value<parameter.min_value){
+                        condition = -1;
+                        alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+                    }
+                }
+                if(parameter.has_max){
+                    if(+value>parameter.max_value){
+                        condition = -2;
+                        alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
+                    }
+                }
+                if(condition==1){
+                    parameter.set_value = +value;
+                }else{
+                    parameter.set_value = parameter.default_value;
+                }
+            }
+        }
+    }
+    set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
+        if ((parameter.d_type=='INT'||parameter.d_type=='FLOAT')&&Number(value)+""==NaN+""){
+            alert('输入必须为数值!');
+        }else{
+            parameter.set_value[i1][j1] = Number(value);
+        }
+    }
+    set3dArray(parameter: Parameter,i1: number,j1: number,z1: number,value: string){
+        if ((parameter.d_type=='INT'||parameter.d_type=='FLOAT')&&Number(value)+""==NaN+""){
+            alert('输入必须为数值!');
+        }else{
+            parameter.set_value[i1][j1][z1] = Number(value);
+        }
     }
 }

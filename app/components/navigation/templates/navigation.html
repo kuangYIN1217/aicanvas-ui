@@ -15,30 +15,33 @@
     <nav [style.display]="focusTab==0?'none':''">
         <div class="nav_element" [class.focusTab] = "focusTab==1" >
             <img [src]="focusTab!=1?'images/navigation/icon_1.png':'images/navigation/icon_1_h.png'">
-            <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1)">信息总览</a>
+            <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">信息总览</a>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==2">
             <img [src]="focusTab!=2?'images/navigation/icon_2.png':'images/navigation/icon_2_h.png'">
-            <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(2)">场景管理</a>
+            <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(2);focusCollapse='0'">场景管理</a>
             <div class="collapseImgDiv" (click)="changeCollapse()" >
                 <img id="collapseImg" [src]="collapse==0?'images/navigation/icon_8.png':'images/navigation/icon_7.png'">
             </div>
         </div>
+        <div class="sceneCollapse" [style.display]="collapse==0?'none':''">
+            <div class="sceneCollapse_item" (click)="focusCollapse=scene.scene_id+'';changeTab(2);" [class.focusCollapse]="scene.scene_id+''==focusCollapse" *ngFor="let scene of sceneArray;"><a routerLinkActive="active" routerLink="/algchains/{{scene.scene_id}}">{{scene.scene_name}}</a></div>
+        </div>
         <div class="nav_element" [class.focusTab] = "focusTab==3">
             <img [src]="focusTab!=3?'images/navigation/icon_3.png':'images/navigation/icon_3_h.png'">
-            <a routerLinkActive="active" routerLink="/jobcreation" (click)="changeTab(3)">训练任务管理</a>
+            <a routerLinkActive="active" routerLink="/jobcreation" (click)="changeTab(3);focusCollapse='0'">训练任务管理</a>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==4">
             <img [src]="focusTab!=4?'images/navigation/icon_4.png':'images/navigation/icon_4_h.png'">
-            <a routerLinkActive="active" routerLink="/datasets" (click)="changeTab(4)">数据集管理</a>
+            <a routerLinkActive="active" routerLink="/datasets" (click)="changeTab(4);focusCollapse='0'">数据集管理</a>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==5">
             <img [src]="focusTab!=5?'images/navigation/icon_5.png':'images/navigation/icon_5_h.png'">
-            <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(5)">模型服务管理</a>
+            <a routerLinkActive="active" routerLink="/cccccc" (click)="changeTab(5);focusCollapse='0'">模型服务管理</a>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==6">
             <img [src]="focusTab!=6?'images/navigation/icon_6.png':'images/navigation/icon_6_h.png'">
-            <a routerLinkActive="active" routerLink="/algplugins" (click)="changeTab(6)">算法组件库</a>
+            <a routerLinkActive="active" routerLink="/algplugins" (click)="changeTab(6);focusCollapse='0'">算法组件库</a>
         </div>
 
      <!-- <a routerLinkActive="active" routerLink="/overview">信息总览</a>

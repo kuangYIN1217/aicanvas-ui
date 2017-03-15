@@ -42,3 +42,7 @@ export class JobInfo{
     // percent pg job progress
     job_progress: number;
 }
+export class SceneInfo{
+    scene_id: number;
+    scene_name: string;
+}

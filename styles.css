@@ -2,7 +2,7 @@
 body{
     width: 1920px;
     margin: 0px;
-    background-color: black;
+    background-color: #19191a;
 }
 h1 {
   color: #369;
@@ -28,4 +28,32 @@ html,body{
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+}
+
+
+
+.dots {
+    position: absolute;
+    text-align: center;
+    left: 290px;
+    bottom: 60px;
+}
+.dots li{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin: 0 4px;
+    text-indent: -999em;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 1;
+    -webkit-transition: background .5s, opacity .5s;
+    -moz-transition: background .5s, opacity .5s;
+    transition: background .5s, opacity .5s;
+}
+
+.dots .active{
+    background: #ffffff;
+    opacity: 1;
 }

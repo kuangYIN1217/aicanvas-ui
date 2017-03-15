@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component'
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
+  { path: 'algchains/:scene_id',component: AlgChainsComponent },
   { path: 'algchains', component: AlgChainsComponent },
   { path: 'algplugins', component: AlgPluginsComponent },
   { path: 'datasets', component: DatasetsComponent },

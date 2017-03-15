@@ -1,3 +1,68 @@
 <div class="container">
-    Alg Chains tab
+    <div class="tabDiv sceneManage" [style.display]="showManageDiv==1?'':'none'">
+        <div class="tabs">
+            <div class="tab_item" [class.focus] = "1">已购场景</div>
+        </div>
+        <div class="status">
+            <div class="allPurchaseScene" id="b04">
+                <div class="scene" *ngFor="let scene of sceneArray">
+                    <h4><strong>{{scene.scene_name}}</strong></h4>
+                    <div class="descrip">
+                        <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络属于视觉算法，主要利用图像语义分割以及卷积神</p>
+                        <a href="">详情>></a>
+                    </div>
+                    <div class="modelPreview">
+                        <p>模型预览</p>
+                        <div class="model">
+                            <div class="node" id="node1">Algplugin1</div>
+                            <div class="node" id="node2">Algplugin2</div>
+                            <div class="node" id="node3">Algplugin2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="verticalLine"></div>
+            <div class="recommend">
+                <h4>相关推荐：</h4>
+                <div class="recommendScene rs_1">
+                    <h4><strong>航拍道路目标识别</strong></h4>
+                    <div class="descrip">
+                        <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络</p>
+                        <br>
+                        <a href="#">详情>></a>
+                    </div>
+                    <div class="modelPreview">
+                        <p>模型预览</p>
+                        <div class="model">
+                            <div class="node radius" id="node1">Algplugin1</div>
+                            <div class="node" id="node2">Algplugin2</div>
+                            <div class="node" id="node3">Algplugin2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommendScene rs_2">
+                    <h4><strong>航拍道路目标识别</strong></h4>
+                    <div class="descrip">
+                        <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络义分割以及卷积神经网络义分割以</p>
+                        <br>
+                        <a href="#">详情>></a>
+                    </div>
+                    <div class="modelPreview">
+                        <p>模型预览</p>
+                        <div class="model">
+                            <div class="node radius" id="node1">Algplugin1</div>
+                            <div class="node" id="node2">Algplugin2</div>
+                            <div class="node" id="node3">Algplugin2</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tabDiv sceneDetail" [style.display]="showManageDiv==0?'':'none'">
+        <div class="tabs">
+            <div class="tab_item" [class.focus] = "1">已购场景</div>
+        </div>
+    </div>
 </div>

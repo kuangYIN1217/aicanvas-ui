@@ -40,6 +40,27 @@ class CpuinfoHandler(tornado.web.RequestHandler):
         '''
         self.write(content)
 
+class ScenesHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        content = '''
+        [
+        {
+            "scene_id": 1,
+            "scene_name": "航拍标识别"
+        },
+        {
+            "scene_id": 2,
+            "scene_name": "航拍道路目标识别"
+        },
+        {
+            "scene_id": 3,
+            "scene_name": "航拍道33标识别"
+        }
+        ]
+        '''
+        self.write(content)
+
 class AlgchainsHandler(tornado.web.RequestHandler):
     def get(self):
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -220,10 +241,11 @@ class AlgpluginsHandler(tornado.web.RequestHandler):
                   ]
                 },
             "editable_param_list": [
-                {"name": "param1", "type": "STRING", "d_type": "STRING", "default_value": "lalala1", "set_value": "lalala1"},
-                {"name": "param2", "type": "STRING", "d_type": "STRING", "default_value": "lalala2", "set_value": "lalala2"},
-                {"name": "param3", "type": "LIST", "d_type": "INT", "default_value": "[1,2,3]", "set_value": "[1,2,3]"},
-                {"name": "param4", "type": "ENUM", "d_type": "STRING", "default_value": {"0":"001","1":"002","2":"003"}, "set_value": "001"}
+                {"name": "param1", "type": "INT", "d_type": "", "default_value": 2, "set_value": 0,"has_min":true,"min_value":2,"has_max":true,"max_value":10},
+                {"name": "param2", "type": "FLOAT", "d_type": "", "default_value": 3, "set_value": 0,"has_min":true,"min_value":2.444,"has_max":false},
+                {"name": "param3", "type": "LIST", "d_type": "INT", "shape":[2,3] ,"default_value": [[1,2,3],[2,3,4]], "set_value": [[]]},
+                {"name": "param3", "type": "LIST", "d_type": "INT", "shape":[2,2,2] ,"default_value": [[[1,2],[2,3]],[[2,3],[4,5]]], "set_value": [[[]]]},
+                {"name": "param4", "type": "ENUM", "d_type": "STRING", "allowed_values": ["allowed1","allowed2","allowed3"], "default_value": "allowed1","set_value":""}
             ]
         },
         {
@@ -250,7 +272,7 @@ class AlgpluginsHandler(tornado.web.RequestHandler):
                                     "description": "result of loss from model calculation?",
                                     "type": "FLOAT",
                                     "d_type": "FLOAT",
-                                    "shape":[1],
+                                    "shape":[2,3],
                                     "allowed_values": [],
                                     "default_value": 0.0,
                                     "set_value": 0.4
@@ -271,7 +293,7 @@ class AlgpluginsHandler(tornado.web.RequestHandler):
                                     "description": "result accuracy",
                                     "type": "FLOAT",
                                     "d_type": "FLOAT",
-                                    "shape":[1],
+                                    "shape":[2,3,4],
                                     "allowed_values": [],
                                     "default_value": 0.0,
                                     "set_value": 0.9
@@ -301,6 +323,7 @@ if __name__ == '__main__':
                 (r"/algchains",AlgchainsHandler),
                 (r"/algplugins", AlgpluginsHandler),
                 (r"/jobs", JobsHandler),
+                (r"/scenes", ScenesHandler),
             ],
             template_path=os.path.join(os.path.dirname(__file__),'templates'),
             static_path=os.path.join(os.path.dirname(__file__),'static')
