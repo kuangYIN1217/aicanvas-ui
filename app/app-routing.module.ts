@@ -11,6 +11,8 @@ import { OverviewComponent } from './components/overview/overview.component'
 import { TrainingJobsComponent } from './components/trainingjobs/trainingjobs.component'
 import { VisualizedNetworkComponent } from './components/network-editor/visualized-network.component'
 import { LoginComponent } from './components/login/login.component'
+import { ModelComponent } from './components/model/model.component'
+import { NetworkComponent } from './components/network/network.component'
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'overview', component: OverviewComponent },
   { path: 'network-editor', component: NetworkEditorComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'model', component: ModelComponent },
+  { path: 'network/:scene_id', component: NetworkComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
  // { path: 'detail/:id', component: HeroDetailComponent },

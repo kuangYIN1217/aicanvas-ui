@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit{
         // 填充字符串
         context.fillText(this.validCode,2,33);
 
-        
+
         // var width = 90;// 画布的宽度
         // var height = 35;// 画布的高度
         // var svg = d3.select(".surePwd").append("svg")

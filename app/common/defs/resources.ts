@@ -45,4 +45,6 @@ export class JobInfo{
 export class SceneInfo{
     scene_id: number;
     scene_name: string;
+    scene_description: string;
+    editable_param_list: Parameter[];
 }

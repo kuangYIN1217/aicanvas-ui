@@ -249,7 +249,7 @@
     font-family: "MicrosoftYaHei";
     font-size: 24px;
     color: #ffffff;
-    left: 25px;
+    margin-left: 25px;
 }
 .lossLine .lossCard .sub_title{
     position: relative;
@@ -257,10 +257,13 @@
     font-family: "MicrosoftYaHei";
     font-size: 19px;
     color: #b3b3b3;
-    left: 25px;
+    margin-left: 25px;
 }
 .lossLine .lossCard .chart{
-
+    margin-left: 0px;
+    margin-top: 10px;
+    width: 755px;
+    height: 420px;
 }
 .lossLine .lossCard .chart .axisLabel{
     font-family: "MicrosoftYaHei";
@@ -274,6 +277,7 @@
     color: #e1e1e1;
 }
 
+/**/
 .propertyLine{
     position: relative;
     top: 25px;
@@ -290,6 +294,16 @@
     float: left;
     background-color: #151515;
     border: 1px solid #313131;
+}
+.propertyLine .propertyCard .icon{
+    background-image: url('images/jobcreation/icon.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    width: 21px;
+    height: 21px;
+    margin-left: 21px;
+    margin-top: 21px;
 }
 
 /***************************/

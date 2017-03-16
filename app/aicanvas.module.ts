@@ -14,6 +14,8 @@ import { OverviewComponent } from './components/overview/overview.component'
 import { TrainingJobsComponent } from './components/trainingjobs/trainingjobs.component'
 import { VisualizedNetworkComponent } from './components/network-editor/visualized-network.component'
 import { LoginComponent } from './components/login/login.component'
+import { ModelComponent } from './components/model/model.component'
+import { NetworkComponent } from './components/network/network.component'
 
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule],
@@ -27,7 +29,9 @@ import { LoginComponent } from './components/login/login.component'
         OverviewComponent,
         TrainingJobsComponent,
         VisualizedNetworkComponent,
-        LoginComponent
+        LoginComponent,
+        ModelComponent,
+        NetworkComponent
     ],
     bootstrap: [NavigationComponent]
 })

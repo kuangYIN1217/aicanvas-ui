@@ -8,8 +8,8 @@
                 <div class="scene" *ngFor="let scene of sceneArray">
                     <h4><strong>{{scene.scene_name}}</strong></h4>
                     <div class="descrip">
-                        <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络属于视觉算法，主要利用图像语义分割以及卷积神</p>
-                        <a href="">详情>></a>
+                        <p>{{scene.scene_description}}</p>
+                        <a routerLinkActive="active" routerLink="/algchains/{{scene.scene_id}}" >详情>></a>
                     </div>
                     <div class="modelPreview">
                         <p>模型预览</p>
@@ -62,7 +62,17 @@
     </div>
     <div class="tabDiv sceneDetail" [style.display]="showManageDiv==0?'':'none'">
         <div class="tabs">
-            <div class="tab_item" [class.focus] = "1">已购场景</div>
+            <div class="tab_item back"><a routerLinkActive="active" routerLink="/algchains" >后退</a></div>
+            <div class="tab_item reset">恢复出厂配置</div>
+
+            <div class="tab_item right save">保存</div>
+            <div class="tab_item right cancel">取消</div>
+            <div class="tab_item right edit">编辑</div>
+        </div>
+        <div class="status">
+            <div id="scene_name">Loading.....</div>
+            <div id="scene_description">Please wait...</div>
+            <div id="scene_description"><a href="/network/{{current_scene_id}}">查看网络层>></a></div>
         </div>
     </div>
 </div>

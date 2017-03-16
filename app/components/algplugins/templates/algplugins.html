@@ -47,9 +47,9 @@
                <th id="param_name">Param_name</th>
                <th id="param_value">Default Value</th>
                <tr *ngFor="let parameter of editable_param_list_current;let param_num = index;">
-                   <td>{{ parameter.name }}{{parameter.has_max}}</td>
-                   <td style="height:200px;">
-                       <input *ngIf="parameter.type!='ENUM'&&parameter.type!='LIST'&&parameter.type!='BOOL'" [placeholder]="'Range from '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_min?parameter.min_value:'负无穷')+' to '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_max?parameter.max_value:'正无穷')"
+                   <td>{{ parameter.name }}</td>
+                   <td>
+                       <input *ngIf="parameter.type!='ENUM'&&parameter.type!='LIST'&&parameter.type!='BOOL'" [placeholder]="'From '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_min?parameter.min_value:'-&infin;')+' to '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_max?parameter.max_value:'+&infin;')"
                            class="param_input" [value]="parameter.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=parameter.set_value;" />
 
                        <select *ngIf="parameter.type=='ENUM'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">

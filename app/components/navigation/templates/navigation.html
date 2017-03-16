@@ -12,7 +12,7 @@
             <span>Logout</span>
         </div>
     </div>
-    <nav [style.display]="focusTab==0?'none':''">
+    <nav [style.display]="(focusTab!=0&&needhide==0)?'':'none'">
         <div class="nav_element" [class.focusTab] = "focusTab==1" >
             <img [src]="focusTab!=1?'images/navigation/icon_1.png':'images/navigation/icon_1_h.png'">
             <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">信息总览</a>
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="sceneCollapse" [style.display]="collapse==0?'none':''">
-            <div class="sceneCollapse_item" (click)="focusCollapse=scene.scene_id+'';changeTab(2);" [class.focusCollapse]="scene.scene_id+''==focusCollapse" *ngFor="let scene of sceneArray;"><a routerLinkActive="active" routerLink="/algchains/{{scene.scene_id}}">{{scene.scene_name}}</a></div>
+            <div class="sceneCollapse_item" (click)="focusCollapse=scene.scene_id+'';changeTab(2);" [class.focusCollapse]="scene.scene_id+''==focusCollapse" *ngFor="let scene of sceneArray;"><a routerLinkActive="active" [routerLink]="['/algchains', scene.scene_id]">{{scene.scene_name}}</a></div>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==3">
             <img [src]="focusTab!=3?'images/navigation/icon_3.png':'images/navigation/icon_3_h.png'">
@@ -37,7 +37,7 @@
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==5">
             <img [src]="focusTab!=5?'images/navigation/icon_5.png':'images/navigation/icon_5_h.png'">
-            <a routerLinkActive="active" routerLink="/cccccc" (click)="changeTab(5);focusCollapse='0'">模型服务管理</a>
+            <a routerLinkActive="active" routerLink="/model" (click)="changeTab(5);focusCollapse='0'">模型服务管理</a>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==6">
             <img [src]="focusTab!=6?'images/navigation/icon_6.png':'images/navigation/icon_6_h.png'">

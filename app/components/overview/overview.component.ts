@@ -4,6 +4,7 @@ import { ResourcesService } from '../../common/services/resources.service'
 import { CpuInfo } from "../../common/defs/resources";
 import { JobInfo } from "../../common/defs/resources";
 declare var $:any;
+declare var d3:any;
 @Component({
   moduleId: module.id,
   selector: 'overview',

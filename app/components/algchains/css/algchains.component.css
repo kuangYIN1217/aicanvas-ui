@@ -31,6 +31,7 @@
     font-weight: normal;
 }
 .status{
+    position: relative;
     background-color: #19191a;
     height: 1402px;
 }
@@ -258,4 +259,46 @@
     left: 30px;
     margin-top:10px;
     margin-bottom: 30px;
+}
+
+
+/*paramList*/
+.sceneDetail .tab_item{
+    color: #eeeeee;
+    border: 2px solid #191919;
+}
+.sceneDetail .tab_item a{
+    text-decoration: none;
+    color: #eeeeee;
+}
+.back{
+}
+.reset{
+    background-color: brown;
+}
+.right{
+    float: right;
+}
+.cancel{
+}
+.save{
+}
+.edit{
+    background-color: rgb(185,76,43);
+}
+#scene_name{
+    position: relative;
+    font-family: "MicrosoftYaHei";
+    color: #566dc1;
+    font-size: 20px;
+    margin-left: 20px;
+    top: 30px;
+}
+#scene_description{
+    position: relative;
+    font-family: "MicrosoftYaHei";
+    color: #b9b9b9;
+    font-size: 20px;
+    margin-left: 20px;
+    top: 50px;
 }

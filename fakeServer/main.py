@@ -47,15 +47,34 @@ class ScenesHandler(tornado.web.RequestHandler):
         [
         {
             "scene_id": 1,
-            "scene_name": "航拍标识别"
+            "scene_name": "航拍标识别",
+            "scene_description": "description-1--",
+            "editable_param_list": [
+                {"name": "param1", "type": "INT", "d_type": "", "default_value": 2, "set_value": 0,"has_min":true,"min_value":2,"has_max":true,"max_value":10},
+                {"name": "param2", "type": "FLOAT", "d_type": "", "default_value": 3, "set_value": 0,"has_min":true,"min_value":2.444,"has_max":false},
+                {"name": "param3", "type": "LIST", "d_type": "INT", "shape":[2,3] ,"default_value": [[1,2,3],[2,3,4]], "set_value": [[]]},
+                {"name": "param3", "type": "LIST", "d_type": "INT", "shape":[2,2,2] ,"default_value": [[[1,2],[2,3]],[[2,3],[4,5]]], "set_value": [[[]]]},
+                {"name": "param4", "type": "ENUM", "d_type": "STRING", "allowed_values": ["allowed1","allowed2","allowed3"], "default_value": "allowed1","set_value":""}
+            ]
         },
         {
             "scene_id": 2,
-            "scene_name": "航拍道路目标识别"
+            "scene_name": "航拍道路目标识别",
+            "scene_description": "description-2--",
+            "editable_param_list": [
+                {"name": "param1", "type": "INT", "d_type": "", "default_value": 2, "set_value": 0,"has_min":false,"has_max":true,"max_value":10},
+                {"name": "param2", "type": "FLOAT", "d_type": "", "default_value": 3, "set_value": 0,"has_min":true,"min_value":2.444,"has_max":false}
+            ]
+
         },
         {
             "scene_id": 3,
-            "scene_name": "航拍道33标识别"
+            "scene_name": "航拍道33标识别",
+            "scene_description": "description-3--",
+            "editable_param_list": [
+                {"name": "param3", "type": "LIST", "d_type": "INT", "shape":[2,3] ,"default_value": [[1,2,3],[2,3,4]], "set_value": [[]]},
+                {"name": "param3", "type": "LIST", "d_type": "INT", "shape":[2,2,2] ,"default_value": [[[1,2],[2,3]],[[2,3],[4,5]]], "set_value": [[[]]]}
+            ]
         }
         ]
         '''

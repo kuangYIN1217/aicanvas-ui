@@ -31,7 +31,7 @@ html,body{
 }
 
 
-
+/*login*/
 .dots {
     position: absolute;
     text-align: center;
@@ -56,4 +56,93 @@ html,body{
 .dots .active{
     background: #ffffff;
     opacity: 1;
+}
+
+/*jobcreation*/
+/*.area {
+  fill: url(#lineChart--gradientBackgroundArea);
+}*/
+
+/*.area {
+  fill: lightsteelblue;
+}
+
+.lineChart--gradientBackgroundArea--top {
+  stop-color: #6bb7c7;
+  stop-opacity: 0.1;
+}
+
+.lineChart--gradientBackgroundArea--bottom {
+  stop-color: #6bb7c7;
+  stop-opacity: 0.6;
+}*/
+
+/*.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}*/
+
+
+/*charts*/
+.lineChart--area {
+  fill: url(#lineChart--gradientBackgroundArea);
+}
+
+.lineChart--areaLine {
+  fill: none;
+  stroke: #6bb7c7;
+  stroke-width: 3;
+}
+
+.lineChart--bubble--label {
+  fill: none;
+  stroke: #6bb7c7;
+  font-size: 12.6px;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.lineChart--bubble--value {
+  fill: #fff;
+  stroke: #fff;
+  font-size: 21px;
+  font-weight: 100;
+}
+
+.lineChart--circle {
+  fill: #6bb7c7;
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+.lineChart--circle__highlighted {
+  fill: #fff;
+  stroke: #3f94a7;
+}
+
+.lineChart--gradientBackgroundArea--top {
+  stop-color: #6bb7c7;
+  stop-opacity: 0.1;
+}
+
+.lineChart--gradientBackgroundArea--bottom {
+  stop-color: #6bb7c7;
+  stop-opacity: 0.6;
+}
+
+.lineChart--xAxisTicks .domain, .lineChart--xAxis .domain, .lineChart--yAxisTicks .domain {
+  display: none;
+}
+
+.lineChart--xAxis .tick line {
+  display: none;
+}
+
+.lineChart--xAxisTicks .tick line, .lineChart--yAxisTicks .tick line {
+  fill: none;
+  stroke: #b3b3b3;
+  stroke-width: 1;
+  stroke-dasharray: 2,2;
 }

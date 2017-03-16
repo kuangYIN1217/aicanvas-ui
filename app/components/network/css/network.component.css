@@ -1,0 +1,67 @@
+@charset "UTF-8";
+a{
+    text-decoration: none;
+    color: white;
+}
+.networkBox{
+    position: relative;
+    width: 100%;
+    float: right;
+    background-color: transparent;
+    color: white;
+    min-height: 800px;
+}
+.tabs{
+    position: relative;
+    height: 60px;
+    background-color: #131314;
+    margin-bottom: 0px;
+    border: 0px;
+}
+.tab_item{
+    position: relative;
+    top: 20px;
+    border-radius: 0px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 0px;
+    width: 150px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "MicrosoftYaHei";
+    color: white;
+    background-color: #0b0b0b;
+    cursor: pointer;
+    margin-right: 0px;
+    border: 1px solid #19191a;
+}
+.focus{
+    background-color: #19191a;
+    color: #516af8;
+    font-weight: normal;
+}
+.right{
+    float: right;
+}
+.status{
+    position: relative;
+    background-color: #19191a;
+    height: 1402px;
+}
+
+.leftBox{
+    width: 15%;
+    background-color: black;
+    float: left;
+    height: 100%;
+}
+.rightBox{
+    width: 85%;
+    background-color: grey;
+    float: right;
+    height: 100%;
+}
