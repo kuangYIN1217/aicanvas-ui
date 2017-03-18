@@ -77,5 +77,11 @@ export class AlgChainsComponent implements OnInit{
         // console.log(this.scene_current.scene_name);
         $('#scene_name').html(this.scene_current.scene_name);
         $('#scene_description').html("场景描述: "+this.scene_current.scene_description);
+
+
+
+
+        //
+        
     }
 }
