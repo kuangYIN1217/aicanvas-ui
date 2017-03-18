@@ -4,9 +4,96 @@
         <div id="tab_item2" class="tab_item" (click)="changeTab(1)" [class.focus] = "tabIndex">任务状态</div>
     </div>
     <div [style.display]="tabIndex?'none':''" id="resourceDiv" class="status">
-        <div *ngFor="let cpuInfo of cpuInfoArray">
-            hz:{{cpuInfo.hz}}
-            brand: {{cpuInfo.brand}}
+        <div class="total">
+            <div class="purchaseScene">GPU资源</div>
+            <div class="GPU_1" >
+                <!--添加加这一部分就行-->
+                <div class="occupancyRate occupancyRate_1">
+                    <h4>GPU占用率(GPU01)</h4>
+                    <p>subtitle appear here if it exits</p>
+                    <div class="pie" id="drawPie">
+
+                    </div>
+                    <div class="pieDescrip" id="proportion">
+
+                    </div>
+                </div>
+
+                <!--到这-->
+                <div class="occupancyRate occupancyRate_1">
+                    <h4>GPU占用率(GPU01)</h4>
+                    <p>subtitle appear here if it exits</p>
+                    <div class="pie" id="drawPie">
+
+                    </div>
+                    <div class="pieDescrip" id="proportion">
+
+                    </div>
+                </div>
+                <div class="occupancyRate occupancyRate_1">
+                    <h4>GPU占用率(GPU01)</h4>
+                    <p>subtitle appear here if it exits</p>
+                    <div class="pie" id="drawPie">
+
+                    </div>
+                    <div class="pieDescrip" id="proportion">
+
+                    </div>
+                </div>
+            </div>
+            <div class="GPU_2">
+                <!--添加加这一部分就行-->
+                <div class="fluctuate fluctuate_1">
+                    <h4>GPU波动(GPU01)</h4>
+                    <p>subtitle appear here if it exits</p>
+                    <div class="pie" id="">
+
+                    </div>
+                    <div class="pieDescrip" id="">
+
+                    </div>
+                </div>
+                <!--到这-->
+                <div class="fluctuate fluctuate_1">
+                    <h4>GPU波动(GPU01)</h4>
+                    <p>subtitle appear here if it exits</p>
+                    <div class="pie" id="">
+
+                    </div>
+                    <div class="pieDescrip" id="">
+
+                    </div>
+                </div>
+
+                <div class="fluctuate fluctuate_1">
+                    <h4>内存占用(TOP5)</h4>
+                    <p>used/total:205M/8G</p>
+                    <div class="bar" id="drawBar">
+
+                    </div>
+                    <div class="pieDescrip" id="">
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="GPU_3">
+                <!--添加加这一部分就行-->
+                <div class="usageRateFluctuate fluctuate_1">
+                    <h4>GPU使用率波动(GPU01)</h4>
+                    <p>subtitle appear here if it exits</p>
+                    <div class="pie" id="">
+
+                    </div>
+                    <div class="pieDescrip" id="">
+
+                    </div>
+                </div>
+                <!--到这-->
+                <div></div>
+            </div>
+
         </div>
     </div>
     <div [style.display]="tabIndex? '':'none'" id="taskDiv" class="status">

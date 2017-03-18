@@ -244,7 +244,7 @@
             </div>
             <!-- step 4 -->
             <div [style.display]="stepNumber==4 ? '' : 'none'" id="step4_content">
-              <div id="createBtn" class="createBtn">创建训练任务</div>
+              <div id="createBtn" class="createBtn" (click)="create()">创建训练任务</div>
               <div class="detail"></div>
             </div>
             <!-- next step button -->

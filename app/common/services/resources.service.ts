@@ -1,4 +1,4 @@
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { plainToClass } from "class-transformer";
@@ -16,8 +16,39 @@ import { Parameter, TrainingNetwork } from "../defs/parameter";
 
 @Injectable()
 export class ResourcesService {
-
+    SERVER_URL: string = "http://192.168.1.100:8080";
     constructor(private http: Http) { }
+
+    login(username: string, password: string){
+        let path = "/api/authenticate";
+
+        console.log('logging...');
+        let body = JSON.stringify({
+                "password": password,
+                "rememberMe": true,
+                "username": username
+        });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        // this.http.post("/api/products", body).toPromise().then((response) => {
+        //     //do something...
+        // });
+
+        return this.http.post(this.SERVER_URL+path , body, options).subscribe(response=> {
+            if (response && response.json()) {
+                if(Number(response.status)==200){
+                    return response.json();
+                }
+                return "null";
+            }
+        });
+    }
+
+    getUsername(token:string):string {
+        // GET method
+        let path = "";
+        return "";
+    }
 
     getCpuInfo(): Observable<CpuInfo[]> {
 
@@ -48,9 +79,39 @@ export class ResourcesService {
         return this.http.get('http://127.0.0.1:5000/jobs')
             .map((response: Response) => {
                 if (response && response.json()) {
+                    // console.log(response.json());
                     return plainToClass(JobInfo, response.json());
                 }
             });
+    }
+    createJob(json:any): any{
+        let path: string = "api/job";
+        console.log('service-createjob');
+        let body = JSON.stringify({
+            "train_params":{
+                "batch_size":32,
+                "SBO":true,
+                "loss":"categorical_crossentropy",
+                "metrics":"accuracy",
+                "optimizer":"Adam",
+                "epochs":2,
+                "learning_rate":0.00001
+            },
+            "dataset":{},
+            "plugin":{}
+        });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        // this.http.post("/api/products", body).toPromise().then((response) => {
+        //     //do something...
+        // });
+
+        return this.http.post(this.SERVER_URL+path, body, options).subscribe(response=> {
+            console.log(response);
+            if (response && response.json()) {
+                console.log("= =");
+            }
+        });
     }
 
     getScenes(): Observable<SceneInfo[]>{

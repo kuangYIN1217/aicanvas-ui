@@ -418,4 +418,21 @@ export class JobCreationComponent {
     nextStep(){
         this.stepNumber = this.stepNumber + 1;
     }
+    create(){
+        // console.log('ts-createjob');
+        var json  ={
+            "train_params":{
+                "batch_size":32,
+                "SBO":true,
+                "loss":"categorical_crossentropy",
+                "metrics":"accuracy",
+                "optimizer":"Adam",
+                "epochs":2,
+                "learning_rate":0.00001
+            },
+            "dataset":{},
+            "plugin":{}
+        }
+        this.resourcesService.createJob(json);
+    }
 }

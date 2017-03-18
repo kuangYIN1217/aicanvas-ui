@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResourcesService } from '../../common/services/resources.service'
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -9,6 +10,19 @@ declare var $:any;
 export class LoginComponent implements OnInit{
     validCode: string = "";
     digit:number =6;
+    logined:number = 0;
+    username: string = "";
+    constructor(private resourcesService: ResourcesService){
+        if((!sessionStorage.authenticationToken)&&sessionStorage.authenticationToken!=""){
+            this.logined = 0;
+        }else{
+            let token = sessionStorage.authenticationToken;
+            // get username
+            this.username = this.resourcesService.getUsername(token);
+            this.logined = 1;
+
+        }
+    }
     ngOnInit(){
         $('#b03').unslider({
             dots: true,
@@ -65,7 +79,27 @@ export class LoginComponent implements OnInit{
         //console.log(result);
         return result;
     }
+
     ifCharacter(){
         return Math.floor(Math.random() * 1e6)%2==0;
+    }
+
+    login(){
+        var username = $('#username').val();
+        var pwd = $('#password').val();
+        var valid = $('#surePwd').val();
+        console.log(valid);
+        if (valid!=this.validCode){
+            alert('Wrong validCode!');
+            $('surePwd').value="";
+            this.changeValidCode();
+        }else{
+            let result = this.resourcesService.login(username, pwd);
+            console.log(result);
+            // if(result=="null"){
+            //
+            // }
+            // sessionStorage.authenticationToken = result;
+        }
     }
 }
