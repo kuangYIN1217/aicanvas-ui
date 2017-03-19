@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="tabDiv sceneManage" [style.display]="showManageDiv==1?'':'none'">
+    <div class="tabDiv sceneManage">
         <div class="tabs">
             <div class="tab_item" [class.focus] = "1">已购场景</div>
         </div>
@@ -9,7 +9,7 @@
                     <h4><strong>{{scene.scene_name}}</strong></h4>
                     <div class="descrip">
                         <p>{{scene.scene_description}}</p>
-                        <a routerLinkActive="active" routerLink="/algchains/{{scene.scene_id}}" >详情>></a>
+                        <a routerLinkActive="active" routerLink="/algchainDetail/{{scene.scene_id}}" >详情>></a>
                     </div>
                     <div class="modelPreview">
                         <p>模型预览</p>
@@ -58,67 +58,6 @@
                 </div>
 
             </div>
-        </div>
-    </div>
-    <div class="tabDiv sceneDetail" [style.display]="showManageDiv==0?'':'none'">
-        <div class="tabs">
-            <div class="tab_item back"><a routerLinkActive="active" routerLink="/algchains" >后退</a></div>
-            <div class="tab_item reset">恢复出厂配置</div>
-
-            <div class="tab_item right save">保存</div>
-            <div class="tab_item right cancel">取消</div>
-            <div class="tab_item right edit">编辑</div>
-        </div>
-        <div class="status">
-            <div class="condition">
-                <div id="scene_name">Loading.....</div>
-                <div id="scene_description">Please wait...</div>
-            </div>
-            <div class="data">
-                <table id="paramTable" class="table">
-                    <th id="param_name">Param_name</th>
-                    <th id="param_value">Default Value</th>
-                    <!-- <tr *ngFor="let parameter of editable_param_list_current;let param_num = index;">
-                        <td>{{ parameter.name }}</td>
-                        <td>
-                            <input *ngIf="parameter.type!='ENUM'&&parameter.type!='LIST'&&parameter.type!='BOOL'" [placeholder]="'From '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_min?parameter.min_value:'-&infin;')+' to '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_max?parameter.max_value:'+&infin;')"
-                                class="param_input" [value]="parameter.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=parameter.set_value;" />
-
-                            <select *ngIf="parameter.type=='ENUM'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
-                                <option  *ngFor="let value of parameter.allowed_values" value="{{ value }}">{{ value }}</option>
-                            </select>
-
-                            <select *ngIf="parameter.type=='BOOL'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
-                                <option value="true">true</option>
-                                <option value="false">false</option>
-                            </select>
-
-                            <div *ngIf="parameter.type=='LIST'"class="select" name="data_select">
-                                <div>
-                                     <table *ngIf="parameter.shape.length==2">
-                                         <tr *ngFor="let array1 of parameter.default_value;let i1 = index;">
-                                             <td *ngFor="let value1 of array1;let j1 = index;"><input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1];"></td>
-                                         </tr>
-                                     </table>
-                                     <div *ngIf="parameter.shape.length==3">
-                                         <select>
-                                             <option *ngFor="let array_2d of parameter.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
-                                         </select>
-                                         <table>
-                                             <tr *ngFor="let array2 of array_2d;let j2 = index;">
-                                                 <td *ngFor="let value2 of array2;let z2 = index;">
-                                                     <input type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1][z1];"/>
-                                                 </td>
-                                             </tr>
-                                         </table>
-                                     </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr> -->
-                </table>
-                <div id="toNetwork"><a href="/network/{{current_scene_id}}">查看网络层>></a></div>
-            <div>
         </div>
     </div>
 </div>

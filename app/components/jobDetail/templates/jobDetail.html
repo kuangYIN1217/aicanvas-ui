@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="detailPage">
+        <div class="tabs">
+          <div id="tab_item1" class="tab_item"><a routerLinkActive="active" routerLink="/jobcreation" >训练任务管理</a></div>
+          <div class="tab_item" [class.focus]="true">任务管理详情</div>
+        </div>
+        <div class="status">
+            <div class="detailLine">
+                <span>任务名称:&nbsp;&nbsp;{{job.job_name}}</span>
+                <span>场景名称:&nbsp;&nbsp;{{job.job_scene}}</span>
+                <span>创建时间:&nbsp;&nbsp;{{job.job_createTime}}</span>
+                <span>状态:&nbsp;&nbsp;{{job.job_status}}</span>
+            </div>
+            <div class="detailLine">
+                <span *ngIf="job">创建者:&nbsp;&nbsp;{{job.job_name}}</span>
+            </div>
+            <div class="lossLine">
+                <div class="lossCard">
+                    <div class="title">LOSS</div>
+                    <div class="sub_title">Subtitle appears here if it exists.</div>
+                    <div class="chart" id="chart1">
+                        <svg id="lineChartSVG" class="lineChart--svg">
+                            <defs>
+                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                    <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
+                                    <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <div class="lossCard">
+                    <div class="title">LOSS</div>
+                    <div class="sub_title">Subtitle appears here if it exists.</div>
+                    <div class="chart" id="chart2">
+                        <svg id="lineChartSVG" class="lineChart--svg">
+                            <defs>
+                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                    <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
+                                    <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="propertyLine">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="propertyLine">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="propertyLine">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

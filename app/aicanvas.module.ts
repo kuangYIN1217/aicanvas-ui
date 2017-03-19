@@ -16,6 +16,9 @@ import { VisualizedNetworkComponent } from './components/network-editor/visualiz
 import { LoginComponent } from './components/login/login.component'
 import { ModelComponent } from './components/model/model.component'
 import { NetworkComponent } from './components/network/network.component'
+import { AlgchainDetailComponent } from './components/algchainDetail/algchainDetail.component'
+import { JobDetailComponent } from './components/jobDetail/jobDetail.component'
+import { AlgpluginDetailComponent } from './components/algpluginDetail/algpluginDetail.component'
 
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule],
@@ -31,7 +34,10 @@ import { NetworkComponent } from './components/network/network.component'
         VisualizedNetworkComponent,
         LoginComponent,
         ModelComponent,
-        NetworkComponent
+        NetworkComponent,
+        AlgchainDetailComponent,
+        JobDetailComponent,
+        AlgpluginDetailComponent,
     ],
     bootstrap: [NavigationComponent]
 })

@@ -1,314 +1,266 @@
-/**
- * Created by fs on 17-3-9.
- */
-// var str=window.location.search;
-// var id = str.split('?')[1];
-// $('#content').html(id);
-
-function save() {
-    var connects = [];
-    $.each(jsPlumb.getAllConnections(), function (idx, connection) {
-        var cont = connection.getLabel();
-        connects.push({
-            ConnectionId: connection.id,
-            PageSourceId: connection.sourceId,
-            PageTargetId: connection.targetId,
-            SourceText: connection.source.innerText,
-            TargetText: connection.target.innerText,
-            SourceAnchor: connection.endpoints[0].anchor.type,
-            TargetAnchor: connection.endpoints[1].anchor.type,
-            ConnectText: $(cont).html()
-        });
-    });
-    var blocks = [];
-    $("#right .node").each(function (idx, elem) {
-        var $elem = $(elem);
-        blocks.push({
-            BlockId: $elem.attr('id'),
-            BlockContent: $elem.html(),
-            BlockX: parseInt($elem.css("left"), 10),
-            BlockY: parseInt($elem.css("top"), 10)
-        });
-    });
-
-    var serliza = JSON.stringify(connects) + "&" + JSON.stringify(blocks);
-    $.ajax({
-        type: "post",
-        url: "ajax.aspx",
-        data: { id: serliza },
-        success: function (filePath) {
-            window.open("show-flowChart.aspx?path=" + filePath);
-        }
-    });
-}
-
-
-function singleclick(id) {
-    $(id).click(function () {
-        document.getElementById("property1").innerHTML = "属性" + id + "：<input type='text'" + "name='property1' class='property1' />";
-    });
-}
-
-function doubleclick(id) {
-    $(id).dblclick(function () {
-        var text = $(this).text();
-        $(this).html("");
-        $(this).append("<input type='text' value='" + text + "' />");
-        $(this).mouseleave(function () {
-            $(this).html($("input[type='text']").val());
-        });
-    });
-}
-
-function init(){
-    var i = 0,j = 0,k = 0,l = 0;
-    $(function () {
-        $("#left").children().draggable({
-            helper: "clone",
-            scope: "ss",
-        });
-        $("#right").droppable({
-            scope: "ss",
-            drop: function (event, ui) {
-                var left = parseInt(ui.offset.left - $(this).offset().left);
-                var top = parseInt(ui.offset.top - $(this).offset().top);
-                var name = ui.draggable[0].id;
-                switch (name) {
-                    case "node1":
-                        i++;
-                        var id = "state_start_" + i;
-                        $(this).append('<div class="node" style="border-radius: 25em;font-size:2px"  id="' + id + '" >' + '</div>');
-                         $("#"+id).html(""+id) ;
-
-                        $("#" + id).css("left", left).css("top", top);
-                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
-                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
-                        jsPlumb.draggable(id);
-                        $("#" + id).draggable({ containment: "parent" });
-                        //doubleclick("#" + id);
-                        singleclick("#" + id);
-                        break;
-                    case "node2":
-                        j++;
-                        id = "state_flow_" + j;
-                        $(this).append("<div class='node' style='font-size:2px' id='" + id + "'>"  + "</div>");
-                        $("#"+id).html(""+id);
-                        $("#" + id).css("left", left).css("top", top);
-                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
-                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
-                        jsPlumb.addEndpoint(id, hollowCircle);
-                        jsPlumb.draggable(id);
-                        $("#" + id).draggable({ containment: "parent" });
-                        //doubleclick("#" + id);
-                        singleclick("#" + id);
-                        break;
-                    case "node3":
-                        k++;
-                        id = "state_decide_" + k;
-                        //$(this).append("<div class='node' id='" + id + "'>" + $(ui.helper).html() + "</div>");
-                        $(this).append("<div class='node' style='font-size:2px' id='" + id + "'>"  + "</div>");
-                        $("#"+id).html(""+id);
-                        $("#" + id).css("left", left).css("top", top);
-                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
-                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
-                        jsPlumb.addEndpoint(id, hollowCircle);
-                        jsPlumb.draggable(id);
-                        $("#" + id).draggable({ containment: "parent" });
-                        //doubleclick("#" + id);
-                        singleclick("#" + id);
-                        break;
-                    case "node4":
-                        l++;
-                        id = "state_end_" + l;
-                        //$(this).append('<div class="node" style="border-radius: 25em"  id="' + id + '" >' + $(ui.helper).html() + '</div>');
-                        $(this).append("<div class='node' style='border-radius: 25em;font-size:2px' id='" + id + "'>"  + "</div>");
-                        $("#"+id).html(""+id);
-                        $("#" + id).css("left", left).css("top", top);
-                        jsPlumb.addEndpoint(id, { anchors: "TopCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "RightMiddle" }, hollowCircle);
-                        jsPlumb.addEndpoint(id, { anchors: "BottomCenter" }, hollowCircle);
-                        //jsPlumb.addEndpoint(id, { anchors: "LeftMiddle" }, hollowCircle);
-                        jsPlumb.draggable(id);
-                        $("#" + id).draggable({ containment: "parent" });
-                        //doubleclick("#" + id);
-                        singleclick("#" + id);
-                        break;
-                }
-            }
-        });
-        $("#right").on("mouseenter", ".node", function () {
-            $(this).append('<img src="images/DetailedAlgorithmPlugin/close2.png"  style="position: absolute;" />');
-            if ($(this).text() == "开始" || $(this).text() == "结束") {
-                $("img").css("left", 78).css("top", 0);
-            } else {
-                $("img").css("left", 78).css("top", -10);
-            }
-        });
-        $("#right").on("mouseleave", ".node", function () {
-            $("img").remove();
-        });
-        $("#right").on("click", "img", function () {
-            if (confirm("确定要删除吗?")) {
-                jsPlumb.removeAllEndpoints($(this).parent().attr("id"));
-                $(this).parent().remove();
-
-            }
-        });
-        jsPlumb.bind("connection", function (connInfo, originalEvent) {
-         connInfo.connection.setLabel("");
-        });
-        var _time = null;
-        jsPlumb.bind("click", function (conn, originalEvent) {
-            clearTimeout(_time);
-            var str = conn.getLabel();
-            if (str == null) {
-                conn.setLabel("<input type='text' value=' ' />");
-            } else {
-                conn.setLabel("<input type='text' value='" + $(str).text() + "' />");
-            }
-            $("input[type='text']").mouseleave(function () {
-                if ($(this).val().trim() == "") {
-                    conn.setLabel("");
+function init() {
+            var $ = go.GraphObject.make;  // 简洁定义模板
+            myDiagram =
+                $(go.Diagram, "myDiagramDiv",  // must name or refer to the DIV HTML element
+                    {
+                        initialContentAlignment: go.Spot.Center,
+                        allowDrop: true,  // must be true to accept drops from the Palette
+                        "LinkDrawn": showLinkLabel,  // this DiagramEvent listener is defined below
+                        "LinkRelinked": showLinkLabel,
+                        "animationManager.duration": 800, // slightly longer than default (600ms) animation
+                        "undoManager.isEnabled": true  // enable undo & redo
+                    });
+            //当文档被修改,添加一个“*”标题,使“保存”按钮
+            myDiagram.addDiagramListener("Modified", function(e) {
+                var button = document.getElementById("SaveButton");
+                if (button) button.disabled = !myDiagram.isModified;
+                var idx = document.title.indexOf("*");
+                if (myDiagram.isModified) {
+                    if (idx < 0) document.title += "*";
                 } else {
-                    conn.setLabel("<span style='display:block;padding:10px;opacity: 0.5;height:auto;background-color:white;border:1px solid #346789;text-align:center;font-size:12px;color:black;border-radius:0.5em;'>" + $(this).val() + "</span>");
+                    if (idx >= 0) document.title = document.title.substr(0, idx);
                 }
             });
-        });
 
-        jsPlumb.bind("dblclick", function (conn, originalEvent) {
-         clearTimeout(_time);
-         _time = setTimeout(function () {
-           if (confirm("确定删除吗？ "))
-             jsPlumb.detach(conn);
-         }, 300);
+            function getLayers() {
+                var str = document.getElementById("testJson").value;
+                var test = JSON.parse(str);
+                var arr = "";
+                var sep = "";
+                var array = new Array();
+                for (var i = 0;i<test['layers'].length;i++){
+                    if (arr == "")
+                        sep = "";
+                    else
+                        sep = ",";
+                    arr = '{ "text": "' + test['layers'][i].id + '" }';
+                    arr = JSON.parse(arr);
+                    array[i] = arr;
+                }
+//                for (var i = 0;i<test['layers'].length;i++){
+//                    array[i] = test['layers'][i].id;
+//                }
 
-        });
-        //基本连接线样式
-        var connectorPaintStyle = {
-            lineWidth: 4,
-            strokeStyle: "#61B7CF",
-            joinstyle: "round",
-            outlineColor: "white",
-            outlineWidth: 2
-        };
-        // 鼠标悬浮在连接线上的样式
-        var connectorHoverStyle = {
-            lineWidth: 4,
-            strokeStyle: "#216477",
-            outlineWidth: 2,
-            outlineColor: "white"
-        };
-        // var endpointHoverStyle = {
-        //     fillStyle: "#216477",
-        //     strokeStyle: "#216477"
-        // };
-        //空心圆端点样式设置
-        var hollowCircle = {
-            endpoint: ["Dot", { radius: 4}],  //端点的形状
-            ConnectorStyle: connectorPaintStyle,//连接线的颜色，大小样式
-            ConnectorHoverStyle: connectorHoverStyle,
-            PaintStyle: {
-                strokeStyle: "#1e8151",
-                fillStyle: "transparent",
-                radius: 2,
-                lineWidth: 2
-            },    //端点的颜色样式
-            //anchor: "AutoDefault",
-            isSource: true, //是否可以拖动（作为连线起点）
-            connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],  //连接线的样式种类有[Bezier],[Flowchart],[StateMachine ],[Straight ]
-            isTarget: true, //是否可以放置（连线终点）
-            maxConnections: -1, // 设置连接点最多可以连接几条线
-            connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
-        };
-        //实心圆样式
-        // var solidCircle = {
-        //     endpoint: ["Dot", { radius: 4 }],  //端点的形状
-        //     PaintStyle: { fillStyle: "rgb(122, 00, 00)" }, //端点的颜色样式
-        //     connectorStyle: { strokeStyle: "rgb(97, 183, 207)", lineWidth: 4 },   //连接线的颜色，大小样式
-        //     isSource: true, //是否可以拖动（作为连线起点）
-        //     connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }], //连接线的样式种类有[Bezier],[Flowchart],[StateMachine ],[Straight ]
-        //     isTarget: true,   //是否可以放置（连线终点）
-        //     //anchor: "AutoDefault",
-        //     maxConnections: 3,  // 设置连接点最多可以连接几条线
-        //     connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
-        // };
+                return array;
+            }
+            var idArr = getLayers();
+            console.log(idArr);
+            // 辅助节点模板的定义
+            function nodeStyle() {
+                return [
+                    // The Node.location comes from the "loc" property of the node data,
+                    // converted by the Point.parse static method.
+                    // If the Node.location is changed, it updates the "loc" property of the node data,
+                    // converting back using the Point.stringify static method.
+                    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                    {
+                        // the Node.location is at the center of each node
+                        locationSpot: go.Spot.Center,
+                        //isShadowed: true,
+                        //shadowColor: "#888",
+                        // 鼠标移到上方或离开显示四点
+                        mouseEnter: function (e, obj) { showPorts(obj.part, true); },
+                        mouseLeave: function (e, obj) { showPorts(obj.part, false); }
+                    }
+                ];
+            }
+            // Define a function for creating a "port" that is normally transparent.
+            // The "name" is used as the GraphObject.portId, the "spot" is used to control how links connect
+            // and where the port is positioned on the node, and the boolean "output" and "input" arguments
+            // control whether the user can draw links from or to the port.
+            // 绘制图形四角的圆点
+            function makePort(name, spot, output, input) {
+                // the port is basically just a small circle that has a white stroke when it is made visible
+                return $(go.Shape, "Circle",
+                    {
+                        fill: "transparent",
+                        stroke: null,  // this is changed to "white" in the showPorts function
+                        desiredSize: new go.Size(8, 8),
+                        alignment: spot, alignmentFocus: spot,  // align the port on the main Shape
+                        portId: name,  // declare this object to be a "port"
+                        fromSpot: spot, toSpot: spot,  // declare where links may connect at this port
+                        fromLinkable: output, toLinkable: input,  // declare whether the user may draw links to/from here
+                        cursor: "pointer"  // show a different cursor to indicate potential link point
+                    });
+            }
+            // 为普通节点定义节点模板
+            myDiagram.nodeTemplateMap.add("",  // the default category
+                $(go.Node, "Spot", nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Rectangle",
+                            { fill: "#c91e2c", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: "white",
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay()
+                        )
+                    ),
+                    // 节点周围四点
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false),
+                    {click: function(e, Node) {
+                        var str = document.getElementById("testJson").value;
+                        var test = JSON.parse(str);
+                        var layerId = Node.toString().split("(")[1].split(")")[0].split("_")[0];
+//                        document.getElementById("test").innerHTML = Node.toString().split("(")[1].split(")")[0];
+                        document.getElementById("property").innerHTML = "";
+                        for (var i = 0;i<test["layers"].length;i++){
+                            if (layerId == test["layers"][i].id){
+                                for (var j=0; j<test["layers"][i].layer_params.length; j++) {
+                                    document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + test["layers"][i].layer_params[j].name + "(" + test["layers"][i].layer_params[j].translation + ")"
+                                        + "：<input type='text'" + "id='" + test["layers"][i].layer_params[j].name + "%" + test["layers"][i].layer_params[j].name + "' name='" + test["layers"][i].name + "%" + test["layers"][i].layer_params[j].name + "' style='width: 160px'" + "placeholder='" + test["layers"][i].layer_params[j].default_value + "'/>";
+                                }
+                            }else {
+                                continue;
+                            }
+                        }
+//                        document.getElementById("test").innerHTML = Node.toString().split("(")[1].split(")")[0];
+                        console.log("执行成功");
+//                        console.log(test["layers"][0].layer_params[0].name);
+                    }
+                    }
+                ));
+//    myDiagram.nodeTemplateMap.add("Start",
+//      $(go.Node, "Spot", nodeStyle(),
+//        $(go.Panel, "Auto",
+//          $(go.Shape, "Circle",
+//            { minSize: new go.Size(40, 40), fill: "#79C900", stroke: null }),
+//          $(go.TextBlock, "Start",
+//            { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
+//            new go.Binding("text"))
+//        ),
+//        // three named ports, one on each side except the top, all output only:
+//        makePort("L", go.Spot.Left, true, false),
+//        makePort("R", go.Spot.Right, true, false),
+//        makePort("B", go.Spot.Bottom, true, false)
+//      ));
+//    myDiagram.nodeTemplateMap.add("End",
+//      $(go.Node, "Spot", nodeStyle(),
+//        $(go.Panel, "Auto",
+//          $(go.Shape, "Circle",
+//            { minSize: new go.Size(40, 40), fill: "#DC3C00", stroke: null }),
+//          $(go.TextBlock, "End",
+//            { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
+//            new go.Binding("text"))
+//        ),
+//        // three named ports, one on each side except the bottom, all input only:
+//        makePort("T", go.Spot.Top, false, true),
+//        makePort("L", go.Spot.Left, false, true),
+//        makePort("R", go.Spot.Right, false, true)
+//      ));
+//    myDiagram.nodeTemplateMap.add("Comment",
+//      $(go.Node, "Auto", nodeStyle(),
+//        $(go.Shape, "File",
+//          { fill: "#EFFAB4", stroke: null }),
+//        $(go.TextBlock,
+//          {
+//            margin: 5,
+//            maxSize: new go.Size(200, NaN),
+//            wrap: go.TextBlock.WrapFit,
+//            textAlign: "center",
+//            editable: true,
+//            font: "bold 12pt Helvetica, Arial, sans-serif",
+//            stroke: '#454545'
+//          },
+//          new go.Binding("text").makeTwoWay())
+//        // no ports, because no links are allowed to connect with a comment
+//      ));
+            // replace the default Link template in the linkTemplateMap
+            //连接线模板
+            myDiagram.linkTemplate =
+                $(go.Link,  // the whole link panel
+                    {
+                        routing: go.Link.AvoidsNodes,
+                        curve: go.Link.JumpOver,
+                        corner: 5, toShortLength: 4,
+                        relinkableFrom: true,
+                        relinkableTo: true,
+                        reshapable: true,
+                        resegmentable: true,
+                        // mouse-overs subtly highlight links:
+                        mouseEnter: function(e, link) {
+                            link.findObject("HIGHLIGHT").stroke = "rgba(30,144,255,0.2)";
+                        },
+                        mouseLeave: function(e, link) { link.findObject("HIGHLIGHT").stroke = "transparent"; }
+                    },
+                    new go.Binding("points").makeTwoWay(),
+                    $(go.Shape,  // the highlight shape, normally transparent
+                        { isPanelMain: true, strokeWidth: 8, stroke: "transparent", name: "HIGHLIGHT" }),
+                    $(go.Shape,  // the link path shape
+                        { isPanelMain: true, stroke: "gray", strokeWidth: 2 }),
+                    $(go.Shape,  // the arrowhead
+                        { toArrow: "standard", stroke: null, fill: "gray"}),
+                    $(go.Panel, "Auto",  // the link label, normally not visible
+                        { visible: false, name: "LABEL", segmentIndex: 2, segmentFraction: 0.5},
+                        new go.Binding("visible", "visible").makeTwoWay(),
+                        $(go.Shape, "RoundedRectangle",  // the label shape
+                            { fill: "#F8F8F8", stroke: null }),
+                        $(go.TextBlock, "Yes",  // the label
+                            {
+                                textAlign: "center",
+                                font: "10pt helvetica, arial, sans-serif",
+                                stroke: "#333333",
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    )
+                );
+            // Make link labels visible if coming out of a "conditional" node.
+            // This listener is called by the "LinkDrawn" and "LinkRelinked" DiagramEvents.
+            function showLinkLabel(e) {
+                var label = e.subject.findObject("LABEL");
+                if (label !== null) label.visible = (e.subject.fromNode.data.figure === "Diamond");
+            }
+            // temporary links used by LinkingTool and RelinkingTool are also orthogonal:
+            myDiagram.toolManager.linkingTool.temporaryLink.routing = go.Link.Orthogonal;
+            myDiagram.toolManager.relinkingTool.temporaryLink.routing = go.Link.Orthogonal;
+            load();  // load an initial diagram from some JSON text
+            //初始化面板左边界面
+            myPalette =
+                $(go.Palette, "myPaletteDiv",  // must name or refer to the DIV HTML element
+                    {
+                        "animationManager.duration": 800, // slightly longer than default (600ms) animation
+                        nodeTemplateMap: myDiagram.nodeTemplateMap,  // share the templates used by myDiagram
+                        model: new go.GraphLinksModel(idArr)
+                    });
+            // 下面的代码覆盖GoJS阻止浏览器滚动
+            // the page when either the Diagram or Palette are clicked or dragged onto.
+            function customFocus() {
+                var x = window.scrollX || window.pageXOffset;
+                var y = window.scrollY || window.pageYOffset;
+                go.Diagram.prototype.doFocus.call(this);
+                window.scrollTo(x, y);
+            }
+            myDiagram.doFocus = customFocus;
+            myPalette.doFocus = customFocus;
+        } // end init
 
-    });
-    // //右折线
-    //     var rightConnector = {
-    //       connector: "Flowchart",
-    //       anchors: ["RightMiddle", "LeftMiddle"],
-    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
-    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
-    //       endpoint: ["Dot", { radius: 1 }]
-    //     };
-    //     //右直线
-    //     var rightStraightConnector = {
-    //       connector: "Straight",
-    //       anchors: ["RightMiddle", "LeftMiddle"],
-    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
-    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
-    //       endpoint: ["Dot", { radius: 1 }]
-    //     };
+        // 鼠标在图形上方显示四角的圆点
+        function showPorts(node, show) {
+            var diagram = node.diagram;
+            if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
+            node.ports.each(function(port) {
+                port.stroke = (show ? "white" : null);
+            });
+        }
 
-    //     //上折线
-    //     var upConnector = {
-    //       connector: "Flowchart",
-    //       anchors: ["TopCenter", "BottomCenter"],
-    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
-    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
-    //       endpoint: ["Dot", { radius: 1 }]
-    //     };
+        // 保存编辑的流程图
+        function save() {
+            document.getElementById("mySavedModel").value = myDiagram.model.toJson();
+            myDiagram.isModified = false;
+        }
 
-    //     var downConnector = {
-    //       connector: "Flowchart",
-    //       anchors: ["BottomCenter", "TopCenter"],
-    //       paintStyle: { lineWidth: 1, strokeStyle: "#000000" },
-    //       //paintStyle: { lineWidth: 2, strokeStyle: "#61b7cf", joinstyle: "round", outlineColor: "white", outlineWidth: 2 },
-    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
-    //       endpoint: ["Dot", { radius: 1 }]
-    //     };
-
-    //     var flowConnector = {
-    //       connector: "Flowchart",
-    //       //anchors: ["BottomCenter", "TopCenter"],
-    //       paintStyle: { lineWidth: 2, strokeStyle: "#61B7CF", fillStyle: "transparent" },
-    //       //paintStyle: { lineWidth: 2, strokeStyle: "#61b7cf", joinstyle: "round", outlineColor: "white", outlineWidth: 2 },
-    //       overlays: [["Arrow", { width: 10, length: 10, location: 1 }]],
-    //       endpoint: ["Dot", { radius: 1 }]
-    //     };
-    //     jsPlumb.ready(function () {
-    //       //jsPlumb.draggable($(".node"));
-    //     });
-
-        // function autoAlign() {
-        //   var top = 10;
-        //   $(".node").each(function () {
-        //     $(this).css("top", top);
-        //     top += $(this).height() + 60;
-        //   });
-        // }
-        //
-        // function autoAlignDown() {
-        //   var arrLevel = new Array();
-        //   var i = 0;
-        //   $(".node").each(function () {
-        //    var id = $(this).attr("id");
-        //    var targetNodes = $(this).attr("targetNodes").split(',');
-        //    for (var j = 0; j < targetNodes.length; j++) {
-        //      arrLevel[targetNodes] = arrLevel[id] + 1;
-        //    }
-        //
-        //    arr[i] = [$(this), "", ""];
-        //    i++;
-        //    $(this).css("top", top);
-        //    top += $(this).height() + 60;
-        //   });
-        // }
-}
+        //重新显示保存的流程图
+        function load() {
+            myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
+        }

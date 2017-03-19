@@ -1,5 +1,5 @@
 <div class="container">
-    <div id="modalDiv" [style.display]="ifshowDetail==0 ? '' : 'none'">
+    <div id="modalDiv">
       <div class="tabs">
         <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [class.focus]="showSystemPlugin">系统模版</div>
         <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [class.focus]="!showSystemPlugin">自定义模版</div>
@@ -15,7 +15,7 @@
             <td>{{ plugin.plugin_id }}</td>
             <td>{{ plugin.plugin_name }}</td>
             <td>{{ plugin.plugin_description }}</td>
-            <td><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
+            <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.plugin_id}}">查看详细</a></td>
           </tr>
         </table>
       </div>
@@ -29,94 +29,10 @@
                 <td>{{ plugin.plugin_id }}</td>
                 <td>{{ plugin.plugin_name }}</td>
                 <td>{{ plugin.plugin_description }}</td>
-                <td><a class="showDetail" (click) = "showDetail(i)">查看详细</a></td>
+                <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.plugin_id}}">查看详细</a></td>
             </tr>
         </table>
       </div>
   </div>
-      <div id = "detailDiv" [style.display]="ifshowDetail==1 ? '' : 'none'">
-          <div class="tabs">
-              <div (click)="backToModalDiv()" id="tab_item0" class="tab_item">返回</div>
-              <div (click)="detailDivChooseClick(1)" id="tab_item1" class="tab_item" [class.focus]="detailDivChoose==1">参数列表</div>
-              <div (click)="detailDivChooseClick(2)" id="tab_item2" class="tab_item" [style.display]="plugin_current.has_training_network==0?'none':''" [class.focus]="detailDivChoose==2">网络层</div>
-              <div (click)="fork()" id="tab_item3" class="tab_item">保存</div>
-          </div>
-      </div>
-       <div [style.display]="detailDivChoose==1 ? '' : 'none'" id="systemDiv" class="status">
-           <table id="paramTable" class="table">
-               <th id="param_name">Param_name</th>
-               <th id="param_value">Default Value</th>
-               <tr *ngFor="let parameter of editable_param_list_current;let param_num = index;">
-                   <td>{{ parameter.name }}</td>
-                   <td>
-                       <input *ngIf="parameter.type!='ENUM'&&parameter.type!='LIST'&&parameter.type!='BOOL'" [placeholder]="'From '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_min?parameter.min_value:'-&infin;')+' to '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_max?parameter.max_value:'+&infin;')"
-                           class="param_input" [value]="parameter.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=parameter.set_value;" />
 
-                       <select *ngIf="parameter.type=='ENUM'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
-                           <option  *ngFor="let value of parameter.allowed_values" value="{{ value }}">{{ value }}</option>
-                       </select>
-
-                       <select *ngIf="parameter.type=='BOOL'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
-                           <option value="true">true</option>
-                           <option value="false">false</option>
-                       </select>
-
-                       <div *ngIf="parameter.type=='LIST'"class="select" name="data_select">
-                           <div>
-                                <table *ngIf="parameter.shape.length==2">
-                                    <tr *ngFor="let array1 of parameter.default_value;let i1 = index;">
-                                        <td *ngFor="let value1 of array1;let j1 = index;"><input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1];"></td>
-                                    </tr>
-                                </table>
-                                <div *ngIf="parameter.shape.length==3">
-                                    <select>
-                                        <option *ngFor="let array_2d of parameter.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
-                                    </select>
-                                    <table>
-                                        <tr *ngFor="let array2 of array_2d;let j2 = index;">
-                                            <td *ngFor="let value2 of array2;let z2 = index;">
-                                                <input type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1][z1];"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                           </div>
-                       </div>
-                   </td>
-               </tr>
-           </table>
-       </div>
-       <div [style.display]="detailDivChoose==2 ? '' : 'none'" id="systemDiv" class="status">
-           <div class="content-container">
-               <div id="left">
-                 <!--<div class="node radius" id="node1">Input</div>-->
-
-                 <!--<div class="node" id="node2" *ngFor="let layer of training_network_current.layers; let i = index">-->
-                     <!--{{ layer.name }}-->
-                 <!--</div>-->
-                 <!--<div class="node" id="node3">Algorithm2</div>-->
-                 <!--<div class="node radius" id="node4">Output</div>-->
-               </div>
-
-               <div id="right">
-                 <p align="center">拖拉到此区域</p>
-               </div>
-               <div class="save">
-                   <p align="center">属性配置</p>
-                   <div id="property1"></div>
-                     <!--<div id="property2">-->
-                       <!--属性二：<input type="text" name="property2" />-->
-                     <!--</div>-->
-                     <!--<div id="property3">-->
-                       <!--属性三：<input type="text" name="property3" />-->
-                     <!--</div>-->
-                     <!--<div id="property4">-->
-                       <!--属性四：<input type="text" name="property4" />-->
-                     <!--</div>-->
-                    <div id="saveBtn">
-                       <input type="button" value="保存" onclick="save()" />
-                    </div>
-              </div>
-           </div>
-       </div>
  </div>

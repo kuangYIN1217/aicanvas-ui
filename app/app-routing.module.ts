@@ -13,10 +13,13 @@ import { VisualizedNetworkComponent } from './components/network-editor/visualiz
 import { LoginComponent } from './components/login/login.component'
 import { ModelComponent } from './components/model/model.component'
 import { NetworkComponent } from './components/network/network.component'
+import { AlgchainDetailComponent } from './components/algchainDetail/algchainDetail.component'
+import { JobDetailComponent } from './components/jobDetail/jobDetail.component'
+import { AlgpluginDetailComponent } from './components/algpluginDetail/algpluginDetail.component'
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
-  { path: 'algchains/:scene_id',component: AlgChainsComponent },
+  { path: 'algchainDetail/:scene_id',component: AlgchainDetailComponent },
   { path: 'algchains', component: AlgChainsComponent },
   { path: 'algplugins', component: AlgPluginsComponent },
   { path: 'datasets', component: DatasetsComponent },
@@ -27,6 +30,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'model', component: ModelComponent },
   { path: 'network/:scene_id', component: NetworkComponent },
+  { path: 'jobDetail/:job_id', component: JobDetailComponent },
+  { path: 'algpluginDetail/:plugin_id', component: AlgpluginDetailComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
  // { path: 'detail/:id', component: HeroDetailComponent },

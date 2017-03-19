@@ -30,7 +30,7 @@
                         <div class="operationBtn start" (click)="start(jobInfo.job_id)"></div>
                         <div class="operationBtn pause" (click)="pause(jobInfo.job_id)"></div>
                     </td>
-                    <td><a class="showDetailBtn" (click)="showDetail(jobInfo.job_id)">查看详情</a></td>
+                    <td><a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.job_id}}">查看详情</a></td>
                 </tr>
             </table>
             <div class="bottom_menu">
@@ -44,86 +44,6 @@
                 </div>
                 <div class="pagebtn" (click)="nextPage()">Next</div>
                 <div class="pagebtn" (click)="previousPage()">Previous</div>
-            </div>
-        </div>
-    </div>
-    <div class="detailPage" [style.display]="jobPageStatus=='jobDetail'?'':'none'">
-        <div class="tabs">
-          <div (click)="showManage()" id="tab_item1" class="tab_item">训练任务管理</div>
-          <div class="tab_item" [class.focus]="true">任务管理详情</div>
-        </div>
-        <div class="status">
-            <div class="detailLine">
-                <span>任务民称:&nbsp;&nbsp;{{detailJob.job_name}}</span>
-                <span>场景民称:&nbsp;&nbsp;{{detailJob.job_scene}}</span>
-                <span>创建时间:&nbsp;&nbsp;{{detailJob.job_createTime}}</span>
-                <span>状态:&nbsp;&nbsp;{{detailJob.job_status}}</span>
-            </div>
-            <div class="detailLine">
-                <span>创建者:&nbsp;&nbsp;{{detailJob.job_name}}</span>
-            </div>
-            <div class="lossLine">
-                <div class="lossCard">
-                    <div class="title">LOSS</div>
-                    <div class="sub_title">Subtitle appears here if it exists.</div>
-                    <div class="chart" id="chart1">
-                        <svg id="lineChartSVG" class="lineChart--svg">
-                            <defs>
-                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
-                                    <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
-                                    <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                </div>
-                <div class="lossCard">
-                    <div class="title">LOSS</div>
-                    <div class="sub_title">Subtitle appears here if it exists.</div>
-                    <div class="chart" id="chart2">
-                        <svg id="lineChartSVG" class="lineChart--svg">
-                            <defs>
-                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
-                                    <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
-                                    <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="propertyLine">
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-            </div>
-            <div class="propertyLine">
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-            </div>
-            <div class="propertyLine">
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
             </div>
         </div>
     </div>

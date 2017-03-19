@@ -72,6 +72,24 @@ export class ResourcesService {
                 }
             });
     }
+    getPluginById(plugin_id: number):  Observable<PluginInfo>{
+        // TODO: what if it returns error?
+        // Moving hostname to maybe tsconfig.json
+        return this.http.get('http://127.0.0.1:5000/algplugins')
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    let array = plainToClass(PluginInfo, response.json());
+                    for (let plugin of array){
+                        if (plugin.plugin_id == plugin_id){
+                            console.log(plugin);
+                            return plugin;
+                        }
+                    }
+                    // console.log(plainToClass(SceneInfo, response.json())[0].scene_id);
+                    // return plainToClass(SceneInfo, response.json());
+                }
+            });
+    }
 
     getJobs(): Observable<JobInfo[]>{
         // TODO: what if it returns error?
@@ -81,6 +99,24 @@ export class ResourcesService {
                 if (response && response.json()) {
                     // console.log(response.json());
                     return plainToClass(JobInfo, response.json());
+                }
+            });
+    }
+    getJobById(job_id: number): Observable<JobInfo>{
+        // TODO: what if it returns error?
+        // Moving hostname to maybe tsconfig.json
+        return this.http.get('http://127.0.0.1:5000/jobs')
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    let array = plainToClass(JobInfo, response.json());
+                    for (let job of array){
+                        if (job.job_id == job_id){
+                            console.log(job);
+                            return job;
+                        }
+                    }
+                    // console.log(plainToClass(SceneInfo, response.json())[0].scene_id);
+                    // return plainToClass(SceneInfo, response.json());
                 }
             });
     }
@@ -121,6 +157,24 @@ export class ResourcesService {
             .map((response: Response) => {
                 if (response && response.json()) {
                     return plainToClass(SceneInfo, response.json());
+                }
+            });
+    }
+    getSceneById(scene_id: number): Observable<SceneInfo>{
+        // TODO: what if it returns error?
+        // Moving hostname to maybe tsconfig.json
+        return this.http.get('http://127.0.0.1:5000/scenes')
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    let array = plainToClass(SceneInfo, response.json());
+                    for (let scene of array){
+                        if (scene.scene_id == scene_id){
+                            console.log(scene);
+                            return scene;
+                        }
+                    }
+                    // console.log(plainToClass(SceneInfo, response.json())[0].scene_id);
+                    // return plainToClass(SceneInfo, response.json());
                 }
             });
     }

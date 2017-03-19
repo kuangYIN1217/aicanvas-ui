@@ -1,18 +1,17 @@
 @charset "UTF-8";
-/*framework*/
 .tabs{
-    position: relative;
-    height: 60px;
-    background-color: #131314;
-    margin-bottom: 0px;
-    border: 0px;
+  position: relative;
+  height: 60px;
+  background-color: #131314;
+  margin-bottom: 0px;
+  border: 0px;
 }
 .tab_item{
     position: relative;
     top: 20px;
     border-radius: 0px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
     border: 0px;
     width: 150px;
     height: 40px;
@@ -32,12 +31,10 @@
     color: #516af8;
     font-weight: normal;
 }
-.status{
-    position: relative;
-    background-color: #19191a;
-    height: 1402px;
+.tab_item a{
+    text-decoration: none;
+    color: #5e5e5f;
 }
-/*table*/
 /*table*/
 .table{
     position: relative;
