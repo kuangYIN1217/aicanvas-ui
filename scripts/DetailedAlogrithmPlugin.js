@@ -89,13 +89,13 @@ function init() {
                     // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                     $(go.Panel, "Auto",
                         $(go.Shape, "Rectangle",
-                            { fill: "#c91e2c", stroke: null },
+                            { minSize: new go.Size(160, 70), fill: "#18191B", stroke: "#424344" },
                             new go.Binding("figure", "figure")),
                         $(go.TextBlock,
                             {
                                 font: "bold 11pt Helvetica, Arial, sans-serif",
                                 stroke: "white",
-                                margin: 8,
+                                margin: 20,
                                 maxSize: new go.Size(160, NaN),
                                 wrap: go.TextBlock.WrapFit,
                                 editable: true
@@ -117,8 +117,11 @@ function init() {
                         for (var i = 0;i<test["layers"].length;i++){
                             if (layerId == test["layers"][i].id){
                                 for (var j=0; j<test["layers"][i].layer_params.length; j++) {
-                                    document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + test["layers"][i].layer_params[j].name + "(" + test["layers"][i].layer_params[j].translation + ")"
-                                        + "：<input type='text'" + "id='" + test["layers"][i].layer_params[j].name + "%" + test["layers"][i].layer_params[j].name + "' name='" + test["layers"][i].name + "%" + test["layers"][i].layer_params[j].name + "' style='width: 160px'" + "placeholder='" + test["layers"][i].layer_params[j].default_value + "'/>";
+                                    // document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + test["layers"][i].layer_params[j].name + "(" + test["layers"][i].layer_params[j].translation + ")"
+                                    //     + "：<input type='text'" + "id='" + test["layers"][i].layer_params[j].name + "%" + test["layers"][i].layer_params[j].name + "' name='" + test["layers"][i].name + "%" + test["layers"][i].layer_params[j].name + "' style='width: 160px'" + "placeholder='" + test["layers"][i].layer_params[j].default_value + "'/>";
+                                    //<div class="layer_param">
+                                    document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].layer_params[j].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
+                                        test["layers"][i].layer_params[j].name + "%" + test["layers"][i].layer_params[j].name + '" name="' + test["layers"][i].name + "%" + test["layers"][i].layer_params[j].name + '" placeholder="' + test["layers"][i].layer_params[j].default_value + '"/></div>';
                                 }
                             }else {
                                 continue;
@@ -189,7 +192,8 @@ function init() {
                         resegmentable: true,
                         // mouse-overs subtly highlight links:
                         mouseEnter: function(e, link) {
-                            link.findObject("HIGHLIGHT").stroke = "rgba(30,144,255,0.2)";
+                            // link.findObject("HIGHLIGHT").stroke = "rgba(30,144,255,0.2)";
+                            link.findObject("HIGHLIGHT").stroke = "rgba(30,39,131,0.2)";
                         },
                         mouseLeave: function(e, link) { link.findObject("HIGHLIGHT").stroke = "transparent"; }
                     },
@@ -258,6 +262,23 @@ function init() {
         function save() {
             document.getElementById("mySavedModel").value = myDiagram.model.toJson();
             myDiagram.isModified = false;
+        }
+
+        // 保存编辑的属性参数
+        function saveParam() {
+            var test = document.getElementById("property").getElementsByTagName("input");
+            var str = "";
+            var sep;
+            for(var i = 0; i < test.length; i++) {
+                if (str == ""){
+                    sep = "";
+                }else {
+                    sep = ",";
+                }
+                str = str + sep + "'" + test[i].name + "'" + ":" + test[i].value;
+            }
+            str = "{" + str + "}";
+            console.log(str);
         }
 
         //重新显示保存的流程图

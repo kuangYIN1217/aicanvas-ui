@@ -27,6 +27,7 @@ export class NetworkComponent{
                 this.authenticate_loop();
             }else{
                 this.insertData();
+                $("#hideBtn").click();
             }
         }
     }
@@ -41,6 +42,7 @@ export class NetworkComponent{
                     // console.log(scene.scene_id);
                     if(scene.scene_id==this.scene_id){
                         this.scene = scene;
+                        $("#hideBtn").click();
                         // console.log(this.scene_current);
                         break;
                     }
@@ -53,6 +55,6 @@ export class NetworkComponent{
         $('#scene_name').html(this.scene.scene_name);
         $('#scene_description').html("场景描述:<br>"+this.scene.scene_description);
         $('.alg_name').html('AlgPlug1');
-        $('.layer_name').html('Input_1');
+        // $('.layer_name').html('Input_1');
     }
 }

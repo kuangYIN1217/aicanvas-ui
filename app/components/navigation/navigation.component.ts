@@ -17,6 +17,7 @@ export class NavigationComponent {
     collapse: number = 0;
     sceneArray: SceneInfo[] = [];
     focusCollapse: string = "0";
+    username: string = "";
     changeCollapse(){
         this.collapse = 1 - this.collapse;
     }
@@ -28,13 +29,20 @@ export class NavigationComponent {
         resourcesService.getScenes()
             .subscribe(sceneArray => this.sceneArray = sceneArray);
 
+        if (sessionStorage.username){
+            this.username = sessionStorage.username;
+        }else{
+            this.username = "Loading";
+        }
+
+
         if (this.location.isCurrentPathEqualTo('/login')||this.location.isCurrentPathEqualTo('')){
             this.focusTab = 0;
             this.needhide = 0;
         }else if (this.location.isCurrentPathEqualTo('/overview')){
             this.focusTab = 1;
             this.needhide = 0;
-        }else if (this.location.isCurrentPathEqualTo('/algchains')){
+        }else if (this.location.isCurrentPathEqualTo('/algchains')||this.location.path(false).indexOf('/algchainDetail/')!=-1){
             this.focusTab = 2;
             this.needhide = 0;
         }else if (this.location.path(false).indexOf('/algchains/')!=-1){
@@ -46,7 +54,7 @@ export class NavigationComponent {
             this.needhide = 0;
         }else if (this.location.path(false).indexOf('/network/')!=-1){
             this.needhide = 1;
-        }else if (this.location.isCurrentPathEqualTo('/jobcreation')){
+        }else if (this.location.isCurrentPathEqualTo('/jobcreation')||this.location.path(false).indexOf('/jobDetail/')!=-1){
             this.focusTab = 3;
             this.needhide = 0;
         }else if (this.location.isCurrentPathEqualTo('/datasets')){
@@ -55,9 +63,14 @@ export class NavigationComponent {
         }else if (this.location.isCurrentPathEqualTo('/model')){
             this.focusTab = 5;
             this.needhide = 0;
-        }else if (this.location.isCurrentPathEqualTo('/algplugins')){
+        }else if (this.location.isCurrentPathEqualTo('/algplugins')||this.location.path(false).indexOf('/algpluginDetail/')!=-1){
             this.focusTab = 6;
             this.needhide = 0;
         }
+    }
+    logout(){
+        sessionStorage.removeItem("authenticationToken");
+        sessionStorage.removeItem("username");
+        window.location.href = "/login";
     }
 }

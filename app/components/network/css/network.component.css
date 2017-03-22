@@ -82,11 +82,18 @@ a{
     color: #eeeee1;
     font-size: 20px;
     margin-bottom: 16px;
+    height: 5%;
 }
 .alg_choose_descrip{
     color: #eeeee1;
     font-size: 18px;
-    margin-bottom: 35px;
+    margin-bottom: 16px;
+    height: 5%;
+}
+.alg_choose_list{
+    color: #eeeee1;
+    /*margin-bottom: 50px;*/
+    height: 90%;
 }
 .alg_plug{
     width: 100%;

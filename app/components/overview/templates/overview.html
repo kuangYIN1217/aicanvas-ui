@@ -21,7 +21,7 @@
 
                 <!--到这-->
                 <div class="occupancyRate occupancyRate_1">
-                    <h4>GPU占用率(GPU01)</h4>
+                    <h4>GPU占用率(GPU02)</h4>
                     <p>subtitle appear here if it exits</p>
                     <div class="pie" id="drawPie">
 
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="occupancyRate occupancyRate_1">
-                    <h4>GPU占用率(GPU01)</h4>
+                    <h4>Storage</h4>
                     <p>subtitle appear here if it exits</p>
                     <div class="pie" id="drawPie">
 
@@ -44,24 +44,26 @@
             <div class="GPU_2">
                 <!--添加加这一部分就行-->
                 <div class="fluctuate fluctuate_1">
-                    <h4>GPU波动(GPU01)</h4>
+                    <h4>CPU波动(CPU01)</h4>
                     <p>subtitle appear here if it exits</p>
-                    <div class="pie" id="">
-
-                    </div>
-                    <div class="pieDescrip" id="">
-
+                    <div class="cpuSvg" id="cpuSvg1">
+                        <svg id="lineChartSVG1" class="lineChart--svg">
+                        </svg>
                     </div>
                 </div>
                 <!--到这-->
                 <div class="fluctuate fluctuate_1">
-                    <h4>GPU波动(GPU01)</h4>
+                    <h4>CPU波动(CPU02)</h4>
                     <p>subtitle appear here if it exits</p>
-                    <div class="pie" id="">
-
-                    </div>
-                    <div class="pieDescrip" id="">
-
+                    <div class="cpuSvg" id="cpuSvg2">
+                        <svg id="lineChartSVG2" class="lineChart--svg">
+                            <defs>
+                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                    <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
+                                    <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
                     </div>
                 </div>
 
@@ -80,20 +82,29 @@
             </div>
             <div class="GPU_3">
                 <!--添加加这一部分就行-->
-                <div class="usageRateFluctuate fluctuate_1">
+                <div class="usageRateFluctuate fluctuate_1" id="cpuwave">
                     <h4>GPU使用率波动(GPU01)</h4>
                     <p>subtitle appear here if it exits</p>
-                    <div class="pie" id="">
-
-                    </div>
-                    <div class="pieDescrip" id="">
-
+                    <div class="cpuwaveSvg" id="cpuwaveSvg">
+                        <svg id="lineChartSVG2" class="lineChart--svg">
+                            <defs>
+                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                    <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
+                                    <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
                     </div>
                 </div>
                 <!--到这-->
-                <div></div>
+                <div class="cpuwaveDescription">
+                    <div class="line"><div class="cube red"></div>&nbsp;&nbsp;CPU0:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                    <div class="line"><div class="cube yellow"></div>&nbsp;&nbsp;CPU1:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                    <div class="line"><div class="cube skyblue"></div>&nbsp;&nbsp;CPU2:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                    <div class="line"><div class="cube orange"></div>&nbsp;&nbsp;CPU3:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                    <div class="line"><div class="cube green"></div>&nbsp;&nbsp;MEAN CPU:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                </div>
             </div>
-
         </div>
     </div>
     <div [style.display]="tabIndex? '':'none'" id="taskDiv" class="status">

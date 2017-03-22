@@ -6,9 +6,9 @@
         </div>
         <div class="status">
             <div class="detailLine">
-                <span>任务名称:&nbsp;&nbsp;{{job.job_name}}</span>
-                <span>场景名称:&nbsp;&nbsp;{{job.job_scene}}</span>
-                <span>创建时间:&nbsp;&nbsp;{{job.job_createTime}}</span>
+                <span>任务名称:&nbsp;&nbsp;{{job.id}}</span>
+                <span>场景名称:&nbsp;&nbsp;{{job.scenes}}</span>
+                <span>创建时间:&nbsp;&nbsp;{{job.createTime}}</span>
                 <span>状态:&nbsp;&nbsp;{{job.job_status}}</span>
             </div>
             <div class="detailLine">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="lossCard">
-                    <div class="title">LOSS</div>
+                    <div class="title">Accuracy</div>
                     <div class="sub_title">Subtitle appears here if it exists.</div>
                     <div class="chart" id="chart2">
                         <svg id="lineChartSVG" class="lineChart--svg">
@@ -47,34 +47,46 @@
             <div class="propertyLine">
                 <div class="propertyCard">
                     <div class="icon"></div>
+                    <div class="cardInline">0&nbsp;Samples/Sec</div>
                 </div>
                 <div class="propertyCard">
                     <div class="icon"></div>
+                    <div class="cardInline">0&nbsp;Sec/Epoch</div>
                 </div>
                 <div class="propertyCard">
                     <div class="icon"></div>
+                    <div class="cardInline">Epoch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Best:</div>
+                    <div class="cardInline">Total Time</div>
                 </div>
                 <div class="propertyCard">
                     <div class="icon"></div>
-                </div>
-            </div>
-            <div class="propertyLine">
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                </div>
-                <div class="propertyCard">
-                    <div class="icon"></div>
+                    <div class="cardInline">0.00%&nbsp;Sample&nbsp;Process</div>
+                    <div class="cardInline">0&nbsp;Done&nbsp;/Total&nbsp;Samples</div>
                 </div>
             </div>
             <div class="propertyLine">
                 <div class="propertyCard">
                     <div class="icon"></div>
+                    <div class="cardInline">0.00%&nbsp;GPU&nbsp;Load</div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                    <div class="cardInline">LOSS:&nbsp;/(train/validation)</div>
+                    <div class="cardInline">Accuracy:&nbsp;/(train/validation)</div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                    <div class="cardInline">0.00G&nbsp;GPU&nbsp;Free&nbsp;MEM</div>
+                </div>
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                    <div class="cardInline">0.00G&nbsp;System&nbsp;Free&nbsp;MEM</div>
+                </div>
+            </div>
+            <div class="propertyLine">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                    <div class="cardInline">0.00%&nbsp;GPU&nbsp;Load</div>
                 </div>
             </div>
         </div>

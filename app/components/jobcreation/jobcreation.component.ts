@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
-import { ResourcesService } from '../../common/services/resources.service'
+import { JobService } from '../../common/services/job.service'
+import { UserService } from '../../common/services/user.service'
 
-import { JobInfo } from "../../common/defs/resources";
+import { JobInfo, UserInfo } from "../../common/defs/resources";
 
 @Component({
     moduleId: module.id,
     selector: 'jobcreation',
     styleUrls: ['./css/jobcreation.component.css'],
     templateUrl: './templates/jobcreation.html',
-    providers: [ResourcesService]
+    providers: [UserService,JobService]
 })
 export class JobCreationComponent {
     // record the current step
     stepNumber: number = 1;
-    // "manage"/"createJob"/"jobDetail"
+    // "manage"/"createJob"
     jobPageStatus: string = "manage";
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
@@ -24,11 +25,13 @@ export class JobCreationComponent {
     // store search content
     search_input: string = "";
 
-    constructor(private resourcesService: ResourcesService) {
-        resourcesService.getJobs()
-        .subscribe(Jobs => this.Jobs = Jobs);
-        resourcesService.getJobs()
-        .subscribe(Jobs_current => this.Jobs_current = Jobs_current);
+    constructor(private jobService: JobService, private userService: UserService) {
+        jobService.getAllJobs()
+            .subscribe(Jobs => this.initialJobArray(Jobs));
+    }
+    initialJobArray(Jobs){
+        this.Jobs = Jobs;
+        this.Jobs_current = Jobs;
     }
     inputchange(){
         this.Jobs_current = [];
@@ -64,26 +67,52 @@ export class JobCreationComponent {
 
     }
     jobContains(job: JobInfo){
-        if ((job.job_id+"").toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else if (job.job_name.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else if (job.job_createTime.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else if (job.job_scene.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else if (((job.job_progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else if (job.job_status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else{
-            return false;
-        }
+        // if ((job.id+"").toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+        //     return true;
+        // }else if (job.job_name.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+        //     return true;
+        // }else if (job.createTime.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+        //     return true;
+        // }else if (job.job_scene.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+        //     return true;
+        // }else if (((job.job_progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
+        //     return true;
+        // }else if (job.job_status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
     }
     // createJob
     createJob(){
-        this.jobPageStatus = "createJob";
+        // this.jobPageStatus = "createJob";
+        this.userService.getUser(sessionStorage.username)
+            .subscribe(returnUserInfo => this.createJob2(returnUserInfo[0]));
+
     }
+    createJob2(returnUserInfo: UserInfo){
+        // console.log(returnUserInfo);
+        let job = new JobInfo();
+        job.createTime = "2017-03-21T14:36:57.640Z";
+        job.dataSet="dataset1";
+        job.id = 1;
+        job.jobPath = "";
+        job.sences = "sences";
+        job.user = returnUserInfo;
+        this.jobService.createJob(job)
+            .subscribe(msg => console.log(msg));
+        //
+        // 弹出消息框，告知创建成功
+
+        // 重新获取所有Job
+        this.jobService.getAllJobs()
+            .subscribe(Jobs => this.initialJobArray(Jobs));
+        // 调用inputchange，重新搜索
+        this.inputchange();
+        // 返回一览界面
+        this.showManage();
+    }
+
     toStep(dest:number){
         this.stepNumber = dest;
     }
@@ -92,20 +121,20 @@ export class JobCreationComponent {
         this.stepNumber = this.stepNumber + 1;
     }
     create(){
-        // console.log('ts-createjob');
-        var json  ={
-            "train_params":{
-                "batch_size":32,
-                "SBO":true,
-                "loss":"categorical_crossentropy",
-                "metrics":"accuracy",
-                "optimizer":"Adam",
-                "epochs":2,
-                "learning_rate":0.00001
-            },
-            "dataset":{},
-            "plugin":{}
-        }
-        this.resourcesService.createJob(json);
+        // // console.log('ts-createjob');
+        // var json  ={
+        //     "train_params":{
+        //         "batch_size":32,
+        //         "SBO":true,
+        //         "loss":"categorical_crossentropy",
+        //         "metrics":"accuracy",
+        //         "optimizer":"Adam",
+        //         "epochs":2,
+        //         "learning_rate":0.00001
+        //     },
+        //     "dataset":{},
+        //     "plugin":{}
+        // }
+        // this.resourcesService.createJob(json);
     }
 }

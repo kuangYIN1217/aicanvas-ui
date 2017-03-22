@@ -5,11 +5,11 @@
         <p>DeepTAC智能算法一体机管理平台V0.5</p>
         <div class="entry user">
             <img src="images/navigation/user.png">
-            <span>User</span>
+            <span>{{username}}</span>
         </div>
         <div class="entry logout">
             <img src="images/navigation/quit.png">
-            <span>Logout</span>
+            <span (click)="logout()">Logout</span>
         </div>
     </div>
     <nav [style.display]="(focusTab!=0&&needhide==0)?'':'none'">

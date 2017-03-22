@@ -30,7 +30,20 @@
                          <div>
                               <table *ngIf="parameter.shape.length==2">
                                   <tr *ngFor="let array1 of parameter.default_value;let i1 = index;">
-                                      <td *ngFor="let value1 of array1;let j1 = index;"><input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1];"></td>
+                                      <td *ngFor="let value1 of array1;let j1 = index;">
+                                          <!-- <input *ngIf="parameter.d_type!='ENUM'&&parameter.d_type!='LIST'&&parameter.d_type!='BOOL'" [placeholder]="'From '+((parameter.d_type=='INT'||parameter.d_type=='FLOAT')&&parameter.has_min?parameter.min_value:'-&infin;')+' to '+((parameter.d_type=='INT'||parameter.d_type=='FLOAT')&&parameter.has_max?parameter.max_value:'+&infin;')"
+                                              class="param_input" [value]="parameter.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=parameter.set_value;" />
+
+                                          <select *ngIf="parameter.type=='ENUM'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
+                                              <option  *ngFor="let value of parameter.allowed_values" value="{{ value }}">{{ value }}</option>
+                                          </select>
+
+                                          <select *ngIf="parameter.type=='BOOL'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
+                                              <option value="true">true</option>
+                                              <option value="false">false</option>
+                                          </select> -->
+                                          <input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1];">
+                                      </td>
                                   </tr>
                               </table>
                               <div *ngIf="parameter.shape.length==3">

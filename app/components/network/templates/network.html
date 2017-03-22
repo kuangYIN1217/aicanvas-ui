@@ -2,48 +2,26 @@
     <div class="tabs">
         <div class="tab_item"><a href="/algchains/{{scene_id}}">后退</a></div>
         <div class="tab_item">恢复出厂设置</div>
-        <div class="tab_item right">保存</div>
-        <div class="tab_item right" onclick="init()">取消</div>
+        <div class="tab_item right" onclick="saveParam()">保存</div>
+        <div class="tab_item right">取消</div>
+        <button hidden onclick="init()" id="hideBtn">Hide</button>
     </div>
     <div class="status">
         <div class="leftBox">
             <div class="condition">
-                <div id="scene_name" class="name">Loading...</div>
-                <div id="scene_description" class="description">Loading...</div>
+                <div id="scene_name" class="name"></div>
+                <div id="scene_description" class="description"></div>
             </div>
-            <div class="alg_choose" id="myPaletteDiv">
-                <!-- <div class="alg_name">Loading...</div>
+            <div class="alg_choose">
+                <div class="alg_name"></div>
                 <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
-                <div class="alg_plug">
-                    <img src="" alt="">
-                    <span>Label</span>
-                </div>
-                <div class="alg_plug">
-                    <img src="" alt="">
-                    <span>Label</span>
-                </div>
-                <div class="alg_plug">
-                    <img src="" alt="">
-                    <span>Label</span>
-                </div> -->
+                <div class="alg_choose_list" id="myPaletteDiv"></div>
             </div>
         </div>
         <div class="content" id="myDiagramDiv"></div>
-        <div class="rightBox" id="property">
-            <div class="layer_name">Loading...</div>
-            <div class="layer_params">
-                <div class="layer_param">
-                    <div class="layer_param_name">parameter1</div>
-                    <input type="text" class="layer_param_input" />
-                </div>
-                <div class="layer_param">
-                    <div class="layer_param_name">Loading...</div>
-                    <input type="text" class="layer_param_input" />
-                </div>
-                <div class="layer_param">
-                    <div class="layer_param_name">Loading...</div>
-                    <input type="text" class="layer_param_input" />
-                </div>
+        <div class="rightBox">
+            <div class="layer_name"></div>
+            <div class="layer_params"  id="property">
             </div>
         </div>
         <button id="SaveButton" onclick="save()">Save</button>
@@ -51,19 +29,19 @@
         Diagram Model saved in JSON format:
         <textarea id="mySavedModel" style="width:100%;height:300px">
             { "class": "go.GraphLinksModel",
-            "linkFromPortIdProperty": "fromPort",
-            "linkToPortIdProperty": "toPort",
-            "nodeDataArray": [
-            {"text":"layer1_1", "key":-1, "loc":"39 -152"},
-            {"text":"layer2_1", "key":-2, "loc":"38 -58"},
-            {"text":"layer2_2", "key":-3, "loc":"248 -74"},
-            {"text":"layer1_2", "key":-4, "loc":"47 95"}
-            ],
-            "linkDataArray": [
-            {"from":-1, "to":-2, "fromPort":"B", "toPort":"T", "points":[39,-135.378173828125,39,-125.378173828125,39,-105,38,-105,38,-84.621826171875,38,-74.621826171875]},
-            {"from":-2, "to":-4, "fromPort":"B", "toPort":"T", "points":[38,-41.378173828125,38,-31.378173828125,38,18.5,47,18.5,47,68.378173828125,47,78.378173828125]},
-            {"from":-4, "to":-3, "fromPort":"B", "toPort":"T", "points":[47,111.621826171875,47,121.621826171875,147.5,121.621826171875,147.5,-100.621826171875,248,-100.621826171875,248,-90.621826171875]}
-            ]}
+  "linkFromPortIdProperty": "fromPort",
+  "linkToPortIdProperty": "toPort",
+  "nodeDataArray": [
+{"text":"layer1_1", "key":-1, "loc":"-310 -312.9999999999999"},
+{"text":"layer2_1", "key":-2, "loc":"-309.9999999999999 -127"},
+{"text":"layer2_2", "key":-3, "loc":"81.00000000000006 -310.00000000000006"},
+{"text":"layer1_2", "key":-4, "loc":"-310 73.00000000000003"}
+ ],
+  "linkDataArray": [
+{"from":-1, "to":-2, "fromPort":"B", "toPort":"T", "points":[-310,-278,-310,-268,-310,-220,-310,-220,-310,-172,-310,-162]},
+{"from":-2, "to":-4, "fromPort":"B", "toPort":"T", "points":[-310,-92,-310,-82,-310,-27,-310,-27,-310,28,-310,38]},
+{"from":-4, "to":-3, "fromPort":"B", "toPort":"T", "points":[-310,108,-310,118,-114.5,118,-114.5,-355,81,-355,81,-345]}
+ ]}
         </textarea>
         <textarea id="testJson">
             { "layers": [

@@ -1,26 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
+import { UserService } from '../../common/services/user.service'
+
 declare var $:any;
 @Component({
   moduleId: module.id,
   selector: 'login',
   styleUrls: ['./css/login.component.css'],
-  templateUrl: './templates/login.html'
+  templateUrl: './templates/login.html',
+  providers: [ResourcesService,UserService]
 })
 export class LoginComponent implements OnInit{
     validCode: string = "";
     digit:number =6;
-    logined:number = 0;
     username: string = "";
-    constructor(private resourcesService: ResourcesService){
-        if((!sessionStorage.authenticationToken)&&sessionStorage.authenticationToken!=""){
-            this.logined = 0;
+    constructor(private resourcesService: ResourcesService, private userService: UserService){
+        if((!sessionStorage.authenticationToken)||sessionStorage.authenticationToken==""){
+            // this.logined = 0;
+            // console.log(sessionStorage.authenticationToken);
         }else{
             let token = sessionStorage.authenticationToken;
-            // get username
-            this.username = this.resourcesService.getUsername(token);
-            this.logined = 1;
-
+            // modal for going to overview
+            // userService.getAccount().subscribe(account => console.log(account));
+            // console.log(userService.getAccount());
+            console.log("already logined : ");
+            console.log(token);
+            window.location.href = "/overview";
         }
     }
     ngOnInit(){
@@ -85,21 +90,36 @@ export class LoginComponent implements OnInit{
     }
 
     login(){
+        // let info;
+        // this.userService.getAllUsers(0,10).subscribe(msg => console.log(msg));
+        // console.log(info);
+        // this.userService.getUser("user").subscribe(msg => console.log(msg));
+
         var username = $('#username').val();
         var pwd = $('#password').val();
         var valid = $('#surePwd').val();
-        console.log(valid);
+        // console.log(valid);
         if (valid!=this.validCode){
             alert('Wrong validCode!');
             $('surePwd').value="";
             this.changeValidCode();
         }else{
-            let result = this.resourcesService.login(username, pwd);
-            console.log(result);
-            // if(result=="null"){
-            //
-            // }
-            // sessionStorage.authenticationToken = result;
+            // let token: string = "";
+            let result = this.userService.authorize(username, pwd)
+                .subscribe(returnToken => this.validToken(returnToken,username));
+        }
+    }
+
+    validToken(returnToken,username){
+        console.log(returnToken);
+        if(returnToken&&returnToken.id_token){
+            sessionStorage.authenticationToken = returnToken.id_token;
+            sessionStorage.username = username;
+            console.log(sessionStorage.authenticationToken);
+            alert('登陆成功!');
+            window.location.href = "/overview";
+        }else{
+            alert('登陆失败!');
         }
     }
 }

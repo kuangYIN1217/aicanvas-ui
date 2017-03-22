@@ -112,7 +112,6 @@
   position: relative;
   width: 100%;
   background-color: #191919;
-
   min-height:330px;
   height:auto;
 }
@@ -120,7 +119,6 @@
   margin-top:35px;
 }
 .GPU_3{
-
   min-height:551px;
   height:auto;
 }
@@ -159,9 +157,6 @@
   float: left;
   margin-top:20px;
   margin-left: 70px;
-
-
-
 }
 
 
@@ -204,4 +199,45 @@
   margin-left: 20px;
 
   margin-top:55px;
+}
+#cpuwave{
+    width: 1034px;
+    float: left;
+}
+.cpuwaveDescription{
+    position: relative;
+    margin-left: 36px;
+    margin-top: 250px;
+    width: 600px;
+    height: 250px;
+    background: transparent;
+    float: left;
+}
+.cpuwaveDescription .line{
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 25px;
+    font-size: 18px;
+    color: #ffffff;
+    text-align: left;
+}
+.cube{
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+.red{
+    background-color: red;
+}
+.yellow{
+    background-color: yellow;
+}
+.skyblue{
+    background-color: skyblue;
+}
+.orange{
+    background-color: orange;
+}
+.green{
+    background-color: green;
 }

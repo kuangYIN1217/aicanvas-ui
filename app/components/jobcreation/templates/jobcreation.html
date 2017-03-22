@@ -20,17 +20,20 @@
                 <th class="operation">操作</th>
                 <th class="formore">详情</th>
                 <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="(((i+1)>=(page-1)*pageMaxItem+1)&&(i+1)<=(page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem))?'':'none'">
-                    <td>{{jobInfo.job_name}}</td>
-                    <td>{{jobInfo.job_scene}}</td>
-                    <td>{{jobInfo.job_createTime}}</td>
-                    <td>{{jobInfo.job_status}}</td>
-                    <td>{{jobInfo.job_progress}}%</td>
+                    <td>{{jobInfo.id}}</td>
+                    <!-- <td>{{jobInfo.job_scenes}}</td> -->
+                    <td>{{jobInfo.sences}}</td>
+                    <td>{{jobInfo.createTime}}</td>
+                    <td>{{jobInfo.jobPath}}</td>
+                    <td>{{jobInfo.dataset}}%</td>
+                    <!-- <td>{{jobInfo.job_status}}</td>
+                    <td>{{jobInfo.job_progress}}%</td> -->
                     <td class="operationTd">
                         <div class="operationBtn stop" (click)="stop(jobInfo.job_id)"></div>
                         <div class="operationBtn start" (click)="start(jobInfo.job_id)"></div>
                         <div class="operationBtn pause" (click)="pause(jobInfo.job_id)"></div>
                     </td>
-                    <td><a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.job_id}}">查看详情</a></td>
+                    <td><a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a></td>
                 </tr>
             </table>
             <div class="bottom_menu">
