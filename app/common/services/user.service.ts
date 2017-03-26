@@ -95,10 +95,11 @@ export class UserService {
         return this.http.post(this.SERVER_URL+path ,body,{ headers: headers})
         .map((response: Response)=> {
             if (response && response.json()) {
-                if(Number(response.status)==200){
+                if(response.status==200){
                     return response.json();
+                }else{
+                    return "fail";
                 }
-                return "null";
             }
         });
     }

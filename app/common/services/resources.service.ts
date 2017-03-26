@@ -49,7 +49,7 @@ export class ResourcesService {
                 if (response && response.json()) {
                     let array = plainToClass(PluginInfo, response.json());
                     for (let plugin of array){
-                        if (plugin.plugin_id == plugin_id){
+                        if (plugin.plugin_id == plugin_id+""){
                             console.log(plugin);
                             return plugin;
                         }

@@ -1,36 +1,51 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common'
 import { ResourcesService } from '../../common/services/resources.service'
-
-import { SceneInfo } from "../../common/defs/resources";
+import { PluginService } from '../../common/services/plugin.service'
+import { SceneInfo,PluginInfo } from "../../common/defs/resources";
+import { TrainingNetwork } from "../../common/defs/parameter";
 declare var $:any;
 @Component({
   moduleId: module.id,
   selector: 'network',
   styleUrls: ['./css/network.component.css'],
   templateUrl: './templates/network.html',
-  providers: [ResourcesService]
+  providers: [ResourcesService,PluginService]
 })
 export class NetworkComponent{
+    type: string = "";
+
     scene_id: number;
-    scene: SceneInfo = new SceneInfo;
+    scene: SceneInfo = new SceneInfo();
     sceneArray: SceneInfo[];
-    constructor(private resourcesService: ResourcesService, private location: Location){
+
+    plugin_id: string;
+    plugin: PluginInfo = new PluginInfo();
+    constructor(private resourcesService: ResourcesService, private pluginService: PluginService, private location: Location){
         if (this.location.path(false).indexOf('/network/')!=-1){
             let id = this.location.path(false).split('/network/')[1];
             if(id){
-                this.scene_id = Number(id);
-            }
-            resourcesService.getScenes()
-                .subscribe(sceneArray => this.sceneArray = sceneArray);
-            if(!this.sceneArray){
-                this.authenticate_loop();
-            }else{
-                this.insertData();
-                $("#hideBtn").click();
+                if((Number(id)+"")!=NaN+""){
+                    this.scene_id = Number(id);
+                    this.type = "scene";
+                    resourcesService.getScenes()
+                        .subscribe(sceneArray => this.sceneArray = sceneArray);
+                    if(!this.sceneArray){
+                        this.authenticate_loop();
+                    }else{
+                        this.insertData();
+                        $("#hideBtn").click();
+                    }
+                }else{
+                    this.plugin_id = id;
+                    this.type = "plugin";
+                    pluginService.getPlugin(id)
+                    .subscribe(plugin => this.getPlugin(plugin));
+                }
             }
         }
     }
+    
     private authenticate_loop() {
         setTimeout (() => {
             //console.log("Hello from setTimeout");
@@ -51,10 +66,26 @@ export class NetworkComponent{
             }
         }, 50);
     }
+
     insertData(){
         $('#scene_name').html(this.scene.scene_name);
         $('#scene_description').html("场景描述:<br>"+this.scene.scene_description);
         $('.alg_name').html('AlgPlug1');
         // $('.layer_name').html('Input_1');
+    }
+
+    getPlugin(plugin){
+        let training_network_json = plugin.training_network;
+        let training_network: TrainingNetwork = JSON.parse(training_network_json);
+        plugin.training_network = training_network;
+        this.plugin = plugin;
+    }
+
+    backup(){
+        if(this.type=="scene"){
+            window.location.href = "/algchains/"+this.scene_id;
+        }else{
+            window.location.href = "/algpluginDetail/"+this.plugin_id;
+        }
     }
 }

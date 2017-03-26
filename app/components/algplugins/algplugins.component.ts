@@ -10,24 +10,28 @@ declare var jsPlumb:any;
   selector: 'algplugins',
   styleUrls: ['./css/algplugins.component.css'],
   templateUrl: './templates/algplugins.html',
-  providers: [ResourcesService,PluginService],
+  providers: [PluginService],
 })
 export class AlgPluginsComponent{
     // store data of Plugins
     plugins: PluginInfo[] = [];
     // show one of two different table
     showSystemPlugin: number = 1;
-    constructor(private resourcesService: ResourcesService, private pluginService: PluginService) {
-        let info = pluginService.getAllPlugin();
-        console.log(info);
-        resourcesService.getPlugins()
+    constructor(private pluginService: PluginService) {
+        pluginService.getAllPlugins()
             .subscribe(plugins => this.plugins = plugins);
+        // console.log(this.showSystemPlugin);
     }
     sysTemplateClick(){
+        // console.log("to Sys");
         this.showSystemPlugin = 1;
+        // console.log(this.showSystemPlugin);
+        // console.log(this.plugins);
     }
 
     selfTemplateClick(){
+        // console.log("to Self");
         this.showSystemPlugin = 0;
+        // console.log(this.showSystemPlugin);
     }
 }

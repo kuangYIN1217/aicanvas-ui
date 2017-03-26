@@ -85,10 +85,19 @@ export class JobCreationComponent {
     }
     // createJob
     createJob(){
-        // this.jobPageStatus = "createJob";
+        this.jobPageStatus = "createJob";
+    }
+
+    toStep(dest:number){
+        this.stepNumber = dest;
+    }
+
+    nextStep(){
+        this.stepNumber = this.stepNumber + 1;
+    }
+    create(){
         this.userService.getUser(sessionStorage.username)
             .subscribe(returnUserInfo => this.createJob2(returnUserInfo[0]));
-
     }
     createJob2(returnUserInfo: UserInfo){
         // console.log(returnUserInfo);
@@ -112,29 +121,13 @@ export class JobCreationComponent {
         // 返回一览界面
         this.showManage();
     }
-
-    toStep(dest:number){
-        this.stepNumber = dest;
+    start(jobPath: string){
+        this.jobService.runJob(jobPath);
     }
-
-    nextStep(){
-        this.stepNumber = this.stepNumber + 1;
+    pause(jobPath: string){
+        this.jobService.stopJob(jobPath);
     }
-    create(){
-        // // console.log('ts-createjob');
-        // var json  ={
-        //     "train_params":{
-        //         "batch_size":32,
-        //         "SBO":true,
-        //         "loss":"categorical_crossentropy",
-        //         "metrics":"accuracy",
-        //         "optimizer":"Adam",
-        //         "epochs":2,
-        //         "learning_rate":0.00001
-        //     },
-        //     "dataset":{},
-        //     "plugin":{}
-        // }
-        // this.resourcesService.createJob(json);
+    stop(jobPath: string){
+
     }
 }

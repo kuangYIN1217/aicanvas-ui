@@ -2,31 +2,31 @@
     <div id = "detailDiv">
         <div class="tabs">
             <div id="tab_item0" class="tab_item"><a routerLinkActive="active" routerLink="/algplugins">返回</a></div>
-            <div (click)="detailDivChooseClick(1)" id="tab_item1" class="tab_item" [class.focus]="detailDivChoose==1">参数列表</div>
-            <div (click)="detailDivChooseClick(2)" id="tab_item2" class="tab_item" [style.display]="plugin.has_training_network==0?'none':''" [class.focus]="detailDivChoose==2">网络层</div>
+            <div id="tab_item1" class="tab_item focus">参数列表</div>
+            <div id="tab_item2" (click)="toNetwork()" class="tab_item" [style.display]="plugin.has_training_network==0?'none':''">网络层</div>
             <div (click)="fork()" id="tab_item3" class="tab_item">保存</div>
         </div>
     </div>
-     <div [style.display]="detailDivChoose==1 ? '' : 'none'" id="systemDiv" class="status">
+    <div id="systemDiv" class="status">
          <table id="paramTable" class="table">
              <th id="param_name">Param_name</th>
              <th id="param_value">Default Value</th>
              <tr *ngFor="let parameter of plugin.editable_param_list;let param_num = index;">
                  <td>{{ parameter.name }}</td>
                  <td>
-                     <input *ngIf="parameter.type!='ENUM'&&parameter.type!='LIST'&&parameter.type!='BOOL'" [placeholder]="'From '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_min?parameter.min_value:'-&infin;')+' to '+((parameter.type=='INT'||parameter.type=='FLOAT')&&parameter.has_max?parameter.max_value:'+&infin;')"
-                         class="param_input" [value]="parameter.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=parameter.set_value;" />
+                     <input *ngIf="parameter.type!='enums'&&parameter.type!='list'&&parameter.type!='boolean'" [placeholder]="'From '+((parameter.type=='int'||parameter.type=='float')&&parameter.has_min?parameter.min_value:'-&infin;')+' to '+((parameter.type=='int'||parameter.type=='float')&&parameter.has_max?parameter.max_value:'+&infin;')"
+                         class="param_input" [value]="parameter.set_value" (change)="setValue(parameter,$event.target.value);$event.target.value=parameter.set_value;" />
 
-                     <select *ngIf="parameter.type=='ENUM'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
+                     <select *ngIf="parameter.type=='enums'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;">
                          <option  *ngFor="let value of parameter.allowed_values" value="{{ value }}">{{ value }}</option>
                      </select>
 
-                     <select *ngIf="parameter.type=='BOOL'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;test(param_num);">
+                     <select *ngIf="parameter.type=='boolean'" class="select" name="data_select" (change)="parameter.set_value=$event.target.value;">
                          <option value="true">true</option>
                          <option value="false">false</option>
                      </select>
 
-                     <div *ngIf="parameter.type=='LIST'"class="select" name="data_select">
+                     <div *ngIf="parameter.type=='list'"class="select" name="data_select">
                          <div>
                               <table *ngIf="parameter.shape.length==2">
                                   <tr *ngFor="let array1 of parameter.default_value;let i1 = index;">
@@ -42,7 +42,7 @@
                                               <option value="true">true</option>
                                               <option value="false">false</option>
                                           </select> -->
-                                          <input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1];">
+                                          <input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=parameter.set_value[i1][j1];">
                                       </td>
                                   </tr>
                               </table>
@@ -53,7 +53,7 @@
                                   <table>
                                       <tr *ngFor="let array2 of array_2d;let j2 = index;">
                                           <td *ngFor="let value2 of array2;let z2 = index;">
-                                              <input type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);test(param_num);$event.target.value=parameter.set_value[i1][j1][z1];"/>
+                                              <input type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=parameter.set_value[i1][j1][z1];"/>
                                           </td>
                                       </tr>
                                   </table>
@@ -63,22 +63,5 @@
                  </td>
              </tr>
          </table>
-     </div>
-     <div [style.display]="detailDivChoose==2 ? '' : 'none'" id="systemDiv" class="status">
-         <div class="content-container">
-             <div id="left">
-             </div>
-
-             <div id="right">
-               <p align="center">拖拉到此区域</p>
-             </div>
-             <div class="save">
-                 <p align="center">属性配置</p>
-                 <div id="property1"></div>
-                  <div id="saveBtn">
-                     <input type="button" value="保存" onclick="save()" />
-                  </div>
-            </div>
-         </div>
      </div>
 </div>

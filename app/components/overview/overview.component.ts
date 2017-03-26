@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
+import { JobService } from '../../common/services/job.service'
 
 import { CpuInfo } from "../../common/defs/resources";
 import { JobInfo } from "../../common/defs/resources";
@@ -10,7 +11,7 @@ import * as d3 from 'd3';
     selector: 'overview',
     styleUrls: ['./css/overview.component.css'],
     templateUrl: './templates/overview.html',
-    providers: [ResourcesService]
+    providers: [ResourcesService,JobService]
 })
 export class OverviewComponent {
     // infomation of cpu
@@ -19,10 +20,10 @@ export class OverviewComponent {
     // show resource or task 0--resource, 1--task
     tabIndex: number = 0;
 
-    constructor(private resourcesService: ResourcesService) {
+    constructor(private resourcesService: ResourcesService, private jobService: JobService) {
         resourcesService.getCpuInfo()
         .subscribe(cpuInfoArray => this.cpuInfoArray = cpuInfoArray);
-        resourcesService.getJobs()
+        jobService.getAllJobs()
         .subscribe(jobArray => this.jobArray = jobArray);
 
         setTimeout (() => {

@@ -4,16 +4,19 @@ import { UserService } from '../../common/services/user.service'
 
 declare var $:any;
 @Component({
-  moduleId: module.id,
-  selector: 'login',
-  styleUrls: ['./css/login.component.css'],
-  templateUrl: './templates/login.html',
-  providers: [ResourcesService,UserService]
+    moduleId: module.id,
+    selector: 'login',
+    styleUrls: ['./css/login.component.css'],
+    templateUrl: './templates/login.html',
+    providers: [ResourcesService,UserService]
 })
 export class LoginComponent implements OnInit{
     validCode: string = "";
     digit:number =6;
     username: string = "";
+    msg_header = "";
+    msg_content = "";
+    msg_show = false;
     constructor(private resourcesService: ResourcesService, private userService: UserService){
         if((!sessionStorage.authenticationToken)||sessionStorage.authenticationToken==""){
             // this.logined = 0;
@@ -51,16 +54,6 @@ export class LoginComponent implements OnInit{
         context.textBaseline = 'top';
         // 填充字符串
         context.fillText(this.validCode,2,33);
-
-
-        // var width = 90;// 画布的宽度
-        // var height = 35;// 画布的高度
-        // var svg = d3.select(".surePwd").append("svg")
-        //     .attr("opacity",0.6).attr("width", width).attr("height", height);
-        // var dataset = [ 0 ];
-        // var rectHeight = 35;
-        // svg.selectAll("rect").data(dataset).enter().append("rect")
-        //     .attr("x",0).attr("y",0).attr("width",90).attr("height",35).attr("fill","steelblue");
     }
 
 
@@ -90,36 +83,42 @@ export class LoginComponent implements OnInit{
     }
 
     login(){
-        // let info;
-        // this.userService.getAllUsers(0,10).subscribe(msg => console.log(msg));
-        // console.log(info);
-        // this.userService.getUser("user").subscribe(msg => console.log(msg));
-
         var username = $('#username').val();
         var pwd = $('#password').val();
         var valid = $('#surePwd').val();
         // console.log(valid);
         if (valid!=this.validCode){
-            alert('Wrong validCode!');
+            this.showMessage("验证码错误");
             $('surePwd').value="";
             this.changeValidCode();
         }else{
             // let token: string = "";
             let result = this.userService.authorize(username, pwd)
-                .subscribe(returnToken => this.validToken(returnToken,username));
+            .subscribe(returnToken => this.validToken(returnToken,username));
         }
     }
 
     validToken(returnToken,username){
         console.log(returnToken);
-        if(returnToken&&returnToken.id_token){
+        if(returnToken=="fail"){
+            this.showMessage("登陆失败");
+        }else if(returnToken&&returnToken.id_token){
             sessionStorage.authenticationToken = returnToken.id_token;
             sessionStorage.username = username;
             console.log(sessionStorage.authenticationToken);
-            alert('登陆成功!');
+            this.showMessage("登陆成功");
+        }
+    }
+
+    showMessage(message: string){
+        this.msg_show = true;
+        this.msg_header = "登陆提示";
+        this.msg_content = message;
+    }
+    hideMessageBox(){
+        this.msg_show = false;
+        if (this.msg_content=="登陆成功"){
             window.location.href = "/overview";
-        }else{
-            alert('登陆失败!');
         }
     }
 }

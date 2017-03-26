@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { JobInfo, JobProcess } from "../defs/resources";
+import { JobParameter } from "../../common/defs/resources";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
 @Injectable()
@@ -48,13 +49,13 @@ export class JobService {
         });
     }
 
-    getJob(jobPath: string): Observable<JobInfo[]>{
+    getJob(jobPath: string): Observable<JobParameter[]>{
         let path = "/api/job/"+jobPath;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return response.json();
+                    return plainToClass(JobParameter, response.json());
                 }
         });
     }
@@ -68,7 +69,7 @@ export class JobService {
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
                 if (response && response.json()) {
-                    console.log(response.json());
+                    // console.log(response.json());
                     return plainToClass(JobInfo, response.json());
                 }
         });

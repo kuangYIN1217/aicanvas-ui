@@ -28,24 +28,30 @@ export class PluginService {
         return headers;
     }
 
-    savePlugin(PluginInfo){
+    savePlugin(pluginInfo){
         let path = "/api/plugins";
         let body = JSON.stringify({
-                "password": "password",
-                "rememberMe": true,
-                "username": "username"
+                "plugin_id": pluginInfo.plugin_id,
+                "plugin_name": pluginInfo.plugin_name,
+                "plugin_owner": pluginInfo.plugin_owner,
+                "original_plugin_id": pluginInfo.original_plugin_id,
+                "plugin_description": pluginInfo.plugin_description,
+                "algorithm": pluginInfo.algorithm,
+                "has_training_network": pluginInfo.has_training_network,
+                "training_network": pluginInfo.training_network,
+                "editable_param_list": pluginInfo.editable_param_list
         });
         let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return plainToClass(PluginInfo, response.json());
+                    return response.json();
                 }
         });
     }
 
     getPlugin(pluginId: string): Observable<PluginInfo[]>{
-        let path = "/api/plugins/"+pluginId;
+        let path = "/api/plugin/"+pluginId;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
             .map((response: Response) => {
@@ -55,7 +61,7 @@ export class PluginService {
         });
     }
 
-    getAllPlugin(): Observable<PluginInfo[]>{
+    getAllPlugins(): Observable<PluginInfo[]>{
         let path = "/api/plugins";
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path,{ headers: headers })

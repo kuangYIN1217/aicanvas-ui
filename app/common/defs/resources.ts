@@ -41,7 +41,7 @@ export class UserInfo{
 }
 export class PluginInfo{
     // the id of the Plugin
-    id: number;
+    plugin_id: string;
     // The translated name of the Plugin.
     plugin_name: string;
     // the owner/creator of the Plugin     'admin' represent admins ,other represent normal user
@@ -99,6 +99,13 @@ export class JobInfo{
     //     // this.job_status = job_status;
     //     // this.job_progress = job_progress;
     // }
+}
+export class JobParameter{
+    loss: string;
+    epoch: string;
+    val_loss: string;
+    acc: string;
+    val_acc: string;
 }
 export class JobProcess{
     acc: string;

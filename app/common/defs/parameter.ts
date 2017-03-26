@@ -1,7 +1,9 @@
 import { Layer, Link } from './training-network';
 import {Type, plainToClass} from "class-transformer";
 
-export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';
+// export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';
+export type ParameterType = 'string'|'boolean'|'int'|'float'|'enums'|'list';
+
 
 export class Parameter {
   name: string;
@@ -29,9 +31,9 @@ export class Parameter {
 
   // When ParamType is INT or FLOAT, allow the following attribute to specify the range of the input data.
   has_min: boolean;
-  min_value: number;
+  min_value: any;
   has_max: boolean;
-  max_value: number;
+  max_value: any;
 
   // More on lvl/history_values.
 }
