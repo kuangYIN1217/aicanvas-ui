@@ -45,7 +45,7 @@ export class NetworkComponent{
             }
         }
     }
-    
+
     private authenticate_loop() {
         setTimeout (() => {
             //console.log("Hello from setTimeout");
@@ -78,6 +78,8 @@ export class NetworkComponent{
         let training_network_json = plugin.training_network;
         let training_network: TrainingNetwork = JSON.parse(training_network_json);
         plugin.training_network = training_network;
+        $('#json_storage').val(JSON.stringify(plugin.training_network));
+        console.log(plugin.training_network);
         this.plugin = plugin;
     }
 
