@@ -379,7 +379,7 @@ function saveParam() {
         for (var i = 0;i<test["layers"].length;i++){
             if (test1[j].id == test["layers"][i].name && test1[j].name == test["layers"][i].config.name){
                 test["layers"][i].config.sparse = test1[j].value;
-                console.log(JSON.stringify(test["layers"]));
+                // console.log(JSON.stringify(test["layers"]));
                 // console.log(test1[j].value);
 
             }else {
@@ -389,6 +389,7 @@ function saveParam() {
         }
         // 重新赋值
         document.getElementById("json_storage").value = test;
+        console.log(test);
         document.getElementById("saveBtn").click();
     }
     // str1 = "{" + str1 + "}";
