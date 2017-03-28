@@ -44,8 +44,8 @@ export class PluginService {
         let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
             .map((response: Response) => {
-                if (response && response.json()) {
-                    return response.json();
+                if (response) {
+                    return response;
                 }
         });
     }

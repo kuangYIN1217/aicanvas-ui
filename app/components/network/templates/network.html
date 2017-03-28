@@ -4,12 +4,13 @@
         <div class="tab_item">恢复出厂设置</div>
         <div class="tab_item right" onclick="saveParam()">保存</div>
         <div class="tab_item right">取消</div>
-        <input  id="json_storage" />
+        <input hidden id="json_storage" />
         <button hidden onclick="init()" id="hideBtn" >Hide</button>
+        <button hidden onclick="save()" id="saveBtn" >Hide</button>
     </div>
     <div class="status">
         <div class="leftBox">
-            <div class="condition">
+            <div class="condition" [style.display]="type==scene?'':'none'">
                 <div id="scene_name" class="name"></div>
                 <div id="scene_description" class="description"></div>
             </div>
@@ -25,24 +26,24 @@
             <div class="layer_params"  id="property">
             </div>
         </div>
-        <button id="SaveButton" onclick="save()">Save</button>
+        <!-- <button id="SaveButton" onclick="save()">Save</button>
         <button onclick="load()">Load</button>
         Diagram Model saved in JSON format:
         <textarea id="mySavedModel" style="width:100%;height:300px">
             { "class": "go.GraphLinksModel",
-  "linkFromPortIdProperty": "fromPort",
-  "linkToPortIdProperty": "toPort",
-  "nodeDataArray": [
-{"text":"layer1_1", "key":-1, "loc":"-310 -312.9999999999999"},
-{"text":"layer2_1", "key":-2, "loc":"-309.9999999999999 -127"},
-{"text":"layer2_2", "key":-3, "loc":"81.00000000000006 -310.00000000000006"},
-{"text":"layer1_2", "key":-4, "loc":"-310 73.00000000000003"}
- ],
-  "linkDataArray": [
-{"from":-1, "to":-2, "fromPort":"B", "toPort":"T", "points":[-310,-278,-310,-268,-310,-220,-310,-220,-310,-172,-310,-162]},
-{"from":-2, "to":-4, "fromPort":"B", "toPort":"T", "points":[-310,-92,-310,-82,-310,-27,-310,-27,-310,28,-310,38]},
-{"from":-4, "to":-3, "fromPort":"B", "toPort":"T", "points":[-310,108,-310,118,-114.5,118,-114.5,-355,81,-355,81,-345]}
- ]}
+            "linkFromPortIdProperty": "fromPort",
+            "linkToPortIdProperty": "toPort",
+            "nodeDataArray": [
+            {"text":"layer1_1", "key":-1, "loc":"-310 -312.9999999999999"},
+            {"text":"layer2_1", "key":-2, "loc":"-309.9999999999999 -127"},
+            {"text":"layer2_2", "key":-3, "loc":"81.00000000000006 -310.00000000000006"},
+            {"text":"layer1_2", "key":-4, "loc":"-310 73.00000000000003"}
+            ],
+            "linkDataArray": [
+            {"from":-1, "to":-2, "fromPort":"B", "toPort":"T", "points":[-310,-278,-310,-268,-310,-220,-310,-220,-310,-172,-310,-162]},
+            {"from":-2, "to":-4, "fromPort":"B", "toPort":"T", "points":[-310,-92,-310,-82,-310,-27,-310,-27,-310,28,-310,38]},
+            {"from":-4, "to":-3, "fromPort":"B", "toPort":"T", "points":[-310,108,-310,118,-114.5,118,-114.5,-355,81,-355,81,-345]}
+            ]}
         </textarea>
         <textarea id="testJson">
             { "layers": [
@@ -101,6 +102,6 @@
             }
             ]
         }
-    </textarea>
+    </textarea> -->
 </div>
 </div>

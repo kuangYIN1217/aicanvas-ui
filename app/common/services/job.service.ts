@@ -32,7 +32,7 @@ export class JobService {
         let path = "/api/job";
         // console.log(job);
         let body = JSON.stringify(job);
-        console.log(body);
+        // console.log(body);
         // let headers = this.getHeaders();
         let headers = new Headers();
         headers.append('Content-Type','application/json');
@@ -80,8 +80,8 @@ export class JobService {
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
-                if (response && response.json()) {
-                    return response.json();
+                if (response) {
+                    return response;
                 }
         });
     }

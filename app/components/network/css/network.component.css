@@ -76,7 +76,6 @@ a{
 }
 .alg_choose{
     margin-left: 20px;
-    height: 500px;
 }
 .alg_name{
     color: #eeeee1;
@@ -111,7 +110,7 @@ a{
 .content{
     overflow: auto;
     width: 1300px;
-    height: 800px;
+    height: 1000px;
     float: left;
     background-color: #191919;
 }

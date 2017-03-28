@@ -39,10 +39,10 @@
             <div class="bottom_menu">
                 <div class="label">Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem}} of {{page*pageMaxItem>Jobs_current.length?Jobs_current.length-(page-1)*pageMaxItem:pageMaxItem}} items</div>
                 <div class="selectDiv" >
-                    <select class="select_pagemax"(change)="page=1;pageMaxItem=$event.target.value">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
+                    <select class="select_pagemax"(change)="maxItemChange($event.target.value);">
+                        <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                        <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                        <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
                     </select>
                 </div>
                 <div class="pagebtn" (click)="nextPage()">Next</div>

@@ -18,6 +18,11 @@ export class AlgPluginsComponent{
     // show one of two different table
     showSystemPlugin: number = 1;
     constructor(private pluginService: PluginService) {
+        if(sessionStorage.showSystemPlugin){
+            this.showSystemPlugin = sessionStorage.showSystemPlugin;
+        }else{
+            sessionStorage.showSystemPlugin = 1;
+        }
         pluginService.getAllPlugins()
             .subscribe(plugins => this.plugins = plugins);
         // console.log(this.showSystemPlugin);
@@ -25,6 +30,7 @@ export class AlgPluginsComponent{
     sysTemplateClick(){
         // console.log("to Sys");
         this.showSystemPlugin = 1;
+        sessionStorage.showSystemPlugin = 1;
         // console.log(this.showSystemPlugin);
         // console.log(this.plugins);
     }
@@ -32,6 +38,7 @@ export class AlgPluginsComponent{
     selfTemplateClick(){
         // console.log("to Self");
         this.showSystemPlugin = 0;
+        sessionStorage.showSystemPlugin = 0;
         // console.log(this.showSystemPlugin);
     }
 }

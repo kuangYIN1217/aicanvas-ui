@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
-
+import { RouterModule, Routes, Router } from '@angular/router';
 import { JobInfo, UserInfo } from "../../common/defs/resources";
 
 @Component({
@@ -25,9 +25,18 @@ export class JobCreationComponent {
     // store search content
     search_input: string = "";
 
-    constructor(private jobService: JobService, private userService: UserService) {
+    constructor(private jobService: JobService, private userService: UserService, private router: Router) {
         jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
+        if(sessionStorage.pageMaxItem){
+            this.pageMaxItem = sessionStorage.pageMaxItem;
+        }
+        if(sessionStorage.page){
+            this.page = sessionStorage.page;
+        }
+        if(sessionStorage.search_input){
+            this.search_input = sessionStorage.search_input;
+        }
     }
     initialJobArray(Jobs){
         this.Jobs = Jobs;
@@ -40,6 +49,7 @@ export class JobCreationComponent {
                 this.Jobs_current.push(job);
             }
         }
+        sessionStorage.search_input = this.search_input;
     }
     //table operations
     showManage(){
@@ -50,11 +60,13 @@ export class JobCreationComponent {
             alert('已经是最后一页');
         }else{
             this.page++;
+            sessionStorage.page = this.page;
         }
     }
     previousPage(){
         if (this.page>1){
             this.page--;
+            sessionStorage.page = this.page;
         }else{
             alert('已经是首页');
         }
@@ -109,25 +121,60 @@ export class JobCreationComponent {
         job.sences = "sences";
         job.user = returnUserInfo;
         this.jobService.createJob(job)
-            .subscribe(msg => console.log(msg));
+            .subscribe(msg => this.createJob3(msg));
         //
         // 弹出消息框，告知创建成功
 
-        // 重新获取所有Job
-        this.jobService.getAllJobs()
-            .subscribe(Jobs => this.initialJobArray(Jobs));
-        // 调用inputchange，重新搜索
-        this.inputchange();
-        // 返回一览界面
-        this.showManage();
+
+    }
+    createJob3(msg){
+        // console.log(msg);
+        // console.log(msg.jobPath);
+        // 运行Job
+        this.jobService.runJob(msg.jobPath)
+            .subscribe(reply => this.createJob4(reply,msg.jobPath));
+    }
+    createJob4(reply,jobPath){
+        console.log(reply.status);
+        // 成功运行
+        if(reply.status==200){
+            // 重新获取所有Job
+            this.jobService.getAllJobs()
+                .subscribe(Jobs => this.initialJobArray(Jobs));
+            // 前往详情界面
+            this.router.navigate(['/jobDetail', jobPath]);
+        }else{
+            // 运行失败报错
+        }
     }
     start(jobPath: string){
-        this.jobService.runJob(jobPath);
+        this.jobService.runJob(jobPath)
+            .subscribe(reply => this.start_reply(reply));
+    }
+    start_reply(reply){
+        if(reply.status==200){
+            console.log("Start Successfully!");
+        }else{
+            console.log("Start Failed!");
+        }
     }
     pause(jobPath: string){
-        this.jobService.stopJob(jobPath);
+
     }
     stop(jobPath: string){
-
+        this.jobService.stopJob(jobPath)
+            .subscribe(reply => this.stop_reply(reply));
+    }
+    stop_reply(reply){
+        if(reply.status==200){
+            console.log("Stoped!");
+        }else{
+            console.log("Stop Failed!");
+        }
+    }
+    maxItemChange(maxItemNum){
+        this.page=1;
+        this.pageMaxItem=maxItemNum;
+        sessionStorage.pageMaxItem = maxItemNum;
     }
 }

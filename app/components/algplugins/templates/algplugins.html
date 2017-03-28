@@ -1,8 +1,8 @@
 <div class="container">
     <div id="modalDiv">
       <div class="tabs">
-        <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [class.focus]="showSystemPlugin">系统模版</div>
-        <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [class.focus]="!showSystemPlugin">自定义模版</div>
+        <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [class.focus]="showSystemPlugin==1">系统模版</div>
+        <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [class.focus]="showSystemPlugin==0">自定义模版</div>
       </div>
       <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
           <div id="title"></div>
@@ -11,7 +11,7 @@
           <th class="plugin_name">Name</th>
           <th class="plugin_description">Description</th>
           <th class="operation">Operation</th>
-          <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_owner!='general'?'':'none'">
+          <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_owner=='general'?'':'none'">
             <td>{{ plugin.plugin_id }}</td>
             <td>{{ plugin.plugin_name }}</td>
             <td>{{ plugin.plugin_description }}</td>
@@ -25,7 +25,7 @@
             <th class="plugin_name">Name</th>
             <th class="plugin_description">Description</th>
             <th class="operation">Operation</th>
-            <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_owner=='general'?'':'none'">
+            <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_owner!='general'?'':'none'">
                 <td>{{ plugin.plugin_id }}</td>
                 <td>{{ plugin.plugin_name }}</td>
                 <td>{{ plugin.plugin_description }}</td>

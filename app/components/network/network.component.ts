@@ -79,8 +79,9 @@ export class NetworkComponent{
         let training_network: TrainingNetwork = JSON.parse(training_network_json);
         plugin.training_network = training_network;
         $('#json_storage').val(JSON.stringify(plugin.training_network));
-        console.log(plugin.training_network);
+        // console.log(plugin.training_network);
         this.plugin = plugin;
+        $("#hideBtn").click();
     }
 
     backup(){
@@ -89,5 +90,16 @@ export class NetworkComponent{
         }else{
             window.location.href = "/algpluginDetail/"+this.plugin_id;
         }
+    }
+
+    save(){
+        let json = $('#json_storage').val();
+        let training_network: TrainingNetwork = JSON.parse(json);
+        this.plugin.training_network = training_network;
+        this.pluginService.savePlugin(msg)
+            .subscribe(msg => this.saveMsg(msg));
+    }
+    saveMsg(msg){
+        console.log(msg);
     }
 }
