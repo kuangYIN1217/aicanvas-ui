@@ -11,9 +11,11 @@ import { JobInfo, JobProcess } from "../defs/resources";
 import { JobParameter } from "../../common/defs/resources";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
+
+import {SERVER_URL} from "../../app.constants";
 @Injectable()
 export class JobService {
-    SERVER_URL: string = "http://10.165.33.20:8080";
+    SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
 
     getAuthorization(){
@@ -34,10 +36,7 @@ export class JobService {
         let body = JSON.stringify(job);
         // console.log(body);
         // let headers = this.getHeaders();
-        let headers = new Headers();
-        headers.append('Content-Type','application/json');
-        headers.append('Accept','application/json');
-        headers.append('Authorization','Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ5MjY5MzM5OX0.FdYeFZe5HFZsvxjwVmTP-o2mb7BO-W6qw7ZUFttLf-0PIut759OM8qxSyRsp9NjyGpx1qXuiUS1jkcaQNZfvWw');
+        let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
         .map((response: Response) => {
             if (response && response.json()) {

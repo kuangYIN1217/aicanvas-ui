@@ -10,9 +10,11 @@ import 'rxjs/add/operator/catch';
 import { SceneInfo,PluginInfo } from "../defs/resources";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
+import {SERVER_URL} from "../../app.constants";
+
 @Injectable()
 export class SceneService {
-    SERVER_URL: string = "http://10.165.33.20:8080";
+    SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
 
     getAuthorization(){

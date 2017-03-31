@@ -8,11 +8,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { PluginInfo } from "../defs/resources";
+import {SERVER_URL} from "../../app.constants";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
 @Injectable()
 export class PluginService {
-    SERVER_URL: string = "http://10.165.33.20:8080";
+    SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
 
     getAuthorization(){
@@ -85,7 +86,7 @@ export class PluginService {
     copyPlugin(sysPlugin_id){
         let path = "/api/pluginCopy/"+sysPlugin_id;
         let headers = this.getHeaders();
-        return this.http.post(this.SERVER_URL+path,{ headers: headers })
+        return this.http.post(this.SERVER_URL+path,null,{ headers: headers })
             .map((response: Response) => {
                 if (response && response.json()) {
                     return response.json();

@@ -14,7 +14,7 @@
 
     paths: {
       // paths serve as alias
-      'npm:': 'https://unpkg.com/'
+      'npm:': 'node_modules/'
     },
     
 
