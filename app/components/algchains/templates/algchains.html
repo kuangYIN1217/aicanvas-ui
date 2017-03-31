@@ -6,10 +6,10 @@
         <div class="status">
             <div class="allPurchaseScene" id="b04">
                 <div class="scene" *ngFor="let scene of sceneArray">
-                    <h4><strong>{{scene.scene_name}}</strong></h4>
+                    <h4><strong>{{scene.translation}}</strong></h4>
                     <div class="descrip">
-                        <p>{{scene.scene_description}}</p>
-                        <a routerLinkActive="active" routerLink="/algchainDetail/{{scene.scene_id}}" >详情>></a>
+                        <p>{{scene.description}}</p>
+                        <a routerLinkActive="active" routerLink="/algchainDetail/{{scene.id}}" >详情>></a>
                     </div>
                     <div class="modelPreview">
                         <p>模型预览</p>

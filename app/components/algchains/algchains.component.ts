@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common'
-import { ResourcesService } from '../../common/services/resources.service'
-
+import { SceneService } from '../../common/services/scene.service'
 import { SceneInfo } from "../../common/defs/resources";
 declare var $:any;
 @Component({
@@ -9,12 +8,12 @@ declare var $:any;
   selector: 'algchains',
   styleUrls: ['./css/algchains.component.css'],
   templateUrl: './templates/algchains.html',
-  providers: [ResourcesService]
+  providers: [SceneService]
 })
 export class AlgChainsComponent{
     sceneArray: SceneInfo[];
-    constructor(private resourcesService: ResourcesService, private location: Location){
-        resourcesService.getScenes()
+    constructor(private sceneService: SceneService, private location: Location){
+        sceneService.getAllScenes()
             .subscribe(sceneArray => this.sceneArray = sceneArray);
     }
 }

@@ -21,7 +21,6 @@ export class PluginService {
 
     getHeaders(){
         let headers = new Headers();
-        // headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Content-Type','application/json');
         headers.append('Accept','application/json');
         headers.append('Authorization',this.getAuthorization());

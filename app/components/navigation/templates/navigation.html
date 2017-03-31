@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="sceneCollapse" [style.display]="collapse==0?'none':''">
-            <div class="sceneCollapse_item" (click)="focusCollapse=scene.scene_id+'';changeTab(2);" [class.focusCollapse]="scene.scene_id+''==focusCollapse" *ngFor="let scene of sceneArray;"><a routerLinkActive="active" [routerLink]="['/algchainDetail', scene.scene_id]">{{scene.scene_name}}</a></div>
+            <div class="sceneCollapse_item" (click)="focusCollapse=scene.id+'';changeTab(2);" [class.focusCollapse]="scene.id+''==focusCollapse" *ngFor="let scene of sceneArray;"><a routerLinkActive="active" [routerLink]="['/algchainDetail', scene.id]">{{scene.translation}}</a></div>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==3">
             <img [src]="focusTab!=3?'images/navigation/icon_3.png':'images/navigation/icon_3_h.png'">

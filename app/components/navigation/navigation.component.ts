@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common'
 import { ResourcesService } from '../../common/services/resources.service'
+import { SceneService } from '../../common/services/scene.service'
 
 import { SceneInfo } from "../../common/defs/resources";
 
@@ -9,7 +10,7 @@ import { SceneInfo } from "../../common/defs/resources";
   selector: 'navigation',
   styleUrls: ['./css/navigation.component.css'],
   templateUrl: './templates/navigation.html',
-  providers: [ResourcesService]
+  providers: [ResourcesService,SceneService]
 })
 export class NavigationComponent {
     needhide = 0;
@@ -24,9 +25,9 @@ export class NavigationComponent {
     changeTab(nextFocus: number){
         this.focusTab = nextFocus;
     }
-    constructor(private location: Location, private resourcesService: ResourcesService){
+    constructor(private location: Location, private resourcesService: ResourcesService, private sceneService: SceneService){
         console.log("navigation initial");
-        resourcesService.getScenes()
+        sceneService.getAllScenes()
             .subscribe(sceneArray => this.sceneArray = sceneArray);
 
         if (sessionStorage.username){

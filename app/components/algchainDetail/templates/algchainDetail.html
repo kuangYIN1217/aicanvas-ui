@@ -10,8 +10,8 @@
         </div>
         <div class="status">
             <div class="condition">
-                <div id="scene_name">{{scene.scene_name}}</div>
-                <div id="scene_description">{{scene.scene_description}}</div>
+                <div id="scene_name">{{scene.translation}}</div>
+                <div id="scene_description">{{scene.description}}</div>
             </div>
             <div class="data">
                 <table id="paramTable" class="table">
@@ -56,7 +56,7 @@
                         </td>
                     </tr> -->
                 </table>
-                <div id="toNetwork"><a href="/network/{{scene.scene_id}}">查看网络层>></a></div>
+                <div id="toNetwork"><a href="/network/{{scene.id}}">查看网络层>></a></div>
             </div>
         </div>
     </div>

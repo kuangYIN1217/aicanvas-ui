@@ -62,10 +62,7 @@ export class JobService {
 
     getAllJobs(): Observable<JobInfo[]>{
         let path = "/api/jobs";
-        let headers = new Headers();
-        // headers.append('Content-Type','application/json');
-        headers.append('Accept','application/json');
-        headers.append('Authorization',this.getAuthorization());
+        let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
                 if (response && response.json()) {

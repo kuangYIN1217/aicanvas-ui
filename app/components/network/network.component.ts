@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common'
-import { ResourcesService } from '../../common/services/resources.service'
+import { SceneService } from '../../common/services/scene.service'
 import { PluginService } from '../../common/services/plugin.service'
 import { SceneInfo,PluginInfo } from "../../common/defs/resources";
 import { TrainingNetwork } from "../../common/defs/parameter";
@@ -10,25 +10,25 @@ declare var $:any;
   selector: 'network',
   styleUrls: ['./css/network.component.css'],
   templateUrl: './templates/network.html',
-  providers: [ResourcesService,PluginService]
+  providers: [SceneService,PluginService]
 })
 export class NetworkComponent{
     type: string = "";
 
-    scene_id: number;
+    scene_id: string;
     scene: SceneInfo = new SceneInfo();
     sceneArray: SceneInfo[];
 
     plugin_id: string;
     plugin: PluginInfo = new PluginInfo();
-    constructor(private resourcesService: ResourcesService, private pluginService: PluginService, private location: Location){
+    constructor(private sceneService: SceneService, private pluginService: PluginService, private location: Location){
         if (this.location.path(false).indexOf('/network/')!=-1){
             let id = this.location.path(false).split('/network/')[1];
             if(id){
-                if((Number(id)+"")!=NaN+""){
-                    this.scene_id = Number(id);
+                if(id[0]>'0'&&id[0]<'9'){
+                    this.scene_id = id;
                     this.type = "scene";
-                    resourcesService.getScenes()
+                    sceneService.getAllScenes()
                         .subscribe(sceneArray => this.sceneArray = sceneArray);
                     if(!this.sceneArray){
                         this.authenticate_loop();
@@ -55,7 +55,7 @@ export class NetworkComponent{
                 //console.log("Data received");
                 for (let scene of this.sceneArray){
                     // console.log(scene.scene_id);
-                    if(scene.scene_id==this.scene_id){
+                    if(scene.id==this.scene_id){
                         this.scene = scene;
                         $("#hideBtn").click();
                         // console.log(this.scene_current);
@@ -68,8 +68,8 @@ export class NetworkComponent{
     }
 
     insertData(){
-        $('#scene_name').html(this.scene.scene_name);
-        $('#scene_description').html("场景描述:<br>"+this.scene.scene_description);
+        $('#scene_name').html(this.scene.translation);
+        $('#scene_description').html("场景描述:<br>"+this.scene.description);
         $('.alg_name').html('AlgPlug1');
         // $('.layer_name').html('Input_1');
     }
@@ -86,7 +86,7 @@ export class NetworkComponent{
 
     backup(){
         if(this.type=="scene"){
-            window.location.href = "/algchains/"+this.scene_id;
+            window.location.href = "/algchainDetail/"+this.scene_id;
         }else{
             window.location.href = "/algpluginDetail/"+this.plugin_id;
         }
