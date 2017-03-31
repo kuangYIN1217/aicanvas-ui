@@ -38,6 +38,19 @@ export class JobCreationComponent {
             this.search_input = sessionStorage.search_input;
         }
     }
+    updatePage(){
+        this.jobService.getAllJobs()
+            .subscribe(Jobs => this.initialJobArray(Jobs));
+        if(sessionStorage.pageMaxItem){
+            this.pageMaxItem = sessionStorage.pageMaxItem;
+        }
+        if(sessionStorage.page){
+            this.page = sessionStorage.page;
+        }
+        if(sessionStorage.search_input){
+            this.search_input = sessionStorage.search_input;
+        }
+    }
     initialJobArray(Jobs){
         this.Jobs = Jobs;
         this.Jobs_current = Jobs;
@@ -157,9 +170,7 @@ export class JobCreationComponent {
         }else{
             console.log("Start Failed!");
         }
-    }
-    pause(jobPath: string){
-
+        this.updatePage();
     }
     stop(jobPath: string){
         this.jobService.stopJob(jobPath)
@@ -171,6 +182,7 @@ export class JobCreationComponent {
         }else{
             console.log("Stop Failed!");
         }
+        this.updatePage();
     }
     maxItemChange(maxItemNum){
         this.page=1;

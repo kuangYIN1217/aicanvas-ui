@@ -41,9 +41,34 @@ export class AlgpluginDetailComponent {
 
     fork(){
         let pluginMeta = this.plugin;
-        console.log("Saving...");
-        console.log(pluginMeta);
-        // this.pluginService.savePlugin(pluginMeta);
+        if(this.plugin.plugin_id[0]!='p'){
+            this.pluginService.savePlugin(pluginMeta)
+                .subscribe(response => this.forkResult(response));
+        }else{
+            this.saveSysPlugin(pluginMeta);
+        }
+    }
+    forkResult(response){
+        if(response.status==200){
+            console.log("saved!");
+        }else{
+            console.log("save plugin failed");
+        }
+    }
+    saveSysPlugin(plugin){
+        this.pluginService.copyPlugin(plugin.plugin_id)
+            .subscribe(response => this.forkSysPlugin(response, plugin));
+    }
+    forkSysPlugin(response, plugin){
+        let id = response.id;
+        this.pluginService.getPlugin(id)
+            .subscribe(response => this.forkSysPlugin2(response, plugin));;
+    }
+    forkSysPlugin2(response, plugin){
+        response.editable_param_list = plugin.editable_param_list;
+        response.training_network = plugin.training_network;
+        this.pluginService.savePlugin(response)
+            .subscribe(msg => this.forkResult(msg));
     }
 
     isArray(object: string){

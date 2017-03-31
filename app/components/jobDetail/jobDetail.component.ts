@@ -69,7 +69,7 @@ export class JobDetailComponent {
         let min_loss = Number(jobParam[0].loss);
         let max_loss = Number(jobParam[0].loss);
         let min_acc = Number(jobParam[0].acc);
-        let max_acc = Number(jobParam[0].acc));
+        let max_acc = Number(jobParam[0].acc);
         for (let jobParameter of jobParam){
             let temp1 = new Array();
             temp1.push(index);

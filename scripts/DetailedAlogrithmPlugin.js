@@ -333,7 +333,7 @@ function save() {
     }
 
     test["layers"] = saveStr;
-    console.log(JSON.stringify(test));
+    // console.log(JSON.stringify(test));
     myDiagram.isModified = false;
     // console.log(myDiagram.model.toJson());
 }
@@ -388,8 +388,8 @@ function saveParam() {
             // console.log(test["layers"][i].name);
         }
         // 重新赋值
-        document.getElementById("json_storage").value = test;
-        console.log(test);
+        document.getElementById("json_storage").value = JSON.stringify(test);
+        console.log( JSON.stringify(test));
         document.getElementById("saveBtn").click();
     }
     // str1 = "{" + str1 + "}";

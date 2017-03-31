@@ -28,8 +28,19 @@ export class PluginService {
         return headers;
     }
 
+    getLayerDict(){
+        let path = "/api/layerDict";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path,{ headers: headers })
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return response.json();
+                }
+        });
+    }
+
     savePlugin(pluginInfo){
-        let path = "/api/plugins";
+        let path = "/api/plugin";
         let body = JSON.stringify({
                 "plugin_id": pluginInfo.plugin_id,
                 "plugin_name": pluginInfo.plugin_name,
@@ -68,6 +79,17 @@ export class PluginService {
             .map((response: Response) => {
                 if (response && response.json()) {
                     return plainToClass(PluginInfo, response.json());
+                }
+        });
+    }
+
+    copyPlugin(sysPlugin_id){
+        let path = "/api/pluginCopy/"+sysPlugin_id;
+        let headers = this.getHeaders();
+        return this.http.post(this.SERVER_URL+path,{ headers: headers })
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return response.json();
                 }
         });
     }

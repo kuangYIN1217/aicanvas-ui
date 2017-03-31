@@ -70,10 +70,14 @@ export class JobInfo{
     sences: string;
     // creator
     user: UserInfo;
-    // // number of job
-    // name: string;
-    // // status of job
-    // job_status: string;
+    // status of job
+    status: string;
+    // 开始运行时间
+    startTime:string;
+    // 停止时间
+    stopTime: string;
+    // 运行时长 /秒
+    runningTime: string;
     // // percent pg job progress
     // job_progress: number;
     // construtor

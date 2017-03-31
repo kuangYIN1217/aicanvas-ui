@@ -95,11 +95,35 @@ export class NetworkComponent{
     save(){
         let json = $('#json_storage').val();
         let training_network: TrainingNetwork = JSON.parse(json);
+        console.log(training_network);
         this.plugin.training_network = training_network;
-        this.pluginService.savePlugin(msg)
-            .subscribe(msg => this.saveMsg(msg));
+        if(this.plugin.plugin_id[0]!='p'){
+            this.pluginService.savePlugin(this.plugin)
+                .subscribe(msg => this.forkResult(msg));
+        }else{
+            this.saveSysPlugin(this.plugin);
+        }
     }
-    saveMsg(msg){
-        console.log(msg);
+    forkResult(response){
+        if(response.status==200){
+            console.log("saved!");
+        }else{
+            console.log("save plugin failed");
+        }
+    }
+    saveSysPlugin(plugin){
+        this.pluginService.copyPlugin(plugin.plugin_id)
+            .subscribe(response => this.forkSysPlugin(response, plugin));
+    }
+    forkSysPlugin(response, plugin){
+        let id = response.id;
+        this.pluginService.getPlugin(id)
+            .subscribe(response => this.forkSysPlugin2(response, plugin));;
+    }
+    forkSysPlugin2(response, plugin){
+        response.editable_param_list = plugin.editable_param_list;
+        response.training_network = plugin.training_network;
+        this.pluginService.savePlugin(response)
+            .subscribe(msg => this.forkResult(msg));
     }
 }

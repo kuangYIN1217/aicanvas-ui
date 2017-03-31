@@ -140,6 +140,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-image: url('images/jobcreation/operation.png');
+    background-position: 58%;
 }
 .operationBtn{
     position: relative;
@@ -150,14 +151,11 @@
     cursor: pointer;
 }
 .stop{
-    left: 83.7px;
+    left: 95.7px;
 }
 .start{
     width: 12px;
-    left: 95.7px;
-}
-.pause{
-    left: 100.7px;
+    left: 106.7px;
 }
 .bottom_menu{
     position: relative;;

@@ -22,16 +22,14 @@
                 <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="(((i+1)>=(page-1)*pageMaxItem+1)&&(i+1)<=(page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem))?'':'none'">
                     <td>{{jobInfo.id}}</td>
                     <!-- <td>{{jobInfo.job_scenes}}</td> -->
-                    <td>{{jobInfo.sences==null?'无设置':'jobInfo.sences'}}</td>
-                    <td>{{jobInfo.createTime==null?'无设置':'jobInfo.createTime'}}</td>
-                    <td>{{jobInfo.jobPath}}</td>
-                    <td>{{jobInfo.dataset==null?'无设置':'jobInfo.dataset'}}%</td>
-                    <!-- <td>{{jobInfo.job_status}}</td>
-                    <td>{{jobInfo.job_progress}}%</td> -->
+                    <td>{{jobInfo.sences==null?'无设置':jobInfo.sences}}</td>
+                    <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
+                    <td>{{jobInfo.status}}</td>
+                    <td>{{jobInfo.dataset==null?'无设置':jobInfo.dataset}}%</td>
+                    <!-- <td>{{jobInfo.job_progress}}%</td> -->
                     <td class="operationTd">
                         <div class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
                         <div class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
-                        <div class="operationBtn pause" (click)="pause(jobInfo.jobPath)"></div>
                     </td>
                     <td><a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a></td>
                 </tr>
