@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 
 import { PluginInfo } from "../defs/resources";
 
-import { Parameter, TrainingNetwork } from "../defs/parameter";
+import { Parameter, TrainingNetwork,Editable_param } from "../defs/parameter";
 @Injectable()
 export class PluginService {
     SERVER_URL: string = "http://10.165.33.20:8080";
@@ -40,17 +40,10 @@ export class PluginService {
 
     savePlugin(pluginInfo){
         let path = "/api/plugin";
-        let body = JSON.stringify({
-                "plugin_id": pluginInfo.plugin_id,
-                "plugin_name": pluginInfo.plugin_name,
-                "plugin_owner": pluginInfo.plugin_owner,
-                "original_plugin_id": pluginInfo.original_plugin_id,
-                "plugin_description": pluginInfo.plugin_description,
-                "algorithm": pluginInfo.algorithm,
-                "has_training_network": pluginInfo.has_training_network,
-                "training_network": pluginInfo.training_network,
-                "editable_param_list": pluginInfo.editable_param_list
-        });
+        let body = JSON.stringify(
+                pluginInfo
+        );
+        console.log(body);
         let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
             .map((response: Response) => {
@@ -85,10 +78,21 @@ export class PluginService {
     copyPlugin(sysPlugin_id){
         let path = "/api/pluginCopy/"+sysPlugin_id;
         let headers = this.getHeaders();
-        return this.http.post(this.SERVER_URL+path,{ headers: headers })
+        return this.http.post(this.SERVER_URL+path,null,{ headers: headers })
             .map((response: Response) => {
                 if (response && response.json()) {
                     return response.json();
+                }
+        });
+    }
+
+    getTranParamTypes(): Observable<Editable_param[]>{
+        let path = "/api/tranParamTypes";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path,{ headers: headers })
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(Editable_param,response.json().train_params.editable_param_list);
                 }
         });
     }

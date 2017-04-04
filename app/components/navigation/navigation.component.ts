@@ -26,10 +26,11 @@ export class NavigationComponent {
         this.focusTab = nextFocus;
     }
     constructor(private location: Location, private resourcesService: ResourcesService, private sceneService: SceneService){
-        console.log("navigation initial");
-        sceneService.getAllScenes()
-            .subscribe(sceneArray => this.sceneArray = sceneArray);
-
+        // console.log("navigation initial");
+        if(!this.location.isCurrentPathEqualTo('/login')){
+            sceneService.getAllScenes()
+                .subscribe(sceneArray => this.sceneArray = sceneArray);
+        }
         if (sessionStorage.username){
             this.username = sessionStorage.username;
         }else{

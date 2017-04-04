@@ -39,25 +39,50 @@ export class UserInfo{
     //
     authorities: string[];
 }
+// export class PluginInfo{
+//     algorithm: string;
+//     // the id of the Plugin
+//     plugin_id: string;
+//     // The translated name of the Plugin.
+//     plugin_name: string;
+//     // the owner/creator of the Plugin     'admin' represent admins ,other represent normal user
+//     plugin_owner: string;
+//     // the id of the Plugin this one forked from
+//     original_plugin_id: number;
+//     // description of this Plugin
+//     plugin_description: string;
+//     // if this Plugin has_training_network 0-- no 1-- has
+//     has_training_network: number;
+//     // training_network of this Plugin
+//     training_network: TrainingNetwork;
+//     // parameters allowed to be modified
+//     editable_param_list: Parameter[];
+// }
 export class PluginInfo{
+    executor: string;
+    path: string;
+    creator: string;
+    input: string;
+    output: string;
+    root: string;
     // the id of the Plugin
-    plugin_id: string;
+    train_params: string;
     // The translated name of the Plugin.
-    plugin_name: string;
-    // the owner/creator of the Plugin     'admin' represent admins ,other represent normal user
-    plugin_owner: string;
-    // the id of the Plugin this one forked from
-    original_plugin_id: number;
+    alg_name: string;
     // description of this Plugin
-    plugin_description: string;
+    description: string;
+    // the id of the Plugin this one forked from
+    id: number;
     // if this Plugin has_training_network 0-- no 1-- has
-    has_training_network: number;
+    prob_domain: number;
     // training_network of this Plugin
-    training_network: TrainingNetwork;
+    ui_network_editor: string;
     // parameters allowed to be modified
-    editable_param_list: Parameter[];
+    model: string;
 }
 export class JobInfo{
+    // name of job
+    jobName: string;
     // createTime of job
     createTime: string;
     // name of dataset
@@ -68,6 +93,8 @@ export class JobInfo{
     jobPath: string;
     // scene's name of job
     sences: string;
+    // chainId
+    chainId: string;
     // creator
     user: UserInfo;
     // status of job

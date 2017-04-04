@@ -1,17 +1,26 @@
 import { Component } from '@angular/core';
 import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
+import { SceneService } from '../../common/services/scene.service'
 import { RouterModule, Routes, Router } from '@angular/router';
-import { JobInfo, UserInfo } from "../../common/defs/resources";
-
+import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resources";
+import { plainToClass } from "class-transformer";
 @Component({
     moduleId: module.id,
     selector: 'jobcreation',
     styleUrls: ['./css/jobcreation.component.css'],
     templateUrl: './templates/jobcreation.html',
-    providers: [UserService,JobService]
+    providers: [UserService,JobService,SceneService]
 })
 export class JobCreationComponent {
+    // 是否已经创建了新的
+    created: number = 0;
+    //
+    scenes: SceneInfo[] = [];
+    chosenSceneId: number;
+    chosen_scene: SceneInfo = new SceneInfo();
+    pluginArr: PluginInfo[] = [];
+    createdJob: JobInfo = new JobInfo();
     // record the current step
     stepNumber: number = 1;
     // "manage"/"createJob"
@@ -25,7 +34,7 @@ export class JobCreationComponent {
     // store search content
     search_input: string = "";
 
-    constructor(private jobService: JobService, private userService: UserService, private router: Router) {
+    constructor(private sceneService: SceneService,private jobService: JobService, private userService: UserService, private router: Router) {
         jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
         if(sessionStorage.pageMaxItem){
@@ -92,24 +101,41 @@ export class JobCreationComponent {
 
     }
     jobContains(job: JobInfo){
-        // if ((job.id+"").toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+        if ((job.id+"").toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }else if (job.jobName.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }else if (job.createTime.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }else if (job.sences.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        // }else if (((job.progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
         //     return true;
-        // }else if (job.job_name.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-        //     return true;
-        // }else if (job.createTime.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-        //     return true;
-        // }else if (job.job_scene.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-        //     return true;
-        // }else if (((job.job_progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
-        //     return true;
-        // }else if (job.job_status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-        //     return true;
-        // }else{
-        //     return false;
-        // }
+        }else if (job.status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    changeChosenSceneId(id){
+        this.chosenSceneId = id;
+        for (let scene of this.scenes){
+            if(scene.id == id){
+                this.chosen_scene = scene;
+                break;
+            }
+        }
     }
     // createJob
     createJob(){
+        this.sceneService.getAllScenes()
+        .subscribe(scenes => this.createJob_getScene(scenes));
+    }
+    createJob_getScene(scenes){
+        this.scenes = scenes;
+        if(scenes[0]){
+            this.chosenSceneId = scenes[0].id;
+        }
         this.jobPageStatus = "createJob";
     }
 
@@ -118,37 +144,32 @@ export class JobCreationComponent {
     }
 
     nextStep(){
+        if(this.stepNumber==1&&this.created==0){
+            this.created = 1;
+            this.createJobBySenceId(this.chosenSceneId);
+        }else{
+            this.stepNumber = this.stepNumber + 1;
+        }
+    }
+    createJobBySenceId(chosenSceneId){
+        this.jobService.createJob(chosenSceneId)
+        .subscribe(createdJob => this.createJobBySenceId2(createdJob));
+    }
+    createJobBySenceId2(createdJob){
+        this.createdJob = createdJob;
+        // console.log(this.createdJob);
+        this.sceneService.getChainByScene(Number(this.chosenSceneId))
+        .subscribe(pluginArr => this.createJobBySenceId3(pluginArr));
+    }
+    createJobBySenceId3(pluginArr: PluginInfo[]){
+        console.log(pluginArr);
         this.stepNumber = this.stepNumber + 1;
     }
     create(){
-        this.userService.getUser(sessionStorage.username)
-            .subscribe(returnUserInfo => this.createJob2(returnUserInfo[0]));
+        this.jobService.runJob(this.createdJob.jobPath)
+            .subscribe(reply => this.runJobResult(reply,this.createdJob.jobPath));
     }
-    createJob2(returnUserInfo: UserInfo){
-        // console.log(returnUserInfo);
-        let job = new JobInfo();
-        job.createTime = "2017-03-21T14:36:57.640Z";
-        job.dataSet="dataset1";
-        job.id = 1;
-        job.jobPath = "";
-        job.sences = "sences";
-        job.user = returnUserInfo;
-        this.jobService.createJob(job)
-            .subscribe(msg => this.createJob3(msg));
-        //
-        // 弹出消息框，告知创建成功
-
-
-    }
-    createJob3(msg){
-        // console.log(msg);
-        // console.log(msg.jobPath);
-        // 运行Job
-        this.jobService.runJob(msg.jobPath)
-            .subscribe(reply => this.createJob4(reply,msg.jobPath));
-    }
-    createJob4(reply,jobPath){
-        console.log(reply.status);
+    runJobResult(reply,jobPath){
         // 成功运行
         if(reply.status==200){
             // 重新获取所有Job

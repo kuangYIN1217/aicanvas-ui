@@ -28,29 +28,23 @@ export class JobService {
         return headers;
     }
 
-    createJob(job:JobInfo){
-        let path = "/api/job";
-        // console.log(job);
-        let body = JSON.stringify(job);
-        // console.log(body);
-        // let headers = this.getHeaders();
-        let headers = new Headers();
-        headers.append('Content-Type','application/json');
-        headers.append('Accept','application/json');
-        headers.append('Authorization','Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ5MjY5MzM5OX0.FdYeFZe5HFZsvxjwVmTP-o2mb7BO-W6qw7ZUFttLf-0PIut759OM8qxSyRsp9NjyGpx1qXuiUS1jkcaQNZfvWw');
+    createJob(senceId){
+        let path = "/api/job?senseId="+senceId;
+        let body = JSON.stringify({});
+        let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
         .map((response: Response) => {
-            if (response && response.json()) {
-                if(Number(response.status)==200){
-                    return response.json();
+            if (response) {
+                if(response.status==200&&response.json()){
+                    return plainToClass(JobInfo,response.json());
                 }
-                return "null";
+                return response;
             }
         });
     }
 
-    getJob(jobPath: string): Observable<JobParameter[]>{
-        let path = "/api/job/"+jobPath;
+    getJob(jobPath: string, index): Observable<JobParameter[]>{
+        let path = "/api/job/"+jobPath+"/"+index;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
@@ -111,5 +105,9 @@ export class JobService {
                 return "null";
             }
         });
+    }
+
+    updateJob(){
+
     }
 }

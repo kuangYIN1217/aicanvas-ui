@@ -6,7 +6,7 @@ import { PluginService } from '../../common/services/plugin.service'
 
 import { plainToClass } from "class-transformer";
 import { PluginInfo } from "../../common/defs/resources";
-import { Parameter,TrainingNetwork } from "../../common/defs/parameter";
+import { Parameter,TrainingNetwork,Editable_param } from "../../common/defs/parameter";
 declare var $:any;
 @Component({
     moduleId: module.id,
@@ -18,6 +18,8 @@ declare var $:any;
 export class AlgpluginDetailComponent {
     plugin_id: string= "";
     plugin: PluginInfo = new PluginInfo();
+    editable_params: Editable_param[] = [];
+    editable_parameters: Editable_param[] = [];
     constructor(private pluginService: PluginService, private location: Location){
         if (this.location.path(false).indexOf('/algpluginDetail/')!=-1){
             let id = this.location.path(false).split('/algpluginDetail/')[1];
@@ -30,18 +32,44 @@ export class AlgpluginDetailComponent {
     }
 
     getPlugin(plugin){
-        let editable_param_list_json = plugin.editable_param_list;
-        let editable_param_list:Parameter[] = JSON.parse(editable_param_list_json);
-        plugin.editable_param_list = editable_param_list;
         this.plugin = plugin;
-        for(let param of this.plugin.editable_param_list){
-            param.set_value = param.default_value;
-        }
+        this.pluginService.getTranParamTypes()
+            .subscribe(editable_params => this.getTranParamTypes(editable_params,plugin));
     }
+    // 得到参数列表后
+    getTranParamTypes(editable_params,plugin){
+        this.editable_params = editable_params;
 
+        let editable_parameters: Editable_param[] = [];
+        let params: any = this.plugin.train_params;
+        for(var param in params){
+            for (let editable_parameter of this.editable_params){
+                if (editable_parameter.path == param){
+                    editable_parameter.editable_param.set_value = params[param];
+                    editable_parameters.push(editable_parameter);
+                    break;
+                }
+            }
+        }
+        this.editable_parameters = editable_parameters;
+    }
+    matchParams(){
+        let params: any = this.plugin.train_params;
+        for (var key in params){
+            for (let dict of this.editable_params){
+                if (key == dict.path){
+                    params[key] = dict.editable_param.set_value;
+                }
+            }
+        }
+        this.plugin.train_params = params;
+        // console.log(this.plugin.train_params);
+    }
     fork(){
+        this.matchParams();
         let pluginMeta = this.plugin;
-        if(this.plugin.plugin_id[0]!='p'){
+        console.log(JSON.stringify(pluginMeta));
+        if(this.plugin.id[0]!='p'){
             this.pluginService.savePlugin(pluginMeta)
                 .subscribe(response => this.forkResult(response));
         }else{
@@ -55,8 +83,8 @@ export class AlgpluginDetailComponent {
             console.log("save plugin failed");
         }
     }
-    saveSysPlugin(plugin){
-        this.pluginService.copyPlugin(plugin.plugin_id)
+    saveSysPlugin(plugin: PluginInfo){
+        this.pluginService.copyPlugin(plugin.id)
             .subscribe(response => this.forkSysPlugin(response, plugin));
     }
     forkSysPlugin(response, plugin){

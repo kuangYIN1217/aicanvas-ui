@@ -20,6 +20,7 @@ export class JobDetailComponent {
     jobParam: JobParameter[] = [];
     initial: number = 0;
     interval:any;
+    index: number = 0;
 
     param1: string = '';
     param2: string = '';
@@ -39,7 +40,7 @@ export class JobDetailComponent {
                 // jobService.getJob(jobPath)
                 //     .subscribe(jobParam => this.jobParam = jobParam);
                 jobService.getAllJobs().subscribe(jobs => this.selectJob(jobs,jobPath));
-                this.interval = setInterval(() => this.updatePage(jobPath), 1000);
+                this.interval = setInterval(() => this.updatePage(jobPath,this.index), 1000);
             }
         }
     }
@@ -57,9 +58,10 @@ export class JobDetailComponent {
         }
     }
 
-    updatePage(jobPath){
-        this.jobService.getJob(jobPath)
+    updatePage(jobPath,index){
+        this.jobService.getJob(jobPath,index)
             .subscribe(jobParam => this.update(jobParam));
+        this.index++;
     }
 
     update(jobParam){

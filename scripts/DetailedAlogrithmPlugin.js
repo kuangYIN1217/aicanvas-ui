@@ -1,15 +1,16 @@
 function init() {
     var $ = go.GraphObject.make;  // 简洁定义模板
     myDiagram =
-        $(go.Diagram, "myDiagramDiv",  // must name or refer to the DIV HTML element
+        $(go.Diagram, "myDiagramDiv",  // 绘图区和HTML中div的id绑定
             {
                 initialContentAlignment: go.Spot.Center,
-                allowDrop: true,  // must be true to accept drops from the Palette
-                "LinkDrawn": showLinkLabel,  // this DiagramEvent listener is defined below
+                allowDrop: true,  // 接受从Palette拖拽的节点
+                "LinkDrawn": showLinkLabel,  // DiagramEvent listener
                 "LinkRelinked": showLinkLabel,
-                "animationManager.duration": 800, // slightly longer than default (600ms) animation
-                "undoManager.isEnabled": true  // enable undo & redo
+                "animationManager.duration": 800, // 稍长与默认的600ms动画
+                "undoManager.isEnabled": true     // 支持回退操作
             });
+
     //当文档被修改,添加一个“*”标题,使“保存”按钮
     myDiagram.addDiagramListener("Modified", function(e) {
         var button = document.getElementById("SaveButton");
@@ -22,14 +23,12 @@ function init() {
         }
     });
 
-
     var idArr = getLayers();
-    // console.log(idArr);
 
     // 为普通节点定义节点模板
-    myDiagram.nodeTemplateMap.add("",  // the default category
+    myDiagram.nodeTemplateMap.add("",  // 默认节点模板类
         $(go.Node, "Spot", nodeStyle(),
-            // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+            // 主要对象是一个环绕TextBlock的矩形的Panel
             $(go.Panel, "Auto",
                 $(go.Shape, "Rectangle",
                     { minSize: new go.Size(160, 70), fill: "#ea5413", stroke: null },
@@ -46,41 +45,29 @@ function init() {
                     new go.Binding("text").makeTwoWay()
                 )
             ),
-            // 节点周围四点
+            // 节点周围提供连线的四点
             makePort("T", go.Spot.Top, false, true),
             makePort("L", go.Spot.Left, true, true),
             makePort("R", go.Spot.Right, true, true),
             makePort("B", go.Spot.Bottom, true, false),
             {click: function(e, Node) {
-                var str = document.getElementById("json_storage").value;
+                var str = document.getElementById("layer_dictionary").value;
                 var test = JSON.parse(str);
-                var layerId = Node.toString().split("(")[1].split(")")[0];
-//                        document.getElementById("test").innerHTML = Node.toString().split("(")[1].split(")")[0];
+                // var layerId = Node.toString().split("(")[1].split(")")[0];
+                var layerId = Node.data['nameId'];
                 document.getElementById("property").innerHTML = "";
-                // console.log(JSON.stringify(test));
-                // console.log(layerId);
-                for (var i = 0;i<test["layers"].length;i++){
-                    if (layerId == test["layers"][i].name){
-                        // for (var j=0; j<test["layers"][i].config.length; j++) {
-                        //     // document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + test["layers"][i].layer_params[j].name + "(" + test["layers"][i].layer_params[j].translation + ")"
-                        //     //     + "：<input type='text'" + "id='" + test["layers"][i].layer_params[j].name + "%" + test["layers"][i].layer_params[j].name + "' name='" + test["layers"][i].name + "%" + test["layers"][i].layer_params[j].name + "' style='width: 160px'" + "placeholder='" + test["layers"][i].layer_params[j].default_value + "'/>";
-                        //     //<div class="layer_param">
-                        //     document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].config[j].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
-                        //         test["layers"][i].config[j].name + "%" + test["layers"][i].config[j].name + '" name="' + test["layers"][i].name + "%" + test["layers"][i].config[j].name + '" placeholder="' + test["layers"][i].config[j].sparse + '"/></div>';
-                        //     console.log(JSON.stringify(test["layers"][i].config));
-                        // }
-                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].config.name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
-                            test["layers"][i].config.name + '" name="' + test["layers"][i].name + '" placeholder="' + test["layers"][i].config.sparse + '"/></div>';
-                        // console.log(JSON.stringify(test["layers"][i].config));
-                    }else {
-                        continue;
-                    }
-                    // console.log(test["layers"][i].name);
+                // for (var i = 0;i<test["layers"].length;i++){
+                //     if (layerId == test["layers"][i].name){
+                //         document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].config.name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
+                //             test["layers"][i].config.name + '" name="' + test["layers"][i].name + '" placeholder="' + test["layers"][i].config.sparse + '"/></div>';
+                //     }else {
+                //         continue;
+                //     }
+                // }
+                for (var j = 0;j<test[layerId].editable_param_list.length;j++) {
+                    document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' + test[layerId].editable_param_list[j]["editable_param"].name + '" name="' + test[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test[layerId].editable_param_list[j]["editable_param"].default_value + '"/></div>';
                 }
-                // console.log(JSON.stringify(test["layers"]));
-//                        document.getElementById("test").innerHTML = Node.toString().split("(")[1].split(")")[0];
-//                 console.log("执行成功");
-//                        console.log(test["layers"][0].layer_params[0].name);
+                // console.log(Node.data['nameId']);
             }
             }
         ));
@@ -103,41 +90,10 @@ function init() {
                     new go.Binding("text").makeTwoWay()
                 )
             )));
-//    myDiagram.nodeTemplateMap.add("End",
-//      $(go.Node, "Spot", nodeStyle(),
-//        $(go.Panel, "Auto",
-//          $(go.Shape, "Circle",
-//            { minSize: new go.Size(40, 40), fill: "#DC3C00", stroke: null }),
-//          $(go.TextBlock, "End",
-//            { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
-//            new go.Binding("text"))
-//        ),
-//        // three named ports, one on each side except the bottom, all input only:
-//        makePort("T", go.Spot.Top, false, true),
-//        makePort("L", go.Spot.Left, false, true),
-//        makePort("R", go.Spot.Right, false, true)
-//      ));
-//    myDiagram.nodeTemplateMap.add("Comment",
-//      $(go.Node, "Auto", nodeStyle(),
-//        $(go.Shape, "File",
-//          { fill: "#EFFAB4", stroke: null }),
-//        $(go.TextBlock,
-//          {
-//            margin: 5,
-//            maxSize: new go.Size(200, NaN),
-//            wrap: go.TextBlock.WrapFit,
-//            textAlign: "center",
-//            editable: true,
-//            font: "bold 12pt Helvetica, Arial, sans-serif",
-//            stroke: '#454545'
-//          },
-//          new go.Binding("text").makeTwoWay())
-//        // no ports, because no links are allowed to connect with a comment
-//      ));
-    // replace the default Link template in the linkTemplateMap
-    //连接线模板
+// 替换linkTemplateMap中默认的连接线模板
+//连接线模板
     myDiagram.linkTemplate =
-        $(go.Link,  // the whole link panel
+        $(go.Link,  // 整个连接线panel
             {
                 routing: go.Link.AvoidsNodes,
                 curve: go.Link.JumpOver,
@@ -146,26 +102,25 @@ function init() {
                 relinkableTo: true,
                 reshapable: true,
                 resegmentable: true,
-                // mouse-overs subtly highlight links:
+                // 鼠标覆盖高亮连接线
                 mouseEnter: function(e, link) {
-                    // link.findObject("HIGHLIGHT").stroke = "rgba(30,144,255,0.2)";
                     link.findObject("HIGHLIGHT").stroke = "rgba(30,39,131,0.2)";
                 },
                 mouseLeave: function(e, link) { link.findObject("HIGHLIGHT").stroke = "transparent"; }
             },
             new go.Binding("points").makeTwoWay(),
-            $(go.Shape,  // the highlight shape, normally transparent
+            $(go.Shape,  // 突出显示形状，通常是透明的
                 { isPanelMain: true, strokeWidth: 8, stroke: "transparent", name: "HIGHLIGHT" }),
-            $(go.Shape,  // the link path shape
+            $(go.Shape,  // 连接线的形状
                 { isPanelMain: true, stroke: "gray", strokeWidth: 2 }),
-            $(go.Shape,  // the arrowhead
+            $(go.Shape,  // 连接线箭头
                 { toArrow: "standard", stroke: null, fill: "gray"}),
-            $(go.Panel, "Auto",  // the link label, normally not visible
+            $(go.Panel, "Auto",  // 连接线label,通常是不可见的
                 { visible: false, name: "LABEL", segmentIndex: 2, segmentFraction: 0.5},
                 new go.Binding("visible", "visible").makeTwoWay(),
-                $(go.Shape, "RoundedRectangle",  // the label shape
+                $(go.Shape, "RoundedRectangle",  // label的形状
                     { fill: "#F8F8F8", stroke: null }),
-                $(go.TextBlock, "Yes",  // the label
+                $(go.TextBlock, "Yes",  // 定义label
                     {
                         textAlign: "center",
                         font: "10pt helvetica, arial, sans-serif",
@@ -176,51 +131,23 @@ function init() {
             )
         );
 
-    // temporary links used by LinkingTool and RelinkingTool are also orthogonal:
+// temporary links used by LinkingTool and RelinkingTool are also orthogonal:
     myDiagram.toolManager.linkingTool.temporaryLink.routing = go.Link.Orthogonal;
     myDiagram.toolManager.relinkingTool.temporaryLink.routing = go.Link.Orthogonal;
-    load();  // load an initial diagram from some JSON text把组合的json信息传参
+    load();  // 加载保存的流程图信息
 
-
-    //初始化面板左边界面
+//初始化面板左边界面
     myPalette =
-        $(go.Palette, "myPaletteDiv",  // must name or refer to the DIV HTML element
+        $(go.Palette, "myPaletteDiv",  // 左边面板和HTML中的div的id关联
             {
                 "animationManager.duration": 800, // slightly longer than default (600ms) animation
-                nodeTemplateMap: myDiagram.nodeTemplateMap.valueOf("start"),  // share the templates used by myDiagram
-                // initialContentAlignment: go.Spot.TopLeft,
-                // allowDrop: true,  // must be true to accept drops from the Palette
-                // "animationManager.duration": 800, // slightly longer than default (600ms) animation
-                // "undoManager.isEnabled": true, // enable undo & redo
+                nodeTemplateMap: myDiagram.nodeTemplateMap.valueOf("start"),  // 和myDiagram共享一套显示模板
                 model: new go.GraphLinksModel(idArr)
             });
 
-    // myPalette.nodeTemplateMap.add("",  // the default category
-    //     $(go.Node, "Spot", nodeStyle(),
-    //         // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-    //         $(go.Panel, "Auto",
-    //             $(go.Shape, "Rectangle",
-    //                 { minSize: new go.Size(160, 70), fill: "#ea5413", stroke: null },
-    //                 new go.Binding("figure", "figure")),
-    //             $(go.TextBlock,
-    //                 {
-    //                     font: "bold 11pt Helvetica, Arial, sans-serif",
-    //                     stroke: "white",
-    //                     margin: 20,
-    //                     maxSize: new go.Size(160, NaN),
-    //                     wrap: go.TextBlock.WrapFit,
-    //                     editable: true
-    //                 },
-    //                 new go.Binding("text").makeTwoWay()
-    //             )
-    //         )
-    //     ));
-    // 下面的代码覆盖GoJS阻止浏览器滚动
-    // the page when either the Diagram or Palette are clicked or dragged onto.
-
+// 下面的代码覆盖GoJS阻止浏览器滚动
     myDiagram.doFocus = customFocus;
     myPalette.doFocus = customFocus;
-
 
 // Make link labels visible if coming out of a "conditional" node.
 // This listener is called by the "LinkDrawn" and "LinkRelinked" DiagramEvents.
@@ -266,7 +193,7 @@ function init() {
                 cursor: "pointer"  // show a different cursor to indicate potential link point
             });
     }
-
+// 限制窗口滚动
     function customFocus() {
         var x = window.scrollX || window.pageXOffset;
         var y = window.scrollY || window.pageYOffset;
@@ -274,8 +201,9 @@ function init() {
         window.scrollTo(x, y);
     }
 
+// 获取节点信息
     function getLayers() {
-        var str = document.getElementById("json_storage").value;
+        var str = document.getElementById("plugin_storage").value;
         var test = JSON.parse(str);
         var arr = "";
         var sep = "";
@@ -289,10 +217,6 @@ function init() {
             arr = JSON.parse(arr);
             array[i] = arr;
         }
-//                for (var i = 0;i<test['layers'].length;i++){
-//                    array[i] = test['layers'][i].id;
-//                }
-
         return array;
     }
 
@@ -304,101 +228,48 @@ function init() {
             port.stroke = (show ? "white" : null);
         });
     }
-// console.log(JSON.stringify(getPicMes()));
-
-} // end init
-
-
+} // 初始化函数结束
 
 // 保存编辑的流程图
 function save() {
-    // document.getElementById("mySavedModel").value = myDiagram.model.toJson();
-    var str = document.getElementById("json_storage").value;
+    var str = document.getElementById("plugin_storage").value;
     var test = JSON.parse(str);
     var saveJson = JSON.parse(myDiagram.model.toJson());
     var saveStr = new Array();
-    // var sep = "";
     for (var i = 0;i<saveJson["nodeDataArray"].length;i++){
         for (var j = 0;j<test["layers"].length;j++){
             if (saveJson["nodeDataArray"][i].text == test["layers"][j].name){
-                // if (saveStr == "")
-                //     sep = "";
-                // else
-                //     sep = ","
                 saveStr[i] = test["layers"][j];
-                // console.log("=-=--=-=-=-=-=--=-"+saveStr[i]);
             }else
                 continue;
         }
     }
 
     test["layers"] = saveStr;
-    // console.log(JSON.stringify(test));
+    console.log(JSON.stringify(test));
     myDiagram.isModified = false;
-    // console.log(myDiagram.model.toJson());
 }
 
 // 保存编辑的属性参数
 function saveParam() {
-    var str = document.getElementById("json_storage").value;
+    var str = document.getElementById("plugin_storage").value;
     var test = JSON.parse(str);
-    // var layerId = Node.toString().split("(")[1].split(")")[0];
-//                        document.getElementById("test").innerHTML = Node.toString().split("(")[1].split(")")[0];
-//     document.getElementById("property").innerHTML = "";
-//     console.log(JSON.stringify(test));
-//     console.log(layerId);
-//     for (var i = 0;i<test["layers"].length;i++){
-//         if (layerId == test["layers"][i].name){
-//             // for (var j=0; j<test["layers"][i].config.length; j++) {
-//             //     // document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + test["layers"][i].layer_params[j].name + "(" + test["layers"][i].layer_params[j].translation + ")"
-//             //     //     + "：<input type='text'" + "id='" + test["layers"][i].layer_params[j].name + "%" + test["layers"][i].layer_params[j].name + "' name='" + test["layers"][i].name + "%" + test["layers"][i].layer_params[j].name + "' style='width: 160px'" + "placeholder='" + test["layers"][i].layer_params[j].default_value + "'/>";
-//             //     //<div class="layer_param">
-//             //     document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].config[j].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
-//             //         test["layers"][i].config[j].name + "%" + test["layers"][i].config[j].name + '" name="' + test["layers"][i].name + "%" + test["layers"][i].config[j].name + '" placeholder="' + test["layers"][i].config[j].sparse + '"/></div>';
-//             //     console.log(JSON.stringify(test["layers"][i].config));
-//             // }
-//             document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].config.name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
-//                 test["layers"][i].config.name + "%" + test["layers"][i].config.name + '" name="' + test["layers"][i].name + "%" + test["layers"][i].config.name + '" placeholder="' + test["layers"][i].config.sparse + '"/></div>';
-//             console.log(JSON.stringify(test["layers"][i].config));
-//         }else {
-//             continue;
-//         }
-//         // console.log(test["layers"][i].name);
-//     }
     var test1 = document.getElementById("property").getElementsByTagName("input");
-    // var str1 = "";
-    // var sep;
     for(var j = 0; j < test1.length; j++) {
-        // if (str1 == ""){
-        //     sep = "";
-        // }else {
-        //     sep = ",";
-        // }
-        // str1 = str1 + sep + '"' + test1[j].name + '"' + ":" + test1[j].value;
-
         for (var i = 0;i<test["layers"].length;i++){
             if (test1[j].id == test["layers"][i].name && test1[j].name == test["layers"][i].config.name){
                 test["layers"][i].config.sparse = test1[j].value;
-                // console.log(JSON.stringify(test["layers"]));
-                // console.log(test1[j].value);
-
+                console.log(JSON.stringify(test["layers"]));
             }else {
                 continue;
             }
-            // console.log(test["layers"][i].name);
         }
-        // 重新赋值
-        document.getElementById("json_storage").value = JSON.stringify(test);
-        console.log( JSON.stringify(test));
-        document.getElementById("saveBtn").click();
     }
-    // str1 = "{" + str1 + "}";
-    // console.log(str1);
 }
 
+// 组织形成流程图JSON格式数据
 function getPicMes() {
-
-    var str = document.getElementById("json_storage").value;
+    var str = document.getElementById("plugin_storage").value;
     var test = JSON.parse(str);
     var arr2 = "";
     var sep2 = "";
@@ -408,7 +279,7 @@ function getPicMes() {
             sep2 = "";
         else
             sep2 = ",";
-        arr2 = '{ "text": "' + test['layers'][i].name + '" }';
+        arr2 = '{ "text": "' + test['layers'][i].name + '","name":"' + test['layers'][i].class_name + '" }';
         arr2 = JSON.parse(arr2);
         array[i] = arr2;
     }
@@ -432,12 +303,11 @@ function getPicMes() {
         else
             sep = ",";
         var j = i + 1;
-        arr = arr + sep + '{ "text": "' + idArr[i].text + '",' + '"key":-' + j +',"loc":"' + '-307.9999999999999 ' + locY + '"}';
+        arr = arr + sep + '{ "text": "' + idArr[i].text + '",' + '"key":-' + j +',"loc":"' + '-307.9999999999999 ' + locY +'"' + ',"nameId":"' + idArr[i].name + '"}';
 
         locY = locY + 130;
-
     }
-    // console.log(JSON.stringify(test));
+
     for (var i = 0;i<idArr.length-1;i++){
         if (arr1 == "")
             sep1 = "";

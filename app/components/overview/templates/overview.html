@@ -115,8 +115,7 @@
             <th class="condition">状态</th>
             <th class="progress">进度</th>
             <tr *ngFor="let jobInfo of jobArray">
-                <td>{{jobInfo.id}}</td>
-                <!-- <td>{{jobInfo.job_scenes}}</td> -->
+                <td>{{jobInfo.jobName}}</td>
                 <td>{{jobInfo.sences==null?'无设置':jobInfo.sences}}</td>
                 <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
                 <td>{{jobInfo.jobPath}}</td>

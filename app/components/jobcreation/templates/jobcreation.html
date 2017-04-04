@@ -20,9 +20,8 @@
                 <th class="operation">操作</th>
                 <th class="formore">详情</th>
                 <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="(((i+1)>=(page-1)*pageMaxItem+1)&&(i+1)<=(page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem))?'':'none'">
-                    <td>{{jobInfo.id}}</td>
-                    <!-- <td>{{jobInfo.job_scenes}}</td> -->
-                    <td>{{jobInfo.sences==null?'无设置':jobInfo.sences}}</td>
+                    <td>{{jobInfo.jobPath}}</td>
+                    <td>{{jobInfo.sences==null?'无设置':jobInfo.id}}</td>
                     <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
                     <td>{{jobInfo.status}}</td>
                     <td>{{jobInfo.dataset==null?'无设置':jobInfo.dataset}}%</td>
@@ -54,10 +53,8 @@
           <div (click)="toStep(1)" id="triangle1" class="triangle-right" [class.triangle_on]="stepNumber==1"></div>
           <div (click)="toStep(2)" id="step2" class="steps" [class.step_on]="stepNumber==2">Step 2: Model</div>
           <div (click)="toStep(2)" id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
-          <div (click)="toStep(3)" id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Parameter</div>
+          <div (click)="toStep(3)" id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Training</div>
           <div (click)="toStep(3)" id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
-          <div (click)="toStep(4)" id="step4" class="steps" [class.step_on]="stepNumber==4">Step 4: Training</div>
-          <div (click)="toStep(4)" id="triangle4" class="triangle-right" [class.triangle_on]="stepNumber==4"></div>
         </div>
 
         <div id="step_content" class="step_content">
@@ -67,11 +64,8 @@
                 <div class="choice">
                   <div id="scene">
                     <div class="scene_title">场景选择:</div>
-                    <select class="select" name="scene_select">
-                      <option value="航拍图片识别" selected="selected">航拍图片识别</option>
-                      <option value="saab">Saab</option>
-                      <option value="fiat">Fiat</option>
-                      <option value="audi">Audi</option>
+                    <select class="select" name="scene_select" (change)="changeChosenSceneId($event.target.value);">
+                      <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
                     </select>
                   </div>
                   <div class="secondLine">
@@ -95,7 +89,7 @@
                     </div>
                   </div>
                   <div class="thirdLine">
-                    <div id="record_num">所选记录数:&nbsp;7000</div>
+                    <div id="record_num">所选记录数:&nbsp;{{chosenSceneId}}</div>
                     <div id="store_type">
                       <div class="store_title">载入内存方式:</div>
                       <select class="select" name="store_select">
@@ -121,55 +115,36 @@
             </div>
             <!-- step 2 -->
             <div [style.display]="stepNumber==2 ? '' : 'none'" id="step2_content">
-            </div>
-            <!-- step 3 -->
-            <div [style.display]="stepNumber==3 ? '' : 'none'" id="step3_content">
-              <div class="parameter">
-                <table id="parameterTable">
-                  <th class="name_tab">参数名称</th>
-                  <th class="input_tab">参数输入框</th>
-                  <tr>
-                    <td class="parameter_name">Number of Epoch</td>
-                    <td><input id="input1" class="parameterInput"/></td>
-                  </tr>
-                  <tr>
-                    <td class="parameter_name">Batch Size</td>
-                    <td><input id="input2" class="parameterInput"/></td>
-                  </tr>
-                  <tr>
-                    <td class="parameter_name">Loss Function</td>
-                    <td><input id="input3" class="parameterInput"/></td>
-                  </tr>
-                  <tr>
-                    <td class="parameter_name">Optimizer</td>
-                    <td><input id="input4" class="parameterInput"/></td>
-                  </tr>
-                  <tr>
-                    <td class="parameter_name">lr</td>
-                    <td><input id="input5" class="parameterInput"/></td>
-                  </tr>
-                  <tr>
-                    <td class="parameter_name">rho</td>
-                    <td><input id="input6" class="parameterInput"/></td>
-                  </tr>
-                  <tr>
-                    <td class="parameter_name">epsilon</td>
-                    <td><input id="input7" class="parameterInput"/></td>
-                  </tr>
-                  <tr>
-                    <td class="parameter_name">decay</td>
-                    <td><input id="input8" class="parameterInput"/></td>
-                  </tr>
-                </table>
-              </div>
+                <input hidden id="plugin_storage" />
+                <input hidden id="layer_dictionary" />
+                <input hidden id="param_dictionary" />
+                <button hidden onclick="init()" id="hideBtn" >Hide</button>
+                <div class="leftBox">
+                    <div class="condition" [style.display]="type==scene?'':'none'">
+                        <div id="scene_name" class="name">{{chosen_scene.translation}}</div>
+                        <div id="scene_description" class="description">{{chosen_scene.description}}</div>
+                    </div>
+                    <div class="alg_choose">
+                        <div class="alg_name"></div>
+                        <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
+                        <div class="alg_choose_list" id="myPaletteDiv"></div>
+                    </div>
+                </div>
+                <div class="chains"></div>
+                <div class="content" id="myDiagramDiv"></div>
+                <div class="rightBox">
+                    <div class="layer_name"></div>
+                    <div class="layer_params" id="property">
+                    </div>
+                </div>
             </div>
             <!-- step 4 -->
-            <div [style.display]="stepNumber==4 ? '' : 'none'" id="step4_content">
+            <div [style.display]="stepNumber==3 ? '' : 'none'" id="step3_content">
               <div id="createBtn" class="createBtn" (click)="create()">创建训练任务</div>
               <div class="detail"></div>
             </div>
             <!-- next step button -->
-          <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=4 ? '' : 'none'">下一步</div>
+          <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=3 ? '' : 'none'">下一步</div>
         </div>
     </div>
 </div>

@@ -78,9 +78,14 @@ export class NetworkComponent{
         let training_network_json = plugin.training_network;
         let training_network: TrainingNetwork = JSON.parse(training_network_json);
         plugin.training_network = training_network;
-        $('#json_storage').val(JSON.stringify(plugin.training_network));
-        // console.log(plugin.training_network);
+        $('#plugin_storage').val(JSON.stringify(plugin.training_network));
         this.plugin = plugin;
+        this.pluginService.getLayerDict()
+        .subscribe(dictionary => this.getDictionary(dictionary));
+    }
+
+    getDictionary(dictionary){
+        $('#layer_dictionary').val(JSON.stringify(dictionary));
         $("#hideBtn").click();
     }
 
@@ -93,11 +98,11 @@ export class NetworkComponent{
     }
 
     save(){
-        let json = $('#json_storage').val();
+        let json = $('#plugin_storage').val();
         let training_network: TrainingNetwork = JSON.parse(json);
         console.log(training_network);
-        this.plugin.training_network = training_network;
-        if(this.plugin.plugin_id[0]!='p'){
+        this.plugin.model = JSON.stringify(training_network);
+        if(this.plugin.id[0]!='p'){
             this.pluginService.savePlugin(this.plugin)
                 .subscribe(msg => this.forkResult(msg));
         }else{

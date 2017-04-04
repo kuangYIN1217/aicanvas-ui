@@ -4,6 +4,11 @@ import {Type, plainToClass} from "class-transformer";
 // export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';
 export type ParameterType = 'string'|'boolean'|'int'|'float'|'enums'|'list';
 
+export class Editable_param{
+    path: string;
+    editable_param: Parameter;
+    lvl: number;
+}
 
 export class Parameter {
   name: string;
@@ -36,6 +41,8 @@ export class Parameter {
   max_value: any;
 
   // More on lvl/history_values.
+  history_values: any;
+
 }
 
 export class TrainingNetwork {
