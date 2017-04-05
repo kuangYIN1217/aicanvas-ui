@@ -2,15 +2,17 @@ import { Component } from '@angular/core';
 import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
 import { SceneService } from '../../common/services/scene.service'
+import { PluginService } from '../../common/services/plugin.service'
 import { RouterModule, Routes, Router } from '@angular/router';
 import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resources";
 import { plainToClass } from "class-transformer";
+declare var $:any;
 @Component({
     moduleId: module.id,
     selector: 'jobcreation',
     styleUrls: ['./css/jobcreation.component.css'],
     templateUrl: './templates/jobcreation.html',
-    providers: [UserService,JobService,SceneService]
+    providers: [UserService,JobService,SceneService,PluginService]
 })
 export class JobCreationComponent {
     // 是否已经创建了新的
@@ -20,6 +22,7 @@ export class JobCreationComponent {
     chosenSceneId: number;
     chosen_scene: SceneInfo = new SceneInfo();
     pluginArr: PluginInfo[] = [];
+    chosenPluginId: string;
     createdJob: JobInfo = new JobInfo();
     // record the current step
     stepNumber: number = 1;
@@ -34,7 +37,7 @@ export class JobCreationComponent {
     // store search content
     search_input: string = "";
 
-    constructor(private sceneService: SceneService,private jobService: JobService, private userService: UserService, private router: Router) {
+    constructor(private sceneService: SceneService,private jobService: JobService,private pluginService: PluginService, private userService: UserService, private router: Router) {
         jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
         if(sessionStorage.pageMaxItem){
@@ -130,6 +133,11 @@ export class JobCreationComponent {
     createJob(){
         this.sceneService.getAllScenes()
         .subscribe(scenes => this.createJob_getScene(scenes));
+        this.pluginService.getLayerDict()
+        .subscribe(dictionary => this.getDictionary(dictionary));
+    }
+    getDictionary(dictionary){
+        $('#layer_dictionary').val(JSON.stringify(dictionary));
     }
     createJob_getScene(scenes){
         this.scenes = scenes;
@@ -147,8 +155,8 @@ export class JobCreationComponent {
         if(this.stepNumber==1&&this.created==0){
             this.created = 1;
             this.createJobBySenceId(this.chosenSceneId);
-        }else{
-            this.stepNumber = this.stepNumber + 1;
+        }else if(this.stepNumber==2){
+            this.saveJob();
         }
     }
     createJobBySenceId(chosenSceneId){
@@ -163,6 +171,57 @@ export class JobCreationComponent {
     }
     createJobBySenceId3(pluginArr: PluginInfo[]){
         console.log(pluginArr);
+        this.pluginArr = pluginArr;
+        this.changeChosenPlugin(this.pluginArr[0].id);
+        $('#hideBtn').click();
+        this.stepNumber = this.stepNumber + 1;
+    }
+    changeChosenPlugin(id:string){
+        this.savePluginChange();
+        this.chosenPluginId = id;
+        let training_network_json = this.findPluginById(this.chosenPluginId).model;
+        $('#plugin_storage').val(JSON.stringify(training_network_json));
+    }
+    savePluginChange(){
+        let id = this.chosenPluginId;
+        let json = $('#plugin_storage').val();
+        this.findPluginById(id).model = json;
+    }
+    findPluginById(id:string){
+        for (let plugin of this.pluginArr){
+            if (plugin.id == id){
+                return plugin;
+            }
+        }
+    }
+    saveJob(){
+        this.savePluginChange();
+        let pluginIds: string[] = [];
+        for (let plugin of this.pluginArr){
+            pluginIds.push(plugin.id);
+        }
+        this.jobService.updateJob(this.createdJob.id, pluginIds)
+        .subscribe(updatedJob => this.saveJob2(updatedJob));
+    }
+    saveJob2(updatedJob: JobInfo){
+        let chainId = updatedJob.chainId;
+        // 根据chainId获取新的PluginArr，随后执行saveJob3
+        
+    }
+    saveJob3(newPluginArr: PluginInfo[],chainId: string){
+        // 把现有pluginArr的参数、model复制给新的Arr，随后
+        let indexI = 0;
+        for (let plugin of this.pluginArr){
+            newPluginArr[indexI].train_params = plugin.train_params;
+            newPluginArr[indexI].model = plugin.model;
+            indexI++;
+        }
+        // 保存newPluginArr->更新id为chainId的chain,随后执行saveJob4
+
+
+    }
+    saveJob4(msg){
+        console.log(msg);
         this.stepNumber = this.stepNumber + 1;
     }
     create(){

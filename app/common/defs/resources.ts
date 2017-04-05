@@ -39,25 +39,6 @@ export class UserInfo{
     //
     authorities: string[];
 }
-// export class PluginInfo{
-//     algorithm: string;
-//     // the id of the Plugin
-//     plugin_id: string;
-//     // The translated name of the Plugin.
-//     plugin_name: string;
-//     // the owner/creator of the Plugin     'admin' represent admins ,other represent normal user
-//     plugin_owner: string;
-//     // the id of the Plugin this one forked from
-//     original_plugin_id: number;
-//     // description of this Plugin
-//     plugin_description: string;
-//     // if this Plugin has_training_network 0-- no 1-- has
-//     has_training_network: number;
-//     // training_network of this Plugin
-//     training_network: TrainingNetwork;
-//     // parameters allowed to be modified
-//     editable_param_list: Parameter[];
-// }
 export class PluginInfo{
     executor: string;
     path: string;
@@ -107,29 +88,6 @@ export class JobInfo{
     runningTime: string;
     // // percent pg job progress
     // job_progress: number;
-    // construtor
-    // constructor(createTime,dataSet,id,jobPath,scenes,name,job_status,job_progress,user){
-    //     this.createTime = createTime;
-    //     this.dataSet = dataSet;
-    //     this.id = id;
-    //     this.jobPath = jobPath;
-    //     this.scenes = scenes;
-    //     this.user = user;
-    //     this.name = name;
-    //     this.job_status = job_status;
-    //     this.job_progress = job_progress;
-    // }
-    // constructor(createTime,dataSet,id,jobPath,scenes,user){
-    //     this.createTime = createTime;
-    //     this.dataSet = dataSet;
-    //     this.id = id;
-    //     this.jobPath = jobPath;
-    //     this.scenes = scenes;
-    //     this.user = user;
-    //     // this.name = name;
-    //     // this.job_status = job_status;
-    //     // this.job_progress = job_progress;
-    // }
 }
 export class JobParameter{
     loss: string;

@@ -7,9 +7,9 @@
         <div class="status">
             <div class="detailLine">
                 <span>任务名称:&nbsp;&nbsp;{{job.id}}</span>
-                <span>场景名称:&nbsp;&nbsp;{{job.scenes==null?'未设置':'job.scenes'}}</span>
-                <span>创建时间:&nbsp;&nbsp;{{job.createTime==null?'未设置':'job.createTime'}}</span>
-                <span>状态:&nbsp;&nbsp;{{job.status==null?'未设置':'job.status'}}</span>
+                <span>场景名称:&nbsp;&nbsp;{{job.sences==null?'未设置':job.sences}}</span>
+                <span>创建时间:&nbsp;&nbsp;{{job.createTime==null?'未设置':job.createTime}}</span>
+                <span>状态:&nbsp;&nbsp;{{job.status==null?'未设置':job.status}}</span>
             </div>
             <div class="detailLine">
                 <span *ngIf="job">创建者:&nbsp;&nbsp;{{user.login}}</span>

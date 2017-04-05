@@ -30,20 +30,15 @@ export class JobService {
         return headers;
     }
 
-<<<<<<< HEAD
     createJob(senceId){
-        let path = "/api/job?senseId="+senceId;
-        let body = JSON.stringify({});
-=======
-    createJob(job:JobInfo){
         let path = "/api/job";
-        // console.log(job);
-        let body = JSON.stringify(job);
+        let number_senceId: number = Number(senceId);
+        // let body = JSON.stringify({
+        //     "senseId": number_senceId
+        // });
         // console.log(body);
-        // let headers = this.getHeaders();
->>>>>>> origin/master
         let headers = this.getHeaders();
-        return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
+        return this.http.post(this.SERVER_URL+path,number_senceId,{ headers: headers })
         .map((response: Response) => {
             if (response) {
                 if(response.status==200&&response.json()){
@@ -118,7 +113,7 @@ export class JobService {
         });
     }
 
-    updateJob(){
-
+    updateJob(jobId: number, pluginIdArr: string[]){
+        
     }
 }

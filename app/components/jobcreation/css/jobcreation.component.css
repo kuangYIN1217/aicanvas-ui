@@ -454,6 +454,21 @@ select {
     background-color: black;
     border-left: 1px solid grey;
 }
+.pluginArr_item{
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 50px;
+    margin-top: 20px;
+    background-color: skyblue;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.pluginArr_item .focus{
+    cursor: default;
+    background-color: pink;
+}
 .content{
     overflow: auto;
     width: 900px;

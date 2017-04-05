@@ -88,21 +88,23 @@ export class NetworkComponent{
 
     backup(){
         if(this.type=="scene"){
-            window.location.href = "/algchainDetail/"+this.scene_id;
+            window.location.href = "/algchains";
         }else{
             window.location.href = "/algpluginDetail/"+this.plugin_id;
         }
     }
 
     save(){
+        $('#saveBtn').click();
         let json = $('#plugin_storage').val();
-        this.plugin.model = JSON.stringify(json);
-        if(this.plugin.id[0]!='p'){
-            this.pluginService.savePlugin(this.plugin)
-                .subscribe(msg => this.forkResult(msg));
-        }else{
-            this.saveSysPlugin(this.plugin);
-        }
+        // console.log(json);
+        // this.plugin.model = JSON.stringify(json);
+        // if(this.plugin.id[0]!='p'){
+        //     this.pluginService.savePlugin(this.plugin)
+        //         .subscribe(msg => this.forkResult(msg));
+        // }else{
+        //     this.saveSysPlugin(this.plugin);
+        // }
     }
     forkResult(response){
         if(response.status==200){

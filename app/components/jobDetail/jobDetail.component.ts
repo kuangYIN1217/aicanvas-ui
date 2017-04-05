@@ -40,7 +40,7 @@ export class JobDetailComponent {
                 // jobService.getJob(jobPath)
                 //     .subscribe(jobParam => this.jobParam = jobParam);
                 jobService.getAllJobs().subscribe(jobs => this.selectJob(jobs,jobPath));
-                this.interval = setInterval(() => this.updatePage(jobPath,this.index), 1000);
+                this.interval = setInterval(() => this.updatePage(jobPath,this.index), 500);
             }
         }
     }
@@ -62,9 +62,13 @@ export class JobDetailComponent {
         this.jobService.getJob(jobPath,index)
             .subscribe(jobParam => this.update(jobParam));
         this.index++;
+        // console.log(this.index);
     }
 
     update(jobParam){
+        // console.log(jobParam);
+        // console.log(jobParam[0].loss);
+        // console.log(jobParam[0].acc);
         let lossArray = [];
         let accuracyArray = [];
         let index = 1;
@@ -142,7 +146,7 @@ export class JobDetailComponent {
 
         let offset = Number((max_loss-min_loss)/8);
         // console.log(offset);
-        x.domain( [1 , 3]);
+        x.domain( [1 , 10]);
         y.domain( [ min_loss-offset, max_loss + offset]);
 
         svg.append("path")
@@ -252,7 +256,7 @@ export class JobDetailComponent {
         .y0(y(0));//360
 
         let offset = (max_acc-min_acc)/8;
-        x.domain( [ 1, 3]);
+        x.domain( [ 1, 10]);
         y.domain( [ min_acc-offset, max_acc + offset]);
 
         svg.append("path")
