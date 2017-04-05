@@ -11,11 +11,11 @@
           <th class="plugin_name">Name</th>
           <th class="plugin_description">Description</th>
           <th class="operation">Operation</th>
-          <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_id[0]=='p'?'':'none'">
+          <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.id[0]=='p'?'':'none'">
             <td>{{ plugin.id }}</td>
             <td>{{ plugin.alg_name }}</td>
             <td>{{ plugin.description }}</td>
-            <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.plugin_id}}">查看详细</a></td>
+            <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}}">查看详细</a></td>
           </tr>
         </table>
       </div>
@@ -25,11 +25,11 @@
             <th class="plugin_name">Name</th>
             <th class="plugin_description">Description</th>
             <th class="operation">Operation</th>
-            <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.plugin_id[0]!='p'?'':'none'">
+            <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.id[0]!='p'?'':'none'">
                 <td>{{ plugin.id }}</td>
                 <td>{{ plugin.alg_name }}</td>
                 <td>{{ plugin.description }}</td>
-                <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.plugin_id}}">查看详细</a></td>
+                <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id }}">查看详细</a></td>
             </tr>
         </table>
       </div>

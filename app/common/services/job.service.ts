@@ -11,9 +11,11 @@ import { JobInfo, JobProcess } from "../defs/resources";
 import { JobParameter } from "../../common/defs/resources";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
+
+import {SERVER_URL} from "../../app.constants";
 @Injectable()
 export class JobService {
-    SERVER_URL: string = "http://10.165.33.20:8080";
+    SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
 
     getAuthorization(){
@@ -28,9 +30,18 @@ export class JobService {
         return headers;
     }
 
+<<<<<<< HEAD
     createJob(senceId){
         let path = "/api/job?senseId="+senceId;
         let body = JSON.stringify({});
+=======
+    createJob(job:JobInfo){
+        let path = "/api/job";
+        // console.log(job);
+        let body = JSON.stringify(job);
+        // console.log(body);
+        // let headers = this.getHeaders();
+>>>>>>> origin/master
         let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
         .map((response: Response) => {

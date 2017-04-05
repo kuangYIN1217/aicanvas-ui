@@ -8,9 +8,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { UserInfo } from '../defs/resources'
+import {SERVER_URL} from "../../app.constants";
+
 @Injectable()
 export class UserService {
-    SERVER_URL: string = "http://10.165.33.20:8080";
+    SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
     // common functions
     getAuthorization(){

@@ -317,11 +317,11 @@ function getPicMes() {
         var k = j + 1;
         arr1 = arr1 + sep1 + '{ "from":-' + j + ',' + '"to":-' + k +',"fromPort":"B", "toPort":"T", "points":[' + '-307.9999999999999,'+line1+',-307.9999999999999,'+line2+',-307.9999999999999,'+line3+',-307.9999999999999,'+line3+',-307.9999999999999,'+line4+',-307.9999999999999,'+line5 + ']}';
 
-        line1 = line1 + 129.00000000000008;
+        line1 = line1 + 130.00000000000008;
         line2 = line2 + 130.00000000000008;
-        line3 = line3 + 134.00000000000008;
-        line4 = line4 + 138.00000000000008;
-        line5 = line5 + 138.00000000000008;
+        line3 = line3 + 130.00000000000008;
+        line4 = line4 + 130.00000000000008;
+        line5 = line5 + 130.00000000000008;
     }
     arrStr = arrStr + arr + '],"linkDataArray":[' + arr1 + ']}';
     arrStr = JSON.parse(arrStr);

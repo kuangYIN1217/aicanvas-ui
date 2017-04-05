@@ -8,11 +8,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { PluginInfo } from "../defs/resources";
+import {SERVER_URL} from "../../app.constants";
 
 import { Parameter, TrainingNetwork,Editable_param } from "../defs/parameter";
 @Injectable()
 export class PluginService {
-    SERVER_URL: string = "http://10.165.33.20:8080";
+    SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
 
     getAuthorization(){

@@ -75,11 +75,8 @@ export class NetworkComponent{
     }
 
     getPlugin(plugin){
-        let training_network_json = plugin.training_network;
-        let training_network: TrainingNetwork = JSON.parse(training_network_json);
-        plugin.training_network = training_network;
-        $('#plugin_storage').val(JSON.stringify(plugin.training_network));
-        this.plugin = plugin;
+        let training_network_json = plugin.model;
+        $('#plugin_storage').val(JSON.stringify(training_network_json));
         this.pluginService.getLayerDict()
         .subscribe(dictionary => this.getDictionary(dictionary));
     }
@@ -99,9 +96,7 @@ export class NetworkComponent{
 
     save(){
         let json = $('#plugin_storage').val();
-        let training_network: TrainingNetwork = JSON.parse(json);
-        console.log(training_network);
-        this.plugin.model = JSON.stringify(training_network);
+        this.plugin.model = JSON.stringify(json);
         if(this.plugin.id[0]!='p'){
             this.pluginService.savePlugin(this.plugin)
                 .subscribe(msg => this.forkResult(msg));
@@ -117,7 +112,7 @@ export class NetworkComponent{
         }
     }
     saveSysPlugin(plugin){
-        this.pluginService.copyPlugin(plugin.plugin_id)
+        this.pluginService.copyPlugin(plugin.id)
             .subscribe(response => this.forkSysPlugin(response, plugin));
     }
     forkSysPlugin(response, plugin){
@@ -126,8 +121,8 @@ export class NetworkComponent{
             .subscribe(response => this.forkSysPlugin2(response, plugin));;
     }
     forkSysPlugin2(response, plugin){
-        response.editable_param_list = plugin.editable_param_list;
-        response.training_network = plugin.training_network;
+        response.train_params = plugin.train_params;
+        response.model = plugin.model;
         this.pluginService.savePlugin(response)
             .subscribe(msg => this.forkResult(msg));
     }

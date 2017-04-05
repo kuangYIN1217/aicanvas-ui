@@ -11,12 +11,14 @@ import { CpuInfo } from '../defs/resources'
 import { PluginInfo } from "../defs/resources";
 import { JobInfo } from "../defs/resources";
 import { SceneInfo } from "../defs/resources";
+import {SERVER_URL} from "../../app.constants";
+
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
 
 @Injectable()
 export class ResourcesService {
-    SERVER_URL: string = "http://10.165.33.20:8080";
+    SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
 
     getCpuInfo(): Observable<CpuInfo[]> {

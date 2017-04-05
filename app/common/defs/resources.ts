@@ -72,7 +72,7 @@ export class PluginInfo{
     // description of this Plugin
     description: string;
     // the id of the Plugin this one forked from
-    id: number;
+    id: string;
     // if this Plugin has_training_network 0-- no 1-- has
     prob_domain: number;
     // training_network of this Plugin
