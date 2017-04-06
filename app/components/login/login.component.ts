@@ -87,15 +87,15 @@ export class LoginComponent implements OnInit{
         var pwd = $('#password').val();
         var valid = $('#surePwd').val();
         // console.log(valid);
-        if (valid!=this.validCode){
-            this.showMessage("验证码错误");
-            $('surePwd').value="";
-            this.changeValidCode();
-        }else{
+        // if (valid!=this.validCode){
+        //     this.showMessage("验证码错误");
+        //     $('surePwd').value="";
+        //     this.changeValidCode();
+        // }else{
             // let token: string = "";
             let result = this.userService.authorize(username, pwd)
             .subscribe(returnToken => this.validToken(returnToken,username));
-        }
+        // }
     }
 
     validToken(returnToken,username){
@@ -108,6 +108,7 @@ export class LoginComponent implements OnInit{
             console.log(sessionStorage.authenticationToken);
             console.log("登陆成功");
             // this.showMessage("登陆成功");
+            window.location.href = "/overview";
         }
     }
 
