@@ -44,7 +44,6 @@ export class NetworkComponent{
                 break;
             }
         }
-        this.insertData();
     }
 
     getPluginArray(pluginArr: PluginInfo[]){
@@ -85,13 +84,6 @@ export class NetworkComponent{
         }
     }
 
-    insertData(){
-        $('#scene_name').html(this.scene.translation);
-        $('#scene_description').html("场景描述:<br>"+this.scene.description);
-        $('.alg_name').html('AlgPlug1');
-        // $('.layer_name').html('Input_1');
-    }
-
     getPlugin(plugin){
         this.plugin = plugin;
         let training_network_json = plugin.model;
@@ -112,7 +104,7 @@ export class NetworkComponent{
     save(){
         $('#saveBtn').click();
         let json = $('#plugin_storage').val();
-        // console.log(json);
+        console.log(json);
         this.plugin.model = JSON.parse(json);
 
         console.log(this.plugin);

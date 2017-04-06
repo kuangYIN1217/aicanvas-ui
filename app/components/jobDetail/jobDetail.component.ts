@@ -59,14 +59,14 @@ export class JobDetailComponent {
     }
 
     updatePage(jobPath,index){
+        console.log("update , index="+index);
         this.jobService.getJob(jobPath,index)
             .subscribe(jobParam => this.update(jobParam));
-        this.index++;
         // console.log(this.index);
     }
 
     update(jobParam){
-        // console.log(jobParam);
+        console.log(jobParam);
         // console.log(jobParam[0].loss);
         // console.log(jobParam[0].acc);
         let lossArray = [];
@@ -98,6 +98,7 @@ export class JobDetailComponent {
             }
             accuracyArray.push(temp2);
             index++;
+            this.index++;
         }
         // console.log(lossArray);
         // console.log(accuracyArray);
@@ -105,13 +106,14 @@ export class JobDetailComponent {
         d3.select('#chart1').select( 'svg' ).selectAll('path').remove();
         d3.select('#chart1').select( 'svg' ).selectAll('g').remove();
         this.drawLoss(lossArray,min_loss,max_loss);
-
+        console.log("loss update ok");
         d3.select('#chart2').select( 'svg' ).selectAll('path').remove();
         d3.select('#chart2').select( 'svg' ).selectAll('g').remove();
         this.drawAccuracy(accuracyArray,min_acc,max_acc);
-
+        console.log("accurac update ok");
         // update parameters
         this.updateParams(jobParam);
+        console.log("jobParam update ok");
     }
 
     drawLoss(lossArray,min_loss,max_loss){

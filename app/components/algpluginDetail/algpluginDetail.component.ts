@@ -72,6 +72,7 @@ export class AlgpluginDetailComponent {
             this.pluginService.savePlugin(pluginMeta)
                 .subscribe(response => this.forkResult(response));
         }else{
+            console.log("copying system plugin");
             this.saveSysPlugin(pluginMeta);
         }
     }
@@ -87,13 +88,14 @@ export class AlgpluginDetailComponent {
             .subscribe(response => this.forkSysPlugin(response, plugin));
     }
     forkSysPlugin(response, plugin){
+        console.log(response);
         let id = response.id;
         this.pluginService.getPlugin(id)
             .subscribe(response => this.forkSysPlugin2(response, plugin));;
     }
-    forkSysPlugin2(response, plugin){
-        response.editable_param_list = plugin.editable_param_list;
-        response.training_network = plugin.training_network;
+    forkSysPlugin2(response, plugin: PluginInfo){
+        response.train_params = plugin.train_params;
+        response.model = plugin.model;
         this.pluginService.savePlugin(response)
             .subscribe(msg => this.forkResult(msg));
     }

@@ -3,7 +3,7 @@ function init() {
     myDiagram =
         $(go.Diagram, "myDiagramDiv",  // 绘图区和HTML中div的id绑定
             {
-                initialContentAlignment: go.Spot.Center,
+                initialContentAlignment: go.Spot.Top,
                 allowDrop: true,  // 接受从Palette拖拽的节点
                 "LinkDrawn": showLinkLabel,  // DiagramEvent listener
                 "LinkRelinked": showLinkLabel,
@@ -53,6 +53,7 @@ function init() {
             {click: function(e, Node) {
                 var str = document.getElementById("layer_dictionary").value;
                 var test = JSON.parse(str);
+                // console.log(test);
                 // var layerId = Node.toString().split("(")[1].split(")")[0];
                 var layerId = Node.data['nameId'];
                 var textName = Node.data['text'];
@@ -66,7 +67,13 @@ function init() {
                 //     }
                 // }
                 for (var j = 0;j<test[layerId].editable_param_list.length;j++) {
-                    document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + '"/></div>';
+                    document.getElementById("property").innerHTML = document.getElementById("property").innerHTML
+                    + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'
+                    + test[layerId].editable_param_list[j]["editable_param"].name
+                    +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="'
+                    + layerId + '@' + textName + '" name="'
+                    + test[layerId].editable_param_list[j]["editable_param"].name
+                    + '" placeholder="' + test[layerId].editable_param_list[j]["editable_param"].default_value + '" value= "' + test[layerId].editable_param_list[j]["editable_param"].set_value +'"/></div>';
                 }
                 // console.log(Node.data['nameId']);
             }
@@ -206,7 +213,7 @@ function init() {
     function getLayers() {
         var str = document.getElementById("plugin_storage").value;
         var test = JSON.parse(str);
-        console.log(test);
+        // console.log(test);
         var arr = "";
         var sep = "";
         var array = new Array();

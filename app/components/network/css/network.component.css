@@ -91,13 +91,15 @@ a{
     color: #eeeee1;
     font-size: 20px;
     margin-bottom: 16px;
-    height: 5%;
+    height: 70px;
+    line-height: 70px;
+    color: skyblue;
 }
 .alg_choose_descrip{
     color: #eeeee1;
     font-size: 18px;
     margin-bottom: 16px;
-    height: 5%;
+    height: 40px;
 }
 .alg_choose_list{
     color: #eeeee1;

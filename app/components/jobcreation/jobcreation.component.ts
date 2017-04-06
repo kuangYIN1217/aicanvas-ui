@@ -24,6 +24,7 @@ export class JobCreationComponent {
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
     createdJob: JobInfo = new JobInfo();
+    pluginIds: string[] = [];
     // record the current step
     stepNumber: number = 1;
     // "manage"/"createJob"
@@ -207,26 +208,27 @@ export class JobCreationComponent {
     saveJob(){
         console.log("saveJob...");
         this.savePluginChange();
-        let pluginIds: string[] = [];
-        // for (let plugin of this.pluginArr){
-        //     if(plugin.creator!="general"){
-        //         this.pluginService.savePlugin(plugin)
-        //             .subscribe(response => this.forkResult(response));
-        //     }else{
-        //         this.saveSysPlugin(plugin);
-        //     }
-        // }
         for (let plugin of this.pluginArr){
-            pluginIds.push(plugin.id);
+            if(plugin.creator=="general"){
+                this.saveSysPlugin(plugin);
+            }else{
+                this.pluginService.savePlugin(plugin)
+                    .subscribe(response => this.saveJobNormalPlugin(response,plugin.id));
+            }
         }
-        this.jobService.updateJob(this.createdJob.id, pluginIds)
-        .subscribe(updatedJob => this.saveJob2(updatedJob));
+
     }
-    forkResult(response){
-        if(response.status==200){
-            console.log("saved!");
+    saveJob2(updatedJob: JobInfo){
+        let chainId = updatedJob.chainId;
+        console.log(chainId);
+        this.stepNumber = this.stepNumber + 1;
+    }
+    saveJobNormalPlugin(response,plugin_id){
+        if (response.status==200){
+            console.log("save ok");
+            this.addPluginIds(plugin_id);
         }else{
-            console.log("save plugin failed");
+            console.log("save failed");
         }
     }
     saveSysPlugin(plugin: PluginInfo){
@@ -236,38 +238,21 @@ export class JobCreationComponent {
     forkSysPlugin(response, plugin){
         let id = response.id;
         this.pluginService.getPlugin(id)
-            .subscribe(response => this.forkSysPlugin2(response, plugin));;
+            .subscribe(response => this.forkSysPlugin2(response, plugin));
     }
     forkSysPlugin2(response, plugin){
-        response.editable_param_list = plugin.editable_param_list;
-        response.training_network = plugin.training_network;
+        response.train_params = plugin.train_params;
+        response.model = plugin.model;
         this.pluginService.savePlugin(response)
-            .subscribe(msg => this.forkResult(msg));
+            .subscribe(msg => this.saveJobNormalPlugin(msg,response.id));
     }
-    saveJob2(updatedJob: JobInfo){
-        let chainId = updatedJob.chainId;
-        console.log(chainId);
-        // 根据chainId获取新的PluginArr，随后执行saveJob3
-
-
-        // 暂时不需要saveJob3，直接到下一个界面
-        this.stepNumber = this.stepNumber + 1;
-    }
-    saveJob3(newPluginArr: PluginInfo[],chainId: string){
-        // 把现有pluginArr的参数、model复制给新的Arr，随后
-        let indexI = 0;
-        for (let plugin of this.pluginArr){
-            newPluginArr[indexI].train_params = plugin.train_params;
-            newPluginArr[indexI].model = plugin.model;
-            indexI++;
+    addPluginIds(pluginId: string){
+        this.pluginIds.push(pluginId);
+        if(this.pluginIds.length == this.pluginArr.length){
+            console.log(this.pluginIds);
+            this.jobService.updateJob(this.createdJob.id, this.pluginIds)
+            .subscribe(updatedJob => this.saveJob2(updatedJob));
         }
-        // 保存newPluginArr->更新id为chainId的chain,随后执行saveJob4
-
-
-    }
-    saveJob4(msg){
-        console.log(msg);
-        this.stepNumber = this.stepNumber + 1;
     }
     create(){
         this.jobService.runJob(this.createdJob.jobPath)

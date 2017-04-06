@@ -364,7 +364,6 @@
     border: 3px solid white;
     border-radius: 3px;
 }
-
 /*left*/
 .leftBox{
     width: 265px;
@@ -390,6 +389,7 @@
 }
 .alg_choose{
     margin-left: 20px;
+    height: 1050px;
 }
 .alg_name{
     color: #eeeee1;
@@ -424,14 +424,6 @@
 .networkBox{
     background-color: #191919;
 }
-.content{
-    overflow: auto;
-    width: 1300px;
-    height: 1000px;
-    float: left;
-    background-color: #191919;
-    border-left: 1px solid grey;
-}
 
 
 .chains{
@@ -442,9 +434,6 @@
     background-color: #191919;
     border-left: 1px solid grey;
 }
-.content2{
-    width: 930px;
-}
 
 /**//**/
 .pluginArr_item{
@@ -452,8 +441,10 @@
     width: 80%;
     left: 10%;
     height: 50px;
+    line-height: 50px;
+    text-align: center;
     margin-top: 20px;
-    background-color: skyblue;
+    background-color: #566dc1;
     color: white;
     border-radius: 12px;
     cursor: pointer;
@@ -464,30 +455,30 @@
 }
 .content{
     overflow: auto;
-    width: 900px;
+    width: 880px;
     height: 100%;
     float: left;
     background-color: #191919;
+    border-left: 1px solid grey;
 }
 
 .rightBox{
-    width: 280px;
+    width: 300px;
     background-color: black;
     float: right;
     height: 100%;
-}
-.rightBox2{
-    width: 250px;
 }
 .layer_name{
     margin-top: 30px;
     margin-left: 40px;
     margin-bottom: 40px;
     font-size: 25px;
+    color: white;
 }
 .layer_params{
     margin-left: 20px;
     margin-bottom: 10px;
+    color: white;
 }
 .layer_param{
     margin-bottom: 15px;
