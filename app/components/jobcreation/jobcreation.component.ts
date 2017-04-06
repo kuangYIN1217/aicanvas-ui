@@ -173,19 +173,29 @@ export class JobCreationComponent {
         console.log(pluginArr);
         this.pluginArr = pluginArr;
         this.changeChosenPlugin(this.pluginArr[0].id);
-        $('#hideBtn').click();
         this.stepNumber = this.stepNumber + 1;
     }
     changeChosenPlugin(id:string){
-        this.savePluginChange();
-        this.chosenPluginId = id;
-        let training_network_json = this.findPluginById(this.chosenPluginId).model;
-        $('#plugin_storage').val(JSON.stringify(training_network_json));
+        if(!this.chosenPluginId){
+            this.chosenPluginId = id;
+            let training_network_json = this.findPluginById(this.chosenPluginId).model;
+            console.log(training_network_json);
+            $('#plugin_storage').val(JSON.stringify(training_network_json));
+            $('#hideBtn').click();
+        }else{
+            this.savePluginChange();
+            this.chosenPluginId = id;
+            let training_network_json = this.findPluginById(this.chosenPluginId).model;
+            console.log(training_network_json);
+            $('#plugin_storage').val(JSON.stringify(training_network_json));
+            $('#loadBtn').click();
+        }
     }
     savePluginChange(){
         let id = this.chosenPluginId;
         let json = $('#plugin_storage').val();
-        this.findPluginById(id).model = json;
+        let jsonData = JSON.parse(json);
+        this.findPluginById(id).model = jsonData;
     }
     findPluginById(id:string){
         for (let plugin of this.pluginArr){
@@ -195,6 +205,7 @@ export class JobCreationComponent {
         }
     }
     saveJob(){
+        console.log("saveJo...");
         this.savePluginChange();
         let pluginIds: string[] = [];
         for (let plugin of this.pluginArr){
@@ -206,7 +217,7 @@ export class JobCreationComponent {
     saveJob2(updatedJob: JobInfo){
         let chainId = updatedJob.chainId;
         // 根据chainId获取新的PluginArr，随后执行saveJob3
-        
+
     }
     saveJob3(newPluginArr: PluginInfo[],chainId: string){
         // 把现有pluginArr的参数、model复制给新的Arr，随后

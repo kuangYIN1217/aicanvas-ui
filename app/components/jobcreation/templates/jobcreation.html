@@ -119,6 +119,7 @@
                 <input hidden id="layer_dictionary" />
                 <input hidden id="param_dictionary" />
                 <button hidden onclick="init()" id="hideBtn" >Init</button>
+                <button hidden onclick="load()" id="loadBtn" >Hide</button>
                 <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
                 <div class="leftBox">
                     <div class="condition" [style.display]="type==scene?'':'none'">
@@ -132,7 +133,7 @@
                     </div>
                 </div>
                 <div class="chains">
-                    <div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==findPluginById(chosenPluginId).id" (click)="changeChosenPlugin(plugin.id)">{{plugin.id}}</div>
+                    <div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.id}}</div>
                 </div>
                 <div class="content" id="myDiagramDiv"></div>
                 <div class="rightBox">

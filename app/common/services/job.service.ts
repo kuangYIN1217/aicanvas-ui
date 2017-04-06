@@ -105,15 +105,28 @@ export class JobService {
         return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
         .map((response: Response) => {
             if (response && response.json()) {
-                if(Number(response.status)==200){
+                if(response.status==200){
                     return response.json();
                 }
-                return "null";
             }
         });
     }
 
     updateJob(jobId: number, pluginIdArr: string[]){
-        
+        let path = "/api/updateJob";
+        let body = JSON.stringify({
+                "jobId": jobId,
+                "pluginIdArr": JSON.stringify(pluginIdArr),
+        });
+        console.log(body);
+        let headers = this.getHeaders();
+        return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
+        .map((response: Response) => {
+            if (response && response.json()) {
+                if(Number(response.status)==200){
+                    return response.json();
+                }
+            }
+        });
     }
 }

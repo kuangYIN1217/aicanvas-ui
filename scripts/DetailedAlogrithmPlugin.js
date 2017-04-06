@@ -254,9 +254,12 @@ function save() {
 function saveParam() {
     var str = document.getElementById("plugin_storage").value;
     var test = JSON.parse(str);
+    console.log(test);
     var test1 = document.getElementById("property").getElementsByTagName("input");
+    console.log(test1);
     for(var j = 0; j < test1.length; j++) {
         for (var i = 0;i<test["layers"].length;i++){
+            console.log(test1[j].id);
             if (test1[j].id == test["layers"][i].name && test1[j].name == test["layers"][i].config.name){
                 test["layers"][i].config.sparse = test1[j].value;
                 console.log(JSON.stringify(test["layers"]));
