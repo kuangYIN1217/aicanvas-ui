@@ -216,6 +216,7 @@ export class JobCreationComponent {
     }
     saveJob2(updatedJob: JobInfo){
         let chainId = updatedJob.chainId;
+        console.log(chainId);
         // 根据chainId获取新的PluginArr，随后执行saveJob3
 
     }

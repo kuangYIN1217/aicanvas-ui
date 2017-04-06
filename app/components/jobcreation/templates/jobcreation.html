@@ -49,12 +49,12 @@
     </div>
     <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">
         <div class="step_pane">
-          <div (click)="toStep(1)" id="step1" class="steps" [class.step_on]="stepNumber==1">Step 1: Data</div>
-          <div (click)="toStep(1)" id="triangle1" class="triangle-right" [class.triangle_on]="stepNumber==1"></div>
-          <div (click)="toStep(2)" id="step2" class="steps" [class.step_on]="stepNumber==2">Step 2: Model</div>
-          <div (click)="toStep(2)" id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
-          <div (click)="toStep(3)" id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Training</div>
-          <div (click)="toStep(3)" id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
+          <div id="step1" class="steps" [class.step_on]="stepNumber==1">Step 1: Data</div>
+          <div id="triangle1" class="triangle-right" [class.triangle_on]="stepNumber==1"></div>
+          <div id="step2" class="steps" [class.step_on]="stepNumber==2">Step 2: Model</div>
+          <div id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
+          <div id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Training</div>
+          <div id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
         </div>
 
         <div id="step_content" class="step_content">

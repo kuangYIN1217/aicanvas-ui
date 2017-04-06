@@ -232,8 +232,8 @@ select {
     text-align: center;
     font-weight: bold;
     /*border-left: 2px solid red;*/
-    cursor: pointer;
     background-color: brown;
+    cursor: default;
 }
 .step_on{
     background-color: #4e3fa9;
@@ -247,7 +247,6 @@ select {
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
     border-left: 32px solid brown;
-    cursor: pointer;
 }
 .triangle_on{
     border-left: 32px solid #4e3fa9;
@@ -256,7 +255,7 @@ select {
 .step_content{
     position: relative;
     width: 96%;
-    height: 1200px;
+    height: 900px;
     border: 1px solid grey;
     color: #fcfcfc;
 }
