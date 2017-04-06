@@ -68,8 +68,7 @@ export class AlgpluginDetailComponent {
     fork(){
         this.matchParams();
         let pluginMeta = this.plugin;
-        console.log(JSON.stringify(pluginMeta));
-        if(this.plugin.id[0]!='p'){
+        if(this.plugin.creator!="general"){
             this.pluginService.savePlugin(pluginMeta)
                 .subscribe(response => this.forkResult(response));
         }else{

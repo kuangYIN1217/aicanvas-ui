@@ -25,6 +25,10 @@
     cursor: pointer;
     margin-right: 0px;
 }
+.tab_item a{
+    text-decoration: none;
+    color: #5e5e5f;
+}
 .focus{
     background-color: #19191a;
     color: #516af8;
@@ -123,6 +127,7 @@
     font-size: 18px;
     text-decoration: none;
     float: right;
+    cursor: pointer;
 }
 .scene .modelPreview{
     position: relative;
@@ -358,4 +363,145 @@
     background-color: skyblue;
     border: 3px solid white;
     border-radius: 3px;
+}
+
+/*left*/
+.leftBox{
+    width: 265px;
+    background-color: #191919;
+    float: left;
+    height: 100%;
+}
+.condition{
+    height: 250px;
+    border-bottom: 1px solid #191919;
+    margin-left: 20px;
+}
+.name{
+    color: #516af8;
+    font-size: 23px;
+    margin-top: 40px;
+    margin-bottom: 35px;
+}
+.description{
+    color: #eeeee1;
+    font-size: 18px;
+    margin-right: 20px;
+}
+.alg_choose{
+    margin-left: 20px;
+}
+.alg_name{
+    color: #eeeee1;
+    font-size: 20px;
+    margin-bottom: 16px;
+    height: 5%;
+}
+.alg_choose_descrip{
+    color: #eeeee1;
+    font-size: 18px;
+    margin-bottom: 16px;
+    height: 5%;
+}
+.alg_choose_list{
+    color: #eeeee1;
+    /*margin-bottom: 50px;*/
+    height: 90%;
+}
+.alg_plug{
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+.alg_plug img{
+
+}
+.alg_plug span{
+    color: #eeeee1;
+    font-size: 18px;
+}
+/**/
+.networkBox{
+    background-color: #191919;
+}
+.content{
+    overflow: auto;
+    width: 1300px;
+    height: 1000px;
+    float: left;
+    background-color: #191919;
+    border-left: 1px solid grey;
+}
+
+
+.chains{
+    overflow: auto;
+    width: 249px;
+    height: 100%;
+    float: left;
+    background-color: #191919;
+    border-left: 1px solid grey;
+}
+.content2{
+    width: 930px;
+}
+
+/**//**/
+.pluginArr_item{
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 50px;
+    margin-top: 20px;
+    background-color: skyblue;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.pluginArr_item .focus{
+    cursor: default;
+    background-color: pink;
+}
+.content{
+    overflow: auto;
+    width: 900px;
+    height: 100%;
+    float: left;
+    background-color: #191919;
+}
+
+.rightBox{
+    width: 280px;
+    background-color: black;
+    float: right;
+    height: 100%;
+}
+.rightBox2{
+    width: 250px;
+}
+.layer_name{
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+    font-size: 25px;
+}
+.layer_params{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.layer_param{
+    margin-bottom: 15px;
+}
+.layer_param .layer_param_name{
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.layer_param input{
+    background: transparent;
+    border: 0px;
+    border-bottom: 1px solid grey;
+    height: 35px;
+    width: 100%;
+    color: white;
+    outline-style: none;
 }

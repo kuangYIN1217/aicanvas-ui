@@ -20,12 +20,6 @@
         <div class="nav_element" [class.focusTab] = "focusTab==2">
             <img [src]="focusTab!=2?'images/navigation/icon_2.png':'images/navigation/icon_2_h.png'">
             <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(2);focusCollapse='0'">场景管理</a>
-            <div class="collapseImgDiv" (click)="changeCollapse()" >
-                <img id="collapseImg" [src]="collapse==0?'images/navigation/icon_8.png':'images/navigation/icon_7.png'">
-            </div>
-        </div>
-        <div class="sceneCollapse" [style.display]="collapse==0?'none':''">
-            <div class="sceneCollapse_item" (click)="focusCollapse=scene.id+'';changeTab(2);" [class.focusCollapse]="scene.id+''==focusCollapse" *ngFor="let scene of sceneArray;"><a  routerLinkActive="active" routerLink="/network/{{scene.id}}" >{{scene.translation}}</a></div>
         </div>
         <div class="nav_element" [class.focusTab] = "focusTab==3">
             <img [src]="focusTab!=3?'images/navigation/icon_3.png':'images/navigation/icon_3_h.png'">

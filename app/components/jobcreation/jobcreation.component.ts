@@ -205,14 +205,44 @@ export class JobCreationComponent {
         }
     }
     saveJob(){
-        console.log("saveJo...");
+        console.log("saveJob...");
         this.savePluginChange();
         let pluginIds: string[] = [];
+        // for (let plugin of this.pluginArr){
+        //     if(plugin.creator!="general"){
+        //         this.pluginService.savePlugin(plugin)
+        //             .subscribe(response => this.forkResult(response));
+        //     }else{
+        //         this.saveSysPlugin(plugin);
+        //     }
+        // }
         for (let plugin of this.pluginArr){
             pluginIds.push(plugin.id);
         }
         this.jobService.updateJob(this.createdJob.id, pluginIds)
         .subscribe(updatedJob => this.saveJob2(updatedJob));
+    }
+    forkResult(response){
+        if(response.status==200){
+            console.log("saved!");
+        }else{
+            console.log("save plugin failed");
+        }
+    }
+    saveSysPlugin(plugin: PluginInfo){
+        this.pluginService.copyPlugin(plugin.id)
+            .subscribe(response => this.forkSysPlugin(response, plugin));
+    }
+    forkSysPlugin(response, plugin){
+        let id = response.id;
+        this.pluginService.getPlugin(id)
+            .subscribe(response => this.forkSysPlugin2(response, plugin));;
+    }
+    forkSysPlugin2(response, plugin){
+        response.editable_param_list = plugin.editable_param_list;
+        response.training_network = plugin.training_network;
+        this.pluginService.savePlugin(response)
+            .subscribe(msg => this.forkResult(msg));
     }
     saveJob2(updatedJob: JobInfo){
         let chainId = updatedJob.chainId;

@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="tabDiv sceneManage">
+    <div class="tabDiv sceneManage" [style.display]="ifShowNetwork==0?'':'none'">
         <div class="tabs">
             <div class="tab_item" [class.focus] = "1">已购场景</div>
         </div>
@@ -9,7 +9,7 @@
                     <h4><strong>{{scene.translation}}</strong></h4>
                     <div class="descrip">
                         <p>{{scene.description}}</p>
-                        <a routerLinkActive="active" routerLink="/network/{{scene.id}}">详情>></a>
+                        <a (click)="showNetwork(scene.id)">详情>></a>
                     </div>
                     <div class="modelPreview">
                         <p>模型预览</p>
@@ -57,6 +57,41 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+    <div class="networkBox" [style.display]="ifShowNetwork==1?'':'none'">
+        <div class="tabs">
+            <div class="tab_item" (click)="hideNetwork()">后退</div>
+            <div class="tab_item">恢复出厂设置</div>
+            <div class="tab_item right" (click)="save()">保存</div>
+            <div class="tab_item right">取消</div>
+        </div>
+        <div class="status">
+            <input hidden id="plugin_storage" />
+            <input hidden id="layer_dictionary" />
+            <input hidden id="param_dictionary" />
+            <button hidden onclick="init()" id="hideBtn" >Init</button>
+            <button hidden onclick="load()" id="loadBtn" >Hide</button>
+            <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
+            <div class="leftBox">
+                <div class="condition" [style.display]="type==scene?'':'none'">
+                    <div id="scene_name" class="name">{{chosen_scene.translation}}</div>
+                    <div id="scene_description" class="description">{{chosen_scene.description}}</div>
+                </div>
+                <div class="alg_choose">
+                    <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
+                    <div class="alg_choose_list" id="myPaletteDiv"></div>
+                </div>
+            </div>
+            <div class="chains">
+                <div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.id}}</div>
+            </div>
+            <div class="content" id="myDiagramDiv"></div>
+            <div class="rightBox">
+                <div class="layer_name"></div>
+                <div class="layer_params" id="property">
+                </div>
             </div>
         </div>
     </div>

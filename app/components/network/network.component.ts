@@ -13,7 +13,6 @@ declare var $:any;
   providers: [SceneService,PluginService]
 })
 export class NetworkComponent{
-    type: string = "";
 
     scene_id: string;
     scene: SceneInfo = new SceneInfo();
@@ -27,17 +26,9 @@ export class NetworkComponent{
         if (this.location.path(false).indexOf('/network/')!=-1){
             let id = this.location.path(false).split('/network/')[1];
             if(id){
-                if(Number(id)+""!=NaN+""){
-                    this.scene_id = id;
-                    this.type = "scene";
-                    sceneService.getAllScenes()
-                        .subscribe(sceneArray => this.getSceneArray(sceneArray));
-                }else{
-                    this.plugin_id = id;
-                    this.type = "plugin";
-                    pluginService.getPlugin(id)
-                    .subscribe(plugin => this.getPlugin(plugin));
-                }
+                this.plugin_id = id;
+                pluginService.getPlugin(id)
+                .subscribe(plugin => this.getPlugin(plugin));
             }
         }
     }
@@ -115,11 +106,7 @@ export class NetworkComponent{
     }
 
     backup(){
-        if(this.type=="scene"){
-            window.location.href = "/algchains";
-        }else{
-            window.location.href = "/algpluginDetail/"+this.plugin_id;
-        }
+        window.location.href = "/algpluginDetail/"+this.plugin_id;
     }
 
     save(){
@@ -127,7 +114,8 @@ export class NetworkComponent{
         let json = $('#plugin_storage').val();
         // console.log(json);
         this.plugin.model = JSON.parse(json);
-        // console.log(this.plugin);
+
+        console.log(this.plugin);
         if(this.plugin.creator!="general"){
             this.pluginService.savePlugin(this.plugin)
                 .subscribe(msg => this.forkResult(msg));
