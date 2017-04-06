@@ -18,6 +18,8 @@ export class NetworkComponent{
     scene_id: string;
     scene: SceneInfo = new SceneInfo();
     sceneArray: SceneInfo[];
+    pluginArr: PluginInfo[] = [];
+    chosenPluginId: string;
 
     plugin_id: string;
     plugin: PluginInfo = new PluginInfo();
@@ -25,17 +27,11 @@ export class NetworkComponent{
         if (this.location.path(false).indexOf('/network/')!=-1){
             let id = this.location.path(false).split('/network/')[1];
             if(id){
-                if(id[0]>'0'&&id[0]<'9'){
+                if(Number(id)+""!=NaN+""){
                     this.scene_id = id;
                     this.type = "scene";
                     sceneService.getAllScenes()
-                        .subscribe(sceneArray => this.sceneArray = sceneArray);
-                    if(!this.sceneArray){
-                        this.authenticate_loop();
-                    }else{
-                        this.insertData();
-                        $("#hideBtn").click();
-                    }
+                        .subscribe(sceneArray => this.getSceneArray(sceneArray));
                 }else{
                     this.plugin_id = id;
                     this.type = "plugin";
@@ -46,25 +42,56 @@ export class NetworkComponent{
         }
     }
 
-    private authenticate_loop() {
-        setTimeout (() => {
-            //console.log("Hello from setTimeout");
-            if(!this.sceneArray){
-                this.authenticate_loop();
-            }else{
-                //console.log("Data received");
-                for (let scene of this.sceneArray){
-                    // console.log(scene.scene_id);
-                    if(scene.id==this.scene_id){
-                        this.scene = scene;
-                        $("#hideBtn").click();
-                        // console.log(this.scene_current);
-                        break;
-                    }
-                }
-                this.insertData();
+    getSceneArray(sceneArray: SceneInfo[]){
+        this.sceneArray = sceneArray;
+        for (let scene of this.sceneArray){
+            // console.log(scene.scene_id);
+            if(scene.id==this.scene_id){
+                this.scene = scene;
+                this.sceneService.getChainByScene(Number(scene.id))
+                .subscribe(pluginArr => this.getPluginArray(pluginArr));
+                break;
             }
-        }, 50);
+        }
+        this.insertData();
+    }
+
+    getPluginArray(pluginArr: PluginInfo[]){
+        console.log(pluginArr);
+        this.pluginArr = pluginArr;
+        this.changeChosenPlugin(this.pluginArr[0].id);
+    }
+
+    changeChosenPlugin(id:string){
+        if(!this.chosenPluginId){
+            this.chosenPluginId = id;
+            let training_network_json = this.findPluginById(this.chosenPluginId).model;
+            console.log(training_network_json);
+            $('#plugin_storage').val(JSON.stringify(training_network_json));
+            $('#hideBtn').click();
+        }else{
+            this.savePluginChange();
+            this.chosenPluginId = id;
+            let training_network_json = this.findPluginById(this.chosenPluginId).model;
+            console.log(training_network_json);
+            $('#plugin_storage').val(JSON.stringify(training_network_json));
+            $('#loadBtn').click();
+        }
+    }
+
+    savePluginChange(){
+        let id = this.chosenPluginId;
+        let json = $('#plugin_storage').val();
+        let jsonData = JSON.parse(json);
+        this.findPluginById(id).model = jsonData;
+    }
+
+    findPluginById(id:string){
+        for (let plugin of this.pluginArr){
+            if (plugin.id == id){
+                return plugin;
+            }
+        }
     }
 
     insertData(){
@@ -75,6 +102,7 @@ export class NetworkComponent{
     }
 
     getPlugin(plugin){
+        this.plugin = plugin;
         let training_network_json = plugin.model;
         $('#plugin_storage').val(JSON.stringify(training_network_json));
         this.pluginService.getLayerDict()
@@ -98,13 +126,14 @@ export class NetworkComponent{
         $('#saveBtn').click();
         let json = $('#plugin_storage').val();
         // console.log(json);
-        // this.plugin.model = JSON.stringify(json);
-        // if(this.plugin.id[0]!='p'){
-        //     this.pluginService.savePlugin(this.plugin)
-        //         .subscribe(msg => this.forkResult(msg));
-        // }else{
-        //     this.saveSysPlugin(this.plugin);
-        // }
+        this.plugin.model = JSON.parse(json);
+        // console.log(this.plugin);
+        if(this.plugin.creator!="general"){
+            this.pluginService.savePlugin(this.plugin)
+                .subscribe(msg => this.forkResult(msg));
+        }else{
+            this.saveSysPlugin(this.plugin);
+        }
     }
     forkResult(response){
         if(response.status==200){

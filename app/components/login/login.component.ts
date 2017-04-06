@@ -106,7 +106,8 @@ export class LoginComponent implements OnInit{
             sessionStorage.authenticationToken = returnToken.id_token;
             sessionStorage.username = username;
             console.log(sessionStorage.authenticationToken);
-            this.showMessage("登陆成功");
+            console.log("登陆成功");
+            // this.showMessage("登陆成功");
         }
     }
 

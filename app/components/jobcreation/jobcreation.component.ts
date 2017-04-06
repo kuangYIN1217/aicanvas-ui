@@ -219,6 +219,9 @@ export class JobCreationComponent {
         console.log(chainId);
         // 根据chainId获取新的PluginArr，随后执行saveJob3
 
+
+        // 暂时不需要saveJob3，直接到下一个界面
+        this.stepNumber = this.stepNumber + 1;
     }
     saveJob3(newPluginArr: PluginInfo[],chainId: string){
         // 把现有pluginArr的参数、model复制给新的Arr，随后

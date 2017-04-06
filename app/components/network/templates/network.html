@@ -1,31 +1,37 @@
-<div class="networkBox">
-    <div class="tabs">
-        <div class="tab_item" (click)="backup()">后退</div>
-        <div class="tab_item">恢复出厂设置</div>
-        <div class="tab_item right" (click)="save()">保存</div>
-        <div class="tab_item right">取消</div>
-        <input hidden id="plugin_storage" />
-        <input hidden id="layer_dictionary" />
-        <button hidden onclick="init()" id="hideBtn" >Hide</button>
-        <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
-    </div>
-    <div class="status">
-        <div class="leftBox">
-            <div class="condition" [style.display]="type==scene?'':'none'">
-                <div id="scene_name" class="name"></div>
-                <div id="scene_description" class="description"></div>
+
+    <div class="{{type==scene?'container':'networkBox'}}">
+        <div class="tabs">
+            <div class="tab_item" [style.display]="type!=scene?'':'none'" (click)="backup()">后退</div>
+            <div class="tab_item" [style.display]="type==scene?'':'none'"><a routerLinkActive="active" routerLink="/algchains">后退</a></div>
+            <div class="tab_item">恢复出厂设置</div>
+            <div class="tab_item right" (click)="save()">保存</div>
+            <div class="tab_item right">取消</div>
+            <input hidden id="plugin_storage" />
+            <input hidden id="layer_dictionary" />
+            <button hidden onclick="init()" id="hideBtn" >Hide</button>
+            <button hidden onclick="load()" id="loadBtn" >Load</button>
+            <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
+        </div>
+        <div class="status">
+            <div class="leftBox">
+                <div class="condition" [style.display]="type==scene?'':'none'">
+                    <div id="scene_name" class="name"></div>
+                    <div id="scene_description" class="description"></div>
+                </div>
+                <div class="alg_choose">
+                    <div class="alg_name"></div>
+                    <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
+                    <div class="alg_choose_list" id="myPaletteDiv"></div>
+                </div>
             </div>
-            <div class="alg_choose">
-                <div class="alg_name"></div>
-                <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
-                <div class="alg_choose_list" id="myPaletteDiv"></div>
+            <div class="chains" [class.display]="type==scene?'':'none'">
+                <div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.id}}</div>
+            </div>
+            <div class="content" [class.content2]="type==scene" id="myDiagramDiv"></div>
+            <div class="rightBox" [class.rightBox2]="type==scene">
+                <div class="layer_name"></div>
+                <div class="layer_params"  id="property">
+                </div>
             </div>
         </div>
-        <div class="content" id="myDiagramDiv"></div>
-        <div class="rightBox">
-            <div class="layer_name"></div>
-            <div class="layer_params"  id="property">
-            </div>
-        </div>
     </div>
-</div>
