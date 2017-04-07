@@ -74,6 +74,7 @@ export class JobInfo{
     jobPath: string;
     // scene's name of job
     sences: string;
+    sencesName: string;
     // chainId
     chainId: string;
     // creator

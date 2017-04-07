@@ -20,8 +20,8 @@
                 <th class="operation">操作</th>
                 <th class="formore">详情</th>
                 <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="(((i+1)>=(page-1)*pageMaxItem+1)&&(i+1)<=(page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem))?'':'none'">
-                    <td>{{jobInfo.jobPath}}</td>
-                    <td>{{jobInfo.sences==null?'无设置':jobInfo.id}}</td>
+                    <td>{{jobInfo.jobName}}</td>
+                    <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
                     <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
                     <td>{{jobInfo.status}}</td>
                     <td>{{jobInfo.dataset==null?'无设置':jobInfo.dataset}}%</td>
