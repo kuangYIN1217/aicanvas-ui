@@ -9,6 +9,11 @@ export class CpuInfo {
     // Current usage of cpu.
     cpu_pct: number;
 }
+export class GpuInfo{
+    totalGlobalMem: number;
+    id: number;
+    name: string;
+}
 export class UserInfo{
     //
     activated: boolean;
