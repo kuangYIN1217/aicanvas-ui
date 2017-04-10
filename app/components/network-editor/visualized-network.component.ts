@@ -68,7 +68,7 @@ export class VisualizedNetworkComponent implements OnInit {
         var selection = this.container.selectAll('.layer-icon')
             .data(this.networkEditorService.getLayerList());
 
-        // Update 
+        // Update
         selection
             .attr('x', function (layer) { return layer.x + 'px'; })
             .attr('y', function (layer) { return layer.y + 'px'; })

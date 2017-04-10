@@ -1,7 +1,14 @@
 import { Layer, Link } from './training-network';
 import {Type, plainToClass} from "class-transformer";
 
-export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';
+// export type ParameterType = 'STRING'|'BOOL'|'INT'|'FLOAT'|'ENUM'|'LIST';
+export type ParameterType = 'string'|'boolean'|'int'|'float'|'enums'|'list';
+
+export class Editable_param{
+    path: string;
+    editable_param: Parameter;
+    lvl: number;
+}
 
 export class Parameter {
   name: string;
@@ -19,7 +26,7 @@ export class Parameter {
   d_type: ParameterType;
 
   // Define the shape of data if type = LIST.
-  shape: number[];
+  shape: number[];// 长度=纬度，13，14，15 = 13*14*15；
 
   // If type == enums, the options specifies the available values to choose from.
   allowed_values: any[];
@@ -29,11 +36,13 @@ export class Parameter {
 
   // When ParamType is INT or FLOAT, allow the following attribute to specify the range of the input data.
   has_min: boolean;
-  min_value: number;
+  min_value: any;
   has_max: boolean;
-  max_value: number;
+  max_value: any;
 
   // More on lvl/history_values.
+  history_values: any;
+
 }
 
 export class TrainingNetwork {

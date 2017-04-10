@@ -1,10 +1,56 @@
-    <nav>
-     <a routerLinkActive="active" routerLink="/overview">Overview</a>
+    <div class="header" [style.display]="focusTab==0?'none':''">
+        <div class="logo">
+            <img src="images/navigation/logo.png">
+        </div>
+        <p>DeepTAC智能算法一体机管理平台V0.5</p>
+        <div class="entry user">
+            <img src="images/navigation/user.png">
+            <span>{{username}}</span>
+        </div>
+        <div class="entry logout">
+            <img src="images/navigation/quit.png">
+            <span (click)="logout()">Logout</span>
+        </div>
+    </div>
+    <nav [style.display]="(focusTab!=0&&needhide==0)?'':'none'">
+        <div class="nav_element" [class.focusTab] = "focusTab==1" >
+            <img [src]="focusTab!=1?'images/navigation/icon_1.png':'images/navigation/icon_1_h.png'">
+            <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">信息总览</a>
+        </div>
+        <div class="nav_element" [class.focusTab] = "focusTab==2">
+            <img [src]="focusTab!=2?'images/navigation/icon_2.png':'images/navigation/icon_2_h.png'">
+            <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(2);focusCollapse='0'">场景管理</a>
+        </div>
+        <div class="nav_element" [class.focusTab] = "focusTab==3">
+            <img [src]="focusTab!=3?'images/navigation/icon_3.png':'images/navigation/icon_3_h.png'">
+            <a routerLinkActive="active" routerLink="/jobcreation" (click)="changeTab(3);focusCollapse='0'">训练任务管理</a>
+        </div>
+        <div class="nav_element" [class.focusTab] = "focusTab==4">
+            <img [src]="focusTab!=4?'images/navigation/icon_4.png':'images/navigation/icon_4_h.png'">
+            <a routerLinkActive="active" routerLink="/datasets" (click)="changeTab(4);focusCollapse='0'">数据集管理</a>
+        </div>
+        <div class="nav_element" [class.focusTab] = "focusTab==5">
+            <img [src]="focusTab!=5?'images/navigation/icon_5.png':'images/navigation/icon_5_h.png'">
+            <a routerLinkActive="active" routerLink="/model" (click)="changeTab(5);focusCollapse='0'">模型服务管理</a>
+        </div>
+        <div class="nav_element" [class.focusTab] = "focusTab==6">
+            <img [src]="focusTab!=6?'images/navigation/icon_6.png':'images/navigation/icon_6_h.png'">
+            <a routerLinkActive="active" routerLink="/algplugins" (click)="changeTab(6);focusCollapse='0'">算法组件库</a>
+        </div>
+
+     <!-- <a routerLinkActive="active" routerLink="/overview">信息总览</a>
+     <br/>
      <a routerLinkActive="active" routerLink="/datasets">Datasets</a>
+     <br/>
      <a routerLinkActive="active" routerLink="/algchains">Algo Chains</a>
+     <br/>
      <a routerLinkActive="active" routerLink="/algplugins">Alg Plugins</a>
+     <br/>
      <a routerLinkActive="active" routerLink="/trainingjobs">Training Jobs</a>
+     <br/>
      <a routerLinkActive="active" routerLink="/jobcreation">Create Job</a>
+     <br/>
      <a routerLinkActive="active" routerLink="/network-editor">Network Editor</a>
+     <br/> -->
    </nav>
 <router-outlet></router-outlet>

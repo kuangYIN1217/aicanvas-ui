@@ -1,1 +1,38 @@
-Alg Plugins.
+<div class="container">
+    <div id="modalDiv">
+      <div class="tabs">
+        <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [class.focus]="showSystemPlugin==1">系统模版</div>
+        <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [class.focus]="showSystemPlugin==0">自定义模版</div>
+      </div>
+      <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
+          <div id="title"></div>
+        <table id="systemTable" class="table">
+          <th class="plugin_id">Id</th>
+          <th class="plugin_name">Name</th>
+          <th class="plugin_description">Description</th>
+          <th class="operation">Operation</th>
+          <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.creator=='general'?'':'none'">
+            <td>{{ plugin.id }}</td>
+            <td>{{ plugin.alg_name }}</td>
+            <td>{{ plugin.description }}</td>
+            <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}}">查看详细</a></td>
+          </tr>
+        </table>
+      </div>
+      <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
+        <table id="selfTable" class="table">
+            <th class="plugin_id">Id</th>
+            <th class="plugin_name">Name</th>
+            <th class="plugin_description">Description</th>
+            <th class="operation">Operation</th>
+            <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.creator!='general'?'':'none'">
+                <td>{{ plugin.id }}</td>
+                <td>{{ plugin.alg_name }}</td>
+                <td>{{ plugin.description }}</td>
+                <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id }}">查看详细</a></td>
+            </tr>
+        </table>
+      </div>
+  </div>
+
+ </div>

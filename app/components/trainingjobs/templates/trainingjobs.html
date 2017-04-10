@@ -1,1 +1,35 @@
-Training jobs.
+<div class="container">
+    <div class="createTask" id="createTask">
+      <img src="images/TrainingManagement/u59.png">
+      <p><a routerLinkActive="active" routerLink="/jobcreation">创建任务</a><p>
+    </div>
+    <div class="menu funcionMenu">
+      <input type="button" class="exportBtn" value="CSV" onclick="csv()">
+      <input type="button" class="exportBtn" value="XLS" onclick="xls()">
+      <input id="searchCondition" placeholder="Search:"/>
+    </div>
+    <table id="trainTable" class="table">
+      <th class="name">任务名称</th>
+      <th class="scene">场景名称</th>
+      <th class="time">创建时间</th>
+      <th class="condition">状态</th>
+      <th class="progress">进度</th>
+      <th class="operation">操作</th>
+      <th class="detail">详情</th>
+
+    </table>
+    <div class="menu choosePageMenu">
+      <div class="discription">
+        Showing 1 to 10 of 10 items.
+      </div>
+      <select class="num_select" name="num_select">
+        <option value="10" selected="selected">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+      <div class="span_description">items</div>
+      <input type="button" id="next_btn" class="page_btn" value="Next" onclick="next()">
+      <input type="button" id="prev_btn" class="page_btn" value="Prev" onclick="prev()">
+    </div>
+</div>
