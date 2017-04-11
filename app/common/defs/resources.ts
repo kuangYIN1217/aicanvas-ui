@@ -88,7 +88,7 @@ export class JobInfo{
     // 运行时长 /秒
     runningTime: string;
     // // percent pg job progress
-    // job_progress: number;
+    percent: number;
 }
 export class JobParameter{
     loss: string;
