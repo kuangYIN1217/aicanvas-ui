@@ -34,7 +34,7 @@
 }
 .status{
   background-color: #19191a;
-  height: 1402px;
+  min-height: 1402px;
 }
 /*table*/
 .table{
@@ -88,55 +88,66 @@
 }
 .total{
   background-color: #191919;
-  min-height:1023px;
-  height:auto;
-  width: 1820px;
+  width: 1700;
   font-family: "Microsoft YaHei";
   color: #ffffff;
 
 }
-.purchaseScene{
+h4{
+    margin: 0px;
+}
+.resourceTypeTitle{
   position: relative;
   height: 40px;
   width: 150px;
-  margin-left:20px;
   text-align: center;
   padding-top:14.5px;
   font-family: "Microsoft YaHei";
   color: #ffffff;
   font-size: 24px;
-
-
 }
-.GPU_1,.GPU_2,.GPU_3{
-  position: relative;
-  width: 100%;
-  background-color: #191919;
-  min-height:330px;
-  height:auto;
+.cpu{
+    height: 520px;
 }
-.GPU_2{
-  margin-top:35px;
-}
-.GPU_3{
-  min-height:551px;
-  height:auto;
-}
-.occupancyRate,.fluctuate{
+/*.occupancyRate,.fluctuate{
   position: relative;
   background-color: #151515;
   box-shadow: 1px 1px 30px rgba(0,0,0,0.5);
   float: left;
-  width: 515px;
+  width: 800px;
   height: 330px;
   border-radius: 5px;
   margin-left: 20px;
   margin-right:60px;
   margin-top:15px;
 
+}*/
+.linechart{
+    position: relative;
+    background-color: #151515;
+    box-shadow: 1px 1px 30px rgba(0,0,0,0.5);
+    float: left;
+    width: 1000px;
+    height: 440px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 30px;
+    margin-top:15px;
+}
+.piechart{
+    position: relative;
+    background-color: #151515;
+    box-shadow: 1px 1px 30px rgba(0,0,0,0.5);
+    float: left;
+    width: 600px;
+    height: 440px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:15px;
 }
 
-.occupancyRate h4,.fluctuate h4,.usageRateFluctuate h4{
+.occupancyRate h4,.chart h4,.usageRateFluctuate h4{
   position: relative;
   font-family: "Microsoft YaHei";
   color: #ffffff;
@@ -144,7 +155,7 @@
   margin-top: 25px;
   padding-left: 10px;
 }
-.occupancyRate p,.fluctuate p,.usageRateFluctuate p{
+.occupancyRate p,.chart p,.usageRateFluctuate p{
   position: relative;
   font-family: "Microsoft YaHei";
   color: #5a5a5a;
@@ -203,6 +214,7 @@
 #cpuwave{
     width: 1034px;
     float: left;
+    margin-bottom: 40px;
 }
 .cpuwaveDescription{
     position: relative;
