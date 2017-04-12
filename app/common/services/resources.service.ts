@@ -8,8 +8,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+<<<<<<< HEAD
+import { CpuInfo, GpuInfo, Gpu } from '../defs/resources';
+=======
 
 import { CpuInfo, GpuInfo } from '../defs/resources';
+>>>>>>> XinkTech/master
 import {SERVER_URL} from "../../app.constants";
 
 
@@ -61,7 +65,7 @@ export class ResourcesService {
             });
     }
 
-    getAllGpus(): Observable<GpuInfo[]> {
+    getAllGpus(): Observable<Gpu[]> {
         let path = "/api/gpus";
         let headers = this.getHeaders();
         // TODO: what if it returns error?
@@ -69,7 +73,7 @@ export class ResourcesService {
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return (plainToClass(GpuInfo, response.json()));
+                    return (plainToClass(Gpu, response.json()));
                 }
             });
     }
