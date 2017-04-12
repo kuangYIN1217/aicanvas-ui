@@ -1,3 +1,7 @@
 **/node_modules
 app/**/*.js
 app/**/*.js.map
+<<<<<<< HEAD
+=======
+./idea/**
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73

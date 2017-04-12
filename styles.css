@@ -1,5 +1,9 @@
 /* Master Styles */
 body{
+<<<<<<< HEAD
+=======
+    width: 1920px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     margin: 0px;
     background-color: #19191a;
 }
@@ -17,7 +21,11 @@ h2, h3 {
 /*make every right-side page arranged*/
 .container{
     position: relative;
+<<<<<<< HEAD
     width: 82%;
+=======
+    width: 1700px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     height: 1462px;
     float: right;
     background-color: #131314;

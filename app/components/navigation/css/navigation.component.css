@@ -44,6 +44,7 @@
     color: #ffffff;
 }
 .user{
+<<<<<<< HEAD
     left: 80%;
 }
 .user span{
@@ -54,11 +55,27 @@
 }
 .logout span{
     left: 89%;
+=======
+    left: 1596px;
+}
+.user span{
+    left: 1618px;
+}
+.logout{
+    left: 1686px;
+}
+.logout span{
+    left: 1708px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 
 /*nav*/
 nav{
+<<<<<<< HEAD
     width: 18%;
+=======
+    width: 220px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     float: left;
     height: 1462px;
     background-color: #0e0e0e;
@@ -73,7 +90,11 @@ nav{
 .nav_element img{
     width: 20px;
     height: 22px;
+<<<<<<< HEAD
     margin-left: 15%;
+=======
+    margin-left: 28px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     margin-right: 20px;
     float: left;
 }

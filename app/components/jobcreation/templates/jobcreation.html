@@ -24,11 +24,19 @@
                     <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
                     <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
                     <td>{{jobInfo.status}}</td>
+<<<<<<< HEAD
                     <td>{{jobInfo.dataset==null?'无设置':jobInfo.dataset}}%</td>
                     <!-- <td>{{jobInfo.job_progress}}%</td> -->
                     <td class="operationTd">
                         <div class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
                         <div class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
+=======
+                    <td>{{jobInfo.percent==null?'0.0':(jobInfo.percent*100).toFixed(2)}}%</td>
+                    <!-- <td>{{jobInfo.job_progress}}%</td> -->
+                    <td class="operationTd">
+                        <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
+                        <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
                     </td>
                     <td><a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a></td>
                 </tr>

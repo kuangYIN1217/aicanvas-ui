@@ -64,7 +64,11 @@ a{
 }
 /*left*/
 .leftBox{
+<<<<<<< HEAD
     width: 22%;
+=======
+    width: 265px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     background-color: black;
     float: left;
     height: 100%;
@@ -91,16 +95,25 @@ a{
     color: #eeeee1;
     font-size: 20px;
     margin-bottom: 16px;
+<<<<<<< HEAD
     line-height: 70px;
     color: skyblue;
     text-align: center;
+=======
+    height: 70px;
+    line-height: 70px;
+    color: skyblue;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .alg_choose_descrip{
     color: #eeeee1;
     font-size: 18px;
     margin-bottom: 16px;
     height: 40px;
+<<<<<<< HEAD
     text-align: center;
+=======
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .alg_choose_list{
     color: #eeeee1;
@@ -122,7 +135,11 @@ a{
 /**/
 .content{
     overflow: auto;
+<<<<<<< HEAD
     width: 56%;
+=======
+    width: 1300px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     height: 1000px;
     float: left;
     background-color: #191919;
@@ -143,7 +160,11 @@ a{
 
 /**/
 .rightBox{
+<<<<<<< HEAD
     width: 22%;
+=======
+    width: 355px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     background-color: black;
     float: right;
     height: 100%;

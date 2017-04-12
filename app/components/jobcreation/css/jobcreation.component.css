@@ -38,7 +38,11 @@ select {
     line-height: 38px;
     color: #ced1d2;
     background-color: #58585a;
+<<<<<<< HEAD
     margin-left: 2%;
+=======
+    margin-left: 20px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     font-size: 20px;
 }
 .focus{
@@ -88,8 +92,13 @@ select {
 .table{
     position: relative;
     top: 28px;
+<<<<<<< HEAD
     margin:0 2% 0 2%;
     width: 96%;
+=======
+    margin-left: 20px;
+    width: 1660px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .table th{
     height: 50px;
@@ -140,10 +149,14 @@ select {
     text-decoration: none;
 }
 .operationTd{
+<<<<<<< HEAD
     background-position: center;
     background-repeat: no-repeat;
     background-image: url('images/jobcreation/operation.png');
     background-position: 58%;
+=======
+
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .operationBtn{
     position: relative;
@@ -154,11 +167,18 @@ select {
     cursor: pointer;
 }
 .stop{
+<<<<<<< HEAD
     left: 84.7px;
+=======
+    left: 99.7px;
+    background-image: url('images/jobcreation/icon_01.png');
+
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .start{
     width: 12px;
     left: 99.7px;
+<<<<<<< HEAD
 }
 .bottom_menu{
     position: relative;;
@@ -166,6 +186,18 @@ select {
     height: 49px;
     background-color: #0b0b0b;
     margin:30px 2% 0 2%;
+=======
+    background-image: url('images/jobcreation/icon_02.png');
+    background-repeat: no-repeat;
+}
+.bottom_menu{
+    position: relative;;
+    width: 1659px;
+    height: 49px;
+    margin-top: 30px;
+    background-color: #0b0b0b;
+    margin-left: 20px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .bottom_menu .label{
     position: relative;
@@ -195,17 +227,32 @@ select {
 
 }
 .bottom_menu .pagebtn{
+<<<<<<< HEAD
     height: 28px;
     line-height: 28px;
     text-align: center;
     width: 90px;
     margin: 11px 8px 0 10px;
+=======
+    position: relative;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    top: 11;
+    right: 250px;
+    width: 90px;
+    margin: 0px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     float: right;
     background-color: #252525;
     color: #f7f7f7;
     border-radius: 4px;
     font-size: 16px;
     font-family: "MicrosoftYaHei";
+<<<<<<< HEAD
+=======
+    margin-left: 10px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     cursor: pointer;
 }
 
@@ -383,7 +430,11 @@ select {
 /*2*/
 /*left*/
 #step2_content .leftBox{
+<<<<<<< HEAD
     width: 18%;
+=======
+    width: 220px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     background-color: black;
     float: left;
     height: 100%;
@@ -391,6 +442,10 @@ select {
 #step2_content .condition{
     height: 200px;
     border-bottom: 1px solid #191919;
+<<<<<<< HEAD
+=======
+    margin-left: 20px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     width: 100%;
 }
 #step2_content .name{
@@ -407,13 +462,20 @@ select {
     width: 100%;
 }
 .alg_choose{
+<<<<<<< HEAD
+=======
+    margin-left: 20px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .alg_name{
     color: #eeeee1;
     font-size: 20px;
     margin-bottom: 16px;
     height: 5%;
+<<<<<<< HEAD
     text-align: center;
+=======
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 .alg_choose_descrip{
     color: #eeeee1;
@@ -441,7 +503,11 @@ select {
 /**/
 .chains{
     overflow: auto;
+<<<<<<< HEAD
     width: 18%;
+=======
+    width: 249px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     height: 100%;
     float: left;
     background-color: black;
@@ -466,7 +532,11 @@ select {
 }
 .content{
     overflow: auto;
+<<<<<<< HEAD
     width: 49.9%;
+=======
+    width: 900px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     height: 100%;
     float: left;
     background-color: #191919;
@@ -477,7 +547,11 @@ select {
 
 /**/
 .rightBox{
+<<<<<<< HEAD
     width: 14%;
+=======
+    width: 260px;
+>>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     background-color: black;
     float: right;
     height: 100%;
