@@ -39,13 +39,9 @@
 .table{
     position: relative;
     top: 28px;
-<<<<<<< HEAD
     margin:0 2% 0 2%;
     width: 96%;
-=======
-    margin-left: 20px;
-    width: 1660px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 .table th{
   height: 50px;

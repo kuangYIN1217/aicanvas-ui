@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
 import { JobService } from '../../common/services/job.service'
 
-<<<<<<< HEAD
-import { CpuInfo } from "../../common/defs/resources";
-=======
+
 import { CpuInfo, GpuInfo } from "../../common/defs/resources";
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 import { JobInfo } from "../../common/defs/resources";
 declare var $:any;
 import * as d3 from 'd3';
@@ -18,11 +16,8 @@ import * as d3 from 'd3';
     providers: [ResourcesService,JobService]
 })
 export class OverviewComponent {
-<<<<<<< HEAD
-=======
-    // info of gpu
+
     gpuArray: GpuInfo[] = [];
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     // infomation of cpu
     cpuInfoArray: CpuInfo[] = [];
     jobArray: JobInfo[] = [];
@@ -30,13 +25,10 @@ export class OverviewComponent {
     tabIndex: number = 0;
 
     constructor(private resourcesService: ResourcesService, private jobService: JobService) {
-<<<<<<< HEAD
-        resourcesService.getCpuInfo()
-        .subscribe(cpuInfoArray => this.cpuInfoArray = cpuInfoArray);
-=======
+
         resourcesService.getAllGpus()
         .subscribe(gpuArray => this.gpuArray = gpuArray);
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
         jobService.getAllJobs()
         .subscribe(jobArray => this.jobArray = jobArray);
 
@@ -44,15 +36,14 @@ export class OverviewComponent {
             //console.log("Hello from setTimeout");
             this.originPics();
         }, 200);
-<<<<<<< HEAD
-=======
+
 
         if (sessionStorage.overviewTab){
             this.changeTab(sessionStorage.overviewTab);
         }else{
             sessionStorage.overviewTab = 0;
         }
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     }
 
     changeTab(tabIndex: number){

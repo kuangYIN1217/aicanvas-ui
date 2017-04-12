@@ -9,14 +9,12 @@ export class CpuInfo {
     // Current usage of cpu.
     cpu_pct: number;
 }
-<<<<<<< HEAD
-=======
+
 export class GpuInfo{
     totalGlobalMem: number;
     id: number;
     name: string;
 }
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 export class UserInfo{
     //
     activated: boolean;
@@ -96,11 +94,8 @@ export class JobInfo{
     // 运行时长 /秒
     runningTime: string;
     // // percent pg job progress
-<<<<<<< HEAD
-    // job_progress: number;
-=======
+
     percent: number;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 }
 export class JobParameter{
     loss: string;

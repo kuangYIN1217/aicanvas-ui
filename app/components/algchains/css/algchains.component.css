@@ -49,20 +49,14 @@
     background-color: #191919;
     position: relative;
     margin-top: 50px;
-<<<<<<< HEAD
     width: 60%;
-=======
-    width: 1148px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     height:auto;
     min-height:923px;
     height: auto;
     padding-bottom: 50px;
     float: left;
-<<<<<<< HEAD
     margin-left: 14px;
-=======
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 .scene{
     background-color: #352992;
@@ -70,17 +64,11 @@
     margin-bottom: 50px;
     left: -5px;
     float: left;
-<<<<<<< HEAD
     width: 46%;
     height: 352px;
     border-radius: 5px;
     margin-left: 4%;
-=======
-    width: 526px;
-    height: 352px;
-    border-radius: 5px;
-    margin-left: 48px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 .scene_1{
     background-color: #cd3458;
@@ -112,11 +100,7 @@
     position: relative;
     font-family: "MicrosoftYaHei";
     color: #ffffff;
-<<<<<<< HEAD
     font-size: 1.2rem;
-=======
-    font-size: 24px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     text-align: center;
     margin: 0px;
     margin-top: 32px;
@@ -124,18 +108,12 @@
 .scene .descrip{
     position: relative;
     margin-top: 35px;
-<<<<<<< HEAD
     width: 46%;
-=======
-    margin-left: 20px;
-    width: 250px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     height: 217.6px;
     float: left;
 
 }
 .scene .descrip p{
-<<<<<<< HEAD
     height: 157.6px;
     font-family: "MicrosoftYaHei";
     color: #ffffff;
@@ -143,50 +121,28 @@
     letter-spacing:2px;
     line-height:180%;
     text-indent: 8%;
-=======
-    width: 250px;
-    height: 157.6px;
-    font-family: "MicrosoftYaHei";
-    color: #ffffff;
-    font-size: 18px;
-    letter-spacing:2px;
-    line-height:180%;
-    text-indent: 40px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 
 }
 .scene .descrip a{
     color: #eeeeee;
-<<<<<<< HEAD
     font-size: 1rem;
     text-decoration: none;
     float: right;
     cursor: pointer;
     margin-right: 8px;
-=======
-    font-size: 18px;
-    text-decoration: none;
-    float: right;
-    cursor: pointer;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 .scene .modelPreview{
     position: relative;
     margin-top: 20px;
-<<<<<<< HEAD
     width: 46%;
     height: 217.6px;
     color: #eeeeee;
     float: left;
     margin-left: 2%;
     margin-right: 2%;
-=======
-    margin-left: 20px;
-    width: 220px;
-    height: 217.6px;
-    color: #eeeeee;
-    float: left;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 .scene .modelPreview p{
     font-size: 20px;
@@ -201,19 +157,12 @@
     position: relative;
     border: 1px solid#eeeeee;
     border-radius: 8px;
-<<<<<<< HEAD
     width: 100%;
     height: 34px;
     line-height: 34px;
     text-align: center;
     margin: 0 auto;
-=======
-    width: 135px;
-    height: 34px;
-    line-height: 34px;
-    text-align: center;
-    margin-left: 42.5px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     margin-top: 0px;
     margin-bottom: 25px;
 }
@@ -229,11 +178,9 @@
 .recommend{
     background-color: #191919;
     position: relative;
-<<<<<<< HEAD
+
     width: 30%;
-=======
-    width: 442px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     height: auto;
     min-height:923px;
     margin-left: 16px;
@@ -242,29 +189,21 @@
 }
 .recommend h4{
     position: relative;
-<<<<<<< HEAD
+
     font-size: 1.2rem;
-=======
-    font-size: 24px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     margin-left: 16px;
     margin-bottom: 0px;
     color: #ffffff;
 }
 .recommend .recommendScene{
     position: relative;
-<<<<<<< HEAD
-=======
-    width: 442px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     height: 296px;
     margin-left: 16px;
     border-radius: 5px;
     margin-bottom:32px;
-<<<<<<< HEAD
-=======
-    margin-right: 40px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 
 .rs_1{
@@ -292,19 +231,14 @@
     position: relative;
     top: 70px;
     left: 18px;
-<<<<<<< HEAD
+
     width: 46%;
-=======
-    width: 210px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     height: 130px;
     float: left;
 }
 .recommendScene .descrip p{
-<<<<<<< HEAD
-=======
-    width: 210px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     height: 100px;
     font-family: "MicrosoftYaHei";
     color: #fcfcfc;
@@ -318,27 +252,19 @@
     font-size: 15px;
     text-decoration: none;
     float: right;
-<<<<<<< HEAD
     margin-right: 10px;
-=======
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 .recommendScene .modelPreview{
     position: relative;
     margin-top: 30px;
-<<<<<<< HEAD
     width: 46%;
     height: 200px;
     color: #eeeeee;
     float: right;
     margin-left: 2%;
     margin-right: 2%;
-=======
-    width: 180px;
-    height: 200px;
-    color: #eeeeee;
-    float: right;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
 }
 .recommendScene .modelPreview p{
     position: relative;
@@ -350,16 +276,11 @@
     position: relative;
     border: 1px solid #eeeeee;
     border-radius: 8px;
-<<<<<<< HEAD
+
     width: 94%;
     height: 24px;
     text-align: center;
-=======
-    width: 120px;
-    height: 24px;
-    text-align: center;
-    left: 30px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     margin-top:10px;
     margin-bottom: 30px;
 }
@@ -464,11 +385,9 @@
 }
 /*left*/
 .leftBox{
-<<<<<<< HEAD
+
     width: 20%;
-=======
-    width: 265px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     background-color: #191919;
     float: left;
     height: 100%;
@@ -530,11 +449,8 @@
 
 .chains{
     overflow: auto;
-<<<<<<< HEAD
     width: 20%;
-=======
-    width: 249px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     height: 100%;
     float: left;
     background-color: #191919;
@@ -561,11 +477,7 @@
 }
 .content{
     overflow: auto;
-<<<<<<< HEAD
     width: 32%;
-=======
-    width: 880px;
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     height: 100%;
     float: left;
     background-color: #191919;

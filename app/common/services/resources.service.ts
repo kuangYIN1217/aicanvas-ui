@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-import { Http, Response, RequestOptions } from '@angular/http';
-=======
+
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 import { Injectable } from '@angular/core';
 
 import { plainToClass } from "class-transformer";
@@ -11,14 +8,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-<<<<<<< HEAD
-import { CpuInfo } from '../defs/resources'
-import { PluginInfo } from "../defs/resources";
-import { JobInfo } from "../defs/resources";
-import { SceneInfo } from "../defs/resources";
-=======
+
 import { CpuInfo, GpuInfo } from '../defs/resources';
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
 import {SERVER_URL} from "../../app.constants";
 
 
@@ -29,13 +20,7 @@ export class ResourcesService {
     SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
 
-<<<<<<< HEAD
-    getCpuInfo(): Observable<CpuInfo[]> {
 
-        // TODO: what if it returns error?
-        // Moving hostname to maybe tsconfig.json
-        return this.http.get('http://127.0.0.1:5000/cpuinfo')
-=======
     getAuthorization(){
         return 'Bearer '+ sessionStorage.authenticationToken;
     }
@@ -54,7 +39,7 @@ export class ResourcesService {
         // TODO: what if it returns error?
         // Moving hostname to maybe tsconfig.json
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
             .map((response: Response) => {
                 if (response && response.json()) {
                     return (plainToClass(CpuInfo, response.json()));
@@ -62,19 +47,7 @@ export class ResourcesService {
             });
     }
 
-<<<<<<< HEAD
-    createPluginFrom(pluginId: number, userId: number){
 
-    }
-    savePlugin(pluginMeta:any){
-
-    }
-    createChainFrom(chainId: number, userId: number){
-
-    }
-    saveChain(chainMeta:any){
-
-=======
     getGpuStatus(gpuId): Observable<GpuInfo[]> {
         let path = "/api/gpu/"+gpuId;
         let headers = this.getHeaders();
@@ -99,6 +72,5 @@ export class ResourcesService {
                     return (plainToClass(GpuInfo, response.json()));
                 }
             });
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     }
 }

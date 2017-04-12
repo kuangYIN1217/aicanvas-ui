@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-[Install nodejs](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)  
+[Install nodejs](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
 
 sudo apt install npm
 
@@ -46,4 +45,4 @@ python main.py
 [PS: port = 5000]
 
 Crtl+C to shut it down AND then start it again EVERY single time when u modified fakeServer.
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+

@@ -37,12 +37,9 @@ export class JobCreationComponent {
     pageMaxItem: number = 10;
     // store search content
     search_input: string = "";
-
-<<<<<<< HEAD
-=======
+    
     interval:any
 
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
     constructor(private sceneService: SceneService,private jobService: JobService,private pluginService: PluginService, private userService: UserService, private router: Router) {
         jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
@@ -55,9 +52,6 @@ export class JobCreationComponent {
         if(sessionStorage.search_input){
             this.search_input = sessionStorage.search_input;
         }
-<<<<<<< HEAD
-    }
-=======
         this.interval = setInterval(() => this.updatePage(), 500);
     }
 
@@ -67,7 +61,7 @@ export class JobCreationComponent {
         clearInterval(this.interval);
     }
 
->>>>>>> c49748ce00c9b8d3158b430794f12515572aec73
+
     updatePage(){
         this.jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
