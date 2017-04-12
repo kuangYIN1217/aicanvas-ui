@@ -1,13 +1,19 @@
+
 *{
     margin: 0px;
     padding: 0px;
+
 }
 .bodyContainer{
     background-image: url('images/login/login_bg.jpg');
-    height: 1080px;
-    width: 1920px;
+    height: 100%;
+    width: 100%;
     background-repeat:no-repeat;
     transform-origin: center top 0px;
+}
+.bodyContainer .bodyContent{
+	width:90%;
+	margin: 0 auto;
 }
 .logo{
     width: 232px;
@@ -35,11 +41,13 @@ ul, ol {
 }
 #b03 {
     height:465px;
-    width: 729px;
-    left:250px;
-    top: 226px;
+    width: 55%;
+    left:50%;
+    top: 50%;
     color: #eeeeee;
     float: left;
+    margin-left:-570px;
+    margin-top: -190px;
 }
 
 /*.dots {
@@ -70,13 +78,13 @@ ul, ol {
 }*/
 .scene{
   height:465px;
-  width: 729px;
+  width: 100%;
 
 }
 .scene h4{
     font-family: "Microsoft YaHei";
     color: #eeeeee;
-    font-size: 36px;
+    font-size: 1.8rem;
     margin-top: 46px;
     margin-bottom:46px;
     text-align: center;
@@ -86,7 +94,7 @@ ul, ol {
     text-indent:50px;
     font-family: "Microsoft YaHei";
     color: #eeeeee;
-    font-size: 24px;
+    font-size: 1.4rem;
     padding-left: 40px;
     padding-right: 40px;
     letter-spacing:2px;
@@ -95,9 +103,9 @@ ul, ol {
 .main{
     /*width: 100%;*/
     position: absolute;
-    left: 1219px;
-    right: 360px;
-    top: 200px;
+    right: 10%;
+    top: 50%;
+    margin-top: -230px;
     width: 339px;
     height:460px;
 }
@@ -137,6 +145,7 @@ ul, ol {
 
 }
 input{
+	text-indent: 10px;
     width: 252px;
     height: 35px;
     font-family: "Microsoft YaHei";
@@ -211,3 +220,4 @@ input{
     color: #00ffff;
 
 }
+

@@ -37,6 +37,8 @@ export class JobCreationComponent {
     pageMaxItem: number = 10;
     // store search content
     search_input: string = "";
+    
+    interval:any
 
     constructor(private sceneService: SceneService,private jobService: JobService,private pluginService: PluginService, private userService: UserService, private router: Router) {
         jobService.getAllJobs()
@@ -50,7 +52,16 @@ export class JobCreationComponent {
         if(sessionStorage.search_input){
             this.search_input = sessionStorage.search_input;
         }
+        this.interval = setInterval(() => this.updatePage(), 500);
     }
+
+
+    ngOnDestroy(){
+        // 退出时停止更新
+        clearInterval(this.interval);
+    }
+
+
     updatePage(){
         this.jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));

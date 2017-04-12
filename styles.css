@@ -1,6 +1,5 @@
 /* Master Styles */
 body{
-    width: 1920px;
     margin: 0px;
     background-color: #19191a;
 }
@@ -18,7 +17,7 @@ h2, h3 {
 /*make every right-side page arranged*/
 .container{
     position: relative;
-    width: 1700px;
+    width: 82%;
     height: 1462px;
     float: right;
     background-color: #131314;

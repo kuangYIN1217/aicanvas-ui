@@ -1,3 +1,4 @@
+
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -7,7 +8,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+<<<<<<< HEAD
 import { CpuInfo, GpuInfo, Gpu } from '../defs/resources';
+=======
+
+import { CpuInfo, GpuInfo } from '../defs/resources';
+>>>>>>> XinkTech/master
 import {SERVER_URL} from "../../app.constants";
 
 
@@ -17,6 +23,7 @@ import { Parameter, TrainingNetwork } from "../defs/parameter";
 export class ResourcesService {
     SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
+
 
     getAuthorization(){
         return 'Bearer '+ sessionStorage.authenticationToken;
@@ -36,12 +43,14 @@ export class ResourcesService {
         // TODO: what if it returns error?
         // Moving hostname to maybe tsconfig.json
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
+
             .map((response: Response) => {
                 if (response && response.json()) {
                     return (plainToClass(CpuInfo, response.json()));
                 }
             });
     }
+
 
     getGpuStatus(gpuId): Observable<GpuInfo[]> {
         let path = "/api/gpu/"+gpuId;

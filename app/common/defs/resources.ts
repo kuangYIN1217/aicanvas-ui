@@ -5,6 +5,7 @@ export class CpuInfo {
     created_at: string;
     used_memory: number;
 }
+
 export class GpuInfo{
     total_gpu_utilization: number;
     created_at: string;
@@ -94,7 +95,8 @@ export class JobInfo{
     // 运行时长 /秒
     runningTime: string;
     // // percent pg job progress
-    // job_progress: number;
+
+    percent: number;
 }
 export class JobParameter{
     loss: string;

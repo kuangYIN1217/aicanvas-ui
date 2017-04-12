@@ -1,74 +1,78 @@
+
 <div class="bodyContainer">
-	<div class="logo">
-		<img src="images/login/logo_2.png">
-	</div>
-	<div class="banner" id="b03">
-		<ul>
-			<li>
-				<div class="scene">
-					<h4>DeepDAC一体机</h4>
-					<p>test1</p>
-				</div>
-			</li>
-			<li>
-				<div class="scene">
-					<h4>DeepDAC一体机</h4>
-					<p>teasdst22222222</p>
-				</div>
-			</li>
-			<li>
-				<div class="scene">
-					<h4>DeepDAC一体机</h4>
-					<p>作为人工智能机器学习平台级产品,一方面,嵌入大量的面向行业场景的人工智能机器学习算法组件,比如视觉识别,自然语言理解,数值趋势预测的问题;另一方面,提供更简单,更直观的算法编辑工具,使得用户能更</p>
-				</div>
-			</li>
-			<li>
-				<div class="scene">
-					<h4>DeepDAC一体机</h4>
-					<p>作为人工,嵌入大量的面向行业场景的人工智能机器学习算法组件,比如视觉识别,自然语言理解,数值趋势预测的问题;另一方面,提供更简单,更直观的算法编辑工具,使得用户能更</p>
-				</div>
-			</li>
-		</ul>
-
-	</div>
-	<div class="main">
-		<h5>登录</h5>
-		<div class="content">
+	<div class="bodyContent">
+		<div class="logo">
+			<img src="images/login/logo_2.png">
 		</div>
-		<div class="center">
-			<form action="" id="formOne" method="post" >
-
-				<p class="p1">用户名:</p>
-				<input type="text" name="uer" id="username" placeholder="请输入用户名"/>
-
-				<br/>
-				<p>密码:</p>
-				<input type="password" name="pwd" id="password" placeholder="请输入密码"/>
-
-				<br/>
-				<!--<p>验证码:</p>-->
-				<!--<input type="text" name="surePwd" id="surePwd" placeholder="请输入验证码"/>-->
-				<!--<br/>-->
-				<!--<canvas id="code" ></canvas><a id="change" (click)="changeValidCode()">换一张？</a>-->
-				<input type="button" value="登录" id="submit" name="submit" (click) = "login()">
-				<br/>
-			</form>
+		<div class="banner" id="b03">
+			<ul>
+				<li>
+					<div class="scene">
+						<h4>DeepDAC一体机</h4>
+						<p>test1</p>
+					</div>
+				</li>
+				<li>
+					<div class="scene">
+						<h4>DeepDAC一体机</h4>
+						<p>teasdst22222222</p>
+					</div>
+				</li>
+				<li>
+					<div class="scene">
+						<h4>DeepDAC一体机</h4>
+						<p>作为人工智能机器学习平台级产品,一方面,嵌入大量的面向行业场景的人工智能机器学习算法组件,比如视觉识别,自然语言理解,数值趋势预测的问题;另一方面,提供更简单,更直观的算法编辑工具,使得用户能更</p>
+					</div>
+				</li>
+				<li>
+					<div class="scene">
+						<h4>DeepDAC一体机</h4>
+						<p>作为人工,嵌入大量的面向行业场景的人工智能机器学习算法组件,比如视觉识别,自然语言理解,数值趋势预测的问题;另一方面,提供更简单,更直观的算法编辑工具,使得用户能更</p>
+					</div>
+				</li>
+			</ul>
+	
 		</div>
-
-		<!-- 从这里开始时弹出框 -->
-		<div class="cd-popup" role="alert" [class.is-visible]="this.msg_show">
-			<div class="cd-popup-container">
-				<div class="cd-popup-header">
-					<p class="msg_header">{{msg_header}}</p>
-				</div>
-				<div class="cd-popup-content">
-					<p class="msg_contente">{{msg_content}}</p>
-				</div>
-				<div class="cd-buttons">
-					<a (click)="hideMessageBox()" id="confirmBtn">Yes</a>
-				</div>
-				<a (click)="hideMessageBox()" class="cd-popup-close img-replace" >Close</a>
-			</div> <!-- cd-popup-container -->
-		</div> <!-- cd-popup -->
+		<div class="main">
+			<h5>登录</h5>
+			<div class="content">
+			</div>
+			<div class="center">
+				<form action="" id="formOne" method="post" >
+	
+					<p class="p1">用户名:</p>
+					<input type="text" name="uer" id="username" placeholder="请输入用户名"/>
+	
+					<br/>
+					<p>密码:</p>
+					<input type="password" name="pwd" id="password" placeholder="请输入密码"/>
+	
+					<br/>
+					<!--<p>验证码:</p>-->
+					<!--<input type="text" name="surePwd" id="surePwd" placeholder="请输入验证码"/>-->
+					<!--<br/>-->
+					<!--<canvas id="code" ></canvas><a id="change" (click)="changeValidCode()">换一张？</a>-->
+					<input type="button" value="登录" id="submit" name="submit" (click) = "login()">
+					<br/>
+				</form>
+			</div>
+	
+			<!-- 从这里开始时弹出框 -->
+			<div class="cd-popup" role="alert" [class.is-visible]="this.msg_show">
+				<div class="cd-popup-container">
+					<div class="cd-popup-header">
+						<p class="msg_header">{{msg_header}}</p>
+					</div>
+					<div class="cd-popup-content">
+						<p class="msg_contente">{{msg_content}}</p>
+					</div>
+					<div class="cd-buttons">
+						<a (click)="hideMessageBox()" id="confirmBtn">Yes</a>
+					</div>
+					<a (click)="hideMessageBox()" class="cd-popup-close img-replace" >Close</a>
+				</div> <!-- cd-popup-container -->
+			</div> <!-- cd-popup -->
+		</div>
 	</div>
 </div>
+

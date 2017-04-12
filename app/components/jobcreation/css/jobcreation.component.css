@@ -38,7 +38,7 @@ select {
     line-height: 38px;
     color: #ced1d2;
     background-color: #58585a;
-    margin-left: 20px;
+    margin-left: 2%;
     font-size: 20px;
 }
 .focus{
@@ -88,8 +88,9 @@ select {
 .table{
     position: relative;
     top: 28px;
-    margin-left: 20px;
-    width: 1660px;
+    margin:0 2% 0 2%;
+    width: 96%;
+
 }
 .table th{
     height: 50px;
@@ -140,10 +141,11 @@ select {
     text-decoration: none;
 }
 .operationTd{
+
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('images/jobcreation/operation.png');
     background-position: 58%;
+
 }
 .operationBtn{
     position: relative;
@@ -154,19 +156,23 @@ select {
     cursor: pointer;
 }
 .stop{
-    left: 84.7px;
+
+    left: 99.7px;
+    background-image: url('images/jobcreation/icon_01.png');
+
 }
 .start{
     width: 12px;
     left: 99.7px;
+    background-image: url('images/jobcreation/icon_02.png');
+    background-repeat: no-repeat;
 }
 .bottom_menu{
     position: relative;;
-    width: 1659px;
+    width: 96%;
     height: 49px;
-    margin-top: 30px;
     background-color: #0b0b0b;
-    margin-left: 20px;
+    margin:30px 2% 0 2%;
 }
 .bottom_menu .label{
     position: relative;
@@ -196,21 +202,19 @@ select {
 
 }
 .bottom_menu .pagebtn{
-    position: relative;
+
     height: 28px;
     line-height: 28px;
     text-align: center;
-    top: 11;
-    right: 250px;
     width: 90px;
-    margin: 0px;
+    margin: 11px 8px 0 10px;
+
     float: right;
     background-color: #252525;
     color: #f7f7f7;
     border-radius: 4px;
     font-size: 16px;
     font-family: "MicrosoftYaHei";
-    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -388,7 +392,7 @@ select {
 /*2*/
 /*left*/
 #step2_content .leftBox{
-    width: 220px;
+    width: 18%;
     background-color: black;
     float: left;
     height: 100%;
@@ -396,7 +400,6 @@ select {
 #step2_content .condition{
     height: 200px;
     border-bottom: 1px solid #191919;
-    margin-left: 20px;
     width: 100%;
 }
 #step2_content .name{
@@ -413,13 +416,16 @@ select {
     width: 100%;
 }
 .alg_choose{
-    margin-left: 20px;
+
 }
 .alg_name{
     color: #eeeee1;
     font-size: 20px;
     margin-bottom: 16px;
     height: 5%;
+
+    text-align: center;
+
 }
 .alg_choose_descrip{
     color: #eeeee1;
@@ -447,7 +453,8 @@ select {
 /**/
 .chains{
     overflow: auto;
-    width: 249px;
+    width: 18%;
+
     height: 100%;
     float: left;
     background-color: black;
@@ -472,7 +479,9 @@ select {
 }
 .content{
     overflow: auto;
-    width: 900px;
+
+    width: 49.9%;
+
     height: 100%;
     float: left;
     background-color: #191919;
@@ -483,7 +492,9 @@ select {
 
 /**/
 .rightBox{
-    width: 260px;
+
+    width: 14%;
+
     background-color: black;
     float: right;
     height: 100%;

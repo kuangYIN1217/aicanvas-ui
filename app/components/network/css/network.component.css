@@ -64,7 +64,7 @@ a{
 }
 /*left*/
 .leftBox{
-    width: 265px;
+    width: 22%;
     background-color: black;
     float: left;
     height: 100%;
@@ -91,15 +91,19 @@ a{
     color: #eeeee1;
     font-size: 20px;
     margin-bottom: 16px;
-    height: 70px;
     line-height: 70px;
     color: skyblue;
+    text-align: center;
+
 }
 .alg_choose_descrip{
     color: #eeeee1;
     font-size: 18px;
     margin-bottom: 16px;
     height: 40px;
+
+    text-align: center;
+
 }
 .alg_choose_list{
     color: #eeeee1;
@@ -121,7 +125,9 @@ a{
 /**/
 .content{
     overflow: auto;
-    width: 1300px;
+
+    width: 56%;
+
     height: 1000px;
     float: left;
     background-color: #191919;
@@ -142,7 +148,9 @@ a{
 
 /**/
 .rightBox{
-    width: 355px;
+
+    width: 22%;
+
     background-color: black;
     float: right;
     height: 100%;

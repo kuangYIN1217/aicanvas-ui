@@ -2,7 +2,13 @@ import { Component } from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
 import { JobService } from '../../common/services/job.service'
 
+<<<<<<< HEAD
 import { CpuInfo, GpuInfo, Gpu } from "../../common/defs/resources";
+=======
+
+import { CpuInfo, GpuInfo } from "../../common/defs/resources";
+
+>>>>>>> XinkTech/master
 import { JobInfo } from "../../common/defs/resources";
 declare var $:any;
 import * as d3 from 'd3';
@@ -14,8 +20,13 @@ import * as d3 from 'd3';
     providers: [ResourcesService,JobService]
 })
 export class OverviewComponent {
+<<<<<<< HEAD
     // gpus
     gpuArray: Gpu[] = [];
+=======
+
+    gpuArray: GpuInfo[] = [];
+>>>>>>> XinkTech/master
     // infomation of cpu
     cpuInfoArray: CpuInfo[] = [];
     // list of jobs
@@ -26,10 +37,17 @@ export class OverviewComponent {
     interval: any;
 
     constructor(private resourcesService: ResourcesService, private jobService: JobService) {
+<<<<<<< HEAD
         resourcesService.getCpuStatus()
         .subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray));
         resourcesService.getAllGpus()
         .subscribe(gpuArray => this.getGpus(gpuArray));
+=======
+
+        resourcesService.getAllGpus()
+        .subscribe(gpuArray => this.gpuArray = gpuArray);
+
+>>>>>>> XinkTech/master
         jobService.getAllJobs()
         .subscribe(jobArray => this.jobArray = jobArray);
 
@@ -39,13 +57,18 @@ export class OverviewComponent {
             this.update();
         }, 3000);
 
+<<<<<<< HEAD
         // default tab
+=======
+
+>>>>>>> XinkTech/master
         if (sessionStorage.overviewTab){
             this.changeTab(sessionStorage.overviewTab);
         }else{
             sessionStorage.overviewTab = 0;
             this.tabIndex = 0;
         }
+
     }
 
     getCpuInfo(cpuInfoArray: CpuInfo[]){

@@ -42,8 +42,9 @@
 .table{
     position: relative;
     top: 28px;
-    margin-left: 20px;
-    width: 1660px;
+    margin:0 2% 0 2%;
+    width: 96%;
+
 }
 .table th{
   height: 50px;
