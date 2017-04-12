@@ -140,10 +140,7 @@ select {
     text-decoration: none;
 }
 .operationTd{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url('images/jobcreation/operation.png');
-    background-position: 58%;
+
 }
 .operationBtn{
     position: relative;
@@ -154,11 +151,15 @@ select {
     cursor: pointer;
 }
 .stop{
-    left: 84.7px;
+    left: 99.7px;
+    background-image: url('images/jobcreation/icon_01.png');
+
 }
 .start{
     width: 12px;
     left: 99.7px;
+    background-image: url('images/jobcreation/icon_02.png');
+    background-repeat: no-repeat;
 }
 .bottom_menu{
     position: relative;;
