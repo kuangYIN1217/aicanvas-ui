@@ -1,0 +1,34 @@
+<div class="controls"> 
+    <div class="cnn-layer" 
+         *ngFor="let layerType of networkEditorService.getLayerTypeList()" 
+         (click)="createLayer(layerType)"
+         class="{{layerType.cssClassName}}">
+      <svg class="widget">
+        <g>
+            <circle class="icon" r="15px" transform="translate(15, 15)"></circle>
+        </g>
+      </svg>
+      <label>{{layerType.name}}</label>
+    </div>
+</div>
+<!--
+For testing the usage of parameterService and trainingNetworkService.
+
+<div>
+    <div *ngFor="let param of parameterService.getParameterList()">
+        <br>
+        <div>{{param.name}} </div>
+        <div>{{param.description}} </div>
+        <div>{{param.type}} </div>
+        <div>{{param.label}} </div>
+        <div>{{param.d_type}} </div>
+        <div>{{param.default_value}} </div>
+        <div>{{param.set_value}} </div>
+    </div>
+</div>
+
+<div>
+    {{trainingNetworkService.getTrainingNetwork()}}
+</div>
+-->
+<svg id="map" width="960" height="450"></svg>

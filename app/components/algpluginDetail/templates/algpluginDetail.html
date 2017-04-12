@@ -1,0 +1,67 @@
+<div class="container">
+    <div id = "detailDiv">
+        <div class="tabs">
+            <div id="tab_item0" class="tab_item"><a routerLinkActive="active" routerLink="/algplugins">返回</a></div>
+            <div id="tab_item1" class="tab_item focus">参数列表</div>
+            <div id="tab_item2" (click)="toNetwork()" class="tab_item" [style.display]="plugin.has_training_network==0?'none':''">网络层</div>
+            <div (click)="fork()" id="tab_item3" class="tab_item">保存</div>
+        </div>
+    </div>
+    <div id="systemDiv" class="status">
+         <table id="paramTable" class="table">
+             <th id="param_name">Param_name</th>
+             <th id="param_value">Default Value</th>
+             <tr *ngFor="let editable_parameter of editable_parameters;let param_num = index;">
+                 <td>{{ editable_parameter.editable_param.name }}</td>
+                 <td>
+                     <input *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                         class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
+
+                     <select *ngIf="editable_parameter.editable_param.type=='enums'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                         <option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
+                     </select>
+
+                     <select *ngIf="editable_parameter.editable_param.type=='boolean'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                         <option value="true">true</option>
+                         <option value="false">false</option>
+                     </select>
+
+                     <div *ngIf="editable_parameter.editable_param.type=='list'"class="select" name="data_select">
+                         <div>
+                              <table *ngIf="editable_parameter.editable_param.shape.length==2">
+                                  <tr *ngFor="let array1 of editable_parameter.editable_param.default_value;let i1 = index;">
+                                      <td *ngFor="let value1 of array1;let j1 = index;">
+                                          <!-- <input *ngIf="editable_parameter.editable_param.d_type!='ENUM'&&editable_parameter.editable_param.d_type!='LIST'&&editable_parameter.editable_param.d_type!='BOOL'" [placeholder]="'From '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                                              class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=editable_parameter.editable_param.set_value;" />
+
+                                          <select *ngIf="editable_parameter.editable_param.type=='ENUM'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
+                                              <option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
+                                          </select>
+
+                                          <select *ngIf="editable_parameter.editable_param.type=='BOOL'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
+                                              <option value="true">true</option>
+                                              <option value="false">false</option>
+                                          </select> -->
+                                          <input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
+                                      </td>
+                                  </tr>
+                              </table>
+                              <div *ngIf="editable_parameter.editable_param.shape.length==3">
+                                  <select>
+                                      <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
+                                  </select>
+                                  <table>
+                                      <tr *ngFor="let array2 of array_2d;let j2 = index;">
+                                          <td *ngFor="let value2 of array2;let z2 = index;">
+                                              <input type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </div>
+                         </div>
+                     </div>
+                 </td>
+             </tr>
+         </table>
+     </div>
+</div>

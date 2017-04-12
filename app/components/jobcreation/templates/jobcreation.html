@@ -1,0 +1,154 @@
+<div class="container">
+    <div class="manager" [style.display]="jobPageStatus=='manage'?'':'none'">
+        <div class="tabs">
+            <div class="tab_item sm_tab_item" (click)="createJob()"><img id="plusicon" src="images/jobcreation/icon_9.png" alt=""><span>创建任务</span></div>
+            <div class="tab_item sm_tab_item" (click)="CSV()">CSV</div>
+            <div class="tab_item sm_tab_item" (click)="XLS()">XLS</div>
+            <div class="tab_search">
+                <!-- if too slow for each search, should change to (change) according to the num of data -->
+                <input id="search_input" type="text" name="" value="" placeholder="&nbsp;&nbsp;搜索" (input)="search_input=$event.target.value;inputchange();" />
+                <img id="searchicon" src="images/jobcreation/search.png" alt="searchicon">
+            </div>
+        </div>
+        <div class="status">
+            <table id="jobTable" class="table">
+                <th class="name">任务名称</th>
+                <th class="scene">场景名称</th>
+                <th class="time">创建时间</th>
+                <th class="condition">状态</th>
+                <th class="progress">进度</th>
+                <th class="operation">操作</th>
+                <th class="formore">详情</th>
+                <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="(((i+1)>=(page-1)*pageMaxItem+1)&&(i+1)<=(page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem))?'':'none'">
+                    <td>{{jobInfo.jobName}}</td>
+                    <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
+                    <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
+                    <td>{{jobInfo.status}}</td>
+                    <td>{{jobInfo.dataset==null?'无设置':jobInfo.dataset}}%</td>
+                    <!-- <td>{{jobInfo.job_progress}}%</td> -->
+                    <td class="operationTd">
+                        <div class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
+                        <div class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
+                    </td>
+                    <td><a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a></td>
+                </tr>
+            </table>
+            <div class="bottom_menu">
+                <div class="label">Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem}} of {{page*pageMaxItem>Jobs_current.length?Jobs_current.length-(page-1)*pageMaxItem:pageMaxItem}} items</div>
+                <div class="selectDiv" >
+                    <select class="select_pagemax"(change)="maxItemChange($event.target.value);">
+                        <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                        <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                        <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+                    </select>
+                </div>
+                <div class="pagebtn" (click)="nextPage()">Next</div>
+                <div class="pagebtn" (click)="previousPage()">Previous</div>
+            </div>
+        </div>
+    </div>
+    <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">
+        <div class="step_pane">
+          <div id="step1" class="steps" [class.step_on]="stepNumber==1">Step 1: Data</div>
+          <div id="triangle1" class="triangle-right" [class.triangle_on]="stepNumber==1"></div>
+          <div id="step2" class="steps" [class.step_on]="stepNumber==2">Step 2: Model</div>
+          <div id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
+          <div id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Training</div>
+          <div id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
+        </div>
+
+        <div id="step_content" class="step_content">
+            <!-- step 1 -->
+            <div [style.display]="stepNumber==1 ? '' : 'none'" id="step1_content">
+              <div class="data">
+                <div class="choice">
+                  <div id="scene">
+                    <div class="scene_title">场景选择:</div>
+                    <select class="select" name="scene_select" (change)="changeChosenSceneId($event.target.value);">
+                      <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
+                    </select>
+                  </div>
+                  <div class="secondLine">
+                    <div id="dataset">
+                      <div class="data_title">数据集:</div>
+                      <select class="select" name="data_select">
+                        <option value="航拍图片识别" selected="selected">航拍图片识别</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                    <div id="rate">
+                      <div class="rate_title">训练/测试/验证集比例:</div>
+                      <select class="select" name="rate_select">
+                        <option value="航拍图片识别" selected="selected">航拍图片识别</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="thirdLine">
+                    <div id="record_num">所选记录数:&nbsp;{{chosenSceneId}}</div>
+                    <div id="store_type">
+                      <div class="store_title">载入内存方式:</div>
+                      <select class="select" name="store_select">
+                        <option value="航拍图片识别" selected="selected">分批加载</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="label">
+                  <div class="label_title">数据标注</div>
+                  <div class="label_type">数据类型:</div>
+                  <select class="select" name="label_select">
+                    <option value="图片" selected="selected">图片</option>
+                    <option value="saab">Saab</option>
+                    <option value="fiat">Fiat</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- step 2 -->
+            <div [style.display]="stepNumber==2 ? '' : 'none'" id="step2_content">
+                <input hidden id="plugin_storage" />
+                <input hidden id="layer_dictionary" />
+                <input hidden id="param_dictionary" />
+                <button hidden onclick="init()" id="hideBtn" >Init</button>
+                <button hidden onclick="load()" id="loadBtn" >Hide</button>
+                <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
+                <div class="leftBox">
+                    <div class="condition" [style.display]="type==scene?'':'none'">
+                        <div id="scene_name" class="name">{{chosen_scene.translation}}</div>
+                        <div id="scene_description" class="description">{{chosen_scene.description}}</div>
+                    </div>
+                    <div class="alg_choose">
+                        <div class="alg_name"></div>
+                        <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
+                        <div class="alg_choose_list" id="myPaletteDiv"></div>
+                    </div>
+                </div>
+                <div class="chains">
+                    <div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.id}}</div>
+                </div>
+                <div class="content" id="myDiagramDiv"></div>
+                <div class="rightBox">
+                    <div class="layer_name"></div>
+                    <div class="layer_params" id="property">
+                    </div>
+                </div>
+            </div>
+            <!-- step 4 -->
+            <div [style.display]="stepNumber==3 ? '' : 'none'" id="step3_content">
+              <div id="createBtn" class="createBtn" (click)="create()">创建训练任务</div>
+              <div class="detail"></div>
+            </div>
+            <!-- next step button -->
+          <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=3 ? '' : 'none'">下一步</div>
+        </div>
+    </div>
+</div>

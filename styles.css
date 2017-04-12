@@ -1,0 +1,289 @@
+/* Master Styles */
+body{
+    margin: 0px;
+    background-color: #19191a;
+}
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+  border-bottom: 2px solid black;
+}
+h2, h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+/*make every right-side page arranged*/
+.container{
+    position: relative;
+    width: 82%;
+    height: 1462px;
+    float: right;
+    background-color: #131314;
+}
+/* words cannot be select */
+html,body{
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+
+/*login*/
+.dots {
+    position: absolute;
+    text-align: center;
+    left: 290px;
+    bottom: 60px;
+}
+.dots li{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin: 0 4px;
+    text-indent: -999em;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 1;
+    -webkit-transition: background .5s, opacity .5s;
+    -moz-transition: background .5s, opacity .5s;
+    transition: background .5s, opacity .5s;
+}
+
+.dots .active{
+    background: #ffffff;
+    opacity: 1;
+}
+
+/*jobcreation*/
+/*.area {
+  fill: url(#lineChart--gradientBackgroundArea);
+}*/
+
+/*.area {
+  fill: lightsteelblue;
+}
+
+.lineChart--gradientBackgroundArea--top {
+  stop-color: #6bb7c7;
+  stop-opacity: 0.1;
+}
+
+.lineChart--gradientBackgroundArea--bottom {
+  stop-color: #6bb7c7;
+  stop-opacity: 0.6;
+}*/
+
+/*.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}*/
+
+
+/*charts*/
+.lineChart--area {
+  fill: url(#lineChart--gradientBackgroundArea);
+}
+
+.lineChart--areaLine {
+  fill: none;
+  stroke: #6bb7c7;
+  stroke-width: 3;
+}
+
+.lineChart--bubble--label {
+  fill: none;
+  stroke: #6bb7c7;
+  font-size: 12.6px;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.lineChart--bubble--value {
+  fill: #fff;
+  stroke: #fff;
+  font-size: 21px;
+  font-weight: 100;
+}
+
+.lineChart--circle {
+  fill: #6bb7c7;
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+.lineChart--circle__highlighted {
+  fill: #fff;
+  stroke: #3f94a7;
+}
+
+.lineChart--gradientBackgroundArea--top {
+  stop-color: #eeeeee;
+  stop-opacity: 0.1;
+}
+
+.lineChart--gradientBackgroundArea--bottom {
+  stop-color: #6bb7c7;
+  stop-opacity: 0.9;
+}
+
+.lineChart--xAxisTicks .domain, .lineChart--xAxis .domain, .lineChart--yAxisTicks .domain {
+  display: none;
+}
+
+.lineChart--xAxis .tick line {
+  display: none;
+}
+
+.lineChart--xAxisTicks .tick line, .lineChart--yAxisTicks .tick line {
+  fill: none;
+  stroke: #b3b3b3;
+  stroke-width: 1;
+  stroke-dasharray: 2,2;
+}
+
+
+/*弹出框的样式*/
+.img-replace {
+  /* replace text with an image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  color: transparent;
+  white-space: nowrap;
+}
+.cd-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(94, 110, 141, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+
+}
+.cd-popup a{
+    cursor: pointer;
+}
+.cd-popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.cd-popup-container {
+  position: absolute;
+  width: 600px;
+  height: 280px;
+  top: 400px;
+  left: 660px;
+  background: #ffe5e5;
+  color: #FFF;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transform: scale(0.7);
+  transition-property: transform;
+  transition-duration: 0.3s;
+}
+.cd-popup-header{
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 70px;
+  border-radius: 8px 8px 0 0;
+  background:#e74c3c;
+  text-align: center;
+}
+.cd-popup-content{
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+ height:150px;
+
+
+  text-align: center;
+}
+.cd-popup-container p {
+text-align: center;
+padding-top: 20px;
+font-family: "Microsoft YaHei"
+}
+.cd-popup-header p{
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+.cd-popup-content p{
+    font-size: 18px;
+    color: grey;
+}
+.cd-popup-container .cd-buttons a {
+  display: block;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+font-size: 18px;
+  color: #FFF;
+  font-family: "Microsoft YaHei";
+  text-decoration: none;
+
+}
+.cd-popup-container .cd-buttons a {
+  background: #fc7169;
+  border-radius: 0 0 8px 8px;
+}
+.cd-popup-container .cd-buttons a:hover {
+  background: #ff4d4d;
+
+}
+.cd-popup-container .cd-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+}
+.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  width: 14px;
+  height: 3px;
+  background-color: #8f9cb5;
+}
+.cd-popup-container .cd-popup-close::before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 8px;
+}
+.cd-popup-container .cd-popup-close::after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: 8px;
+}
+ .cd-popup-container {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+/**/
+
+canvas{
+    outline: none;
+}
