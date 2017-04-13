@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
 import { JobService } from '../../common/services/job.service'
 
-import { CpuInfo, GpuInfo, Gpu } from "../../common/defs/resources";
-
+import { CpuInfo, GpuInfo, Gpu,Cpu } from "../../common/defs/resources";
 import { JobInfo } from "../../common/defs/resources";
 declare var $:any;
 import * as d3 from 'd3';
@@ -17,8 +16,10 @@ import * as d3 from 'd3';
 export class OverviewComponent {
 
     gpuArray: Gpu[] = [];
+
     // infomation of cpu
     cpuInfoArray: CpuInfo[] = [];
+
     // list of jobs
     jobArray: JobInfo[] = [];
     // show resource or task 0--resource, 1--task
@@ -27,11 +28,10 @@ export class OverviewComponent {
     interval: any;
 
     constructor(private resourcesService: ResourcesService, private jobService: JobService) {
-        resourcesService.getCpuStatus()
-        .subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray));
+        resourcesService.getCpuInfo()
+        .subscribe(cpu => this.getCpu(cpu));
         resourcesService.getAllGpus()
         .subscribe(gpuArray => this.getGpus(gpuArray));
-
         jobService.getAllJobs()
         .subscribe(jobArray => this.jobArray = jobArray);
 
@@ -39,8 +39,7 @@ export class OverviewComponent {
         this.loading();
         this.interval = setInterval (() => {
             this.update();
-        }, 3000);
-
+        }, 10000);
 
         if (sessionStorage.overviewTab){
             this.changeTab(sessionStorage.overviewTab);
@@ -50,14 +49,20 @@ export class OverviewComponent {
         }
 
     }
+    loading(){
 
-    getCpuInfo(cpuInfoArray: CpuInfo[]){
+    }
+    getCpu(cpu){
+        this.resourcesService.getCpuStatus()
+        .subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray,cpu));
+    }
+    getCpuInfo(cpuInfoArray: CpuInfo[],cpu: Cpu){
         this.cpuInfoArray = cpuInfoArray;
         if(cpuInfoArray.length>500){
             this.cpuInfoArray = cpuInfoArray.slice(-201,-1);
         }
         this.drawCpuLine(this.cpuInfoArray);
-        this.drawCpuPie(this.cpuInfoArray);
+        this.drawCpuPie(this.cpuInfoArray,cpu);
     }
     getGpus(gpuArray: Gpu[]){
         // 如果长度不变且不为0 默认gpu没变，不需改变this.gpuArray,因为改变this.gpuArray时，页面会刷新
@@ -80,9 +85,6 @@ export class OverviewComponent {
         this.drawGpuLine(gpuInfoArray,gpu);
         this.drawGpuPie(gpuInfoArray,gpu);
     }
-    loading(){
-
-    }
     drawCpuLine(cpuInfoArray: CpuInfo[]){
         let dataset = [];
         let index = 0;
@@ -97,17 +99,20 @@ export class OverviewComponent {
         this.drawLine(svg,dataset,1);
         this.addStyle();
     }
-    drawCpuPie(cpuInfoArray: CpuInfo[]){
+    drawCpuPie(cpuInfoArray: CpuInfo[],cpu: Cpu){
         // console.log("drawCpuPie");
         d3.select('#cpu_storage_pie').select( 'svg' ).remove();
         d3.select('#cpu_storage_pie').select( 'svg' ).remove();
         d3.select('#proportion').select( 'svg' ).remove();
         let cpuInfo = cpuInfoArray[cpuInfoArray.length-1];
-        let cpu_utilization = cpuInfo.cpu_utilization;
+        let used_memory = cpuInfo.used_memory;
+        let tot_memory = cpu.tot_memory;
+        let not_used_memory = tot_memory - used_memory;
 
         var selector = "#cpu_storage_pie";
-        var random = Math.random();
-        var dataset = [["已用空间",cpu_utilization],["剩余空间",1-cpu_utilization]];
+        // var random = Math.random();
+
+        var dataset = [["已用空间",used_memory],["剩余空间",not_used_memory]];
         // var dataset = [["已用空间",random],["剩余空间",1-random]];
         var selector2 = "#proportion";
 
@@ -157,8 +162,8 @@ export class OverviewComponent {
         this.addStyle();
     }
     update(){
-        this.resourcesService.getCpuStatus()
-        .subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray));
+        this.resourcesService.getCpuInfo()
+        .subscribe(cpu => this.getCpu(cpu));
         this.resourcesService.getAllGpus()
         .subscribe(gpuArray => this.getGpus(gpuArray));
         // this.getGpus(this.gpuArray);

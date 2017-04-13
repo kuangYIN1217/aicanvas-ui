@@ -16,6 +16,12 @@ export class Gpu{
     id: number;
     name: string;
 }
+export class Cpu{
+    brand: string;
+    cores: number;
+    tot_memory: number;
+    hz: string;
+}
 export class UserInfo{
     //
     activated: boolean;
