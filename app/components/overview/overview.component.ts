@@ -2,13 +2,8 @@ import { Component } from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
 import { JobService } from '../../common/services/job.service'
 
-<<<<<<< HEAD
 import { CpuInfo, GpuInfo, Gpu } from "../../common/defs/resources";
-=======
 
-import { CpuInfo, GpuInfo } from "../../common/defs/resources";
-
->>>>>>> XinkTech/master
 import { JobInfo } from "../../common/defs/resources";
 declare var $:any;
 import * as d3 from 'd3';
@@ -20,13 +15,8 @@ import * as d3 from 'd3';
     providers: [ResourcesService,JobService]
 })
 export class OverviewComponent {
-<<<<<<< HEAD
-    // gpus
-    gpuArray: Gpu[] = [];
-=======
 
-    gpuArray: GpuInfo[] = [];
->>>>>>> XinkTech/master
+    gpuArray: Gpu[] = [];
     // infomation of cpu
     cpuInfoArray: CpuInfo[] = [];
     // list of jobs
@@ -37,17 +27,11 @@ export class OverviewComponent {
     interval: any;
 
     constructor(private resourcesService: ResourcesService, private jobService: JobService) {
-<<<<<<< HEAD
         resourcesService.getCpuStatus()
         .subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray));
         resourcesService.getAllGpus()
         .subscribe(gpuArray => this.getGpus(gpuArray));
-=======
 
-        resourcesService.getAllGpus()
-        .subscribe(gpuArray => this.gpuArray = gpuArray);
-
->>>>>>> XinkTech/master
         jobService.getAllJobs()
         .subscribe(jobArray => this.jobArray = jobArray);
 
@@ -57,11 +41,7 @@ export class OverviewComponent {
             this.update();
         }, 3000);
 
-<<<<<<< HEAD
-        // default tab
-=======
 
->>>>>>> XinkTech/master
         if (sessionStorage.overviewTab){
             this.changeTab(sessionStorage.overviewTab);
         }else{
@@ -74,7 +54,7 @@ export class OverviewComponent {
     getCpuInfo(cpuInfoArray: CpuInfo[]){
         this.cpuInfoArray = cpuInfoArray;
         if(cpuInfoArray.length>500){
-            this.cpuInfoArray = cpuInfoArray.slice(-501,-1);
+            this.cpuInfoArray = cpuInfoArray.slice(-201,-1);
         }
         this.drawCpuLine(this.cpuInfoArray);
         this.drawCpuPie(this.cpuInfoArray);
@@ -127,8 +107,8 @@ export class OverviewComponent {
 
         var selector = "#cpu_storage_pie";
         var random = Math.random();
-        // var dataset = [["已用空间",cpu_utilization],["剩余空间",1-cpu_utilization]];
-        var dataset = [["已用空间",random],["剩余空间",1-random]];
+        var dataset = [["已用空间",cpu_utilization],["剩余空间",1-cpu_utilization]];
+        // var dataset = [["已用空间",random],["剩余空间",1-random]];
         var selector2 = "#proportion";
 
         var svg=d3.select(selector).append("svg");
