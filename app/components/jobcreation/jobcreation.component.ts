@@ -38,7 +38,7 @@ export class JobCreationComponent {
     pageMaxItem: number = 10;
     // store search content
     search_input: string = "";
-    
+
     interval:any
 
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
@@ -262,8 +262,19 @@ export class JobCreationComponent {
         this.pluginIds.push(pluginId);
         if(this.pluginIds.length == this.pluginArr.length){
             console.log(this.pluginIds);
-            this.jobService.updateJob(this.createdJob.id, this.pluginIds)
-            .subscribe(updatedJob => this.saveJob2(updatedJob));
+            let haveSys = false;
+            for (let plugin of this.pluginArr){
+                if (plugin.creator=='general'){
+                    haveSys = true;
+                    break;
+                }
+            }
+            if (haveSys){
+                this.jobService.updateJob(this.createdJob.id, this.pluginIds)
+                .subscribe(updatedJob => this.saveJob2(updatedJob));
+            }else{
+                console.log("plugin updated.No ducpu");
+            }
         }
     }
     create(){

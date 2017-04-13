@@ -8,8 +8,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { CpuInfo, GpuInfo, Gpu,Cpu } from '../defs/resources';
 
-import { CpuInfo, GpuInfo } from '../defs/resources';
 import {SERVER_URL} from "../../app.constants";
 
 
@@ -33,13 +33,25 @@ export class ResourcesService {
         return headers;
     }
 
+    getCpuInfo(): Observable<Cpu[]>{
+        let path = "/api/cpuinfo";
+        let headers = this.getHeaders();
+        // TODO: what if it returns error?
+        // Moving hostname to maybe tsconfig.json
+        return this.http.get(this.SERVER_URL+path,{ headers: headers })
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return (plainToClass(Cpu, response.json()));
+                }
+            });
+    }
+
     getCpuStatus(): Observable<CpuInfo[]> {
         let path = "/api/cpu";
         let headers = this.getHeaders();
         // TODO: what if it returns error?
         // Moving hostname to maybe tsconfig.json
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
-
             .map((response: Response) => {
                 if (response && response.json()) {
                     return (plainToClass(CpuInfo, response.json()));
@@ -61,7 +73,7 @@ export class ResourcesService {
             });
     }
 
-    getAllGpus(): Observable<GpuInfo[]> {
+    getAllGpus(): Observable<Gpu[]> {
         let path = "/api/gpus";
         let headers = this.getHeaders();
         // TODO: what if it returns error?
@@ -69,7 +81,7 @@ export class ResourcesService {
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return (plainToClass(GpuInfo, response.json()));
+                    return (plainToClass(Gpu, response.json()));
                 }
             });
     }

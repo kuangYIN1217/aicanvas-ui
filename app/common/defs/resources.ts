@@ -1,19 +1,26 @@
 import { Parameter, TrainingNetwork } from './parameter';
 export class CpuInfo {
-    // Number of cpu cours
-    cores: number;
-    // Actual cpu frequency.  e.g."1.7330 GHz"
-    hz: string;
-    // Brand of the cpu.
-    brand: string;
-    // Current usage of cpu.
-    cpu_pct: number;
+    cpu_utilization: number;
+    // time
+    created_at: string;
+    used_memory: number;
 }
 
 export class GpuInfo{
+    total_gpu_utilization: number;
+    created_at: string;
+    total_used_memory: number;
+}
+export class Gpu{
     totalGlobalMem: number;
     id: number;
     name: string;
+}
+export class Cpu{
+    brand: string;
+    cores: number;
+    tot_memory: number;
+    hz: string;
 }
 export class UserInfo{
     //

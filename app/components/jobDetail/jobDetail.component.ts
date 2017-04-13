@@ -149,7 +149,8 @@ export class JobDetailComponent {
         let offset = Number((max_loss-min_loss)/8);
         // console.log(offset);
         x.domain( [1 , 10]);
-        y.domain( [ min_loss-offset, max_loss + offset]);
+        // y.domain( [ min_loss-offset, max_loss + offset]);
+        y.domain( [ 2, 3]);
 
         svg.append("path")
         .attr( 'class', 'lineChart--area' )
@@ -259,7 +260,8 @@ export class JobDetailComponent {
 
         let offset = (max_acc-min_acc)/8;
         x.domain( [ 1, 10]);
-        y.domain( [ min_acc-offset, max_acc + offset]);
+        // y.domain( [ min_acc-offset, max_acc + offset]);
+        y.domain( [ 2, 3]);
 
         svg.append("path")
         .attr( 'class', 'lineChart--area' )
