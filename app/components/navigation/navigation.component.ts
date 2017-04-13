@@ -28,8 +28,8 @@ export class NavigationComponent {
     constructor(private location: Location, private resourcesService: ResourcesService, private sceneService: SceneService){
         // console.log("navigation initial");
         if(!this.location.isCurrentPathEqualTo('/login')){
-            sceneService.getAllScenes()
-                .subscribe(sceneArray => this.sceneArray = sceneArray);
+            // sceneService.getAllScenes()
+            //     .subscribe(sceneArray => this.sceneArray = sceneArray);
         }
         if (sessionStorage.username){
             this.username = sessionStorage.username;

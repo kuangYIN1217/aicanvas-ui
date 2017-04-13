@@ -3,16 +3,17 @@ import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
 import { SceneService } from '../../common/services/scene.service'
 import { PluginService } from '../../common/services/plugin.service'
-import { RouterModule, Routes, Router } from '@angular/router';
+import {RouterModule, Routes, Router, ActivatedRoute} from '@angular/router';
 import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resources";
 import { plainToClass } from "class-transformer";
+import {modelService} from "../../common/services/model.service";
 declare var $:any;
 @Component({
     moduleId: module.id,
     selector: 'jobcreation',
     styleUrls: ['./css/jobcreation.component.css'],
     templateUrl: './templates/jobcreation.html',
-    providers: [UserService,JobService,SceneService,PluginService]
+    providers: [UserService,JobService,SceneService,PluginService,modelService]
 })
 export class JobCreationComponent {
     // 是否已经创建了新的
@@ -40,20 +41,20 @@ export class JobCreationComponent {
     
     interval:any
 
-    constructor(private sceneService: SceneService,private jobService: JobService,private pluginService: PluginService, private userService: UserService, private router: Router) {
-        jobService.getAllJobs()
-            .subscribe(Jobs => this.initialJobArray(Jobs));
-        if(sessionStorage.pageMaxItem){
-            this.pageMaxItem = sessionStorage.pageMaxItem;
-        }
-        if(sessionStorage.page){
-            this.page = sessionStorage.page;
-        }
-        if(sessionStorage.search_input){
-            this.search_input = sessionStorage.search_input;
-        }
-        this.interval = setInterval(() => this.updatePage(), 500);
+    constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
+    jobService.getAllJobs()
+        .subscribe(Jobs => this.initialJobArray(Jobs));
+    if(sessionStorage.pageMaxItem){
+        this.pageMaxItem = sessionStorage.pageMaxItem;
     }
+    if(sessionStorage.page){
+        this.page = sessionStorage.page;
+    }
+    if(sessionStorage.search_input){
+        this.search_input = sessionStorage.search_input;
+    }
+    // this.interval = setInterval(() => this.updatePage(), 500);
+}
 
 
     ngOnDestroy(){
@@ -309,5 +310,15 @@ export class JobCreationComponent {
         this.page=1;
         this.pageMaxItem=maxItemNum;
         sessionStorage.pageMaxItem = maxItemNum;
+    }
+
+    checkStatus(status,sence , jobPath){
+        if(status=='Finished'){
+            this.modelService.getStatue(jobPath)
+            //TODO if success give alert
+             this.router.navigate(['../model'],{queryParams: { sence: sence }});
+        }else{
+          return false;
+        }
     }
 }

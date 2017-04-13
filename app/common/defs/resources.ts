@@ -114,8 +114,15 @@ export class JobProcess{
     val_loss: string;
 }
 export class SceneInfo{
-    id: string;
+    id: number;
     name: string;
     translation: string;
     description: string;
+}
+
+export  class ModelInfo{
+    model_id: number;
+    creator:string;
+    created_at:string;
+    model_path:string;
 }
