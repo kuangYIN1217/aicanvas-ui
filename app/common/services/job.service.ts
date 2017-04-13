@@ -129,4 +129,26 @@ export class JobService {
             }
         });
     }
+
+    finishJob(jobPath: string){
+        let path = "/api/finishJob/"+jobPath;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path,{ headers: headers })
+            .map((response: Response) => {
+                if (response) {
+                    return response;
+                }
+        });
+    }
+
+    publishJob(jobPath: string){
+        let path = "/api/publishJob/"+jobPath;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path,{ headers: headers })
+            .map((response: Response) => {
+                if (response) {
+                    return response;
+                }
+        });
+    }
 }

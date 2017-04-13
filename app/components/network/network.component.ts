@@ -14,10 +14,10 @@ declare var $:any;
 })
 export class NetworkComponent{
 
-    scene_id: string;
-    scene: SceneInfo = new SceneInfo();
-    sceneArray: SceneInfo[];
-    pluginArr: PluginInfo[] = [];
+    // scene_id: string;
+    // scene: SceneInfo = new SceneInfo();
+    // sceneArray: SceneInfo[];
+    // pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
 
     plugin_id: string;
@@ -33,56 +33,56 @@ export class NetworkComponent{
         }
     }
 
-    getSceneArray(sceneArray: SceneInfo[]){
-        this.sceneArray = sceneArray;
-        for (let scene of this.sceneArray){
-            // console.log(scene.scene_id);
-            if(scene.id==this.scene_id){
-                this.scene = scene;
-                this.sceneService.getChainByScene(Number(scene.id))
-                .subscribe(pluginArr => this.getPluginArray(pluginArr));
-                break;
-            }
-        }
-    }
+    // getSceneArray(sceneArray: SceneInfo[]){
+    //     this.sceneArray = sceneArray;
+    //     for (let scene of this.sceneArray){
+    //         // console.log(scene.scene_id);
+    //         if(scene.id==this.scene_id){
+    //             this.scene = scene;
+    //             this.sceneService.getChainByScene(Number(scene.id))
+    //             .subscribe(pluginArr => this.getPluginArray(pluginArr));
+    //             break;
+    //         }
+    //     }
+    // }
 
-    getPluginArray(pluginArr: PluginInfo[]){
-        console.log(pluginArr);
-        this.pluginArr = pluginArr;
-        this.changeChosenPlugin(this.pluginArr[0].id);
-    }
+    // getPluginArray(pluginArr: PluginInfo[]){
+    //     console.log(pluginArr);
+    //     this.pluginArr = pluginArr;
+    //     this.changeChosenPlugin(this.pluginArr[0].id);
+    // }
 
-    changeChosenPlugin(id:string){
-        if(!this.chosenPluginId){
-            this.chosenPluginId = id;
-            let training_network_json = this.findPluginById(this.chosenPluginId).model;
-            console.log(training_network_json);
-            $('#plugin_storage').val(JSON.stringify(training_network_json));
-            $('#hideBtn').click();
-        }else{
-            this.savePluginChange();
-            this.chosenPluginId = id;
-            let training_network_json = this.findPluginById(this.chosenPluginId).model;
-            console.log(training_network_json);
-            $('#plugin_storage').val(JSON.stringify(training_network_json));
-            $('#loadBtn').click();
-        }
-    }
+    // changeChosenPlugin(id:string){
+    //     if(!this.chosenPluginId){
+    //         this.chosenPluginId = id;
+    //         let training_network_json = this.findPluginById(this.chosenPluginId).model;
+    //         console.log(training_network_json);
+    //         $('#plugin_storage').val(JSON.stringify(training_network_json));
+    //         $('#hideBtn').click();
+    //     }else{
+    //         this.savePluginChange();
+    //         this.chosenPluginId = id;
+    //         let training_network_json = this.findPluginById(this.chosenPluginId).model;
+    //         console.log(training_network_json);
+    //         $('#plugin_storage').val(JSON.stringify(training_network_json));
+    //         $('#loadBtn').click();
+    //     }
+    // }
 
-    savePluginChange(){
-        let id = this.chosenPluginId;
-        let json = $('#plugin_storage').val();
-        let jsonData = JSON.parse(json);
-        this.findPluginById(id).model = jsonData;
-    }
+    // savePluginChange(){
+    //     let id = this.chosenPluginId;
+    //     let json = $('#plugin_storage').val();
+    //     let jsonData = JSON.parse(json);
+    //     this.findPluginById(id).model = jsonData;
+    // }
 
-    findPluginById(id:string){
-        for (let plugin of this.pluginArr){
-            if (plugin.id == id){
-                return plugin;
-            }
-        }
-    }
+    // findPluginById(id:string){
+    //     for (let plugin of this.pluginArr){
+    //         if (plugin.id == id){
+    //             return plugin;
+    //         }
+    //     }
+    // }
 
     getPlugin(plugin){
         this.plugin = plugin;
