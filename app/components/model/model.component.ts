@@ -21,45 +21,38 @@ export class ModelComponent{
     selected:number=0;
     item:number=0;
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
-
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
-       /*this.modelService.getScene()
+        /* this.sceneService.getAllScenes()
+            .subscribe(scenes => this.SceneInfo=scenes);
+       this.modelService.getScene()
            .subscribe(scene=>this.SceneInfo=scene);*/
-
     }
-
     ngOnInit(){
+        this.route.queryParams.subscribe(params => {
+            this.student = params['sense'];
+        });
+    }
+    /*    ngOnInit(){
         this.route.queryParams.subscribe(params => {
             this.student = params['sence'];
             this.selectChange();
         });
     }
-    selectChange(){
-
+   selectChange(){
         let id=this.student;
         if(id){
             this.modelService.getModel(id)
                 .subscribe(model => this.ModelInfo=model);
         }
-
     }
     clickStatus(statu,model_id){
         this.selected= statu;
         this.item=model_id;
     }
     clickBtn(){
-
         this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
-    }
+    }*/
 }
-/*
-var item;
-var index;
-for(var i=0;i<model.length；i++){
-    item= model[i];
-    if(item.selected){
-        index=i;}
-}
-*/
+
 
