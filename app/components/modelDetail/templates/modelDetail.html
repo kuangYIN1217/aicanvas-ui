@@ -12,9 +12,9 @@
         <th>上传内容</th>
         <th>显示结果</th>
         <tbody>
-            <tr>
-                <td>123</td>
-                <td>123</td>
+            <tr *ngFor="let re of result">
+                <td><img src="http://10.165.33.20:8080/api/file?filePath={{re.inputPath}}"></td>
+                <td>{{re.output}}</td>
             </tr>
         </tbody>
     </table>

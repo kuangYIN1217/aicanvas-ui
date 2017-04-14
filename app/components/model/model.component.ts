@@ -23,17 +23,9 @@ export class ModelComponent{
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
-        /* this.sceneService.getAllScenes()
-            .subscribe(scenes => this.SceneInfo=scenes);
-       this.modelService.getScene()
-           .subscribe(scene=>this.SceneInfo=scene);*/
     }
-    ngOnInit(){
-        this.route.queryParams.subscribe(params => {
-            this.student = params['sense'];
-        });
-    }
-    /*    ngOnInit(){
+
+        ngOnInit(){
         this.route.queryParams.subscribe(params => {
             this.student = params['sence'];
             this.selectChange();
@@ -52,7 +44,7 @@ export class ModelComponent{
     }
     clickBtn(){
         this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
-    }*/
+    }
 }
 
 

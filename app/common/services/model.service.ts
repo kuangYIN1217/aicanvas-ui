@@ -52,13 +52,12 @@ export class modelService {
             });
     }
 
-    saveModelAndUpload(name, model_id, file: any) {
-        debugger;
-        let path = "/api/model/upload";
+    saveModelAndUpload(name, model_id, file) {
+        let path = "/api/model";
         let body = JSON.stringify({
             "name": name,
             "modelId": model_id,
-            "file":file
+            "filePath":file
         });
         let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL + path, body, { headers: headers })
@@ -70,6 +69,30 @@ export class modelService {
                     else {
                         return "fail";
                     }
+                }
+            });
+    }
+
+
+    runInference(modelId:number){
+        let path = "/api/runInference/"+modelId;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response) {
+                    return response;
+                }
+            });
+
+    }
+
+    getResult(modelId:number){
+        let path = "/api/predictionResult/"+modelId+"?page=0&size=10";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response) {
+                    return response.json();
                 }
             });
     }

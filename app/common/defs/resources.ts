@@ -133,3 +133,10 @@ export  class ModelInfo{
     created_at:string;
     model_path:string;
 }
+
+export class inferenceResult{
+    id:number;
+    inputPath:string;
+    output:string;
+    success:boolean;
+}
