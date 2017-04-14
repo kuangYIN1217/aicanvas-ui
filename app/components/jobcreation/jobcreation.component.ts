@@ -53,7 +53,7 @@ export class JobCreationComponent {
     if(sessionStorage.search_input){
         this.search_input = sessionStorage.search_input;
     }
-    // this.interval = setInterval(() => this.updatePage(), 500);
+    this.interval = setInterval(() => this.updatePage(), 500);
 }
 
 
@@ -322,8 +322,18 @@ export class JobCreationComponent {
         this.pageMaxItem=maxItemNum;
         sessionStorage.pageMaxItem = maxItemNum;
     }
+/*
+    checkStatus(status,sense,jobPath){
+        if(status==Finished){
+            this.router.navigate(['../model'],{queryParams: { "sense":sense}});
+        }else{
+            return false
+        }
 
-    checkStatus(status,sence , jobPath){
+    }
+*/
+
+   checkStatus(status,sence , jobPath){
         if(status=='Finished'){
             this.modelService.getStatue(jobPath)
             //TODO if success give alert

@@ -49,6 +49,12 @@ export class OverviewComponent {
         }
 
     }
+
+    ngOnDestroy(){
+        // 退出时停止更新
+        clearInterval(this.interval);
+    }
+
     loading(){
 
     }
