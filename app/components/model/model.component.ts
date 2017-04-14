@@ -4,7 +4,7 @@ import { ResourcesService } from '../../common/services/resources.service'
 import {modelService} from "../../common/services/model.service";
 import {JobInfo, ModelInfo, SceneInfo} from "../../common/defs/resources";
 import {SceneService} from "../../common/services/scene.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   moduleId: module.id,
@@ -18,16 +18,9 @@ export class ModelComponent{
     JobInfo:JobInfo[] = [];
     ModelInfo:ModelInfo[] = [];
     student:number=0;
-    constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute){
-        if (location.path(false).indexOf('/model/')!=-1){
-            let jobPath = location.path(false).split('/model/')[1];
-            if(jobPath){
-               /* modelService.getStatue().subscribe(jobs => this.selectJob(jobs,jobPath));*/
-               this.modelService.getStatue(jobPath).subscribe(jobs=>JobInfo=jobs);
-            }
-        }
-
-
+    selected:number=0;
+    item:number=0;
+    constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
 
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
@@ -41,14 +34,32 @@ export class ModelComponent{
             this.student = params['sence'];
             this.selectChange();
         });
+    }
+    selectChange(){
 
+        let id=this.student;
+        if(id){
+            this.modelService.getModel(id)
+                .subscribe(model => this.ModelInfo=model);
+        }
 
     }
+    clickStatus(statu,model_id){
+        this.selected= statu;
+        this.item=model_id;
+    }
+    clickBtn(){
 
-    selectChange(){
-        let id=this.student;
-        this.modelService.getModel(id)
-            .subscribe(model => this.ModelInfo=model);
+        this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
     }
 }
+/*
+var item;
+var index;
+for(var i=0;i<model.length；i++){
+    item= model[i];
+    if(item.selected){
+        index=i;}
+}
+*/
 

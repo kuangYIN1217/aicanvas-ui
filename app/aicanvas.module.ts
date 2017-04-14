@@ -20,9 +20,10 @@ import { AlgchainDetailComponent } from './components/algchainDetail/algchainDet
 import { JobDetailComponent } from './components/jobDetail/jobDetail.component'
 import { AlgpluginDetailComponent } from './components/algpluginDetail/algpluginDetail.component'
 import { FormsModule } from '@angular/forms';
-
+import {ModelDetailComponent} from "./components/modelDetail/modelDetail.component";
+import { FileUploadModule } from 'ng2-file-upload';
 @NgModule({
-    imports: [AppRoutingModule, BrowserModule, HttpModule,FormsModule],
+    imports: [AppRoutingModule, BrowserModule, HttpModule,FormsModule,FileUploadModule],
     declarations: [
         AlgChainsComponent,
         AlgPluginsComponent,
@@ -39,6 +40,8 @@ import { FormsModule } from '@angular/forms';
         AlgchainDetailComponent,
         JobDetailComponent,
         AlgpluginDetailComponent,
+        ModelDetailComponent
+
     ],
     bootstrap: [NavigationComponent]
 })

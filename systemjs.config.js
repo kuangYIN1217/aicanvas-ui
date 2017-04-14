@@ -41,6 +41,7 @@
       'typescript':                'npm:typescript@2.0.3/lib/typescript.js',
       'd3':                        'npm:d3/build/d3.js',
       'class-transformer':         'node_modules/class-transformer',
+        'ng2-file-upload':'npm:ng2-file-upload'
     },
 
     // packages tells the System loader how to load when no filename and/or no extension
@@ -56,6 +57,10 @@
       'rxjs': {
         defaultExtension: 'js'
       },
+        'ng2-file-upload': {
+            main: 'index.js',
+            defaultExtension: 'js'
+        }
     }
   });
 })(this);

@@ -48,9 +48,32 @@ export class modelService {
             .map((response: Response) => {
                 if (response && response.json()) {
                     return plainToClass(ModelInfo, response.json());
-                }else{
-                    alert("获取失败");
                 }
             });
     }
+
+    saveModelAndUpload(name, model_id, file: any) {
+        debugger;
+        let path = "/api/model/upload";
+        let body = JSON.stringify({
+            "name": name,
+            "modelId": model_id,
+            "file":file
+        });
+        let headers = this.getHeaders();
+        return this.http.post(this.SERVER_URL + path, body, { headers: headers })
+            .map((response) => {
+                if (response && response.json()) {
+                    if (response.status == 200) {
+                        return response.json();
+                    }
+                    else {
+                        return "fail";
+                    }
+                }
+            });
+    }
+
+
+
 }

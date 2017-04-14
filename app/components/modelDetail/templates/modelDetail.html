@@ -1,0 +1,21 @@
+<div class="container">
+    <form class="form">
+        <div class="name"><label>名称:</label><input type="text" required [(ngModel)]="modelName" name="name"/></div>
+        <div class="text">
+            <a class="btn">
+                <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />选择文件
+            </a>
+        </div>
+        <button (click)="uploadFile()">保存</button>
+    </form>
+    <table class="table">
+        <th>上传内容</th>
+        <th>显示结果</th>
+        <tbody>
+            <tr>
+                <td><img src=""/> </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

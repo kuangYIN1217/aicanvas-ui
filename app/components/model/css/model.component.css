@@ -34,12 +34,17 @@
     background: #252525;
     font-size: 16px;
 }
+/*
 .table tbody tr:nth-child(even){
     background: #202020;
 }
+*/
+.table tbody .selected{
+    background: #202020;
+}
 .btn{
-    margin-top: 60px;
-    margin-left: 2%;
+    margin: 60px 0 0 2%;
+    padding-bottom: 30px;
 }
 .btn a{
     text-decoration: none;
@@ -51,6 +56,7 @@
     background:linear-gradient(rgb(255,238,211), rgb(254,205,153));
     color:rgb(174,83,0);
     border-radius:5px ;
-    border:1px solid rgb(224,191,162)
+    border:1px solid rgb(224,191,162);
+    cursor: pointer;
 }
 
