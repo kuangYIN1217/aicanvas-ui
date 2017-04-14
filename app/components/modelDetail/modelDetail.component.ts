@@ -4,7 +4,8 @@ import { ResourcesService } from '../../common/services/resources.service'
 import { modelService} from "../../common/services/model.service";
 import {ModelInfo} from "../../common/defs/resources";
 import {ActivatedRoute} from "@angular/router";
-import {FileUploader} from "ng2-file-upload";
+import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
+import {SERVER_URL} from "../../app.constants";
 
 @Component({
     moduleId: module.id,
@@ -18,14 +19,19 @@ export class ModelDetailComponent{
     model_id:number=-1;
     modelName:string;
     file:any;
+
     constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute ){
 
     }
 
+
+
+    Headers:Headers = this.modelService.getHeaders();
     public uploader:FileUploader = new FileUploader({
-        url: "http://10.165.33.20:8080/api/model/upload",
+        url: SERVER_URL+"/api/model/upload",
         method: "POST",
-        itemAlias: "uploadedfile"
+        itemAlias: "file",
+
 
     });
     // C: 定义事件，选择文件
@@ -33,21 +39,16 @@ export class ModelDetailComponent{
         // 打印文件选择名称
         console.log(event.target.value);
     }
+
+
+
     // D: 定义事件，上传文件
     uploadFile() {
-        // 上传
-        debugger;
-        this.uploader.queue[0].onSuccess = function (response, status, headers) {
-            debugger;
-            // 上传文件成功
-            if (status == 200) {
-                // 上传文件后获取服务器返回的数据
-                let tempRes = JSON.parse(response);
-            } else {
-                // 上传文件后获取服务器返回的数据错误
-                alert("");
-            }
-        };
+        this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
+            var responsePath = response;
+            this.saveModelAndUpload(responsePath);
+        }
+
         this.uploader.queue[0].upload(); // 开始上传
     }
 
@@ -58,8 +59,14 @@ export class ModelDetailComponent{
     }
 
 
-    saveModelAndUpload(){
-        this.modelService.saveModelAndUpload(this.modelName,this.model_id,this.file)
+    saveModelAndUpload(filePath:string){
+        this.modelService.saveModelAndUpload(this.modelName,this.model_id,filePath).subscribe(result=>{
+            debugger
+            this.modelService.runInference(result.id).subscribe(result=>{
+                console.log(result)
+            });
+
+        })
     }
 }
 
