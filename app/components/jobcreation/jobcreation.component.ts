@@ -18,6 +18,8 @@ declare var $:any;
 export class JobCreationComponent {
     // 是否已经创建了新的
     created: number = 0;
+    originModelInfo: {} = {};
+    haveChange: number = 0;
     //
     scenes: SceneInfo[] = [];
     chosenSceneId: number;
@@ -42,19 +44,19 @@ export class JobCreationComponent {
     interval:any
 
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
-    jobService.getAllJobs()
-        .subscribe(Jobs => this.initialJobArray(Jobs));
-    if(sessionStorage.pageMaxItem){
-        this.pageMaxItem = sessionStorage.pageMaxItem;
+        jobService.getAllJobs()
+            .subscribe(Jobs => this.initialJobArray(Jobs));
+        if(sessionStorage.pageMaxItem){
+            this.pageMaxItem = sessionStorage.pageMaxItem;
+        }
+        if(sessionStorage.page){
+            this.page = sessionStorage.page;
+        }
+        if(sessionStorage.search_input){
+            this.search_input = sessionStorage.search_input;
+        }
+        this.interval = setInterval(() => this.updatePage(), 500);
     }
-    if(sessionStorage.page){
-        this.page = sessionStorage.page;
-    }
-    if(sessionStorage.search_input){
-        this.search_input = sessionStorage.search_input;
-    }
-    this.interval = setInterval(() => this.updatePage(), 500);
-}
 
 
     ngOnDestroy(){
@@ -185,6 +187,9 @@ export class JobCreationComponent {
     createJobBySenceId3(pluginArr: PluginInfo[]){
         console.log(pluginArr);
         this.pluginArr = pluginArr;
+        for (let plugin of pluginArr){
+            this.originModelInfo[plugin.id] = JSON.stringify(plugin.model);
+        }
         this.changeChosenPlugin(this.pluginArr[0].id);
         this.stepNumber = this.stepNumber + 1;
     }
@@ -206,6 +211,7 @@ export class JobCreationComponent {
     }
     savePluginChange(){
         let id = this.chosenPluginId;
+        let originJson = JSON.stringify(this.findPluginById(id).model);
         let json = $('#plugin_storage').val();
         let jsonData = JSON.parse(json);
         this.findPluginById(id).model = jsonData;
@@ -221,19 +227,18 @@ export class JobCreationComponent {
         console.log("saveJob...");
         this.savePluginChange();
         for (let plugin of this.pluginArr){
-            if(plugin.creator=="general"){
-                this.saveSysPlugin(plugin);
+            if (plugin.model === this.originModelInfo[plugin.id]){
+                this.addPluginIds(plugin.id);
             }else{
-                this.pluginService.savePlugin(plugin)
-                    .subscribe(response => this.saveJobNormalPlugin(response,plugin.id));
+                this.haveChange = 1;
+                if(plugin.creator==="general"){
+                    this.saveSysPlugin(plugin);
+                }else{
+                    this.pluginService.savePlugin(plugin)
+                        .subscribe(response => this.saveJobNormalPlugin(response,plugin.id));
+                }
             }
         }
-
-    }
-    saveJob2(updatedJob: JobInfo){
-        let chainId = updatedJob.chainId;
-        console.log(chainId);
-        this.stepNumber = this.stepNumber + 1;
     }
     saveJobNormalPlugin(response,plugin_id){
         if (response.status==200){
@@ -262,20 +267,17 @@ export class JobCreationComponent {
         this.pluginIds.push(pluginId);
         if(this.pluginIds.length == this.pluginArr.length){
             console.log(this.pluginIds);
-            let haveSys = false;
-            for (let plugin of this.pluginArr){
-                if (plugin.creator=='general'){
-                    haveSys = true;
-                    break;
-                }
-            }
-            if (haveSys){
+            // 如果chain的网络层有变化则创造新链,否则直接使用createJob时得到的chianId不做任何修改即可
+            if (this.haveChange === 1){
                 this.jobService.updateJob(this.createdJob.id, this.pluginIds)
                 .subscribe(updatedJob => this.saveJob2(updatedJob));
-            }else{
-                console.log("plugin updated.No ducpu");
             }
         }
+    }
+    saveJob2(updatedJob: JobInfo){
+        let chainId = updatedJob.chainId;
+        console.log(chainId);
+        this.stepNumber = this.stepNumber + 1;
     }
     create(){
         this.jobService.runJob(this.createdJob.jobPath)

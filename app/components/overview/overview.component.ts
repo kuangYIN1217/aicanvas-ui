@@ -347,17 +347,6 @@ export class OverviewComponent {
         x.domain( [ 0, dataset.length]);
         y.domain( [ 0, Ymax]);
 
-        svg.append("path")
-        .attr( 'class', 'lineChart--area' )
-        .attr('transform', 'translate(45,27)')
-        .attr("d", area(data2));
-
-        var path = svg.append('path')
-        .attr('class', 'line')
-        .attr( 'class', 'lineChart--areaLine' )
-        .attr('transform', 'translate(45,27)')
-        .attr('d', line(data2));
-
         var grid = svg.selectAll(".grid")
         .data(x.ticks(6))
         .enter().append("g")
@@ -398,5 +387,16 @@ export class OverviewComponent {
         .attr("y1", y)
         .attr("y2", y)        .attr("x1", 0)
         .attr("x2", width).attr('transform', 'translate(45,27)');
+
+        svg.append("path")
+        .attr( 'class', 'lineChart--area' )
+        .attr('transform', 'translate(45,27)')
+        .attr("d", area(data2));
+
+        var path = svg.append('path')
+        .attr('class', 'line')
+        .attr( 'class', 'lineChart--areaLine' )
+        .attr('transform', 'translate(45,27)')
+        .attr('d', line(data2));
     }
 }
