@@ -11,10 +11,8 @@
     <div class="percent">
         <span>上传进度：</span>
         <span>{{PercentInfo.percent}}</span>
-        <select (ngModelChange)="changeValue()">
-            <option value="0">top1</option>
-            <option value="1">top2</option>
-            <option value="2">top3</option>
+        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()">
+            <option value="i" *ngFor="let i of items">{{i}}</option>
         </select>
     </div>
     <table class="table">

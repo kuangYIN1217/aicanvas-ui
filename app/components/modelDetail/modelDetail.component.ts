@@ -22,6 +22,8 @@ export class ModelDetailComponent{
     interval: any;
     result:inferenceResult[]=[];
     PercentInfo:PercentInfo=new PercentInfo;
+    items:string[]=['top1','top2','top3'];
+    item:string;
     constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute ){
 
     }
@@ -70,6 +72,9 @@ export class ModelDetailComponent{
                  this.result = result;
              }
          })
+    }
+    changeValue(){
+
     }
 
 }
