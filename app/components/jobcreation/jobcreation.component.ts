@@ -322,16 +322,6 @@ export class JobCreationComponent {
         this.pageMaxItem=maxItemNum;
         sessionStorage.pageMaxItem = maxItemNum;
     }
-/*
-    checkStatus(status,sense,jobPath){
-        if(status==Finished){
-            this.router.navigate(['../model'],{queryParams: { "sense":sense}});
-        }else{
-            return false
-        }
-
-    }
-*/
 
    checkStatus(status,sence , jobPath){
         if(status=='Finished'){

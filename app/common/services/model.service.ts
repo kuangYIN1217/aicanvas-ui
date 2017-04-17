@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { JobInfo, ModelInfo, SceneInfo } from "../defs/resources";
+import {JobInfo, ModelInfo, PercentInfo, SceneInfo} from "../defs/resources";
 
 
 import {SERVER_URL} from "../../app.constants";
@@ -73,7 +73,6 @@ export class modelService {
             });
     }
 
-
     runInference(modelId:number){
         let path = "/api/runInference/"+modelId;
         let headers = this.getHeaders();
@@ -83,7 +82,6 @@ export class modelService {
                     return response;
                 }
             });
-
     }
 
     getResult(modelId:number){
@@ -96,7 +94,15 @@ export class modelService {
                 }
             });
     }
-
-
+    getPercent(modelId:number){
+        let path = "/api/modelPrediction/"+modelId;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(PercentInfo, response.json());
+                }
+            });
+    }
 
 }

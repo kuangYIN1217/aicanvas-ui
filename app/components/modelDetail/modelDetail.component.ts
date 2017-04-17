@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common'
 import { ResourcesService } from '../../common/services/resources.service'
 import { modelService} from "../../common/services/model.service";
-import {inferenceResult, ModelInfo} from "../../common/defs/resources";
+import {inferenceResult, ModelInfo, PercentInfo} from "../../common/defs/resources";
 import {ActivatedRoute} from "@angular/router";
 import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
 import {SERVER_URL} from "../../app.constants";
@@ -20,7 +20,8 @@ export class ModelDetailComponent{
     modelName:string;
     file:any;
     interval: any;
-    result:inferenceResult[];
+    result:inferenceResult[]=[];
+    PercentInfo:PercentInfo=new PercentInfo;
     constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute ){
 
     }
@@ -30,8 +31,6 @@ export class ModelDetailComponent{
         url: SERVER_URL+"/api/model/upload",
         method: "POST",
         itemAlias: "file",
-
-
     });
     // C: 定义事件，选择文件
     selectedFileOnChanged(event:any) {
@@ -58,22 +57,20 @@ export class ModelDetailComponent{
     saveModelAndUpload(filePath:string){
         this.modelService.saveModelAndUpload(this.modelName,this.model_id,filePath).subscribe(result=>{
             this.modelService.runInference(result.id).subscribe(data=>{
-                  this.interval = setInterval(() => this.getResult(result.id), 500);
-
+                 this.interval = setInterval(() => this.getResult(result.id), 500);
+                  this.modelService.getPercent(result.id)
+                      .subscribe(percent => this.PercentInfo=percent);
         })
     })
     }
-
-
     getResult(modelId:number){
          this.modelService.getResult(modelId).subscribe(result=>{
-             debugger;
              if (result.length!=0) {
                  clearInterval(this.interval);
                  this.result = result;
              }
-
          })
     }
+
 }
 

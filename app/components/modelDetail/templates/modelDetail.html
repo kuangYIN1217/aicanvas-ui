@@ -8,6 +8,15 @@
         </div>
         <button (click)="uploadFile()">保存</button>
     </form>
+    <div class="percent">
+        <span>上传进度：</span>
+        <span>{{PercentInfo.percent}}</span>
+        <select (ngModelChange)="changeValue()">
+            <option value="0">top1</option>
+            <option value="1">top2</option>
+            <option value="2">top3</option>
+        </select>
+    </div>
     <table class="table">
         <th>上传内容</th>
         <th>显示结果</th>
