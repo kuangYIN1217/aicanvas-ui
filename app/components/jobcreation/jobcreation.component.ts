@@ -337,9 +337,11 @@ export class JobCreationComponent {
 
    checkStatus(status,sence , jobPath){
         if(status=='Finished'){
-            this.modelService.getStatue(jobPath)
+            this.modelService.getStatue(jobPath).subscribe(data=>{
+                this.router.navigate(['../model'],{queryParams: { sence: sence }});
+            });
             //TODO if success give alert
-             this.router.navigate(['../model'],{queryParams: { sence: sence }});
+
         }else{
           return false;
         }
