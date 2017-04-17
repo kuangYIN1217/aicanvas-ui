@@ -16,6 +16,7 @@ import {SERVER_URL} from "../../app.constants";
 })
 
 export class ModelDetailComponent{
+    SERVER_URL = SERVER_URL
     model_id:number=-1;
     modelName:string;
     file:any;
@@ -70,9 +71,9 @@ export class ModelDetailComponent{
     getResult(modelId:number){
          this.modelService.getResult(modelId).subscribe(result=>{
              debugger;
-             if (result.length!=0) {
+             if (result.content.length!=0) {
                  clearInterval(this.interval);
-                 this.result = result;
+                 this.result = result.content;
              }
 
          })
