@@ -32,6 +32,7 @@ export class modelService {
     }
 
     getStatue(jobPath: string){
+        debugger
         let path = "/api/publishJob/"+jobPath;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
