@@ -148,3 +148,13 @@ export class PercentInfo{
     output: string;
     predictionName: string;
 }
+
+export class HistoryInfo{
+    id:number;
+    predictionName: string;
+    modelId:number;
+    inputPath: string;
+    outputPath: string;
+    percent: string;
+
+}

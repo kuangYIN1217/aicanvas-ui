@@ -1,0 +1,24 @@
+<div class="container">
+   <table class="table">
+       <th>序号</th>
+       <th>名称</th>
+       <th>场景</th>
+       <th>上传路径</th>
+       <th>显示结果</th>
+       <th>进度</th>
+       <th>详情</th>
+       <tbody>
+            <tr *ngFor="let item of HistoryInfo.content">
+                <td>{{item.id}}</td>
+                <td>{{item.predictionName}}</td>
+                <td>{{item.modelId}}</td>
+                <td>{{item.inputPath}}</td>
+                <td>{{item.outputPath}}</td>
+                <td>{{item.percent}}</td>
+                <td>
+                    <a class="showDetailBtn" routerLinkActive="active">查看详情</a>&nbsp;&nbsp;
+                </td>
+            </tr>
+       </tbody>
+   </table>
+</div>

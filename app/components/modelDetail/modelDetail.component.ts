@@ -16,14 +16,16 @@ import {SERVER_URL} from "../../app.constants";
 })
 
 export class ModelDetailComponent{
+    SERVER_URL = SERVER_URL
     model_id:number=-1;
     modelName:string;
     file:any;
     interval: any;
     result:inferenceResult[]=[];
     PercentInfo:PercentInfo=new PercentInfo;
-    items:string[]=['top1','top2','top3'];
+    items:any[]=['top1','top2','top3'];
     item:string;
+    outputArr:{}={};
     constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute ){
 
     }
@@ -34,6 +36,7 @@ export class ModelDetailComponent{
         method: "POST",
         itemAlias: "file",
     });
+
     // C: 定义事件，选择文件
     selectedFileOnChanged(event:any) {
         // 打印文件选择名称
@@ -43,6 +46,7 @@ export class ModelDetailComponent{
     // D: 定义事件，上传文件
     uploadFile() {
         this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
+            this.uploader.queue[0].remove();
             var responsePath = response;
             this.saveModelAndUpload(responsePath);
         }
@@ -67,15 +71,17 @@ export class ModelDetailComponent{
     }
     getResult(modelId:number){
          this.modelService.getResult(modelId).subscribe(result=>{
-             if (result.length!=0) {
+             if (result.content.length!=0) {
                  clearInterval(this.interval);
-                 this.result = result;
+                 this.result = result.content;
              }
          })
     }
     changeValue(){
-
+        let id=this.item;
+        console.log(id);
+        console.log(this.result);
+        /*this.outputArr=eval(this.result.output);*/
     }
-
 }
 

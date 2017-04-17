@@ -12,7 +12,7 @@
         <span>上传进度：</span>
         <span>{{PercentInfo.percent}}</span>
         <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()">
-            <option value="i" *ngFor="let i of items">{{i}}</option>
+            <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
         </select>
     </div>
     <table class="table">
@@ -21,7 +21,7 @@
         <tbody>
             <tr *ngFor="let re of result">
                 <td><img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}"></td>
-                <td>{{re.output}}</td>
+                <td><!--<div *ngFor="let item of outputArr"></div>-->{{re.output}}</td>
             </tr>
         </tbody>
     </table>

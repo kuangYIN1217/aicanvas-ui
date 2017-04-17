@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {JobInfo, ModelInfo, PercentInfo, SceneInfo} from "../defs/resources";
+import {HistoryInfo, JobInfo, ModelInfo, PercentInfo, SceneInfo} from "../defs/resources";
 
 
 import {SERVER_URL} from "../../app.constants";
@@ -101,6 +101,16 @@ export class modelService {
             .map((response: Response) => {
                 if (response && response.json()) {
                     return plainToClass(PercentInfo, response.json());
+                }
+            });
+    }
+    getHistory(){
+        let path = "/api/modelPredictions/";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(HistoryInfo, response.json());
                 }
             });
     }

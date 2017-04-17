@@ -17,6 +17,7 @@ import { AlgchainDetailComponent } from './components/algchainDetail/algchainDet
 import { JobDetailComponent } from './components/jobDetail/jobDetail.component'
 import { AlgpluginDetailComponent } from './components/algpluginDetail/algpluginDetail.component'
 import {ModelDetailComponent} from "./components/modelDetail/modelDetail.component";
+import {HistoryComponent} from "./components/history/history.component";
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'network/:scene_id', component: NetworkComponent },
   { path: 'jobDetail/:job_id', component: JobDetailComponent },
   { path: 'algpluginDetail/:plugin_id', component: AlgpluginDetailComponent },
+  { path: 'history', component: HistoryComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
  // { path: 'detail/:id', component: HeroDetailComponent },
