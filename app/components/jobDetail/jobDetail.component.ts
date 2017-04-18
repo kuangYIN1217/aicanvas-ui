@@ -207,7 +207,7 @@ export class JobDetailComponent {
 
         var val_loss_path = svg.append('path')
         .attr('class', 'line')
-        .attr( 'class', 'lineChart--areaLine' )
+        .attr( 'class', 'lineChart--areaLine_val' )
         .attr('transform', 'translate(45,20)')
         .attr('d', line(val_loss_data));
 
@@ -327,7 +327,7 @@ export class JobDetailComponent {
 
         var val_acc_path = svg.append('path')
         .attr('class', 'line')
-        .attr( 'class', 'lineChart--areaLine' )
+        .attr( 'class', 'lineChart--areaLine_val' )
         .attr('transform', 'translate(45,20)')
         .attr('d', line(val_acc_data));
 

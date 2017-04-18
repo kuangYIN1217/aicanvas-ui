@@ -1,4 +1,10 @@
 @charset "UTF-8";
+.span_not_val{
+    color: skyblue;
+}
+.span_val{
+    color: yellow;
+}
 .tabs{
   position: relative;
   height: 60px;
