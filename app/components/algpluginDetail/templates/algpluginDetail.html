@@ -3,7 +3,7 @@
         <div class="tabs">
             <div id="tab_item0" class="tab_item"><a routerLinkActive="active" routerLink="/algplugins">返回</a></div>
             <div id="tab_item1" class="tab_item focus">参数列表</div>
-            <div id="tab_item2" (click)="toNetwork()" class="tab_item" [style.display]="plugin.has_training_network==0?'none':''">网络层</div>
+            <div id="tab_item2" routerLinkActive="active" routerLink="/network/{{plugin.id}}" class="tab_item" [style.display]="plugin.has_training_network==0?'none':''">网络层</div>
             <div (click)="fork()" id="tab_item3" class="tab_item">保存</div>
         </div>
     </div>

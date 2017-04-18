@@ -199,6 +199,8 @@ export class JobCreationComponent {
             let training_network_json = this.findPluginById(this.chosenPluginId).model;
             console.log(training_network_json);
             $('#plugin_storage').val(JSON.stringify(training_network_json));
+            let params_json = this.findPluginById(this.chosenPluginId).train_params;
+
             $('#hideBtn').click();
         }else{
             this.savePluginChange();
@@ -301,9 +303,9 @@ export class JobCreationComponent {
     }
     start_reply(reply){
         if(reply.status==200){
-            console.log("Start Successfully!");
+            console.info("Start Successfully!");
         }else{
-            console.log("Start Failed!");
+            console.warn("Start Failed!");
         }
         this.updatePage();
     }
@@ -313,9 +315,9 @@ export class JobCreationComponent {
     }
     stop_reply(reply){
         if(reply.status==200){
-            console.log("Stoped!");
+            console.info("Stoped!");
         }else{
-            console.log("Stop Failed!");
+            console.warn("Stop Failed!");
         }
         this.updatePage();
     }
