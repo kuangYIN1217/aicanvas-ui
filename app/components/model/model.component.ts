@@ -33,17 +33,23 @@ export class ModelComponent{
     }
    selectChange(){
         let id=this.student;
-        if(id){
             this.modelService.getModel(id)
-                .subscribe(model => this.ModelInfo=model);
-        }
+                .subscribe(model =>this.ModelInfo=model);
+
     }
     clickStatus(statu,model_id){
         this.selected= statu;
         this.item=model_id;
     }
     clickBtn(){
-        this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
+        //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
+        //console.log(this.ModelInfo.length);
+        if(this.ModelInfo.length>0){
+            this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
+        }else{
+            return false
+        }
+
     }
 }
 

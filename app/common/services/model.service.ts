@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {HistoryInfo, JobInfo, ModelInfo, PercentInfo, SceneInfo} from "../defs/resources";
+import {HistoryInfo, JobInfo, ModelInfo, PageInfo, PercentInfo, SceneInfo} from "../defs/resources";
 
 
 import {SERVER_URL} from "../../app.constants";
@@ -85,8 +85,8 @@ export class modelService {
             });
     }
 
-    getResult(modelId:number){
-        let path = "/api/predictionResult/"+modelId+"?page=0&size=10";
+    getResult(modelId:number,page=0,size=10){
+        let path = "/api/predictionResult/"+modelId+"?page="+page+"&size="+size;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
