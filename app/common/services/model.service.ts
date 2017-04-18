@@ -7,50 +7,113 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { JobInfo, JobProcess } from "../defs/resources";
+import {HistoryInfo, JobInfo, ModelInfo, PercentInfo, SceneInfo} from "../defs/resources";
+
 
 import {SERVER_URL} from "../../app.constants";
 @Injectable()
-export class ModelService {
-    SERVER_URL: string = SERVER_URL;
-    constructor(private http: Http) { }
+export class modelService {
 
-    getAuthorization(){
-        return 'Bearer '+ sessionStorage.authenticationToken;
+    SERVER_URL: string = SERVER_URL;
+
+    constructor(private http: Http) {
     }
 
-    getHeaders(){
+    getAuthorization() {
+        return 'Bearer ' + sessionStorage.authenticationToken;
+    }
+
+    getHeaders() {
         let headers = new Headers();
-        headers.append('Content-Type','application/json');
-        headers.append('Accept','application/json');
-        headers.append('Authorization',this.getAuthorization());
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', this.getAuthorization());
         return headers;
     }
 
-    handleFileUpload(modelId, file){
-        let path = "/api/model/upload";
-        let body = JSON.stringify({
-            "modelId": modelId,
-            "file": file
-        });
-        // console.log(body);
+    getStatue(jobPath: string){
+        debugger
+        let path = "/api/publishJob/"+jobPath;
         let headers = this.getHeaders();
-        return this.http.post(this.SERVER_URL+path,body,{ headers: headers })
-        .map((response: Response) => {
-            if (response) {
-                return response;
-            }
-        });
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response) {
+                    return response.text();
+                }
+            });
+    }
+    getModel(id:number){
+        let path = "/api/models/"+id;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(ModelInfo, response.json());
+                }
+            });
     }
 
-    getModelsByUser(prob_id: string){
-        let path = "/api/models/"+prob_id;
+    saveModelAndUpload(name, model_id, file) {
+        let path = "/api/model";
+        let body = JSON.stringify({
+            "name": name,
+            "modelId": model_id,
+            "filePath":file
+        });
         let headers = this.getHeaders();
-        return this.http.get(this.SERVER_URL+path,{ headers: headers })
+        return this.http.post(this.SERVER_URL + path, body, { headers: headers })
+            .map((response) => {
+                if (response && response.json()) {
+                    if (response.status == 200) {
+                        return response.json();
+                    }
+                    else {
+                        return "fail";
+                    }
+                }
+            });
+    }
+
+    runInference(modelId:number){
+        let path = "/api/runInference/"+modelId;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
                 if (response) {
                     return response;
                 }
-        });
+            });
     }
+
+    getResult(modelId:number){
+        let path = "/api/predictionResult/"+modelId+"?page=0&size=10";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response) {
+                    return response.json();
+                }
+            });
+    }
+    getPercent(modelId:number){
+        let path = "/api/modelPrediction/"+modelId;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(PercentInfo, response.json());
+                }
+            });
+    }
+    getHistory(){
+        let path = "/api/modelPredictions/";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(HistoryInfo, response.json());
+                }
+            });
+    }
+
 }

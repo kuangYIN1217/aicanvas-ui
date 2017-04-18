@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="select">
+        <select  [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
+            <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
+        </select>
+    </div>
+    <div class="modelServier">
+        <table class="table">
+            <th>序号</th>
+            <th>创建者</th>
+            <th>创建时间</th>
+            <th>模型路径</th>
+            <tbody>
+                <tr *ngFor="let model of ModelInfo let num =  index" (click)="clickStatus(num,model.model_id)" [ngClass]="{selected:num==selected }" >
+                    <td>{{ model.model_id}}</td>
+                    <td>{{ model.creator}}</td>
+                    <td>{{ model.created_at}}</td>
+                    <td>{{ model.model_path}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn"><a routerLinkActive="active" (click)="clickBtn()">单文件推演</a></div>
+    </div>
+</div>

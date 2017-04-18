@@ -14,8 +14,9 @@ import * as d3 from 'd3';
     providers: [ResourcesService,JobService]
 })
 export class OverviewComponent {
+
     gpuArray: Gpu[] = [];
-    // gpuInfoArray: GpuInfo[] = [];
+
     // infomation of cpu
     cpuInfoArray: CpuInfo[] = [];
 
@@ -48,6 +49,11 @@ export class OverviewComponent {
         }
 
     }
+
+    ngOnDestroy(){
+        // 退出时停止更新
+        clearInterval(this.interval);
+    }
     loading(){
 
     }
@@ -58,7 +64,7 @@ export class OverviewComponent {
     getCpuInfo(cpuInfoArray: CpuInfo[],cpu: Cpu){
         this.cpuInfoArray = cpuInfoArray;
         if(cpuInfoArray.length>500){
-            this.cpuInfoArray = cpuInfoArray.slice(-501,-1);
+            this.cpuInfoArray = cpuInfoArray.slice(-201,-1);
         }
         this.drawCpuLine(this.cpuInfoArray);
         this.drawCpuPie(this.cpuInfoArray,cpu);

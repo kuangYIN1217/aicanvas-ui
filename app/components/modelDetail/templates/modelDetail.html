@@ -1,0 +1,28 @@
+<div class="container">
+    <form class="form">
+        <div class="name"><label>名称:</label><input type="text" required [(ngModel)]="modelName" name="name"/></div>
+        <div class="text">
+            <a class="btn">
+                <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />选择文件
+            </a>
+        </div>
+        <button (click)="uploadFile()">保存</button>
+    </form>
+    <div class="percent">
+        <span>上传进度：</span>
+        <span>{{PercentInfo.percent}}</span>
+        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()">
+            <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
+        </select>
+    </div>
+    <table class="table">
+        <th>上传内容</th>
+        <th>显示结果</th>
+        <tbody>
+            <tr *ngFor="let re of result">
+                <td><img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}"></td>
+                <td><!--<div *ngFor="let item of outputArr"></div>-->{{re.output}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
