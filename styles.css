@@ -94,7 +94,11 @@ html,body{
   stroke: #6bb7c7;
   stroke-width: 3;
 }
-
+.lineChart--areaLine_val {
+  fill: none;
+  stroke: yellow;
+  stroke-width: 3;
+}
 .lineChart--bubble--label {
   fill: none;
   stroke: #6bb7c7;

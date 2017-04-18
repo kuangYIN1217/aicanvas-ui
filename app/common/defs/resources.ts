@@ -86,7 +86,7 @@ export class JobInfo{
     // path of job
     jobPath: string;
     // scene's name of job
-    sences: string;
+    sences: number;
     sencesName: string;
     // chainId
     chainId: string;
@@ -117,6 +117,9 @@ export class JobProcess{
     id: number;
     job: JobInfo;
     loss: string;
+    percent: string;
+    progress: string;
+    samples_sec: string;
     val_acc: string;
     val_loss: string;
 }
@@ -139,4 +142,22 @@ export class inferenceResult{
     inputPath:string;
     output:string;
     success:boolean;
+}
+export class PercentInfo{
+    id:number;
+    modelId: string;
+    percent: string;
+    inputPath: string;
+    output: string;
+    predictionName: string;
+}
+
+export class HistoryInfo{
+    id:number;
+    predictionName: string;
+    modelId:number;
+    inputPath: string;
+    outputPath: string;
+    percent: string;
+
 }
