@@ -49,6 +49,17 @@ export class JobService {
         });
     }
 
+    getUnrunningJob(jobPath: string): Observable<JobParameter[]>{
+        let path = "/api/job/"+jobPath;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(JobParameter, response.json());
+                }
+        });
+    }
+
     getJob(jobPath: string, index): Observable<JobParameter[]>{
         let path = "/api/job/"+jobPath+"/"+index;
         let headers = this.getHeaders();

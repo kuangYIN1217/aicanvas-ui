@@ -6,7 +6,7 @@
         </div>
         <div class="status">
             <div class="detailLine">
-                <span>任务名称:&nbsp;&nbsp;{{job.id}}</span>
+                <span>任务名称:&nbsp;&nbsp;{{job.jobName}}</span>
                 <span>场景名称:&nbsp;&nbsp;{{job.sences==null?'未设置':job.sences}}</span>
                 <span>创建时间:&nbsp;&nbsp;{{job.createTime==null?'未设置':job.createTime}}</span>
                 <span>状态:&nbsp;&nbsp;{{job.status==null?'未设置':job.status}}</span>
@@ -35,7 +35,7 @@
                     <div class="chart" id="chart2">
                         <svg id="lineChartSVG" class="lineChart--svg">
                             <defs>
-                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                <linearGradient id="lineChart--gradientBackgroundArea2" x1="0" x2="0" y1="0" y2="1">
                                     <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
                                     <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
                                 </linearGradient>
