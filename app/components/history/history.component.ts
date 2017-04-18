@@ -19,6 +19,13 @@ export class HistoryComponent{
         this.modelService.getHistory()
             .subscribe(history => this.HistoryInfo=history);
     }
+    output(percent){
+        if(percent==100){
+            return parseInt(percent)+"%";
+        }else{
+            return percent+"%";
+        }
+    }
 }
 
 

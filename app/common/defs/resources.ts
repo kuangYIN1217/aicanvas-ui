@@ -158,3 +158,4 @@ export class HistoryInfo{
     percent: string;
 
 }
+
