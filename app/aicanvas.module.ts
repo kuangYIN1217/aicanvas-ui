@@ -23,6 +23,9 @@ import { FormsModule } from '@angular/forms';
 import {ModelDetailComponent} from "./components/modelDetail/modelDetail.component";
 import { FileUploadModule } from 'ng2-file-upload';
 import {HistoryComponent} from "./components/history/history.component";
+import {HistoryDetailComponent} from "./components/historyDetail/historyDetail.component";
+import {AlgorithmChainComponent} from "./components/algorithmChain/algorithmChain.component";
+import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component";
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule,FormsModule,FileUploadModule],
     declarations: [
@@ -42,7 +45,10 @@ import {HistoryComponent} from "./components/history/history.component";
         JobDetailComponent,
         AlgpluginDetailComponent,
         ModelDetailComponent,
-        HistoryComponent
+        HistoryComponent,
+        HistoryDetailComponent,
+        AlgorithmChainComponent,
+        TaskStatusComponent
 
     ],
     bootstrap: [NavigationComponent]

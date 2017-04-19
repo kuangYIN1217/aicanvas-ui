@@ -17,6 +17,8 @@ export class AlgPluginsComponent{
     plugins: PluginInfo[] = [];
     // show one of two different table
     showSystemPlugin: number = 1;
+    page: number = 1;
+    pageMaxItem: number = 10;
     constructor(private pluginService: PluginService) {
         if(sessionStorage.showSystemPlugin){
             this.showSystemPlugin = sessionStorage.showSystemPlugin;
@@ -41,4 +43,21 @@ export class AlgPluginsComponent{
         sessionStorage.showSystemPlugin = 0;
         // console.log(this.showSystemPlugin);
     }
+/*    maxItemChange(){
+        this.page=1;
+        this.getHistory(this.page-1,this.pageMaxItem)
+    }
+    nextPage(){
+        this.page++;
+        this.getHistory(this.page-1,this.pageMaxItem)
+
+    }
+    previousPage(){
+        if (this.page>1){
+            this.page--;
+            this.getHistory(this.page-1,this.pageMaxItem)
+        }else{
+            alert('已经是首页');
+        }
+    }*/
 }

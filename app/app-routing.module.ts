@@ -18,6 +18,9 @@ import { JobDetailComponent } from './components/jobDetail/jobDetail.component'
 import { AlgpluginDetailComponent } from './components/algpluginDetail/algpluginDetail.component'
 import {ModelDetailComponent} from "./components/modelDetail/modelDetail.component";
 import {HistoryComponent} from "./components/history/history.component";
+import {HistoryDetailComponent} from "./components/historyDetail/historyDetail.component";
+import {AlgorithmChainComponent} from "./components/algorithmChain/algorithmChain.component";
+import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component";
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
@@ -36,6 +39,10 @@ const routes: Routes = [
   { path: 'jobDetail/:job_id', component: JobDetailComponent },
   { path: 'algpluginDetail/:plugin_id', component: AlgpluginDetailComponent },
   { path: 'history', component: HistoryComponent },
+  { path: 'historyDetail', component: HistoryDetailComponent },
+  { path: 'algorithmChain', component: AlgorithmChainComponent },
+  { path: 'taskStatus', component: TaskStatusComponent },
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
  // { path: 'detail/:id', component: HeroDetailComponent },

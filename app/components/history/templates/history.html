@@ -8,7 +8,7 @@
        <th>进度</th>
        <th>详情</th>
        <tbody>
-            <tr *ngFor="let item of HistoryInfo.content">
+            <tr *ngFor="let item of result let num = index">
                 <td>{{item.id}}</td>
                 <td>{{item.predictionName}}</td>
                 <td>{{item.modelId}}</td>
@@ -16,9 +16,21 @@
                 <td>{{item.outputPath}}</td>
                 <td>{{output(item.percent)}}</td>
                 <td>
-                    <a class="showDetailBtn" routerLinkActive="active">查看详情</a>&nbsp;&nbsp;
+                    <a class="showDetailBtn" routerLinkActive="active" (click)="viewDetail(num)">查看详情</a>&nbsp;&nbsp;
                 </td>
             </tr>
        </tbody>
    </table>
+    <div class="bottom_menu">
+        <div class="label">TotalPages:<span>{{historyInfo.totalPages}}</span></div>
+        <div class="selectDiv" >
+            <select class="select_pagemax" [(ngModel)]="pageMaxItem"  (ngModelChange)="maxItemChange();">
+                <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+            </select>
+        </div>
+        <div *ngIf="page!=historyInfo.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
+        <div class="pagebtn" (click)="previousPage()">Previous</div>
+    </div>
 </div>

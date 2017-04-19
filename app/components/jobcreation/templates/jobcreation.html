@@ -11,7 +11,8 @@
             </div>
         </div>
         <div class="status">
-            <table id="jobTable" class="table">
+            <taskStatus></taskStatus>
+            <!--<table id="jobTable" class="table">
                 <th class="name">任务名称</th>
                 <th class="scene">场景名称</th>
                 <th class="time">创建时间</th>
@@ -19,14 +20,14 @@
                 <th class="progress">进度</th>
                 <th class="operation">操作</th>
                 <th class="formore">详情</th>
-                <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="(((i+1)>=(page-1)*pageMaxItem+1)&&(i+1)<=(page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem))?'':'none'">
+                <tr *ngFor="let jobInfo of Jobs_current;let i = index;" >
                     <td>{{jobInfo.jobName}}</td>
                     <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
                     <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
                     <td>{{jobInfo.status}}</td>
 
                     <td>{{jobInfo.percent==null?'0.0':(jobInfo.percent*100).toFixed(2)}}%</td>
-                    <!-- <td>{{jobInfo.job_progress}}%</td> -->
+                    &lt;!&ndash; <td>{{jobInfo.job_progress}}%</td> &ndash;&gt;
                         <td class="operationTd">
                         <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
                         <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
@@ -38,17 +39,21 @@
                 </tr>
             </table>
             <div class="bottom_menu">
-                <div class="label">Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem}} of {{page*pageMaxItem>Jobs_current.length?Jobs_current.length-(page-1)*pageMaxItem:pageMaxItem}} items</div>
+                <div class="label">
+                    TotalPages:
+                    &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem}} of {{page*pageMaxItem>Jobs_current.length?Jobs_current.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;
+                    <span>{{createdJob.totalPages}}</span>
+                </div>
                 <div class="selectDiv" >
-                    <select class="select_pagemax"(change)="maxItemChange($event.target.value);">
+                    <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();">
                         <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
                         <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
                         <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
                     </select>
                 </div>
-                <div class="pagebtn" (click)="nextPage()">Next</div>
+                <div *ngIf="page!=createdJob.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
                 <div class="pagebtn" (click)="previousPage()">Previous</div>
-            </div>
+            </div>-->
         </div>
     </div>
     <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">

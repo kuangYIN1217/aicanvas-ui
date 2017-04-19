@@ -22,9 +22,9 @@ export class OverviewComponent {
 
     // list of jobs
     jobArray: JobInfo[] = [];
+    createdJob: JobInfo = new JobInfo();
     // show resource or task 0--resource, 1--task
     tabIndex: number = 0;
-
     interval: any;
 
     constructor(private resourcesService: ResourcesService, private jobService: JobService) {
@@ -32,8 +32,7 @@ export class OverviewComponent {
         .subscribe(cpu => this.getCpu(cpu));
         resourcesService.getAllGpus()
         .subscribe(gpuArray => this.getGpus(gpuArray));
-        jobService.getAllJobs()
-        .subscribe(jobArray => this.jobArray = jobArray);
+        //this.getAlljobs(this.page-1,this.pageMaxItem);
 
         // loading show
         this.loading();
@@ -49,11 +48,20 @@ export class OverviewComponent {
         }
 
     }
+    /*getAlljobs(page,size){
+        this.jobService.getAllJobs(page,size)
+            .subscribe(jobArray => {
+                this.jobArray = jobArray.content
+                this.createdJob = jobArray;
+            });
+    }
 
     ngOnDestroy(){
         // 退出时停止更新
         clearInterval(this.interval);
     }
+*/
+
     loading(){
 
     }

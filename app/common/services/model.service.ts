@@ -32,7 +32,6 @@ export class modelService {
     }
 
     getStatue(jobPath: string){
-        debugger
         let path = "/api/publishJob/"+jobPath;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
@@ -105,8 +104,8 @@ export class modelService {
                 }
             });
     }
-    getHistory(){
-        let path = "/api/modelPredictions/";
+    getHistory(page=0,size=10){
+        let path = "/api/modelPredictions/?page="+page+"&size="+size;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {

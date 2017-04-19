@@ -14,10 +14,19 @@ import {ActivatedRoute, Router} from "@angular/router";
     providers: [ResourcesService,modelService]
 })
 export class HistoryComponent{
-    HistoryInfo:HistoryInfo[] = [];
-    constructor(private modelService: modelService, private location: Location,private sceneService: SceneService){
-        this.modelService.getHistory()
-            .subscribe(history => this.HistoryInfo=history);
+    historyInfo:HistoryInfo=new HistoryInfo();
+    result:HistoryInfo[];
+    page: number = 1;
+    pageMaxItem: number = 10;
+    constructor(private modelService: modelService, private location: Location,private sceneService: SceneService,private route: ActivatedRoute ,private router: Router){
+        this.getHistory(this.page-1,this.pageMaxItem);
+    }
+    getHistory(page,size){
+        this.modelService.getHistory(page,size).subscribe(history => {
+            this.result=history.content;
+            this.historyInfo = history;
+
+        });
     }
     output(percent){
         if(percent==100){
@@ -25,6 +34,27 @@ export class HistoryComponent{
         }else{
             return percent+"%";
         }
+    }
+    maxItemChange(){
+        this.page=1;
+        this.getHistory(this.page-1,this.pageMaxItem)
+    }
+    nextPage(){
+        this.page++;
+        this.getHistory(this.page-1,this.pageMaxItem)
+
+    }
+    previousPage(){
+        if (this.page>1){
+            this.page--;
+            this.getHistory(this.page-1,this.pageMaxItem)
+        }else{
+            alert('已经是首页');
+        }
+    }
+    viewDetail(num){
+        this.router.navigate(['../historyDetail'],{queryParams:{"model_id":this.result[num].id}});
+        console.log(this.result[num].id);
     }
 }
 

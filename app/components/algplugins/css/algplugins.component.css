@@ -224,3 +224,55 @@ input{
     width: 100%;
     height: 43vw;
 }
+.bottom_menu{
+    width: 96%;
+    height: 49px;
+    background-color: #0b0b0b;
+    margin:28px 0 0 2%;
+}
+.bottom_menu .label{
+    position: relative;
+    height: 21px;
+    width: 300px;
+    top: 14px;
+    left: 30px;
+    color: #e2e2e2;
+    font-size: 20px;
+    font-family: "MicrosoftYaHei";
+    float: left;
+    margin-right: 100px;
+}
+.bottom_menu .label span{
+    display: inline-block;
+    margin-left: 10px;
+}
+.bottom_menu .selectDiv{
+    position: relative;
+    width: 100px;
+    height: 40px;
+    float: left;
+    outline: none;
+}
+.bottom_menu .selectDiv .select_pagemax{
+    position: relative;
+    width: 80px;
+    height: 30px;
+    top: 10px;
+    outline: none;
+
+}
+.bottom_menu .pagebtn{
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 90px;
+    margin: 11px 8px 0 10px;
+
+    float: right;
+    background-color: #252525;
+    color: #f7f7f7;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: "MicrosoftYaHei";
+    cursor: pointer;
+}
