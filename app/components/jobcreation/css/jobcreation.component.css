@@ -147,7 +147,7 @@ select {
     background-position: 58%;
 
 }
-.operationBtn{
+/*.operationBtn{
     position: relative;
     top: 2px;
     width: 15px;
@@ -166,7 +166,8 @@ select {
     left: 99.7px;
     background-image: url('images/jobcreation/icon_02.png');
     background-repeat: no-repeat;
-}
+}*/
+/*
 .bottom_menu{
     position: relative;;
     width: 96%;
@@ -217,6 +218,7 @@ select {
     font-family: "MicrosoftYaHei";
     cursor: pointer;
 }
+*/
 
 /***************************/
 /*creationJob*/

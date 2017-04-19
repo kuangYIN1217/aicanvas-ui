@@ -52,6 +52,7 @@ export class JobCreationComponent {
     rightBox_node = 0;
 
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
+<<<<<<< HEAD
         jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
         pluginService.getLayerDict()
@@ -69,33 +70,38 @@ export class JobCreationComponent {
         }
         this.interval = setInterval(() => this.updatePage(), 500);
     }
+=======
+        /* this.getAlljobs(this.page-1,this.pageMaxItem);
+       this.interval = setInterval(() => this.updatePage(), 500);*/
+>>>>>>> XinkTech/master
 
+    }
 
     ngOnDestroy(){
         // 退出时停止更新
         clearInterval(this.interval);
     }
 
+<<<<<<< HEAD
     getTranParamTypes(editable_params){
         // editable_params为参数字典
         this.editable_params = editable_params;
     }
     updatePage(){
         this.jobService.getAllJobs()
+=======
+/*    getAlljobs(page,size){
+        this.jobService.getAllJobs(page,size)
+>>>>>>> XinkTech/master
             .subscribe(Jobs => this.initialJobArray(Jobs));
-        if(sessionStorage.pageMaxItem){
-            this.pageMaxItem = sessionStorage.pageMaxItem;
-        }
-        if(sessionStorage.page){
-            this.page = sessionStorage.page;
-        }
-        if(sessionStorage.search_input){
-            this.search_input = sessionStorage.search_input;
-        }
     }
+    updatePage(){
+     this.getAlljobs(this.page-1,this.pageMaxItem);
+    }*/
     initialJobArray(Jobs){
-        this.Jobs = Jobs;
-        this.Jobs_current = Jobs;
+        this.Jobs = Jobs.content;
+        this.Jobs_current = Jobs.content;
+        this.createdJob = Jobs;
     }
     inputchange(){
         this.Jobs_current = [];
@@ -110,22 +116,7 @@ export class JobCreationComponent {
     showManage(){
         this.jobPageStatus = "manage";
     }
-    nextPage(){
-        if (this.page*this.pageMaxItem>=this.Jobs_current.length){
-            alert('已经是最后一页');
-        }else{
-            this.page++;
-            sessionStorage.page = this.page;
-        }
-    }
-    previousPage(){
-        if (this.page>1){
-            this.page--;
-            sessionStorage.page = this.page;
-        }else{
-            alert('已经是首页');
-        }
-    }
+
 
     CSV(){
 
@@ -325,15 +316,14 @@ export class JobCreationComponent {
         // 成功运行
         if(reply.status==200){
             // 重新获取所有Job
-            this.jobService.getAllJobs()
-                .subscribe(Jobs => this.initialJobArray(Jobs));
+            this.getAlljobs(this.page-1,this.pageMaxItem);
             // 前往详情界面
             this.router.navigate(['/jobDetail', jobPath]);
         }else{
             // 运行失败报错
         }
     }
-    start(jobPath: string){
+    /*start(jobPath: string){
         this.jobService.runJob(jobPath)
             .subscribe(reply => this.start_reply(reply));
     }
@@ -356,14 +346,10 @@ export class JobCreationComponent {
             console.warn("Stop Failed!");
         }
         this.updatePage();
-    }
-    maxItemChange(maxItemNum){
-        this.page=1;
-        this.pageMaxItem=maxItemNum;
-        sessionStorage.pageMaxItem = maxItemNum;
-    }
+    }*/
 
-   checkStatus(status,sence , jobPath){
+
+   /*checkStatus(status,sence , jobPath){
         if(status=='Finished'){
             this.modelService.getStatue(jobPath).subscribe(data=>{
                 this.router.navigate(['../model'],{queryParams: { sence: sence }});
@@ -373,6 +359,7 @@ export class JobCreationComponent {
         }else{
           return false;
         }
+<<<<<<< HEAD
     }
 
 
@@ -424,4 +411,7 @@ export class JobCreationComponent {
             parameter.set_value[i1][j1][z1] = Number(value);
         }
     }
+=======
+    }*/
+>>>>>>> XinkTech/master
 }

@@ -6,35 +6,7 @@
                 <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />选择文件
             </a>
         </div>
-        <button (click)="uploadFile()">保存</button>
+        <button (click)="uploadFile()" routerLinkActive="active">保存</button>
     </form>
-    <div class="percent">
-        <span>上传进度：</span>
-        <span>{{PercentInfo.percent}}</span>
-        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()">
-            <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
-        </select>
-    </div>
-    <table class="table">
-        <th>上传内容</th>
-        <th>显示结果</th>
-        <tbody>
-            <tr *ngFor="let re of result">
-                <td><img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}"></td>
-                <td>{{output(re.output)}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="bottom_menu">
-        <div class="label">TotalPages:<span>{{resultP.totalPages}}</span></div>
-        <div class="selectDiv" >
-            <select class="select_pagemax" [(ngModel)]="pageMaxItem"  (ngModelChange)="maxItemChange();">
-                <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
-                <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
-                <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
-            </select>
-        </div>
-        <div *ngIf="page!=resultP.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
-        <div class="pagebtn" (click)="previousPage()">Previous</div>
-    </div>
+
 </div>

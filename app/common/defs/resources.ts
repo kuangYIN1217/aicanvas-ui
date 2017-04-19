@@ -101,7 +101,8 @@ export class JobInfo{
     // 运行时长 /秒
     runningTime: string;
     // // percent pg job progress
-
+    totalPages: number;
+    totalElements: number;
     percent: number;
 }
 export class JobParameter{
@@ -159,5 +160,15 @@ export class HistoryInfo{
     inputPath: string;
     outputPath: string;
     percent: string;
-
+    totalPages:number;
+}
+export class AlgorithmInfo{
+    train_params: string;
+    chain_name: string;
+    id: string;
+    publish: number;
+    prob_domain: number;
+    creator: string;
+    path: string;
+    description:string;
 }

@@ -1,0 +1,29 @@
+<div class="container">
+    <table class="table">
+        <th>Id</th>
+        <th>TrainParams</th>
+        <th>ChainName</th>
+        <th>Publish</th>
+        <th>probDomain</th>
+        <th>Creator</th>
+        <th>Path</th>
+        <th>Description</th>
+        <th>ViewDetails</th>
+        <tbody>
+        <tr *ngFor="let item of AlgorithmInfo">
+            <td>{{item.id}}</td>
+            <td>{{item.train_params}}</td>
+            <td>{{item.chain_name}}</td>
+            <td>{{output(item.publish)}}</td>
+            <td>{{item.prob_domain}}</td>
+            <td>{{item.creator}}</td>
+            <td>{{item.path}}</td>
+            <td>{{item.description}}</td>
+            <td>
+                <a class="showDetailBtn" routerLinkActive="active">查看详情</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

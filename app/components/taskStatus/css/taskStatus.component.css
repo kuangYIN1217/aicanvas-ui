@@ -1,37 +1,36 @@
 .table{
+    position: relative;
+    top: 28px;
+    margin:0 2% 0 2%;
     width: 96%;
-    margin: 0 0 0 2%;
-    padding-top: 20px;
+
 }
-.table th,tr{
+.table th{
     height: 50px;
-    border: 0;
+    background: #4e3fa9;
+    border: 0px;
+    font-size: 20px;
     line-height: 50px;
     color: #ffffff;
     font-weight: normal;
-    font-family: "Microsoft YaHei";
-    text-align: center;
-}
-.table th{
-    background: #4e3fa9;
-    font-size: 20px;
 }
 .table tr{
-    color: #ededed;
+    text-align: center;
     background: #252525;
-    font-size: 16px;
-}
-.showDetailBtn{
-    cursor: pointer;
-    color: #eeeeee;
+    height: 50px;
     font-size: 18px;
-    text-decoration: none;
+    font-family: "MicrosoftYaHei";
+    color: #ededed;
+}
+.table tr:nth-child(even){
+    background: #202020;
 }
 .bottom_menu{
+    position: relative;;
     width: 96%;
     height: 49px;
     background-color: #0b0b0b;
-    margin:0 0 0 2%;
+    margin:30px 2% 0 2%;
 }
 .bottom_menu .label{
     position: relative;
@@ -44,10 +43,6 @@
     font-family: "MicrosoftYaHei";
     float: left;
     margin-right: 100px;
-}
-.bottom_menu .label span{
-    display: inline-block;
-    margin-left: 10px;
 }
 .bottom_menu .selectDiv{
     position: relative;
@@ -65,6 +60,7 @@
 
 }
 .bottom_menu .pagebtn{
+
     height: 28px;
     line-height: 28px;
     text-align: center;
@@ -78,4 +74,23 @@
     font-size: 16px;
     font-family: "MicrosoftYaHei";
     cursor: pointer;
+}
+.showDetailBtn{
+    cursor: pointer;
+    color: #eeeeee;
+    font-size: 18px;
+    text-decoration: none;
+}
+.operationBtn{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+.stop{
+    background: url('images/jobcreation/icon_01.png') no-repeat center;
+
+}
+.start{
+    background: url('images/jobcreation/icon_02.png') no-repeat center;
 }

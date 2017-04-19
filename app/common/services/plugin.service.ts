@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { PluginInfo } from "../defs/resources";
+import {AlgorithmInfo, PluginInfo} from "../defs/resources";
 import {SERVER_URL} from "../../app.constants";
 
 import { Parameter, TrainingNetwork,Editable_param } from "../defs/parameter";
@@ -96,5 +96,15 @@ export class PluginService {
                     return plainToClass(Editable_param,response.json().train_params.editable_param_list);
                 }
         });
+    }
+    getAlgorithmChain(){
+        let path = "/api/algChains";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path,{ headers: headers })
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(AlgorithmInfo, response.json());
+                }
+            });
     }
 }
