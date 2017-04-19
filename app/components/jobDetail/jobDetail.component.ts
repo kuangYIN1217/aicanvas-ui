@@ -40,7 +40,7 @@ export class JobDetailComponent {
                 jobPath = unescape(jobPath);
                 // jobService.getJob(jobPath)
                 //     .subscribe(jobParam => this.jobParam = jobParam);
-                jobService.getAllJobs().subscribe(jobs => this.selectJob(jobs,jobPath));
+                jobService.getWholeJobs().subscribe(jobs => this.selectJob(jobs,jobPath));
             }
         }
     }

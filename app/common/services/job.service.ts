@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { JobInfo, JobProcess } from "../defs/resources";
-import { JobParameter } from "../../common/defs/resources";
+import { JobParameter,JobCollection } from "../../common/defs/resources";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
 
@@ -77,7 +77,18 @@ export class JobService {
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return plainToClass(JobInfo, response.json());
+                    return plainToClass(JobCollection, response.json());
+                }
+        });
+    }
+
+    getWholeJobs(){
+        let path = "/api/jobs";
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(JobInfo, response.json().content);
                 }
         });
     }

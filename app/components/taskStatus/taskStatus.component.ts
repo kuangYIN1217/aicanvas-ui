@@ -4,7 +4,7 @@ import { ResourcesService } from '../../common/services/resources.service'
 import {modelService} from "../../common/services/model.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PluginService} from "../../common/services/plugin.service";
-import {AlgorithmInfo, JobInfo} from "../../common/defs/resources";
+import {AlgorithmInfo, JobInfo, JobCollection} from "../../common/defs/resources";
 import {JobService} from "../../common/services/job.service";
 @Component({
     moduleId: module.id,
@@ -16,20 +16,40 @@ import {JobService} from "../../common/services/job.service";
 export class TaskStatusComponent{
     page: number = 1;
     pageMaxItem: number = 10;
+    // store search content
+    search_input: string = "";
     interval: any;
+    JobCollection: JobCollection = new JobCollection();
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
-    createdJob: JobInfo = new JobInfo();
     constructor(private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
-       // this.interval = setInterval (() => {this.getAlljobs(this.page-1,this.pageMaxItem);}, 500);
-        this.updatePage();
+       if(sessionStorage.pageMaxItem){
+           this.pageMaxItem = sessionStorage.pageMaxItem;
+       }
+       if(sessionStorage.page){
+           this.page = sessionStorage.page;
+       }
+       if(sessionStorage.search_input){
+           this.search_input = sessionStorage.search_input;
+       }
+       this.updatePage();
+
+       this.interval = setInterval (() => {
+           this.updatePage();
+       }, 500);
     }
     getAlljobs(page,size){
+        sessionStorage.pageMaxItem = this.pageMaxItem;
+        sessionStorage.page = this.page;
+
         this.jobService.getAllJobs(page,size)
-            .subscribe(Jobs => {
-                this.Jobs = Jobs.content;
-                this.Jobs_current = Jobs.content;
-                this.createdJob = Jobs;
+            .subscribe(jobCollections => {
+                // console.log(jobCollections);
+                let collection: any = jobCollections;
+                this.JobCollection = collection;
+                this.Jobs = collection.content;
+                this.Jobs_current = collection.content;
+                // console.log(this.JobCollection.totalPages);
             });
     }
     updatePage(){
@@ -56,9 +76,9 @@ export class TaskStatusComponent{
     }
     start_reply(reply){
         if(reply.status==200){
-            console.log("Start Successfully!");
+            console.info("Start Successfully!");
         }else{
-            console.log("Start Failed!");
+            console.warn("Start Failed!");
         }
         this.updatePage();
     }
@@ -68,21 +88,22 @@ export class TaskStatusComponent{
     }
     stop_reply(reply){
         if(reply.status==200){
-            console.log("Stoped!");
+            console.info("Stoped Successfully!");
         }else{
-            console.log("Stop Failed!");
+            console.warn("Stop Failed!");
         }
         this.updatePage();
     }
     maxItemChange(){
         this.page=1;
         this.getAlljobs(this.page-1,this.pageMaxItem);
-        console.log(this.createdJob);
+        // console.log(this.JobCollection);
     }
     nextPage(){
         this.page++;
+
         this.getAlljobs(this.page-1,this.pageMaxItem);
-        console.log(this.createdJob);
+        // console.log(this.JobCollection);
     }
     previousPage(){
         if (this.page>1){
@@ -93,10 +114,41 @@ export class TaskStatusComponent{
         }
     }
     output(percent){
+        // 控制小数点位数
+        let floatDigit = 2;
+
         if(percent==100){
             return parseInt(percent)+"%";
         }else{
-            return percent+"%";
+            return percent.toFixed(floatDigit)+"%";
+        }
+    }
+    inputchange(){
+        this.Jobs_current = [];
+        for (let job of this.Jobs){
+            if (this.jobContains(job)){
+                this.Jobs_current.push(job);
+            }
+        }
+        sessionStorage.search_input = this.search_input;
+    }
+    jobContains(job: JobInfo){
+        if ((job.id+"").toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }else if (job.jobName.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }else if (job.createTime.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }
+        // else if ((job.sences+"").indexOf(this.search_input.toUpperCase())!=-1){
+        //     return true;
+        // // }else if (((job.progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
+        // //     return true;
+        // }
+        else if (job.status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+            return true;
+        }else{
+            return false;
         }
     }
 }

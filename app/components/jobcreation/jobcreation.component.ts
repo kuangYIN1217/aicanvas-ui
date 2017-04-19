@@ -22,8 +22,6 @@ export class JobCreationComponent {
     editable_parameters: Editable_param[] = [];
     // 是否已经创建了新的
     created: number = 0;
-    originModelInfo: {} = {};
-    haveChange: number = 0;
     //
     scenes: SceneInfo[] = [];
     chosenSceneId: number;
@@ -40,46 +38,16 @@ export class JobCreationComponent {
     jobPageStatus: string = "manage";
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
-    // 显示第几页的job
-    page: number = 1;
-    // 一页最多放几个job
-    pageMaxItem: number = 10;
-    // store search content
-    search_input: string = "";
 
     interval:any;
     // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
     rightBox_node = 0;
 
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        jobService.getAllJobs()
-            .subscribe(Jobs => this.initialJobArray(Jobs));
         pluginService.getLayerDict()
             .subscribe(dictionary => this.getDictionary(dictionary));
         this.pluginService.getTranParamTypes()
             .subscribe(editable_params => this.getTranParamTypes(editable_params));
-        if(sessionStorage.pageMaxItem){
-            this.pageMaxItem = sessionStorage.pageMaxItem;
-        }
-        if(sessionStorage.page){
-            this.page = sessionStorage.page;
-        }
-        if(sessionStorage.search_input){
-            this.search_input = sessionStorage.search_input;
-        }
-        this.interval = setInterval(() => this.updatePage(), 500);
-    }
-=======
-        /* this.getAlljobs(this.page-1,this.pageMaxItem);
-       this.interval = setInterval(() => this.updatePage(), 500);*/
->>>>>>> XinkTech/master
-=======
-        /* this.getAlljobs(this.page-1,this.pageMaxItem);
-       this.interval = setInterval(() => this.updatePage(), 500);*/
->>>>>>> XinkTech/master
-
     }
 
     ngOnDestroy(){
@@ -87,41 +55,17 @@ export class JobCreationComponent {
         clearInterval(this.interval);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     getTranParamTypes(editable_params){
         // editable_params为参数字典
         this.editable_params = editable_params;
     }
-    updatePage(){
-        this.jobService.getAllJobs()
-=======
-/*    getAlljobs(page,size){
-        this.jobService.getAllJobs(page,size)
->>>>>>> XinkTech/master
-=======
-/*    getAlljobs(page,size){
-        this.jobService.getAllJobs(page,size)
->>>>>>> XinkTech/master
-            .subscribe(Jobs => this.initialJobArray(Jobs));
-    }
-    updatePage(){
-     this.getAlljobs(this.page-1,this.pageMaxItem);
-    }*/
+
     initialJobArray(Jobs){
-        this.Jobs = Jobs.content;
-        this.Jobs_current = Jobs.content;
-        this.createdJob = Jobs;
+        console.log(Jobs);
+        this.Jobs = Jobs;
+        this.Jobs_current = Jobs;
     }
-    inputchange(){
-        this.Jobs_current = [];
-        for (let job of this.Jobs){
-            if (this.jobContains(job)){
-                this.Jobs_current.push(job);
-            }
-        }
-        sessionStorage.search_input = this.search_input;
-    }
+
     //table operations
     showManage(){
         this.jobPageStatus = "manage";
@@ -134,25 +78,7 @@ export class JobCreationComponent {
     XLS(){
 
     }
-    jobContains(job: JobInfo){
-        if ((job.id+"").toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else if (job.jobName.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else if (job.createTime.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }
-        // else if ((job.sences+"").indexOf(this.search_input.toUpperCase())!=-1){
-        //     return true;
-        // // }else if (((job.progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
-        // //     return true;
-        // }
-        else if (job.status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
     changeChosenSceneId(id){
         this.chosenSceneId = id;
         for (let scene of this.scenes){
@@ -190,25 +116,31 @@ export class JobCreationComponent {
             this.saveJob();
         }
     }
+
+    // 第一次点击下一步时，创建job，存储下来
     createJobBySenceId(chosenSceneId){
         this.jobService.createJob(chosenSceneId)
-        .subscribe(createdJob => this.createJobBySenceId2(createdJob));
+        .subscribe(createdJob => {
+            // console.log(chosenSceneId);
+            // console.log(createdJob);
+            // let job: any = createdJob;
+            // this.createdJob = job;
+            // this.createJobBySenceId2(job.chainId);
+        });
     }
-    createJobBySenceId2(createdJob){
-        this.createdJob = createdJob;
+
+    // 根据chainId得到算法链,保存后进入下一页面
+    createJobBySenceId2(chainId){
         // console.log(this.createdJob);
-        this.sceneService.getChainByScene(Number(this.chosenSceneId))
-        .subscribe(pluginArr => this.createJobBySenceId3(pluginArr));
+        console.log(chainId);
+        this.sceneService.getChainByScene(Number(chainId))
+        .subscribe(pluginArr => {
+            this.pluginArr = pluginArr;
+            this.changeChosenPlugin(this.pluginArr[0].id);
+            this.stepNumber = this.stepNumber + 1;
+        });
     }
-    createJobBySenceId3(pluginArr: PluginInfo[]){
-        console.log(pluginArr);
-        this.pluginArr = pluginArr;
-        for (let plugin of pluginArr){
-            this.originModelInfo[plugin.id] = JSON.stringify(plugin.model);
-        }
-        this.changeChosenPlugin(this.pluginArr[0].id);
-        this.stepNumber = this.stepNumber + 1;
-    }
+
     changeChosenPlugin(id:string){
         if(!this.chosenPluginId){
             this.chosenPluginId = id;
@@ -266,58 +198,19 @@ export class JobCreationComponent {
         console.log("saveJob...");
         this.savePluginChange();
         for (let plugin of this.pluginArr){
-            if (plugin.model === this.originModelInfo[plugin.id]){
-                this.addPluginIds(plugin.id);
-            }else{
-                this.haveChange = 1;
-                if(plugin.creator==="general"){
-                    this.saveSysPlugin(plugin);
-                }else{
-                    this.pluginService.savePlugin(plugin)
-                        .subscribe(response => this.saveJobNormalPlugin(response,plugin.id));
-                }
-            }
+            this.pluginService.savePlugin(plugin)
+                .subscribe(response => this.saveJobNormalPlugin(response,plugin.id));
         }
+        this.stepNumber = this.stepNumber + 1;
     }
     saveJobNormalPlugin(response,plugin_id){
         if (response.status==200){
-            console.log("save ok");
-            this.addPluginIds(plugin_id);
+            console.info("plugins -- "+ plugin_id +"save ok");
         }else{
-            console.log("save failed");
+            console.warn("save failed");
         }
     }
-    saveSysPlugin(plugin: PluginInfo){
-        this.pluginService.copyPlugin(plugin.id)
-            .subscribe(response => this.forkSysPlugin(response, plugin));
-    }
-    forkSysPlugin(response, plugin){
-        let id = response.id;
-        this.pluginService.getPlugin(id)
-            .subscribe(response => this.forkSysPlugin2(response, plugin));
-    }
-    forkSysPlugin2(response, plugin){
-        response.train_params = plugin.train_params;
-        response.model = plugin.model;
-        this.pluginService.savePlugin(response)
-            .subscribe(msg => this.saveJobNormalPlugin(msg,response.id));
-    }
-    addPluginIds(pluginId: string){
-        this.pluginIds.push(pluginId);
-        if(this.pluginIds.length == this.pluginArr.length){
-            console.log(this.pluginIds);
-            // 如果chain的网络层有变化则创造新链,否则直接使用createJob时得到的chianId不做任何修改即可
-            if (this.haveChange === 1){
-                this.jobService.updateJob(this.createdJob.id, this.pluginIds)
-                .subscribe(updatedJob => this.saveJob2(updatedJob));
-            }
-        }
-    }
-    saveJob2(updatedJob: JobInfo){
-        let chainId = updatedJob.chainId;
-        console.log(chainId);
-        this.stepNumber = this.stepNumber + 1;
-    }
+
     create(){
         this.jobService.runJob(this.createdJob.jobPath)
             .subscribe(reply => this.runJobResult(reply,this.createdJob.jobPath));
@@ -326,40 +219,16 @@ export class JobCreationComponent {
         // 成功运行
         if(reply.status==200){
             // 重新获取所有Job
-            this.getAlljobs(this.page-1,this.pageMaxItem);
+            // this.jobService.getAllJobs(this.page-1,this.pageMaxItem);
             // 前往详情界面
             this.router.navigate(['/jobDetail', jobPath]);
         }else{
             // 运行失败报错
         }
     }
-    /*start(jobPath: string){
-        this.jobService.runJob(jobPath)
-            .subscribe(reply => this.start_reply(reply));
-    }
-    start_reply(reply){
-        if(reply.status==200){
-            console.info("Start Successfully!");
-        }else{
-            console.warn("Start Failed!");
-        }
-        this.updatePage();
-    }
-    stop(jobPath: string){
-        this.jobService.stopJob(jobPath)
-            .subscribe(reply => this.stop_reply(reply));
-    }
-    stop_reply(reply){
-        if(reply.status==200){
-            console.info("Stoped!");
-        }else{
-            console.warn("Stop Failed!");
-        }
-        this.updatePage();
-    }*/
 
 
-   /*checkStatus(status,sence , jobPath){
+   checkStatus(status,sence , jobPath){
         if(status=='Finished'){
             this.modelService.getStatue(jobPath).subscribe(data=>{
                 this.router.navigate(['../model'],{queryParams: { sence: sence }});
@@ -369,8 +238,6 @@ export class JobCreationComponent {
         }else{
           return false;
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
     }
 
 
@@ -422,10 +289,4 @@ export class JobCreationComponent {
             parameter.set_value[i1][j1][z1] = Number(value);
         }
     }
-=======
-    }*/
->>>>>>> XinkTech/master
-=======
-    }*/
->>>>>>> XinkTech/master
 }

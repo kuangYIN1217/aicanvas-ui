@@ -53,7 +53,7 @@
                     <!--到这-->
                     <div class="chart piechart">
                         <h4>GPU Storage(GPU{{i+1}})</h4>
-                        <p>总空间: {{gpu.totalGlobalMem}}</p>
+                        <p>总空间: {{gpu.totalGlobalMem/1000000000}} G</p>
                         <div class="pie" id="gpu_storage_pie{{gpu.id}}"></div>
                         <div class="pieDescrip" id="proportion{{gpu.id}}"></div>
                     </div>
