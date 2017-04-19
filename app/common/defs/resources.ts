@@ -118,6 +118,9 @@ export class JobProcess{
     id: number;
     job: JobInfo;
     loss: string;
+    percent: string;
+    progress: string;
+    samples_sec: string;
     val_acc: string;
     val_loss: string;
 }
@@ -169,4 +172,3 @@ export class AlgorithmInfo{
     path: string;
     description:string;
 }
-

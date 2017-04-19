@@ -151,8 +151,4 @@ export class AlgpluginDetailComponent {
             parameter.set_value[i1][j1][z1] = Number(value);
         }
     }
-
-    toNetwork(){
-        window.location.href = "/network/"+this.plugin_id;
-    }
 }
