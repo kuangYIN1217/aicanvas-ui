@@ -53,6 +53,7 @@ export class JobCreationComponent {
 
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
         pluginService.getLayerDict()
@@ -74,6 +75,10 @@ export class JobCreationComponent {
         /* this.getAlljobs(this.page-1,this.pageMaxItem);
        this.interval = setInterval(() => this.updatePage(), 500);*/
 >>>>>>> XinkTech/master
+=======
+        /* this.getAlljobs(this.page-1,this.pageMaxItem);
+       this.interval = setInterval(() => this.updatePage(), 500);*/
+>>>>>>> XinkTech/master
 
     }
 
@@ -83,12 +88,17 @@ export class JobCreationComponent {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     getTranParamTypes(editable_params){
         // editable_params为参数字典
         this.editable_params = editable_params;
     }
     updatePage(){
         this.jobService.getAllJobs()
+=======
+/*    getAlljobs(page,size){
+        this.jobService.getAllJobs(page,size)
+>>>>>>> XinkTech/master
 =======
 /*    getAlljobs(page,size){
         this.jobService.getAllJobs(page,size)
@@ -360,6 +370,7 @@ export class JobCreationComponent {
           return false;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
     }
 
 
@@ -411,6 +422,9 @@ export class JobCreationComponent {
             parameter.set_value[i1][j1][z1] = Number(value);
         }
     }
+=======
+    }*/
+>>>>>>> XinkTech/master
 =======
     }*/
 >>>>>>> XinkTech/master
