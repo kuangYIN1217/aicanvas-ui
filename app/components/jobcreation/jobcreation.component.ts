@@ -5,6 +5,7 @@ import { SceneService } from '../../common/services/scene.service'
 import { PluginService } from '../../common/services/plugin.service'
 import {RouterModule, Routes, Router, ActivatedRoute} from '@angular/router';
 import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resources";
+import { Editable_param, Parameter } from "../../common/defs/parameter"
 import { plainToClass } from "class-transformer";
 import {modelService} from "../../common/services/model.service";
 declare var $:any;
@@ -16,6 +17,9 @@ declare var $:any;
     providers: [UserService,JobService,SceneService,PluginService,modelService]
 })
 export class JobCreationComponent {
+    editable_params: Editable_param[] = [];
+    // 被选中plugin的参数组合（结合了字典）
+    editable_parameters: Editable_param[] = [];
     // 是否已经创建了新的
     created: number = 0;
     originModelInfo: {} = {};
@@ -26,6 +30,8 @@ export class JobCreationComponent {
     chosen_scene: SceneInfo = new SceneInfo();
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
+
+
     createdJob: JobInfo = new JobInfo();
     pluginIds: string[] = [];
     // record the current step
@@ -41,11 +47,17 @@ export class JobCreationComponent {
     // store search content
     search_input: string = "";
 
-    interval:any
+    interval:any;
+    // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
+    rightBox_node = 0;
 
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
+        pluginService.getLayerDict()
+            .subscribe(dictionary => this.getDictionary(dictionary));
+        this.pluginService.getTranParamTypes()
+            .subscribe(editable_params => this.getTranParamTypes(editable_params));
         if(sessionStorage.pageMaxItem){
             this.pageMaxItem = sessionStorage.pageMaxItem;
         }
@@ -64,7 +76,10 @@ export class JobCreationComponent {
         clearInterval(this.interval);
     }
 
-
+    getTranParamTypes(editable_params){
+        // editable_params为参数字典
+        this.editable_params = editable_params;
+    }
     updatePage(){
         this.jobService.getAllJobs()
             .subscribe(Jobs => this.initialJobArray(Jobs));
@@ -125,11 +140,13 @@ export class JobCreationComponent {
             return true;
         }else if (job.createTime.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
             return true;
-        }else if (job.sences.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
-            return true;
-        // }else if (((job.progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
+        }
+        // else if ((job.sences+"").indexOf(this.search_input.toUpperCase())!=-1){
         //     return true;
-        }else if (job.status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
+        // // }else if (((job.progress+"%").toUpperCase()).indexOf(this.search_input.toUpperCase())!=-1){
+        // //     return true;
+        // }
+        else if (job.status.toUpperCase().indexOf(this.search_input.toUpperCase())!=-1){
             return true;
         }else{
             return false;
@@ -148,8 +165,6 @@ export class JobCreationComponent {
     createJob(){
         this.sceneService.getAllScenes()
         .subscribe(scenes => this.createJob_getScene(scenes));
-        this.pluginService.getLayerDict()
-        .subscribe(dictionary => this.getDictionary(dictionary));
     }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
@@ -199,8 +214,6 @@ export class JobCreationComponent {
             let training_network_json = this.findPluginById(this.chosenPluginId).model;
             console.log(training_network_json);
             $('#plugin_storage').val(JSON.stringify(training_network_json));
-            let params_json = this.findPluginById(this.chosenPluginId).train_params;
-
             $('#hideBtn').click();
         }else{
             this.savePluginChange();
@@ -210,6 +223,7 @@ export class JobCreationComponent {
             $('#plugin_storage').val(JSON.stringify(training_network_json));
             $('#loadBtn').click();
         }
+        this.pluginClicked();
     }
     savePluginChange(){
         let id = this.chosenPluginId;
@@ -217,6 +231,28 @@ export class JobCreationComponent {
         let json = $('#plugin_storage').val();
         let jsonData = JSON.parse(json);
         this.findPluginById(id).model = jsonData;
+    }
+    pluginClicked(){
+        let editable_parameters: Editable_param[] = [];
+        let params: any = this.findPluginById(this.chosenPluginId).train_params;
+        for(var param in params){
+            for (let editable_parameter of this.editable_params){
+                if (editable_parameter.path == param){
+                    editable_parameter.editable_param.set_value = params[param];
+                    editable_parameters.push(editable_parameter);
+                    break;
+                }
+            }
+        }
+        // 更新变量
+        this.editable_parameters = editable_parameters;
+
+        // 改变右侧显示的内容--显示plugin
+        this.rightBox_node = 0;
+    }
+    nodeClicked(){
+        // 改变右侧显示的内容--显示node
+        this.rightBox_node = 1;
     }
     findPluginById(id:string){
         for (let plugin of this.pluginArr){
@@ -336,6 +372,56 @@ export class JobCreationComponent {
 
         }else{
           return false;
+        }
+    }
+
+
+    // 修改参数
+    setValue(parameter: Parameter,value: string){
+        if (parameter.type=='string'){
+            parameter.set_value = value;
+        }else if(parameter.type=='boolean'){
+            // 当作string
+            parameter.set_value = value;
+        }else if(parameter.type=='int'||parameter.type=='float'){
+            if (Number(value)+""==NaN+""){
+                alert('输入必须为数值!');
+            }else{
+                let condition: number = 1;
+                if(parameter.has_min){
+                    if(+value<parameter.min_value){
+                        condition = -1;
+                        alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+                    }
+                }
+                if(parameter.has_max){
+                    if(+value>parameter.max_value){
+                        condition = -2;
+                        alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
+                    }
+                }
+                if(condition==1){
+                    parameter.set_value = +value;
+                }else{
+                    parameter.set_value = parameter.default_value;
+                }
+            }
+        }
+    }
+
+    set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
+        if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
+            alert('输入必须为数值!');
+        }else{
+            parameter.set_value[i1][j1] = Number(value);
+        }
+    }
+
+    set3dArray(parameter: Parameter,i1: number,j1: number,z1: number,value: string){
+        if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
+            alert('输入必须为数值!');
+        }else{
+            parameter.set_value[i1][j1][z1] = Number(value);
         }
     }
 }

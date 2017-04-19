@@ -101,7 +101,7 @@ export class OverviewComponent {
         d3.select(selector).select( 'svg' ).selectAll('path').remove();
         d3.select(selector).select( 'svg' ).selectAll('g').remove();
         var svg = d3.select(selector).select("svg");
-        this.drawLine(svg,dataset,1);
+        this.drawLine(svg,dataset,15);
         this.addStyle();
     }
     drawCpuPie(cpuInfoArray: CpuInfo[],cpu: Cpu){

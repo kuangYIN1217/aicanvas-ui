@@ -51,6 +51,9 @@ function init() {
             makePort("R", go.Spot.Right, true, true),
             makePort("B", go.Spot.Bottom, true, false),
             {click: function(e, Node) {
+                // 出发按钮点击事件，达成状态转变
+                document.getElementById("node_click_btn").click();
+                //
                 var str = document.getElementById("layer_dictionary").value;
                 var test = JSON.parse(str);
                 // console.log(test);
