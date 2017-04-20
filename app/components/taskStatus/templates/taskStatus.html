@@ -6,12 +6,11 @@
     <th class="progress">进度</th>
     <th class="operation">操作</th>
     <th class="formore">详情</th>
-    <tr *ngFor="let jobInfo of Jobs_current;let i = index;" >
+    <tr *ngFor="let jobInfo of Jobs_current;let i = index;">
         <td>{{jobInfo.jobName}}</td>
         <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
         <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
         <td>{{jobInfo.status}}</td>
-
         <td>{{jobInfo.percent==null?'0.0':output(jobInfo.percent*100)}}</td>
         <!-- <td>{{jobInfo.job_progress}}%</td> -->
         <td class="operationTd">
@@ -28,7 +27,7 @@
     <div class="label">
         TotalPages:
         <!--Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem}} of {{page*pageMaxItem>Jobs_current.length?Jobs_current.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
-        <span>{{JobCollection.totalPages}}</span>
+        <span>{{createdJob.totalPages}}</span>
     </div>
     <div class="selectDiv" >
         <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();">
@@ -37,6 +36,6 @@
             <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
         </select>
     </div>
-    <div *ngIf="!JobCollection.last" class="pagebtn" (click)="nextPage()">Next</div>
-    <div class="!JobCollection.first" (click)="previousPage()">Previous</div>
+    <div *ngIf="page!=createdJob.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
+    <div class="pagebtn"  (click)="previousPage()">Previous</div>
 </div>

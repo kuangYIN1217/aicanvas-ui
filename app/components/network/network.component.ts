@@ -137,4 +137,5 @@ export class NetworkComponent{
         this.pluginService.savePlugin(response)
             .subscribe(msg => this.forkResult(msg));
     }
+
 }

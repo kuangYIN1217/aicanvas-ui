@@ -60,7 +60,6 @@ export class ModelDetailComponent{
     saveModelAndUpload(filePath:string){
         this.modelService.saveModelAndUpload(this.modelName,this.model_id,filePath).subscribe(result=>{
             this.modelService.runInference(result.id).subscribe(data=>{
-
         })
             this.router.navigate(['../historyDetail'],{queryParams:{"model_id":result.id}});
     })
