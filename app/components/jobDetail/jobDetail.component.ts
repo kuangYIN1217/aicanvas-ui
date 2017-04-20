@@ -23,6 +23,9 @@ export class JobDetailComponent {
     interval:any;
     index: number = 0;
 
+    tempindex = 1;
+    accuracyArrayfixed = new Array();
+
     param1: string = '';
     param2: string = '';
     param3: string = '';
@@ -82,7 +85,8 @@ export class JobDetailComponent {
     }
 
     update(jobParam){
-        // console.log(jobParam[0].loss);
+        console.log(this.index);
+        console.log(jobParam[4].loss);
         // console.log(jobParam[0].acc);
         if(jobParam.length > 0){
             // console.log(jobParam[3].acc);
@@ -119,7 +123,6 @@ export class JobDetailComponent {
                 }
                 accuracyArray.push(temp2);
 
-
                 // fake data
                 jobParameter.val_loss = Math.random()+2;
                 jobParameter.val_acc = Math.random()+2;
@@ -132,6 +135,13 @@ export class JobDetailComponent {
                 temp_val_acc.push(index);
                 temp_val_acc.push(jobParameter.val_acc);
                 val_acc_array.push(temp_val_loss);
+
+                let temp = new Array();
+                temp.push(this.tempindex);
+                temp.push(jobParameter.val_acc);
+                this.accuracyArrayfixed.push(temp);
+                this.tempindex++;
+
                 index++;
                 this.index++;
             }
@@ -141,7 +151,7 @@ export class JobDetailComponent {
             d3.select('#chart1').select( 'svg' ).selectAll('path').remove();
             d3.select('#chart1').select( 'svg' ).selectAll('g').remove();
             // d3.select('#chart1').select( 'svg' ).remove();
-            this.drawLoss(lossArray,val_loss_array,min_loss,max_loss);
+            this.drawLoss(lossArray,this.accuracyArrayfixed,min_loss,max_loss);
             // console.log("loss update ok");
             d3.select('#chart2').select( 'svg' ).selectAll('path').remove();
             d3.select('#chart2').select( 'svg' ).selectAll('g').remove();
@@ -190,9 +200,9 @@ export class JobDetailComponent {
 
         let offset = Number((max_loss-min_loss)/8);
         // console.log(offset);
-        x.domain( [1 , 10]);
+        x.domain( [1 , val_loss_array.length]);
         // y.domain( [ min_loss-offset, max_loss + offset]);
-        y.domain( [ 2, 3]);
+        y.domain( [ 0, 10]);
 
         // svg.append("path")
         // .attr( 'class', 'lineChart--area' )
