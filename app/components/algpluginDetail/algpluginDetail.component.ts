@@ -38,9 +38,11 @@ export class AlgpluginDetailComponent {
     }
     // 得到参数列表后
     getTranParamTypes(editable_params,plugin){
+        // editable_params为参数字典
         this.editable_params = editable_params;
 
         let editable_parameters: Editable_param[] = [];
+        // train_params为plugin的可修改参数信息
         let params: any = this.plugin.train_params;
         for(var param in params){
             for (let editable_parameter of this.editable_params){

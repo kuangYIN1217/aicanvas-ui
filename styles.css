@@ -125,7 +125,7 @@ html,body{
   stroke: #3f94a7;
 }
 
-.lineChart--gradientBackgroundArea--top {
+/*.lineChart--gradientBackgroundArea--top {
   stop-color: #eeeeee;
   stop-opacity: 0.1;
 }
@@ -133,7 +133,7 @@ html,body{
 .lineChart--gradientBackgroundArea--bottom {
   stop-color: #6bb7c7;
   stop-opacity: 0.9;
-}
+}*/
 
 .lineChart--xAxisTicks .domain, .lineChart--xAxis .domain, .lineChart--yAxisTicks .domain {
   display: none;

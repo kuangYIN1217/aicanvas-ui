@@ -74,6 +74,15 @@ export class PluginInfo{
     // parameters allowed to be modified
     model: string;
 }
+export class JobCollection{
+    content: JobInfo[];
+    totalPages: number;
+    totalElements: number;
+    last: boolean;
+    sort: string;
+    numberOfElements: number;
+    first: boolean;
+}
 export class JobInfo{
     // name of job
     jobName: string;
