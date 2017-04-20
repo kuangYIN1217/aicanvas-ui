@@ -43,7 +43,7 @@ export class ModelComponent{
     }
     clickBtn(){
         //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
-        //console.log(this.ModelInfo.length);
+        console.log(this.ModelInfo.length);
         if(this.ModelInfo.length>0){
             this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
         }else{

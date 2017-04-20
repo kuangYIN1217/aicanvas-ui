@@ -48,19 +48,6 @@ export class OverviewComponent {
         }
 
     }
-    /*getAlljobs(page,size){
-        this.jobService.getAllJobs(page,size)
-            .subscribe(jobArray => {
-                this.jobArray = jobArray.content
-                this.createdJob = jobArray;
-            });
-    }
-
-    ngOnDestroy(){
-        // 退出时停止更新
-        clearInterval(this.interval);
-    }
-*/
 
     loading(){
 
