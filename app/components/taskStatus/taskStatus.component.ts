@@ -25,22 +25,16 @@ export class TaskStatusComponent{
 
         //this.interval = setInterval (() => {this.updatePage()}, 500);
         this.updatePage();
-
     }
-<<<<<<< HEAD
 
-    getAlljobs(page,size){
+    getAlljobs(status,page,size){
         sessionStorage.pageMaxItem = this.pageMaxItem;
         sessionStorage.page = this.page;
-=======
-    getAlljobs(status,page,size){
         this.jobService.getAllJobs(status,page,size)
             .subscribe(Jobs => {
-                this.Jobs = Jobs.content;
-                this.Jobs_current = Jobs.content;
-                this.createdJob = Jobs;
->>>>>>> XinkTech/master
-
+                this.Jobs = Jobs;
+                this.Jobs_current = Jobs;
+                // this.createdJob = Jobs;
             });
     }
     updatePage(){

@@ -77,7 +77,7 @@ export class JobService {
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return plainToClass(JobInfo, response.json());
+                    return plainToClass(JobInfo, response.json().content);
                 }
         });
     }
