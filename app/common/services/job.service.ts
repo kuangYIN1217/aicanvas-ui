@@ -71,8 +71,8 @@ export class JobService {
         });
     }
 
-    getAllJobs(status="Running",page=0,size=10){
-        let path = "/api/jobs/?page="+page+"&size="+size+"&status="+status;
+    getAllJobs(status,page=0,size=10){
+        let path = "/api/jobs?page="+page+"&size="+size+"&status="+status;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {

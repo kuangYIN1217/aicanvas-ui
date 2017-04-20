@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
 import { SceneService } from '../../common/services/scene.service'
@@ -8,6 +8,7 @@ import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resour
 import { Editable_param, Parameter } from "../../common/defs/parameter"
 import { plainToClass } from "class-transformer";
 import {modelService} from "../../common/services/model.service";
+import {TaskStatusComponent} from "../taskStatus/taskStatus.component";
 declare var $:any;
 @Component({
     moduleId: module.id,
@@ -38,16 +39,17 @@ export class JobCreationComponent {
     jobPageStatus: string = "manage";
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
-
+    page: number = 1;
+    pageMaxItem: number = 10;
     interval:any;
     // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
     rightBox_node = 0;
-
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         pluginService.getLayerDict()
             .subscribe(dictionary => this.getDictionary(dictionary));
         this.pluginService.getTranParamTypes()
             .subscribe(editable_params => this.getTranParamTypes(editable_params));
+        //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
     }
 
     ngOnDestroy(){
@@ -289,4 +291,6 @@ export class JobCreationComponent {
             parameter.set_value[i1][j1][z1] = Number(value);
         }
     }
+
+
 }

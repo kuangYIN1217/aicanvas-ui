@@ -1,3 +1,6 @@
+.container{
+    float: left!important;
+}
 .percent{
     margin-left: 2%;
     width:80%;
