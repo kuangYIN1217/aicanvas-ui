@@ -56,10 +56,12 @@ export class OverviewComponent {
 
     }
     getCpu(cpu){
+        // console.log(cpu);
         this.resourcesService.getCpuStatus()
         .subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray,cpu));
     }
     getCpuInfo(cpuInfoArray: CpuInfo[],cpu: Cpu){
+        console.log(cpuInfoArray);
         this.cpuInfoArray = cpuInfoArray;
         if(cpuInfoArray.length>500){
             this.cpuInfoArray = cpuInfoArray.slice(-201,-1);
