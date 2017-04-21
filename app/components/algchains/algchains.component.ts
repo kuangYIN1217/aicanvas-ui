@@ -4,13 +4,15 @@ import { PluginService } from '../../common/services/plugin.service'
 import { SceneService } from '../../common/services/scene.service'
 import { SceneInfo,PluginInfo } from "../../common/defs/resources";
 import { Editable_param, Parameter } from "../../common/defs/parameter"
+import {ActivatedRoute, Router} from "@angular/router";
+import {AlgChainService} from "../../common/services/algchain.service";
 declare var $:any;
 @Component({
   moduleId: module.id,
   selector: 'algchains',
   styleUrls: ['./css/algchains.component.css'],
   templateUrl: './templates/algchains.html',
-  providers: [SceneService,PluginService]
+  providers: [SceneService,PluginService,AlgChainService]
 })
 export class AlgChainsComponent{
     sceneArray: SceneInfo[];
@@ -19,19 +21,41 @@ export class AlgChainsComponent{
     chosen_scene: SceneInfo = new SceneInfo();
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
+
     // 字典
     editable_params: Editable_param[] = [];
     // 被选中plugin的参数组合（结合了字典）
     editable_parameters: Editable_param[] = [];
     // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
     rightBox_node = 0;
-    constructor(private sceneService: SceneService, private pluginService: PluginService , private location: Location){
+    chainId:string;
+    sceneId:number;
+
+    constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router){
         sceneService.getAllScenes()
             .subscribe(sceneArray => this.getSceneArray(sceneArray));
         pluginService.getLayerDict()
             .subscribe(dictionary => this.getDictionary(dictionary));
         pluginService.getTranParamTypes()
             .subscribe(editable_params => this.editable_params = editable_params);
+
+        console.log(this.pluginArr);
+    }
+    ngOnInit(){
+        this.route.queryParams.subscribe(params => {
+            this.chainId = params['chain_id'];
+            this.sceneId = params['scene_id'];
+
+
+        });
+        if(this.chainId){
+            this.ifShowNetwork = 1;
+            this.algchainService.getChainById(this.chainId)
+                .subscribe(plugin=>{
+                    this.pluginArr=plugin;
+                    this.changeChosenPlugin(this.pluginArr[0].id);
+                });
+        }
     }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
@@ -43,11 +67,12 @@ export class AlgChainsComponent{
         }
     }
     hideNetwork(){
-        this.ifShowNetwork = 0;
+        this.router.navigate(['../algchainAlone'],{queryParams: { sceneId: this.sceneId}});
         sessionStorage.algChain_scene = -1;
     }
     showNetwork(sceneId){
-        this.ifShowNetwork = 1;
+        this.router.navigate(['../algchainAlone'],{queryParams: { sceneId: sceneId }});
+/*      this.ifShowNetwork = 1;
         sessionStorage.algChain_scene = sceneId;
         for (let scene of this.sceneArray){
             // console.log(scene.scene_id);
@@ -58,13 +83,15 @@ export class AlgChainsComponent{
                 .subscribe(pluginArr => this.getPluginArray(pluginArr));
                 break;
             }
-        }
+        }*/
     }
+/*
     getPluginArray(pluginArr: PluginInfo[]){
         // console.log(pluginArr);
         this.pluginArr = pluginArr;
         this.changeChosenPlugin(this.pluginArr[0].id);
     }
+*/
 
     changeChosenPlugin(id:string){
         if(!this.chosenPluginId){

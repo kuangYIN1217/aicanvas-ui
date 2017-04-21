@@ -21,6 +21,7 @@ import {HistoryComponent} from "./components/history/history.component";
 import {HistoryDetailComponent} from "./components/historyDetail/historyDetail.component";
 import {AlgorithmChainComponent} from "./components/algorithmChain/algorithmChain.component";
 import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component";
+import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.component";
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'historyDetail', component: HistoryDetailComponent },
   { path: 'algorithmChain', component: AlgorithmChainComponent },
   { path: 'taskStatus', component: TaskStatusComponent },
+  { path: 'algchainAlone', component: AlgchainAloneComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 

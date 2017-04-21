@@ -12,7 +12,7 @@ import {bindDirectiveInputs} from "@angular/compiler/src/view_compiler/property_
     selector: 'taskStatus',
     styleUrls: ['./css/taskStatus.component.css'],
     templateUrl: './templates/taskStatus.html',
-    providers: [ResourcesService,modelService,PluginService]
+    providers: [ResourcesService,modelService,PluginService,JobService]
 })
 export class TaskStatusComponent{
     page: number = 1;
@@ -21,13 +21,15 @@ export class TaskStatusComponent{
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
     createdJob: JobInfo = new JobInfo();
-    @Input() statuss:string='Finished';
+    @Input() statuss:string;
 
     constructor(private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
         //this.interval = setInterval (() => {this.updatePage()}, 500);
-        this.updatePage();
-    }
 
+    }
+   ngOnInit(){
+       this.updatePage();
+    }
     updatePage(){
             this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
     }
@@ -80,18 +82,18 @@ export class TaskStatusComponent{
     }
     maxItemChange(){
         this.page=1;
-        this.getAlljobs(this.page-1,this.pageMaxItem);
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
         console.log(this.createdJob);
     }
     nextPage(){
         this.page++;
-        this.getAlljobs(this.page-1,this.pageMaxItem);
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
         console.log(this.createdJob);
     }
     previousPage(){
         if (this.page>1){
             this.page--;
-            this.getAlljobs(this.page-1,this.pageMaxItem);
+            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
         }else{
             alert('已经是首页');
         }
@@ -100,7 +102,7 @@ export class TaskStatusComponent{
         if(percent==100){
             return parseInt(percent)+"%";
         }else{
-            return percent+"%";
+            return percent.toFixed(2)+"%";
         }
     }
 }

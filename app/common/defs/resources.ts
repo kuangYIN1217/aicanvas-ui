@@ -57,6 +57,7 @@ export class PluginInfo{
     path: string;
     creator: string;
     input: string;
+    chain_name: string;
     output: string;
     root: string;
     // the id of the Plugin
@@ -73,6 +74,7 @@ export class PluginInfo{
     ui_network_editor: string;
     // parameters allowed to be modified
     model: string;
+    publish:string;
 }
 export class JobCollection{
     content: JobInfo[];

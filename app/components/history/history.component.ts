@@ -32,7 +32,7 @@ export class HistoryComponent{
         if(percent==100){
             return parseInt(percent)+"%";
         }else{
-            return percent+"%";
+            return parseFloat(percent).toFixed(2) +"%";
         }
     }
     maxItemChange(){

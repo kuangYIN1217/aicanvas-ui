@@ -14,6 +14,7 @@ import {AlgorithmInfo} from "../../common/defs/resources";
 })
 export class AlgorithmChainComponent{
     AlgorithmInfo: AlgorithmInfo[]=[];
+    item:string;
     constructor(private pluginService: PluginService, private location: Location, private route: ActivatedRoute ,private router: Router){
         this.pluginService.getAlgorithmChain()
             .subscribe(algorithm => this.AlgorithmInfo=algorithm);
@@ -24,5 +25,9 @@ export class AlgorithmChainComponent{
         }else if(statu==0){
             return "false";
         }
+    }
+    viewDetail(id){
+        this.item = id;
+        this.router.navigate(['../algchains'],{queryParams:{"chain_id":this.item}});
     }
 }

@@ -4,6 +4,7 @@ import { Location } from '@angular/common'
 import { SceneService } from '../../common/services/scene.service'
 
 import { SceneInfo } from "../../common/defs/resources";
+import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   moduleId: module.id,
   selector: 'algchainDetail',
@@ -26,6 +27,7 @@ export class AlgchainDetailComponent {
                     .subscribe(scene => this.scene = scene);
             }
         }
+
     }
     // ngDoCheck(){
     //     // console.log("check");

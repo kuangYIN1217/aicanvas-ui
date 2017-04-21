@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
 import { SceneService } from '../../common/services/scene.service'
@@ -29,8 +29,6 @@ export class JobCreationComponent {
     chosen_scene: SceneInfo = new SceneInfo();
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
-
-
     createdJob: JobInfo = new JobInfo();
     pluginIds: string[] = [];
     // record the current step
@@ -44,12 +42,12 @@ export class JobCreationComponent {
     interval:any;
     // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
     rightBox_node = 0;
+    @Input() statuss:string='';
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         pluginService.getLayerDict()
             .subscribe(dictionary => this.getDictionary(dictionary));
         this.pluginService.getTranParamTypes()
             .subscribe(editable_params => this.getTranParamTypes(editable_params));
-        //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
     }
 
     ngOnDestroy(){
