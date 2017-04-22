@@ -26,6 +26,7 @@ import {HistoryComponent} from "./components/history/history.component";
 import {HistoryDetailComponent} from "./components/historyDetail/historyDetail.component";
 import {AlgorithmChainComponent} from "./components/algorithmChain/algorithmChain.component";
 import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component";
+import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.component";
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule,FormsModule,FileUploadModule],
     declarations: [
@@ -48,7 +49,13 @@ import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component"
         HistoryComponent,
         HistoryDetailComponent,
         AlgorithmChainComponent,
+<<<<<<< HEAD
         TaskStatusComponent
+=======
+        TaskStatusComponent,
+        AlgchainAloneComponent
+
+>>>>>>> XinkTech/master
     ],
     bootstrap: [NavigationComponent]
 })

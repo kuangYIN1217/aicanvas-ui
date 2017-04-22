@@ -29,7 +29,7 @@ export class SceneService {
         return headers;
     }
 
-    getChainByScene(id: number): Observable<PluginInfo[]>{
+    getChainByScene(id: number){
         let path = "/api/chain/"+id;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )

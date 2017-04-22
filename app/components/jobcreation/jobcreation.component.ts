@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
 import { SceneService } from '../../common/services/scene.service'
@@ -8,14 +8,14 @@ import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resour
 import { Editable_param, Parameter } from "../../common/defs/parameter"
 import { plainToClass } from "class-transformer";
 import {modelService} from "../../common/services/model.service";
-import { AlgChainService } from "../../common/services/algChain.service";
+import {TaskStatusComponent} from "../taskStatus/taskStatus.component";
 declare var $:any;
 @Component({
     moduleId: module.id,
     selector: 'jobcreation',
     styleUrls: ['./css/jobcreation.component.css'],
     templateUrl: './templates/jobcreation.html',
-    providers: [UserService,JobService,SceneService,PluginService,modelService,AlgChainService]
+    providers: [UserService,JobService,SceneService,PluginService,modelService]
 })
 export class JobCreationComponent {
     editable_params: Editable_param[] = [];
@@ -29,8 +29,6 @@ export class JobCreationComponent {
     chosen_scene: SceneInfo = new SceneInfo();
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
-
-
     createdJob: JobInfo = new JobInfo();
     pluginIds: string[] = [];
     // record the current step
@@ -39,12 +37,13 @@ export class JobCreationComponent {
     jobPageStatus: string = "manage";
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
-
+    page: number = 1;
+    pageMaxItem: number = 10;
     interval:any;
     // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
     rightBox_node = 0;
-
-    constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private algChainService:AlgChainService, private router: Router,private route: ActivatedRoute) {
+    @Input() statuss:string='';
+    constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         pluginService.getLayerDict()
             .subscribe(dictionary => this.getDictionary(dictionary));
         this.pluginService.getTranParamTypes()
@@ -124,9 +123,9 @@ export class JobCreationComponent {
         .subscribe(createdJob => {
             // console.log(chosenSceneId);
             // console.log(createdJob);
-            let job: any = createdJob;
-            this.createdJob = job;
-            this.createJobBySenceId2(job.chainId);
+            // let job: any = createdJob;
+            // this.createdJob = job;
+            // this.createJobBySenceId2(job.chainId);
         });
     }
 
@@ -134,8 +133,7 @@ export class JobCreationComponent {
     createJobBySenceId2(chainId){
         // console.log(this.createdJob);
         console.log(chainId);
-
-        this.algChainService.getChainById(chainId)
+        this.sceneService.getChainByScene(Number(chainId))
         .subscribe(pluginArr => {
             this.pluginArr = pluginArr;
             this.changeChosenPlugin(this.pluginArr[0].id);
@@ -291,4 +289,6 @@ export class JobCreationComponent {
             parameter.set_value[i1][j1][z1] = Number(value);
         }
     }
+
+
 }

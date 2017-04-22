@@ -16,6 +16,7 @@ declare var unescape:any;
     providers: [JobService]
 })
 export class JobDetailComponent {
+    jobResult: any;
     job: JobInfo = new JobInfo();
     user: UserInfo = new UserInfo();
     jobParam: JobParameter[] = [];
@@ -81,7 +82,11 @@ export class JobDetailComponent {
     updatePage(jobPath,index){
         // console.log("update , index="+index);
         this.jobService.getJob(jobPath,index)
-            .subscribe(jobParam => this.update(jobParam));
+            .subscribe(jobParam => {
+                debugger
+                this.update(jobParam.jobProcess);
+                this.jobResult =jobParam.jobResult;
+            });
         // console.log(this.index);
     }
 
@@ -119,8 +124,8 @@ export class JobDetailComponent {
                 this.accuracyArray.push(temp2);
 
                 // fake data
-                jobParameter.val_loss = Math.random()+2;
-                jobParameter.val_acc = Math.random()+2;
+                // jobParameter.val_loss = Math.random()+2;
+                // jobParameter.val_acc = Math.random()+2;
 
                 let temp_val_loss = new Array();
                 temp_val_loss.push(this.index);
@@ -401,11 +406,11 @@ export class JobDetailComponent {
         if (jobParameter.epoch){
             this.param1 = jobParameter.epoch;
         }
-        if (jobParameter.val_loss){
-            this.param2 = jobParameter.val_loss;
+        if (this.jobResult){
+            this.param2 = this.jobResult.val_loss;
         }
-        if (jobParameter.val_acc){
-            this.param3 = jobParameter.val_acc;
+        if (this.jobResult){
+            this.param3 = this.jobResult.val_acc;
         }
         this.param4 = '';
         this.param5 = '';

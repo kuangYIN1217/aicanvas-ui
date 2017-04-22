@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { Location } from '@angular/common'
 import { ResourcesService } from '../../common/services/resources.service'
 import {modelService} from "../../common/services/model.service";
@@ -6,12 +6,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {PluginService} from "../../common/services/plugin.service";
 import {AlgorithmInfo, JobInfo} from "../../common/defs/resources";
 import {JobService} from "../../common/services/job.service";
+import {bindDirectiveInputs} from "@angular/compiler/src/view_compiler/property_binder";
 @Component({
     moduleId: module.id,
     selector: 'taskStatus',
     styleUrls: ['./css/taskStatus.component.css'],
     templateUrl: './templates/taskStatus.html',
-    providers: [ResourcesService,modelService,PluginService]
+    providers: [ResourcesService,modelService,PluginService,JobService]
 })
 export class TaskStatusComponent{
     page: number = 1;
@@ -20,25 +21,25 @@ export class TaskStatusComponent{
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
     createdJob: JobInfo = new JobInfo();
-    status:string;
+    @Input() statuss:string;
+
     constructor(private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
-
         //this.interval = setInterval (() => {this.updatePage()}, 500);
-        this.updatePage();
-    }
 
-    getAlljobs(status,page,size){
-        sessionStorage.pageMaxItem = this.pageMaxItem;
-        sessionStorage.page = this.page;
-        this.jobService.getAllJobs(status,page,size)
-            .subscribe(Jobs => {
-                this.Jobs = Jobs;
-                this.Jobs_current = Jobs;
-                // this.createdJob = Jobs;
-            });
+    }
+   ngOnInit(){
+       this.updatePage();
     }
     updatePage(){
-        this.getAlljobs("Running",this.page-1,this.pageMaxItem);
+            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
+    }
+    getAlljobs(page,size){
+        this.jobService.getAllJobs(page,size)
+            .subscribe(Jobs => {
+                this.Jobs = Jobs.content;
+                this.Jobs_current = Jobs.content;
+                this.createdJob = Jobs;
+            });
     }
     ngOnDestroy(){
         // 退出时停止更新
@@ -81,18 +82,18 @@ export class TaskStatusComponent{
     }
     maxItemChange(){
         this.page=1;
-        this.getAlljobs("Running",this.page-1,this.pageMaxItem);
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
         console.log(this.createdJob);
     }
     nextPage(){
         this.page++;
-        this.getAlljobs("Running",this.page-1,this.pageMaxItem);
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
         console.log(this.createdJob);
     }
     previousPage(){
         if (this.page>1){
             this.page--;
-            this.getAlljobs("Running",this.page-1,this.pageMaxItem);
+            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
         }else{
             alert('已经是首页');
         }
@@ -101,7 +102,7 @@ export class TaskStatusComponent{
         if(percent==100){
             return parseInt(percent)+"%";
         }else{
-            return percent+"%";
+            return percent.toFixed(2)+"%";
         }
     }
 }

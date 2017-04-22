@@ -3,13 +3,7 @@ a{
     text-decoration: none;
     color: white;
 }
-.container{
-    position: relative;
-    width: 1700px;
-    height: 1462px;
-    float: right;
-    background-color: #131314;
-}
+
 .networkBox{
     width: 100%;
     background-color: transparent;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { ResourcesService } from '../../common/services/resources.service'
 import { JobService } from '../../common/services/job.service'
 
@@ -6,6 +6,7 @@ import { CpuInfo, GpuInfo, Gpu,Cpu } from "../../common/defs/resources";
 import { JobInfo } from "../../common/defs/resources";
 declare var $:any;
 import * as d3 from 'd3';
+import {ActivatedRoute, Router} from "@angular/router";
 @Component({
     moduleId: module.id,
     selector: 'overview',
@@ -26,8 +27,9 @@ export class OverviewComponent {
     // show resource or task 0--resource, 1--task
     tabIndex: number = 0;
     interval: any;
+    @Input() statuss:string='Running';
 
-    constructor(private resourcesService: ResourcesService, private jobService: JobService) {
+    constructor(private resourcesService: ResourcesService, private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
         resourcesService.getCpuInfo()
         .subscribe(cpu => this.getCpu(cpu));
         resourcesService.getAllGpus()
@@ -48,6 +50,7 @@ export class OverviewComponent {
         }
 
     }
+<<<<<<< HEAD
     ngOnDestroy(){
         // 退出时停止更新
         if(this.interval){
@@ -55,6 +58,12 @@ export class OverviewComponent {
         }
     }
 
+=======
+    ngOnDestroy() {
+        // 退出时停止更新
+        clearInterval(this.interval);
+    }
+>>>>>>> XinkTech/master
     loading(){
 
     }
