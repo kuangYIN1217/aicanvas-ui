@@ -49,7 +49,6 @@ import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component"
         HistoryDetailComponent,
         AlgorithmChainComponent,
         TaskStatusComponent
-
     ],
     bootstrap: [NavigationComponent]
 })

@@ -42,7 +42,6 @@ const routes: Routes = [
   { path: 'historyDetail', component: HistoryDetailComponent },
   { path: 'algorithmChain', component: AlgorithmChainComponent },
   { path: 'taskStatus', component: TaskStatusComponent },
-
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
  // { path: 'detail/:id', component: HeroDetailComponent },

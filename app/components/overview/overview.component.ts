@@ -48,6 +48,12 @@ export class OverviewComponent {
         }
 
     }
+    ngOnDestroy(){
+        // 退出时停止更新
+        if(this.interval){
+            clearInterval(this.interval);
+        }
+    }
 
     loading(){
 

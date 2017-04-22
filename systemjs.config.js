@@ -16,7 +16,7 @@
       // paths serve as alias
       'npm:': 'node_modules/'
     },
-    
+
 
     // map tells the System loader where to look for things
     map: {
@@ -41,13 +41,14 @@
       'typescript':                'npm:typescript@2.0.3/lib/typescript.js',
       'd3':                        'npm:d3/build/d3.js',
       'class-transformer':         'node_modules/class-transformer',
-        'ng2-file-upload':'npm:ng2-file-upload'
+      'ng2-file-upload':           'npm:ng2-file-upload',
+      'lodash':                    'npm:lodash'
     },
 
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
-      'class-transformer': { 
-        main: 'index.js', 
+      'class-transformer': {
+        main: 'index.js',
         defaultExtension: 'js'
       },
       'app': {
@@ -60,7 +61,11 @@
         'ng2-file-upload': {
             main: 'index.js',
             defaultExtension: 'js'
-        }
+        },
+        'lodash': {
+             main: 'index.js',
+             defaultExtension: 'js'
+         }
     }
   });
 })(this);

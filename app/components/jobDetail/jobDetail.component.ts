@@ -22,9 +22,10 @@ export class JobDetailComponent {
     initial: number = 0;
     interval:any;
     index: number = 0;
-
-    tempindex = 1;
-    accuracyArrayfixed = new Array();
+    lossArray = [];
+    accuracyArray = [];
+    val_loss_array = [];
+    val_acc_array = [];
 
     param1: string = '';
     param2: string = '';
@@ -90,19 +91,13 @@ export class JobDetailComponent {
         // console.log(jobParam[0].acc);
         if(jobParam.length > 0){
             // console.log(jobParam[3].acc);
-
-            let lossArray = [];
-            let accuracyArray = [];
-            let val_loss_array = [];
-            let val_acc_array = [];
-            let index = 1;
             let min_loss = Number(jobParam[0].loss);
             let max_loss = Number(jobParam[0].loss);
             let min_acc = Number(jobParam[0].acc);
             let max_acc = Number(jobParam[0].acc);
             for (let jobParameter of jobParam){
                 let temp1 = new Array();
-                temp1.push(index);
+                temp1.push(this.index);
                 temp1.push(Number(jobParameter.loss));
                 if (min_loss>(Number(jobParameter.loss))){
                     min_loss = Number(jobParameter.loss);
@@ -110,9 +105,9 @@ export class JobDetailComponent {
                 if (max_loss<(Number(jobParameter.loss))){
                     max_loss = Number(jobParameter.loss);
                 }
-                lossArray.push(temp1);
+                this.lossArray.push(temp1);
                 let temp2 = new Array();
-                temp2.push(index);
+                temp2.push(this.index);
                 // 现在坐标轴是固定的 所以显示不出来线
                 temp2.push(Number(jobParameter.acc)+2);
                 if (min_acc>(Number(jobParameter.acc))){
@@ -121,28 +116,21 @@ export class JobDetailComponent {
                 if (max_acc<(Number(jobParameter.acc))){
                     max_acc = Number(jobParameter.acc);
                 }
-                accuracyArray.push(temp2);
+                this.accuracyArray.push(temp2);
 
                 // fake data
                 jobParameter.val_loss = Math.random()+2;
                 jobParameter.val_acc = Math.random()+2;
 
                 let temp_val_loss = new Array();
-                temp_val_loss.push(index);
+                temp_val_loss.push(this.index);
                 temp_val_loss.push(jobParameter.val_loss);
-                val_loss_array.push(temp_val_loss);
+                this.val_loss_array.push(temp_val_loss);
                 let temp_val_acc = new Array();
-                temp_val_acc.push(index);
+                temp_val_acc.push(this.index);
                 temp_val_acc.push(jobParameter.val_acc);
-                val_acc_array.push(temp_val_loss);
+                this.val_acc_array.push(temp_val_loss);
 
-                let temp = new Array();
-                temp.push(this.tempindex);
-                temp.push(jobParameter.val_acc);
-                this.accuracyArrayfixed.push(temp);
-                this.tempindex++;
-
-                index++;
                 this.index++;
             }
             // console.log(lossArray);
@@ -151,11 +139,11 @@ export class JobDetailComponent {
             d3.select('#chart1').select( 'svg' ).selectAll('path').remove();
             d3.select('#chart1').select( 'svg' ).selectAll('g').remove();
             // d3.select('#chart1').select( 'svg' ).remove();
-            this.drawLoss(lossArray,this.accuracyArrayfixed,min_loss,max_loss);
+            this.drawLoss(this.lossArray,this.val_loss_array,min_loss,max_loss);
             // console.log("loss update ok");
             d3.select('#chart2').select( 'svg' ).selectAll('path').remove();
             d3.select('#chart2').select( 'svg' ).selectAll('g').remove();
-            this.drawAccuracy(accuracyArray,val_acc_array,min_acc,max_acc);
+            this.drawAccuracy(this.accuracyArray,this.val_acc_array,min_acc,max_acc);
             // console.log("accurac update ok");
             // update parameters
             this.updateParams(jobParam);
