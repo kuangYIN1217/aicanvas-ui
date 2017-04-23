@@ -116,24 +116,26 @@ export class JobInfo{
     totalElements: number;
     percent: number;
 }
-export class JobParameter{
-    loss: string;
-    epoch: string;
-    val_loss: string;
-    acc: string;
+export class JobResult{
     val_acc: string;
+    jobId: number;
+    val_loss: string;
+    chainId: string;
+    id: number;
 }
-export class JobProcess{
+export class JobProcessItem{
     acc: string;
     epoch: string;
     id: number;
     job: JobInfo;
     loss: string;
-    percent: string;
-    progress: string;
-    samples_sec: string;
     val_acc: string;
     val_loss: string;
+    createTime: string;
+}
+export class JobParameter{
+    jobResult: JobResult;
+    jobProcess: jobProcessItem[];
 }
 export class SceneInfo{
     id: number;

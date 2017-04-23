@@ -16,13 +16,13 @@ declare var unescape:any;
     providers: [JobService]
 })
 export class JobDetailComponent {
-    jobResult: any;
+    jobResultParam = [];
     job: JobInfo = new JobInfo();
     user: UserInfo = new UserInfo();
     jobParam: JobParameter[] = [];
     initial: number = 0;
     interval:any;
-    index: number = 0;
+    index: number = -1;
     lossArray = [];
     accuracyArray = [];
     val_loss_array = [];
@@ -66,7 +66,7 @@ export class JobDetailComponent {
         // 500ms刷新一次
         if(this.job.status=="Running"){
             // console.log("Running");
-            this.interval = setInterval(() => this.updatePage(jobPath,this.index), 500);
+            this.interval = setInterval(() => this.updatePage(jobPath,this.index), 3000);
         }else{
             // console.log("not Running");
             this.not_running_show(jobPath);
@@ -83,43 +83,54 @@ export class JobDetailComponent {
         // console.log("update , index="+index);
         this.jobService.getJob(jobPath,index)
             .subscribe(jobParam => {
-                debugger
-                this.update(jobParam.jobProcess);
-                this.jobResult =jobParam.jobResult;
+                // debugger
+                this.update(jobParam);
+                // this.jobResult =jobParam.jobResult;
             });
         // console.log(this.index);
     }
 
     update(jobParam){
-        console.log(this.index);
-        console.log(jobParam[4].loss);
+        console.log(jobParam);
+        let jobProcessItems = jobParam.jobProcess;
+        let jobResult = jobParam.jobResult;
+        // 更新下方参数
+        let resultParam = new Array();
+        for (let key in jobResult){
+            resultParam.push({
+                "key": key,
+                "value": jobResult[key]
+            });
+        }
+        this.jobResultParam = jobResult;
         // console.log(jobParam[0].acc);
-        if(jobParam.length > 0){
+        if(jobProcessItems.length > 0){
             // console.log(jobParam[3].acc);
-            let min_loss = Number(jobParam[0].loss);
-            let max_loss = Number(jobParam[0].loss);
-            let min_acc = Number(jobParam[0].acc);
-            let max_acc = Number(jobParam[0].acc);
-            for (let jobParameter of jobParam){
+            let min_loss = Number(jobProcessItems[0].loss);
+            let max_loss = Number(jobProcessItems[0].loss);
+            let min_acc = Number(jobProcessItems[0].acc);
+            let max_acc = Number(jobProcessItems[0].acc);
+            for (let jobProcessItem of jobProcessItems){
+                this.index = Number(jobProcessItem.epoch);
                 let temp1 = new Array();
                 temp1.push(this.index);
-                temp1.push(Number(jobParameter.loss));
-                if (min_loss>(Number(jobParameter.loss))){
-                    min_loss = Number(jobParameter.loss);
+                temp1.push(Number(jobProcessItem.loss));
+                if (min_loss>(Number(jobProcessItem.loss))){
+                    min_loss = Number(jobProcessItem.loss);
                 }
-                if (max_loss<(Number(jobParameter.loss))){
-                    max_loss = Number(jobParameter.loss);
+                if (max_loss<(Number(jobProcessItem.loss))){
+                    max_loss = Number(jobProcessItem.loss);
                 }
                 this.lossArray.push(temp1);
                 let temp2 = new Array();
                 temp2.push(this.index);
                 // 现在坐标轴是固定的 所以显示不出来线
-                temp2.push(Number(jobParameter.acc)+2);
-                if (min_acc>(Number(jobParameter.acc))){
-                    min_acc = Number(jobParameter.acc);
+                temp2.push(Number(jobProcessItem.acc)+2);
+                if (min_acc>(Number(jobProcessItem.acc))){
+                    min_acc = Number(jobProcessItem.acc);
                 }
-                if (max_acc<(Number(jobParameter.acc))){
-                    max_acc = Number(jobParameter.acc);
+                if (max_acc<(Number(jobProcessItem.acc))){
+                    max_acc = Number(jobProcessItem.acc);
                 }
                 this.accuracyArray.push(temp2);
 
@@ -129,11 +140,11 @@ export class JobDetailComponent {
 
                 let temp_val_loss = new Array();
                 temp_val_loss.push(this.index);
-                temp_val_loss.push(jobParameter.val_loss);
+                temp_val_loss.push(jobProcessItem.val_loss);
                 this.val_loss_array.push(temp_val_loss);
                 let temp_val_acc = new Array();
                 temp_val_acc.push(this.index);
-                temp_val_acc.push(jobParameter.val_acc);
+                temp_val_acc.push(jobProcessItem.val_acc);
                 this.val_acc_array.push(temp_val_loss);
 
                 this.index++;
@@ -149,10 +160,6 @@ export class JobDetailComponent {
             d3.select('#chart2').select( 'svg' ).selectAll('path').remove();
             d3.select('#chart2').select( 'svg' ).selectAll('g').remove();
             this.drawAccuracy(this.accuracyArray,this.val_acc_array,min_acc,max_acc);
-            // console.log("accurac update ok");
-            // update parameters
-            this.updateParams(jobParam);
-            // console.log("jobParam update ok");
         }else{
             console.warn("This job has no Info!");
         }
@@ -398,25 +405,4 @@ export class JobDetailComponent {
             .attr("opacity","0.5");
     }
 
-    updateParams(jobParam){
-        // getNewValue
-        // update
-        let jobParameter: JobParameter = jobParam[jobParam.length-1];
-        // console.log(jobParameter);
-        if (jobParameter.epoch){
-            this.param1 = jobParameter.epoch;
-        }
-        if (this.jobResult){
-            this.param2 = this.jobResult.val_loss;
-        }
-        if (this.jobResult){
-            this.param3 = this.jobResult.val_acc;
-        }
-        this.param4 = '';
-        this.param5 = '';
-        this.param6 = '';
-        this.param7 = '';
-        this.param8 = '';
-        this.param9 = '';
-    }
 }
