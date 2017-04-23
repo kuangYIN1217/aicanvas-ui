@@ -28,16 +28,6 @@ export class JobDetailComponent {
     val_loss_array = [];
     val_acc_array = [];
 
-    param1: string = '';
-    param2: string = '';
-    param3: string = '';
-    param4: string = '';
-    param5: string = '';
-    param6: string = '';
-    param7: string = '';
-    param8: string = '';
-    param9: string = '';
-
     constructor(private jobService: JobService, private location: Location){
         if (location.path(false).indexOf('/jobDetail/')!=-1){
             let jobPath = location.path(false).split('/jobDetail/')[1];
@@ -66,6 +56,7 @@ export class JobDetailComponent {
         // 500ms刷新一次
         if(this.job.status=="Running"){
             // console.log("Running");
+            this.updatePage(jobPath,this.index);
             this.interval = setInterval(() => this.updatePage(jobPath,this.index), 3000);
         }else{
             // console.log("not Running");
@@ -80,7 +71,7 @@ export class JobDetailComponent {
     }
 
     updatePage(jobPath,index){
-        // console.log("update , index="+index);
+        console.log("update , index="+index);
         this.jobService.getJob(jobPath,index)
             .subscribe(jobParam => {
                 // debugger
@@ -91,7 +82,7 @@ export class JobDetailComponent {
     }
 
     update(jobParam){
-        console.log(jobParam);
+        // console.log(jobParam);
         let jobProcessItems = jobParam.jobProcess;
         let jobResult = jobParam.jobResult;
         // 更新下方参数
@@ -102,7 +93,7 @@ export class JobDetailComponent {
                 "value": jobResult[key]
             });
         }
-        this.jobResultParam = jobResult;
+        this.jobResultParam = resultParam;
         // console.log(jobParam[0].acc);
         if(jobProcessItems.length > 0){
             // console.log(jobParam[3].acc);
@@ -112,6 +103,7 @@ export class JobDetailComponent {
             let max_acc = Number(jobProcessItems[0].acc);
             for (let jobProcessItem of jobProcessItems){
                 this.index = Number(jobProcessItem.epoch);
+                // console.log(this.index);
                 let temp1 = new Array();
                 temp1.push(this.index);
                 temp1.push(Number(jobProcessItem.loss));
@@ -200,7 +192,7 @@ export class JobDetailComponent {
 
         let offset = Number((max_loss-min_loss)/8);
         // console.log(offset);
-        x.domain( [1 , val_loss_array.length]);
+        x.domain( [0 , val_loss_array.length]);
         // y.domain( [ min_loss-offset, max_loss + offset]);
         y.domain( [ 0, 10]);
 
@@ -320,9 +312,9 @@ export class JobDetailComponent {
 
         let offset = Number((max_acc-min_acc)/8);
         // console.log(offset);
-        x.domain( [1 , 10]);
+        x.domain( [0 , accuracyArray.length]);
         // y.domain( [ min_loss-offset, max_loss + offset]);
-        y.domain( [ 2, 3]);
+        y.domain( [ 0, 3]);
 
         // svg.append("path")
         // .attr( 'class', 'lineChart--area' )
