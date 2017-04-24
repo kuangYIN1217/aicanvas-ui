@@ -3,6 +3,7 @@ import { JobService } from '../../common/services/job.service'
 import { UserService } from '../../common/services/user.service'
 import { SceneService } from '../../common/services/scene.service'
 import { PluginService } from '../../common/services/plugin.service'
+import { AlgChainService } from '../../common/services/algchain.service'
 import {RouterModule, Routes, Router, ActivatedRoute} from '@angular/router';
 import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resources";
 import { Editable_param, Parameter } from "../../common/defs/parameter"
@@ -15,7 +16,7 @@ declare var $:any;
     selector: 'jobcreation',
     styleUrls: ['./css/jobcreation.component.css'],
     templateUrl: './templates/jobcreation.html',
-    providers: [UserService,JobService,SceneService,PluginService,modelService]
+    providers: [UserService,JobService,SceneService,PluginService,modelService,AlgChainService]
 })
 export class JobCreationComponent {
     editable_params: Editable_param[] = [];
@@ -43,7 +44,7 @@ export class JobCreationComponent {
     // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
     rightBox_node = 0;
     @Input() statuss:string='';
-    constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
+    constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private algChainService: AlgChainService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         pluginService.getLayerDict()
             .subscribe(dictionary => this.getDictionary(dictionary));
         this.pluginService.getTranParamTypes()
@@ -123,9 +124,9 @@ export class JobCreationComponent {
         .subscribe(createdJob => {
             // console.log(chosenSceneId);
             // console.log(createdJob);
-            // let job: any = createdJob;
-            // this.createdJob = job;
-            // this.createJobBySenceId2(job.chainId);
+            let job: any = createdJob;
+            this.createdJob = job;
+            this.createJobBySenceId2(job.chainId);
         });
     }
 
@@ -133,7 +134,7 @@ export class JobCreationComponent {
     createJobBySenceId2(chainId){
         // console.log(this.createdJob);
         console.log(chainId);
-        this.sceneService.getChainByScene(Number(chainId))
+        this.algChainService.getChainById(chainId)
         .subscribe(pluginArr => {
             this.pluginArr = pluginArr;
             this.changeChosenPlugin(this.pluginArr[0].id);

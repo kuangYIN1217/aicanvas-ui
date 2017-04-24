@@ -50,10 +50,20 @@ export class OverviewComponent {
         }
 
     }
+<<<<<<< HEAD
+    ngOnDestroy(){
+        // 退出时停止更新
+        if(this.interval){
+            clearInterval(this.interval);
+        }
+    }
+
+=======
     ngOnDestroy() {
         // 退出时停止更新
         clearInterval(this.interval);
     }
+>>>>>>> XinkTech/master
     loading(){
 
     }

@@ -56,8 +56,10 @@ function init() {
                     document.getElementById("node_click_btn").click();
                 }
                 //
-                var str = document.getElementById("layer_dictionary").value;
-                var test = JSON.parse(str);
+                var str1 = document.getElementById("plugin_storage").value;//网络层信息
+                var test1 = JSON.parse(str1);
+                var str2 = document.getElementById("layer_dictionary").value;//数据字典
+                var test2 = JSON.parse(str2);
                 // console.log(test);
                 // var layerId = Node.toString().split("(")[1].split(")")[0];
                 var layerId = Node.data['nameId'];
@@ -71,14 +73,28 @@ function init() {
                 //         continue;
                 //     }
                 // }
-                for (var j = 0;j<test[layerId].editable_param_list.length;j++) {
-                    document.getElementById("property").innerHTML = document.getElementById("property").innerHTML
-                    + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'
-                    + test[layerId].editable_param_list[j]["editable_param"].name
-                    +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="'
-                    + layerId + '@' + textName + '" name="'
-                    + test[layerId].editable_param_list[j]["editable_param"].name
-                    + '" placeholder="' + test[layerId].editable_param_list[j]["editable_param"].default_value + '" value= "' + test[layerId].editable_param_list[j]["editable_param"].set_value +'"/></div>';
+                for (var i = 0;i < test1["layers"].length;i++){
+                    if (test1["layers"][i].class_name == layerId && test1["layers"][i].name == textName){
+                        var configStr = test1["layers"][i].config;
+                        if (test2[layerId]){
+                            for (var key in configStr){
+                                for (var j = 0;j < test2[layerId].editable_param_list.length; j++){
+                                    if (key == test2[layerId].editable_param_list[j].path){
+                                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + '"/></div>';
+                                        break;
+                                    }else
+                                        continue;
+                                }
+                            }
+                        }
+                        break;
+                        // var configArray = JSON.parse(configStr);
+                        // console.log(configStr);
+                        // for (var j = 0;j < configStr.length; j++){
+                        //     console.log("test"+j);
+                        // }
+                    }else
+                        continue;
                 }
                 // console.log(Node.data['nameId']);
             }
@@ -267,33 +283,39 @@ function save() {
 
 // 保存编辑的属性参数
 function saveParam() {
-    var str = document.getElementById("layer_dictionary").value;
-    var test = JSON.parse(str);
     var str1 = document.getElementById("plugin_storage").value;
-    var test2 = JSON.parse(str1);
-    var test1 = document.getElementById("property").getElementsByTagName("input");
-    for(var j = 0; j < test1.length; j++) {
-        var layerClass = test1[j].id.split("@")[0];
-        var layerName = test1[j].id.split("@")[1];
-        var paraName = test1[j].name;
-        if (test[layerClass]){
-            // console.log(test[test1[j].id]);
-            for (var k = 0;k<test[layerClass].editable_param_list.length;k++){
-                if (test[layerClass].editable_param_list[j]["editable_param"].name == paraName){
-                    test[layerClass].editable_param_list[j]["editable_param"].set_value = test1[j].value;
+    var test1 = JSON.parse(str1);
+    var str2 = document.getElementById("layer_dictionary").value;
+    var test2 = JSON.parse(str2);
+    var test3 = document.getElementById("property").getElementsByTagName("input");
+    for (var i = 0; i < test3.length; i++){
+        var layerClass = test3[i].id.split("@")[0];
+        var layerName = test3[i].id.split("@")[1];
+        var pathName = test3[i].name
+        for (var j = 0;j < test1["layers"].length; j++){
+            if (test1["layers"][j].class_name == layerClass && test1["layers"][j].name == layerName){
+                if (test3[i].value.indexOf(",")){
+                    var dataArr = test3[i].value.split(",");
+                    var data = new Array();
+                    for (var k = 0;k < dataArr.length; k++){
+                        if (dataArr[k] == "null")
+                            data[k] = null;
+                        else
+                            data[k] = parseInt(dataArr[k]);
+
+                    }
+                    test1["layers"][j].config[pathName] = data;
+                }else {
+                    test1["layers"][j].config[pathName] = test3[i].value;
                 }
-            }
-            for (var i = 0;i<test2["layers"].length;i++){
-                if (test2["layers"][i].name == layerName && test2["layers"][i].class_name == layerClass){
-                    test2["layers"][i].config = test[layerClass].editable_param_list;
-                }else
-                    continue;
-            }
-        }else
-            continue;
+                // console.log(JSON.stringify(test1["layers"][j]));
+                break;
+            }else
+                continue;
+        }
     }
-    console.log(JSON.stringify(test2));
-    document.getElementById("plugin_storage").value = JSON.stringify(test2);
+    console.log(JSON.stringify(test1));
+    document.getElementById("plugin_storage").value = JSON.stringify(test1);
 }
 
 // 组织形成流程图JSON格式数据

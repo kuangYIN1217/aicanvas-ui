@@ -49,9 +49,13 @@ import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.c
         HistoryComponent,
         HistoryDetailComponent,
         AlgorithmChainComponent,
+<<<<<<< HEAD
+        TaskStatusComponent
+=======
         TaskStatusComponent,
         AlgchainAloneComponent
 
+>>>>>>> XinkTech/master
     ],
     bootstrap: [NavigationComponent]
 })

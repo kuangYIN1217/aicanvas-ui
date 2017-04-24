@@ -43,8 +43,11 @@ const routes: Routes = [
   { path: 'historyDetail', component: HistoryDetailComponent },
   { path: 'algorithmChain', component: AlgorithmChainComponent },
   { path: 'taskStatus', component: TaskStatusComponent },
+<<<<<<< HEAD
+=======
   { path: 'algchainAlone', component: AlgchainAloneComponent },
 
+>>>>>>> XinkTech/master
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
  // { path: 'detail/:id', component: HeroDetailComponent },

@@ -44,44 +44,12 @@
                     </div>
                 </div>
             </div>
-            <div [style.display]="param1==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">{{param2}}&nbsp;Samples/Sec</div>
-            </div>
-            <div [style.display]="param2==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">{{param1}}&nbsp;Sec/Epoch</div>
-            </div>
-            <div [style.display]="param3==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">Epoch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Best:</div>
-                <div class="cardInline">Total Time&nbsp;&nbsp;{{param3}}</div>
-            </div>
-            <div [style.display]="param4==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">0.00%&nbsp;Sample&nbsp;Process</div>
-                <div class="cardInline">0&nbsp;Done&nbsp;/Total&nbsp;Samples</div>
-            </div>
-            <div [style.display]="param5==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">0%&nbsp;GPU&nbsp;Load</div>
-            </div>
-            <div [style.display]="param6==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">LOSS:&nbsp;/(train/validation)</div>
-                <div class="cardInline">Accuracy:&nbsp;/(train/validation)</div>
-            </div>
-            <div [style.display]="param7==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">0.00G&nbsp;GPU&nbsp;Free&nbsp;MEM</div>
-            </div>
-            <div [style.display]="param8==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">0.00G&nbsp;System&nbsp;Free&nbsp;MEM</div>
-            </div>
-            <div [style.display]="param9==''?'none':''" class="propertyCard">
-                <div class="icon"></div>
-                <div class="cardInline">0.00%&nbsp;GPU&nbsp;Load</div>
+            <div *ngFor="let item of jobResultParam">
+                <div class="propertyCard">
+                    <div class="icon"></div>
+                    <div class="cardInline">{{item.key}}</div>
+                    <div class="cardInline">{{item.value}}</div>
+                </div>
             </div>
         </div>
     </div>

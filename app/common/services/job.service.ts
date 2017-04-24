@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { JobInfo, JobProcess } from "../defs/resources";
+import { JobInfo } from "../defs/resources";
 import { JobParameter,JobCollection } from "../../common/defs/resources";
 
 import { Parameter, TrainingNetwork } from "../defs/parameter";
