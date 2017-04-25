@@ -1,4 +1,4 @@
-    <div class="header">
+    <div class="header" [style.display]="focusTab==0?'none':''">
         <div class="logo">
             <img src="images/navigation/logo.png">
         </div>
@@ -12,7 +12,7 @@
             <span (click)="logout()">Logout</span>
         </div>
     </div>
-    <nav>
+    <nav [style.display]="(focusTab!=0)?'':'none'">
         <div class="nav_element" [class.focusTab] = "focusTab==1" >
             <img [src]="focusTab!=1?'images/navigation/icon_1.png':'images/navigation/icon_1_h.png'">
             <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">信息总览</a>

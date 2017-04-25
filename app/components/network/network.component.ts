@@ -109,12 +109,12 @@ export class NetworkComponent{
         console.log(this.plugin.model);
 
         // console.log(this.plugin);
-        if(this.plugin.creator!="general"){
+        // if(this.plugin.creator!="general"){
             this.pluginService.savePlugin(this.plugin)
                 .subscribe(msg => this.forkResult(msg));
-        }else{
-            this.saveSysPlugin(this.plugin);
-        }
+        // }else{
+        //     this.saveSysPlugin(this.plugin);
+        // }
     }
     forkResult(response){
         if(response.status==200){
@@ -123,20 +123,20 @@ export class NetworkComponent{
             console.log("save plugin failed");
         }
     }
-    saveSysPlugin(plugin){
-        this.pluginService.copyPlugin(plugin.id)
-            .subscribe(response => this.forkSysPlugin(response, plugin));
-    }
-    forkSysPlugin(response, plugin){
-        let id = response.id;
-        this.pluginService.getPlugin(id)
-            .subscribe(response => this.forkSysPlugin2(response, plugin));;
-    }
-    forkSysPlugin2(response, plugin){
-        response.train_params = plugin.train_params;
-        response.model = plugin.model;
-        this.pluginService.savePlugin(response)
-            .subscribe(msg => this.forkResult(msg));
-    }
+    // saveSysPlugin(plugin){
+    //     this.pluginService.copyPlugin(plugin.id)
+    //         .subscribe(response => this.forkSysPlugin(response, plugin));
+    // }
+    // forkSysPlugin(response, plugin){
+    //     let id = response.id;
+    //     this.pluginService.getPlugin(id)
+    //         .subscribe(response => this.forkSysPlugin2(response, plugin));;
+    // }
+    // forkSysPlugin2(response, plugin){
+    //     response.train_params = plugin.train_params;
+    //     response.model = plugin.model;
+    //     this.pluginService.savePlugin(response)
+    //         .subscribe(msg => this.forkResult(msg));
+    // }
 
 }

@@ -46,16 +46,24 @@ export class AlgChainsComponent{
             this.chainId = params['chain_id'];
             this.sceneId = params['scene_id'];
 
+            if(this.chainId){
+                this.ifShowNetwork = 1;
+                this.algchainService.getChainById(this.chainId)
+                    .subscribe(plugin=>{
+                        this.pluginArr=plugin;
+                        this.changeChosenPlugin(this.pluginArr[0].id);
+                    });
+            }
 
         });
-        if(this.chainId){
-            this.ifShowNetwork = 1;
-            this.algchainService.getChainById(this.chainId)
-                .subscribe(plugin=>{
-                    this.pluginArr=plugin;
-                    this.changeChosenPlugin(this.pluginArr[0].id);
-                });
-        }
+        // if(this.chainId){
+        //     this.ifShowNetwork = 1;
+        //     this.algchainService.getChainById(this.chainId)
+        //         .subscribe(plugin=>{
+        //             this.pluginArr=plugin;
+        //             this.changeChosenPlugin(this.pluginArr[0].id);
+        //         });
+        // }
     }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
