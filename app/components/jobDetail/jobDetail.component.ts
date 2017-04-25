@@ -117,7 +117,7 @@ export class JobDetailComponent {
                 let temp2 = new Array();
                 temp2.push(this.index);
                 // 现在坐标轴是固定的 所以显示不出来线
-                temp2.push(Number(jobProcessItem.acc)+2);
+                temp2.push(Number(jobProcessItem.acc));
                 if (min_acc>(Number(jobProcessItem.acc))){
                     min_acc = Number(jobProcessItem.acc);
                 }

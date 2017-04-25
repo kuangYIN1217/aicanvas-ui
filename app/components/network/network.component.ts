@@ -104,10 +104,11 @@ export class NetworkComponent{
     save(){
         $('#saveBtn').click();
         let json = $('#plugin_storage').val();
-        console.log(json);
+        console.log(this.plugin.model);
         this.plugin.model = JSON.parse(json);
+        console.log(this.plugin.model);
 
-        console.log(this.plugin);
+        // console.log(this.plugin);
         if(this.plugin.creator!="general"){
             this.pluginService.savePlugin(this.plugin)
                 .subscribe(msg => this.forkResult(msg));

@@ -276,6 +276,7 @@ function save() {
     }
 
     test["layers"] = saveStr;
+    // document.getElementById("plugin_storage").value = JSON.stringify(test);
     // console.log(JSON.stringify(test));
     // console.log(myDiagram.model.toJson());
     myDiagram.isModified = false;
@@ -314,7 +315,7 @@ function saveParam() {
                 continue;
         }
     }
-    console.log(JSON.stringify(test1));
+    // console.log(JSON.stringify(test1));
     document.getElementById("plugin_storage").value = JSON.stringify(test1);
 }
 
