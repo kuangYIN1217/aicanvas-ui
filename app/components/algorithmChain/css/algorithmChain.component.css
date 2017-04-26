@@ -27,3 +27,63 @@
     font-size: 18px;
     text-decoration: none;
 }
+/* th */
+.id{
+    width: 10%;
+}
+.name{
+    width:16%;
+}
+.publish{
+    width:8%;
+}
+.domain{
+    width:8%;
+}
+.creator{
+    width:10%;
+}
+.description{
+    width:34%;
+}
+.detail{
+    width:14%;
+}
+
+.tabs{
+    position: relative;
+    height: 60px;
+    background-color: #131314;
+    margin-bottom: 0px;
+    border: 0px;
+}
+.tab_item{
+    position: relative;
+    top: 20px;
+    border-radius: 0px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 0px;
+    width: 150px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "MicrosoftYaHei";
+    color: #5e5e5f;
+    background-color: #0b0b0b;
+    cursor: pointer;
+    margin-right: 0px;
+}
+.status{
+    position: relative;
+    background-color: #19191a;
+    height: 1402px;
+}
+.current{
+    background-color: #19191a;
+    color: #516af8;
+    font-weight: normal;
+}

@@ -26,6 +26,7 @@ export class JobCreationComponent {
     created: number = 0;
     //
     scenes: SceneInfo[] = [];
+    scene:number;
     chosenSceneId: number;
     chosen_scene: SceneInfo = new SceneInfo();
     pluginArr: PluginInfo[] = [];
@@ -50,7 +51,6 @@ export class JobCreationComponent {
         this.pluginService.getTranParamTypes()
             .subscribe(editable_params => this.getTranParamTypes(editable_params));
     }
-
     ngOnDestroy(){
         // 退出时停止更新
         clearInterval(this.interval);

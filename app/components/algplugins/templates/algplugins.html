@@ -7,10 +7,10 @@
       <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
           <div id="title"></div>
         <table id="systemTable" class="table">
-          <th class="plugin_id">Id</th>
-          <th class="plugin_name">Name</th>
-          <th class="plugin_description">Description</th>
-          <th class="operation">Operation</th>
+          <th class="plugin_id">序号</th>
+          <th class="plugin_name">名称</th>
+          <th class="plugin_description">描述</th>
+          <th class="operation">详情</th>
           <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.creator=='general'?'':'none'">
             <td>{{ plugin.id }}</td>
             <td>{{ plugin.alg_name }}</td>
@@ -33,10 +33,10 @@
       </div>
       <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
         <table id="selfTable" class="table">
-            <th class="plugin_id">Id</th>
-            <th class="plugin_name">Name</th>
-            <th class="plugin_description">Description</th>
-            <th class="operation">Operation</th>
+            <th class="plugin_id">序号</th>
+            <th class="plugin_name">名称</th>
+            <th class="plugin_description">描述</th>
+            <th class="operation">详情</th>
             <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.creator!='general'?'':'none'">
                 <td>{{ plugin.id }}</td>
                 <td>{{ plugin.alg_name }}</td>

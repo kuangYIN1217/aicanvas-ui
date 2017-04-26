@@ -31,7 +31,7 @@ export class HistoryDetailComponent {
     pageMaxItem: number = 10;
     constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute ,private router: Router) {
         this.route.queryParams.subscribe(params => {
-            this.model_id = params['model_id'];
+            this.model_id = params['runId'];
         });
         this.model_pre = this.model_id;
         this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);

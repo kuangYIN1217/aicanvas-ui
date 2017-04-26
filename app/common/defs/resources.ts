@@ -61,7 +61,7 @@ export class PluginInfo{
     output: string;
     root: string;
     // the id of the Plugin
-    train_params: string;
+    train_params: any;
     // The translated name of the Plugin.
     alg_name: string;
     // description of this Plugin
@@ -73,7 +73,7 @@ export class PluginInfo{
     // training_network of this Plugin
     ui_network_editor: string;
     // parameters allowed to be modified
-    model: string;
+    model: any;
     publish:string;
 }
 export class JobCollection{
@@ -135,7 +135,7 @@ export class JobProcessItem{
 }
 export class JobParameter{
     jobResult: JobResult;
-    jobProcess: jobProcessItem[];
+    jobProcess: JobProcessItem[];
 }
 export class SceneInfo{
     id: number;
@@ -149,6 +149,7 @@ export  class ModelInfo{
     creator:string;
     created_at:string;
     model_path:string;
+    job_path:string;
 }
 
 export class inferenceResult{
@@ -185,3 +186,4 @@ export class AlgorithmInfo{
     path: string;
     description:string;
 }
+

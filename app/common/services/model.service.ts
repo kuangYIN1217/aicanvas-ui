@@ -73,8 +73,8 @@ export class modelService {
             });
     }
 
-    runInference(modelId:number){
-        let path = "/api/runInference/"+modelId;
+    runInference(modelId:number,job_path:string){
+        let path = "/api/runInference/"+modelId+"/"+job_path;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {

@@ -30,6 +30,7 @@ export class AlgChainsComponent{
     rightBox_node = 0;
     chainId:string;
     sceneId:number;
+    creator:string;
 
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router){
         sceneService.getAllScenes()
@@ -45,7 +46,9 @@ export class AlgChainsComponent{
         this.route.queryParams.subscribe(params => {
             this.chainId = params['chain_id'];
             this.sceneId = params['scene_id'];
-
+            this.creator = params['creator'];
+            //console.log(this.chainId);
+           //console.log(this.creator);
             if(this.chainId){
                 this.ifShowNetwork = 1;
                 this.algchainService.getChainById(this.chainId)
@@ -75,11 +78,11 @@ export class AlgChainsComponent{
         }
     }
     hideNetwork(){
-        this.router.navigate(['../algchainAlone'],{queryParams: { sceneId: this.sceneId}});
+        this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: this.sceneId}});
         sessionStorage.algChain_scene = -1;
     }
     showNetwork(sceneId){
-        this.router.navigate(['../algchainAlone'],{queryParams: { sceneId: sceneId }});
+        this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: sceneId }});
 /*      this.ifShowNetwork = 1;
         sessionStorage.algChain_scene = sceneId;
         for (let scene of this.sceneArray){

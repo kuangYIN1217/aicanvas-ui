@@ -22,6 +22,8 @@
           <div id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
           <div id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Training</div>
           <div id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
+            <!-- next step button -->
+            <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=3 ? '' : 'none'">下一步</div>
         </div>
 
         <div id="step_content" class="step_content">
@@ -31,7 +33,7 @@
                 <div class="choice">
                   <div id="scene">
                     <div class="scene_title">场景选择:</div>
-                    <select class="select" name="scene_select" (change)="changeChosenSceneId($event.target.value);">
+                    <select class="select" name="scene_select" (ngModelChange)="changeChosenSceneId($event.target.value)">
                       <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
                     </select>
                   </div>
@@ -105,7 +107,7 @@
                 </div>
                 <div class="content" id="myDiagramDiv"></div>
                 <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node===0?'':'none'">
-                    <div *ngFor="let editable_parameter of editable_parameters">
+                    <div *ngFor="let editable_parameter of editable_parameters" class="layer_box">
                         <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
                         <div class="layer_params" id="property_plugin">
                             <input *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
@@ -167,8 +169,7 @@
               <div id="createBtn" class="createBtn" (click)="create()">创建训练任务</div>
               <div class="detail"></div>
             </div>
-            <!-- next step button -->
-          <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=3 ? '' : 'none'">下一步</div>
+
         </div>
     </div>
 </div>
