@@ -135,7 +135,7 @@ export class JobProcessItem{
 }
 export class JobParameter{
     jobResult: JobResult;
-    jobProcess: jobProcessItem[];
+    jobProcess: JobProcessItem[];
 }
 export class SceneInfo{
     id: number;
@@ -149,6 +149,7 @@ export  class ModelInfo{
     creator:string;
     created_at:string;
     model_path:string;
+    job_path:string;
 }
 
 export class inferenceResult{

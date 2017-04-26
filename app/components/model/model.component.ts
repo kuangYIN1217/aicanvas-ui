@@ -20,6 +20,7 @@ export class ModelComponent{
     student:number=0;
     selected:number=0;
     item:number=0;
+    job_path: string;
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
@@ -37,15 +38,16 @@ export class ModelComponent{
                 .subscribe(model =>this.ModelInfo=model);
 
     }
-    clickStatus(statu,model_id){
+    clickStatus(statu,model_id,job_path){
         this.selected= statu;
         this.item=model_id;
+        this.job_path = job_path;
     }
     clickBtn(){
         //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
         console.log(this.ModelInfo.length);
         if(this.ModelInfo.length>0){
-            this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
+            this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item,"job_path":this.job_path}});
         }else{
             return false
         }
