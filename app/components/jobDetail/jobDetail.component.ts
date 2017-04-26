@@ -3,7 +3,7 @@ import { Location } from '@angular/common'
 // import { ActivatedRoute,Params} from '@angular/router';
 import { JobService } from '../../common/services/job.service'
 
-import { JobInfo,UserInfo } from "../../common/defs/resources";
+import {JobInfo, JobResult, UserInfo} from "../../common/defs/resources";
 import { JobParameter } from "../../common/defs/resources";
 import * as d3 from 'd3';
 declare var $:any;
@@ -27,6 +27,7 @@ export class JobDetailComponent {
     accuracyArray = [];
     val_loss_array = [];
     val_acc_array = [];
+    jobResult: any={};
 
     constructor(private jobService: JobService, private location: Location){
         if (location.path(false).indexOf('/jobDetail/')!=-1){
@@ -82,18 +83,18 @@ export class JobDetailComponent {
     }
 
     update(jobParam){
-        // console.log(jobParam);
+         console.log(jobParam);
         let jobProcessItems = jobParam.jobProcess;
-        let jobResult = jobParam.jobResult;
+        this.jobResult = jobParam.jobResult;
         // 更新下方参数
-        let resultParam = new Array();
-        for (let key in jobResult){
-            resultParam.push({
-                "key": key,
-                "value": jobResult[key]
-            });
-        }
-        this.jobResultParam = resultParam;
+        // let resultParam = new Array();
+        // for (let key in jobResult){
+        //     resultParam.push({
+        //         "key": key,
+        //         "value": jobResult[key]
+        //     });
+        // }
+        // this.jobResultParam = resultParam;
         // console.log(jobParam[0].acc);
         if(jobProcessItems.length > 0){
             let min_loss = Number(jobProcessItems[0].loss);

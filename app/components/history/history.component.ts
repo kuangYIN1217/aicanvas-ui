@@ -53,7 +53,7 @@ export class HistoryComponent{
         }
     }
     viewDetail(num){
-        this.router.navigate(['../historyDetail'],{queryParams:{"model_id":this.result[num].id}});
+        this.router.navigate(['../historyDetail'],{queryParams:{"runId":this.result[num].id}});
         console.log(this.result[num].id);
     }
 }

@@ -11,7 +11,7 @@
             <th>创建时间</th>
             <th>模型路径</th>
             <tbody>
-                <tr *ngFor="let model of ModelInfo let num =  index" (click)="clickStatus(num,model.model_id)" [ngClass]="{selected:num==selected }" >
+                <tr *ngFor="let model of ModelInfo let num =  index" (click)="clickStatus(num,model.model_id,model.job_path)" [ngClass]="{selected:num==selected }" >
                     <td>{{ model.model_id}}</td>
                     <td>{{ model.creator}}</td>
                     <td>{{ model.created_at}}</td>

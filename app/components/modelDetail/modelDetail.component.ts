@@ -1,13 +1,11 @@
-import {Component, EventEmitter} from '@angular/core';
-import { Location } from '@angular/common'
-import { ResourcesService } from '../../common/services/resources.service'
-import { modelService} from "../../common/services/model.service";
-import {inferenceResult, ModelInfo, PercentInfo} from "../../common/defs/resources";
+import {Component} from "@angular/core";
+import {Location} from "@angular/common";
+import {ResourcesService} from "../../common/services/resources.service";
+import {modelService} from "../../common/services/model.service";
+import {inferenceResult} from "../../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
+import {FileUploader} from "ng2-file-upload";
 import {SERVER_URL} from "../../app.constants";
-import {NgModule,Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from '@angular/core';
-import {CommonModule} from '@angular/common';
 
 @Component({
     moduleId: module.id,
@@ -20,8 +18,10 @@ import {CommonModule} from '@angular/common';
 export class ModelDetailComponent{
     SERVER_URL = SERVER_URL
     model_id:number=-1;
+    job_path:string;
     modelName:string;
     result:inferenceResult[]=[];
+    runId: number;
 
     constructor(private modelService: modelService, private location: Location,private route: ActivatedRoute ,private router: Router){
 
@@ -54,14 +54,16 @@ export class ModelDetailComponent{
     ngOnInit(){
         this.route.queryParams.subscribe(params => {
             this.model_id = params['model_id'];
+            this.job_path = params['job_path'];
         });
     }
 
     saveModelAndUpload(filePath:string){
         this.modelService.saveModelAndUpload(this.modelName,this.model_id,filePath).subscribe(result=>{
-            this.modelService.runInference(result.id).subscribe(data=>{
+            this.modelService.runInference(result.id,this.job_path).subscribe(data=>{
+
         })
-            this.router.navigate(['../modelDetail'],{queryParams:{"model_id":result.id}});
+            this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.model_id,"job_path":this.job_path,"runId":result.id}});
     })
     }
 
