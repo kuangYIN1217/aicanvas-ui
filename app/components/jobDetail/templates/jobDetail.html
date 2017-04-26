@@ -44,17 +44,44 @@
                     </div>
                 </div>
             </div>
-            <div *ngFor="let item of jobResultParam">
-                <div class="propertyCard">
-                    <div class="icon"></div>
-                    <div class="cardInline">{{item.key}}</div>
-                    <div class="cardInline">{{item.value}}</div>
-                </div>
+            <!--<div *ngFor="let item of jobResultParam">-->
+                <!--<div class="propertyCard">-->
+                    <!--<div class="icon"></div>-->
+                    <!--<div class="cardInline">{{item.key}}</div>-->
+                    <!--<div class="cardInline">{{item.value}}</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="propertyCard">
+                <div class="icon"></div>
+                <div class="cardInline"> Samples/Sec</div>
+                <div class="cardInline">{{jobResult.samples_sec}}</div>
             </div>
             <div class="propertyCard">
                 <div class="icon"></div>
-                <div class="cardInline">Epoch</div>
-                <div class="cardInline">{{index}}</div>
+                <div class="cardInline">Sec/Epoch</div>
+                <div class="cardInline">{{jobResult.sec_epoch}}</div>
+            </div>
+            <div class="propertyCard">
+                <div class="icon"></div>
+                <div class="cardInline">Sample Process</div>
+                <div class="cardInline" *ngIf="jobResult.sample_process">{{jobResult.sample_process*100}}%</div>
+            </div>
+            <div class="propertyCard">
+                <div class="icon"></div>
+                <div class="cardInline">LOSS: (train/validation)</div>
+                <div class="cardInline">{{jobResult.loss}}</div>
+                <div class="cardInline">{{jobResult.val_loss}}</div>
+            </div>
+            <div class="propertyCard">
+                <div class="icon"></div>
+                <div class="cardInline">Accuracy: (train/validation)</div>
+                <div class="cardInline">{{jobResult.acc}}</div>
+                <div class="cardInline">{{jobResult.val_acc}}</div>
+            </div>
+            <div class="propertyCard">
+                <div class="icon"></div>
+                <div class="cardInline">Epoch:</div>
+                <div class="cardInline">{{jobResult.epoch}}</div>
             </div>
         </div>
     </div>
