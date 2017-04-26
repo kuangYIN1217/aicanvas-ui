@@ -22,6 +22,8 @@ export class AlgChainsComponent{
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
 
+    haveModel: number = 0;
+
     // 字典
     editable_params: Editable_param[] = [];
     // 被选中plugin的参数组合（结合了字典）
@@ -108,27 +110,51 @@ export class AlgChainsComponent{
         if(!this.chosenPluginId){
             this.chosenPluginId = id;
             let training_network_json = this.findPluginById(this.chosenPluginId).model;
-            // console.log(training_network_json);
-            $('#plugin_storage').val(JSON.stringify(training_network_json));
-            $('#hideBtn').click();
+            // 有网络层
+            if (training_network_json){
+                this.haveModel = 1;
+                // console.log(this.findPluginById(this.chosenPluginId));
+                // console.log(training_network_json);
+                $('#plugin_storage').val(JSON.stringify(training_network_json));
+                $('#hideBtn').click();
+            }
+            // 无网络层则无需任何操作
         }else{
-            this.savePluginChange();
+            // this.savePluginChange();
             this.chosenPluginId = id;
             let training_network_json = this.findPluginById(this.chosenPluginId).model;
-            console.log(training_network_json);
-            $('#plugin_storage').val(JSON.stringify(training_network_json));
-            $('#loadBtn').click();
+            if(training_network_json){
+                // console.log(training_network_json);
+                let inited = false;
+                if ($('#plugin_storage').val()&&$('#plugin_storage').val()!==""){
+                    inited = true;
+                }
+                $('#plugin_storage').val(JSON.stringify(training_network_json));
+                if(inited){
+                    $('#loadBtn').click();
+                    // 等待动画效果结束后再展示，否则会闪烁一下
+                    setTimeout(() => {
+                        this.haveModel = 1;
+                    },50);
+                }else{
+                    $('#hideBtn').click();
+                    this.haveModel = 1;
+                }
+            }else{
+                // 无网络层则将网络层隐藏
+                this.haveModel = 0;
+            }
         }
         this.pluginClicked();
     }
 
-    savePluginChange(){
-        let id = this.chosenPluginId;
-        let json = $('#plugin_storage').val();
-        let jsonData = JSON.parse(json);
-        // console.log(id);
-        this.findPluginById(id).model = jsonData;
-    }
+    // savePluginChange(){
+    //     let id = this.chosenPluginId;
+    //     let json = $('#plugin_storage').val();
+    //     let jsonData = JSON.parse(json);
+    //     // console.log(id);
+    //     this.findPluginById(id).model = jsonData;
+    // }
 
     findPluginById(id:string){
         for (let plugin of this.pluginArr){

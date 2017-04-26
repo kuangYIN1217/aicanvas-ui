@@ -173,10 +173,13 @@ export class JobDetailComponent {
 
         var val_loss_data = val_loss_array;
 
+        var xTick = 6;
+        var yTick = 5;
+
         var xAxis = d3.axisBottom(x)
-        .ticks(6);
+        .ticks(xTick);
         var yAxis = d3.axisLeft(y)
-        .ticks(5);
+        .ticks(yTick);
 
         var line = d3.line()
         .defined(function(d) { return d; })
@@ -214,7 +217,7 @@ export class JobDetailComponent {
         .attr('d', line(val_loss_data));
 
         var grid = svg.selectAll(".grid")
-        .data(x.ticks(6))
+        .data(x.ticks(xTick))
         .enter().append("g")
         .attr("class", "grid");
 
@@ -239,7 +242,7 @@ export class JobDetailComponent {
         .attr('transform', 'translate(0, -5)');
 
         // 横线
-        grid.data(x.ticks(6));
+        grid.data(x.ticks(xTick));
         grid.append("line")
         .attr("class","gridline")
         .attr("x1", x)
@@ -247,7 +250,7 @@ export class JobDetailComponent {
         .attr("y1", 0)
         .attr("y2", height).attr('transform', 'translate(45,20)');
         // 竖线
-        grid.data(y.ticks(5));
+        grid.data(y.ticks(yTick));
         grid.append("line")
         .attr("class","gridline")
         .attr("y1", y)

@@ -86,9 +86,10 @@
                 </div>
             </div>
             <div class="chains">
-                <div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.id}}</div>
+                <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.id}}</div>
             </div>
-            <div class="content" id="myDiagramDiv"></div>
+            <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
+            <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
             <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
                 <div *ngFor="let editable_parameter of editable_parameters">
                     <div class="layer_name">{{editable_parameter.editable_param.name}}</div>

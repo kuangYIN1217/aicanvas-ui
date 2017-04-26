@@ -159,7 +159,7 @@ export class JobCreationComponent {
         }
         this.pluginClicked();
     }
-    
+
     savePluginChange(){
         let id = this.chosenPluginId;
         let originJson = JSON.stringify(this.findPluginById(id).model);
