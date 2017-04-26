@@ -22,7 +22,7 @@ export class AlgchainDetailComponent {
         if (this.location.path(false).indexOf('/algchainDetail/')!=-1){
             let id = this.location.path(false).split('/algchainDetail/')[1];
             if(id){
-                // console.log(id);
+                //console.log(id);
                 this.sceneService.getSceneById(id)
                     .subscribe(scene => this.scene = scene);
             }

@@ -19,7 +19,6 @@ export class NetworkComponent{
     // sceneArray: SceneInfo[];
     // pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
-
     plugin_id: string;
     plugin: PluginInfo = new PluginInfo();
     constructor(private sceneService: SceneService, private pluginService: PluginService, private location: Location){

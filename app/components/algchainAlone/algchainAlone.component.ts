@@ -29,9 +29,9 @@ export class AlgchainAloneComponent{
     }
     output(pub){
         if(pub==1){
-            return "true"
+            return "是"
         }else if(pub==0){
-            return "false"
+            return "否"
         }
     }
     clickChain(id){

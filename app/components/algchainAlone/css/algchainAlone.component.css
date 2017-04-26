@@ -27,3 +27,25 @@
     font-size: 18px;
     text-decoration: none;
 }
+/* th */
+.id{
+    width: 10%;
+}
+.name{
+    width:16%;
+}
+.publish{
+    width:8%;
+}
+.domain{
+    width:8%;
+}
+.creator{
+    width:10%;
+}
+.description{
+    width:34%;
+}
+.detail{
+    width:14%;
+}
