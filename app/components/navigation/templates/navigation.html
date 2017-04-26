@@ -12,7 +12,7 @@
             <span (click)="logout()">Logout</span>
         </div>
     </div>
-    <nav [style.display]="(focusTab!=0&&needhide==0)?'':'none'">
+    <nav [style.display]="(focusTab!=0)?'':'none'">
         <div class="nav_element" [class.focusTab] = "focusTab==1" >
             <img [src]="focusTab!=1?'images/navigation/icon_1.png':'images/navigation/icon_1_h.png'">
             <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">信息总览</a>
@@ -62,4 +62,3 @@
      <br/> -->
    </nav>
     <router-outlet></router-outlet>
-

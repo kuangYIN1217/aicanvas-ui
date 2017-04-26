@@ -96,14 +96,13 @@ export class JobDetailComponent {
         this.jobResultParam = resultParam;
         // console.log(jobParam[0].acc);
         if(jobProcessItems.length > 0){
-            // console.log(jobParam[3].acc);
             let min_loss = Number(jobProcessItems[0].loss);
             let max_loss = Number(jobProcessItems[0].loss);
             let min_acc = Number(jobProcessItems[0].acc);
             let max_acc = Number(jobProcessItems[0].acc);
             for (let jobProcessItem of jobProcessItems){
                 this.index = Number(jobProcessItem.epoch);
-                // console.log(this.index);
+                console.log(jobProcessItem.val_acc);
                 let temp1 = new Array();
                 temp1.push(this.index);
                 temp1.push(Number(jobProcessItem.loss));
@@ -117,7 +116,7 @@ export class JobDetailComponent {
                 let temp2 = new Array();
                 temp2.push(this.index);
                 // 现在坐标轴是固定的 所以显示不出来线
-                temp2.push(Number(jobProcessItem.acc)+2);
+                temp2.push(Number(jobProcessItem.acc));
                 if (min_acc>(Number(jobProcessItem.acc))){
                     min_acc = Number(jobProcessItem.acc);
                 }
@@ -137,7 +136,7 @@ export class JobDetailComponent {
                 let temp_val_acc = new Array();
                 temp_val_acc.push(this.index);
                 temp_val_acc.push(jobProcessItem.val_acc);
-                this.val_acc_array.push(temp_val_loss);
+                this.val_acc_array.push(temp_val_acc);
 
                 this.index++;
             }

@@ -159,12 +159,22 @@ export class JobCreationComponent {
         }
         this.pluginClicked();
     }
+    
     savePluginChange(){
         let id = this.chosenPluginId;
         let originJson = JSON.stringify(this.findPluginById(id).model);
         let json = $('#plugin_storage').val();
         let jsonData = JSON.parse(json);
         this.findPluginById(id).model = jsonData;
+        let params: any = this.findPluginById(this.chosenPluginId).train_params;
+        for (var key in params){
+            for (let editable_parameter of this.editable_params){
+                if (editable_parameter.path == key){
+                    this.findPluginById(this.chosenPluginId).train_params[key] = editable_parameter.editable_param.set_value;
+                }
+            }
+        }
+
     }
     pluginClicked(){
         let editable_parameters: Editable_param[] = [];
@@ -187,6 +197,9 @@ export class JobCreationComponent {
     nodeClicked(){
         // 改变右侧显示的内容--显示node
         this.rightBox_node = 1;
+    }
+    savePluginParams(){
+
     }
     findPluginById(id:string){
         for (let plugin of this.pluginArr){

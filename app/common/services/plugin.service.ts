@@ -41,6 +41,7 @@ export class PluginService {
 
     savePlugin(pluginInfo){
         let path = "/api/plugin";
+        console.log(pluginInfo);
         let body = JSON.stringify(
                 pluginInfo
         );
