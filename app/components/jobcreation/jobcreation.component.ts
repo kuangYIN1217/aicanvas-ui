@@ -49,6 +49,9 @@ export class JobCreationComponent {
     selected:number=0;
     item:number=0;
     ChainInfo:ChainInfo[]=[];
+
+    haveModel: number = 0;
+
     @Input() statuss:string='';
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private algChainService: AlgChainService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         pluginService.getLayerDict()
@@ -175,16 +178,40 @@ export class JobCreationComponent {
         if(!this.chosenPluginId){
             this.chosenPluginId = id;
             let training_network_json = this.findPluginById(this.chosenPluginId).model;
-            console.log(training_network_json);
-            $('#plugin_storage').val(JSON.stringify(training_network_json));
-            $('#hideBtn').click();
+            // console.log(training_network_json);
+            if (training_network_json){
+                this.haveModel = 1;
+                // console.log(this.findPluginById(this.chosenPluginId));
+                // console.log(training_network_json);
+                $('#plugin_storage').val(JSON.stringify(training_network_json));
+                $('#hideBtn').click();
+            }
         }else{
             this.savePluginChange();
             this.chosenPluginId = id;
             let training_network_json = this.findPluginById(this.chosenPluginId).model;
-            console.log(training_network_json);
-            $('#plugin_storage').val(JSON.stringify(training_network_json));
-            $('#loadBtn').click();
+            // console.log(training_network_json);
+            if(training_network_json){
+                // console.log(training_network_json);
+                let inited = false;
+                if ($('#plugin_storage').val()&&$('#plugin_storage').val()!==""){
+                    inited = true;
+                }
+                $('#plugin_storage').val(JSON.stringify(training_network_json));
+                if(inited){
+                    $('#loadBtn').click();
+                    // 等待动画效果结束后再展示，否则会闪烁一下
+                    setTimeout(() => {
+                        this.haveModel = 1;
+                    },50);
+                }else{
+                    $('#hideBtn').click();
+                    this.haveModel = 1;
+                }
+            }else{
+                // 无网络层则将网络层隐藏
+                this.haveModel = 0;
+            }
         }
         this.pluginClicked();
     }

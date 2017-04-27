@@ -25,9 +25,21 @@ export class AlgPluginsComponent{
         }else{
             sessionStorage.showSystemPlugin = 1;
         }
-        pluginService.getAllPlugins()
-            .subscribe(plugins => this.plugins = plugins);
-        // console.log(this.showSystemPlugin);
+        if (sessionStorage.algpluginsStorage){
+            let plugins = JSON.parse(sessionStorage.algpluginsStorage);
+            this.plugins = plugins;
+            pluginService.getAllPlugins()
+                .subscribe(plugins => this.ifNew(plugins));
+        }else{
+            pluginService.getAllPlugins()
+                .subscribe(plugins => this.plugins = plugins);
+            // console.log(this.showSystemPlugin);
+        }
+    }
+    ifNew(plugins: PluginInfo[]){
+        if (JSON.stringify(this.plugins)!=JSON.stringify(plugins)){
+            this.plugins = plugins;
+        }
     }
     sysTemplateClick(){
         // console.log("to Sys");

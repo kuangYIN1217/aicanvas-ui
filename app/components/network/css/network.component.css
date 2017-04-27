@@ -169,7 +169,7 @@ a{
     font-size: 20px;
     margin-bottom: 5px;
 }
-.layer_param input{
+.layer_params input{
     background: transparent;
     border: 0px;
     border-bottom: 1px solid grey;
@@ -177,4 +177,17 @@ a{
     width: 100%;
     color: white;
     outline-style: none;
+}
+
+.layer_params select{
+    background: #444444 0px 0px;
+    color: #ffffff;
+    font-size: 14px;
+    border: #000000 1px solid;
+    padding: 5px;
+}
+
+.layer_params option{
+    background: #444444 0px 0px;
+    color: #ffffff;
 }
