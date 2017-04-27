@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, SimpleChanges} from '@angular/core';
 import { Location } from '@angular/common'
 import { ResourcesService } from '../../common/services/resources.service'
 import { modelService} from "../../common/services/model.service";
@@ -34,6 +34,7 @@ export class HistoryDetailComponent {
             this.model_id = params['runId'];
         });
         this.model_pre = this.model_id;
+        if(this.model_id)
         this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);
         this.modelService.getPercent(this.model_id)
             .subscribe(percent => this.PercentInfo=percent);
@@ -44,6 +45,8 @@ export class HistoryDetailComponent {
         // 退出时停止更新
         clearInterval(this.interval);
     }
+
+
     getResult(modelId:number,page,size){
         this.modelService.getResult(modelId,page,size).subscribe(result=>{
             if (result.content.length!=0) {
