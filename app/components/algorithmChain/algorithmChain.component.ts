@@ -26,19 +26,6 @@ export class AlgorithmChainComponent{
 
     constructor(private sceneService: SceneService,private pluginService: PluginService, private location: Location, private route: ActivatedRoute ,private router: Router){
 
-       /* this.pluginService.getAlgorithmChain()
-            .subscribe(algorithm => {
-                this.AlgorithmInfo=algorithm;
-                for(let i=0;i<this.AlgorithmInfo.length;i++){
-                    if(this.AlgorithmInfo[i].creator=='general'){
-                        this.modalTab.push(this.AlgorithmInfo[i]);
-                    }else{
-                        this.selfTab.push(this.AlgorithmInfo[i]);
-                    }
-                }
-                //console.log(this.modalTab);
-                //console.log(this.selfTab);
-            });*/
     }
     ngOnInit(){
         this.route.queryParams.subscribe(params => {
@@ -64,10 +51,7 @@ export class AlgorithmChainComponent{
             return "否";
         }
     }
-/*    viewDetail(id){
-        this.item = id;
-        this.router.navigate(['../algchains'],{queryParams:{"chain_id":this.item}});
-    }*/
+
     clickChain(id,name){
         this.item = id;
         this.creator = name;

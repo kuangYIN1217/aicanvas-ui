@@ -78,8 +78,14 @@ export class AlgChainsComponent{
         }
     }
     hideNetwork(){
-        this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: this.sceneId}});
-        sessionStorage.algChain_scene = -1;
+        if(this.sceneId){
+            this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: this.sceneId}});
+            sessionStorage.algChain_scene = -1;
+        }else{
+            this.router.navigate(['../algchainAlone'],{queryParams: { creator: this.creator}});
+            sessionStorage.algChain_scene = -1;
+        }
+
     }
     showNetwork(sceneId){
         this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: sceneId }});

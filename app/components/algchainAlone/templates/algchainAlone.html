@@ -1,25 +1,54 @@
 <div class="container">
-    <table class="table">
-        <th class="id">序号</th>
-        <th class="name">名称</th>
-        <th class="publish">发布</th>
-        <th class="domain">问题域</th>
-        <th class="creator">创建者</th>
-        <th class="description">描述</th>
-        <th class="detail">详情</th>
-        <tbody>
-        <tr *ngFor="let item of PluginInfo">
-            <td>{{item.id}}</td>
-            <td>{{item.chain_name}}</td>
-            <td>{{output(item.publish)}}</td>
-            <td>{{item.prob_domain}}</td>
-            <td>{{item.creator}}</td>
-            <td>{{item.description}}</td>
-            <td>
-                <a class="showDetailBtn" routerLinkActive="active" (click)="clickChain(item.id)">查看详情</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+    <div class="tabs">
+        <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [ngClass]="{current: showSystemPlugin==1}">系统模版</div>
+        <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [ngClass]="{current: showSystemPlugin==0}">自定义模版</div>
+    </div>
+    <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
+        <table class="table">
+            <th class="id">序号</th>
+            <th class="name">名称</th>
+            <th class="publish">发布</th>
+            <th class="domain">问题域</th>
+            <th class="creator">创建者</th>
+            <th class="description">描述</th>
+            <th class="detail">详情</th>
+            <tbody>
+            <tr *ngFor="let item of modalTab">
+                <td>{{item.id}}</td>
+                <td>{{item.chain_name}}</td>
+                <td>{{output(item.publish)}}</td>
+                <td>{{item.prob_domain}}</td>
+                <td>{{item.creator}}</td>
+                <td>{{item.description}}</td>
+                <td>
+                    <a class="showDetailBtn" routerLinkActive="active" (click)="viewDetail(item.id,item.creator)">查看详情</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
+        <table class="table">
+            <th class="id">序号</th>
+            <th class="name">名称</th>
+            <th class="publish">发布</th>
+            <th class="domain">问题域</th>
+            <th class="creator">创建者</th>
+            <th class="description">描述</th>
+            <th class="detail">详情</th>
+            <tbody>
+            <tr *ngFor="let item of selfTab">
+                <td>{{item.id}}</td>
+                <td>{{item.chain_name}}</td>
+                <td>{{output(item.publish)}}</td>
+                <td>{{item.prob_domain}}</td>
+                <td>{{item.creator}}</td>
+                <td>{{item.description}}</td>
+                <td>
+                    <a class="showDetailBtn" routerLinkActive="active" (click)="viewDetail(item.id,item.creator)">查看详情</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
