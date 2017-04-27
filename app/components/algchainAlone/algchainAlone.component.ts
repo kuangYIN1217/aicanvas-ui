@@ -22,14 +22,12 @@ export class AlgchainAloneComponent{
     selfTab:any []=[];
     creator:string;
     name:string;
-/*    page: number = 1;
-    pageMaxItem1: number = 10;
-    pageMaxItem2: number = 10;
+    page: number = 1;
+    pageMaxItem: number = 10;
     arr:any[]=[];
     arr2:any[]=[];
-    temporary:any[]=[];
     result:number;
-    remainder:number;*/
+    remainder:number;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router){
         this.pluginService.getAlgorithmChain()
             .subscribe(algorithm => {
@@ -41,24 +39,20 @@ export class AlgchainAloneComponent{
                         this.selfTab.push(this.AlgorithmInfo[i]);
                     }
                 }
-/*                if(this.showSystemPlugin==1){
-                    this.arr = this.modalTab.slice(0,10);
-                    console.log(this.arr);
-                }else if(this.showSystemPlugin==0){
-                    this.arr2 = this.selfTab.slice(0,10);
-                    console.log(this.arr2);
-                }*/
+                this.arr = this.modalTab.slice(0,10);
+                this.arr2 = this.selfTab.slice(0,10);
             });
     }
     ngOnInit(){
-        this.route.queryParams.subscribe(params => {
-            this.name = params['creator'];
-        });
-        if(this.name=="general"){
-            this.showSystemPlugin=1;
-        }else{
-            this.showSystemPlugin=0;
-        }
+        // this.route.queryParams.subscribe(params => {
+        //     this.name = params['creator'];
+        // });
+        // debugger
+        // if(this.name=="general"){
+        //     this.showSystemPlugin=1;
+        // }else{
+        //     this.showSystemPlugin=0;
+        // }
     }
 /*    ngOnInit(){
         this.route.queryParams.subscribe(params => {
@@ -88,27 +82,34 @@ export class AlgchainAloneComponent{
         this.showSystemPlugin = 0;
         sessionStorage.showSystemPlugin = 0;
     }
-/*    maxItemChange(num){
+    maxItemChange(num){
         this.page=1;
-        if(this.showSystemPlugin==1){
-            this.temporary = this.modalTab;
-            this.temporaryArray(num,this.temporary);
-        }else if(this.showSystemPlugin==0){
-            this.temporary = this.selfTab;
-            this.temporaryArray(num,this.temporary);
-        }
-    }
-    temporaryArray(num,temporary){
         if(num==10){
-            this.arr = temporary.slice(0,10);
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,10);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,10);
+                console.log(num,this.arr2);
+            }
         }else if(num==20){
-            this.arr = temporary.slice(0,20);
-        }
-        else if(num==50){
-            this.arr = temporary.slice(0,50);
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,20);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,20);
+                console.log(num,this.arr2);
+            }
+        } else if(num==50){
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,50);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,50);
+                console.log(num,this.arr2);
+            }
         }
     }
-
     nextPage(num){
         if(this.showSystemPlugin==1){
             this.remainder = this.modalTab.length%num;
@@ -142,7 +143,7 @@ export class AlgchainAloneComponent{
         }else if(this.showSystemPlugin==0){
             if(this.page<result){
                 this.page++;
-                this.arr = this.selfTab.slice(num*this.page-num,num*this.page);
+                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
             }else{
                 alert('已经是最后一页');
             }
@@ -154,19 +155,39 @@ export class AlgchainAloneComponent{
             if (this.page>1){
                 this.page--;
                 this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
-                console.log(this.arr);
+               // console.log(this.arr);
             }else{
                 alert('已经是首页');
             }
         }else if(this.showSystemPlugin==0){
             if (this.page>1){
                 this.page--;
-                this.arr = this.selfTab.slice(num*this.page-num,num*this.page);
-                console.log(this.arr);
+                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
+                //console.log(this.arr2);
             }else{
                 alert('已经是首页');
             }
         }
 
-    }*/
+    }
+    previousPage(num){
+        if(this.showSystemPlugin==1){
+            if (this.page>1){
+                this.page--;
+                this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
+                //console.log(this.arr);
+            }else{
+                alert('已经是首页');
+            }
+        }else if(this.showSystemPlugin==0){
+            if (this.page>1){
+                this.page--;
+                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
+                //console.log(this.arr2);
+            }else{
+                alert('已经是首页');
+            }
+        }
+
+    }
 }

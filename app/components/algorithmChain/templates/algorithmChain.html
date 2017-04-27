@@ -13,7 +13,7 @@
             <th class="description">描述</th>
             <th class="detail">详情</th>
             <tbody>
-            <tr *ngFor="let item of modalTab">
+            <tr *ngFor="let item of arr">
                 <td>{{item.id}}</td>
                 <td>{{item.chain_name}}</td>
                 <td>{{output(item.publish)}}</td>
@@ -38,8 +38,8 @@
                     <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
                 </select>
             </div>
-            <div class="pagebtn" (click)="nextPage(pageMaxItem1)">Next</div>
-            <div class="pagebtn"  (click)="previousPage(pageMaxItem1)">Previous</div>
+            <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
+            <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
         </div>
     </div>
     <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
@@ -52,7 +52,7 @@
             <th class="description">描述</th>
             <th class="detail">详情</th>
             <tbody>
-            <tr *ngFor="let item of selfTab">
+            <tr *ngFor="let item of arr2">
                 <td>{{item.id}}</td>
                 <td>{{item.chain_name}}</td>
                 <td>{{output(item.publish)}}</td>
@@ -65,5 +65,20 @@
             </tr>
             </tbody>
         </table>
+        <div class="bottom_menu">
+            <div class="label">
+                TotalPages:
+                <!-- Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
+            </div>
+            <div class="selectDiv" >
+                <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
+                    <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                    <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                    <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+                </select>
+            </div>
+            <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
+            <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
+        </div>
     </div>
 </div>

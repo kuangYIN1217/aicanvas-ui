@@ -186,4 +186,7 @@ export class AlgorithmInfo{
     path: string;
     description:string;
 }
+export class ChainInfo{
+
+}
 

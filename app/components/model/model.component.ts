@@ -26,9 +26,18 @@ export class ModelComponent{
     arr:any[]=[];
     result:number;
     remainder:number;
+    data:number;
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
+
+        if(this.result){
+            if(this.ModelInfo.length%this.pageMaxItem==0){
+                this.result = this.ModelInfo.length/this.pageMaxItem;
+            }else{
+                this.result = Math.floor(this.ModelInfo.length/this.pageMaxItem)+1;
+            }
+        }
     }
 
         ngOnInit(){
@@ -41,8 +50,9 @@ export class ModelComponent{
         let id=this.student;
             this.modelService.getModel(id)
                 .subscribe(model =>{
-                    this.ModelInfo=model
+                    this.ModelInfo=model;
                     this.arr = this.ModelInfo.slice(0,10);
+                    this.data = Math.floor(this.ModelInfo.length/this.pageMaxItem)+1;
                 });
        this.pageMaxItem=10;
            //this.arr = this.ModelInfo.slice(0,9);
@@ -61,27 +71,31 @@ export class ModelComponent{
         }else{
             return false
         }
-
     }
     maxItemChange(num){
         this.page=1;
         if(num==10){
             this.arr = this.ModelInfo.slice(0,10);
+            this.nextPage(num);
         }else if(num==20){
             this.arr = this.ModelInfo.slice(0,20);
+            this.nextPage(num);
         }
         else if(num==50){
             this.arr = this.ModelInfo.slice(0,50);
+            this.nextPage(num);
         }
     }
     nextPage(num){
         this.remainder = this.ModelInfo.length%num;
         if(this.remainder == 0){
             this.result = Math.floor(this.ModelInfo.length/num);
+            //console.log(this.result);
             this.lastPage(num,this.result);
         }else{
             this.result = Math.floor(this.ModelInfo.length/num)+1;
             this.lastPage(num,this.result);
+            //console.log(this.result);
         }
     }
     lastPage(num,result){

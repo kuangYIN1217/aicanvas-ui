@@ -47,6 +47,8 @@ export class AlgorithmChainComponent{
                         this.selfTab.push(this.PluginInfo[i]);
                     }
                 }
+                this.arr = this.modalTab.slice(0,10);
+                this.arr2 = this.selfTab.slice(0,10);
             });
 
     }
@@ -73,25 +75,32 @@ export class AlgorithmChainComponent{
     }
     maxItemChange(num){
         this.page=1;
-        if(this.showSystemPlugin==1){
-            this.temporary = this.modalTab;
-            this.temporaryArray(num,this.temporary);
-        }else if(this.showSystemPlugin==0){
-            this.temporary = this.selfTab;
-            this.temporaryArray(num,this.temporary);
-        }
-    }
-    temporaryArray(num,temporary){
         if(num==10){
-            this.arr = temporary.slice(0,10);
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,10);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,10);
+                console.log(num,this.arr2);
+            }
         }else if(num==20){
-            this.arr = temporary.slice(0,20);
-        }
-        else if(num==50){
-            this.arr = temporary.slice(0,50);
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,20);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,20);
+                console.log(num,this.arr2);
+            }
+        } else if(num==50){
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,50);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,50);
+                console.log(num,this.arr2);
+            }
         }
     }
-
     nextPage(num){
         if(this.showSystemPlugin==1){
             this.remainder = this.modalTab.length%num;
@@ -125,7 +134,7 @@ export class AlgorithmChainComponent{
         }else if(this.showSystemPlugin==0){
             if(this.page<result){
                 this.page++;
-                this.arr = this.selfTab.slice(num*this.page-num,num*this.page);
+                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
             }else{
                 alert('已经是最后一页');
             }
@@ -144,7 +153,7 @@ export class AlgorithmChainComponent{
         }else if(this.showSystemPlugin==0){
             if (this.page>1){
                 this.page--;
-                this.arr = this.selfTab.slice(num*this.page-num,num*this.page);
+                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
                 console.log(this.arr);
             }else{
                 alert('已经是首页');

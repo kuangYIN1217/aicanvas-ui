@@ -23,7 +23,7 @@
             <div class="label">
                 TotalPages:
                 <!--Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
-                <!--<span>{{}}</span>-->
+                <span>{{result}}</span>
             </div>
             <div class="selectDiv" >
                 <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
