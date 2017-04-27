@@ -1,23 +1,19 @@
 <div class="container">
     <table class="table">
-        <th>Id</th>
-        <th>TrainParams</th>
-        <th>ChainName</th>
-        <th>Publish</th>
-        <th>probDomain</th>
-        <th>Creator</th>
-        <th>Path</th>
-        <th>Description</th>
-        <th>ViewDetails</th>
+        <th class="id">序号</th>
+        <th class="name">名称</th>
+        <th class="publish">发布</th>
+        <th class="domain">问题域</th>
+        <th class="creator">创建者</th>
+        <th class="description">描述</th>
+        <th class="detail">详情</th>
         <tbody>
         <tr *ngFor="let item of PluginInfo">
             <td>{{item.id}}</td>
-            <td>{{item.train_params}}</td>
             <td>{{item.chain_name}}</td>
             <td>{{output(item.publish)}}</td>
             <td>{{item.prob_domain}}</td>
             <td>{{item.creator}}</td>
-            <td>{{item.path}}</td>
             <td>{{item.description}}</td>
             <td>
                 <a class="showDetailBtn" routerLinkActive="active" (click)="clickChain(item.id)">查看详情</a>

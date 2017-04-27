@@ -1,8 +1,5 @@
 <div class="controls"> 
-    <div class="cnn-layer" 
-         *ngFor="let layerType of networkEditorService.getLayerTypeList()" 
-         (click)="createLayer(layerType)"
-         class="{{layerType.cssClassName}}">
+    <div class="cnn-layer" *ngFor="let layerType of networkEditorService.getLayerTypeList()" (click)="createLayer(layerType)" class="{{layerType.cssClassName}}">
       <svg class="widget">
         <g>
             <circle class="icon" r="15px" transform="translate(15, 15)"></circle>

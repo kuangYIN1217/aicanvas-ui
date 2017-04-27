@@ -93,18 +93,24 @@
                 <div *ngFor="let editable_parameter of editable_parameters">
                     <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
                     <div class="layer_params" id="property_plugin">
-                        <input readonly="true" *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                        <input readonly  *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&creator=='general'" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
                             class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
-
-                        <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='enums'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                        <input  *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&creator!='general'" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                               class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
+                        <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='enums'&&creator=='general'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
                             <option *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
                         </select>
-
-                        <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='boolean'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                        <select enabled="enabled" *ngIf="editable_parameter.editable_param.type=='enums'&&creator!='general'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                            <option *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
+                        </select>
+                        <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='boolean'&&creator=='general'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
                             <option value="true">true</option>
                             <option value="false">false</option>
                         </select>
-
+                        <select enabled="enabled" *ngIf="editable_parameter.editable_param.type=='boolean'&&creator!='general'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
                         <div *ngIf="editable_parameter.editable_param.type=='list'"class="select" name="data_select">
                             <div>
                                  <table *ngIf="editable_parameter.editable_param.shape.length==2">
@@ -121,18 +127,29 @@
                                                  <option value="true">true</option>
                                                  <option value="false">false</option>
                                              </select> -->
-                                             <input readonly="true" type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
+                                             <input readonly type="text" name="" *ngIf="creator=='general'" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
+                                             <input  *ngIf="creator!='general'" type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
                                          </td>
                                      </tr>
                                  </table>
                                  <div *ngIf="editable_parameter.editable_param.shape.length==3">
-                                     <select>
+                                     <select *ngIf="creator=='general'" disabled="disabled">
+                                         <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
+                                     </select>
+                                     <select *ngIf="creator!='general'" enabled="enabled">
+                                         <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
+                                     </select>
+                                     <select *ngIf="creator=='general'" disabled="disabled">
+                                         <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
+                                     </select>
+                                     <select *ngIf="creator!='general'" enabled="enabled">
                                          <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
                                      </select>
                                      <table>
                                          <tr *ngFor="let array2 of array_2d;let j2 = index;">
                                              <td *ngFor="let value2 of array2;let z2 = index;">
-                                                 <input readonly="true" type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
+                                                 <input  readonly *ngIf="creator=='general'" type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
+                                                 <input  *ngIf="creator!='general'" type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
                                              </td>
                                          </tr>
                                      </table>
