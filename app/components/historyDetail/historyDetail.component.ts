@@ -43,8 +43,14 @@ export class HistoryDetailComponent {
         this.changeValue();
     }
 
-    @Input() set name(name:string) {
-        alert(123)
+    ngOnChanges(...args: any[]) {
+        for (let obj=0; obj < args.length;obj++) {
+            if(args[obj]['model_id']["currentValue"]){
+                this.model_pre = this.model_id;
+                this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);
+            }
+        }
+
     }
 
 

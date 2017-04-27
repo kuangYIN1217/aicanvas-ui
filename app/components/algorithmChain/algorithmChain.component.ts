@@ -23,9 +23,15 @@ export class AlgorithmChainComponent{
     sceneId:number;
     PluginInfo:PluginInfo[]=[];
     creator:string;
-
+    page: number = 1;
+    pageMaxItem: number = 10;
+    pageMaxItem2: number = 10;
+    arr:any[]=[];
+    arr2:any[]=[];
+    temporary:any[]=[];
+    result:number;
+    remainder:number;
     constructor(private sceneService: SceneService,private pluginService: PluginService, private location: Location, private route: ActivatedRoute ,private router: Router){
-
     }
     ngOnInit(){
         this.route.queryParams.subscribe(params => {
@@ -41,6 +47,8 @@ export class AlgorithmChainComponent{
                         this.selfTab.push(this.PluginInfo[i]);
                     }
                 }
+                this.arr = this.modalTab.slice(0,10);
+                this.arr2 = this.selfTab.slice(0,10);
             });
 
     }
@@ -64,5 +72,93 @@ export class AlgorithmChainComponent{
     selfTemplateClick(){
         this.showSystemPlugin = 0;
         sessionStorage.showSystemPlugin = 0;
+    }
+    maxItemChange(num){
+        this.page=1;
+        if(num==10){
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,10);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,10);
+                console.log(num,this.arr2);
+            }
+        }else if(num==20){
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,20);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,20);
+                console.log(num,this.arr2);
+            }
+        } else if(num==50){
+            if(this.showSystemPlugin==1){
+                this.arr = this.modalTab.slice(0,50);
+                console.log(num,this.arr);
+            }else if(this.showSystemPlugin==0){
+                this.arr2 = this.selfTab.slice(0,50);
+                console.log(num,this.arr2);
+            }
+        }
+    }
+    nextPage(num){
+        if(this.showSystemPlugin==1){
+            this.remainder = this.modalTab.length%num;
+            if(this.remainder == 0){
+                this.result = Math.floor(this.modalTab.length/num);
+                this.lastPage(num,this.result);
+            }else{
+                this.result = Math.floor(this.modalTab.length/num)+1;
+                this.lastPage(num,this.result);
+            }
+        }
+        else if(this.showSystemPlugin==0){
+            this.remainder = this.selfTab.length%num;
+            if(this.remainder == 0){
+                this.result = Math.floor(this.selfTab.length/num);
+                this.lastPage(num,this.result);
+            }else{
+                this.result = Math.floor(this.selfTab.length/num)+1;
+                this.lastPage(num,this.result);
+            }
+        }
+    }
+    lastPage(num,result){
+        if(this.showSystemPlugin==1){
+            if(this.page<result){
+                this.page++;
+                this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
+            }else{
+                alert('已经是最后一页');
+            }
+        }else if(this.showSystemPlugin==0){
+            if(this.page<result){
+                this.page++;
+                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
+            }else{
+                alert('已经是最后一页');
+            }
+        }
+
+    }
+    previousPage(num){
+        if(this.showSystemPlugin==1){
+            if (this.page>1){
+                this.page--;
+                this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
+                console.log(this.arr);
+            }else{
+                alert('已经是首页');
+            }
+        }else if(this.showSystemPlugin==0){
+            if (this.page>1){
+                this.page--;
+                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
+                console.log(this.arr);
+            }else{
+                alert('已经是首页');
+            }
+        }
+
     }
 }

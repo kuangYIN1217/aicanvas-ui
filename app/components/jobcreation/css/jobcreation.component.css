@@ -88,9 +88,9 @@ select {
 .table{
     position: relative;
     top: 28px;
-    margin:0 2% 0 2%;
-    width: 96%;
-
+    margin:0;
+    width: 100%;
+    margin-bottom: 4vw;
 }
 .table th{
     height: 50px;
@@ -112,28 +112,32 @@ select {
 .table tr:nth-child(even){
     background: #202020;
 }
-/*th*/
+.table tbody .selected{
+    background: #000000;
+}
+.id{
+    width: 10%;
+}
 .name{
-    width: 14%;
+    width:16%;
 }
-.scene{
-    width: 16%;
+.publish{
+    width:8%;
 }
-.time{
-    width: 14%;
+.domain{
+    width:8%;
 }
-.condition{
-    width: 14%;
+.creator{
+    width:10%;
 }
-.progress{
-    width: 14%;
+.description1{
+    width:34%;
 }
-.operation{
-    width: 14%;
+.detail1{
+    width:14%;
 }
-.formore{
-    width: 14%;
-}
+/*th*/
+
 .showDetailBtn{
     cursor: pointer;
     color: #eeeeee;
@@ -320,7 +324,6 @@ select {
     position: relative;
     height: 2vw;
     margin-top: 2vw;
-    margin-bottom: 2vw;
 }
 .scene_title{
     width: 6vw;
@@ -335,6 +338,7 @@ select {
     width: 100%;
     height: 2vw;
     margin-bottom: 2vw;
+
 }
 #dataset{
     height: 100%;

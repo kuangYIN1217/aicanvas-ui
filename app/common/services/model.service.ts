@@ -4,11 +4,12 @@ import {Injectable} from "@angular/core";
 import {plainToClass} from "class-transformer";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-
-import {HistoryInfo, ModelInfo, PercentInfo} from "../defs/resources";
-
-
+import {HistoryInfo, ModelInfo} from "../defs/resources";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
 import {SERVER_URL} from "../../app.constants";
+
+
 @Injectable()
 export class modelService {
 
