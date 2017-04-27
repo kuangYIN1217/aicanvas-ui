@@ -21,7 +21,7 @@ export class ModelDetailComponent{
     job_path:string;
     modelName:string;
     result:inferenceResult[]=[];
-    runId: number;
+    runId: string;
 
     constructor(private modelService: modelService, private location: Location,private route: ActivatedRoute ,private router: Router){
 
@@ -60,11 +60,12 @@ export class ModelDetailComponent{
 
     saveModelAndUpload(filePath:string){
         this.modelService.saveModelAndUpload(this.modelName,this.model_id,filePath).subscribe(result=>{
+            this.runId = result.id;
             this.modelService.runInference(result.id,this.job_path).subscribe(data=>{
 
         })
-            // this.runId = result.id;
-            this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.model_id,"job_path":this.job_path,"runId":result.id}});
+
+            // this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.model_id,"job_path":this.job_path,"runId":result.id}});
     })
     }
 

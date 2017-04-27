@@ -1,10 +1,9 @@
-import {Component, SimpleChanges} from '@angular/core';
-import { Location } from '@angular/common'
-import { ResourcesService } from '../../common/services/resources.service'
-import { modelService} from "../../common/services/model.service";
-import {inferenceResult, ModelInfo, PercentInfo} from "../../common/defs/resources";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Location} from "@angular/common";
+import {ResourcesService} from "../../common/services/resources.service";
+import {modelService} from "../../common/services/model.service";
+import {inferenceResult, PercentInfo} from "../../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
 import {SERVER_URL} from "../../app.constants";
 
 @Component({
@@ -15,16 +14,17 @@ import {SERVER_URL} from "../../app.constants";
     providers: [ResourcesService,modelService]
 })
 export class HistoryDetailComponent {
-    SERVER_URL = SERVER_URL
-    model_id:number=-1;
+    SERVER_URL = SERVER_URL;
+    @Input() model_id:number=-1;
+
     model_pre:number=-1;
     file:any;
     interval: any;
     PercentInfo:PercentInfo=new PercentInfo;
-    items:any[]=['top1','top2','top3'];
+    items:any[]=['top1','top2','top3','All'];
     item:string;
     outputArr:any[]=[];
-    id:string;
+    id:number;
     result:inferenceResult[]=[];
     resultP:inferenceResult[]=[];
     page: number = 1;
@@ -32,18 +32,37 @@ export class HistoryDetailComponent {
     constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute ,private router: Router) {
         this.route.queryParams.subscribe(params => {
             this.model_id = params['runId'];
+            if(this.model_id&&this.model_id!=-1){
+                this.model_pre = this.model_id;
+                this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);
+            }
         });
-        this.model_pre = this.model_id;
-        if(this.model_id)
-        this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);
         this.modelService.getPercent(this.model_id)
             .subscribe(percent => this.PercentInfo=percent);
         this.item = this.items[0];
         this.changeValue();
     }
+
+    ngOnChanges(...args: any[]) {
+        for (let obj=0; obj < args.length;obj++) {
+            if(args[obj]['model_id']["currentValue"]){
+                this.model_pre = this.model_id;
+                this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);
+            }
+        }
+
+    }
+
+
     ngOnDestroy() {
         // 退出时停止更新
         clearInterval(this.interval);
+    }
+
+    queryResult(runId){
+        this.model_id = runId;
+        this.model_pre = this.model_id;
+        this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);
     }
 
 
@@ -57,18 +76,14 @@ export class HistoryDetailComponent {
         })
     }
     changeValue(){
-        this.id = this.item.substring(3);
+        if(this.item=='All')
+            this.id=10;
+        else
+        this.id = Number(this.item.substring(3));
     }
     output(input){
         this.outputArr = input.substring(1,input.length-1).split(",");
-        if(this.id=="1"){
-            return this.outputArr.slice(0,1);
-        }else if(this.id=="2"){
-            return this.outputArr.slice(0,2);
-        }else if(this.id=="3"){
-            return this.outputArr.slice(0,3);
-        }
-        return ""
+            return this.outputArr.slice(0,this.id);
     }
     maxItemChange(){
         this.page=1;

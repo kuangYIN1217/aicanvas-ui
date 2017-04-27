@@ -1,16 +1,15 @@
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { Injectable } from '@angular/core';
+import {Headers, Http, Response} from "@angular/http";
+import {Injectable} from "@angular/core";
 
-import { plainToClass } from "class-transformer";
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import {HistoryInfo, JobInfo, ModelInfo, PercentInfo, SceneInfo} from "../defs/resources";
-
-
+import {plainToClass} from "class-transformer";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
+import {HistoryInfo, ModelInfo} from "../defs/resources";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
 import {SERVER_URL} from "../../app.constants";
+
+
 @Injectable()
 export class modelService {
 
@@ -100,7 +99,7 @@ export class modelService {
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return plainToClass(PercentInfo, response.json());
+                    return response.json();
                 }
             });
     }

@@ -22,7 +22,7 @@
        </tbody>
    </table>
     <div class="bottom_menu">
-        <div class="label">TotalPages:<span>{{historyInfo.totalPages}}</span></div>
+        <div class="label">TotalPages{{model_id}}:<span>{{historyInfo.totalPages}}</span></div>
         <div class="selectDiv" >
             <select class="select_pagemax" [(ngModel)]="pageMaxItem"  (ngModelChange)="maxItemChange();">
                 <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
