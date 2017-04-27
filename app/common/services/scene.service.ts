@@ -66,4 +66,14 @@ export class SceneService {
                 }
         });
     }
+    getChainWithLoss(id:number){
+        let path = "/api/chainWithLoss/"+id;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return plainToClass(PluginInfo, response.json());
+                }
+            });
+    }
 }

@@ -5,7 +5,7 @@ import { SceneService } from '../../common/services/scene.service'
 import { PluginService } from '../../common/services/plugin.service'
 import { AlgChainService } from '../../common/services/algchain.service'
 import {RouterModule, Routes, Router, ActivatedRoute} from '@angular/router';
-import { JobInfo, UserInfo,SceneInfo,PluginInfo } from "../../common/defs/resources";
+import {JobInfo, UserInfo, SceneInfo, PluginInfo, ChainInfo} from "../../common/defs/resources";
 import { Editable_param, Parameter } from "../../common/defs/parameter"
 import { plainToClass } from "class-transformer";
 import {modelService} from "../../common/services/model.service";
@@ -30,6 +30,7 @@ export class JobCreationComponent {
     chosenSceneId: number;
     chosen_scene: SceneInfo = new SceneInfo();
     pluginArr: PluginInfo[] = [];
+    PluginInfo: PluginInfo[] = [];
     chosenPluginId: string;
     createdJob: JobInfo = new JobInfo();
     pluginIds: string[] = [];
@@ -44,6 +45,10 @@ export class JobCreationComponent {
     interval:any;
     // 右侧是否显示node参数，0--显示plugin参数 ， 1--显示node参数
     rightBox_node = 0;
+    student:number;
+    selected:number=0;
+    item:number=0;
+    ChainInfo:ChainInfo[]=[];
     @Input() statuss:string='';
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private algChainService: AlgChainService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         pluginService.getLayerDict()
@@ -72,16 +77,21 @@ export class JobCreationComponent {
         this.jobPageStatus = "manage";
     }
 
-
     CSV(){
 
     }
     XLS(){
 
     }
-
-    changeChosenSceneId(id){
+    changeChosenSceneId(){
+        let id = this.student;
+        console.log(id);
         this.chosenSceneId = id;
+        this.sceneService.getChainByScene(id)
+            .subscribe(result=>this.PluginInfo=result)
+        console.log(this.PluginInfo[0]);
+        /*this.sceneService.getChainWithLoss(id)
+            .subscribe(result=>this.ChainInfo=result);*/
         for (let scene of this.scenes){
             if(scene.id == id){
                 this.chosen_scene = scene;
@@ -89,10 +99,27 @@ export class JobCreationComponent {
             }
         }
     }
+    clickStatus(statu,id){
+        this.selected= statu;
+        this.item=id;
+    }
+    output(statu){
+        if(statu==1){
+            return "是";
+        }else if(statu==0){
+            return "否";
+        }
+    }
     // createJob
     createJob(){
         this.sceneService.getAllScenes()
-        .subscribe(scenes => this.createJob_getScene(scenes));
+        .subscribe(scenes => {
+            this.createJob_getScene(scenes);
+            this.student =scenes[0].id;
+        });
+      //console.log(this.student);
+          this.sceneService.getChainByScene(1)
+            .subscribe(result=>this.PluginInfo=result)
     }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
@@ -112,20 +139,22 @@ export class JobCreationComponent {
     nextStep(){
         if(this.stepNumber==1&&this.created==0){
             this.created = 1;
-            this.createJobBySenceId(this.chosenSceneId);
+            this.createJobBySenceId(this.chosenSceneId,this.item);
         }else if(this.stepNumber==2){
             this.saveJob();
         }
     }
 
     // 第一次点击下一步时，创建job，存储下来
-    createJobBySenceId(chosenSceneId){
-        this.jobService.createJob(chosenSceneId)
+    createJobBySenceId(chosenSceneId,chainId){
+        this.jobService.createJob(chosenSceneId,chainId)
         .subscribe(createdJob => {
-            // console.log(chosenSceneId);
-            // console.log(createdJob);
+            //console.log(chosenSceneId);
+            //console.log(chainId);
+            //console.log(createdJob);
             let job: any = createdJob;
             this.createdJob = job;
+            //console.log(this.createdJob.chainId);
             this.createJobBySenceId2(job.chainId);
         });
     }

@@ -63,6 +63,7 @@ export class ModelDetailComponent{
             this.modelService.runInference(result.id,this.job_path).subscribe(data=>{
 
         })
+            // this.runId = result.id;
             this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.model_id,"job_path":this.job_path,"runId":result.id}});
     })
     }
