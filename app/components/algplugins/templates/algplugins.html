@@ -11,25 +11,30 @@
           <th class="plugin_name">名称</th>
           <th class="plugin_description">描述</th>
           <th class="operation">详情</th>
-          <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.creator=='general'?'':'none'">
+            <!--[style.display]="plugin.creator=='general'?'':'none'"-->
+          <tr *ngFor="let plugin of arr; let i = index">
             <td>{{ plugin.id }}</td>
             <td>{{ plugin.alg_name }}</td>
             <td>{{ plugin.description }}</td>
             <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}}">查看详细</a></td>
           </tr>
         </table>
-        <!--<div class="bottom_menu">
-           <div class="label">TotalPages:<span></span></div>
-           <div class="selectDiv" >
-              <select class="select_pagemax" [(ngModel)]="pageMaxItem"  (ngModelChange)="maxItemChange();">
-                  <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
-                  <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
-                  <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
-              </select>
+          <div class="bottom_menu">
+              <div class="label">
+                  TotalPages:
+                  <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
+                  <span>{{result}}</span>
+              </div>
+              <div class="selectDiv" >
+                  <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
+                      <option value="10" selected="{{pageMaxItem2==10?'selected':''}}">10</option>
+                      <option value="20" selected="{{pageMaxItem2==20?'selected':''}}">20</option>
+                      <option value="50" selected="{{pageMaxItem2==50?'selected':''}}">50</option>
+                  </select>
+              </div>
+              <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
+              <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
           </div>
-          <div *ngIf="page!=historyInfo.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
-          <div class="pagebtn" (click)="previousPage()">Previous</div>
-        </div>-->
       </div>
       <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
         <table id="selfTable" class="table">
@@ -37,13 +42,29 @@
             <th class="plugin_name">名称</th>
             <th class="plugin_description">描述</th>
             <th class="operation">详情</th>
-            <tr *ngFor="let plugin of plugins; let i = index" [style.display]="plugin.creator!='general'?'':'none'">
+            <tr *ngFor="let plugin of arr2; let i = index">
                 <td>{{ plugin.id }}</td>
                 <td>{{ plugin.alg_name }}</td>
                 <td>{{ plugin.description }}</td>
                 <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id }}">查看详细</a></td>
             </tr>
         </table>
+          <div class="bottom_menu">
+              <div class="label">
+                  TotalPages:
+                  <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
+                  <span>{{result}}</span>
+              </div>
+              <div class="selectDiv" >
+                  <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
+                      <option value="10" selected="{{pageMaxItem2==10?'selected':''}}">10</option>
+                      <option value="20" selected="{{pageMaxItem2==20?'selected':''}}">20</option>
+                      <option value="50" selected="{{pageMaxItem2==50?'selected':''}}">50</option>
+                  </select>
+              </div>
+              <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
+              <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
+          </div>
       </div>
   </div>
 

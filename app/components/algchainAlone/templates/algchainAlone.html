@@ -29,8 +29,8 @@
        <div class="bottom_menu">
             <div class="label">
                 TotalPages:
-               <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;
-                &lt;!&ndash;<span>{{}}</span>&ndash;&gt;-->
+               <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
+               <span>{{result}}</span>
             </div>
             <div class="selectDiv" >
                 <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
@@ -69,8 +69,8 @@
         <div class="bottom_menu">
             <div class="label">
                 TotalPages:
-               <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;
-                &lt;!&ndash;<span>{{}}</span>&ndash;&gt;-->
+               <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
+                <span>{{result}}</span>
             </div>
             <div class="selectDiv" >
                 <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
