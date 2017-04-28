@@ -47,8 +47,11 @@ export class JobDetailComponent {
         }
     }
     selectJob(jobs, jobPath:string){
+        // console.log(jobPath);
+        // console.log(jobs);
         for (let job of jobs){
-            if(job.jobPath === jobPath){
+            // console.log(job.jobPath)
+            if(job.jobPath == jobPath){
                 this.job = job;
                 this.user = job.user;
                 break;
@@ -83,9 +86,10 @@ export class JobDetailComponent {
     }
 
     update(jobParam){
-         console.log(jobParam);
+        //  console.log(jobParam);
         let jobProcessItems = jobParam.jobProcess;
         this.jobResult = jobParam.jobResult;
+        // console.info(this.jobResult);
         // 更新下方参数
         // let resultParam = new Array();
         // for (let key in jobResult){
@@ -103,7 +107,7 @@ export class JobDetailComponent {
             let max_acc = Number(jobProcessItems[0].acc);
             for (let jobProcessItem of jobProcessItems){
                 this.index = Number(jobProcessItem.epoch);
-                console.log(jobProcessItem.val_acc);
+                // console.log(jobProcessItem.val_acc);
                 let temp1 = new Array();
                 temp1.push(this.index);
                 temp1.push(Number(jobProcessItem.loss));
@@ -144,14 +148,16 @@ export class JobDetailComponent {
             // console.log(lossArray);
             // console.log(accuracyArray);
             // update view
-            d3.select('#chart1').select( 'svg' ).selectAll('path').remove();
-            d3.select('#chart1').select( 'svg' ).selectAll('g').remove();
-            // d3.select('#chart1').select( 'svg' ).remove();
-            this.drawLoss(this.lossArray,this.val_loss_array,min_loss,max_loss);
-            // console.log("loss update ok");
-            d3.select('#chart2').select( 'svg' ).selectAll('path').remove();
-            d3.select('#chart2').select( 'svg' ).selectAll('g').remove();
-            this.drawAccuracy(this.accuracyArray,this.val_acc_array,min_acc,max_acc);
+            if(jobProcessItems.length>0){
+                d3.select('#chart1').select( 'svg' ).selectAll('path').remove();
+                d3.select('#chart1').select( 'svg' ).selectAll('g').remove();
+                // d3.select('#chart1').select( 'svg' ).remove();
+                this.drawLoss(this.lossArray,this.val_loss_array,min_loss,max_loss);
+                // console.log("loss update ok");
+                d3.select('#chart2').select( 'svg' ).selectAll('path').remove();
+                d3.select('#chart2').select( 'svg' ).selectAll('g').remove();
+                this.drawAccuracy(this.accuracyArray,this.val_acc_array,min_acc,max_acc);
+            }
         }else{
             console.warn("This job has no Info!");
         }
@@ -173,10 +179,13 @@ export class JobDetailComponent {
 
         var val_loss_data = val_loss_array;
 
+        var xTick = 6;
+        var yTick = 5;
+
         var xAxis = d3.axisBottom(x)
-        .ticks(6);
+        .ticks(xTick);
         var yAxis = d3.axisLeft(y)
-        .ticks(5);
+        .ticks(yTick);
 
         var line = d3.line()
         .defined(function(d) { return d; })
@@ -214,7 +223,7 @@ export class JobDetailComponent {
         .attr('d', line(val_loss_data));
 
         var grid = svg.selectAll(".grid")
-        .data(x.ticks(6))
+        .data(x.ticks(xTick))
         .enter().append("g")
         .attr("class", "grid");
 
@@ -239,7 +248,7 @@ export class JobDetailComponent {
         .attr('transform', 'translate(0, -5)');
 
         // 横线
-        grid.data(x.ticks(6));
+        grid.data(x.ticks(xTick));
         grid.append("line")
         .attr("class","gridline")
         .attr("x1", x)
@@ -247,7 +256,7 @@ export class JobDetailComponent {
         .attr("y1", 0)
         .attr("y2", height).attr('transform', 'translate(45,20)');
         // 竖线
-        grid.data(y.ticks(5));
+        grid.data(y.ticks(yTick));
         grid.append("line")
         .attr("class","gridline")
         .attr("y1", y)
