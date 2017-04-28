@@ -6,7 +6,7 @@
                 <input type="file" multiple ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />选择文件
             </a>
         </div>
-        <button (click)="uploadFile()" routerLinkActive="active">保存</button>
+        <button (click)="uploadFile()" routerLinkActive="active">保存{{runId}}</button>
     </form>
-    <historyDetail style="margin-left: 0"></historyDetail>
+    <historyDetail [model_id]="runId"  style="margin-left: 0"></historyDetail>
 </div>
