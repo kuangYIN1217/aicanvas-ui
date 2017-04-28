@@ -87,11 +87,12 @@ export class AlgChainsComponent{
         }
     }
     hideNetwork(){
-        if(this.sceneId){
-            this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: this.sceneId}});
+      window.history.back();
+      if(this.sceneId){
+            //this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: this.sceneId}});
             sessionStorage.algChain_scene = -1;
         }else{
-            this.router.navigate(['../algchainAlone'],{queryParams: { creator: this.creator}});
+            //this.router.navigate(['../algchainAlone'],{queryParams: { creator: this.creator}});
             sessionStorage.algChain_scene = -1;
         }
 

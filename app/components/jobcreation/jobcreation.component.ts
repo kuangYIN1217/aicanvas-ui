@@ -147,6 +147,11 @@ export class JobCreationComponent {
       //console.log(this.student);
 
     }
+    viewDetail(id,name){
+        this.item = id;
+        this.creator = name;
+        this.router.navigate(['../algchains'],{queryParams:{"chain_id":this.item,"creator":this.creator}});
+    }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
     }
