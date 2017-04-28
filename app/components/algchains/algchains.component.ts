@@ -48,8 +48,7 @@ export class AlgChainsComponent{
             this.chainId = params['chain_id'];
             this.sceneId = params['scene_id'];
             this.creator = params['creator'];
-            //console.log(this.chainId);
-           //console.log(this.creator);
+
             if(this.chainId){
                 this.ifShowNetwork = 1;
                 this.algchainService.getChainById(this.chainId)

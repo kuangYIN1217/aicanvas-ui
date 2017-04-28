@@ -25,7 +25,6 @@ export class AlgorithmChainComponent{
     creator:string;
     page: number = 1;
     pageMaxItem: number = 10;
-    pageMaxItem2: number = 10;
     arr:any[]=[];
     arr2:any[]=[];
     temporary:any[]=[];
@@ -98,69 +97,38 @@ export class AlgorithmChainComponent{
         this.result = this.selfTab.length%this.pageMaxItem==0?this.selfTab.length/this.pageMaxItem:Math.floor(this.selfTab.length/this.pageMaxItem)+1;
         this.arr2 = this.selfTab.slice(0,10);
     }
-    getTotals1(num){
-        if(this.modalTab.length%num == 0){
-            this.result = Math.floor(this.modalTab.length/num);
+
+    changeValue(num){
+        if(this.showSystemPlugin==1){
+            this.arr = this.modalTab.slice(0,num);
+            this.getTotals(num,this.modalTab);
         }else{
-            this.result = Math.floor(this.modalTab.length/num)+1;
+            this.arr2 = this.selfTab.slice(0,num);
+            this.getTotals(num,this.selfTab);
         }
     }
-    getTotals2(num){
-        if(this.modalTab.length%num == 0){
-            this.result = Math.floor(this.selfTab.length/num);
+    getTotals(num,obj){
+        if(obj.length%num==0){
+            this.result =obj.length/num;
         }else{
-            this.result = Math.floor(this.selfTab.length/num)+1;
+            this.result = Math.floor(obj.length/num)+1;
         }
     }
     maxItemChange(num){
         this.page=1;
-        if(num==10){
-            if(this.showSystemPlugin==1){
-                this.arr = this.modalTab.slice(0,10);
-                this.getTotals1(num);
-            }else if(this.showSystemPlugin==0){
-                this.arr2 = this.selfTab.slice(0,10);
-                this.getTotals2(num);
-            }
-        }else if(num==20){
-            if(this.showSystemPlugin==1){
-                this.arr = this.modalTab.slice(0,20);
-                this.getTotals1(num);
-            }else if(this.showSystemPlugin==0){
-                this.arr2 = this.selfTab.slice(0,20);
-                this.getTotals2(num);
-            }
-        } else if(num==50){
-            if(this.showSystemPlugin==1){
-                this.arr = this.modalTab.slice(0,50);
-                this.getTotals1(num);
-            }else if(this.showSystemPlugin==0){
-                this.arr2 = this.selfTab.slice(0,50);
-                this.getTotals2(num);
-            }
-        }
+        this.changeValue(num);
     }
     nextPage(num){
         if(this.showSystemPlugin==1){
-            this.remainder = this.modalTab.length%num;
-            if(this.remainder == 0){
-                this.result = Math.floor(this.modalTab.length/num);
-                this.lastPage(num,this.result);
-            }else{
-                this.result = Math.floor(this.modalTab.length/num)+1;
-                this.lastPage(num,this.result);
-            }
+            this.next(num,this.modalTab);
         }
         else if(this.showSystemPlugin==0){
-            this.remainder = this.selfTab.length%num;
-            if(this.remainder == 0){
-                this.result = Math.floor(this.selfTab.length/num);
-                this.lastPage(num,this.result);
-            }else{
-                this.result = Math.floor(this.selfTab.length/num)+1;
-                this.lastPage(num,this.result);
-            }
+            this.next(num,this.selfTab);
         }
+    }
+    next(num,obj){
+        this.result = (obj.length%num == 0)?(obj.length/num):(Math.floor(obj.length/num)+1);
+        this.lastPage(num,this.result);
     }
     lastPage(num,result){
         if(this.showSystemPlugin==1){
@@ -180,6 +148,7 @@ export class AlgorithmChainComponent{
         }
 
     }
+
     previousPage(num){
         if(this.showSystemPlugin==1){
             if (this.page>1){

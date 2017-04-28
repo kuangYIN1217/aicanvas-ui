@@ -310,12 +310,11 @@ select {
 .step_content{
     position: relative;
     width: 96%;
-    height: 900px;
     border: 1px solid grey;
     color: #fcfcfc;
 }
 #step1_content{
-    height: 600px;
+
 }
 .nextBtn{
     height: 30px;
@@ -334,9 +333,9 @@ select {
 }
 /*1*/
 .data{
-    height: 42vw;
     margin-left: 2vw;
     margin-right: 2vw;
+    margin-bottom: 200px;
 }
 .choice{
     position: relative;
@@ -359,6 +358,7 @@ select {
     font-size: 1.3vw;
     float: left;
     margin-right: 1vw;
+
 }
 .select{
     width: 10vw;

@@ -27,6 +27,7 @@ import {HistoryDetailComponent} from "./components/historyDetail/historyDetail.c
 import {AlgorithmChainComponent} from "./components/algorithmChain/algorithmChain.component";
 import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component";
 import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.component";
+import {ChartistJs} from "./components/chartistJs/chartistJs.component";
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule,FormsModule,FileUploadModule],
     declarations: [
@@ -50,7 +51,7 @@ import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.c
         HistoryDetailComponent,
         AlgorithmChainComponent,
         TaskStatusComponent,
-        AlgchainAloneComponent
+        AlgchainAloneComponent,
 
     ],
     bootstrap: [NavigationComponent]
