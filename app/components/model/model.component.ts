@@ -24,20 +24,14 @@ export class ModelComponent{
     page: number = 1;
     pageMaxItem: number = 10;
     arr:any[]=[];
-    result:number;
+    result:number=1;
     remainder:number;
     data:number;
+    length:number;
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
 
-        if(this.result){
-            if(this.ModelInfo.length%this.pageMaxItem==0){
-                this.result = this.ModelInfo.length/this.pageMaxItem;
-            }else{
-                this.result = Math.floor(this.ModelInfo.length/this.pageMaxItem)+1;
-            }
-        }
     }
 
         ngOnInit(){
@@ -45,6 +39,8 @@ export class ModelComponent{
             this.student = params['sence'];
             this.selectChange();
         });
+
+
     }
    selectChange(){
         let id=this.student;
@@ -53,6 +49,14 @@ export class ModelComponent{
                     this.ModelInfo=model;
                     this.arr = this.ModelInfo.slice(0,10);
                     this.data = Math.floor(this.ModelInfo.length/this.pageMaxItem)+1;
+                    this.length = this.ModelInfo.length;
+                    if(this.result){
+                        if(this.length%this.pageMaxItem==0){
+                            this.result = this.length/this.pageMaxItem;
+                        }else{
+                            this.result = Math.floor(this.length/this.pageMaxItem)+1;
+                        }
+                    }
                 });
        this.pageMaxItem=10;
            //this.arr = this.ModelInfo.slice(0,9);

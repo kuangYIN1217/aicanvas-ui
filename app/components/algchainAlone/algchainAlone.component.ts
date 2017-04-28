@@ -26,7 +26,7 @@ export class AlgchainAloneComponent{
     pageMaxItem: number = 10;
     arr:any[]=[];
     arr2:any[]=[];
-    result:number;
+    result:number=1;
     remainder:number;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router){
         this.pluginService.getAlgorithmChain()
@@ -41,7 +41,26 @@ export class AlgchainAloneComponent{
                 }
                 this.arr = this.modalTab.slice(0,10);
                 this.arr2 = this.selfTab.slice(0,10);
+                this.getInit();
+
             });
+    }
+    getInit(){
+        if(this.result){
+            if(this.showSystemPlugin==1){
+                if(this.modalTab.length%this.pageMaxItem==0){
+                    this.result = this.modalTab.length/this.pageMaxItem;
+                }else{
+                    this.result = Math.floor(this.modalTab.length/this.pageMaxItem)+1;
+                }
+            }else if(this.showSystemPlugin==0){
+                if(this.selfTab.length%this.pageMaxItem==0){
+                    this.result = this.selfTab.length/this.pageMaxItem;
+                }else{
+                    this.result = Math.floor(this.selfTab.length/this.pageMaxItem)+1;
+                }
+            }
+        }
     }
     ngOnInit(){
         // this.route.queryParams.subscribe(params => {
@@ -82,31 +101,45 @@ export class AlgchainAloneComponent{
         this.showSystemPlugin = 0;
         sessionStorage.showSystemPlugin = 0;
     }
+    getTotals1(num){
+        if(this.modalTab.length%num == 0){
+            this.result = Math.floor(this.modalTab.length/num);
+        }else{
+            this.result = Math.floor(this.modalTab.length/num)+1;
+        }
+    }
+    getTotals2(num){
+        if(this.modalTab.length%num == 0){
+            this.result = Math.floor(this.selfTab.length/num);
+        }else{
+            this.result = Math.floor(this.selfTab.length/num)+1;
+        }
+    }
     maxItemChange(num){
         this.page=1;
         if(num==10){
             if(this.showSystemPlugin==1){
                 this.arr = this.modalTab.slice(0,10);
-                console.log(num,this.arr);
+                this.getTotals1(num);
             }else if(this.showSystemPlugin==0){
                 this.arr2 = this.selfTab.slice(0,10);
-                console.log(num,this.arr2);
+                this.getTotals2(num);
             }
         }else if(num==20){
             if(this.showSystemPlugin==1){
                 this.arr = this.modalTab.slice(0,20);
-                console.log(num,this.arr);
+                this.getTotals1(num);
             }else if(this.showSystemPlugin==0){
                 this.arr2 = this.selfTab.slice(0,20);
-                console.log(num,this.arr2);
+                this.getTotals2(num);
             }
         } else if(num==50){
             if(this.showSystemPlugin==1){
                 this.arr = this.modalTab.slice(0,50);
-                console.log(num,this.arr);
+                this.getTotals1(num);
             }else if(this.showSystemPlugin==0){
                 this.arr2 = this.selfTab.slice(0,50);
-                console.log(num,this.arr2);
+                this.getTotals2(num);
             }
         }
     }
