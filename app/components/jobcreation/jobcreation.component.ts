@@ -49,7 +49,11 @@ export class JobCreationComponent {
     selected:number=0;
     item:number=0;
     ChainInfo:ChainInfo[]=[];
-
+    arr:any[]=[];
+    result:number=1;
+    remainder:number;
+    data:number;
+    length:number;
     haveModel: number = 0;
 
     @Input() statuss:string='';
@@ -91,10 +95,25 @@ export class JobCreationComponent {
         console.log(id);
         this.chosenSceneId = id;
         this.sceneService.getChainByScene(id)
-            .subscribe(result=>this.PluginInfo=result)
-        console.log(this.PluginInfo[0]);
+            .subscribe(results=>{
+                this.PluginInfo=results;
+                this.arr = this.PluginInfo.slice(0,10);
+                this.data = Math.floor(this.PluginInfo.length/this.pageMaxItem)+1;
+                this.length = this.PluginInfo.length;
+                if(this.result&&this.length!=0){
+                    if(this.length%this.pageMaxItem==0){
+                        this.result = this.length/this.pageMaxItem;
+                    }else{
+                        this.result = Math.floor(this.length/this.pageMaxItem)+1;
+                    }
+                }else if(this.length==0){
+                    this.result=1;
+                }
+            });
+        //console.log(this.PluginInfo[0]);
         /*this.sceneService.getChainWithLoss(id)
             .subscribe(result=>this.ChainInfo=result);*/
+        this.pageMaxItem=10;
         for (let scene of this.scenes){
             if(scene.id == id){
                 this.chosen_scene = scene;
@@ -119,10 +138,14 @@ export class JobCreationComponent {
         .subscribe(scenes => {
             this.createJob_getScene(scenes);
             this.student =scenes[0].id;
+            this.sceneService.getChainByScene(this.student)
+                .subscribe(result=>{
+                    this.PluginInfo=result;
+                    this.arr = result;
+                })
         });
       //console.log(this.student);
-          this.sceneService.getChainByScene(1)
-            .subscribe(result=>this.PluginInfo=result)
+
     }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
@@ -215,7 +238,56 @@ export class JobCreationComponent {
         }
         this.pluginClicked();
     }
-
+    getTotals(num){
+        if(this.PluginInfo.length%num == 0){
+            this.result = Math.floor(this.PluginInfo.length/num);
+        }else{
+            this.result = Math.floor(this.PluginInfo.length/num)+1;
+        }
+    }
+    maxItemChange(num){
+        this.page=1;
+        if(num==10){
+            this.arr = this.PluginInfo.slice(0,10);
+            this.getTotals(num);
+        }else if(num==20){
+            this.arr = this.PluginInfo.slice(0,20);
+            this.getTotals(num);
+        }
+        else if(num==50){
+            this.arr = this.PluginInfo.slice(0,50);
+            this.getTotals(num);
+        }
+    }
+    nextPage(num){
+        this.remainder = this.PluginInfo.length%num;
+        if(this.remainder == 0){
+            this.result = Math.floor(this.PluginInfo.length/num);
+            //console.log(this.result);
+            this.lastPage(num,this.result);
+        }else{
+            this.result = Math.floor(this.PluginInfo.length/num)+1;
+            this.lastPage(num,this.result);
+            //console.log(this.result);
+        }
+    }
+    lastPage(num,result){
+        if(this.page<result){
+            this.page++;
+            this.arr = this.PluginInfo.slice(num*this.page-num,num*this.page);
+        }else{
+            alert('已经是最后一页');
+        }
+    }
+    previousPage(num){
+        if (this.page>1){
+            this.page--;
+            this.arr = this.PluginInfo.slice(num*this.page-num,num*this.page);
+            console.log(this.arr);
+        }else{
+            alert('已经是首页');
+        }
+    }
     savePluginChange(){
         let id = this.chosenPluginId;
         let originJson = JSON.stringify(this.findPluginById(id).model);

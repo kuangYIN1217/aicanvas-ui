@@ -3,6 +3,7 @@
         <select  [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
             <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
         </select>
+        <div class="btn"><a routerLinkActive="active" (click)="clickBtn()" [ngClass]="{href: ModelInfo.length==0}">单文件推演</a></div>
     </div>
     <div class="modelServier">
         <table class="table">
@@ -35,7 +36,7 @@
             <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
             <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
         </div>
-        <div class="btn"><a routerLinkActive="active" (click)="clickBtn()" [ngClass]="{href: ModelInfo.length==0}">单文件推演</a></div>
+
     </div>
 </div>
 <!--[ngClass]="{href: ModelInfo.length==0}"-->

@@ -47,7 +47,7 @@
                         <th class="detail1">详情</th>
                         <tbody>
 
-                        <tr *ngFor="let item of PluginInfo let num =  index" (click)="clickStatus(num,item.id)" [ngClass]="{selected:num==selected }">
+                        <tr *ngFor="let item of arr let num =  index" (click)="clickStatus(num,item.id)" [ngClass]="{selected:num==selected }">
                             <td>{{item.id}}</td>
                             <td>{{item.chain_name}}</td>
                             <td>{{output(item.publish)}}</td>
@@ -60,6 +60,22 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div class="bottom_menu">
+                        <div class="label">
+                            TotalPages:
+                            <!--Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
+                            <span>{{result}}</span>
+                        </div>
+                        <div class="selectDiv" >
+                            <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
+                                <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                                <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                                <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+                            </select>
+                        </div>
+                        <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
+                        <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
+                    </div>
                   <div class="secondLine">
                     <div id="dataset">
                       <div class="data_title">数据集:</div>

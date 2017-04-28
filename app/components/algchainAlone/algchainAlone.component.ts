@@ -96,10 +96,16 @@ export class AlgchainAloneComponent{
     sysTemplateClick(){
         this.showSystemPlugin = 1;
         sessionStorage.showSystemPlugin = 1;
-    }
+        this.pageMaxItem=10;
+        this.result = this.modalTab.length%this.pageMaxItem==0?this.modalTab.length/this.pageMaxItem:Math.floor(this.modalTab.length/this.pageMaxItem)+1;
+        this.arr = this.modalTab.slice(0,10);
+     }
     selfTemplateClick(){
         this.showSystemPlugin = 0;
         sessionStorage.showSystemPlugin = 0;
+        this.pageMaxItem=10;
+        this.result = this.selfTab.length%this.pageMaxItem==0?this.selfTab.length/this.pageMaxItem:Math.floor(this.selfTab.length/this.pageMaxItem)+1;
+        this.arr2 = this.selfTab.slice(0,10);
     }
     getTotals1(num){
         if(this.modalTab.length%num == 0){
@@ -165,6 +171,7 @@ export class AlgchainAloneComponent{
             }
         }
     }
+
     lastPage(num,result){
         if(this.showSystemPlugin==1){
             if(this.page<result){
@@ -181,7 +188,6 @@ export class AlgchainAloneComponent{
                 alert('已经是最后一页');
             }
         }
-
     }
     previousPage(num){
         if(this.showSystemPlugin==1){
@@ -201,26 +207,5 @@ export class AlgchainAloneComponent{
                 alert('已经是首页');
             }
         }
-
-    }
-    previousPage(num){
-        if(this.showSystemPlugin==1){
-            if (this.page>1){
-                this.page--;
-                this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
-                //console.log(this.arr);
-            }else{
-                alert('已经是首页');
-            }
-        }else if(this.showSystemPlugin==0){
-            if (this.page>1){
-                this.page--;
-                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
-                //console.log(this.arr2);
-            }else{
-                alert('已经是首页');
-            }
-        }
-
     }
 }

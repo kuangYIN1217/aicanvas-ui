@@ -1,4 +1,7 @@
 @charset "UTF-8";
+.select{
+    overflow: hidden;
+}
 .select select{
     width: 500px;
     height: 38px;
@@ -7,6 +10,7 @@
     color: #ffffff;
     font-size: 16px;
     text-indent: 2px;
+    float: left;
 }
 .modelServier{
     background: #19191a;
@@ -43,8 +47,8 @@
     background: #000000;
 }
 .btn{
-    margin: 60px 0 0 2%;
-    padding-bottom: 30px;
+    margin: 36px 2% 11px 0;
+    float: right;
 }
 .btn a{
     text-decoration: none;
@@ -69,7 +73,7 @@
     width: 96%;
     height: 49px;
     background-color: #0b0b0b;
-    margin:30px 2% 0 2%;
+    margin:0 2% 0 2%;
 }
 .bottom_menu .label{
     position: relative;

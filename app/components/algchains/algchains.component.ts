@@ -15,10 +15,10 @@ declare var $:any;
   providers: [SceneService,PluginService,AlgChainService]
 })
 export class AlgChainsComponent{
-    sceneArray: SceneInfo[];
+    sceneArray: SceneInfo[]=[];
     ifShowNetwork:number = 0;
     chosenSceneId: number;
-    chosen_scene: SceneInfo = new SceneInfo();
+    chosen_scene: any[]=[];
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
 
@@ -42,7 +42,6 @@ export class AlgChainsComponent{
         pluginService.getTranParamTypes()
             .subscribe(editable_params => this.editable_params = editable_params);
 
-        console.log(this.pluginArr);
     }
     ngOnInit(){
         this.route.queryParams.subscribe(params => {
@@ -56,6 +55,7 @@ export class AlgChainsComponent{
                 this.algchainService.getChainById(this.chainId)
                     .subscribe(plugin=>{
                         this.pluginArr=plugin;
+                        console.log(this.pluginArr[0]);
                         this.changeChosenPlugin(this.pluginArr[0].id);
                     });
             }
@@ -75,6 +75,13 @@ export class AlgChainsComponent{
     }
     getSceneArray(sceneArray: SceneInfo[]){
         this.sceneArray = sceneArray;
+        console.log(this.sceneArray);
+        for(let i=0;i<this.sceneArray.length;i++){
+            if(this.sceneId==this.sceneArray[i].id){
+                this.chosen_scene = this.sceneArray[i];
+            }
+        }
+
         if(sessionStorage.algChain_scene&&sessionStorage.algChain_scene!=-1){
             this.showNetwork(sessionStorage.algChain_scene);
         }
@@ -88,6 +95,21 @@ export class AlgChainsComponent{
             sessionStorage.algChain_scene = -1;
         }
 
+    }
+    save(){
+        $('#saveBtn').click();
+        let json = $('#plugin_storage').val();
+        this.pluginArr[0].model = JSON.parse(json);
+        // if(this.plugin.creator!="general"){
+        this.pluginService.savePlugin(this.pluginArr[0])
+            .subscribe(msg => this.forkResult(msg));
+    }
+    forkResult(response){
+        if(response.status==200){
+            console.log("saved!");
+        }else{
+            console.log("save plugin failed");
+        }
     }
     showNetwork(sceneId){
         this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: sceneId }});
@@ -154,13 +176,13 @@ export class AlgChainsComponent{
         this.pluginClicked();
     }
 
-    // savePluginChange(){
-    //     let id = this.chosenPluginId;
-    //     let json = $('#plugin_storage').val();
-    //     let jsonData = JSON.parse(json);
-    //     // console.log(id);
-    //     this.findPluginById(id).model = jsonData;
-    // }
+/*     savePluginChange(){
+         let id = this.chosenPluginId;
+         let json = $('#plugin_storage').val();
+         let jsonData = JSON.parse(json);
+         // console.log(id);
+         this.findPluginById(id).model = jsonData;
+    }*/
 
     findPluginById(id:string){
         for (let plugin of this.pluginArr){
