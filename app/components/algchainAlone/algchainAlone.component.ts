@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common'
-import { PluginService } from '../../common/services/plugin.service'
-import { SceneService } from '../../common/services/scene.service'
+import {Component} from "@angular/core";
+import {Location} from "@angular/common";
+import {PluginService} from "../../common/services/plugin.service";
+import {SceneService} from "../../common/services/scene.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlgChainService} from "../../common/services/algchain.service";
-import {AlgorithmInfo, PluginInfo} from "../../common/defs/resources";
+import {AlgorithmInfo} from "../../common/defs/resources";
 declare var $:any;
 @Component({
     moduleId: module.id,
@@ -183,26 +183,27 @@ export class AlgchainAloneComponent{
         }
 
     }
-    previousPage(num){
-        if(this.showSystemPlugin==1){
-            if (this.page>1){
-                this.page--;
-                this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
-               // console.log(this.arr);
-            }else{
-                alert('已经是首页');
-            }
-        }else if(this.showSystemPlugin==0){
-            if (this.page>1){
-                this.page--;
-                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
-                //console.log(this.arr2);
-            }else{
-                alert('已经是首页');
-            }
-        }
 
-    }
+    // previousPage(num){
+    //     if(this.showSystemPlugin==1){
+    //         if (this.page>1){
+    //             this.page--;
+    //             this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
+    //            // console.log(this.arr);
+    //         }else{
+    //             alert('已经是首页');
+    //         }
+    //     }else if(this.showSystemPlugin==0){
+    //         if (this.page>1){
+    //             this.page--;
+    //             this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
+    //             //console.log(this.arr2);
+    //         }else{
+    //             alert('已经是首页');
+    //         }
+    //     }
+    //
+    // }
     previousPage(num){
         if(this.showSystemPlugin==1){
             if (this.page>1){
