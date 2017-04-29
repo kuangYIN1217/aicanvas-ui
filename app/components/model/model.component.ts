@@ -39,28 +39,32 @@ export class ModelComponent{
             this.student = params['sence'];
             this.selectChange();
         });
-
-
     }
    selectChange(){
         let id=this.student;
+       this.pageMaxItem=10;
             this.modelService.getModel(id)
                 .subscribe(model =>{
                     this.ModelInfo=model;
                     this.arr = this.ModelInfo.slice(0,10);
-                    this.data = Math.floor(this.ModelInfo.length/this.pageMaxItem)+1;
-                    this.length = this.ModelInfo.length;
-                    if(this.result){
-                        if(this.length%this.pageMaxItem==0){
-                            this.result = this.length/this.pageMaxItem;
-                        }else{
-                            this.result = Math.floor(this.length/this.pageMaxItem)+1;
-                        }
-                    }
+                    this.getInit();
                 });
-       this.pageMaxItem=10;
+
            //this.arr = this.ModelInfo.slice(0,9);
            //console.log(this.arr);
+    }
+    getInit(){
+        this.data = Math.floor(this.ModelInfo.length/this.pageMaxItem)+1;
+        this.length = this.ModelInfo.length;
+        if(this.result&&this.length!=0){
+            if(this.length%this.pageMaxItem==0){
+                this.result = this.length/this.pageMaxItem;
+            }else{
+                this.result = Math.floor(this.length/this.pageMaxItem)+1;
+            }
+        }else if(this.length==0){
+            this.result=1;
+        }
     }
     clickStatus(statu,model_id,job_path){
         this.selected= statu;
@@ -76,18 +80,25 @@ export class ModelComponent{
             return false
         }
     }
+    getTotals(num){
+        if(this.ModelInfo.length%num == 0){
+            this.result = Math.floor(this.ModelInfo.length/num);
+        }else{
+            this.result = Math.floor(this.ModelInfo.length/num)+1;
+        }
+    }
     maxItemChange(num){
         this.page=1;
         if(num==10){
             this.arr = this.ModelInfo.slice(0,10);
-            this.nextPage(num);
+            this.getTotals(num);
         }else if(num==20){
             this.arr = this.ModelInfo.slice(0,20);
-            this.nextPage(num);
+            this.getTotals(num);
         }
         else if(num==50){
             this.arr = this.ModelInfo.slice(0,50);
-            this.nextPage(num);
+            this.getTotals(num);
         }
     }
     nextPage(num){

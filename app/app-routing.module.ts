@@ -22,6 +22,7 @@ import {HistoryDetailComponent} from "./components/historyDetail/historyDetail.c
 import {AlgorithmChainComponent} from "./components/algorithmChain/algorithmChain.component";
 import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component";
 import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.component";
+import {ChartistJs} from "./components/chartistJs/chartistJs.component";
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
@@ -45,7 +46,6 @@ const routes: Routes = [
   { path: 'taskStatus', component: TaskStatusComponent },
 
   { path: 'algchainAlone', component: AlgchainAloneComponent },
-
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
