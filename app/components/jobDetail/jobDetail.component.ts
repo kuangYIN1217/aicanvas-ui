@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common'
+import {Component} from "@angular/core";
+import {Location} from "@angular/common";
 // import { ActivatedRoute,Params} from '@angular/router';
-import { JobService } from '../../common/services/job.service'
+import {JobService} from "../../common/services/job.service";
 
-import {JobInfo, JobResult, UserInfo} from "../../common/defs/resources";
-import { JobParameter } from "../../common/defs/resources";
-import * as d3 from 'd3';
+import {JobInfo, JobParameter, UserInfo} from "../../common/defs/resources";
+import * as d3 from "d3";
 declare var $:any;
 declare var unescape:any;
 @Component({
@@ -36,7 +35,18 @@ export class JobDetailComponent {
                 jobPath = unescape(jobPath);
                 // jobService.getJob(jobPath)
                 //     .subscribe(jobParam => this.jobParam = jobParam);
-                jobService.getWholeJobs().subscribe(jobs => this.selectJob(jobs,jobPath));
+                jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+                    this.job = jobDetail;
+                    this.user =  this.job.user;
+                    if(this.job.status=="Running"){
+                        // console.log("Running");
+                        this.updatePage(jobPath,this.index);
+                        this.interval = setInterval(() => this.updatePage(jobPath,this.index), 3000);
+                    }else{
+                        // console.log("not Running");
+                        this.not_running_show(jobPath);
+                    }
+                });
             }
         }
     }
@@ -188,7 +198,7 @@ export class JobDetailComponent {
         .ticks(yTick);
 
         var line = d3.line()
-        .defined(function(d) { return d; })
+        // .defined(function(d) { return d; })
         .x(function(d) { return x(d[0]); })
         .y(function(d) { return y(d[1]); })
         .curve(d3.curveLinear);
@@ -308,7 +318,7 @@ export class JobDetailComponent {
         .ticks(5);
 
         var line = d3.line()
-        .defined(function(d) { return d; })
+        // .defined(function(d) { return d; })
         .x(function(d) { return x(d[0]); })
         .y(function(d) { return y(d[1]); })
         .curve(d3.curveLinear);
