@@ -64,7 +64,7 @@
             <div class="propertyCard">
                 <div class="icon"></div>
                 <div class="cardInline">Sample Process</div>
-                <div class="cardInline" *ngIf="jobResult.sample_process">{{jobResult.sample_process*100}}%</div>
+                <div class="cardInline" *ngIf="jobResult.sample_process">{{jobResult.sample_process|percent:'.2'}}</div>
             </div>
             <div class="propertyCard">
                 <div class="icon"></div>
