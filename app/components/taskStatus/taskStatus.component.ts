@@ -33,8 +33,8 @@ export class TaskStatusComponent{
     updatePage(){
             this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
     }
-    getAlljobs(status,page,size){
-        this.jobService.getAllJobs(status,page,size)
+    getAlljobs(page,size){
+        this.jobService.getAllJobs(page,size)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
