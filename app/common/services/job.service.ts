@@ -1,16 +1,14 @@
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { Injectable } from '@angular/core';
+import {Headers, Http, Response} from "@angular/http";
+import {Injectable} from "@angular/core";
 
-import { plainToClass } from "class-transformer";
+import {plainToClass} from "class-transformer";
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
 
-import { JobInfo } from "../defs/resources";
-import { JobParameter,JobCollection } from "../../common/defs/resources";
-
-import { Parameter, TrainingNetwork } from "../defs/parameter";
+import {JobInfo} from "../defs/resources";
+import {JobParameter} from "../defs/resources";
 
 import {SERVER_URL} from "../../app.constants";
 @Injectable()
@@ -81,6 +79,18 @@ export class JobService {
                     return plainToClass(JobInfo, response.json());
                 }
         });
+    }
+
+
+    getJobDetail(jobPath:string){
+        let path = "/api/jobDetail/"+jobPath;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+            .map((response: Response) => {
+                if (response && response.json()) {
+                    return response.json();
+                }
+            });
     }
 
     getWholeJobs(){

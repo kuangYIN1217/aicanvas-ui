@@ -19,6 +19,7 @@ declare var $:any;
     providers: [UserService,JobService,SceneService,PluginService,modelService,AlgChainService]
 })
 export class JobCreationComponent {
+    creator: any;
     editable_params: Editable_param[] = [];
     // 被选中plugin的参数组合（结合了字典）
     editable_parameters: Editable_param[] = [];
