@@ -23,6 +23,7 @@ import {AlgorithmChainComponent} from "./components/algorithmChain/algorithmChai
 import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component";
 import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.component";
 import {ChartistJs} from "./components/chartistJs/chartistJs.component";
+import {ShowResultComponent} from "./components/showResult/showResult.component";
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'taskStatus', component: TaskStatusComponent },
 
   { path: 'algchainAlone', component: AlgchainAloneComponent },
+  { path: 'showResult', component: ShowResultComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
