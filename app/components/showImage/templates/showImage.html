@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="container">
+    <table class="table">
+        <th>上传内容</th>
+        <th>显示结果</th>
+        <tbody>
+        <tr *ngFor="let img of imgs let i = index">
+            <td><!-- *ngFor="let re of result" <img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}">--><img src="images/showResult/banner1.png"/> </td>
+            <td><!--{{output(re.output)}}--><img src="images/showResult/{{img}}" [@imgClick]="current" (click)="enlarge()" class="result"/><label>1234567</label> </td>
+        </tr>
+        </tbody>
+    </table>
+<!--    <div class="bottom_menu">
+        <div class="label">TotalPages:<span>{{resultP.totalPages}}</span></div>
+        <div class="selectDiv" >
+            <select class="select_pagemax" [(ngModel)]="pageMaxItem"  (ngModelChange)="maxItemChange();">
+                <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+            </select>
+        </div>
+        <div *ngIf="page!=resultP.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
+        <div class="pagebtn" (click)="previousPage()">Previous</div>
+    </div>-->
+</div>

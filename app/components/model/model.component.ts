@@ -31,9 +31,7 @@ export class ModelComponent{
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
-
     }
-
         ngOnInit(){
         this.route.queryParams.subscribe(params => {
             this.student = params['sence'];
@@ -49,7 +47,6 @@ export class ModelComponent{
                     this.arr = this.ModelInfo.slice(0,10);
                     this.getInit();
                 });
-
            //this.arr = this.ModelInfo.slice(0,9);
            //console.log(this.arr);
     }

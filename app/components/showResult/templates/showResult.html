@@ -2,18 +2,19 @@
     <div class="showImage">
         <div class="leftImg">
             <div class="imgs">
-                <img src="../images/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index" (mySwipe)="Change($event)" [@imgMove]="ImgState(i)" width="100%" height="400px">
+                <img src="../images/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index"  [@imgMove]="ImgState(i)" width="100%" height="400px">
             </div>
-            <div class="leftbtn btn" (click)="Prev()"><</div>
-            <div class="rightbtn btn" (click)="Next()">></div>
+            <!--(mySwipe)="Change($event)"-->
+       <!--     <div class="leftbtn btn" (click)="Prev()"><</div>
+            <div class="rightbtn btn" (click)="Next()">></div>-->
         </div>
             <div class="space"></div>
         <div class="rightImg">
             <div class="imgs">
                 <img src="../images/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index" (mySwipe)="Change($event)" [@imgMove]="ImgState(i)" width="100%" height="400px">
             </div>
-            <div class="leftbtn btn" (click)="Prev()"><</div>
-            <div class="rightbtn btn" (click)="Next()">></div>
+         <!--   <div class="leftbtn btn" (click)="Prev()"><</div>
+            <div class="rightbtn btn" (click)="Next()">></div>-->
         </div>
     </div>
 </div>

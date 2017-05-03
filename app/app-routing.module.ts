@@ -24,6 +24,7 @@ import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component"
 import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.component";
 import {ChartistJs} from "./components/chartistJs/chartistJs.component";
 import {ShowResultComponent} from "./components/showResult/showResult.component";
+import {ShowImageComponent} from "./components/showImage/showImage";
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
@@ -48,6 +49,8 @@ const routes: Routes = [
 
   { path: 'algchainAlone', component: AlgchainAloneComponent },
   { path: 'showResult', component: ShowResultComponent },
+  { path: 'showImage', component: ShowImageComponent },
+
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
