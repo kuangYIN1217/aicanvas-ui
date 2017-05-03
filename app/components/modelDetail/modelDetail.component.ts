@@ -26,7 +26,6 @@ export class ModelDetailComponent{
     constructor(private modelService: modelService, private location: Location,private route: ActivatedRoute ,private router: Router){
 
     }
-
     Headers:Headers = this.modelService.getHeaders();
     public uploader:FileUploader = new FileUploader({
         url: SERVER_URL+"/api/model/upload",
