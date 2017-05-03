@@ -1,3 +1,19 @@
+.percent{
+    margin-left: 2%;
+    width:80%;
+    color: #ffffff;
+    margin-top: 28px;
+    font-size: 20px;
+    overflow: hidden;
+}
+.percent span{
+    float: left;
+}
+.percent select{
+    float: right;
+    width: 60px;
+    height: 26px;
+}
 .table{
     width: 80%;
     margin: 0 0 0 2%;
@@ -14,6 +30,7 @@
 .table th{
     background: #4e3fa9;
     font-size: 20px;
+    line-height: 50px;
 }
 .table tr{
     color: #ededed;
@@ -34,6 +51,39 @@
     height: 49px;
     background-color: #0b0b0b;
     margin:0 0 0 2%;
+}
+.large{
+    position: absolute;
+    display: block;
+    width:500px;
+    height:500px;
+    top:30%;
+    left: 40%;
+    margin-top: -250px;
+    margin-left: -250px;
+    z-index: 666;
+}
+.large img{
+    width:100%;
+    height: 100%;
+}
+.large span{
+    position: absolute;
+    top:-6px;
+    right:6px;
+    font-size: 30px;
+    z-index: 333;
+    cursor: pointer;
+}
+.cover{
+    position: relative;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: #636363;
+    opacity: 0.5;
+    z-index: 665;
 }
 .bottom_menu .label{
     position: relative;

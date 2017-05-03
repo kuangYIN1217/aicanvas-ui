@@ -8,31 +8,22 @@ import {
     styleUrls: ['./css/showImage.component.css'],
     templateUrl: './templates/showImage.html',
     providers: [],
-    animations: [
-        trigger('imgClick', [
-            state('off', style({'z-index': '0', 'transform': 'none'})),
-            state('on', style({'z-index': '1', 'transform': 'scale(2)'})),
-            transition('off=>on', [animate('0.3s ease-in')]),
-            transition('on=>off', [animate('0.3s ease-in')]),
-        ])
-    ]
 })
 export class ShowImageComponent {
     imgs: any[]=["banner4.jpg","banner3.jpg","banner2.jpg","banner1.png"];
-    public current;
+    items:any[]=['top1','top2','top3','All'];
+    item:string;
+    show:string;
+    tabIndex:number=0;
     constructor() {
-        this.current = 0;
+
     }
-    current(index){
-        if(this.current==index){
-            return 'on'
-        }
+
+    enlarge(imgPath){
+        this.show = imgPath;
+        this.tabIndex=1;
     }
-    enlarge(){
-        if(this.current=='off') {
-            this.current='on';
-        }else{
-            this.current='on';
-        }
+    closeWindow(){
+        this.tabIndex=0;
     }
 }
