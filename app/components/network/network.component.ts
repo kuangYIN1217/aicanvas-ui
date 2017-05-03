@@ -101,9 +101,11 @@ export class NetworkComponent{
     }
 
     save(){
-        $('#saveBtn').click();
+        $('#saveBtn2').click();//save
+        // $('#saveBtn').click(); //--saveParam
         let json = $('#plugin_storage').val();
         console.log(this.plugin.model);
+        console.log(JSON.stringify(this.plugin.model))
         this.plugin.model = JSON.parse(json);
         console.log(this.plugin.model);
 

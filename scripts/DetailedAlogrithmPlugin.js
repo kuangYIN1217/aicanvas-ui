@@ -47,8 +47,8 @@ function init() {
             ),
             // 节点周围提供连线的四点
             makePort("T", go.Spot.Top, false, true),
-            makePort("L", go.Spot.Left, true, true),
-            makePort("R", go.Spot.Right, true, true),
+            // makePort("L", go.Spot.Left, true, true),
+            // makePort("R", go.Spot.Right, true, true),
             makePort("B", go.Spot.Bottom, true, false),
             {click: function(e, Node) {
                 // 触发按钮点击事件，达成状态转变
@@ -266,18 +266,80 @@ function save() {
     var test = JSON.parse(str);
     var saveJson = JSON.parse(myDiagram.model.toJson());
     var saveStr = new Array();
-    for (var i = 0;i<saveJson["nodeDataArray"].length;i++){
-        for (var j = 0;j<test["layers"].length;j++){
-            if (saveJson["nodeDataArray"][i].text == test["layers"][j].name){
-                saveStr[i] = test["layers"][j];
-            }else
-                continue;
+
+    var fromArr = new Array();
+    var toArr = new Array();
+    var size = saveJson["linkDataArray"].length -1 ;
+    var link = new Array(saveJson["linkDataArray"].length + 1);
+    var index = 0;
+
+    for (var i = 0;i<saveJson["linkDataArray"].length;i++){
+        fromArr[i] = -saveJson["linkDataArray"][i].from;
+        toArr[i] = -saveJson["linkDataArray"][i].to;
+    }
+    for (var j = 0;j<toArr.length;j++) {
+        if (fromArr.indexOf(toArr[j])==-1) {
+            link[size + 1] = toArr[j];
+            link[size] = fromArr[j];
         }
     }
 
+    for (var m = 1;m <= size;m++) {
+        for (var l = 0; l < toArr.length; l++) {
+            if (toArr[l] == link[size - index]) {
+                index++;
+                link[size - index] = fromArr[l];
+                break;
+            }
+        }
+    }
+
+
+    // for (var i = 0;i<saveJson["nodeDataArray"].length;i++){
+    //     for (var j = 0;j<test["layers"].length;j++){
+    //         if (saveJson["nodeDataArray"][i].text == test["layers"][j].name){
+    //             saveStr[i] = test["layers"][j];
+    //         }else
+    //             continue;
+    //     }
+    // }
+
+
+    console.log(JSON.stringify(fromArr));
+    console.log(JSON.stringify(toArr));
+    console.log(JSON.stringify(link));
+    console.log(JSON.stringify(saveJson["nodeDataArray"]));
+
+    for (var n = 0;n<link.length;n++){
+        var lIndex = link[n];
+        for (var q = 0;q < saveJson["nodeDataArray"].length;q++){
+            if (saveJson["nodeDataArray"][q].key == -lIndex){
+                for (var j = 0;j<test["layers"].length;j++){
+                    if (saveJson["nodeDataArray"][q].text == test["layers"][j].name){
+                        saveStr[n] = test["layers"][j];
+                    }else
+                        continue;
+                }
+                break;
+            }
+        }
+        // console.log(lIndex);
+    //     for (var j = 0;j<test["layers"].length;j++){
+    //         if (saveJson["nodeDataArray"][lIndex].text == test["layers"][j].name){
+    //             saveStr[n] = test["layers"][j];
+    //         }else
+    //             continue;
+    //     }
+    }
+
+
     test["layers"] = saveStr;
-    // document.getElementById("plugin_storage").value = JSON.stringify(test);
-    // console.log(JSON.stringify(test));
+    console.log(JSON.stringify(test));
+    document.getElementById("plugin_storage").value = JSON.stringify(test);
+    // console.log(myDiagram.model.toJson());
+    // console.log(JSON.stringify(link));
+    // console.log(JSON.stringify(fromArr));
+    // console.log(JSON.stringify(toArr));
     // console.log(myDiagram.model.toJson());
     myDiagram.isModified = false;
 }
