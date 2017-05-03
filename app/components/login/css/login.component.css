@@ -1,37 +1,45 @@
-
 *{
     margin: 0px;
     padding: 0px;
-
+    font-family: "Microsoft YaHei";
 }
 .bodyContainer{
-    background-image: url('images/login/login_bg.jpg');
-    height: 100%;
-    width: 100%;
-    background-repeat:no-repeat;
-    transform-origin: center top 0px;
+    background: #FFFFFF !important;
 }
 .bodyContainer .bodyContent{
 	width:90%;
 	margin: 0 auto;
+    overflow: hidden;
+    height:878px;
+}
+.header{
+    overflow: hidden;
+    border-bottom:1px solid #e5e5e5 ;
 }
 .logo{
-    width: 232px;
-    height: 90px;
-    position: absolute;
-    left: 110px;
-    top:60px;
+    margin-top: 14px;
+    float: left;
+    margin-left: 12%;
 }
-.logo img{
-    width: 232px;
-    height: 90px;
+.title{
+    color: #333333;
+    float: left;
+    margin-left: 24%;
+    font-size: 24px;
+    height:95px;
+    line-height: 95px;
 }
+
 ul, ol {
   padding: 0px;
 }
 .banner {
   position: absolute;
-  overflow: auto;
+    width: 70%;
+  /*background: url("../images/login/banner_bg.png") no-repeat;*/
+ /* width:780px;*/
+  height:566px;
+  top:210px;
 }
 .banner li{
   list-style: none;
@@ -40,14 +48,14 @@ ul, ol {
   float: left;
 }
 #b03 {
-    height:465px;
-    width: 55%;
-    left:50%;
-    top: 50%;
-    color: #eeeeee;
-    float: left;
-    margin-left:-570px;
-    margin-top: -190px;
+   width:780px;
+   height:566px;
+   left:34%;
+   top: 50%;
+   color: #eeeeee;
+   float: left;
+   margin-left:-390px;
+   margin-top: -278px;
 }
 
 /*.dots {
@@ -75,11 +83,10 @@ ul, ol {
 #b03 .dots li .active{
     background: #ffffff;
     opacity: 1;
-}*/
+}
 .scene{
   height:465px;
   width: 100%;
-
 }
 .scene h4{
     font-family: "Microsoft YaHei";
@@ -99,31 +106,39 @@ ul, ol {
     padding-right: 40px;
     letter-spacing:2px;
     line-height:180%;
-}
+}*/
 .main{
     /*width: 100%;*/
+    width:30%;
+    font-family: "Microsoft YaHei";
     position: absolute;
     right: 10%;
-    top: 50%;
-    margin-top: -230px;
+    top: 266px;
     width: 339px;
     height:460px;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
 }
 .main h5{
-    font-family: "Microsoft YaHei";
-    color: #ffffff;
-    font-size: 25px;
+    color: #333333;
+    margin-top: 32px;
+    font-size: 24px;
     text-align: center;
 }
-.content{
+.main form{
+    width: 284px;
+    height:450px;
+    font-size:12px;
+    margin: 0 auto;
+}
+/*.content{
     position: absolute;
     top:54px;
     width: 339px;
     height:450px;
-    background-color: #373737;
-    opacity: 0.5;
 
 }
+
 .main .center{
     position: absolute;
     top:54px;
@@ -132,6 +147,7 @@ ul, ol {
     font-size:14px;
     border-radius: 8px;
 }
+
 
 .center p{
     font-family: "Microsoft YaHei";
@@ -143,27 +159,118 @@ ul, ol {
 .center .p1{
     margin-top:36px;
 
+}*/
+.remember b{
+    display: inline-block;
+    width:12px;
+    height:12px;
+}
+
+.user{
+    margin: 50px auto 30px;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+.user span,.pass span{
+    display: inline-block;
+    float: left;
+}
+.user span img,.pass span img{
+    padding: 10px;
+    width:20px;
+    height:20px;
+}
+#username,#password{
+    float: left;
+    margin-top:5px;
+}
+.pass{
+    margin-bottom: 30px;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
 }
 input{
 	text-indent: 10px;
-    width: 252px;
-    height: 35px;
+    width: 234px;
+    height: 30px;
     font-family: "Microsoft YaHei";
-    color: #7f7f7f;
-    margin-left: 40px;
-    border-radius: 8px;
-    /*margin: auto;*/
-    opacity: 1;
-    outline-style:none;
+    color: #aeaeae;
+   /* margin-left: 40px;
+    border-radius: 8px;*/
+   /* margin: auto;*/
+    /*opacity: 1;*/
+    outline:none;
     border: 1px solid rgba(239, 239, 239, 0.15);
-    font-size: 14px;
-    background-color: #ffffff;
+    border-left: 1px solid #e5e5e5;
+    font-size: 12px;
 
-    margin-top: 15px;
-    margin-bottom: 15px;
+/*    margin-top: 15px;
+    margin-bottom: 15px;*/
 }
+.yzm{
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+#surePwd{
+    float: left;
+    width:150px;
+    height:40px;
+    margin-top: 0;
+    border: 1px solid #e5e5e5;
+}
+#code{
+    float: right;
+    width:96px;
+    height:38px;
+    padding-left: 6px;
+    padding-right: 4px;
+    color: #000 !important;
+    border: 1px solid #e5e5e5;
+}
+#submit{
+    width: 284px;
+    height: 40px;
+    background-color: #fe7d34;
+    font-weight: bolder;
+    font-family: "Microsoft YaHei";
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    letter-spacing: 6px;
 
-.center #code{
+}
+.forget{
+    overflow: hidden;
+    color:#fe7d34 ;
+    font-size: 14px;
+    margin-top: 14px;
+}
+.remember{
+    float: left;
+
+}
+.remember input{
+    width:15px;
+    height:15px;
+    position: relative;
+    top:3px;
+    display: none;
+}
+.remember img{
+    display: inline-block;
+}
+.remember span{
+    display: inline-block;
+    padding-left: 4px;
+
+}
+.forgetPass{
+    display: inline-block;
+    float: right;
+    color:#fe7d34 ;
+    text-decoration: none;
+}
+/*.center #code{
     position: absolute;
     width: 90px;
     height: 35px;
@@ -196,9 +303,9 @@ input{
     font-size: 16px;
     cursor: pointer;
 }
-
-#code{
-    /*background-image: url('images/login/bg_sure.jpg');*/
+*/
+/*#code{
+    background-image: url('images/login/bg_sure.jpg');
     background-size: cover;
     font-family:"BasemicNew";
     font-style:italic;
@@ -219,5 +326,11 @@ input{
 
     color: #00ffff;
 
+}
+*/
+@media (min-width:1200px) and (max-width:1340px) {
+    .main{
+        right: 2%;
+    }
 }
 

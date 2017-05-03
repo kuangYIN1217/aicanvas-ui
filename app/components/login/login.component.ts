@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit{
     msg_header = "";
     msg_content = "";
     msg_show = false;
+    tabIndex:number=0;
     constructor(private resourcesService: ResourcesService, private userService: UserService){
         if((!sessionStorage.authenticationToken)||sessionStorage.authenticationToken==""){
             // this.logined = 0;
@@ -37,7 +38,14 @@ export class LoginComponent implements OnInit{
         });
         this.changeValidCode();
     }
-
+    clickBtn(){
+        if(this.tabIndex==0){
+            this.tabIndex=1;
+        }
+        else{
+            this.tabIndex=0;
+        }
+    }
     changeValidCode(){
         $("#code").empty();
         this.validCode = this.getNewValidCode();
@@ -48,14 +56,13 @@ export class LoginComponent implements OnInit{
         }
         var context = checkCode.getContext('2d');
         context.clearRect(0,0,checkCode.width,checkCode.height);
-        context.fillStyle = '#f00';
+        context.fillStyle = '#000';
         // 设置文字属性
         context.font = 'bold italic 70px sans-serif';
         context.textBaseline = 'top';
         // 填充字符串
         context.fillText(this.validCode,2,33);
     }
-
 
     getNewValidCode(): string{
         let result: string = "";
