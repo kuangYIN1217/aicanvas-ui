@@ -57,7 +57,8 @@
 					<div class="forget">
 						<div class="remember">
 							<input type="checkbox"/>
-							<!--<img src="images/login/forget.png"/>-->
+							<b [style.display]="tabIndex==0?'':'none'"><img src="images/login/forget.png" (click)="clickBtn()"/></b>
+							<b [style.display]="tabIndex==1?'':'none'"><img src="images/login/forget1.png" (click)="clickBtn()"/></b>
 							<span>记住密码</span>
 						</div>
 						<a href="#" class="forgetPass">忘记密码？</a>

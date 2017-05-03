@@ -10,7 +10,7 @@
 	width:90%;
 	margin: 0 auto;
     overflow: hidden;
-    height:1080px;
+    height:878px;
 }
 .header{
     overflow: hidden;
@@ -160,6 +160,11 @@ ul, ol {
     margin-top:36px;
 
 }*/
+.remember b{
+    display: inline-block;
+    width:12px;
+    height:12px;
+}
 
 .user{
     margin: 50px auto 30px;
@@ -208,7 +213,7 @@ input{
 }
 #surePwd{
     float: left;
-    width:124px;
+    width:150px;
     height:40px;
     margin-top: 0;
     border: 1px solid #e5e5e5;
@@ -216,8 +221,9 @@ input{
 #code{
     float: right;
     width:96px;
-    height:40px;
-    padding-left: 8px;
+    height:38px;
+    padding-left: 6px;
+    padding-right: 4px;
     color: #000 !important;
     border: 1px solid #e5e5e5;
 }
@@ -248,7 +254,7 @@ input{
     height:15px;
     position: relative;
     top:3px;
-
+    display: none;
 }
 .remember img{
     display: inline-block;
