@@ -103,7 +103,18 @@ input{
     border: 0px;
     text-align: center;
 }
+select{
+    background: #444444 0px 0px;
+    color: #ffffff;
+    font-size: 14px;
+    border: #000000 1px solid;
+    padding: 5px;
+}
 
+option{
+    background: #444444 0px 0px;
+    color: #ffffff;
+}
 
 /*layer div*/
 .node {
