@@ -15,7 +15,7 @@
                 <tr *ngFor="let model of arr let num =  index" (click)="clickStatus(num,model.model_id,model.job_path)" [ngClass]="{selected:num==selected }">
                     <td>{{ model.model_id}}</td>
                     <td>{{ model.creator}}</td>
-                    <td>{{ model.created_at}}</td>
+                    <td>{{ model.created_at| date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{ model.model_path}}</td>
                 </tr>
             </tbody>

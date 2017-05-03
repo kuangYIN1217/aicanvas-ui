@@ -125,6 +125,7 @@ export class JobCreationComponent {
     clickStatus(statu,id){
         this.selected= statu;
         this.item=id;
+        console.log(id)
     }
     output(statu){
         if(statu==1){
@@ -179,6 +180,7 @@ export class JobCreationComponent {
 
     // 第一次点击下一步时，创建job，存储下来
     createJobBySenceId(chosenSceneId,chainId){
+        debugger
         this.jobService.createJob(chosenSceneId,chainId)
         .subscribe(createdJob => {
             //console.log(chosenSceneId);
