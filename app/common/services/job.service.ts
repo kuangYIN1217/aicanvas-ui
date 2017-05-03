@@ -32,7 +32,7 @@ export class JobService {
         let path = "/api/job";
         /*let number_senceId: number = Number(senceId);*/
          let senseId = {
-             "chainId": "c0002",
+             "chainId": chainId,
              "senceId": senceId
          };
         // console.log(body);
