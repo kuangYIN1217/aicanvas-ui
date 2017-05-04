@@ -8,5 +8,6 @@
         </div>
         <button (click)="uploadFile()" routerLinkActive="active">推演</button>
     </form>
-    <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="tabIndex==1?'':'none'"></historyDetail>
+    <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='raw_text'?'':'none'" *ngIf="type=='raw_text'"></historyDetail>
+    <showImage [model_id]="runId" [style.display]="type=='multiple_labeled_images'?'':'none'" *ngIf="type=='multiple_labeled_images'"></showImage>
 </div>

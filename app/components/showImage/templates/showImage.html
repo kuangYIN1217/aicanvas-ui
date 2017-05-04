@@ -1,7 +1,7 @@
 <div class="container">
     <div class="percent">
         <span>上传进度：</span>
-        <span></span>
+        <span>{{PercentInfo.percent}}</span>
         <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()">
             <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
         </select>
@@ -10,15 +10,16 @@
         <th>上传内容</th>
         <th>显示结果</th>
         <tbody>
-        <tr *ngFor="let img of imgs let i = index">
-            <td><!-- *ngFor="let re of result" <img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}">--><img src="images/showResult/banner1.png"/> </td>
-            <td><!--{{output(re.output)}}--><img src="images/showResult/{{img}}" (click)="enlarge(img)" class="result"/><label>1234567</label> </td>
+        <tr *ngFor="let re of result">
+            <td><img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" class="img"></td>
+            <td><img src="{{SERVER_URL}}/api/file?filePath={{outputImg(re.output)}}" (click)="enlarge(outputImg(re.output))" class="result"/><label class="text">{{outputLabel(re.output)}}</label></td>
         </tr>
         </tbody>
     </table>
-    <div class="large" [style.display]="tabIndex==1?'':'none'"><img src="images/showResult/{{show}}" /><span (click)="closeWindow()">╳</span></div>
-   <div class="bottom_menu">
-        <div class="label">TotalPages:<span></span></div>
+    <div class="large" [style.display]="tabIndex==1?'':'none'"><img src="{{SERVER_URL}}/api/file?filePath={{show}}" /><span (click)="closeWindow()">╳</span></div>
+    <div class="cover" [style.display]="tabIndex==1?'':'none'"></div>
+    <div class="bottom_menu">
+       <div class="label">TotalPages:<span>{{resultP.totalPages}}</span></div>
         <div class="selectDiv" >
             <select class="select_pagemax" [(ngModel)]="pageMaxItem"  (ngModelChange)="maxItemChange();">
                 <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
@@ -26,8 +27,8 @@
                 <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
             </select>
         </div>
-        <div class="pagebtn" (click)="nextPage()">Next</div>
+       <div *ngIf="page!=resultP.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
         <div class="pagebtn" (click)="previousPage()">Previous</div>
     </div>
 </div>
-<div class="cover" [style.display]="tabIndex==1?'':'none'"></div>
+

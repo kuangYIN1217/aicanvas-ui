@@ -30,6 +30,7 @@ export class ModelComponent{
     length:number;
     firstPath:string;
     firstId:number;
+    id:number;
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
@@ -41,9 +42,9 @@ export class ModelComponent{
         });
     }
    selectChange(){
-        let id=this.student;
+       this.id=this.student;
        this.pageMaxItem=10;
-            this.modelService.getModel(id)
+            this.modelService.getModel(this.id)
                 .subscribe(model =>{
                     this.ModelInfo=model;
                     this.firstPath = this.ModelInfo[0].job_path;
