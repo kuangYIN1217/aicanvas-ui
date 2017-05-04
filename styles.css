@@ -85,6 +85,16 @@ html,body{
 
 
 /*charts*/
+.linecircle{
+    fill: black;
+    stroke: #6bb7c7;
+    stroke-width: 3;
+}
+.linecircle_val{
+    fill: black;
+    stroke: yellow;
+    stroke-width: 3;
+}
 .lineChart--area {
   fill: url(#lineChart--gradientBackgroundArea);
 }
