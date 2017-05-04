@@ -28,12 +28,12 @@ export class ModelComponent{
     remainder:number;
     data:number;
     length:number;
+    firstPath:string;
+    firstId:number;
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
         this.sceneService.getAllScenes()
             .subscribe(scenes => this.SceneInfo=scenes);
-
     }
-
         ngOnInit(){
         this.route.queryParams.subscribe(params => {
             this.student = params['sence'];
@@ -46,10 +46,11 @@ export class ModelComponent{
             this.modelService.getModel(id)
                 .subscribe(model =>{
                     this.ModelInfo=model;
+                    this.firstPath = this.ModelInfo[0].job_path;
+                    this.firstId = this.ModelInfo[0].model_id;
                     this.arr = this.ModelInfo.slice(0,10);
                     this.getInit();
                 });
-
            //this.arr = this.ModelInfo.slice(0,9);
            //console.log(this.arr);
     }
@@ -73,9 +74,13 @@ export class ModelComponent{
     }
     clickBtn(){
         //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
-        console.log(this.ModelInfo.length);
+        //console.log(this.ModelInfo.length);
         if(this.ModelInfo.length>0){
-            this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item,"job_path":this.job_path}});
+            if(this.item==0 || this.job_path=='undefined'){
+               this.job_path = this.firstPath;
+               this.item = this.firstId;
+            }
+               this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item,"job_path":this.job_path}});
         }else{
             return false
         }

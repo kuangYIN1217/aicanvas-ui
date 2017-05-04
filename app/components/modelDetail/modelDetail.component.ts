@@ -22,7 +22,7 @@ export class ModelDetailComponent{
     modelName:string;
     result:inferenceResult[]=[];
     runId: string;
-
+    tabIndex:number=0;
     constructor(private modelService: modelService, private location: Location,private route: ActivatedRoute ,private router: Router){
 
     }
@@ -48,6 +48,7 @@ export class ModelDetailComponent{
         }
 
         this.uploader.queue[0].upload(); // 开始上传
+        this.tabIndex=1;
     }
 
     ngOnInit(){
