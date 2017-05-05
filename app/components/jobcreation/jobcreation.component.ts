@@ -56,7 +56,8 @@ export class JobCreationComponent {
     data:number;
     length:number;
     haveModel: number = 0;
-
+    firstSceneId:number;
+    firstChainId:string;
     @Input() statuss:string='';
     constructor(private sceneService: SceneService,private jobService: JobService,private  modelService:modelService,private algChainService: AlgChainService,private pluginService: PluginService, private userService: UserService, private router: Router,private route: ActivatedRoute) {
         pluginService.getLayerDict()
@@ -98,6 +99,8 @@ export class JobCreationComponent {
         this.sceneService.getChainByScene(id)
             .subscribe(results=>{
                 this.PluginInfo=results;
+                this.firstChainId = this.PluginInfo[0].id;
+                console.log(this.firstChainId);
                 this.arr = this.PluginInfo.slice(0,10);
                 this.data = Math.floor(this.PluginInfo.length/this.pageMaxItem)+1;
                 this.length = this.PluginInfo.length;
@@ -125,7 +128,7 @@ export class JobCreationComponent {
     clickStatus(statu,id){
         this.selected= statu;
         this.item=id;
-        console.log(id)
+        //console.log(id)
     }
     output(statu){
         if(statu==1){
@@ -140,9 +143,13 @@ export class JobCreationComponent {
         .subscribe(scenes => {
             this.createJob_getScene(scenes);
             this.student =scenes[0].id;
+            this.firstSceneId = this.student;
+            //console.log(this.firstSceneId);
             this.sceneService.getChainByScene(this.student)
                 .subscribe(result=>{
                     this.PluginInfo=result;
+                    this.firstChainId = this.PluginInfo[0].id;
+                    //console.log(this.firstChainId);
                     this.arr = result;
                 })
         });
@@ -172,6 +179,10 @@ export class JobCreationComponent {
     nextStep(){
         if(this.stepNumber==1&&this.created==0){
             this.created = 1;
+            if(this.chosenSceneId==0 || this.item=='0'){
+                this.chosenSceneId = this.firstSceneId;
+                this.item = this.firstChainId;
+            }
             this.createJobBySenceId(this.chosenSceneId,this.item);
         }else if(this.stepNumber==2){
             this.saveJob();
@@ -180,19 +191,15 @@ export class JobCreationComponent {
 
     // 第一次点击下一步时，创建job，存储下来
     createJobBySenceId(chosenSceneId,chainId){
-        debugger
         this.jobService.createJob(chosenSceneId,chainId)
         .subscribe(createdJob => {
-            //console.log(chosenSceneId);
-            //console.log(chainId);
-            //console.log(createdJob);
-            let job: any = createdJob;
-            this.createdJob = job;
-            //console.log(this.createdJob.chainId);
-            this.createJobBySenceId2(job.chainId);
+            //let job: any = createdJob;
+            //this.createdJob = job;
+            this.createdJob = createdJob;
+            console.log(this.createdJob.chainId);
+            this.createJobBySenceId2(this.createdJob.chainId);
         });
     }
-
     // 根据chainId得到算法链,保存后进入下一页面
     createJobBySenceId2(chainId){
         // console.log(this.createdJob);
@@ -241,7 +248,9 @@ export class JobCreationComponent {
                 }
             }else{
                 // 无网络层则将网络层隐藏
+                this.stepNumber=2;
                 this.haveModel = 0;
+
             }
         }
         this.pluginClicked();

@@ -39,11 +39,12 @@ export class HistoryDetailComponent {
         this.item = this.items[0];
         this.changeValue();
     }
+
     ngOnChanges(...args: any[]) {
         for (let obj=0; obj < args.length;obj++) {
             if(args[obj]['model_id']["currentValue"]){
                 this.model_pre = this.model_id;
-                console.log(this.model_id);
+                //console.log(this.model_id);
                 this.interval = setInterval(() => this.getResult(this.model_id,this.page-1,this.pageMaxItem), 500);
             }
             this.modelService.getPercent(this.model_id)

@@ -52,6 +52,10 @@ export class ShowImageComponent {
                 });
         }
     }
+    ngOnDestroy() {
+        // 退出时停止更新
+        clearInterval(this.interval);
+    }
     getResult(modelId:number,page,size){
         this.modelService.getResult(modelId,page,size).subscribe(result=>{
             if (result.content.length!=0) {

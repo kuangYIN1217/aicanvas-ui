@@ -82,6 +82,7 @@ export class TaskStatusComponent{
     }
     maxItemChange(){
         this.page=1;
+        debugger
         this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
         console.log(this.createdJob);
     }
