@@ -298,7 +298,7 @@ export class JobCreationComponent {
     }
     savePluginChange(){
         let id = this.chosenPluginId;
-        let originJson = JSON.stringify(this.findPluginById(id).model);
+        // let originJson = JSON.stringify(this.findPluginById(id).model);
         let json = $('#plugin_storage').val();
         let jsonData = JSON.parse(json);
         this.findPluginById(id).model = jsonData;
