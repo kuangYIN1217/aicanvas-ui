@@ -70,7 +70,7 @@ export class JobService {
         });
     }
 
-    getAllJobs(status,page=0,size=10){
+    getAllJobs(status,page,size){
         let path = "/api/jobs?page="+page+"&size="+size+"&status="+status;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
