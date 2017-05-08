@@ -154,6 +154,7 @@ export  class ModelInfo{
 
 export class inferenceResult{
     id:number;
+    resultType:string;
     inputPath:string;
     output:string;
     success:boolean;

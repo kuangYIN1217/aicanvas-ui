@@ -1,3 +1,4 @@
+<body>
 <div class="bodyContainer">
 	<div class="header">
 		<div class="logo">
@@ -68,9 +69,9 @@
 					<input type="button" value="登录" id="submit" name="submit" (click) = "login()">
 					<div class="forget">
 						<div class="remember">
-							<input type="checkbox"/>
-							<b [style.display]="tabIndex==0?'':'none'"><img src="images/login/forget.png" (click)="clickBtn()"/></b>
-							<b [style.display]="tabIndex==1?'':'none'"><img src="images/login/forget1.png" (click)="clickBtn()"/></b>
+							<input type="checkbox" id="#re"/>
+							<label for="#re" [style.display]="tabIndex==0?'':'none'"><img src="images/login/forget.png" (click)="clickBtn()"/></label>
+							<label for="#re" [style.display]="tabIndex==1?'':'none'"><img src="images/login/forget1.png" (click)="clickBtn()"/></label>
 							<span>记住密码</span>
 						</div>
 						<a href="#" class="forgetPass">忘记密码？</a>
@@ -96,4 +97,4 @@
 		</div>
 	</div>
 </div>
-
+</body>

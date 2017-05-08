@@ -3,6 +3,9 @@
     padding: 0px;
     font-family: "Microsoft YaHei";
 }
+body{
+    background-color: #FFFFFF !important;
+}
 .bodyContainer{
     background: #FFFFFF !important;
 }
@@ -10,7 +13,6 @@
 	width:90%;
 	margin: 0 auto;
     overflow: hidden;
-    height:878px;
 }
 .header{
     overflow: hidden;
@@ -113,7 +115,8 @@ ul, ol {
     font-family: "Microsoft YaHei";
     position: absolute;
     right: 10%;
-    top: 266px;
+    top: 50%;
+    margin-top: -231px;
     width: 339px;
     height:460px;
     border: 1px solid #d3d3d3;
@@ -160,7 +163,7 @@ ul, ol {
     margin-top:36px;
 
 }*/
-.remember b{
+.remember label{
     display: inline-block;
     width:12px;
     height:12px;

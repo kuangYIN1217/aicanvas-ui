@@ -29,7 +29,7 @@ import {TaskStatusComponent} from "./components/taskStatus/taskStatus.component"
 import {AlgchainAloneComponent} from "./components/algchainAlone/algchainAlone.component";
 import {ChartistJs} from "./components/chartistJs/chartistJs.component";
 import {ShowResultComponent} from "./components/showResult/showResult.component";
-import {ShowImageComponent} from "./components/showImage/showImage";
+import {ShowImageComponent} from "./components/showImage/showImage.componment";
 @NgModule({
     imports: [AppRoutingModule, BrowserModule, HttpModule,FormsModule,FileUploadModule],
     declarations: [
