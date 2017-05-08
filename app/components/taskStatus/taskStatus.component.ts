@@ -31,10 +31,10 @@ export class TaskStatusComponent{
        this.updatePage();
     }
     updatePage(){
-            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
+       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
     }
-    getAlljobs(page,size){
-        this.jobService.getAllJobs(page,size)
+    getAlljobs(status,page,size){
+        this.jobService.getAllJobs(status,page,size)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
@@ -82,9 +82,8 @@ export class TaskStatusComponent{
     }
     maxItemChange(){
         this.page=1;
-        debugger
         this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
-        console.log(this.createdJob);
+        //console.log(this.createdJob);
     }
     nextPage(){
         this.page++;

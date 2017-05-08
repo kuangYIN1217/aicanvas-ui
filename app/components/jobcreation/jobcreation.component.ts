@@ -228,7 +228,7 @@ export class JobCreationComponent {
             this.savePluginChange();
             this.chosenPluginId = id;
             let training_network_json = this.findPluginById(this.chosenPluginId).model;
-            // console.log(training_network_json);
+            //console.log(training_network_json);
             if(training_network_json){
                 // console.log(training_network_json);
                 let inited = false;
@@ -248,68 +248,31 @@ export class JobCreationComponent {
                 }
             }else{
                 // 无网络层则将网络层隐藏
-                this.stepNumber=2;
                 this.haveModel = 0;
 
             }
         }
         this.pluginClicked();
     }
-    getTotals(num){
-        if(this.PluginInfo.length%num == 0){
-            this.result = Math.floor(this.PluginInfo.length/num);
-        }else{
-            this.result = Math.floor(this.PluginInfo.length/num)+1;
-        }
-    }
-    maxItemChange(num){
-        this.page=1;
-        this.arr = this.PluginInfo.slice(0,num);
-        this.getTotals(num);
-    }
-    nextPage(num){
-        this.remainder = this.PluginInfo.length%num;
-        if(this.remainder == 0){
-            this.result = Math.floor(this.PluginInfo.length/num);
-            //console.log(this.result);
-            this.lastPage(num,this.result);
-        }else{
-            this.result = Math.floor(this.PluginInfo.length/num)+1;
-            this.lastPage(num,this.result);
-            //console.log(this.result);
-        }
-    }
-    lastPage(num,result){
-        if(this.page<result){
-            this.page++;
-            this.arr = this.PluginInfo.slice(num*this.page-num,num*this.page);
-        }else{
-            alert('已经是最后一页');
-        }
-    }
-    previousPage(num){
-        if (this.page>1){
-            this.page--;
-            this.arr = this.PluginInfo.slice(num*this.page-num,num*this.page);
-            console.log(this.arr);
-        }else{
-            alert('已经是首页');
-        }
-    }
     savePluginChange(){
         let id = this.chosenPluginId;
         // let originJson = JSON.stringify(this.findPluginById(id).model);
         let json = $('#plugin_storage').val();
+        if(json!=""){
         let jsonData = JSON.parse(json);
-        this.findPluginById(id).model = jsonData;
-        let params: any = this.findPluginById(this.chosenPluginId).train_params;
-        for (var key in params){
-            for (let editable_parameter of this.editable_params){
-                if (editable_parameter.path == key){
-                    this.findPluginById(this.chosenPluginId).train_params[key] = editable_parameter.editable_param.set_value;
+            this.findPluginById(id).model = jsonData;
+            let params: any = this.findPluginById(this.chosenPluginId).train_params;
+            for (var key in params){
+                for (let editable_parameter of this.editable_params){
+                    if (editable_parameter.path == key){
+                        this.findPluginById(this.chosenPluginId).train_params[key] = editable_parameter.editable_param.set_value;
+                    }
                 }
             }
+        }else{
+            console.log("Without the network layer");
         }
+
 
     }
     pluginClicked(){
@@ -389,7 +352,47 @@ export class JobCreationComponent {
           return false;
         }
     }
-
+    getTotals(num){
+        if(this.PluginInfo.length%num == 0){
+            this.result = Math.floor(this.PluginInfo.length/num);
+        }else{
+            this.result = Math.floor(this.PluginInfo.length/num)+1;
+        }
+    }
+    maxItemChange(num){
+        this.page=1;
+        this.arr = this.PluginInfo.slice(0,num);
+        this.getTotals(num);
+    }
+    nextPage(num){
+        this.remainder = this.PluginInfo.length%num;
+        if(this.remainder == 0){
+            this.result = Math.floor(this.PluginInfo.length/num);
+            //console.log(this.result);
+            this.lastPage(num,this.result);
+        }else{
+            this.result = Math.floor(this.PluginInfo.length/num)+1;
+            this.lastPage(num,this.result);
+            //console.log(this.result);
+        }
+    }
+    lastPage(num,result){
+        if(this.page<result){
+            this.page++;
+            this.arr = this.PluginInfo.slice(num*this.page-num,num*this.page);
+        }else{
+            alert('已经是最后一页');
+        }
+    }
+    previousPage(num){
+        if (this.page>1){
+            this.page--;
+            this.arr = this.PluginInfo.slice(num*this.page-num,num*this.page);
+            console.log(this.arr);
+        }else{
+            alert('已经是首页');
+        }
+    }
 
     // 修改参数
     setValue(parameter: Parameter,value: string){

@@ -23,7 +23,7 @@
           <div id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Training</div>
           <div id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
             <!-- next step button -->
-            <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=3 ? '' : 'none'" [ngClass]="{href: haveModel==0&&stepNumber==2}">下一步</div>
+            <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=3 ? '' : 'none'">下一步</div>
         </div>
 
         <div id="step_content" class="step_content">

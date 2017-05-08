@@ -115,11 +115,11 @@ select {
 .table tbody .selected{
     background: #000000;
 }
-.step_pane .href{
+/*.step_pane .href{
     background: #a0a0a0;
     border:1px solid #a0a0a0;
     color: #ccc;
-}
+}*/
 .id{
     width: 10%;
 }

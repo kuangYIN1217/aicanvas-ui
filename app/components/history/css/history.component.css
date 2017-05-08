@@ -21,13 +21,36 @@
     background: #252525;
     font-size: 16px;
 }
+.table tr td{
+    word-break: break-all;
+ }
 .showDetailBtn{
     cursor: pointer;
     color: #eeeeee;
     font-size: 18px;
     text-decoration: none;
 }
-
+.id{
+    width:10%;
+}
+.name{
+    width:10%;
+}
+.scene{
+    width:8%;
+}
+.input{
+    width:24%;
+}
+.output{
+    width:24%;
+}
+.progress{
+    width:10%;
+}
+.detail{
+    width:12%;
+}
 .bottom_menu{
     width: 96%;
     height: 49px;
