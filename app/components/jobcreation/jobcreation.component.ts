@@ -151,10 +151,10 @@ export class JobCreationComponent {
                     this.firstChainId = this.PluginInfo[0].id;
                     //console.log(this.firstChainId);
                     this.arr = result;
+                    this.arr = this.PluginInfo.slice(0,10);
                 })
         });
       //console.log(this.student);
-
     }
     viewDetail(id,name){
         this.item = id;
@@ -264,17 +264,8 @@ export class JobCreationComponent {
     }
     maxItemChange(num){
         this.page=1;
-        if(num==10){
-            this.arr = this.PluginInfo.slice(0,10);
-            this.getTotals(num);
-        }else if(num==20){
-            this.arr = this.PluginInfo.slice(0,20);
-            this.getTotals(num);
-        }
-        else if(num==50){
-            this.arr = this.PluginInfo.slice(0,50);
-            this.getTotals(num);
-        }
+        this.arr = this.PluginInfo.slice(0,num);
+        this.getTotals(num);
     }
     nextPage(num){
         this.remainder = this.PluginInfo.length%num;
