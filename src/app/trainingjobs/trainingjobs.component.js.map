@@ -1,0 +1,1 @@
+{"version":3,"file":"trainingjobs.component.js","sourceRoot":"","sources":["trainingjobs.component.ts"],"names":[],"mappings":";;;;;;;;AAAA,wCAA0C;AAO1C,IAAa,qBAAqB,GAAlC;CAEC,CAAA;AAFY,qBAAqB;IANjC,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,cAAc;QACxB,SAAS,EAAE,CAAC,kCAAkC,CAAC;QAC/C,WAAW,EAAE,+BAA+B;KAC7C,CAAC;GACW,qBAAqB,CAEjC;AAFY,sDAAqB"}

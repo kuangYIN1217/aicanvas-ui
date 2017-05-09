@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="select">
+        <select  [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
+            <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
+        </select>
+        <div class="btn"><a routerLinkActive="active" (click)="clickBtn()" [ngClass]="{href: ModelInfo.length==0}">单文件推演</a></div>
+    </div>
+    <div class="modelServier">
+        <table class="table">
+            <th>序号</th>
+            <th>创建者</th>
+            <th>创建时间</th>
+            <th>模型路径</th>
+            <tbody>
+                <tr *ngFor="let model of arr let num =  index" (click)="clickStatus(num,model.model_id,model.job_path)" [ngClass]="{selected:num==selected }">
+                    <td>{{ model.model_id}}</td>
+                    <td>{{ model.creator}}</td>
+                    <td>{{ model.created_at| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{ model.model_path}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="bottom_menu">
+            <div class="label">
+                TotalPages:
+                <!--Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
+                <span>{{result}}</span>
+            </div>
+            <div class="selectDiv" >
+                <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
+                    <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                    <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                    <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+                </select>
+            </div>
+            <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
+            <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
+        </div>
+
+    </div>
+</div>
+<!--[ngClass]="{href: ModelInfo.length==0}"-->

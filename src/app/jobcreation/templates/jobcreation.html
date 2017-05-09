@@ -1,0 +1,215 @@
+<div class="container">
+    <div class="manager" [style.display]="jobPageStatus=='manage'?'':'none'">
+        <div class="tabs">
+            <div class="tab_item sm_tab_item" (click)="createJob()"><img id="plusicon" src="../../assets/jobcreation/icon_9.png" alt=""><span>创建任务</span></div>
+            <div class="tab_item sm_tab_item" (click)="CSV()">CSV</div>
+            <div class="tab_item sm_tab_item" (click)="XLS()">XLS</div>
+            <div class="tab_search">
+                <!-- if too slow for each search, should change to (change) according to the num of data -->
+                <input id="search_input" type="text" name="" value="" placeholder="&nbsp;&nbsp;搜索" (input)="search_input=$event.target.value;inputchange();" />
+                <img id="searchicon" src="assets/jobcreation/search.png" alt="searchicon">
+            </div>
+        </div>
+        <div class="status">
+            <taskStatus [statuss]="statuss"></taskStatus>
+        </div>
+    </div>
+    <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">
+        <div class="step_pane">
+          <div id="step1" class="steps" [class.step_on]="stepNumber==1">Step 1: Data</div>
+          <div id="triangle1" class="triangle-right" [class.triangle_on]="stepNumber==1"></div>
+          <div id="step2" class="steps" [class.step_on]="stepNumber==2">Step 2: Model</div>
+          <div id="triangle2" class="triangle-right" [class.triangle_on]="stepNumber==2"></div>
+          <div id="step3" class="steps" [class.step_on]="stepNumber==3">Step 3: Training</div>
+          <div id="triangle3" class="triangle-right" [class.triangle_on]="stepNumber==3"></div>
+            <!-- next step button -->
+            <div (click)="nextStep()" id="nextBtn" class="nextBtn" [style.display]="stepNumber!=3 ? '' : 'none'">下一步</div>
+        </div>
+
+        <div id="step_content" class="step_content">
+            <!-- step 1 -->
+            <div [style.display]="stepNumber==1 ? '' : 'none'" id="step1_content">
+              <div class="data">
+                <div class="choice">
+                  <div id="scene">
+                    <div class="scene_title">场景选择:</div>
+                    <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">
+                      <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
+                    </select>
+                  </div>
+                    <table class="table">
+                        <th class="id">序号</th>
+                        <th class="name">名称</th>
+                        <th class="publish">发布</th>
+                        <th class="domain">问题域</th>
+                        <th class="creator">创建者</th>
+                        <th class="description1">描述</th>
+                        <th class="detail1">详情</th>
+                        <tbody>
+
+                        <tr *ngFor="let item of arr let num =  index" (click)="clickStatus(num,item.id)" [ngClass]="{selected:num==selected }">
+                            <td>{{item.id}}</td>
+                            <td>{{item.chain_name}}</td>
+                            <td>{{output(item.publish)}}</td>
+                            <td>{{item.prob_domain}}</td>
+                            <td>{{item.creator}}</td>
+                            <td>{{item.description}}</td>
+                            <td>
+                                <a class="showDetailBtn" routerLinkActive="active" (click)="viewDetail(item.id,item.creator)">查看详情</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="bottom_menu">
+                        <div class="label">
+                            TotalPages:
+                            <!--Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
+                            <span>{{result}}</span>
+                        </div>
+                        <div class="selectDiv" >
+                            <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
+                                <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+                                <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+                                <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+                            </select>
+                        </div>
+                        <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
+                        <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
+                    </div>
+                  <div class="secondLine">
+                    <div id="dataset">
+                      <div class="data_title">数据集:</div>
+                      <select class="select" name="data_select">
+                        <option value="航拍图片识别" selected="selected">航拍图片识别</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                    <div id="rate">
+                      <div class="rate_title">训练/测试/验证集比例:</div>
+                      <select class="select" name="rate_select">
+                        <option value="航拍图片识别" selected="selected">航拍图片识别</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="thirdLine">
+                    <div id="record_num">所选记录数:&nbsp;{{chosenSceneId}}</div>
+                    <div id="store_type">
+                      <div class="store_title">载入内存方式:</div>
+                      <select class="select" name="store_select">
+                        <option value="航拍图片识别" selected="selected">分批加载</option>
+                        <option value="saab">Saab</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="label">
+                  <div class="label_title">数据标注</div>
+                  <div class="label_type">数据类型:</div>
+                  <select class="select" name="label_select">
+                    <option value="图片" selected="selected">图片</option>
+                    <option value="saab">Saab</option>
+                    <option value="fiat">Fiat</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- step 2 -->
+            <div [style.display]="stepNumber==2 ? '' : 'none'" id="step2_content">
+                <input hidden id="plugin_storage" />
+                <input hidden id="layer_dictionary" />
+                <input hidden id="param_dictionary" />
+                <button hidden id="node_click_btn" (click)="nodeClicked();"></button>
+                <button hidden onclick="init()" id="hideBtn" >Init</button>
+                <button hidden onclick="load()" id="loadBtn" >Hide</button>
+                <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
+                <div class="leftBox">
+                    <div class="condition" [style.display]="type==scene?'':'none'">
+                        <div id="scene_name" class="name">{{chosen_scene.translation}}</div>
+                        <div id="scene_description" class="description">{{chosen_scene.description}}</div>
+                    </div>
+                    <div class="alg_choose">
+                        <div class="alg_name"></div>
+                        <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
+                        <div class="alg_choose_list" id="myPaletteDiv"></div>
+                    </div>
+                </div>
+                <div class="chains">
+                    <div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.alg_name}}</div>
+                </div>
+                <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
+                <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
+                <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node===0?'':'none'">
+                    <div *ngFor="let editable_parameter of editable_parameters" class="layer_box">
+                        <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
+                        <div class="layer_params" id="property_plugin">
+                            <input *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                                class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
+
+                            <select *ngIf="editable_parameter.editable_param.type=='enums'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                                <option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
+                            </select>
+
+                            <select *ngIf="editable_parameter.editable_param.type=='boolean'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                                <option value="true">true</option>
+                                <option value="false">false</option>
+                            </select>
+
+                            <div *ngIf="editable_parameter.editable_param.type=='list'"class="select" name="data_select">
+                                <div>
+                                     <table *ngIf="editable_parameter.editable_param.shape.length==2">
+                                         <tr *ngFor="let array1 of editable_parameter.editable_param.default_value;let i1 = index;">
+                                             <td *ngFor="let value1 of array1;let j1 = index;">
+                                                 <!-- <input *ngIf="editable_parameter.editable_param.d_type!='ENUM'&&editable_parameter.editable_param.d_type!='LIST'&&editable_parameter.editable_param.d_type!='BOOL'" [placeholder]="'From '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                                                     class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=editable_parameter.editable_param.set_value;" />
+
+                                                 <select *ngIf="editable_parameter.editable_param.type=='ENUM'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
+                                                     <option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
+                                                 </select>
+
+                                                 <select *ngIf="editable_parameter.editable_param.type=='BOOL'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
+                                                     <option value="true">true</option>
+                                                     <option value="false">false</option>
+                                                 </select> -->
+                                                 <input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
+                                             </td>
+                                         </tr>
+                                     </table>
+                                     <div *ngIf="editable_parameter.editable_param.shape.length==3">
+                                         <select>
+                                             <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
+                                         </select>
+                                         <table>
+                                             <tr *ngFor="let array2 of array_2d;let j2 = index;">
+                                                 <td *ngFor="let value2 of array2;let z2 = index;">
+                                                     <input type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
+                                                 </td>
+                                             </tr>
+                                         </table>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rightBox" id="rightBox_node" [style.display]="rightBox_node===0?'none':''">
+                    <div class="layer_name"></div>
+                    <div class="layer_params" id="property"></div>
+                </div>
+            </div>
+            <!-- step 4 -->
+            <div [style.display]="stepNumber==3 ? '' : 'none'" id="step3_content">
+              <div id="createBtn" class="createBtn" (click)="create()">创建训练任务</div>
+              <div class="detail"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

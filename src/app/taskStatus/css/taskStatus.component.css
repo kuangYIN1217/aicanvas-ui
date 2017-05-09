@@ -1,0 +1,119 @@
+.table{
+    position: relative;
+    top: 28px;
+    margin:0 2% 0 2%;
+    width: 96%;
+
+}
+.table th{
+    height: 50px;
+    background: #4e3fa9;
+    border: 0px;
+    font-size: 20px;
+    line-height: 50px;
+    color: #ffffff;
+    font-weight: normal;
+}
+.table tr{
+    text-align: center;
+    background: #252525;
+    height: 50px;
+    font-size: 18px;
+    font-family: "MicrosoftYaHei";
+    color: #ededed;
+}
+.table tr:nth-child(even){
+    background: #202020;
+}
+.bottom_menu{
+    position: relative;;
+    width: 96%;
+    height: 49px;
+    background-color: #0b0b0b;
+    margin:30px 2% 0 2%;
+}
+.bottom_menu .label{
+    position: relative;
+    height: 21px;
+    width: 300px;
+    top: 14px;
+    left: 30px;
+    color: #e2e2e2;
+    font-size: 20px;
+    font-family: "MicrosoftYaHei";
+    float: left;
+    margin-right: 100px;
+}
+.bottom_menu .selectDiv{
+    position: relative;
+    width: 100px;
+    height: 40px;
+    float: left;
+    outline: none;
+}
+.bottom_menu .selectDiv .select_pagemax{
+    position: relative;
+    width: 80px;
+    height: 30px;
+    top: 10px;
+    outline: none;
+
+}
+.bottom_menu .pagebtn{
+
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 90px;
+    margin: 11px 8px 0 10px;
+
+    float: right;
+    background-color: #252525;
+    color: #f7f7f7;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: "MicrosoftYaHei";
+    cursor: pointer;
+}
+.showDetailBtn{
+    cursor: pointer;
+    color: #eeeeee;
+    font-size: 18px;
+    text-decoration: none;
+}
+.operationBtn{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+.stop{
+    background: url('../../../assets/jobcreation/icon_01.png') no-repeat center;
+
+}
+.start{
+    background: url('../../../assets/jobcreation/icon_02.png') no-repeat center;
+}
+/*th*/
+/*
+.name{
+    width: 14%;
+}
+.scene{
+    width: 16%;
+}
+.time{
+    width: 14%;
+}
+.condition{
+    width: 14%;
+}
+.progress{
+    width: 14%;
+}
+.operation{
+    width: 14%;
+}
+.formore{
+    width: 14%;
+}*/

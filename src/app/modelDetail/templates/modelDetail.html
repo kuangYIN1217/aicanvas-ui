@@ -1,0 +1,13 @@
+<div class="container">
+    <form class="form">
+        <div class="name"><label>名称:</label><input type="text" required [(ngModel)]="modelName" name="name"/></div>
+        <div class="text">
+            <a class="btn">
+                <input type="file" multiple ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />选择文件
+            </a>
+        </div>
+        <button (click)="uploadFile()" routerLinkActive="active">推演</button>
+    </form>
+    <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='raw_text'?'':'none'" *ngIf="type=='raw_text'"></historyDetail>
+    <showImage [model_id]="runId" [style.display]="type=='multiple_labeled_assets'?'':'none'" *ngIf="type=='multiple_labeled_assets'"></showImage>
+</div>
