@@ -21,6 +21,7 @@ import {AlgchainAloneComponent} from "./algchainAlone/algchainAlone.component";
 import {ShowResultComponent} from "./showResult/showResult.component";
 import {ShowImageComponent} from "./showImage/showImage.componment";
 import {AlgChainsComponent} from "./algchains/algchains.component";
+import {NavigationComponent} from "./navigation/navigation.component";
 
 
 const routes: Routes = [
@@ -47,9 +48,10 @@ const routes: Routes = [
   {path: 'algchainAlone', component: AlgchainAloneComponent},
   {path: 'showResult', component: ShowResultComponent},
   {path: 'showImage', component: ShowImageComponent},
+  {path: 'nav', component: NavigationComponent},
 
 
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', redirectTo: '/nav', pathMatch: 'full'},
 
   // { path: 'detail/:id', component: HeroDetailComponent },
 

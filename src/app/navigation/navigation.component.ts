@@ -30,6 +30,14 @@ export class NavigationComponent {
   }
 
   constructor(private location: Location,private router:Router) {
+    if (!sessionStorage.username) {
+      this.focusTab = 0;
+      this.router.navigate(['/login'])
+
+    }
+  }
+
+  ngAfterContentChecked(){
     // this.location = location;
     // console.log("navigation initial");
     if (!this.location.isCurrentPathEqualTo('/login')) {
