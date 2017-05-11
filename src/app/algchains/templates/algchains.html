@@ -5,11 +5,11 @@
         </div>
         <div class="status">
             <div class="allPurchaseScene" id="b04">
-                <div class="scene" *ngFor="let scene of sceneArray">
-                    <h4><strong>{{scene.translation}}</strong></h4>
+                <div class="scene" *ngFor="let SceneInfo of sceneArrays">
+                    <h4><strong>{{SceneInfo?.translation}}</strong></h4>
                     <div class="descrip">
-                        <p>{{scene.description}}</p>
-                        <a (click)="showNetwork(scene.id)" routerLinkActive="active">详情>></a>
+                        <p>{{SceneInfo?.description}}</p>
+                        <a (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active">详情>></a>
                     </div>
                     <div class="modelPreview">
                         <p>模型预览</p>

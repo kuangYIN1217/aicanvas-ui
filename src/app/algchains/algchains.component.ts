@@ -15,10 +15,10 @@ declare var $:any;
   providers: [SceneService,PluginService,AlgChainService]
 })
 export class AlgChainsComponent{
-    sceneArray: SceneInfo[]=[];
+    sceneArrays: SceneInfo[]=[];
     ifShowNetwork:number = 0;
     chosenSceneId: number;
-    chosen_scene: SceneInfo;
+    chosen_scene: SceneInfo=new SceneInfo;
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
 
@@ -35,15 +35,17 @@ export class AlgChainsComponent{
     creator:string;
 
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router){
-        sceneService.getAllScenes()
-            .subscribe(sceneArray => this.getSceneArray(sceneArray));
-        pluginService.getLayerDict()
-            .subscribe(dictionary => this.getDictionary(dictionary));
-        pluginService.getTranParamTypes()
-            .subscribe(editable_params => this.editable_params = editable_params);
+
 
     }
     ngOnInit(){
+
+      this.sceneService.getAllScenes()
+        .subscribe(sceneArray => this.getSceneArray(sceneArray));
+      this.pluginService.getLayerDict()
+        .subscribe(dictionary => this.getDictionary(dictionary));
+      this.pluginService.getTranParamTypes()
+        .subscribe(editable_params => this.editable_params = editable_params);
         this.route.queryParams.subscribe(params => {
             this.chainId = params['chain_id'];
             this.sceneId = params['scene_id'];
@@ -73,11 +75,12 @@ export class AlgChainsComponent{
         $('#layer_dictionary').val(JSON.stringify(dictionary));
     }
     getSceneArray(sceneArray: SceneInfo[]){
-        this.sceneArray = sceneArray;
-        console.log(this.sceneArray);
-        for(let i=0;i<this.sceneArray.length;i++){
-            if(this.sceneId==this.sceneArray[i].id){
-                this.chosen_scene = this.sceneArray[i];
+        this.sceneArrays = sceneArray;
+        debugger
+        console.log(this.sceneArrays);
+        for(let i=0;i<this.sceneArrays.length;i++){
+            if(this.sceneId==this.sceneArrays[i].id){
+                this.chosen_scene = this.sceneArrays[i];
             }
         }
 
