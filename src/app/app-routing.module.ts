@@ -34,6 +34,7 @@ const routes: Routes = [
   {path: 'trainingjobs', component: TrainingJobsComponent},
   {path: 'overview', component: OverviewComponent},
   {path: 'network-editor', component: NetworkEditorComponent},
+  {path: 'network', component: NetworkComponent},
   {path: 'login', component: LoginComponent},
   {path: 'model', component: ModelComponent},
   {path: 'modelDetail', component: ModelDetailComponent},

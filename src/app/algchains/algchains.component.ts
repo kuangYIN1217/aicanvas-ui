@@ -76,7 +76,6 @@ export class AlgChainsComponent{
     }
     getSceneArray(sceneArray: SceneInfo[]){
         this.sceneArrays = sceneArray;
-        debugger
         console.log(this.sceneArrays);
         for(let i=0;i<this.sceneArrays.length;i++){
             if(this.sceneId==this.sceneArrays[i].id){
