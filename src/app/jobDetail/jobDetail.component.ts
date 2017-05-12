@@ -83,7 +83,10 @@ export class JobDetailComponent {
     // 不再running状态时一次性展示数据
     not_running_show(jobPath:string){
         this.jobService.getUnrunningJob(jobPath)
-        .subscribe(jobParam => this.update(jobParam));
+        .subscribe(jobParam => {
+          this.jobResult = jobParam[jobParam.length-1];
+          this.update(jobParam)
+        });
     }
 
     updatePage(jobPath,index){
@@ -92,6 +95,7 @@ export class JobDetailComponent {
             .subscribe(jobParam => {
                 // debugger
                 this.update(jobParam);
+              this.jobResult = jobParam[jobParam.length-1];
                 // this.jobResult =jobParam.jobResult;
             });
         // console.log(this.index);
@@ -99,8 +103,8 @@ export class JobDetailComponent {
 
     update(jobParam){
         //  console.log(jobParam);
-        let jobProcessItems = jobParam.jobProcess;
-        this.jobResult = jobParam.jobResult;
+        let jobProcessItems = jobParam;
+        // this.jobResult = jobParam.jobResult;
         // console.info(this.jobResult);
         // 更新下方参数
         // let resultParam = new Array();
@@ -115,8 +119,8 @@ export class JobDetailComponent {
         if(jobProcessItems&&jobProcessItems.length > 0){
             let min_loss = Number(jobProcessItems[0].loss);
             let max_loss = Number(jobProcessItems[0].loss);
-            let min_acc = Number(jobProcessItems[0].acc);
-            let max_acc = Number(jobProcessItems[0].acc);
+            let min_acc = Number(jobProcessItems[0].metrics_value);
+            let max_acc = Number(jobProcessItems[0].metrics_value);
             for (let jobProcessItem of jobProcessItems){
                 this.index = Number(jobProcessItem.epoch);
                 // console.log(jobProcessItem.val_acc);
@@ -133,12 +137,12 @@ export class JobDetailComponent {
                 let temp2 = new Array();
                 temp2.push(this.index);
                 // 现在坐标轴是固定的 所以显示不出来线
-                temp2.push(Number(jobProcessItem.acc));
-                if (min_acc>(Number(jobProcessItem.acc))){
-                    min_acc = Number(jobProcessItem.acc);
+                temp2.push(Number(jobProcessItem.metrics_value));
+                if (min_acc>(Number(jobProcessItem.metrics_value))){
+                    min_acc = Number(jobProcessItem.metrics_value);
                 }
-                if (max_acc<(Number(jobProcessItem.acc))){
-                    max_acc = Number(jobProcessItem.acc);
+                if (max_acc<(Number(jobProcessItem.metrics_value))){
+                    max_acc = Number(jobProcessItem.metrics_value);
                 }
                 this.accuracyArray.push(temp2);
 
@@ -152,7 +156,7 @@ export class JobDetailComponent {
                 this.val_loss_array.push(temp_val_loss);
                 let temp_val_acc = new Array();
                 temp_val_acc.push(this.index);
-                temp_val_acc.push(jobProcessItem.val_acc);
+                temp_val_acc.push(jobProcessItem.val_metrics_value);
                 this.val_acc_array.push(temp_val_acc);
             }
             // console.log(lossArray);
