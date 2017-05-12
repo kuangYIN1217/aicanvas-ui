@@ -450,11 +450,20 @@ select {
 }
 /*2*/
 /*left*/
-#step2_content .leftBox{
-    width: 18%;
+#step2_content{
+  height:1402px;
+}
+/*#step2_content .leftBox{
+    width: 20%;
     background-color: black;
     float: left;
     height: 100%;
+}*/
+.leftBox{
+  width: 20%;
+  background-color: #191919;
+  float: left;
+  height: 100%;
 }
 #step2_content .condition{
     height: 200px;
@@ -475,7 +484,7 @@ select {
     width: 100%;
 }
 .alg_choose{
-
+  height:1050px;
 }
 .alg_name{
     color: #eeeee1;
@@ -510,18 +519,26 @@ select {
     font-size: 18px;
 }
 /**/
-.chains{
+/*.chains{
     overflow: auto;
-    width: 18%;
-
+    width: 20%;
     height: 100%;
     float: left;
     background-color: black;
     border-left: 1px solid grey;
+}*/
+.chains{
+  overflow: auto;
+  width: 20%;
+  height: 100%;
+  float: left;
+  background-color: #191919;
+  border-left: 1px solid grey;
 }
 .pluginArr_item{
     position: relative;
     width: 80%;
+    word-break: break-all;
     left: 10%;
     height: 50px;
     line-height: 50px;
@@ -537,41 +554,69 @@ select {
     cursor: default;
     background-color: pink;
 }
-.content{
+/*.content{
     overflow: auto;
-
-    width: 49.9%;
-
+    width: 40%;
     height: 100%;
     float: left;
     background-color: #191919;
+}*/
+.content{
+  overflow: auto;
+  width: 38.8%;
+  height: 100%;
+  float: left;
+  background-color: #191919;
+  border-left: 1px solid grey;
 }
-
 
 
 
 /**/
-.rightBox{
-
-    width: 14%;
-
+/*.rightBox{
+    width:21%;
     background-color: black;
     float: right;
     height: 100%;
+}*/
+.rightBox{
+  width: 21%;
+  background-color: black;
+  float: right;
+  height: 100%;
 }
 .layer_box{
-    text-align: center;
+
+
 }
 .layer_name{
-    margin: 30px auto 40px;
-    font-size: 25px;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+  font-size: 25px;
+  color: white;
 }
 .layer_params{
     margin:0 auto 10px;
 }
 .layer_params input{
-    width:10vw;
-    height:2vw;
+  background: transparent;
+  border: 0px;
+  border-bottom: 1px solid grey;
+  height: 35px;
+  width: 90%;
+  color: white;
+  outline-style: none;
+  margin-left: 20px;
+}
+
+.layer_params select{
+  background: #444444 0px 0px;
+  color: #ffffff;
+  font-size: 14px;
+  border: #000000 1px solid;
+  padding: 5px;
+  margin-left: 20px;
 }
 .layer_param{
     margin-bottom: 15px;
@@ -580,23 +625,7 @@ select {
     font-size: 20px;
     margin-bottom: 5px;
 }
-.layer_params input{
-    background: transparent;
-    border: 0px;
-    border-bottom: 1px solid grey;
-    height: 35px;
-    width: 100%;
-    color: white;
-    outline-style: none;
-}
 
-.layer_params select{
-    background: #444444 0px 0px;
-    color: #ffffff;
-    font-size: 14px;
-    border: #000000 1px solid;
-    padding: 5px;
-}
 
 .layer_params option{
     background: #444444 0px 0px;

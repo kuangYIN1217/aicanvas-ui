@@ -385,9 +385,7 @@
 }
 /*left*/
 .leftBox{
-
     width: 20%;
-
     background-color: #191919;
     float: left;
     height: 100%;
@@ -450,7 +448,6 @@
 .chains{
     overflow: auto;
     width: 20%;
-
     height: 100%;
     float: left;
     background-color: #191919;
@@ -477,7 +474,7 @@
 }
 .content{
     overflow: auto;
-    width: 32%;
+    width: 37%;
     height: 100%;
     float: left;
     background-color: #191919;
@@ -485,14 +482,14 @@
 }
 
 .rightBox{
-    width: 300px;
+    width: 21%;
     background-color: black;
     float: right;
     height: 100%;
 }
 .layer_name{
     margin-top: 30px;
-    margin-left: 40px;
+    margin-left: 20px;
     margin-bottom: 40px;
     font-size: 25px;
     color: white;
@@ -507,7 +504,7 @@
     border: 0px;
     border-bottom: 1px solid grey;
     height: 35px;
-    width: 100%;
+    width: 90%;
     color: white;
     outline-style: none;
 }
