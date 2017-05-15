@@ -3,7 +3,7 @@ import { Location } from '@angular/common'
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
-import {HistoryInfo} from "../common/defs/resources";
+import {HistoryInfo, inferenceResult} from "../common/defs/resources";
 import {SceneService} from "../common/services/scene.service";
 
 @Component({
@@ -16,8 +16,11 @@ import {SceneService} from "../common/services/scene.service";
 export class HistoryComponent{
     historyInfo:HistoryInfo=new HistoryInfo();
     result:HistoryInfo[];
+    data:inferenceResult[]=[];
     page: number = 1;
     pageMaxItem: number = 10;
+    type:string;
+    interval: any;
     constructor(private modelService: modelService, private location: Location,private sceneService: SceneService,private route: ActivatedRoute ,private router: Router){
         this.getHistory(this.page-1,this.pageMaxItem);
     }
@@ -25,7 +28,6 @@ export class HistoryComponent{
         this.modelService.getHistory(page,size).subscribe(history => {
             this.result=history.content;
             this.historyInfo = history;
-
         });
     }
     output(percent){
@@ -53,8 +55,24 @@ export class HistoryComponent{
         }
     }
     viewDetail(num){
-        this.router.navigate(['../historyDetail'],{queryParams:{"runId":this.result[num].id}});
-        console.log(this.result[num].id);
+      this.modelService.getResult(this.result[num].id)
+        .subscribe(data=>{
+          if (data.content.length!=0) {
+            clearInterval(this.interval);
+            this.data = data.content;
+            this.type = this.data[0].resultType;
+            console.log(this.type);
+            if(this.type=='raw_text'){
+              this.router.navigate(['../historyDetail'],{queryParams:{"runId":this.result[num].id}});
+            }else if(this.type=='multiple_labeled_images'){
+              this.router.navigate(['../showImage'],{queryParams:{"runId":this.result[num].id}});
+            }else{
+              this.router.navigate(['../historyDetail'],{queryParams:{"runId":this.result[num].id}});
+            }
+          }
+        })
+
+        //console.log(this.result[num].id);
     }
 }
 

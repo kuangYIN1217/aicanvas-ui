@@ -54,6 +54,7 @@ export class ModelDetailComponent{
         this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
             this.uploader.queue[0].remove();
             var responsePath = response;
+            console.log(response);
             this.saveModelAndUpload(responsePath);
         }
         this.uploader.queue[0].upload(); // 开始上传
@@ -65,6 +66,7 @@ export class ModelDetailComponent{
                 clearInterval(this.interval);
                 this.result = result.content;
                 this.type = this.result[0].resultType;
+                console.log(this.type);
             }
         })
     }

@@ -68,6 +68,7 @@ export class HistoryDetailComponent {
             if (result.content.length!=0) {
                 clearInterval(this.interval);
                 this.result = result.content;
+                console.log(this.result);
                 this.resultP = result;
             }
         })
