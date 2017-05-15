@@ -14,9 +14,7 @@ declare var $:any;
     providers: [ResourcesService,JobService]
 })
 export class OverviewComponent {
-
     gpuArray: Gpu[] = [];
-
     // infomation of cpu
     cpuInfoArray: CpuInfo[] = [];
 
@@ -34,7 +32,6 @@ export class OverviewComponent {
         resourcesService.getAllGpus()
         .subscribe(gpuArray => this.getGpus(gpuArray));
         //this.getAlljobs(this.page-1,this.pageMaxItem);
-
         // loading show
         this.loading();
         this.interval = setInterval (() => {
@@ -55,10 +52,7 @@ export class OverviewComponent {
             clearInterval(this.interval);
         }
     }
-
-
     loading(){
-
     }
     getCpu(cpu){
         // console.log(cpu);

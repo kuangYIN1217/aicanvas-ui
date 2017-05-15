@@ -4,8 +4,9 @@ import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PluginService} from "../common/services/plugin.service";
-import {JobInfo} from "../common/defs/resources";
+import {JobInfo, SceneInfo} from "../common/defs/resources";
 import {JobService} from "../common/services/job.service";
+import {SceneService} from "../common/services/scene.service";
 @Component({
     moduleId: module.id,
     selector: 'taskStatus',
@@ -19,16 +20,20 @@ export class TaskStatusComponent{
     interval: any;
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
+    SceneInfo:SceneInfo[] = [];
     createdJob: JobInfo = new JobInfo();
     @Input() statuss:string;
 
-    constructor(private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
+    constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
         //this.interval = setInterval (() => {this.updatePage()}, 500);
+      this.sceneService.getAllScenes()
+        .subscribe(scenes => this.SceneInfo=scenes);
 
     }
    ngOnInit(){
        this.updatePage();
     }
+
     updatePage(){
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
     }

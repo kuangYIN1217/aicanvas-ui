@@ -1,11 +1,18 @@
+<div class="selectContainer">
+<select class="select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
+  <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
+</select>
+  <img src="../assets/taskStatus/select.png">
+</div>
+
 <table id="jobTable" class="table">
     <th class="name">任务名称</th>
     <th class="scene">场景名称</th>
     <th class="time">创建时间</th>
     <th class="condition">状态</th>
     <th class="progress">进度</th>
-    <th class="operation">操作</th>
-    <th class="formore">详情</th>
+    <!--<th class="operation">操作</th>-->
+    <th class="formore">操作</th>
     <tr *ngFor="let jobInfo of Jobs_current;let i = index;">
         <td>{{jobInfo.jobName}}</td>
         <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
@@ -13,21 +20,21 @@
         <td>{{jobInfo.status}}</td>
         <td>{{jobInfo.percent==null?'0.0':jobInfo.percent|percent:'.2'}}</td>
         <!-- <td>{{jobInfo.job_progress}}%</td> -->
-        <td class="operationTd">
+<!--        <td class="operationTd">
             <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
             <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
-        </td>
+        </td>-->
         <td>
             <a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a>&nbsp;&nbsp;
-            <a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>
+            <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
         </td>
     </tr>
 </table>
 <div class="bottom_menu">
     <div class="label">
-        TotalPages:
+        共 <span>{{createdJob.totalPages}}</span>条记录  当前显示第<span>2</span>页
         <!--Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>Jobs_current.length?Jobs_current.length:page*pageMaxItem}} of {{page*pageMaxItem>Jobs_current.length?Jobs_current.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
-        <span>{{createdJob.totalPages}}</span>
+
     </div>
     <div class="selectDiv" >
         <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();">

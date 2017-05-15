@@ -2,39 +2,40 @@
 /*framework*/
 .tabs{
   position: relative;
-  height: 60px;
-  background-color: #131314;
+  height: 50px;
+  background-color: #ffffff;
+  margin-top: 20px;
   margin-bottom: 0px;
   border: 0px;
+  left:2%;
 }
 .tab_item{
   position: relative;
-  top: 20px;
-  border-radius: 0px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
   border: 0px;
-  width: 150px;
-  height: 40px;
   float: left;
+  margin-right: 4%;
+  margin-left: 4px;
   text-align: center;
-  line-height: 40px;
-  font-size: 20px;
+  font-size: 1vw;
   font-weight: normal;
+  width:104px;
   font-family: "MicrosoftYaHei";
-  color: #5e5e5f;
-  background-color: #0b0b0b;
+  color: #333333;
+  height:50px;
+  line-height: 50px;
   cursor: pointer;
-  margin-right: 0px;
+
 }
 .focus{
-  background-color: #19191a;
-  color: #5158ff;
+  color: #ff7c35;
   font-weight: normal;
+  border-bottom: 2px solid #ff7c35;
 }
 .status{
-  background-color: #19191a;
+  background-color: #ffffff;
   min-height: 1402px;
+  margin-left: 2%;
+  margin-top: 30px;
 }
 /*table*/
 .table{
@@ -42,15 +43,18 @@
     top: 28px;
     margin:0 2% 0 2%;
     width: 96%;
+    border:0;
+    border-collapse: collapse;
 
 }
+
 .table th{
   height: 50px;
+  text-align: left;
   background: #4e3fa9;
-  border: 0px;
-  font-size: 20px;
+  font-size: 0.83vw;
   line-height: 50px;
-  color: #ffffff;
+  color: #333333;
   font-weight: normal;
 }
 .table tr{

@@ -2,7 +2,8 @@
 /* Master Styles */
 body{
   margin: 0px;
-  background-color: #19191a;
+  background-color: #eeeeee;
+  font-family: "Microsoft YaHei";
 }
 h1 {
   color: #369;
@@ -21,7 +22,7 @@ h2, h3 {
   width: 88%;
   height: 1462px;
   float: right;
-  background-color: #131314;
+  background-color: #eeeeee;
 }
 /* words cannot be select */
 html,body{

@@ -2,6 +2,7 @@
     <div class="tabs">
         <div id="tab_item1" class="tab_item" (click)="changeTab(0)" [class.focus] = "tabIndex==0">资源状态</div>
         <div id="tab_item2" class="tab_item" (click)="changeTab(1)" [class.focus] = "tabIndex==1">任务状态</div>
+        <div id="tab_item3" class="tab_item" (click)="changeTab(2)" [class.focus] = "tabIndex==2">数据集状态</div>
     </div>
     <div [style.display]="tabIndex==1?'none':''" id="resourceDiv" class="status">
         <div class="total">
@@ -119,4 +120,9 @@
         </div>-->
         <taskStatus [statuss]="statuss"></taskStatus>
     </div>
+  <div [style.display]="tabIndex==2? '':'none'" id="dateTask" class="status">
+      <div class="disk">
+        <span class="diskSpace">磁盘剩余空间：</span><span class="spaceOut"><span class="spaceIn"></span></span><span class="diskCapacity"></span>
+      </div>
+  </div>
 </div>
