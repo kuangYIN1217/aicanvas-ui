@@ -22,6 +22,8 @@ import {ShowResultComponent} from "./showResult/showResult.component";
 import {ShowImageComponent} from "./showImage/showImage.componment";
 import {AlgChainsComponent} from "./algchains/algchains.component";
 import {NavigationComponent} from "./navigation/navigation.component";
+import {TestComponent} from "./test/test.component";
+import {PageComponent} from "./page/page.component";
 
 
 const routes: Routes = [
@@ -45,7 +47,8 @@ const routes: Routes = [
   {path: 'historyDetail', component: HistoryDetailComponent},
   {path: 'algorithmChain', component: AlgorithmChainComponent},
   {path: 'taskStatus', component: TaskStatusComponent},
-
+  {path: 'page', component: PageComponent},
+  {path: 'test', component: TestComponent},
   {path: 'algchainAlone', component: AlgchainAloneComponent},
   {path: 'showResult', component: ShowResultComponent},
   {path: 'showImage', component: ShowImageComponent},

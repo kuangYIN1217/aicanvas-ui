@@ -1,5 +1,5 @@
 <div class="selectContainer">
-<select class="select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
+<select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
   <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
 </select>
   <img src="../assets/taskStatus/select.png">
@@ -31,4 +31,4 @@
         </td>
     </tr>
 </table>
-<page [pageParams]="{pageSize:20,totalNum:100,curPage:1,totalPage:5}" (changeCurPage)="getPageData($event)"></page>
+<!--<page [pageParams]="{pageSize:20,totalNum:100,curPage:1,totalPage:5}" (changeCurPage)="getPageData($event)"></page>-->
