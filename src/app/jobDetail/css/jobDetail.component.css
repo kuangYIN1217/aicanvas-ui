@@ -1,4 +1,44 @@
 @charset "UTF-8";
+
+.bg{
+  background-color: #eeeeee;
+}
+
+
+.back{
+  text-decoration:none;
+  width: 114px;
+  float: right;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #ff7c35;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+  font-size: 14px;
+}
+
+
+.button{
+  text-decoration:none;
+  width: 114px;
+  float: right;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #23a880;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+  font-size: 14px;
+  margin-left: 20px;
+}
+.nav{
+  width:97%;;
+  background-color: #fff;
+  height:25%;
+  margin:30px;
+
+}
 .span_not_val{
     color: skyblue;
 }
@@ -55,43 +95,48 @@
 
 /*detail*/
 .detailLine{
-    position: relative;
-    top: 25px;
-    left: 20px;
-    width: 100%;
+    padding-top: 22px;
+    margin-left: 30px;
+    width: 97%;
     height: 28px;
-    margin-bottom: 25px;
+}
+.detailLine:last-child{
+  padding-bottom: 22px;
+
 }
 .detailLine span{
     font-family: "MicrosoftYaHei";
-    font-size: 20px;
-    color: #eaeaea;
+    font-size: 16px;
+    color:#333333;
     width: 25%;
     float: left;
 }
 .lossLine{
-    position: relative;
-    top: 25px;
     width: 100%;
-    height: 490px;
-    left: 20px;
+    height: 443px;
+    margin-left: 30px;
     margin-bottom: 25px;
 }
 .lossLine .lossCard{
 
-    width: 45%;
-
+    width: 47.6%;
+    /*margin-left: 30px;*/
     height: 100%;
-    margin-right: 55px;
+  border-radius: 5px;
+    /*margin-right: 55px;*/
     float: left;
-    background-color: #151515;
+    background-color: #fff;
+}
+
+.lossLine .lossCard:last-child{
+  margin-left: 30px;
 }
 .lossLine .lossCard .title{
     position: relative;
     top: 10px;
     font-family: "MicrosoftYaHei";
-    font-size: 24px;
-    color: #ffffff;
+    font-size: 16px;
+    color: #666666;
     margin-left: 25px;
 }
 .lossLine .lossCard .sub_title{
@@ -105,41 +150,63 @@
 .lossLine .lossCard .chart{
     margin-left: 0px;
     margin-top: 10px;
-    width: 755px;
+    width: 55%;
     height: 420px;
 }
 .lossLine .lossCard .chart .axisLabel{
     font-family: "MicrosoftYaHei";
     font-size: 16px;
-    color: #e9e9e9;
+    color: #666666;
 
 }
 .lossLine .lossCard .chart .axis{
-    font-family: "MicrosoftYaHei";
     font-size: 16px;
     color: #e1e1e1;
+}
+.log{
+
+}
+
+.log span{
+  display: block;
+  background-color: #fff;
+  width: 94%;
+  margin-left: 30px;
+  color: #333333;
+  font-size: 16px;
+  text-indent: 2px;
+  padding:33px;
+  overflow: auto;
+  word-wrap:break-word;
+  height: 300px;
+}
+
+.log h3{
+  font-family: "MicrosoftYaHei";
+  margin-left: 63px;
+  margin-top: 15px;
+  font-size: 16px;
+  color:#333333;
 }
 
 
 /***************************/
 /**/
-/*.propertyLine{
-    position: relative;
-    top: 25px;
-    left: 20px;
-    width: 100%;
-    height: 139px;
-}*/
+.propertyLine{
+  width: 97%;
+  margin-left: 30px;
+  display: flex;
+  justify-content: space-between;
+}
 .propertyCard{
-    position: relative;
-    width: 30%;
-    height: 139px;
-    margin-left: 20px;
-    margin-right: 25px;
-    margin-top: 25px;
+    display: inline;
+    width: 24%;
+    height: 183px;
+    /*margin-right: 25px;*/
+    /*margin-top: 30px;*/
     float: left;
-    background-color: #151515;
-    border: 1px solid #313131;
+    background-color: #fff;
+    border-radius: 5px;
 }
 .propertyCard .icon{
     /*background-image: url('../../../assets/jobcreation/icon.png');*/
@@ -153,9 +220,9 @@
     float: left;
 }
 .propertyCard .cardInline{
-    font-size: 20px;
-    margin-top: 21px;
+    font-size: 16px;
+    margin-top: 18px;
     margin-bottom: -10px;
-    margin-left: 42px;
-    color: #d8d8d8;
+    margin-left: 20px;
+    color: #333333;
 }
