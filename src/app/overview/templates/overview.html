@@ -7,10 +7,9 @@
     <div [style.display]="tabIndex==0?'':'none'" id="resourceDiv" class="status">
         <div class="total">
             <div class="cpu">
-                <div class="resourceTypeTitle">CPU资源</div>
+                <div class="resourceTypeTitle"><img src="../assets/overview/jiahao.png"/><span>GPU01</span></div>
                 <div class="chart linechart">
-                    <h4>CPU波动</h4>
-                    <p>subtitle appear here if it exits</p>
+                    <h4>GPU使用率(%)</h4>
                     <div class="cpuSvg" id="cpu_utilization_line">
                         <svg id="lineChartSVG" class="lineChart--svg">
                         <defs>
@@ -118,7 +117,14 @@
             <div *ngIf="page!=createdJob.totalPages" class="pagebtn" (click)="nextPage()">Next</div>
             <div class="pagebtn" (click)="previousPage()">Previous</div>
         </div>-->
-        <taskStatus [statuss]="statuss"></taskStatus>
+      <div class="selectContainer">
+        <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
+          <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
+        </select>
+        <img src="../assets/taskStatus/select.png">
+      </div>
+
+      <taskStatus [statuss]="statuss"></taskStatus>
     </div>
   <div [style.display]="tabIndex==2? '':'none'" id="dateTask" class="status">
       <div class="disk">

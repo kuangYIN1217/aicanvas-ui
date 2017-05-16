@@ -37,7 +37,26 @@
   margin-left: 30px;
   padding-right: 30px;
   border-collapse: collapse;
-  border:solid 1px #666666;
+  border: solid 1px #666666;
+}
+.table th{
+    height: 4.63vh;
+    background: #ffffff;
+    padding-left: 20px;
+    font-size: 0.83vw;
+    line-height: 50px;
+    color: #333333;
+    text-align: left;
+    font-weight: normal;
+}
+.table tr{
+    text-align: left;
+    background: #eeeeee;
+    height: 4.63vh;
+    font-size: 0.73vw;
+    font-family: "MicrosoftYaHei";
+    border-top:1px solid #d3d3d3;
+    color: #666666;
 }
 
 .table th {
