@@ -1,24 +1,4 @@
-.selectContainer{
-  position: relative;
-  top:18px;
-  height:1.9vh;
-  left:18px;
-  width:293px;
-}
-.select{
-  position: absolute;
-  height:36px;
-  border-radius: 5px;
-  width:294px;
-  border: 1px solid #d3d3d3;
-  font-size: 0.7vw;
-  text-indent: 10px;
-  color: #666;
-}
-.selectContainer img{
-  position: absolute;
-  right:0;
-}
+
 .table{
     position: relative;
     top: 28px;

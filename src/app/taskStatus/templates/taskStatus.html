@@ -1,9 +1,3 @@
-<div class="selectContainer">
-<select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
-  <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
-</select>
-  <img src="../assets/taskStatus/select.png">
-</div>
 
 <table id="jobTable" class="table">
     <th class="name">任务名称</th>
