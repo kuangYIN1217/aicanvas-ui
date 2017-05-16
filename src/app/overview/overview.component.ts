@@ -5,6 +5,7 @@ import {JobService} from "../common/services/job.service";
 import {Cpu, CpuInfo, Gpu, GpuInfo, JobInfo} from "../common/defs/resources";
 import * as d3 from "d3";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AmChartsService} from "amcharts3-angular2";
 declare var $:any;
 @Component({
     moduleId: module.id,
@@ -24,9 +25,11 @@ export class OverviewComponent {
     // show resource or task 0--resource, 1--task
     tabIndex: number = 0;
     interval: any;
+    private timer: any;
+    private chart: any;
     @Input() statuss:string='Running';
 
-    constructor(private resourcesService: ResourcesService, private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
+    constructor(private AmCharts: AmChartsService,private resourcesService: ResourcesService, private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
         resourcesService.getCpuInfo()
         .subscribe(cpu => this.getCpu(cpu));
         resourcesService.getAllGpus()
@@ -46,11 +49,90 @@ export class OverviewComponent {
         }
 
     }
+  makeRandomDataProvider1() {
+    var dataProvider = [];
+    // Generate random data
+    for (var year = 1950; year <= 1960; ++year) {
+      dataProvider.push({
+        year1: "" + year,
+        value: Math.floor(Math.random() * 100),
+        value1: Math.floor(Math.random() * 100)
+      });
+    }
+
+    return dataProvider;
+  }
+  ngOnInit() {
+    this.chart = this.AmCharts.makeChart("chartdiv1", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider1(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "value"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+      "dataDateFormat": "YYYY",
+      "categoryField": "year1",
+      "categoryAxis": {
+        "minPeriod": "YYYY",
+        "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+  }
     ngOnDestroy(){
         // 退出时停止更新
         if(this.interval){
             clearInterval(this.interval);
         }
+      clearInterval(this.timer);
+      this.AmCharts.destroyChart(this.chart);
     }
     loading(){
     }

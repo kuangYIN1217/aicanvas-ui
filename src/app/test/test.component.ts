@@ -44,7 +44,6 @@ export class TestComponent implements OnInit {
 
     return dataProvider;
   }
-
   ngOnInit() {
     this.chart = this.AmCharts.makeChart("chartdiv", {
       "type": "serial",

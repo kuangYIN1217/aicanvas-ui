@@ -36,8 +36,8 @@
   background-color: #ffffff;
   margin-left: 2%;
   margin-top: 30px;
-  width:80%;
   border-radius: 5px;
+  min-height: 1000px;
 }
 /*table*/
 .table{
@@ -125,7 +125,7 @@ h4{
   margin-left: 14px;
 }
 .cpu{
-    height: 390px;
+    height: 48vh;
     background: #ffffff;
     border-radius: 5px;
 }
@@ -156,7 +156,7 @@ h4{
     /*box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: left;
     width: 46.5%;
-    height: 32vh;
+    height: 38vh;
     border-radius: 10px;
     margin-left: 2%;
     border:2px solid #dcdcdc;
@@ -167,7 +167,7 @@ h4{
    /* box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: left;
     width: 46.5%;
-    height: 32vh;
+    height: 38vh;
     border-radius: 10px;
     margin-left: 2%;
     border:2px solid #dcdcdc;
@@ -178,6 +178,7 @@ h4{
   color: #333333;
   font-size: 0.83vw;
   margin-top: 25px;
+  margin-bottom: 20px;
   text-align: center;
 }
 .occupancyRate p,.chart p,.usageRateFluctuate p{
@@ -365,7 +366,7 @@ h4{
 .selectContainer{
   position: relative;
   top:18px;
-  height:1.9vh;
+  height:76px;
   left:18px;
   width:293px;
 }

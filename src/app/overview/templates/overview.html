@@ -10,26 +10,25 @@
                 <div class="resourceTypeTitle"><img src="../assets/overview/jiahao.png"/><span>GPU01</span>
                   <div class="checkStatus">任务状态查询</div>
                 </div>
-
                 <div class="chart linechart">
                     <h4>GPU使用率(%)</h4>
-                    <div class="cpuSvg" id="cpu_utilization_line">
-                        <svg id="lineChartSVG" class="lineChart--svg">
+                    <!--<div class="cpuSvg" id="cpu_utilization_line">
+                        <svg id="lineChartSVG" class="lineChart&#45;&#45;svg">
                         <defs>
-                            <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
-                                <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
-                                <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
+                            <linearGradient id="lineChart&#45;&#45;gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                <stop class="lineChart&#45;&#45;gradientBackgroundArea&#45;&#45;top" offset="0%" />
+                                <stop class="lineChart&#45;&#45;gradientBackgroundArea&#45;&#45;bottom" offset="100%" />
                             </linearGradient>
                         </defs>
                         </svg>
-                    </div>
+                    </div>-->
+                  <div id="chartdiv1" [style.width.%]="108" [style.height.vh]="31"></div>
                 </div>
                 <div class="chart piechart">
                     <h4>GPU内存(M)</h4>
                     <div class="pie" id="cpu_storage_pie">
                     </div>
                     <div class="pieDescrip" id="proportion">
-
                     </div>
                 </div>
             </div>
@@ -60,7 +59,6 @@
                     </div>
                 </div>
             </div>-->
-
             <!-- <div class="cpu_job">
                 <div class="usageRateFluctuate fluctuate_1" id="cpuwave">
                     <h4>GPU使用率波动(GPU01)</h4>
@@ -85,6 +83,84 @@
                 </div>
             </div> -->
         </div>
+      <div class="total">
+        <div class="cpu">
+          <div class="resourceTypeTitle"><img src="../assets/overview/jiahao.png"/><span>CPU01</span>
+            <div class="checkStatus">任务状态查询</div>
+          </div>
+          <div class="chart linechart">
+            <h4>CPU使用率(%)</h4>
+            <!--<div class="cpuSvg" id="cpu_utilization_line">
+                <svg id="lineChartSVG" class="lineChart&#45;&#45;svg">
+                <defs>
+                    <linearGradient id="lineChart&#45;&#45;gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                        <stop class="lineChart&#45;&#45;gradientBackgroundArea&#45;&#45;top" offset="0%" />
+                        <stop class="lineChart&#45;&#45;gradientBackgroundArea&#45;&#45;bottom" offset="100%" />
+                    </linearGradient>
+                </defs>
+                </svg>
+            </div>-->
+            <div id="chartdiv1" [style.width.%]="108" [style.height.vh]="31"></div>
+          </div>
+          <div class="chart piechart">
+            <h4>CPU内存(M)</h4>
+            <div class="pie" id="cpu_storage_pie">
+            </div>
+            <div class="pieDescrip" id="proportion">
+            </div>
+          </div>
+        </div>
+        <!--            <div class="gpu">
+                        <div class="resourceTypeTitle">GPU资源</div>
+                        <div class="gpu_content" *ngFor="let gpu of gpuArray;let i = index;">
+                            &lt;!&ndash;添加加这一部分就行&ndash;&gt;
+                            <div class="chart linechart">
+                                <h4>GPU波动(GPU{{i+1}})</h4>
+                                <p>ID: {{gpu.id}} &nbsp; NAME: {{gpu.name}}</p>
+                                <div class="gpuSvg" id="gpu_utilization_line{{gpu.id}}">
+                                    <svg id="lineChartSVG{{gpu.id}}" class="lineChart&#45;&#45;svg">
+                                        <defs>
+                                            <linearGradient id="lineChart&#45;&#45;gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                                <stop class="lineChart&#45;&#45;gradientBackgroundArea&#45;&#45;top" offset="0%" />
+                                                <stop class="lineChart&#45;&#45;gradientBackgroundArea&#45;&#45;bottom" offset="100%" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </div>
+                            &lt;!&ndash;到这&ndash;&gt;
+                            <div class="chart piechart">
+                                <h4>GPU Storage(GPU{{i+1}})</h4>
+                                <p>总空间: {{gpu.totalGlobalMem/1000000000}} G</p>
+                                <div class="pie" id="gpu_storage_pie{{gpu.id}}"></div>
+                                <div class="pieDescrip" id="proportion{{gpu.id}}"></div>
+                            </div>
+                        </div>
+                    </div>-->
+        <!-- <div class="cpu_job">
+            <div class="usageRateFluctuate fluctuate_1" id="cpuwave">
+                <h4>GPU使用率波动(GPU01)</h4>
+                <p>subtitle appear here if it exits</p>
+                <div class="cpuwaveSvg" id="cpuwaveSvg">
+                    <svg id="lineChartSVG2" class="lineChart--svg">
+                        <defs>
+                            <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
+                                <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            <div class="cpuwaveDescription">
+                <div class="line"><div class="cube red"></div>&nbsp;&nbsp;CPU0:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                <div class="line"><div class="cube yellow"></div>&nbsp;&nbsp;CPU1:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                <div class="line"><div class="cube skyblue"></div>&nbsp;&nbsp;CPU2:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                <div class="line"><div class="cube orange"></div>&nbsp;&nbsp;CPU3:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+                <div class="line"><div class="cube green"></div>&nbsp;&nbsp;MEAN CPU:&nbsp;&nbsp;Current:&nbsp;&nbsp;5.87%&nbsp;&nbsp;Average:&nbsp;&nbsp;4.35% Maximum:&nbsp;&nbsp;9.15%</div>
+            </div>
+        </div> -->
+      </div>
     </div>
     <div [style.display]="tabIndex==1? '':'none'" id="taskDiv" class="status">
 <!--        <table id="jobTable" class="table">
