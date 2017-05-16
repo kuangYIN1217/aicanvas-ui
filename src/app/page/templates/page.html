@@ -1,0 +1,53 @@
+<!--
+<div class="bottom_menu">
+  <div class="label">
+    &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;
+    <span>共条记录</span>
+    <span>每页显示条</span>
+  </div>
+  <div class="selectDiv" >
+    <span>每页</span>
+    <select>
+      <option>10</option>
+    </select>
+    <span>条记录</span>
+  </div>
+  <div class="btnDiv">
+    <button class="btn">上一页</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button class="btn">下一页</button>
+  </div>
+</div>
+-->
+<!--分页组件-->
+<div class="bottom_menu" *ngIf="pageParams.totalPage>1 && pageParams.totalNum>0">
+  <a class="label">共 {{pageParams.totalNum}} 条记录  当前显示第 {{pageParams.curPage}}页</a>
+  <div class="selectDiv" >
+    <span>每页</span>
+    <select [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();">
+      <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
+      <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
+      <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
+    </select>
+    <span>条记录</span>
+  </div>
+  <div class="btnDiv">
+<!--  <button class="btn" [routerLink]="['./']" [disabled]="pageParams.curPage<=5"
+          (click)="changePage(pageParams.curPage-5)" [queryParams]="{pageNo:pageParams.curPage-5}"><<</button>-->
+  <button class="btn" [routerLink]="['./']" (click)="changePage(pageParams.curPage-1)"
+          [queryParams]="{pageNo:pageParams.curPage-1}" [disabled]="pageParams.curPage==1">上一页</button>
+  <button  [routerLink]="['./']" [disabled]="pageParams.curPage==page.pageNo"
+          (click)="changePage(page.pageNo)" [queryParams]="page" *ngFor="let page of getPageList(pageParams)">
+    {{page.pageNo}}
+  </button>
+  <button class="btn" [routerLink]="['./']" (click)="changePage(pageParams.curPage-(-1))"
+          [queryParams]="{pageNo:pageParams.curPage-(-1)}" [disabled]="pageParams.curPage==pageParams.totalPage">下一页</button>
+<!--  <button class="btn" [routerLink]="['./']" [disabled]="pageParams.totalPage-pageParams.curPage<=5"
+          (click)="changePage(pageParams.curPage-(-5))" [queryParams]="{pageNo:pageParams.curPage-(-5)}">>></button>-->
+  </div>
+</div>
+<!--<div class="col-md-12 text-center text-sm text-dark-gray" *ngIf="!pageParams.totalNum">
+  空空如也
+</div>-->

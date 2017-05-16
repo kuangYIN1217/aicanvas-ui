@@ -2,16 +2,7 @@
 /* Master Styles */
 body{
   margin: 0px;
-  padding: 0;
   background-color: #eeeeee;
-  font-family: "MicrosoftYaHei";
-}
-html{
-  overflow-x: hidden;
-}
-
-a[href="http://www.amcharts.com/javascript-charts/"]{
-  display: none !important;
 }
 h1 {
   color: #369;
@@ -28,9 +19,9 @@ h2, h3 {
 .container{
   position: relative;
   width: 88%;
-  height: 100%;
+  height: 1462px;
   float: right;
-  background-color: #131314;
+  background-color: #eeeeee;
 }
 /* words cannot be select */
 html,body{
@@ -305,9 +296,40 @@ html,body{
   -o-transform: translateY(0);
   transform: translateY(0);
 }
+a[href="http://www.amcharts.com/javascript-charts/"]{
+  display: none !important;
+}
 
 /**/
 
 canvas{
   outline: none;
+}
+
+.back{
+  text-decoration:none;
+  width: 114px;
+  float: right;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #ff7c35;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+  font-size: 14px;
+}
+
+
+.button{
+  text-decoration:none;
+  width: 130px;
+  float: right;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #23a880;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+  font-size: 14px;
+  margin-left: 20px;
 }

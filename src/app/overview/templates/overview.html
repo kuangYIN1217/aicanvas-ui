@@ -2,8 +2,9 @@
     <div class="tabs">
         <div id="tab_item1" class="tab_item" (click)="changeTab(0)" [class.focus] = "tabIndex==0">资源状态</div>
         <div id="tab_item2" class="tab_item" (click)="changeTab(1)" [class.focus] = "tabIndex==1">任务状态</div>
+        <div id="tab_item3" class="tab_item" (click)="changeTab(2)" [class.focus] = "tabIndex==2">数据集状态</div>
     </div>
-    <div [style.display]="tabIndex==1?'none':''" id="resourceDiv" class="status">
+    <div [style.display]="tabIndex==0?'':'none'" id="resourceDiv" class="status">
         <div class="total">
             <div class="cpu">
                 <div class="resourceTypeTitle">CPU资源</div>
@@ -119,4 +120,37 @@
         </div>-->
         <taskStatus [statuss]="statuss"></taskStatus>
     </div>
+  <div [style.display]="tabIndex==2? '':'none'" id="dateTask" class="status">
+      <div class="disk">
+        <span class="diskSpace">磁盘剩余空间：</span><span class="spaceOut"><span class="spaceIn"></span></span><span class="diskCapacity">100G</span>
+      </div>
+    <table id="jobTable" class="table">
+      <th class="name">数据集名称</th>
+      <th class="scene">创建者</th>
+      <th class="time">创建时间</th>
+      <th class="condition">存储空间</th>
+     <!-- <tr *ngFor="let jobInfo of Jobs_current;let i = index;">
+        <td>{{jobInfo.jobName}}</td>
+        <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
+        <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
+        <td>{{jobInfo.status}}</td>
+        <td>{{jobInfo.percent==null?'0.0':jobInfo.percent|percent:'.2'}}</td>
+        <td>
+          <a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a>
+        </td>
+      </tr>-->
+      <tr>
+        <td>数据集1</td>
+        <td>admin</td>
+        <td>2016.01.11 08.12.34</td>
+        <td>12G</td>
+      </tr>
+      <tr>
+        <td>数据集2</td>
+        <td>admin</td>
+        <td>2016.01.11 08.12.34</td>
+        <td>168M</td>
+      </tr>
+    </table>
+  </div>
 </div>

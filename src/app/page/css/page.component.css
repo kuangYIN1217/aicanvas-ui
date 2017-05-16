@@ -1,0 +1,72 @@
+.bottom_menu{
+  position: relative;;
+  width: 96%;
+  height: 4.62vh;
+  top:40px;
+  left:18px;
+  font-size: 0.62vw;
+  color:#333333;
+}
+.bottom_menu .label{
+  position: relative;
+  height: 21px;
+  width: 300px;
+  font-family: "MicrosoftYaHei";
+  float: left;
+  margin-right: 100px;
+}
+/*.bottom_menu .label span:nth-of-type(2){
+  color: #23a880;
+}*/
+.bottom_menu .selectDiv{
+  position: relative;
+  width: 15.6vw;
+  height: 4.62vh;
+  float: left;
+  left:22%;
+  outline: none;
+}
+.selectDiv select{
+  width:4vw;
+  text-indent: 20%;
+}
+.btnDiv{
+  position: relative;
+  float: right;
+  display: table-cell;
+}
+.btnDiv button {
+  background: #ffffff;
+  border:1px solid #c2c2c2;
+  width:20px;
+  height:20px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 2px;
+}
+.btnDiv .btn{
+  width:60px;
+}
+.bottom_menu .selectDiv .select_pagemax{
+  position: relative;
+  width: 80px;
+  height: 30px;
+  top: 10px;
+  outline: none;
+}
+.bottom_menu .pagebtn{
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  width: 90px;
+  margin: 11px 8px 0 10px;
+  float: right;
+  background-color: #252525;
+  color: #f7f7f7;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: "MicrosoftYaHei";
+  cursor: pointer;
+}

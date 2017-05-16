@@ -28,9 +28,11 @@ import {ShowResultComponent} from "./showResult/showResult.component";
 import {ShowImageComponent} from "./showImage/showImage.componment";
 import {FileUploadModule} from "ng2-file-upload";
 import {AlgChainsComponent} from "./algchains/algchains.component";
+import {Router} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
-import {AmChartsModule} from "amcharts3-angular2";
-import { TestComponent } from './test/test.component';
+import {PageComponent} from "./page/page.component";
+import {TestComponent} from "./test/test.component";
+import {AmChartsModule, AmChartsService} from "amcharts3-angular2";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { TestComponent } from './test/test.component';
     AlgchainAloneComponent,
     ShowResultComponent,
     ShowImageComponent,
-    TestComponent
+    TestComponent,
+    PageComponent
   ],
   imports: [
     AppRoutingModule,
@@ -65,7 +68,6 @@ import { TestComponent } from './test/test.component';
     HttpModule,
     FileUploadModule,
     AmChartsModule
-
   ],
   providers: [],
   bootstrap: [NavigationComponent]

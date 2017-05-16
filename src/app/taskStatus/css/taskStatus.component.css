@@ -1,55 +1,122 @@
-.table{
-    position: relative;
-    top: 28px;
-    margin:0 2% 0 2%;
-    width: 96%;
+.selectContainer {
+  position: relative;
+  top: 18px;
+  height: 1.9vh;
+  left: 18px;
+  width: 293px;
+  background-color: #fff;
+}
+
+.select {
+  position: absolute;
+  height: 36px;
+  border-radius: 5px;
+  width: 294px;
+  border: 1px solid #d3d3d3;
+  font-size: 0.7vw;
+  text-indent: 10px;
+  color: #666;
+}
+
+.selectContainer img {
+  position: absolute;
+  right: 0;
+}
+
+.taskStatusContainer {
+  width: 97%;
+  margin: 0 30px 0 30px;
+  border-radius: 5px;
+
+  background-color: #fff;
 
 }
-.table th{
-    height: 50px;
-    background: #4e3fa9;
-    border: 0px;
-    font-size: 20px;
-    line-height: 50px;
-    color: #ffffff;
-    font-weight: normal;
+
+.table {
+  width: 96%;
+  margin-left: 30px;
+  padding-right: 30px;
+  border-collapse: collapse;
+  border:solid 1px #666666;
 }
-.table tr{
-    text-align: center;
-    background: #252525;
-    height: 50px;
-    font-size: 18px;
-    font-family: "MicrosoftYaHei";
-    color: #ededed;
+
+.table th {
+  height: 4.63vh;
+  background: #ffffff;
+  padding-left: 20px;
+  font-size: 0.83vw;
+  line-height: 50px;
+  color: #333333;
+  text-align: left;
+  font-weight: normal;
 }
-.table tr:nth-child(even){
-    background: #202020;
+
+.table tr {
+  text-align: left;
+  background: #eeeeee;
+  height: 4.63vh;
+  font-size: 0.73vw;
+  font-family: "MicrosoftYaHei";
+  border-top: 1px solid #d3d3d3;
+  color: #666666;
 }
-.bottom_menu{
+
+.table tr td {
+  padding-left: 20px;
+}
+
+.table tr:nth-child(even) {
+  background: #ffffff;
+}
+
+/*.bottom_menu{
     position: relative;;
     width: 96%;
-    height: 49px;
-    background-color: #0b0b0b;
-    margin:30px 2% 0 2%;
+    height: 4.62vh;
+    top:50px;
+    left:2%;
+    font-size: 0.62vw;
+    color:#333333;
 }
 .bottom_menu .label{
     position: relative;
     height: 21px;
     width: 300px;
-    top: 14px;
-    left: 30px;
-    color: #e2e2e2;
-    font-size: 20px;
     font-family: "MicrosoftYaHei";
     float: left;
     margin-right: 100px;
 }
+!*.bottom_menu .label span:nth-of-type(2){
+  color: #23a880;
+}*!
 .bottom_menu .selectDiv{
     position: relative;
-    width: 100px;
-    height: 40px;
+    width: 15.6vw;
+    height: 4.62vh;
     float: left;
     outline: none;
+}
+.selectDiv select{
+  width:4vw;
+  text-indent: 30%;
+}
+.btnDiv{
+  float: right;
+  margin-right: 30px;
+  display: table-cell;
+}
+.btnDiv button {
+  background: #ffffff;
+  border:1px solid #c2c2c2;
+  width:22px;
+  height:22px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+}
+.btnDiv .btn{
+  width:60px;
 }
 .bottom_menu .selectDiv .select_pagemax{
     position: relative;
@@ -57,16 +124,13 @@
     height: 30px;
     top: 10px;
     outline: none;
-
 }
 .bottom_menu .pagebtn{
-
     height: 28px;
     line-height: 28px;
     text-align: center;
     width: 90px;
     margin: 11px 8px 0 10px;
-
     float: right;
     background-color: #252525;
     color: #f7f7f7;
@@ -74,26 +138,30 @@
     font-size: 16px;
     font-family: "MicrosoftYaHei";
     cursor: pointer;
+}*/
+.showDetailBtn {
+  cursor: pointer;
+  color: #ff7c35;
+  font-size: 0.73vw;
+  text-decoration: none;
 }
-.showDetailBtn{
-    cursor: pointer;
-    color: #eeeeee;
-    font-size: 18px;
-    text-decoration: none;
+
+.operationBtn {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin: 0 auto;
 }
-.operationBtn{
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    margin: 0 auto;
-}
-.stop{
-    background: url('../../../assets/jobcreation/icon_01.png') no-repeat center;
+
+.stop {
+  background: url('../../../assets/jobcreation/icon_01.png') no-repeat center;
 
 }
-.start{
-    background: url('../../../assets/jobcreation/icon_02.png') no-repeat center;
+
+.start {
+  background: url('../../../assets/jobcreation/icon_02.png') no-repeat center;
 }
+
 /*th*/
 /*
 .name{
