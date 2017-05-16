@@ -2,7 +2,16 @@
 /* Master Styles */
 body{
   margin: 0px;
-  background-color: #19191a;
+  padding: 0;
+  background-color: #eeeeee;
+  font-family: "MicrosoftYaHei";
+}
+html{
+  overflow-x: hidden;
+}
+
+a[href="http://www.amcharts.com/javascript-charts/"]{
+  display: none !important;
 }
 h1 {
   color: #369;
@@ -19,7 +28,7 @@ h2, h3 {
 .container{
   position: relative;
   width: 88%;
-  height: 1462px;
+  height: 100%;
   float: right;
   background-color: #131314;
 }

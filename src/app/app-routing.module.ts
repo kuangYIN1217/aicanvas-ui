@@ -22,6 +22,7 @@ import {ShowResultComponent} from "./showResult/showResult.component";
 import {ShowImageComponent} from "./showImage/showImage.componment";
 import {AlgChainsComponent} from "./algchains/algchains.component";
 import {NavigationComponent} from "./navigation/navigation.component";
+import {TestComponent} from "app/test/test.component";
 
 
 const routes: Routes = [
@@ -50,7 +51,7 @@ const routes: Routes = [
   {path: 'showResult', component: ShowResultComponent},
   {path: 'showImage', component: ShowImageComponent},
   {path: 'nav', component: NavigationComponent},
-
+  { path: 'test', component: TestComponent },
 
   {path: '', redirectTo: '/nav', pathMatch: 'full'},
 

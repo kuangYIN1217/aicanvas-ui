@@ -28,8 +28,9 @@ import {ShowResultComponent} from "./showResult/showResult.component";
 import {ShowImageComponent} from "./showImage/showImage.componment";
 import {FileUploadModule} from "ng2-file-upload";
 import {AlgChainsComponent} from "./algchains/algchains.component";
-import {Router} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
+import {AmChartsModule} from "amcharts3-angular2";
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import {AppRoutingModule} from "./app-routing.module";
     TaskStatusComponent,
     AlgchainAloneComponent,
     ShowResultComponent,
-    ShowImageComponent
+    ShowImageComponent,
+    TestComponent
   ],
   imports: [
     AppRoutingModule,
@@ -62,6 +64,8 @@ import {AppRoutingModule} from "./app-routing.module";
     FormsModule,
     HttpModule,
     FileUploadModule,
+    AmChartsModule
+
   ],
   providers: [],
   bootstrap: [NavigationComponent]
