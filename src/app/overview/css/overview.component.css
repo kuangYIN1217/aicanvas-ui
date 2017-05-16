@@ -39,34 +39,37 @@
 }
 /*table*/
 .table{
-    position: relative;
-    top: 28px;
-    margin:0 2% 0 2%;
-    width: 96%;
-    border:0;
-    border-collapse: collapse;
-
+  position: relative;
+  top: 28px;
+  margin:18px 0 0 18px;
+  width: 96%;
+  border:1px solid #d3d3d3;
+  border-collapse: collapse;
 }
-
 .table th{
   height: 50px;
-  text-align: left;
-  background: #4e3fa9;
+  background: #ffffff;
+  padding-left: 20px;
   font-size: 0.83vw;
   line-height: 50px;
   color: #333333;
+  text-align: left;
   font-weight: normal;
 }
 .table tr{
-  text-align: center;
-  background: #252525;
+  text-align: left;
+  background: #eeeeee;
   height: 50px;
-  font-size: 16px;
+  font-size: 0.73vw;
   font-family: "MicrosoftYaHei";
-  color: #ededed;
+  border-top:1px solid #d3d3d3;
+  color: #666666;
+}
+.table tr td{
+  padding-left: 20px;
 }
 .table tr:nth-child(even){
-  background: #202020;
+  background: #ffffff;
 }
 /*th*/
 .name{
@@ -93,7 +96,7 @@
 }
 .total{
   background-color: #191919;
-  width: 1700;
+  width: 1700px;
   font-family: "Microsoft YaHei";
   color: #ffffff;
 
@@ -309,4 +312,36 @@ h4{
     font-size: 16px;
     font-family: "MicrosoftYaHei";
     cursor: pointer;
+}
+.disk{
+  background: #eeeeee;
+  padding-bottom: 12px;
+  font-size: 0.83vw;
+  color: #333333;
+}
+.diskSpace{
+  display: inline-block;
+  margin-left: 30px;
+  margin-right: 10px;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+.spaceOut{
+  width:200px;
+  display: inline-block;
+  border: 1px solid #c5c5c5;
+  height:20px;
+  background: #ffffff;
+  vertical-align: middle;
+}
+.spaceIn{
+  background: #23a800;
+  display: inline-block;
+  height:20px;
+  width:60px;
+}
+.diskCapacity{
+  vertical-align: middle;
+  margin-left: 10px;
 }

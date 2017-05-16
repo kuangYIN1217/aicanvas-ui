@@ -4,9 +4,10 @@ import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PluginService} from "../common/services/plugin.service";
-import {JobInfo, SceneInfo} from "../common/defs/resources";
+import {JobInfo, ModelInfo, SceneInfo} from "../common/defs/resources";
 import {JobService} from "../common/services/job.service";
 import {SceneService} from "../common/services/scene.service";
+
 @Component({
     moduleId: module.id,
     selector: 'taskStatus',
@@ -17,23 +18,53 @@ import {SceneService} from "../common/services/scene.service";
 export class TaskStatusComponent{
     page: number = 1;
     pageMaxItem: number = 10;
+    student:number=0;
+    id:number;
     interval: any;
     Jobs: JobInfo[] = [];
     Jobs_current: JobInfo[] = [];
     SceneInfo:SceneInfo[] = [];
+    ModelInfo:ModelInfo[] = [];
     createdJob: JobInfo = new JobInfo();
+    params:any; // 保存页面url参数
+    totalNum:number = 0; // 总数据条数
+    pageSize:number = 20;// 每页数据条数
+    totalPage:number = 0;// 总页数
+    curPage:number = 1;// 当前页码
     @Input() statuss:string;
 
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
-        //this.interval = setInterval (() => {this.updatePage()}, 500);
       this.sceneService.getAllScenes()
         .subscribe(scenes => this.SceneInfo=scenes);
-
+      let vm = this;
+      if(vm.params){
+        vm.params = vm.params.replace('?', '').split('&');
+        let theRequest = [];
+        for (let i = 0; i < vm.params.length; i++) {
+          theRequest[vm.params[i].split("=")[0]] = vm.params[i].split("=")[0] == 'pageNo' ? parseInt(vm.params[i].split("=")[1]) : vm.params[i].split("=")[1];
+        }
+        vm.params = theRequest;
+        if (vm.params['pageNo']) {
+          vm.curPage = vm.params['pageNo'];
+          //console.log('当前页面', vm.curPage);
+        }
+      }
+      else{
+        vm.params = {};
+      }
     }
+  getPageData(pageNo) {
+    let vm = this;
+    vm.curPage = pageNo;
+    console.log('触发', pageNo);
+  }
    ngOnInit(){
        this.updatePage();
     }
+  selectChange(){
+    this.id=this.student;
 
+  }
     updatePage(){
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
     }

@@ -30,6 +30,8 @@ import {FileUploadModule} from "ng2-file-upload";
 import {AlgChainsComponent} from "./algchains/algchains.component";
 import {Router} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
+import {PageComponent} from "./page/page.component";
+
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import {AppRoutingModule} from "./app-routing.module";
     TaskStatusComponent,
     AlgchainAloneComponent,
     ShowResultComponent,
-    ShowImageComponent
+    ShowImageComponent,
+    PageComponent
+
   ],
   imports: [
     AppRoutingModule,
