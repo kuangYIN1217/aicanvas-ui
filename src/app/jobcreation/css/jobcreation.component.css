@@ -61,6 +61,15 @@ select {
     height: 18px;
     float: right;
 }
+
+.addicon{
+  display: inline;
+  float: left;
+  margin-top: 3px;
+  margin-left: 10px;
+  margin-right: -13px;
+
+}
 .status{
     background-color: #19191a;
     height: 1402px;

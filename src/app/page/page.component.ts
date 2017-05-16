@@ -9,14 +9,19 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 })
 export class PageComponent {
   @Input('pageParams') pageParams;// 父组件向子组件传值
-  @Output() changeCurPage:EventEmitter<Number> = new EventEmitter;// 子组件向父组件广播事件，触发改变当前页面的事件
+  @Output() changeCurPage:EventEmitter<string> = new EventEmitter;// 子组件向父组件广播事件，触发改变当前页面的事件
 
   public pageList = [1, 2, 3, 4, 5];
   public totalPage = 5;
+  pageMaxItem =10;
   constructor() {
     let vm = this;
     //console.log('从父组件获取的参数', vm['pageParams']);
   }
+
+
+
+
   getPageList(pageParams) {
     /*分页设置*/
     let pageList=[];
@@ -58,10 +63,14 @@ export class PageComponent {
     }
     return pageList;
   }
+  maxItemChange(){
+    this.changePage(1);
+  }
   changePage(pageNo) {
     let vm = this;
     //console.log('修改页码', pageNo);
     vm.pageParams.curPage = pageNo;
-    vm.changeCurPage.emit(vm.pageParams.curPage);
+    vm.pageParams.pageMaxItem = this.pageMaxItem;
+    vm.changeCurPage.emit(vm.pageParams);
   }
 }

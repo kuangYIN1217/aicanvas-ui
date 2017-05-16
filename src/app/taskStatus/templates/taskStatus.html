@@ -27,5 +27,6 @@
         </td>
     </tr>
 </table>
+  <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+
 </div>
-<page [pageParams]="{pageSize:20,totalNum:100,curPage:1,totalPage:5}" (changeCurPage)="getPageData($event)"></page>

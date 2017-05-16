@@ -21,6 +21,13 @@ export class Cpu{
     tot_memory: number;
     hz: string;
 }
+
+export class Page{
+  pageMaxItem: number;
+  curPage: number;
+  totalPage: number;
+  totalNum:number;
+}
 export class UserInfo{
     //
     activated: boolean;

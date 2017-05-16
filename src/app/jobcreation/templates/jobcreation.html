@@ -6,12 +6,12 @@
             <input id="search_input" type="text" name="" value="" placeholder="&nbsp;&nbsp;搜索" (input)="search_input=$event.target.value;inputchange();" />
             <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon">
           </div>
-            <div class="tab_item sm_tab_item" (click)="createJob()"> <a href="#" class="back">导入</a>
+            <div class="tab_item sm_tab_item" (click)="CSV()"> <a href="#" class="back">导入</a>
              </div>
-            <div class="tab_item sm_tab_item" (click)="CSV()"> <a href="#" class="back"><img src="assets/jobcreation/jiahao.png" alt="">新建任务</a></div>
+            <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
 
         </div>
-        <div>
+        <div [style.display]="jobPageStatus=='createJob'?'none':''">
             <taskStatus [statuss]="statuss"></taskStatus>
         </div>
     </div>

@@ -4,7 +4,7 @@ import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PluginService} from "../common/services/plugin.service";
-import {JobInfo, ModelInfo, SceneInfo} from "../common/defs/resources";
+import {JobInfo, ModelInfo, Page, SceneInfo} from "../common/defs/resources";
 import {JobService} from "../common/services/job.service";
 import {SceneService} from "../common/services/scene.service";
 
@@ -22,6 +22,7 @@ export class TaskStatusComponent{
     id:number;
     interval: any;
     Jobs: JobInfo[] = [];
+    pageParams=new Page();
     Jobs_current: JobInfo[] = [];
     SceneInfo:SceneInfo[] = [];
     ModelInfo:ModelInfo[] = [];
@@ -34,31 +35,12 @@ export class TaskStatusComponent{
     @Input() statuss:string;
 
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
-      this.sceneService.getAllScenes()
-        .subscribe(scenes => {
-          this.SceneInfo=scenes;
-        });
-      let vm = this;
-      if(vm.params){
-        vm.params = vm.params.replace('?', '').split('&');
-        let theRequest = [];
-        for (let i = 0; i < vm.params.length; i++) {
-          theRequest[vm.params[i].split("=")[0]] = vm.params[i].split("=")[0] == 'pageNo' ? parseInt(vm.params[i].split("=")[1]) : vm.params[i].split("=")[1];
-        }
-        vm.params = theRequest;
-        if (vm.params['pageNo']) {
-          vm.curPage = vm.params['pageNo'];
-          //console.log('当前页面', vm.curPage);
-        }
-      }
-      else{
-        vm.params = {};
-      }
+
     }
-  getPageData(pageNo) {
-    let vm = this;
-    vm.curPage = pageNo;
-    console.log('触发', pageNo);
+
+  getPageData(paraParam) {
+    this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem);
+    console.log('触发', paraParam);
   }
    ngOnInit(){
        this.updatePage();
@@ -76,6 +58,13 @@ export class TaskStatusComponent{
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
                 this.createdJob = Jobs;
+                let page = new Page();
+              page.pageMaxItem = Jobs.size;
+              page.curPage = Jobs.number+1;
+              page.totalPage = Jobs.totalPages;
+              page.totalNum = Jobs.totalElements;
+              this.pageParams=page;
+              console.log(this.pageParams)
             });
     }
     ngOnDestroy(){
