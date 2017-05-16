@@ -163,11 +163,12 @@ export class JobCreationComponent {
         $('#layer_dictionary').val(JSON.stringify(dictionary));
     }
     createJob_getScene(scenes){
+      this.jobPageStatus = "createJob";
         this.scenes = scenes;
         if(scenes[0]){
             this.chosenSceneId = scenes[0].id;
         }
-        this.jobPageStatus = "createJob";
+
     }
 
     toStep(dest:number){
