@@ -32,6 +32,7 @@ import {Router} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {PageComponent} from "./page/page.component";
 import {TestComponent} from "./test/test.component";
+import {AmChartsModule, AmChartsService} from "amcharts3-angular2";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {TestComponent} from "./test/test.component";
     FormsModule,
     HttpModule,
     FileUploadModule,
+    AmChartsModule
   ],
   providers: [],
   bootstrap: [NavigationComponent]

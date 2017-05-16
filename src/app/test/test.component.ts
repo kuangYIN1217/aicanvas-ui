@@ -117,7 +117,7 @@ export class TestComponent implements OnInit {
       }],
       "graphs": [{
 
-        "id":"g1",
+        "id":"g2",
         // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
         // "bullet": "round",
         // "bulletSize": 0,
@@ -131,7 +131,7 @@ export class TestComponent implements OnInit {
       },
   ],
       "chartScrollbar": {
-        "graph":"g1",
+        "graph":"g2",
         "gridAlpha":0,
         "color":"#888888",
         "scrollbarHeight":55,

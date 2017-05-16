@@ -296,9 +296,40 @@ html,body{
   -o-transform: translateY(0);
   transform: translateY(0);
 }
+a[href="http://www.amcharts.com/javascript-charts/"]{
+  display: none !important;
+}
 
 /**/
 
 canvas{
   outline: none;
+}
+
+.back{
+  text-decoration:none;
+  width: 114px;
+  float: right;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #ff7c35;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+  font-size: 14px;
+}
+
+
+.button{
+  text-decoration:none;
+  width: 130px;
+  float: right;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #23a880;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+  font-size: 14px;
+  margin-left: 20px;
 }

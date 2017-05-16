@@ -4,43 +4,24 @@ select {
 }
 /*manage table*/
 .tabs{
-    position: relative;
+    margin: 30px 0 0 30px;
     height: 60px;
-    background-color: #131314;
-    margin-bottom: 0px;
-    border: 0px;
+    width: 97%;
+    background-color: #fff;
+    /*margin-bottom: 0px;*/
+    /*margin-left: 30px;*/
+  border-radius: 5px;
+
 }
 .tab_item{
-    position: relative;
-    top: 20px;
-    border-radius: 0px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border: 0px;
-    width: 150px;
-    height: 40px;
-    float: left;
-    text-align: center;
-    line-height: 40px;
-    font-size: 20px;
-    font-weight: normal;
-    font-family: "MicrosoftYaHei";
-    color: #5e5e5f;
-    background-color: #0b0b0b;
-    cursor: pointer;
-    margin-right: 0px;
+    float: right;
+    margin: 20px 0 20px 0;
 }
-.sm_tab_item{
-    position: relative;
-    border-radius: 8px;
-    top: 11px;
-    height: 38px;
-    line-height: 38px;
-    color: #ced1d2;
-    background-color: #58585a;
-    margin-left: 2%;
-    font-size: 20px;
+
+.tab_item .back:last-child{
+  margin-right: 30px;
 }
+
 .focus{
     background-color: #19191a;
     color: #6e7ae8;
@@ -52,33 +33,33 @@ select {
     margin-right: 6px;
 }
 .tab_search{
-    position: relative;
-    width: 405px;
-    height: 42px;
-    top: 9px;
-    right: 50px;
+    width: 275px;
+    height: 36px;
+    margin-top: 20px;
+    margin-left: 30px;
     border-radius: 8px;
-    float: right;
+    margin-bottom: 15px;
+    float: left;
 }
 #search_input{
-    width: 100%;
-    height: 42px;
-    border-radius: 8px;
-    border: 0px;
-    background-color: #313131;
+  display: inline;
+    width: 98%;
+    height: 36px;
+    border-radius: 5px;
+    border: solid 1px #d3d3d3;
     float: left;
     font-family: "MicrosoftYaHei";
-    font-size: 20px;
-    color: #999999;
+    font-size: 14px;
+    color: #666666;
     outline: none;
 }
-#searchicon{
-    position: absolute;;
-    top: 8px;
-    right: 10px;
-    width: 26px;
-    height: 26px;
-    float: left;
+.searchicon{
+  display: inline;
+  margin-top: -30px;
+  margin-right: 8px;
+    width: 17px;
+    height: 18px;
+    float: right;
 }
 .status{
     background-color: #19191a;
