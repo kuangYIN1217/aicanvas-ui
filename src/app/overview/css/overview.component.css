@@ -116,6 +116,7 @@ h4{
 }
 .cpu{
     height: 520px;
+  background: #ffffff;
 }
 /*.occupancyRate,.fluctuate{
   position: relative;
@@ -133,12 +134,12 @@ h4{
 .linechart{
     position: relative;
     background-color: #151515;
-    box-shadow: 1px 1px 30px rgba(0,0,0,0.5);
+    /*box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: left;
-    width: 1000px;
-    height: 440px;
-    border-radius: 5px;
-    margin-left: 20px;
+    width: 32%;
+    height: 353px;
+    border-radius: 10px;
+    margin-left: 30px;
     margin-right: 30px;
     margin-top:15px;
 }

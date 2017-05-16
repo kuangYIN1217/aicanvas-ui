@@ -35,7 +35,9 @@ export class TaskStatusComponent{
 
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
       this.sceneService.getAllScenes()
-        .subscribe(scenes => this.SceneInfo=scenes);
+        .subscribe(scenes => {
+          this.SceneInfo=scenes;
+        });
       let vm = this;
       if(vm.params){
         vm.params = vm.params.replace('?', '').split('&');
