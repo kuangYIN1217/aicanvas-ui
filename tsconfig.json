@@ -1,5 +1,5 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
@@ -12,6 +12,7 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "exclude": [ "test.ts" ],
     "lib": [
       "es2016",
       "dom"

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AmChartsService} from "amcharts3-angular2";
+import {AmChartsService} from "amcharts3-angular2-fix-error";
 
 @Component({
   selector: 'app-test',

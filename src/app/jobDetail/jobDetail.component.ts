@@ -4,7 +4,7 @@ import {Location} from "@angular/common";
 import {JobService} from "../common/services/job.service";
 
 import {JobInfo, JobParameter, UserInfo} from "../common/defs/resources";
-import {AmChartsService} from "amcharts3-angular2";
+import {AmChartsService} from "amcharts3-angular2-fix-error";
 declare var $: any;
 declare var unescape: any;
 @Component({
@@ -35,14 +35,14 @@ export class JobDetailComponent {
 
 
   lossChartInitData() {
-  var dataProvider = [{
-    loss: "0",
-    epoch: "0"
-  }];
+    var dataProvider = [{
+      loss: "0",
+      epoch: "0"
+    }];
 
 
-  return dataProvider;
-}
+    return dataProvider;
+  }
 
   metricsChartInitData() {
     var dataProvider = [{
@@ -128,10 +128,11 @@ export class JobDetailComponent {
       },
       "categoryField": "epoch",
       "categoryAxis": {
-        "maxSeries":300,
+        "maxSeries": 300,
         "minorGridAlpha": 0.1,
         "minorGridEnabled": true
       },
+
       "export": {
         "enabled": true
       }
@@ -184,7 +185,7 @@ export class JobDetailComponent {
       },
       "categoryField": "epoch",
       "categoryAxis": {
-        "maxSeries":300,
+        "maxSeries": 300,
         "minorGridAlpha": 0.1,
         "minorGridEnabled": true
       },
@@ -204,12 +205,11 @@ export class JobDetailComponent {
   }
 
 
-
   // 不再running状态时一次性展示数据
   not_running_show(jobPath: string) {
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
-        this.jobResultParam= this.jobResultParam.concat(jobParam);
+        this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
 
         console.log(this.jobResult)
@@ -231,10 +231,10 @@ export class JobDetailComponent {
     });
     this.jobService.getJob(jobPath, index)
       .subscribe(jobParam => {
-        this.jobResultParam= this.jobResultParam.concat(jobParam);
+        this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
 
-        this.index =  this.jobResult.epoch;
+        this.index = this.jobResult.epoch;
         // debugger
         // this.update(jobParam);
         this.AmCharts.updateChart(this.lossChart, () => {
@@ -247,6 +247,19 @@ export class JobDetailComponent {
         // this.jobResult =jobParam.jobResult;
       });
     // console.log(this.index);
+  }
+
+
+  stop(jobPath: string) {
+    this.jobService.stopJob(jobPath).subscribe(job=>{
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+      this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+        this.job = jobDetail;
+        this.user = this.job.user;
+      });
+    });
   }
 
 

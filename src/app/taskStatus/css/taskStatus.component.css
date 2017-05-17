@@ -26,7 +26,7 @@
 .taskStatusContainer {
   width: 97%;
   margin: 0 30px 0 30px;
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
   background-color: #fff;
 
 }
@@ -40,13 +40,13 @@
   margin-left: 30px;
   padding-right: 30px;
   border-collapse: collapse;
-  border: solid 1px #666666;
+  border: solid 1px #eeeeee;
 }
 .table th{
     height: 4.63vh;
     background: #ffffff;
     padding-left: 20px;
-    font-size: 0.83vw;
+    font-size: 16px;
     line-height: 50px;
     color: #333333;
     text-align: left;
@@ -56,7 +56,7 @@
     text-align: left;
     background: #eeeeee;
     height: 4.63vh;
-    font-size: 0.73vw;
+    font-size: 16px;
     font-family: "MicrosoftYaHei";
     border-top:1px solid #d3d3d3;
     color: #666666;
@@ -66,7 +66,7 @@
   height: 4.63vh;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 0.83vw;
+  font-size: 16px;
   line-height: 50px;
   color: #333333;
   text-align: left;
@@ -77,7 +77,7 @@
   text-align: left;
   background: #eeeeee;
   height: 4.63vh;
-  font-size: 0.73vw;
+  font-size: 16px;
   font-family: "MicrosoftYaHei";
   border-top: 1px solid #d3d3d3;
   color: #666666;
@@ -166,6 +166,10 @@
   color: #ff7c35;
   font-size: 0.73vw;
   text-decoration: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: block;
 }
 
 .operationBtn {
@@ -174,14 +178,17 @@
   cursor: pointer;
   margin: 0 auto;
 }
+.see-detail{
+  background: url('../../../assets/taskStatus/chakan-.png') no-repeat center;
 
+}
 .stop {
-  background: url('../../../assets/jobcreation/icon_01.png') no-repeat center;
+  background: url('../../../assets/taskStatus/zanting.png') no-repeat center;
 
 }
 
 .start {
-  background: url('../../../assets/jobcreation/icon_02.png') no-repeat center;
+  background: url('../../../assets/taskStatus/qidong.png') no-repeat center;
 }
 
 /*th*/

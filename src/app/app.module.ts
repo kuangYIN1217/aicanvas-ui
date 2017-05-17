@@ -31,8 +31,7 @@ import {AlgChainsComponent} from "./algchains/algchains.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {PageComponent} from "./page/page.component";
 import {TestComponent} from "./test/test.component";
-import {AmChartsModule} from "amcharts3-angular2";
-import {FontAwesomeDirective} from "ng2-fontawesome";
+import {AmChartsModule} from "amcharts3-angular2-fix-error";
 
 @NgModule({
   declarations: [
