@@ -4,7 +4,7 @@ import {Location} from "@angular/common";
 import {JobService} from "../common/services/job.service";
 
 import {JobInfo, JobParameter, UserInfo} from "../common/defs/resources";
-import {AmChartsService} from "amcharts3-angular2-fix-error";
+import {AmChartsService} from "amcharts3-angular2";
 declare var $: any;
 declare var unescape: any;
 @Component({
