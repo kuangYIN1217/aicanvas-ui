@@ -34,7 +34,7 @@
           </div>
 
 
-          <div class="tab">
+          <div class="tab" *ngIf="job?.status=='Runnning'">
             <a href="#" onclick="return false" class="current_tab">训练结果</a>
             <a href="#" onclick="return false">资源详情</a>
 
@@ -73,15 +73,15 @@
           <div class="propertyLine">
             <div class="propertyCard">
                 <div class="cardInline"> Samples/Sec</div>
-                <div class="cardInline">{{jobResult?.samples_sec}}</div>
+                <div class="cardInline_value">{{jobResult?.samples_sec}}</div>
             </div>
             <div  class="propertyCard" style="margin-left: 10px">
                 <div class="cardInline">Sec/Epoch</div>
-                <div class="cardInline">{{jobResult?.sec_epoch}}</div>
+                <div class="cardInline_value">{{jobResult?.sec_epoch}}</div>
             </div>
             <div class="propertyCard" style="margin-left: 20px">
                 <div class="cardInline">Sample Process</div>
-                <div class="cardInline">{{job?.percent|percent:'.2'}}</div>
+                <div class="cardInline_value">{{job?.percent|percent:'.2'}}</div>
             </div>
             <!--<div class="propertyCard"  style="margin-left: 36px">-->
                 <!--<div class="icon"></div>-->
@@ -97,7 +97,7 @@
             <!--</div>-->
             <div class="propertyCard" style="margin-left: 10px">
                 <div class="cardInline">Epoch:</div>
-                <div class="cardInline">{{jobResult.epoch}}</div>
+                <div class="cardInline_value">{{jobResult.epoch}}</div>
             </div>
           </div>
           <div class="log" *ngIf="job?.status!='Finished'">

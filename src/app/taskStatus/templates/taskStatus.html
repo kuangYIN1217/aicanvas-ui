@@ -21,7 +21,7 @@
             <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
             <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
         </td>-->
-        <td style="display: flex">
+        <td class="operation">
             <a class="showDetailBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}"></a>&nbsp;&nbsp;
           <a  *ngIf="jobInfo.status=='Running'" class="showDetailBtn stop" (click)="stop(jobInfo.jobPath)"></a>
           <a *ngIf="jobInfo.status!='Running'" class="showDetailBtn start" (click)="start(jobInfo.jobPath)"></a>
