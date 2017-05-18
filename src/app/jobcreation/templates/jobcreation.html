@@ -9,9 +9,8 @@
             <div class="tab_item sm_tab_item" (click)="CSV()"> <a href="#" class="back">导入</a>
              </div>
             <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
-
         </div>
-        <div [style.display]="jobPageStatus=='createJob'?'none':''">
+        <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
             <taskStatus [statuss]="statuss"></taskStatus>
         </div>
     </div>

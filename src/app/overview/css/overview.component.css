@@ -17,7 +17,7 @@
   margin-right: 4%;
   margin-left: 4px;
   text-align: center;
-  font-size: 1vw;
+  font-size: 0.83vw;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
@@ -367,7 +367,7 @@ h4{
   position: relative;
   top:18px;
   height:76px;
-  left:18px;
+  left:30px;
   width:293px;
 }
 .select{

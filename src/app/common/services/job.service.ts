@@ -69,9 +69,8 @@ export class JobService {
                 }
         });
     }
-
-    getAllJobs(status,page,size){
-        let path = "/api/jobs?page="+page+"&size="+size+"&status="+status;
+    getAllJobs(status,page,size,sencesId){
+        let path = "/api/jobs?page="+page+"&size="+size+"&status="+status+"&sencesId="+sencesId;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {
@@ -80,7 +79,6 @@ export class JobService {
                 }
         });
     }
-
 
     getJobDetail(jobPath:string){
         let path = "/api/jobDetail/"+jobPath;

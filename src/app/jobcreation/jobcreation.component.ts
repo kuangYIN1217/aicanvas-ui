@@ -67,18 +67,15 @@ export class JobCreationComponent {
         // 退出时停止更新
         clearInterval(this.interval);
     }
-
     getTranParamTypes(editable_params){
         // editable_params为参数字典
         this.editable_params = editable_params;
     }
-
     initialJobArray(Jobs){
         console.log(Jobs);
         this.Jobs = Jobs;
         this.Jobs_current = Jobs;
     }
-
     //table operations
     showManage(){
         this.jobPageStatus = "manage";
@@ -168,7 +165,6 @@ export class JobCreationComponent {
         if(scenes[0]){
             this.chosenSceneId = scenes[0].id;
         }
-
     }
 
     toStep(dest:number){

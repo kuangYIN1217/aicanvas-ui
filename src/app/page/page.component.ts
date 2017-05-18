@@ -19,9 +19,6 @@ export class PageComponent {
     //console.log('从父组件获取的参数', vm['pageParams']);
   }
 
-
-
-
   getPageList(pageParams) {
     /*分页设置*/
     let pageList=[];

@@ -2,40 +2,57 @@ import {Component, Input} from "@angular/core";
 import {ResourcesService} from "../common/services/resources.service";
 import {JobService} from "../common/services/job.service";
 
-import {Cpu, CpuInfo, Gpu, GpuInfo, JobInfo} from "../common/defs/resources";
+import {Cpu, CpuInfo, Gpu, GpuInfo, JobInfo, SceneInfo} from "../common/defs/resources";
 import * as d3 from "d3";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AmChartsService} from "amcharts3-angular2";
+import {modelService} from "../common/services/model.service";
+import {SceneService} from "../common/services/scene.service";
 declare var $:any;
 @Component({
     moduleId: module.id,
     selector: 'overview',
     styleUrls: ['./css/overview.component.css'],
     templateUrl: './templates/overview.html',
-    providers: [ResourcesService,JobService]
+    providers: [ResourcesService,JobService,SceneService]
 })
 export class OverviewComponent {
     gpuArray: Gpu[] = [];
     // infomation of cpu
     cpuInfoArray: CpuInfo[] = [];
-
+    SceneInfo:SceneInfo[] = [];
     // list of jobs
     jobArray: JobInfo[] = [];
     createdJob: JobInfo = new JobInfo();
     // show resource or task 0--resource, 1--task
+  GpuInfo:GpuInfo[]=[];
     tabIndex: number = 0;
     interval: any;
+    student:number=0;
+    id:number;
     private timer: any;
     private chart: any;
-    @Input() statuss:string='Running';
-
-    constructor(private AmCharts: AmChartsService,private resourcesService: ResourcesService, private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
+  gpuIndex:number=0;
+  cpuIndex:number=0;
+  @Input() statuss:string='Running';
+  @Input() sceneId:number=this.id;
+  private chart2: any;
+  private chart3: any;
+  private chart4: any;
+  private chart5: any;
+  private chart6: any;
+  private chart7: any;
+  private chart8: any;
+    constructor(private sceneService: SceneService,private AmCharts: AmChartsService,private resourcesService: ResourcesService, private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
         resourcesService.getCpuInfo()
         .subscribe(cpu => this.getCpu(cpu));
         resourcesService.getAllGpus()
         .subscribe(gpuArray => this.getGpus(gpuArray));
         //this.getAlljobs(this.page-1,this.pageMaxItem);
         // loading show
+        this.sceneService.getAllScenes()
+        .subscribe(scenes => this.SceneInfo=scenes);
+
         this.loading();
         this.interval = setInterval (() => {
             this.update();
@@ -47,19 +64,61 @@ export class OverviewComponent {
             sessionStorage.overviewTab = 0;
             this.tabIndex = 0;
         }
-
     }
   makeRandomDataProvider1() {
-    var dataProvider = [];
-    // Generate random data
-    for (var year = 1950; year <= 1960; ++year) {
-      dataProvider.push({
-        year1: "" + year,
-        value: Math.floor(Math.random() * 100),
-        value1: Math.floor(Math.random() * 100)
-      });
-    }
-
+    var dataProvider = [{
+      created_at: "0",
+      total_gpu_utilization:'0',
+    }];
+    return dataProvider;
+  }
+  makeRandomDataProvider2() {
+    var dataProvider = [{
+      created_at: "0",
+      total_used_memory:'0',
+    }];
+    return dataProvider;
+  }
+ makeRandomDataProvider3() {
+    var dataProvider = [{
+      created_at: "0",
+      cpu_utilization:'0',
+    }];
+    return dataProvider;
+  }
+  makeRandomDataProvider4() {
+    var dataProvider = [{
+      created_at: "0",
+      used_memory:'0',
+    }];
+    return dataProvider;
+  }
+  makeRandomDataProvider5() {
+    var dataProvider = [{
+      created_at: "0",
+      total_gpu_utilization:'0',
+    }];
+    return dataProvider;
+  }
+  makeRandomDataProvider6() {
+    var dataProvider = [{
+      created_at: "0",
+      total_used_memory:'0',
+    }];
+    return dataProvider;
+  }
+  makeRandomDataProvider7() {
+    var dataProvider = [{
+      created_at: "0",
+      cpu_utilization:'0',
+    }];
+    return dataProvider;
+  }
+  makeRandomDataProvider8() {
+    var dataProvider = [{
+      created_at: "0",
+      used_memory:'0',
+    }];
     return dataProvider;
   }
   ngOnInit() {
@@ -86,7 +145,133 @@ export class OverviewComponent {
         "lineThickness": 1,
         //"type": "smoothedLine",
         "type": "line",
-        "valueField": "value"
+        "valueField": "total_gpu_utilization"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        // "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+        "categoryAxis": {
+        // "minPeriod": "YYYY",
+        // "parseDates": true,
+        "minorGridAlpha": 0.1,
+          "labelsEnabled": false,
+          "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+    this.chart2 = this.AmCharts.makeChart("chartdiv2", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider2(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "total_used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        // "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+   this.chart3 = this.AmCharts.makeChart("chartdiv3", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider3(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "cpu_utilization"
       },
       ],
       "chartScrollbar": {
@@ -113,11 +298,327 @@ export class OverviewComponent {
         "valueLineAlpha":0.5,
         "fullWidth":true
       },
-      "dataDateFormat": "YYYY",
-      "categoryField": "year1",
+     "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
       "categoryAxis": {
-        "minPeriod": "YYYY",
-        "parseDates": true,
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+       // "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+     this.chart4 = this.AmCharts.makeChart("chartdiv4", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider4(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+       "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+    this.chart5 = this.AmCharts.makeChart("chartdiv5", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider5(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "total_gpu_utilization"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        // "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        // "minPeriod": "YYYY",
+        // "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "labelsEnabled": false,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+    this.chart6 = this.AmCharts.makeChart("chartdiv6", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider6(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "total_used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        // "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+    this.chart7 = this.AmCharts.makeChart("chartdiv7", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider7(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "cpu_utilization"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        // "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+    this.chart8 = this.AmCharts.makeChart("chartdiv8", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop":0,
+      "marginRight": 80,
+      "dataProvider": this.makeRandomDataProvider8(),
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id":"g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        "bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField":"lineColor",
+        "fillColorsField":"lineColor",
+        "fillAlphas":"0.3",
+        "lineThickness": 1,
+        //"type": "smoothedLine",
+        "type": "line",
+        "valueField": "used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph":"g2",
+        "gridAlpha":0,
+        "color":"#888888",
+        "scrollbarHeight":55,
+        "backgroundAlpha":0,
+        "selectedBackgroundAlpha":0.1,
+        "selectedBackgroundColor":"#888888",
+        "graphFillAlpha":0,
+        "autoGridCount":true,
+        "selectedGraphFillAlpha":0,
+        "graphLineAlpha":0.2,
+        "graphLineColor":"#c2c2c2",
+        "selectedGraphLineColor":"#888888",
+        "selectedGraphLineAlpha":1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled":true,
+        "valueLineBalloonEnabled":true,
+        "valueLineAlpha":0.5,
+        "fullWidth":true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
         "minorGridAlpha": 0.1,
         "minorGridEnabled": true
       },
@@ -136,10 +637,22 @@ export class OverviewComponent {
     }
     loading(){
     }
+  selectChange(){
+    this.id=this.student;
+  }
     getCpu(cpu){
         // console.log(cpu);
         this.resourcesService.getCpuStatus()
-        .subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray,cpu));
+        /*.subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray,cpu));*/
+         .subscribe(cpuInfoArray =>  {
+            this.AmCharts.updateChart(this.chart3, () => {
+              this.chart3.dataProvider = cpuInfoArray;
+            });
+          this.AmCharts.updateChart(this.chart4, () => {
+              this.chart4.dataProvider = cpuInfoArray;
+            });
+          });
+
     }
     getCpuInfo(cpuInfoArray: CpuInfo[],cpu: Cpu){
         console.log(cpuInfoArray);
@@ -156,14 +669,44 @@ export class OverviewComponent {
             for (let gpu of this.gpuArray){
                 let id = gpu.id;
                 this.resourcesService.getGpuStatus(id)
-                .subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));
+                /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+                  .subscribe(gpuInfoArray => {
+                    //
+                    // this.AmCharts.updateChart(this.chart, () => {
+                    //   this.chart.dataProvider = gpuInfoArray;
+                    // });
+                  });
             }
         }else{
             this.gpuArray = gpuArray;
             for (let gpu of this.gpuArray){
                 let id = gpu.id;
-                this.resourcesService.getGpuStatus(id)
-                .subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));
+                if(id==0){
+                  this.resourcesService.getGpuStatus(id)
+                  /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+                    .subscribe(gpuInfoArray => {
+                      this.GpuInfo = gpuInfoArray;
+                      this.AmCharts.updateChart(this.chart, () => {
+                        this.chart.dataProvider = gpuInfoArray;
+                      });
+                      this.AmCharts.updateChart(this.chart2, () => {
+                        this.chart2.dataProvider = gpuInfoArray;
+                      });
+                    });
+                }else if(id==1){
+                  this.resourcesService.getGpuStatus(id)
+                  /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+                    .subscribe(gpuInfoArray => {
+                      this.GpuInfo = gpuInfoArray;
+                      this.AmCharts.updateChart(this.chart5, () => {
+                        this.chart5.dataProvider = gpuInfoArray;
+                      });
+                      this.AmCharts.updateChart(this.chart6, () => {
+                        this.chart6.dataProvider = gpuInfoArray;
+                      });
+                    });
+                }
+
             }
         }
     }
@@ -171,6 +714,7 @@ export class OverviewComponent {
         this.drawGpuLine(gpuInfoArray,gpu);
         this.drawGpuPie(gpuInfoArray,gpu);
     }
+
     drawCpuLine(cpuInfoArray: CpuInfo[]){
         let dataset = [];
         let index = 0;
@@ -209,7 +753,6 @@ export class OverviewComponent {
     }
     drawGpuLine(gpuInfoArray: GpuInfo[], gpu: Gpu){
         let gpuId = gpu.id;
-
         let dataset = [];
         let index = 0;
         for (let gpuInfo of gpuInfoArray){
@@ -254,11 +797,24 @@ export class OverviewComponent {
         .subscribe(gpuArray => this.getGpus(gpuArray));
         // this.getGpus(this.gpuArray);
     }
-
     changeTab(tabIndex: number){
         this.tabIndex = tabIndex;
         sessionStorage.overviewTab = tabIndex;
     }
+    gpuToggle(){
+       if(this.gpuIndex==0){
+         this.gpuIndex = 1;
+       }else{
+         this.gpuIndex = 0;
+       }
+    }
+  cpuToggle(){
+    if(this.cpuIndex==0){
+      this.cpuIndex = 1;
+    }else{
+      this.cpuIndex = 0;
+    }
+  }
     // 增加样式
     addStyle(){
         //change color
@@ -379,7 +935,6 @@ export class OverviewComponent {
             y2=y2+22;
             return "translate("+x+","+y2+")";
         }) ;
-
     }
     // CPU波动
     drawLine(svg,dataset,Ymax){

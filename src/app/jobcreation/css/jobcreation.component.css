@@ -41,6 +41,9 @@ select {
     margin-bottom: 15px;
     float: left;
 }
+.tab_content{
+  margin-left: 30px;
+}
 #search_input{
   display: inline;
     width: 98%;

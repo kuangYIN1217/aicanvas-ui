@@ -2,7 +2,7 @@
   position: relative;;
   width: 96%;
   height: 4.62vh;
-  top:40px;
+  top:12px;
   left:18px;
   font-size: 0.62vw;
   color:#666666;
@@ -13,6 +13,13 @@
   width: 50%;
   font-family: "MicrosoftYaHei";
   float: left;
+
+}
+.disabled{
+  background: #23a880 !important;
+}
+.bottom_menu .label span{
+  color: #23a880;
 
 }
 /*.bottom_menu .label span:nth-of-type(2){
@@ -29,24 +36,26 @@
 .selectDiv select{
   width:4vw;
   text-indent: 20%;
+  color: #666666;
 }
 .btnDiv{
   position: relative;
   float: right;
   display: table-cell;
   width:30%;
+
   text-align: right;
 }
 .btnDiv button {
   background: #ffffff;
   border:1px solid #c2c2c2;
-  width:20px;
   height:20px;
   text-align: center;
   vertical-align: middle;
   display: inline-block;
   cursor: pointer;
   margin: 0 2px;
+  color: #666666;
 }
 .btnDiv .btn{
   width:60px;

@@ -1,6 +1,7 @@
 
 <div class="taskStatusContainer">
 <table id="jobTable" class="table">
+  <tr>
     <th class="name">任务名称</th>
     <th class="scene">场景名称</th>
     <th class="time">创建时间</th>
@@ -8,7 +9,8 @@
     <th class="progress">进度</th>
     <!--<th class="operation">操作</th>-->
     <th class="formore">操作</th>
-  <!--*ngIf="jobInfo.sences==student"-->
+  </tr>
+  <!--*ngIf="jobInfo.sences==sceneId"-->
     <tr *ngFor="let jobInfo of Jobs_current;let i = index;">
         <td>{{jobInfo.jobName}}</td>
         <td>{{jobInfo.sencesName}}</td>
@@ -27,5 +29,4 @@
     </tr>
 </table>
   <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
-
 </div>

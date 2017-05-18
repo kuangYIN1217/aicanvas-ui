@@ -27,44 +27,52 @@ export class TaskStatusComponent{
     SceneInfo:SceneInfo[] = [];
     ModelInfo:ModelInfo[] = [];
     createdJob: JobInfo = new JobInfo();
+    scene_id:number;
     params:any; // 保存页面url参数
     totalNum:number = 0; // 总数据条数
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
     @Input() statuss:string;
+    @Input() sceneId:number;
 
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
 
     }
-
-  getPageData(paraParam) {
-    this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem);
-    console.log('触发', paraParam);
-  }
+    getPageData(paraParam) {
+      this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
+      //console.log('触发', paraParam);
+    }
    ngOnInit(){
-       this.updatePage();
-    }
-  selectChange(){
-    this.id=this.student;
+     this.updatePage();
+     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,'');
+   }
 
-  }
+  ngOnChanges(...args: any[]) {
+     console.log(this.sceneId);
+     //this.getSceneId();
+   }
+   getSceneId(){
+       console.log(this.sceneId);
+       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+   }
     updatePage(){
-       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
+       //console.log(this.statuss);
+       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
     }
-    getAlljobs(status,page,size){
-        this.jobService.getAllJobs(status,page,size)
+    getAlljobs(status,page,size,sceneId){
+        this.jobService.getAllJobs(status,page,size,sceneId)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
                 this.createdJob = Jobs;
                 let page = new Page();
-              page.pageMaxItem = Jobs.size;
-              page.curPage = Jobs.number+1;
-              page.totalPage = Jobs.totalPages;
-              page.totalNum = Jobs.totalElements;
-              this.pageParams=page;
-              console.log(this.pageParams)
+                page.pageMaxItem = Jobs.size;
+                page.curPage = Jobs.number+1;
+                page.totalPage = Jobs.totalPages;
+                page.totalNum = Jobs.totalElements;
+                this.pageParams=page;
+                console.log(this.pageParams);
             });
     }
     ngOnDestroy(){
@@ -108,18 +116,18 @@ export class TaskStatusComponent{
     }
     maxItemChange(){
         this.page=1;
-        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
         //console.log(this.createdJob);
     }
     nextPage(){
         this.page++;
-        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
         console.log(this.createdJob);
     }
     previousPage(){
         if (this.page>1){
             this.page--;
-            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem);
+            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
         }else{
             alert('已经是首页');
         }
