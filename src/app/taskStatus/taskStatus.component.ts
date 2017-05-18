@@ -50,11 +50,15 @@ export class TaskStatusComponent{
 
   ngOnChanges(...args: any[]) {
      console.log(this.sceneId);
-     //this.getSceneId();
+     this.getSceneId();
    }
    getSceneId(){
+     if(this.sceneId!==0){
        console.log(this.sceneId);
+       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,'');
+     }else{
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+     }
    }
     updatePage(){
        //console.log(this.statuss);
