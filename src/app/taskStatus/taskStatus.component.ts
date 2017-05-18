@@ -45,7 +45,7 @@ export class TaskStatusComponent{
     }
    ngOnInit(){
      this.updatePage();
-     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,'');
+     this.getSceneId();
    }
 
   ngOnChanges(...args: any[]) {
@@ -55,9 +55,9 @@ export class TaskStatusComponent{
    getSceneId(){
      if(this.sceneId!==0){
        console.log(this.sceneId);
-       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,'');
-     }else{
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+     }else{
+       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
      }
    }
     updatePage(){

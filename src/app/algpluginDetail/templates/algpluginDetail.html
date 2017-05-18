@@ -1,11 +1,11 @@
 <div class="container">
     <div id = "detailDiv">
         <div class="tabs">
-
             <div id="tab_item1" class="tab_item focus">参数列表</div>
             <div id="tab_item2" routerLinkActive="active" routerLink="/network/{{plugin.id}}" class="tab_item" [style.display]="plugin.has_training_network==0?'none':''">网络层</div>
-          <div id="tab_item0" class="tab_item tab_btn"><a routerLinkActive="active" routerLink="/algplugins">返回</a></div>
           <div (click)="fork()" id="tab_item3" class="tab_item tab_btn">保存</div>
+          <div id="tab_item0" class="tab_item tab_btn"><a routerLinkActive="active" routerLink="/algplugins">返回</a></div>
+
         </div>
     </div>
     <div id="systemDiv" class="status">

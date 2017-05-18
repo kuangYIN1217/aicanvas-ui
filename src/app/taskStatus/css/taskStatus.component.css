@@ -87,7 +87,7 @@
   padding-left: 20px;
 }
 
-.table tr:nth-child(even) {
+.table tr:nth-child(odd) {
   background: #ffffff;
 }
 
