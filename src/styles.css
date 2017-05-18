@@ -8,7 +8,7 @@ h1 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
-  border-bottom: 2px solid black;
+  /*border-bottom: 2px solid black;*/
 }
 h2, h3 {
   color: #444;
@@ -18,8 +18,8 @@ h2, h3 {
 /*make every right-side page arranged*/
 .container{
   position: relative;
-  width: 88%;
-  height: 1462px;
+  width: 90%;
+  height: 100vh;
   float: right;
   background-color: #eeeeee;
 }
@@ -317,6 +317,7 @@ canvas{
   color: #fff;
   line-height: 30px;
   font-size: 14px;
+  font-style: normal;
 }
 
 
@@ -332,4 +333,6 @@ canvas{
   line-height: 30px;
   font-size: 14px;
   margin-left: 20px;
+  font-family: 'MicrosoftYaHei';
+  font-style: normal;
 }

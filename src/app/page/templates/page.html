@@ -22,8 +22,8 @@
 </div>
 -->
 <!--分页组件-->
-<div class="bottom_menu" *ngIf="pageParams.totalPage>=1 && pageParams.totalNum>0">
-  <a class="label">共 {{pageParams.totalNum}} 条记录  当前显示第 <span>{{pageParams.curPage}}</span>页</a>
+<div class="bottom_menu" *ngIf="pageParams.totalPage>1 && pageParams.totalNum>0">
+  <a class="label">共 {{pageParams.totalNum}} 条记录  当前显示第 {{pageParams.curPage}}页</a>
   <div class="selectDiv" >
     <span>每页</span>
     <select [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();">
@@ -38,7 +38,7 @@
           (click)="changePage(pageParams.curPage-5)" [queryParams]="{pageNo:pageParams.curPage-5}"><<</button>-->
   <button class="btn" [routerLink]="['./']" (click)="changePage(pageParams.curPage-1)"
           [queryParams]="{pageNo:pageParams.curPage-1}" [disabled]="pageParams.curPage==1">上一页</button>
-  <button  [routerLink]="['./']" [class.disabled]="pageParams.curPage==page.pageNo"
+  <button  [routerLink]="['./']" [disabled]="pageParams.curPage==page.pageNo"
           (click)="changePage(page.pageNo)" [queryParams]="page" *ngFor="let page of getPageList(pageParams)">
     {{page.pageNo}}
   </button>

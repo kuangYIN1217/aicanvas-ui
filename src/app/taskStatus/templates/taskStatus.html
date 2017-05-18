@@ -22,8 +22,10 @@
             <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
             <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
         </td>-->
-        <td>
-            <a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a>&nbsp;&nbsp;
+        <td style="display: flex">
+            <a class="showDetailBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}"></a>&nbsp;&nbsp;
+          <a  *ngIf="jobInfo.status=='Running'" class="showDetailBtn stop" (click)="stop(jobInfo.jobPath)"></a>
+          <a *ngIf="jobInfo.status!='Running'" class="showDetailBtn start" (click)="start(jobInfo.jobPath)"></a>
             <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
         </td>
     </tr>

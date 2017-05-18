@@ -80,6 +80,7 @@ export class JobService {
         });
     }
 
+
     getJobDetail(jobPath:string){
         let path = "/api/jobDetail/"+jobPath;
         let headers = this.getHeaders();
