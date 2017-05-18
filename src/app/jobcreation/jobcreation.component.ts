@@ -133,7 +133,7 @@ export class JobCreationComponent {
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
         this.student = scenes[0].id;
-        this.firstSceneId = this.student;
+        // this.firstSceneId = this.student;
         //console.log(this.firstSceneId);
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {

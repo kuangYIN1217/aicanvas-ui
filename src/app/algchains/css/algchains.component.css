@@ -1,73 +1,64 @@
 .tabs{
     position: relative;
-    height: 60px;
-    background-color: #131314;
-    margin-bottom: 0px;
+    height: 4.6vh;
+    background-color: #ffffff;
+    top:20px;
     border: 0px;
+
 }
 .tab_item{
-    position: relative;
-    top: 20px;
-    border-radius: 0px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border: 0px;
-    width: 150px;
-    height: 40px;
-    float: left;
-    text-align: center;
-    line-height: 40px;
-    font-size: 20px;
+    position:absolute;
+    width: 100px;
+    height: 4.6vh;
+    line-height:4.6vh;
+    font-size: 0.83vw;
     font-weight: normal;
     font-family: "MicrosoftYaHei";
-    color: #5e5e5f;
-    background-color: #0b0b0b;
+    color: #ff7c35;
+    text-align: center;
     cursor: pointer;
-    margin-right: 0px;
+    left:10px;
 }
 .tab_item a{
     text-decoration: none;
     color: #5e5e5f;
 }
 .focus{
-    background-color: #19191a;
-    color: #516af8;
+    color: #ff7c35;
     font-weight: normal;
+     border-bottom: 2px solid #ff7c35;
 }
 .status{
     position: relative;
-    background-color: #19191a;
     height: 1402px;
 }
 
 /*cotent*/
 .tabDiv{
-    width: 100%;
+    width: 96%;
     height: 100%;
+    margin-left:2%;
 }
 .allPurchaseScene{
-    background-color: #191919;
     position: relative;
     margin-top: 50px;
-    width: 60%;
+    width: 68%;
     height:auto;
     min-height:923px;
     height: auto;
     padding-bottom: 50px;
     float: left;
-    margin-left: 14px;
 
 }
 .scene{
-    background-color: #352992;
     position: relative;
     margin-bottom: 50px;
-    left: -5px;
     float: left;
     width: 46%;
-    height: 352px;
+    background: #f2f2f2;
+    height: 38.4vh;
     border-radius: 5px;
-    margin-left: 4%;
+    margin-right: 4%;
 
 }
 .scene_1{
@@ -96,36 +87,47 @@
 
 
 }
-.scene h4{
-    position: relative;
+.scene .title{
     font-family: "MicrosoftYaHei";
-    color: #ffffff;
-    font-size: 1.2rem;
-    text-align: center;
-    margin: 0px;
-    margin-top: 32px;
+    color: #333333;
+    font-size: 0.83vw;
+    float: left;
+    display: inline-block;
+    border-left: 2px solid #ff7c35;
+    margin: 10px 0 10px 1.56vw;
+    padding-left: 6px;
+}
+.scene .detail{
+  float: right;
+  display: inline-block;
+  font-size: 0.73vw;
+  color: #ff7c35;
+  margin: 10px 0 10px 30px;
+  padding-right: 1.77vw;
+  cursor: pointer;
+}
+.sceneContent{
+  overflow: hidden;
+  width:100%;
+  background: #ffffff;
+  color: #666666;
+  border-radius: 0 0 10px 10px;
+  height:34.5vh;
 }
 .scene .descrip{
-    position: relative;
-    margin-top: 35px;
     width: 46%;
-    height: 217.6px;
     float: left;
-
 }
+
 .scene .descrip p{
-    height: 157.6px;
     font-family: "MicrosoftYaHei";
-    color: #ffffff;
-    font-size: 1rem;
+    font-size: 0.73vw;
     letter-spacing:2px;
-    line-height:180%;
-    text-indent: 8%;
-
-
+    color: #666666;
+    width:80%;
+    margin: 0 auto;
 }
 .scene .descrip a{
-    color: #eeeeee;
     font-size: 1rem;
     text-decoration: none;
     float: right;
@@ -133,138 +135,125 @@
     margin-right: 8px;
 
 }
+.scene .sceneSpace{
+  border-left: 1px solid #d3d3d3;
+  float: left;
+  margin:2.8vh 1% 4.2vh;
+}
 .scene .modelPreview{
-    position: relative;
-    margin-top: 20px;
     width: 46%;
-    height: 217.6px;
-    color: #eeeeee;
     float: left;
-    margin-left: 2%;
-    margin-right: 2%;
+   margin-left: 2%;
+
 
 }
-.scene .modelPreview p{
-    font-size: 20px;
+.scene .modelPreview p,.scene .descrip .descriptScene{
+    font-size: 0.83vw;
     text-align: center;
-    color: #ffffff;
-    margin-bottom: 15px;
+    margin-top: 2.8vh;
+    margin-bottom: 4.2vh;
 }
 .scene .modelPreview .model{
 
 }
-.scene .modelPreview .model .node{
+.modelPreview .model .node{
     position: relative;
-    border: 1px solid#eeeeee;
-    border-radius: 8px;
-    width: 100%;
-    height: 34px;
-    line-height: 34px;
+    border: 2px solid #23a880;
+    border-radius: 5px;
+    width:7.2vw;
+    font-size: 0.73vw;
+    height: 4.2vh;
+    line-height: 4.2vh;
     text-align: center;
     margin: 0 auto;
-
-    margin-top: 0px;
-    margin-bottom: 25px;
 }
-.verticalLine{
+.scene .modelPreview .model .nodeSpace{
+  position: relative;
+  margin: 1vh auto;
+  width:1px;
+  text-align: center;
+  border-right: 1px solid #d3d3d3;
+}
+/*.verticalLine{
     background-color: #101010;
     margin-top: 0px;
-    margin-left: 40px;
     width: 1px;
     height: auto;
     min-height: 100%;
     float: left;
-}
+}*/
 .recommend{
-    background-color: #191919;
     position: relative;
-
-    width: 30%;
-
-    height: auto;
-    min-height:923px;
-    margin-left: 16px;
-    padding-bottom: 50px;
+    width: 32%;
     float: left;
+  margin-top: 44px;
 }
 .recommend h4{
-    position: relative;
-
-    font-size: 1.2rem;
-
-    margin-left: 16px;
-    margin-bottom: 0px;
-    color: #ffffff;
+    font-size: 0.83vw;
+    color: #333333;
 }
 .recommend .recommendScene{
     position: relative;
-
-    height: 296px;
-    margin-left: 16px;
+    height: 33vh;
     border-radius: 5px;
-    margin-bottom:32px;
-
-}
-
-.rs_1{
-    background-color: #352992;
-
-
-}
-.rs_2{
-    background-color: #0e0e0e;
-
-
-
+    border-bottom: 1px solid #e8e8e8;
+    background-color: #ffffff;
+    border-radius: 5px;
 }
 
 .recommendScene h4{
-    position: relative;
-    display: block;
     font-family: "MicrosoftYaHei";
-    color: #fcfcfc;
-    font-size: 21px;
+    color: #666666;
+    font-size: 0.73vw;
     text-align: center;
-    top: 27px;
+  padding: 2.4vh 0 2.2vh;
 }
 .recommendScene .descrip{
-    position: relative;
-    top: 70px;
-    left: 18px;
-
-    width: 46%;
-
-    height: 130px;
-    float: left;
+    width: 44%;
+    float: right;
+  margin-right: 3%;
 }
 .recommendScene .descrip p{
 
-    height: 100px;
+    height: 15vh;
     font-family: "MicrosoftYaHei";
-    color: #fcfcfc;
-    font-size: 15px;
-    letter-spacing:1.8px;
-    line-height:170%;
-    text-indent: 35px;
+    color: #666666;
+    font-size: 0.73vw;
+    letter-spacing:2px;
+    width:100%;
+
+    margin-top: 0;
 }
 .recommendScene .descrip a{
-    color: #fcfcfc;
-    font-size: 15px;
     text-decoration: none;
-    float: right;
-    margin-right: 10px;
+  font-size: 0.73vw;
+  color: #666666;
+  width:5.7vw;
+  text-align: center;
+  border-radius: 5px;
+  border:1px solid #ff7c35;
+  display: block;
+  height:3.3vh;
+  line-height: 3.3vh;
+  float: right;
+  margin-right: 3%;
+  letter-spacing: 2px;
 
 }
 .recommendScene .modelPreview{
-    position: relative;
-    margin-top: 30px;
-    width: 46%;
-    height: 200px;
-    color: #eeeeee;
-    float: right;
-    margin-left: 2%;
-    margin-right: 2%;
+    width: 44%;
+    height: 22.2vh;
+    color: #333333;
+    float: left;
+  margin-left: 5%;
+  background: #eeeeee;
 
+}
+.recommendScene .modelPreview .node1{
+    margin-top: 1vh;
+}
+.recommendScene .modelPreview .node2{
+  margin-bottom: 0.6vh;
 }
 .recommendScene .modelPreview p{
     position: relative;
@@ -272,17 +261,12 @@
     text-align: center;
 }
 
-.recommendScene .modelPreview .model .node{
-    position: relative;
-    border: 1px solid #eeeeee;
-    border-radius: 8px;
-
-    width: 94%;
-    height: 24px;
-    text-align: center;
-
-    margin-top:10px;
-    margin-bottom: 30px;
+.recommendScene .modelPreview .model .nodeSpace{
+  position: relative;
+  margin: 0.5vh auto;
+  width:1px;
+  text-align: center;
+  border-right: 1px solid #d3d3d3;
 }
 
 

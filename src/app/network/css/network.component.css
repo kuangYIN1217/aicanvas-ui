@@ -11,55 +11,65 @@ a{
     min-height: 800px;
 }
 .tabs{
-    position: relative;
-    height: 60px;
-    width: 100%;
-    background-color: #131314;
-    margin-bottom: 0px;
-    border: 0px;
+  position: relative;
+  height: 4.6vh;
+  width:96%;
+  background-color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  border: 0px;
+  left:2%;
 }
 .tab_item{
-    position: relative;
-    top: 10px;
-    border-radius: 0px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border: 0px;
-    width: 150px;
-    height: 40px;
-    float: left;
-    text-align: center;
-    line-height: 40px;
-    font-size: 20px;
-    font-weight: normal;
-    font-family: "MicrosoftYaHei";
-    color: white;
-    background-color: #0b0b0b;
-    cursor: pointer;
-    margin-right: 0px;
-    border: 1px solid #19191a;
+  position: relative;
+  border: 0px;
+  float: left;
+  margin-right: 4%;
+  margin-left: 4px;
+  text-align: center;
+  font-size: 0.83vw;
+  font-weight: normal;
+  width:104px;
+  font-family: "MicrosoftYaHei";
+  color: #333333;
+  height:4.6vh;
+  line-height: 4.6vh;
+  cursor: pointer;
 }
-.tab_item a{
-    width: 100%;
+.tabs .tab_btn{
+  float: right;
+  background: #ff7c35;
+  color: #fff;
+  height:2.8vh;
+  line-height: 2.8vh;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 .focus{
-    background-color: #19191a;
-    color: #516af8;
-    font-weight: normal;
+  color: #ff7c35;
+  font-weight: normal;
+  border-bottom: 2px solid #ff7c35;
+}
+.tab_item a{
+  text-decoration: none;
+  color: #ffffff;
 }
 .right{
     float: right;
 }
 .status{
-    overflow: hidden;
-    position: relative;
-    background-color: black;
-    height: 1402px;
+  background-color: #ffffff;
+  margin-left: 2%;
+  margin-top: 30px;
+  width:96%;
+  border-radius: 5px;
+  min-height: 1000px;
+  border:1px solid #ffffff;
 }
 /*left*/
 .leftBox{
     width: 22%;
-    background-color: black;
+
     float: left;
     height: 100%;
 }
@@ -91,13 +101,16 @@ a{
 
 }
 .alg_choose_descrip{
-    color: #eeeee1;
-    font-size: 18px;
-    margin-bottom: 16px;
-    height: 40px;
-
-    text-align: center;
-
+    color: #333333;
+    font-size: 0.73vw;
+    text-align: left;
+  margin:18px 0 8px 24px;
+}
+.alg_choose_drag{
+  color: #ee8348;
+  font-size:0.62vw;
+  margin-left:24px;
+  margin-bottom: 33px;
 }
 .alg_choose_list{
     color: #eeeee1;
@@ -119,15 +132,10 @@ a{
 /**/
 .content{
     overflow: auto;
-
     width: 56%;
-
     height: 1000px;
     float: left;
-    background-color: #191919;
 }
-
-
 .chains{
     overflow: auto;
     width: 249px;
@@ -142,10 +150,7 @@ a{
 
 /**/
 .rightBox{
-
     width: 22%;
-
-    background-color: black;
     float: right;
     height: 100%;
 }

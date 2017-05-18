@@ -49,10 +49,13 @@ export class AlgorithmChainComponent{
                 this.arr = this.modalTab.slice(0,10);
                 this.arr2 = this.selfTab.slice(0,10);
                 this.getInit();
-
             });
 
     }
+  getPageData(paraParam) {
+    //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
+   // console.log('触发', paraParam);
+  }
     getInit(){
         if(this.result){
             if(this.showSystemPlugin==1){

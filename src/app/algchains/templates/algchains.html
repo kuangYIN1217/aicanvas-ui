@@ -6,56 +6,64 @@
         <div class="status">
             <div class="allPurchaseScene" id="b04">
                 <div class="scene" *ngFor="let SceneInfo of sceneArrays">
-                    <h4><strong>{{SceneInfo?.translation}}</strong></h4>
-                    <div class="descrip">
-                        <p>{{SceneInfo?.description}}</p>
-                        <a (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active">详情>></a>
-                    </div>
+                    <span class="title">{{SceneInfo?.translation}}</span>
+                    <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active">详情>></a>
+                  <div class="sceneContent">
                     <div class="modelPreview">
                         <p>模型预览</p>
                         <div class="model">
                             <div class="node" id="node1">Algplugin1</div>
+                            <div class="nodeSpace">&nbsp;</div>
                             <div class="node" id="node2">Algplugin2</div>
+                            <div class="nodeSpace">&nbsp;</div>
                             <div class="node" id="node3">Algplugin2</div>
                         </div>
                     </div>
+                    <div class="sceneSpace">&nbsp;</div>
+                    <div class="descrip">
+                      <p class="descriptScene">场景描述</p>
+                      <p>{{SceneInfo?.description}}</p>
+                    </div>
+                  </div>
                 </div>
             </div>
-            <div class="verticalLine"></div>
+<!--            <div class="verticalLine"></div>-->
             <div class="recommend">
-                <h4>相关推荐：</h4>
-                <div class="recommendScene rs_1">
-                    <h4><strong>航拍道路目标识别</strong></h4>
-                    <div class="descrip">
-                        <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络</p>
-                        <br>
-                        <a href="#">详情>></a>
-                    </div>
+                <h4>相关推荐场景：</h4>
+                <div class="recommendScene">
+                    <h4>航拍道路目标识别</h4>
                     <div class="modelPreview">
-                        <p>模型预览</p>
                         <div class="model">
-                            <div class="node radius" id="node1">Algplugin1</div>
-                            <div class="node" id="node2">Algplugin2</div>
-                            <div class="node" id="node3">Algplugin2</div>
+                          <div class="node node1">Algplugin1</div>
+                          <div class="nodeSpace">&nbsp;</div>
+                          <div class="node">Algplugin2</div>
+                          <div class="nodeSpace">&nbsp;</div>
+                          <div class="node node2">Algplugin2</div>
                         </div>
                     </div>
+                  <div class="descrip">
+                    <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络属于视觉算法，主要利用图像语义分割以及卷积神经网络</p>
+                    <br>
+                    <a href="#">查看</a>
+                  </div>
                 </div>
-                <div class="recommendScene rs_2">
-                    <h4><strong>航拍道路目标识别</strong></h4>
-                    <div class="descrip">
-                        <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络义分割以及卷积神经网络义分割以</p>
-                        <br>
-                        <a href="#">详情>></a>
-                    </div>
-                    <div class="modelPreview">
-                        <p>模型预览</p>
-                        <div class="model">
-                            <div class="node radius" id="node1">Algplugin1</div>
-                            <div class="node" id="node2">Algplugin2</div>
-                            <div class="node" id="node3">Algplugin2</div>
-                        </div>
-                    </div>
+              <div class="recommendScene">
+                <h4>航拍道路目标识别</h4>
+                <div class="modelPreview">
+                  <div class="model">
+                    <div class="node node1">Algplugin1</div>
+                    <div class="nodeSpace">&nbsp;</div>
+                    <div class="node">Algplugin2</div>
+                    <div class="nodeSpace">&nbsp;</div>
+                    <div class="node node2">Algplugin2</div>
+                  </div>
                 </div>
+                <div class="descrip">
+                  <p>属于视觉算法，主要利用图像语义分割以及卷积神经网络属于视觉算法，主要利用图像语义分割以及卷积神经网络</p>
+                  <br>
+                  <a href="#">查看</a>
+                </div>
+              </div>
             </div>
         </div>
     </div>

@@ -28,9 +28,7 @@ export class AlgpluginDetailComponent {
           this.plugin_id = id;
         }
       });
-
     }
-
     getPlugin(plugin){
         this.plugin = plugin;
         this.pluginService.getTranParamTypes()

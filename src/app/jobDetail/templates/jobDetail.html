@@ -122,7 +122,7 @@
 
               <div *ngIf="job?.status=='Finished'" class="publish">
                 <a href="#" class="button" onclick="return false" >模型发布</a>
-                <a href="#" class="button" onclick="return false" routerLink="/model">推演服务</a>
+                <a href="#" class="button" onclick="return false" (click)="goModel()">推演服务</a>
 
               </div>
         </div>

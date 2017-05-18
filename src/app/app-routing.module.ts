@@ -43,6 +43,7 @@ const routes: Routes = [
   {path: 'network/:scene_id', component: NetworkComponent},
   {path: 'jobDetail/:job_id', component: JobDetailComponent},
   {path: 'algpluginDetail/:plugin_id', component: AlgpluginDetailComponent},
+  {path: 'algpluginDetail', component: AlgpluginDetailComponent},
   {path: 'history', component: HistoryComponent},
   {path: 'historyDetail', component: HistoryDetailComponent},
   {path: 'algorithmChain', component: AlgorithmChainComponent},

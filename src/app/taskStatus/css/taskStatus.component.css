@@ -24,9 +24,8 @@
 }
 
 .taskStatusContainer {
-  width: 97%;
-  margin: 0 30px 0 30px;
-  border-radius: 0 0 5px 5px;
+
+  border-radius: 5px;
   background-color: #fff;
 
 }
@@ -35,61 +34,61 @@
 
 }
 
-.table {
-  width: 96%;
-  margin-left: 30px;
-  padding-right: 30px;
-  border-collapse: collapse;
-  border: solid 1px #eeeeee;
-}
-.table th{
-    height: 4.63vh;
-    background: #ffffff;
-    padding-left: 20px;
-    font-size: 16px;
-    line-height: 50px;
-    color: #333333;
-    text-align: left;
-    font-weight: normal;
-}
-.table tr{
-    text-align: left;
-    background: #eeeeee;
-    height: 4.63vh;
-    font-size: 16px;
-    font-family: "MicrosoftYaHei";
-    border-top:1px solid #d3d3d3;
-    color: #666666;
-}
+/*.table {*/
+  /*width: 96%;*/
+  /*margin-left: 30px;*/
+  /*padding-right: 30px;*/
+  /*border-collapse: collapse;*/
+  /*border: solid 1px #d3d3d3;*/
+/*}*/
+/*.table th{*/
+    /*height: 4.63vh;*/
+    /*background: #ffffff;*/
+    /*padding-left: 20px;*/
+    /*font-size: 0.83vw;*/
+    /*line-height: 50px;*/
+    /*color: #333333;*/
+    /*text-align: left;*/
+    /*font-weight: normal;*/
+/*}*/
+/*.table tr{*/
+    /*text-align: left;*/
+    /*background: #eeeeee;*/
+    /*height: 4.63vh;*/
+    /*font-size: 0.73vw;*/
+    /*font-family: "MicrosoftYaHei";*/
+    /*border-top:1px solid #d3d3d3;*/
+    /*color: #666666;*/
+/*}*/
 
-.table th {
-  height: 4.63vh;
-  background: #ffffff;
-  padding-left: 20px;
-  font-size: 16px;
-  line-height: 50px;
-  color: #333333;
-  text-align: left;
-  font-weight: normal;
-}
+/*.table th {*/
+  /*height: 4.63vh;*/
+  /*background: #ffffff;*/
+  /*padding-left: 20px;*/
+  /*font-size: 0.83vw;*/
+  /*line-height: 50px;*/
+  /*color: #333333;*/
+  /*text-align: left;*/
+  /*font-weight: normal;*/
+/*}*/
 
-.table tr {
-  text-align: left;
-  background: #eeeeee;
-  height: 4.63vh;
-  font-size: 16px;
-  font-family: "MicrosoftYaHei";
-  border-top: 1px solid #d3d3d3;
-  color: #666666;
-}
+/*.table tr {*/
+  /*text-align: left;*/
+  /*background: #eeeeee;*/
+  /*height: 4.63vh;*/
+  /*font-size: 0.73vw;*/
+  /*font-family: "MicrosoftYaHei";*/
+  /*border-top: 1px solid #d3d3d3;*/
+  /*color: #666666;*/
+/*}*/
 
-.table tr td {
-  padding-left: 20px;
-}
+/*.table tr td {*/
+  /*padding-left: 20px;*/
+/*}*/
 
-.table tr:nth-child(even) {
-  background: #ffffff;
-}
+/*.table tr:nth-child(odd) {*/
+  /*background: #ffffff;*/
+/*}*/
 
 /*.bottom_menu{
     position: relative;;
@@ -166,18 +165,15 @@
   color: #ff7c35;
   font-size: 0.73vw;
   text-decoration: none;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  display: block;
 }
 
 .operationBtn {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 }
+
 .see-detail{
   background: url('../../../assets/taskStatus/chakan-.png') no-repeat center;
 
@@ -190,7 +186,6 @@
 .start {
   background: url('../../../assets/taskStatus/qidong.png') no-repeat center;
 }
-
 .operation{
-  display: flex;    align-items: center;height: 4.63vh;
+  display: flex;    align-items: center;
 }

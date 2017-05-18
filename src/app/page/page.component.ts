@@ -25,8 +25,6 @@ export class PageComponent {
   }
 
 
-
-
   getPageList(pageParams) {
     /*分页设置*/
     let pageList=[];
