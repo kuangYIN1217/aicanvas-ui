@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
   providers: []
 })
 export class PageComponent {
+
   @Input('pageParams') pageParams;// 父组件向子组件传值
   @Output() changeCurPage:EventEmitter<string> = new EventEmitter;// 子组件向父组件广播事件，触发改变当前页面的事件
 
@@ -17,6 +18,10 @@ export class PageComponent {
   constructor() {
     let vm = this;
     //console.log('从父组件获取的参数', vm['pageParams']);
+  }
+
+  ngOnInit(){
+    this.pageParams = {'totalNum':0,'curPage':1,'pageMaxItem':10,'totalPage':0}
   }
 
 

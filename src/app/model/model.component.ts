@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common'
-import { ResourcesService } from '../common/services/resources.service'
+import {Component} from "@angular/core";
+import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
-import {JobInfo, ModelInfo, SceneInfo} from "../common/defs/resources";
-import {SceneService} from "../common/services/scene.service";
+import {ModelInfo, Page} from "../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
+import {model_prediction} from "./def";
 
 @Component({
   moduleId: module.id,
@@ -14,9 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   providers: [ResourcesService,modelService]
 })
 export class ModelComponent{
-    SceneInfo:SceneInfo[] = [];
-    JobInfo:JobInfo[] = [];
-    ModelInfo:ModelInfo[] = [];
+    ModelInfo:any[] = [];
     student:number=0;
     selected:number=0;
     item:number=0;
@@ -31,26 +28,33 @@ export class ModelComponent{
     firstPath:string;
     firstId:number;
     id:number;
-    constructor(private modelService: modelService, private location: Location,private sceneService: SceneService, private route: ActivatedRoute ,private router: Router){
-        this.sceneService.getAllScenes()
-            .subscribe(scenes => this.SceneInfo=scenes);
+  pageParams=new Page();
+    constructor(private modelService: modelService, private route: ActivatedRoute ,private router: Router){
+
     }
         ngOnInit(){
         this.route.queryParams.subscribe(params => {
-            this.student = params['sence'];
+            this.student = params['jobId'];
             this.selectChange();
         });
     }
    selectChange(){
-       this.id=this.student;
+       this.id=1;
        this.pageMaxItem=10;
-            this.modelService.getModel(this.id)
+            this.modelService.getHistory()
                 .subscribe(model =>{
-                    this.ModelInfo=model;
-                    this.firstPath = this.ModelInfo[0].job_path;
-                    this.firstId = this.ModelInfo[0].model_id;
-                    this.arr = this.ModelInfo.slice(0,10);
-                    this.getInit();
+                    this.ModelInfo=model.content;
+                    console.log(this.ModelInfo)
+                  let page = new Page();
+                  page.pageMaxItem = model.size;
+                  page.curPage = model.number+1;
+                  page.totalPage = model.totalPages;
+                  page.totalNum = model.totalElements;
+                  this.pageParams=page;
+                    // this.firstPath = this.ModelInfo[0].job_path;
+                    // this.firstId = this.ModelInfo[0].model_id;
+                    // this.arr = this.ModelInfo.slice(0,10);
+                    // this.getInit();
                 });
            //this.arr = this.ModelInfo.slice(0,9);
            //console.log(this.arr);

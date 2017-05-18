@@ -1,42 +1,72 @@
 <div class="container">
 
-    <div class="test">
-    <div>
-     <h1>图形分类11111</h1>
-      <a href="#" class="button" onclick="return false" >模型发布</a>
+    <div class="nav">
+    <div class="row">
+     <h1>推演服务</h1>
+      <!--<a href="#" class="button" onclick="return false" style="float: right" >模型发布</a>-->
     </div>
-    <div>
-      <div>
-      <span>场景名称22222: </span>
+    <div class="row">
+      <div class="text">
+      <span>场景名称: </span>
       <span>火焰识别</span>
       </div>
 
-      <div>
+      <div class="text">
         <span>算法: </span>
         <span>CNN图像分类</span>
       </div>
 
 
-      <div>
+      <div class="text">
         <span>训练任务: </span>
         <span>JOB123455644</span>
       </div>
 
 
-      <div>
+      <div class="text">
         <span>开启时间: </span>
         <span>2017/05/17 19:01</span>
       </div>
 
-      <div>
+      <div class="button_location">
         <a href="#" class="button" onclick="return false" >模型发布</a>
         <a href="#" class="button" onclick="return false" >模型发布</a>
       </div>
     </div>
-
-
-
     </div>
+
+
+
+  <div class="tableContainer">
+    <table id="jobTable" class="table">
+      <th class="name">推演名称</th>
+      <th class="time">创建时间</th>
+      <th class="condition">上传路径</th>
+      <th class="progress">显示结果</th>
+      <!--<th class="operation">操作</th>-->
+      <th class="formore">进度</th>
+      <!--*ngIf="jobInfo.sences==student"-->
+      <tr *ngFor="let model of ModelInfo;let i = index;">
+        <td>{{model.predictionName}}</td>
+        <td>{{model.sencesName}}</td>
+        <td>{{model.createTime==null?'无设置':model.createTime}}</td>
+        <!--<td>{{model.status}}</td>-->
+        <td class="operation">
+          <a class="showDetailBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{model.jobPath}}"></a>&nbsp;&nbsp;
+          <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
+        </td>
+        <td>{{model.percent==null?'0.0':model.percent|percent:'.2'}}</td>
+        <!-- <td>{{jobInfo.job_progress}}%</td> -->
+        <!--        <td class="operationTd">
+                    <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
+                    <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
+                </td>-->
+
+      </tr>
+    </table>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+
+  </div>
 
     <!--<div class="select">-->
         <!--<select  [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">-->
