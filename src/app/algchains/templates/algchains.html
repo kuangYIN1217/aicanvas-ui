@@ -68,12 +68,12 @@
         </div>
     </div>
     <div class="networkBox" [style.display]="ifShowNetwork==1?'':'none'">
-        <div class="tabs">
+<!--        <div class="tabs">
             <div class="tab_item" (click)="hideNetwork()">后退</div>
-            <!-- <div class="tab_item">恢复出厂设置</div> -->
+            &lt;!&ndash; <div class="tab_item">恢复出厂设置</div> &ndash;&gt;
             <div class="tab_item right" (click)="save()">保存</div>
-            <!-- <div class="tab_item right">取消</div> -->
-        </div>
+            &lt;!&ndash; <div class="tab_item right">取消</div> &ndash;&gt;
+        </div>-->
         <div class="status">
             <input hidden id="plugin_storage" />
             <input hidden id="layer_dictionary" />
@@ -82,22 +82,27 @@
             <button hidden onclick="init()" id="hideBtn" >Init</button>
             <button hidden onclick="load()" id="loadBtn" >Hide</button>
             <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
+          <div class="sceneHeader">
+            <div class="sceneName">{{chosen_scene.translation}}</div>
+            <div class="sceneDescript"><span>场景描述：{{chosen_scene.description}}</span><a>编辑</a></div>
+          </div>
             <div class="leftBox">
-                <div class="condition" [style.display]="type==scene?'':'none'">
-                    <div id="scene_name" class="name">{{chosen_scene.translation}}</div>
+<!--                <div class="condition" [style.display]="type==scene?'':'none'">
+                    <div id="scene_name" class="name"></div>
                     <div id="scene_description" class="description">{{chosen_scene.description}}</div>
-                </div>
+                </div>-->
+              <div class="chain">算法链：{{chainId}}</div>
                 <div class="alg_choose">
-                    <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>
-                    <div class="alg_choose_list" id="myPaletteDiv"></div>
-                </div>
+             <!-- <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>-->
+              <div class="alg_choose_list" id="myPaletteDiv"></div>
             </div>
-            <div class="chains">
+            </div>
+            <!--<div class="chains">
                 <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.alg_name}}</div>
-            </div>
+            </div>-->
             <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
             <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
-            <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
+            <!--<div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
                 <div *ngFor="let editable_parameter of editable_parameters">
                     <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
                     <div class="layer_params" id="property_plugin">
@@ -124,7 +129,7 @@
                                  <table *ngIf="editable_parameter.editable_param.shape.length==2">
                                      <tr *ngFor="let array1 of editable_parameter.editable_param.default_value;let i1 = index;">
                                          <td *ngFor="let value1 of array1;let j1 = index;">
-                                             <!-- <input *ngIf="editable_parameter.editable_param.d_type!='ENUM'&&editable_parameter.editable_param.d_type!='LIST'&&editable_parameter.editable_param.d_type!='BOOL'" [placeholder]="'From '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                                             &lt;!&ndash; <input *ngIf="editable_parameter.editable_param.d_type!='ENUM'&&editable_parameter.editable_param.d_type!='LIST'&&editable_parameter.editable_param.d_type!='BOOL'" [placeholder]="'From '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
                                                  class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=editable_parameter.editable_param.set_value;" />
 
                                              <select *ngIf="editable_parameter.editable_param.type=='ENUM'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
@@ -134,7 +139,7 @@
                                              <select *ngIf="editable_parameter.editable_param.type=='BOOL'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
                                                  <option value="true">true</option>
                                                  <option value="false">false</option>
-                                             </select> -->
+                                             </select> &ndash;&gt;
                                              <input readonly type="text" name="" *ngIf="creator=='general'" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
                                              <input  *ngIf="creator!='general'" type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
                                          </td>
@@ -167,7 +172,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="rightBox" id="rightBox_node" [style.display]="rightBox_node==0?'none':''">
                 <div class="layer_name"></div>
                 <div class="layer_params" id="property"></div>

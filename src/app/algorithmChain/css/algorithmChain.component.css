@@ -61,6 +61,10 @@
   font-size: 0.73vw;
   text-decoration: none;
 }
+.showDetailBtn img{
+  display: inline-block;
+  margin-right: 10px;
+}
 /* th */
 .id{
     width: 10%;
@@ -173,4 +177,25 @@
     font-size: 16px;
     font-family: "MicrosoftYaHei";
     cursor: pointer;
+}
+.selectContainer{
+  position: relative;
+  top:18px;
+  height:56px;
+  left:24px;
+  width:293px;
+}
+.select{
+  position: absolute;
+  height:36px;
+  border-radius: 5px;
+  width:294px;
+  border: 1px solid #d3d3d3;
+  font-size: 0.7vw;
+  text-indent: 10px;
+  color: #666;
+}
+.selectContainer img{
+  position: absolute;
+  right:0;
 }

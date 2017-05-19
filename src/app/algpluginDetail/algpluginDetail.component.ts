@@ -20,24 +20,31 @@ export class AlgpluginDetailComponent {
     editable_params: Editable_param[] = [];
     editable_parameters: Editable_param[] = [];
     constructor(private pluginService: PluginService, private location: Location,private route:ActivatedRoute){
-      this.route.queryParams.subscribe(params => {
-        let id = params['pluginId'];
+    /*  this.route.queryParams.subscribe(params => {
+        let id = params['pluginId'];*/
+        if (location.path(false).indexOf('/algpluginDetail/') != -1) {
+           let id = location.path(false).split('/algpluginDetail/')[1];
         if(id){
           this.pluginService.getPlugin(id)
             .subscribe(plugin => this.getPlugin(plugin));
           this.plugin_id = id;
         }
-      });
+        }
+      /*});*/
     }
     getPlugin(plugin){
         this.plugin = plugin;
         this.pluginService.getTranParamTypes()
-            .subscribe(editable_params => this.getTranParamTypes(editable_params,plugin));
+            .subscribe(editable_params => {
+              this.getTranParamTypes(editable_params,plugin);
+              console.log(editable_params);
+            });
     }
     // 得到参数列表后
     getTranParamTypes(editable_params,plugin){
         // editable_params为参数字典
         this.editable_params = editable_params;
+
         let editable_parameters: Editable_param[] = [];
         // train_params为plugin的可修改参数信息
         let params: any = this.plugin.train_params;

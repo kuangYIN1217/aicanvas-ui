@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .tabs{
   position: relative;
-  height: 4.6vh;
+  height: 50px;
   width:100%;
   background-color: #ffffff;
   margin-top: 20px;
@@ -21,16 +21,16 @@
   width:104px;
   font-family: "MicrosoftYaHei";
   color: #333333;
-  height:4.6vh;
-  line-height: 4.6vh;
+  height:50px;
+  line-height: 50px;
   cursor: pointer;
 }
 .tabs .tab_btn{
   float: right;
   background: #ff7c35;
   color: #fff;
-  height:2.8vh;
-  line-height: 2.8vh;
+  height:30px;
+  line-height: 30px;
   border-radius: 4px;
   margin-top: 10px;
 }
@@ -105,7 +105,7 @@
   word-break: break-all;
 }
 
-.table tr:nth-child(even) {
+.table tr:nth-child(odd) {
   background: #ffffff;
 }
 
@@ -148,26 +148,23 @@
     width: 70%;
 }
 input{
-    position: relative;
-    height: 100%;
-    width: 220px;
-    font-size: 20px;
+    width:237px;
+    font-size: 0.73vw;
     background-color: transparent;
-    color: white;
-    border: 0px;
-    text-align: center;
+    border: #d3d3d3 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    display: block;
 }
 select{
-    background: #444444 0px 0px;
-    color: #ffffff;
-    font-size: 14px;
-    border: #000000 1px solid;
+    font-size: 0.73vw;
+    border: #d3d3d3 1px solid;
+    border-radius: 5px;
     padding: 5px;
+    width:250px;
 }
 
 option{
-    background: #444444 0px 0px;
-    color: #ffffff;
 }
 
 /*layer div*/

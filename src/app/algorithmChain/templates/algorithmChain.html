@@ -1,9 +1,16 @@
 <div class="container">
-    <div class="tabs">
+<!--    <div class="tabs">
         <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [ngClass]="{current: showSystemPlugin==1}">系统模版</div>
         <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [ngClass]="{current: showSystemPlugin==0}">自定义模版</div>
-    </div>
+    </div>-->
     <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
+      <div class="selectContainer">
+        <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
+          <option value="0">选择场景</option>
+          <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
+        </select>
+        <img src="../assets/taskStatus/select.png">
+      </div>
         <table class="table">
             <th class="id">序号</th>
             <th class="name">名称</th>
@@ -11,7 +18,7 @@
             <th class="domain">问题域</th>
             <th class="creator">创建者</th>
             <th class="description">描述</th>
-            <th class="detail">详情</th>
+            <th class="detail">操作</th>
             <tbody>
             <tr *ngFor="let item of arr">
                 <td>{{item.id}}</td>
@@ -21,7 +28,7 @@
                 <td>{{item.creator}}</td>
                 <td>{{item.description}}</td>
                 <td>
-                    <a class="showDetailBtn" routerLinkActive="active" (click)="clickChain(item.id,item.creator)">查看详情</a>
+                    <a class="showDetailBtn" routerLinkActive="active" (click)="clickChain(item.id,item.creator)"><img src="../assets/algplugin/chakan.png"/><img src="../assets/algplugin/fabu.png"/><img src="../assets/algplugin/fuzhi.png"/></a>
                 </td>
             </tr>
             </tbody>
@@ -42,9 +49,9 @@
             <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
             <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
         </div>-->
-      <!--<page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>-->
+      <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
     </div>
-    <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
+    <!--<div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
         <table class="table">
             <th class="id">序号</th>
             <th class="name">名称</th>
@@ -70,7 +77,7 @@
         <div class="bottom_menu">
             <div class="label">
                 TotalPages:
-                <!-- Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items-->
+                &lt;!&ndash; Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;
                 <span>{{result}}</span>
             </div>
             <div class="selectDiv" >
@@ -83,5 +90,5 @@
             <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
             <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
         </div>
-    </div>
+    </div>-->
 </div>

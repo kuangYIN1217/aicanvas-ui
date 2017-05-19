@@ -12,7 +12,7 @@
           <div id="tab_item1" class="tab_item " routerLinkActive="active" routerLink="/algpluginDetail">参数列表</div>
           <div id="tab_item2" routerLinkActive="active" routerLink="/network/{{plugin.id}}" class="tab_item focus" [style.display]="plugin.has_training_network==0?'none':''">网络层</div>
           <div (click)="save()" id="tab_item3" class="tab_item tab_btn">保存</div>
-          <div id="tab_item0" class="tab_item tab_btn" (click)="backup()">返回</div>
+          <div id="tab_item0" class="tab_item tab_btn"><a routerLinkActive="active" routerLink="/algplugins">返回</a></div>
             <!-- <div class="tab_item">恢复出厂设置</div> -->
             <!-- <div class="tab_item right">取消</div> -->
             <input  hidden id="plugin_storage" />

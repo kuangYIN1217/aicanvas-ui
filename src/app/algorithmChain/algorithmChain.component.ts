@@ -4,7 +4,7 @@ import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
 import {PluginService} from "../common/services/plugin.service";
 import {SceneService} from "../common/services/scene.service";
-import {PluginInfo} from "../common/defs/resources";
+import {Page, PluginInfo, SceneInfo} from "../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -22,15 +22,26 @@ export class AlgorithmChainComponent{
     selfTab:any []=[];
     sceneId:number;
     PluginInfo:PluginInfo[]=[];
+    SceneInfo:SceneInfo[] = [];
     creator:string;
     page: number = 1;
+    pageParams=new Page();
     pageMaxItem: number = 10;
     arr:any[]=[];
     arr2:any[]=[];
     temporary:any[]=[];
     result:number=1;
+    id:number;
+    student:number=0;
     remainder:number;
+    params:any; // 保存页面url参数
+    totalNum:number = 0; // 总数据条数
+    pageSize:number = 20;// 每页数据条数
+    totalPage:number = 0;// 总页数
+    curPage:number = 1;// 当前页码
     constructor(private sceneService: SceneService,private pluginService: PluginService, private location: Location, private route: ActivatedRoute ,private router: Router){
+      this.sceneService.getAllScenes()
+        .subscribe(scenes => this.SceneInfo=scenes);
     }
     ngOnInit(){
         this.route.queryParams.subscribe(params => {
@@ -38,8 +49,13 @@ export class AlgorithmChainComponent{
         });
         this.sceneService.getChainByScene(this.sceneId)
             .subscribe(plugin=>{
-                this.PluginInfo=plugin;
-                for(let i=0;i<this.PluginInfo.length;i++){
+              debugger
+              this.PluginInfo=plugin;
+
+              this.changPage(plugin);
+
+
+/*                for(let i=0;i<this.PluginInfo.length;i++){
                     if(this.PluginInfo[i].creator=='general'){
                         this.modalTab.push(this.PluginInfo[i]);
                     }else{
@@ -48,13 +64,42 @@ export class AlgorithmChainComponent{
                 }
                 this.arr = this.modalTab.slice(0,10);
                 this.arr2 = this.selfTab.slice(0,10);
-                this.getInit();
+                this.getInit();*/
             });
 
     }
+    changPage(plugin){
+      this.arr = plugin.slice(0,10);
+      this.totalNum = plugin.length;
+      if(plugin.length%this.pageMaxItem==0){
+        this.totalPage = plugin.length/this.pageMaxItem;
+      }else{
+        this.totalPage = Math.floor(plugin.length/this.pageMaxItem)+1;
+      }
+      let page = new Page();
+      page.pageMaxItem = this.pageMaxItem;
+      page.curPage = this.curPage;
+      page.totalPage = this.totalPage;
+      page.totalNum = this.totalNum;
+      this.pageParams=page;
+      console.log(page.pageMaxItem);
+      console.log(this.pageParams);
+    }
+  selectChange(){
+    this.id=this.student;
+    this.sceneService.getChainByScene(this.id)
+      .subscribe(plugin=>{
+        this.PluginInfo=plugin;
+        this.changPage(plugin);
+      });
+    //this.arr = this.ModelInfo.slice(0,9);
+    //console.log(this.arr);
+  }
   getPageData(paraParam) {
+    this.arr = this.PluginInfo.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage-1);
     //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
-   // console.log('触发', paraParam);
+   console.log('触发', paraParam);
+
   }
     getInit(){
         if(this.result){

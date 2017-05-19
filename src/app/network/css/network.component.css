@@ -12,7 +12,7 @@ a{
 }
 .tabs{
   position: relative;
-  height: 4.6vh;
+  height: 50px;
   width:96%;
   background-color: #ffffff;
   margin-top: 20px;
@@ -32,16 +32,16 @@ a{
   width:104px;
   font-family: "MicrosoftYaHei";
   color: #333333;
-  height:4.6vh;
-  line-height: 4.6vh;
+  height:50px;
+  line-height: 50px;
   cursor: pointer;
 }
 .tabs .tab_btn{
   float: right;
   background: #ff7c35;
   color: #fff;
-  height:2.8vh;
-  line-height: 2.8vh;
+  height:30px;
+  line-height: 30px;
   border-radius: 4px;
   margin-top: 10px;
 }
@@ -153,6 +153,7 @@ a{
     width: 22%;
     float: right;
     height: 100%;
+  color: #333333;
 }
 .rightBox2{
     width: 250px;
@@ -180,13 +181,12 @@ a{
     border-bottom: 1px solid grey;
     height: 35px;
     width: 100%;
-    color: white;
+    color: #333333;
     outline-style: none;
 }
 
 .layer_params select{
     background: #444444 0px 0px;
-    color: #ffffff;
     font-size: 14px;
     border: #000000 1px solid;
     padding: 5px;
@@ -194,5 +194,4 @@ a{
 
 .layer_params option{
     background: #444444 0px 0px;
-    color: #ffffff;
 }

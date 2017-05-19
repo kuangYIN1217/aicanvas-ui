@@ -31,13 +31,14 @@ function init() {
             // 主要对象是一个环绕TextBlock的矩形的Panel
             $(go.Panel, "Auto",
                 $(go.Shape, "Rectangle",
-                    { minSize: new go.Size(160, 70), fill: "#ea5413", stroke: null },
+                    { minSize: new go.Size(138, 42), fill: null, stroke: "#52a683" },
                     new go.Binding("figure", "figure")),
                 $(go.TextBlock,
                     {
                         font: "bold 11pt Helvetica, Arial, sans-serif",
-                        stroke: "white",
-                        margin: 20,
+                        stroke: "#333333",
+                        margin:20,
+/*                      borderRadius:5,*/
                         maxSize: new go.Size(160, NaN),
                         wrap: go.TextBlock.WrapFit,
                         editable: true
@@ -80,7 +81,7 @@ function init() {
                             for (var key in configStr){
                                 for (var j = 0;j < test2[layerId].editable_param_list.length; j++){
                                     if (key == test2[layerId].editable_param_list[j].path){
-                                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
+                                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: #333333;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                                         break;
                                     }else
                                         continue;
@@ -110,7 +111,7 @@ function init() {
                 $(go.TextBlock,
                     {
                         font: "bold 11pt Helvetica, Arial, sans-serif",
-                        stroke: "white",
+                        stroke: "#52a683",
                         margin: 20,
                         maxSize: new go.Size(100, NaN),
                         wrap: go.TextBlock.WrapFit,
@@ -126,7 +127,7 @@ function init() {
             {
                 routing: go.Link.AvoidsNodes,
                 curve: go.Link.JumpOver,
-                corner: 5, toShortLength: 4,
+                corner: 5, toShortLength: 2,
                 relinkableFrom: true,
                 relinkableTo: true,
                 reshapable: true,
@@ -141,9 +142,9 @@ function init() {
             $(go.Shape,  // 突出显示形状，通常是透明的
                 { isPanelMain: true, strokeWidth: 8, stroke: "transparent", name: "HIGHLIGHT" }),
             $(go.Shape,  // 连接线的形状
-                { isPanelMain: true, stroke: "gray", strokeWidth: 2 }),
+                { isPanelMain: true, stroke: "#d3d3d3", strokeWidth: 2 }),
             $(go.Shape,  // 连接线箭头
-                { toArrow: "standard", stroke: null, fill: "gray"}),
+                { toArrow: "standard", stroke: null, fill: "#d3d3d3"}),
             $(go.Panel, "Auto",  // 连接线label,通常是不可见的
                 { visible: false, name: "LABEL", segmentIndex: 2, segmentFraction: 0.5},
                 new go.Binding("visible", "visible").makeTwoWay(),
@@ -212,14 +213,14 @@ function init() {
         // the port is basically just a small circle that has a white stroke when it is made visible
         return $(go.Shape, "Circle",
             {
-                fill: "transparent",
-                stroke: null,  // this is changed to "white" in the showPorts function
+                fill: null,
+                stroke: "#52a63e",
                 desiredSize: new go.Size(8, 8),
-                alignment: spot, alignmentFocus: spot,  // align the port on the main Shape
-                portId: name,  // declare this object to be a "port"
-                fromSpot: spot, toSpot: spot,  // declare where links may connect at this port
-                fromLinkable: output, toLinkable: input,  // declare whether the user may draw links to/from here
-                cursor: "pointer"  // show a different cursor to indicate potential link point
+                alignment: spot, alignmentFocus: spot,  // 将主要形状的端口对齐
+                portId: name,  // 将该对象声明为一个“端口”
+                fromSpot: spot, toSpot: spot,  // 在这个端口上声明链接可以连接到哪里
+                fromLinkable: output, toLinkable: input,  // 声明用户是否可以从这里获得链接
+                cursor: "pointer"  // 显示一个不同的光标来表示潜在的链接点
             });
     }
 // 限制窗口滚动
@@ -251,13 +252,13 @@ function init() {
     }
 
 // 鼠标在图形上方显示四角的圆点
-    function showPorts(node, show) {
+/*    function showPorts(node, show) {
         var diagram = node.diagram;
         if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
         node.ports.each(function(port) {
-            port.stroke = (show ? "white" : null);
+            port.stroke = (show ? "#52a63e" : null);
         });
-    }
+    }*/
 } // 初始化函数结束
 
 // 保存编辑的流程图

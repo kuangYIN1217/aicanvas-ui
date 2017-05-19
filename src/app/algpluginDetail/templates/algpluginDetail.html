@@ -10,8 +10,10 @@
     </div>
     <div id="systemDiv" class="status">
          <table id="paramTable" class="table">
-             <th id="param_name">Param_name</th>
-             <th id="param_value">Default Value</th>
+           <tr>
+             <th id="param_name">参数名称</th>
+             <th id="param_value">默认值</th>
+           </tr>
              <tr *ngFor="let editable_parameter of editable_parameters;let param_num = index;">
                  <td>{{ editable_parameter.editable_param.name }}</td>
                  <td>

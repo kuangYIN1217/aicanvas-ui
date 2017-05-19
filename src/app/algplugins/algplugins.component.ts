@@ -38,6 +38,7 @@ export class AlgPluginsComponent{
                     }
                 }
                 this.arr = this.modalTab.slice(0,10);
+              console.log(this.arr[0].id);
                 this.arr2 = this.selfTab.slice(0,10);
                 this.getInit();
             });
