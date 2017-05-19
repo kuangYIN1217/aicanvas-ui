@@ -41,7 +41,7 @@ let JobDetailComponent = class JobDetailComponent {
                 jobService.getJobDetail(jobPath).subscribe(jobDetail => {
                     this.job = jobDetail;
                     this.user = this.job.user;
-                    if (this.job.status == "Running") {
+                    if (this.job.status == "运行") {
                         // console.log("Running");
                         this.updatePage(jobPath, this.index);
                         this.interval = setInterval(() => this.updatePage(jobPath, this.index), 3000);
@@ -72,7 +72,7 @@ let JobDetailComponent = class JobDetailComponent {
             }
         }
         // 500ms刷新一次
-        if (this.job.status == "Running") {
+        if (this.job.status == "运行") {
             // console.log("Running");
             this.updatePage(jobPath, this.index);
             this.interval = setInterval(() => this.updatePage(jobPath, this.index), 3000);

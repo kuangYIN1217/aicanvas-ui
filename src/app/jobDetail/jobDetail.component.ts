@@ -256,12 +256,23 @@ export class JobDetailComponent {
       if (this.interval) {
         clearInterval(this.interval);
       }
+      this.index=-1;
       this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
         this.job = jobDetail;
         this.user = this.job.user;
       });
     });
   }
+
+
+  start(jobPath: string){
+    this.jobService.runJob(jobPath)
+      .subscribe(reply => {
+        this.updatePage(jobPath, this.index);
+        this.interval = setInterval(() => this.updatePage(jobPath, this.index), 3000);
+      });
+  }
+
 
   goModel(){
 

@@ -57,6 +57,7 @@ select {
   font-size: 14px;
   color: #666666;
   outline: none;
+  padding-left: 10px;
 }
 
 .searchicon {
