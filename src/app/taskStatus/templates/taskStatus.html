@@ -1,34 +1,33 @@
-
 <div class="taskStatusContainer">
-<table id="jobTable" class="table">
-  <tr>
-    <th class="name">任务名称</th>
-    <th class="scene">场景名称</th>
-    <th class="time">创建时间</th>
-    <th class="condition">状态</th>
-    <th class="progress">进度</th>
-    <!--<th class="operation">操作</th>-->
-    <th class="formore">操作</th>
-  </tr>
-  <!--*ngIf="jobInfo.sences==sceneId"-->
-    <tr *ngFor="let jobInfo of Jobs_current;let i = index;">
-        <td>{{jobInfo.jobName}}</td>
-        <td>{{jobInfo.sencesName}}</td>
-        <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
-        <td>{{jobInfo.status}}</td>
-        <td>{{jobInfo.percent==null?'0.0':jobInfo.percent|percent:'.2'}}</td>
-        <!-- <td>{{jobInfo.job_progress}}%</td> -->
-<!--        <td class="operationTd">
-            <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
-            <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
-        </td>-->
-        <td>
-            <a class="showDetailBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a>
-          <a  *ngIf="jobInfo.status=='Running'" class="showDetailBtn stop" (click)="stop(jobInfo.jobPath)"></a>
-          <a *ngIf="jobInfo.status!='Running'" class="showDetailBtn start" (click)="start(jobInfo.jobPath)"></a>
-            <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
-        </td>
+  <table id="jobTable" class="table">
+    <tr>
+      <th class="name">任务名称</th>
+      <th class="scene">场景名称</th>
+      <th class="time">创建时间</th>
+      <th class="condition">状态</th>
+      <th class="progress">进度</th>
+      <!--<th class="operation">操作</th>-->
+      <th class="formore">操作</th>
     </tr>
-</table>
+    <!--*ngIf="jobInfo.sences==sceneId"-->
+    <tr *ngFor="let jobInfo of Jobs_current;let i = index;">
+      <td>{{jobInfo.jobName}}</td>
+      <td>{{jobInfo.sencesName}}</td>
+      <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
+      <td>{{jobInfo.status}}</td>
+      <td>{{jobInfo.percent==null?'0.0':jobInfo.percent|percent:'.2'}}</td>
+      <!-- <td>{{jobInfo.job_progress}}%</td> -->
+      <!--        <td class="operationTd">
+                  <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
+                  <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
+              </td>-->
+      <td class="operation">
+        <a class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}"></a>&nbsp;&nbsp;
+        <a *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></a>
+        <a *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></a>
+        <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
+      </td>
+    </tr>
+  </table>
   <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
 </div>

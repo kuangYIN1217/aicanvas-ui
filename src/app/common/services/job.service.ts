@@ -71,7 +71,7 @@ export class JobService {
     }
     getAllJobs(status,page,size,sencesId){
       if(sencesId==null){
-        let path = "/api/jobs?page="+page+"&size="+size+"&status="+status;
+        let path = "/api/jobs?page="+page+"&size="+size+"&status="+status+"&sort=id,desc";
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
           .map((response: Response) => {
@@ -91,6 +91,17 @@ export class JobService {
       }
 
     }
+
+  getJobDetailById(jobId:number){
+    let path = "/api/jobDetailById/"+jobId;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
 
 
     getJobDetail(jobPath:string){

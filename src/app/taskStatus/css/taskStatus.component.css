@@ -24,8 +24,7 @@
 }
 
 .taskStatusContainer {
-  width: 97%;
-  margin: 0 30px 0 0;
+
   border-radius: 5px;
   background-color: #fff;
 
@@ -35,61 +34,61 @@
 
 }
 
-.table {
-  width: 96%;
-  margin-left: 30px;
-  padding-right: 30px;
-  border-collapse: collapse;
-  border: solid 1px #d3d3d3;
-}
-.table th{
-    height: 4.63vh;
-    background: #ffffff;
-    padding-left: 20px;
-    font-size: 0.83vw;
-    line-height: 50px;
-    color: #333333;
-    text-align: left;
-    font-weight: normal;
-}
-.table tr{
-    text-align: left;
-    background: #eeeeee;
-    height: 4.63vh;
-    font-size: 0.73vw;
-    font-family: "MicrosoftYaHei";
-    border-top:1px solid #d3d3d3;
-    color: #666666;
-}
+/*.table {*/
+  /*width: 96%;*/
+  /*margin-left: 30px;*/
+  /*padding-right: 30px;*/
+  /*border-collapse: collapse;*/
+  /*border: solid 1px #d3d3d3;*/
+/*}*/
+/*.table th{*/
+    /*height: 4.63vh;*/
+    /*background: #ffffff;*/
+    /*padding-left: 20px;*/
+    /*font-size: 0.83vw;*/
+    /*line-height: 50px;*/
+    /*color: #333333;*/
+    /*text-align: left;*/
+    /*font-weight: normal;*/
+/*}*/
+/*.table tr{*/
+    /*text-align: left;*/
+    /*background: #eeeeee;*/
+    /*height: 4.63vh;*/
+    /*font-size: 0.73vw;*/
+    /*font-family: "MicrosoftYaHei";*/
+    /*border-top:1px solid #d3d3d3;*/
+    /*color: #666666;*/
+/*}*/
 
-.table th {
-  height: 4.63vh;
-  background: #ffffff;
-  padding-left: 20px;
-  font-size: 0.83vw;
-  line-height: 50px;
-  color: #333333;
-  text-align: left;
-  font-weight: normal;
-}
+/*.table th {*/
+  /*height: 4.63vh;*/
+  /*background: #ffffff;*/
+  /*padding-left: 20px;*/
+  /*font-size: 0.83vw;*/
+  /*line-height: 50px;*/
+  /*color: #333333;*/
+  /*text-align: left;*/
+  /*font-weight: normal;*/
+/*}*/
 
-.table tr {
-  text-align: left;
-  background: #eeeeee;
-  height: 4.63vh;
-  font-size: 0.73vw;
-  font-family: "MicrosoftYaHei";
-  border-top: 1px solid #d3d3d3;
-  color: #666666;
-}
+/*.table tr {*/
+  /*text-align: left;*/
+  /*background: #eeeeee;*/
+  /*height: 4.63vh;*/
+  /*font-size: 0.73vw;*/
+  /*font-family: "MicrosoftYaHei";*/
+  /*border-top: 1px solid #d3d3d3;*/
+  /*color: #666666;*/
+/*}*/
 
-.table tr td {
-  padding-left: 20px;
-}
+/*.table tr td {*/
+  /*padding-left: 20px;*/
+/*}*/
 
-.table tr:nth-child(odd) {
-  background: #ffffff;
-}
+/*.table tr:nth-child(odd) {*/
+  /*background: #ffffff;*/
+/*}*/
 
 /*.bottom_menu{
     position: relative;;
@@ -172,38 +171,21 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 }
 
+.see-detail{
+  background: url('../../../assets/taskStatus/chakan-.png') no-repeat center;
+
+}
 .stop {
-  background: url('../../../assets/jobcreation/icon_01.png') no-repeat center;
+  background: url('../../../assets/taskStatus/zanting.png') no-repeat center;
 
 }
 
 .start {
-  background: url('../../../assets/jobcreation/icon_02.png') no-repeat center;
-}
-
-/*th*/
-/*
-.name{
-    width: 14%;
-}
-.scene{
-    width: 16%;
-}
-.time{
-    width: 14%;
-}
-.condition{
-    width: 14%;
-}
-.progress{
-    width: 14%;
+  background: url('../../../assets/taskStatus/qidong.png') no-repeat center;
 }
 .operation{
-    width: 14%;
+  display: flex;    align-items: center;
 }
-.formore{
-    width: 14%;
-}*/

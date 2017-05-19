@@ -5,6 +5,7 @@ import {JobService} from "../common/services/job.service";
 
 import {JobInfo, JobParameter, UserInfo} from "../common/defs/resources";
 import {AmChartsService} from "amcharts3-angular2";
+import {Router} from "@angular/router";
 declare var $: any;
 declare var unescape: any;
 @Component({
@@ -55,7 +56,7 @@ export class JobDetailComponent {
   }
 
 
-  constructor(private jobService: JobService, private location: Location, private AmCharts: AmChartsService) {
+  constructor(private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
@@ -260,6 +261,11 @@ export class JobDetailComponent {
         this.user = this.job.user;
       });
     });
+  }
+
+  goModel(){
+
+    this.router.navigate(['/model'],{queryParams: {'job_id': this.job.id }})
   }
 
 

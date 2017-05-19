@@ -51,11 +51,11 @@ export class modelService {
             });
     }
 
-    saveModelAndUpload(name, model_id, file) {
+    saveModelAndUpload(name, jobId, file) {
         let path = "/api/model";
         let body = JSON.stringify({
             "name": name,
-            "modelId": model_id,
+            "jobId": jobId,
             "filePath":file
         });
         let headers = this.getHeaders();
@@ -103,8 +103,19 @@ export class modelService {
                 }
             });
     }
+
+  getModelPredictionByJob(job_id, page=0,size=10){
+    let path = "/api/modelPredictions/"+job_id+"?page="+page+"&size="+size;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
     getHistory(page=0,size=10){
-        let path = "/api/modelPredictions/?page="+page+"&size="+size;
+        let path = "/api/modelPredictions?page="+page+"&size="+size;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {

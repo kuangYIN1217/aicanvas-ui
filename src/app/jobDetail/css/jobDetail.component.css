@@ -202,6 +202,13 @@
     color: #333333;
 }
 
+.propertyCard .cardInline_value{
+  font-size: 36px;
+  color: #333333;
+  text-align: center;
+  line-height: 120px;
+}
+
 
 .tab{
   width:97%;

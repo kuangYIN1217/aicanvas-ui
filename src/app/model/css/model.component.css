@@ -1,16 +1,111 @@
-.test{
-  display: flex;
+.nav{
   background-color: #fff;
   margin: 30px;
   padding-left: 30px;
-  
+  height:121px;
 }
 
 
-.test h1{
-  color: #000;
+.nav .row{
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+
+}
+
+.nav .row .text{
+  width:15vw;
+  color: #333333;
+  font-size: 1rem;
+  font-family: MicrosoftYaHei;
+}
+
+.nav .row .button_location{
+  margin-right: 30px;
+
+  flex: 1;
+}
+
+.row h1{
+  font-size: 18px;
+  color: #ff7c35;
+  font-family: MicrosoftYaHei;
+}
+
+.tableContainer{
+  background-color: #fff;
+  width: 97%;
+  padding-top: 22px;
+  margin-left: 30px;
+  border-radius: 5px;
+}
 
 
+
+.see-detail{
+  background: url('../../../assets/taskStatus/chakan-.png') no-repeat center;
+
+}
+
+.showDetailBtn {
+  cursor: pointer;
+  color: #ff7c35;
+  font-size: 0.73vw;
+  text-decoration: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: block;
+}
+
+.operation{
+  display: flex;
+  align-items: center;
+}
+
+
+.new_model{
+  width:97%;
+  background-color: #fff;
+  margin:30px;
+  overflow: hidden;
+}
+
+
+.new_model .first_column{
+  width:120px;
+}
+
+.new_model table tr td .input{
+  width: 275px;
+  height: 36px;
+  border: solid 1px #d3d3d3;
+  border-radius: 5px;
+}
+
+.new_model table tr td{
+  color: #333333;
+  font-size: 16px;
+  line-height: 50px;
+}
+
+.new_model table{
+  margin: 30px;
+}
+
+.new_model .image{
+  width: 119px;
+  height: 101px;
+  border: solid 1px #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.currentRow{
+  color: #23a800;
 }
 
 

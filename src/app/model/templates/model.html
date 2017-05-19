@@ -1,81 +1,145 @@
 <div class="container">
 
-    <div class="test">
-    <div>
-     <h1>图形分类11111</h1>
-      <a href="#" class="button" onclick="return false" >模型发布</a>
+  <div class="nav">
+    <div class="row">
+      <h1>推演服务</h1>
+      <!--<a href="#" class="button" onclick="return false" style="float: right" >模型发布</a>-->
     </div>
-    <div>
-      <div>
-      <span>场景名称22222: </span>
-      <span>火焰识别</span>
+    <div class="row">
+      <div class="text">
+        <span>场景名称: </span>
+        <span>{{job?.sencesName}}</span>
       </div>
 
-      <div>
+      <div class="text">
         <span>算法: </span>
-        <span>CNN图像分类</span>
+        <span>{{job?.chainId}}</span>
       </div>
 
 
-      <div>
+      <div class="text">
         <span>训练任务: </span>
-        <span>JOB123455644</span>
+        <span>{{job?.jobName}}</span>
       </div>
 
 
-      <div>
-        <span>开启时间: </span>
-        <span>2017/05/17 19:01</span>
+      <div class="text">
+        <span>创建时间: </span>
+        <span>{{job?.createTime| date}}</span>
       </div>
 
-      <div>
-        <a href="#" class="button" onclick="return false" >模型发布</a>
-        <a href="#" class="button" onclick="return false" >模型发布</a>
+      <div class="button_location">
+        <a href="#" class="button" onclick="return false" (click)="showAdd=true">新增推演</a>
+        <a href="#" class="back" onclick="return false" (click)="back()">返回</a>
       </div>
     </div>
+  </div>
+
+
+  <div class="tableContainer">
+    <table class="table">
+      <th>推演名称</th>
+      <th>创建时间</th>
+      <th>上传路径</th>
+      <th>显示结果</th>
+      <th>进度</th>
+      <!--<tbody *ngIf="ModelInfo.length==0">-->
+      <!--<tr  class="nocontent">-->
+        <!--<td style="column-span: 4"> 没有记录!</td>-->
+        <!--<td style="column-span: 4"> 没有记录!</td>-->
+        <!--<td style="column-span: 4"> 没有记录!</td>-->
+        <!--<td style="column-span: 4"> 没有记录!</td>-->
+        <!--<td style="column-span: 4"> 没有记录!</td>-->
+
+      <!--</tr>-->
+
+      <!--</tbody>-->
+
+      <tr *ngFor="let model of ModelInfo;let i = index;"  [ngClass]="{'currentRow': model.id==currentId}">
+        <td>{{model.predictionName}}</td>
+        <td>{{model.sencesName}}</td>
+        <td>{{model.createTime==null?'无设置':model.createTime}}</td>
+        <td class="operation">
+          <a class="showDetailBtn see-detail" (click)="showDetail(model.id)"></a>&nbsp;&nbsp;
+        </td>
+        <td>{{model.percent==null?'0.0':model.percent|percent:'.2'}}</td>
+      </tr>
+    </table>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+
+  </div>
+
+
+  <div class="new_model" *ngIf="showAdd">
+
+    <table>
+      <tr>
+        <td class="first_column">推演文件格式</td>
+        <td>png,jpg</td>
+      </tr>
+      <tr>
+        <td class="first_column">新建推演名称</td>
+        <td><input class="input" type="text" [(ngModel)]="modelName"></td>
+      </tr>
+      <tr>
+        <td class="first_column">上传文件</td>
+        <td>
+          <div class="image" onclick="document.getElementById('file').click()">
+            <input type="file" id="file" multiple ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" style="display: none"/>
+            <img src="assets/model/wenjian.png" alt="" >
+          </div>
+        </td>
+      </tr>
+    </table>
+    <a href="#" class="back" onclick="return false" (click)="uploadFile()" style="float:left;margin: 30px;">推演</a>
+
+  </div>
 
 
 
-    </div>
+  <div>
+    <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='null'?'':'none'" *ngIf="type=='null'"></historyDetail>
+    <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='raw_text'?'':'none'" *ngIf="type=='raw_text'"></historyDetail>
+    <showImage [model_id]="runId" [style.display]="type=='multiple_labeled_images'?'':'none'" *ngIf="type=='multiple_labeled_images'"></showImage>
+  </div>
+  <!--<div class="select">-->
+  <!--<select  [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">-->
+  <!--<option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>-->
+  <!--</select>-->
+  <!--<div class="btn"><a routerLinkActive="active" (click)="clickBtn()" [ngClass]="{href: ModelInfo.length==0}">单文件推演</a></div>-->
+  <!--</div>-->
+  <!--<div class="modelServier">-->
+  <!--<table class="table">-->
+  <!--<th>序号</th>-->
+  <!--<th>创建者</th>-->
+  <!--<th>创建时间</th>-->
+  <!--<th>模型路径</th>-->
+  <!--<tbody>-->
+  <!--<tr *ngFor="let model of arr let num =  index" (click)="clickStatus(num,model.model_id,model.job_path)" [ngClass]="{selected:num==selected }">-->
+  <!--<td>{{ model.model_id}}</td>-->
+  <!--<td>{{ model.creator}}</td>-->
+  <!--<td>{{ model.created_at| date:'yyyy-MM-dd HH:mm:ss'}}</td>-->
+  <!--<td>{{ model.model_path}}</td>-->
+  <!--</tr>-->
+  <!--</tbody>-->
+  <!--</table>-->
+  <!--<div class="bottom_menu">-->
+  <!--<div class="label">-->
+  <!--TotalPages:-->
+  <!--&lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
+  <!--<span>{{result}}</span>-->
+  <!--</div>-->
+  <!--<div class="selectDiv" >-->
+  <!--<select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">-->
+  <!--<option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>-->
+  <!--<option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>-->
+  <!--<option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>-->
+  <!--</select>-->
+  <!--</div>-->
+  <!--<div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>-->
+  <!--<div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>-->
+  <!--</div>-->
 
-    <!--<div class="select">-->
-        <!--<select  [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">-->
-            <!--<option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>-->
-        <!--</select>-->
-        <!--<div class="btn"><a routerLinkActive="active" (click)="clickBtn()" [ngClass]="{href: ModelInfo.length==0}">单文件推演</a></div>-->
-    <!--</div>-->
-    <!--<div class="modelServier">-->
-        <!--<table class="table">-->
-            <!--<th>序号</th>-->
-            <!--<th>创建者</th>-->
-            <!--<th>创建时间</th>-->
-            <!--<th>模型路径</th>-->
-            <!--<tbody>-->
-                <!--<tr *ngFor="let model of arr let num =  index" (click)="clickStatus(num,model.model_id,model.job_path)" [ngClass]="{selected:num==selected }">-->
-                    <!--<td>{{ model.model_id}}</td>-->
-                    <!--<td>{{ model.creator}}</td>-->
-                    <!--<td>{{ model.created_at| date:'yyyy-MM-dd HH:mm:ss'}}</td>-->
-                    <!--<td>{{ model.model_path}}</td>-->
-                <!--</tr>-->
-            <!--</tbody>-->
-        <!--</table>-->
-        <!--<div class="bottom_menu">-->
-            <!--<div class="label">-->
-                <!--TotalPages:-->
-                <!--&lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
-                <!--<span>{{result}}</span>-->
-            <!--</div>-->
-            <!--<div class="selectDiv" >-->
-                <!--<select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">-->
-                    <!--<option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>-->
-                    <!--<option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>-->
-                    <!--<option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>-->
-                <!--</select>-->
-            <!--</div>-->
-            <!--<div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>-->
-            <!--<div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>-->
-        <!--</div>-->
-
-    <!--</div>-->
+  <!--</div>-->
 </div>
 <!--[ngClass]="{href: ModelInfo.length==0}"-->
