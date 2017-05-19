@@ -1,0 +1,27 @@
+.bg{
+  width: 97%;
+  background-color: #fff;
+  overflow: hidden;
+  margin: 30px;
+  color: #333333;
+  font-size: 16px;
+}
+
+.nav{
+  display: flex;
+  margin: 30px;
+
+}
+
+.nav div{
+  margin-right: 50px;
+}
+
+.nav select{
+  width: 275px;
+  height: 36px;
+}
+
+.table_section{
+  margin-bottom: 50px;
+}

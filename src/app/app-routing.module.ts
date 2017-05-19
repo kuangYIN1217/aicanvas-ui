@@ -24,6 +24,7 @@ import {AlgChainsComponent} from "./algchains/algchains.component";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {TestComponent} from "./test/test.component";
 import {PageComponent} from "./page/page.component";
+import {InferenceModelComponent} from "./inference-model/inference-model.component";
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
   {path: 'showResult', component: ShowResultComponent},
   {path: 'showImage', component: ShowImageComponent},
   {path: 'nav', component: NavigationComponent},
+  {path: 'inferenceModel', component: InferenceModelComponent},
 
 
   {path: '', redirectTo: '/nav', pathMatch: 'full'},
