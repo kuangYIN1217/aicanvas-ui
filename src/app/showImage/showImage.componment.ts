@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SERVER_URL} from "../app.constants";
 import {modelService} from "../common/services/model.service";
 import {ResourcesService} from "../common/services/resources.service";
-import {inferenceResult, PercentInfo} from "../common/defs/resources";
+import {inferenceResult, Page, PercentInfo} from "../common/defs/resources";
 @Component({
   moduleId: module.id,
   selector: 'showImage',
@@ -28,6 +28,7 @@ export class ShowImageComponent {
   resultP: inferenceResult[] = [];
   PercentInfo: PercentInfo = new PercentInfo;
   stringArr: string;
+  pageParams=new Page();
 
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
@@ -42,17 +43,17 @@ export class ShowImageComponent {
   }
 
   ngOnChanges(...args: any[]) {
-    for (let obj = 0; obj < args.length; obj++) {
-      if (args[obj]['model_id']["currentValue"]) {
-        this.model_pre = this.model_id;
+    // for (let obj = 0; obj < args.length; obj++) {
+    //   if (args[obj]['model_id']["currentValue"]) {
+    //     this.model_pre = this.model_id;
         this.interval = setInterval(() => this.getResult(this.model_id, this.page - 1, this.pageMaxItem), 500);
-      }
-      this.modelService.getPercent(this.model_id)
-        .subscribe(percent => {
-          this.PercentInfo = percent;
-          console.log(this.PercentInfo.percent);
-        });
-    }
+      // }
+      // this.modelService.getPercent(this.model_id)
+      //   .subscribe(percent => {
+      //     this.PercentInfo = percent;
+      //     console.log(this.PercentInfo.percent);
+      //   });
+    // }
   }
 
   ngOnDestroy() {
@@ -60,12 +61,22 @@ export class ShowImageComponent {
     clearInterval(this.interval);
   }
 
+  getPageData(paraParam) {
+    this.getResult(this.model_id,paraParam.curPage-1,paraParam.pageMaxItem);
+    //console.log('触发', paraParam);
+  }
   getResult(modelId: number, page, size) {
     this.modelService.getResult(modelId, page, size).subscribe(result => {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
         this.resultP = result;
+        let page = new Page();
+        page.pageMaxItem = result.size;
+        page.curPage = result.number+1;
+        page.totalPage = result.totalPages;
+        page.totalNum = result.totalElements;
+        this.pageParams=page;
         console.log(this.result[0].output);
       }
     })
