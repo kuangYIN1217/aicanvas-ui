@@ -57,6 +57,7 @@ select {
   font-size: 14px;
   color: #666666;
   outline: none;
+  padding-left: 10px;
 }
 
 .searchicon {
@@ -123,6 +124,8 @@ select {
   width: 97%;
   border-radius: 0 0 5px 5px;
   background: #fff;
+  margin-bottom: 100px;
+  padding-bottom: 50px;
 }
 /*.step_pane .href{
     background: #a0a0a0;

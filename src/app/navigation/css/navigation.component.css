@@ -2,7 +2,9 @@
 .header{
     width: 100%;
     height: 90px;
-    background-color: #19191a;
+    background-color: #232323;
+  display: flex;
+  align-items: center;
     /*font-family: 'MicrosoftYaHei';
     font-size: 14px;
     color: #ffffff;*/
@@ -11,32 +13,37 @@
     position: relative;
     width: 128px;
     height: 50px;
-    top: 25px;
-    left: 45px;
+    /*top: 25px;*/
+    left: 37px;
     float: left;
+  z-index: 100;
 }
 .logo img{
-    width: 100%;
+  width: 146px;
+  height: 57px;
 }
+
+
 .header p{
     position: absolute;
     text-align: center;
     width: 50%;
     left: 25%;
-    top: 30px;
+    /*top: 30px;*/
     margin: 0px;
     float: left;
-    font-size: 20px;
-    color: #f9f9f9;
+    font-size: 24px;
+    color: #fff;
     font-family: "MicrosoftYaHei";
 }
 .entry{
     position: absolute;
-    top: 30px;
+  cursor: pointer;
+    /*top: 30px;*/
 }
 .entry img{
-    width: 22px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
 }
 .entry span{
     font-family: "MicrosoftYaHei";
@@ -45,13 +52,13 @@
 }
 .user{
 
-    left: 80%;
+  right: 120px;
 }
 .user span{
     left: 81%;
 }
 .logout{
-    left: 88%;
+    right: 30px;
 }
 .logout span{
     left: 89%;
@@ -62,23 +69,32 @@
 nav{
     width: 10%;
     float: left;
-    height: 100vh;
-    background-color: #0e0e0e;
+    height: 100%;
+    overflow: hidden;
+    background-color: #232323;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
+
+.nav_element:first-child{
+  margin-top: 120px;
+}
+
 .nav_element{
     width: 100%;
-    height: 30px;
+    height: 70px;
     position: relative;
-    margin-top: 35px;
-    margin-bottom: 22px;
+  display: flex;
+  /*justify-content: center;*/
+  align-items: center;
+  cursor: pointer;
+
 }
 .nav_element img{
-    width: 20px;
+    width: 22px;
     height: 22px;
-
-    margin-left: 15%;
-
-    margin-right: 20px;
+  margin:22px 22px 22px 28px;
     float: left;
 }
 .collapseImgDiv{
@@ -119,6 +135,7 @@ nav{
 }
 .focusCollapse a{
 }
-.focusTab a{
-    color: #566dc1;
+.focusTab{
+   background-color: #333333;
+  border-left:solid 6px #ee8348;;
 }

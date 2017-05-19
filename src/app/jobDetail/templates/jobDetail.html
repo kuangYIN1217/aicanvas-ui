@@ -11,30 +11,38 @@
                 <span>场景名称:&nbsp;&nbsp;{{job?.sencesName==null?'未设置':job.sencesName}}</span>
                 <span>创建时间:&nbsp;&nbsp;{{job?.createTime==null?'未设置':job.createTime}}</span>
 
+              <div *ngIf="job?.status=='未启动'">
+                <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">开始运行</a>
+
+              </div>
               <a href="#" class="back" routerLink="/jobcreation" >返回</a>
+
             </div>
             <div class="detailLine">
                 <span>创建者:&nbsp;&nbsp;{{job?.user?.login}}</span>
               <span>状态:&nbsp;&nbsp;{{job?.status==null?'未设置':job.status}}</span>
 
 
-              <div *ngIf="job?.status=='Stoped'||job?.status=='Finished'">
-                <a href="#" class="button">重置</a>
-                <a href="#" class="button">查看训练算法</a>
-                <a href="#" class="button">下载训练日志</a>
+
+
+              <div *ngIf="job?.status=='停止'||job?.status=='完成'">
+                <a href="#" class="button" onclick="return false" >重置</a>
+                <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
+                <a href="#" class="button" onclick="return false" >查看训练算法</a>
+                <a href="#" class="button" onclick="return false" >下载训练日志</a>
               </div>
 
-            <div *ngIf="job?.status=='Running'">
-              <a href="#" class="button">重置</a>
+            <div *ngIf="job?.status=='运行'">
+              <a href="#" class="button" onclick="return false" >重置</a>
               <a href="#" class="button" onclick="return false" (click)="stop(job?.jobPath)">停止</a>
-              <a href="#" class="button">查看训练算法</a>
-              <a href="#" class="button">下载训练日志</a>
+              <a href="#" class="button" onclick="return false" >查看训练算法</a>
+              <a href="#" class="button" onclick="return false" >下载训练日志</a>
             </div>
             </div>
           </div>
 
 
-          <div class="tab" *ngIf="job?.status=='Runnning'">
+          <div class="tab" *ngIf="job?.status=='运行'">
             <a href="#" onclick="return false" class="current_tab">训练结果</a>
             <a href="#" onclick="return false">资源详情</a>
 
@@ -100,7 +108,7 @@
                 <div class="cardInline_value">{{jobResult.epoch}}</div>
             </div>
           </div>
-          <div class="log" *ngIf="job?.status!='Finished'">
+          <div class="log" *ngIf="job?.status!='完成'">
             <h3>日志信息</h3>
         <span>
           <p> Using TensorFlow backend.</p>
@@ -120,7 +128,7 @@
         </span>
           </div>
 
-              <div *ngIf="job?.status=='Finished'" class="publish">
+              <div *ngIf="job?.status=='完成'" class="publish">
                 <a href="#" class="button" onclick="return false" >模型发布</a>
                 <a href="#" class="button" onclick="return false" (click)="goModel()">推演服务</a>
 

@@ -2,49 +2,49 @@
         <div class="logo">
             <img src="assets/navigation/logo.png">
         </div>
-        <p>DeepTAC智能算法一体机管理平台V0.5</p>
+        <p>DeepTAC智能算法一体机</p>
         <div class="entry user">
-            <img src="assets/navigation/user.png">
+            <img src="assets/navigation/admin.png">
             <span>{{username}}</span>
         </div>
         <div class="entry logout">
-            <img src="assets/navigation/quit.png">
-            <span (click)="logout()">Logout</span>
+            <img src="assets/navigation/out.png">
+            <span (click)="logout()">退出</span>
         </div>
     </div>
     <nav [style.display]="(focusTab!=0)?'':'none'">
-        <div class="nav_element" [class.focusTab] = "focusTab==1" >
-            <img [src]="focusTab!=1?'assets/navigation/icon_1.png':'assets/navigation/icon_1_h.png'">
-            <a routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">信息总览</a>
+        <div class="nav_element" [class.focusTab] = "focusTab==1" routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">
+            <img [src]="focusTab!=1?'assets/navigation/icon_xxzl_01_n.png':'assets/navigation/icon_xxzl_01_n.png'">
+            <a href="#" onclick="return false">信息总览</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==2">
-            <img [src]="focusTab!=2?'assets/navigation/icon_2.png':'assets/navigation/icon_2_h.png'">
-            <a routerLinkActive="active" routerLink="/algchains" (click)="changeTab(2);focusCollapse='0'">场景管理</a>
+        <div class="nav_element" [class.focusTab] = "focusTab==2" routerLinkActive="active" routerLink="/algchains" (click)="changeTab(2);focusCollapse='0'">
+            <img [src]="focusTab!=2?'assets/navigation/icon_cj_02_n.png':'assets/navigation/icon_cj_02_n.png'">
+            <a href="#" onclick="return false">场景管理</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==3">
-            <img [src]="focusTab!=3?'assets/navigation/icon_3.png':'assets/navigation/icon_3_h.png'">
-            <a routerLinkActive="active" routerLink="/jobcreation" (click)="changeTab(3);focusCollapse='0'">训练任务管理</a>
+        <div class="nav_element" [class.focusTab] = "focusTab==3" routerLinkActive="active" routerLink="/jobcreation" (click)="changeTab(3);focusCollapse='0'">
+            <img [src]="focusTab!=3?'assets/navigation/icon_xlrw_03_n.png':'assets/navigation/icon_xlrw_03_n.png'">
+            <a href="#" onclick="return false" >训练任务管理</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==4">
-            <img [src]="focusTab!=4?'assets/navigation/icon_4.png':'assets/navigation/icon_4_h.png'">
-            <a routerLinkActive="active" routerLink="/datasets" (click)="changeTab(4);focusCollapse='0'">数据集管理</a>
+        <div class="nav_element" [class.focusTab] = "focusTab==4" routerLinkActive="active" routerLink="/datasets" (click)="changeTab(4);focusCollapse='0'">
+            <img [src]="focusTab!=4?'assets/navigation/icon_sjj_04_n.png':'assets/navigation/icon_sjj_04_n.png'">
+            <a href="#" onclick="return false" >数据集管理</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==5">
-            <img [src]="focusTab!=5?'assets/navigation/icon_5.png':'assets/navigation/icon_5_h.png'">
-            <a routerLinkActive="active" routerLink="/model" (click)="changeTab(5);focusCollapse='0'">模型服务管理</a>
+        <div class="nav_element" [class.focusTab] = "focusTab==5" routerLinkActive="active" routerLink="/inferenceModel" (click)="changeTab(5);focusCollapse='0'">
+            <img [src]="focusTab!=5?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_n.png'">
+            <a href="#" onclick="return false" >模型服务管理</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==6">
-            <img [src]="focusTab!=6?'assets/navigation/icon_6.png':'assets/navigation/icon_6_h.png'">
-            <a routerLinkActive="active" routerLink="/algplugins" (click)="changeTab(6);focusCollapse='0'">算法组件库</a>
+        <div class="nav_element" [class.focusTab] = "focusTab==6" routerLinkActive="active" routerLink="/algplugins" (click)="changeTab(6);focusCollapse='0'">
+            <img [src]="focusTab!=6?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_n.png'">
+            <a href="#" onclick="return false" >算法组件库</a>
         </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==8">
-            <img [src]="focusTab!=8?'assets/navigation/icon_5.png':'assets/navigation/icon_5_h.png'">
-            <a routerLinkActive="active" routerLink="/algchainAlone" (click)="changeTab(8);focusCollapse='0'">算法链</a>
-        </div>
-        <div class="nav_element" [class.focusTab] = "focusTab==7">
-            <img [src]="focusTab!=7?'assets/navigation/icon_5.png':'assets/navigation/icon_5_h.png'">
-            <a routerLinkActive="active" routerLink="/history" (click)="changeTab(7);focusCollapse='0'">推演历史</a>
-        </div>
+        <!--<div class="nav_element" [class.focusTab] = "focusTab==8" routerLinkActive="active" routerLink="/algchainAlone" (click)="changeTab(8);focusCollapse='0'">-->
+            <!--<img [src]="focusTab!=8?'assets/navigation/icon_5.png':'assets/navigation/icon_5_h.png'">-->
+            <!--<a href="#" onclick="return false" >算法链</a>-->
+        <!--</div>-->
+        <!--<div class="nav_element" [class.focusTab] = "focusTab==7" routerLinkActive="active" routerLink="/history" (click)="changeTab(7);focusCollapse='0'">-->
+            <!--<img [src]="focusTab!=7?'assets/navigation/icon_5.png':'assets/navigation/icon_5_h.png'">-->
+            <!--<a href="#" onclick="return false" >推演历史</a>-->
+        <!--</div>-->
 
      <!-- <a routerLinkActive="active" routerLink="/overview">信息总览</a>
      <br/>

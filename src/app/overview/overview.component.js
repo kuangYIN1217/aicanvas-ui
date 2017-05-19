@@ -29,7 +29,7 @@ let OverviewComponent = class OverviewComponent {
         this.createdJob = new resources_1.JobInfo();
         // show resource or task 0--resource, 1--task
         this.tabIndex = 0;
-        this.statuss = 'Running';
+        this.statuss = '运行';
         resourcesService.getCpuInfo()
             .subscribe(cpu => this.getCpu(cpu));
         resourcesService.getAllGpus()

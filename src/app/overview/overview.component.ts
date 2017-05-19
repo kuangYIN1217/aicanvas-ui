@@ -34,7 +34,7 @@ export class OverviewComponent {
     private chart: any;
   gpuIndex:number=0;
   cpuIndex:number=0;
-  @Input() statuss:string='Running';
+  @Input() statuss:string='运行';
   @Input() sceneId:number=this.id;
   private chart2: any;
   private chart3: any;

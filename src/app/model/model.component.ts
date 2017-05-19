@@ -39,6 +39,7 @@ export class ModelComponent {
   job:JobInfo= new JobInfo;
   interval:any;
   type:any;
+  runId:number;
 
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService) {
 
@@ -68,6 +69,7 @@ export class ModelComponent {
         clearInterval(this.interval);
         this.result = result.content;
         this.type = this.result[0].resultType;
+        this.runId=modelId;
         console.log(this.type);
       }
     })
@@ -190,6 +192,7 @@ export class ModelComponent {
   showDetail(id){
     clearInterval(this.interval);
     this.currentId=id;
+
     this.interval = setInterval(() => this.getResult(id), 500);
 
   }

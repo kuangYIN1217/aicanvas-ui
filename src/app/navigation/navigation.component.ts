@@ -72,7 +72,7 @@ export class NavigationComponent {
     } else if (this.location.isCurrentPathEqualTo('/datasets')) {
       this.focusTab = 4;
       // this.needhide = 0;
-    } else if (this.location.isCurrentPathEqualTo('/model')) {
+    } else if (this.location.isCurrentPathEqualTo('/inferenceModel')) {
       this.focusTab = 5;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/algplugins') || this.location.path(false).indexOf('/algpluginDetail/') != -1) {
