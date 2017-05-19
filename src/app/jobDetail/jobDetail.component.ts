@@ -264,7 +264,8 @@ export class JobDetailComponent {
   }
 
   goModel(){
-    this.router.navigate(['/model'],{queryParams: { job_id: this.job.id }})
+
+    this.router.navigate(['/model'],{queryParams: {'job_id': this.job.id }})
   }
 
 

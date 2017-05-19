@@ -8,24 +8,24 @@
     <div class="row">
       <div class="text">
         <span>场景名称: </span>
-        <span>火焰识别</span>
+        <span>{{job?.sencesName}}</span>
       </div>
 
       <div class="text">
         <span>算法: </span>
-        <span>CNN图像分类</span>
+        <span>{{job?.chainId}}</span>
       </div>
 
 
       <div class="text">
         <span>训练任务: </span>
-        <span>JOB123455644</span>
+        <span>{{job?.jobName}}</span>
       </div>
 
 
       <div class="text">
-        <span>开启时间: </span>
-        <span>2017/05/17 19:01</span>
+        <span>创建时间: </span>
+        <span>{{job?.createTime| date}}</span>
       </div>
 
       <div class="button_location">
@@ -55,12 +55,12 @@
 
       <!--</tbody>-->
 
-      <tr *ngFor="let model of ModelInfo;let i = index;">
+      <tr *ngFor="let model of ModelInfo;let i = index;"  [ngClass]="{'currentRow': model.id==currentId}">
         <td>{{model.predictionName}}</td>
         <td>{{model.sencesName}}</td>
         <td>{{model.createTime==null?'无设置':model.createTime}}</td>
         <td class="operation">
-          <a class="showDetailBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{model.jobPath}}"></a>&nbsp;&nbsp;
+          <a class="showDetailBtn see-detail" (click)="showDetail(model.id)"></a>&nbsp;&nbsp;
         </td>
         <td>{{model.percent==null?'0.0':model.percent|percent:'.2'}}</td>
       </tr>
@@ -95,6 +95,13 @@
 
   </div>
 
+
+
+  <div>
+    <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='null'?'':'none'" *ngIf="type=='null'"></historyDetail>
+    <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='raw_text'?'':'none'" *ngIf="type=='raw_text'"></historyDetail>
+    <showImage [model_id]="runId" [style.display]="type=='multiple_labeled_images'?'':'none'" *ngIf="type=='multiple_labeled_images'"></showImage>
+  </div>
   <!--<div class="select">-->
   <!--<select  [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">-->
   <!--<option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>-->

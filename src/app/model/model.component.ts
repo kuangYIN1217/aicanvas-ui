@@ -1,11 +1,12 @@
 import {Component} from "@angular/core";
 import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
-import {Page} from "../common/defs/resources";
+import {JobInfo, Page} from "../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from '@angular/common';
 import {FileUploader} from "ng2-file-upload";
 import {SERVER_URL} from "../app.constants";
+import {JobService} from "../common/services/job.service";
 
 
 @Component({
@@ -13,7 +14,7 @@ import {SERVER_URL} from "../app.constants";
   selector: 'model',
   styleUrls: ['./css/model.component.css'],
   templateUrl: './templates/model.html',
-  providers: [ResourcesService, modelService]
+  providers: [ResourcesService, modelService,JobService]
 })
 export class ModelComponent {
   ModelInfo: any[] = [];
@@ -33,9 +34,13 @@ export class ModelComponent {
   firstId: number;
   id: number;
   showAdd: boolean = false;
+  currentId:number=-1;
   pageParams = new Page();
+  job:JobInfo= new JobInfo;
+  interval:any;
+  type:any;
 
-  constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location) {
+  constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService) {
 
   }
 
@@ -57,16 +62,16 @@ export class ModelComponent {
     //this.tabIndex=this.scene;
   }
 
-  // getResult(modelId:number){
-  //   this.modelService.getResult(modelId).subscribe(result=>{
-  //     if (result.content.length!=0) {
-  //       clearInterval(this.interval);
-  //       this.result = result.content;
-  //       this.type = this.result[0].resultType;
-  //       console.log(this.type);
-  //     }
-  //   })
-  // }
+  getResult(modelId:number){
+    this.modelService.getResult(modelId).subscribe(result=>{
+      if (result.content.length!=0) {
+        clearInterval(this.interval);
+        this.result = result.content;
+        this.type = this.result[0].resultType;
+        console.log(this.type);
+      }
+    })
+  }
   saveModelAndUpload(filePath: string) {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result => {
       // this.runId = result.id;
@@ -74,6 +79,7 @@ export class ModelComponent {
       this.modelService.runInference(result.id, this.job_path).subscribe(data => {
         alert("创建成功,可以在推演成功后查看!");
         this.selectChange(this.job_id);
+        this.showAdd =false;
       })
       //this.router.navigate(['../modelDetail'],{queryParams:{"runId":result.id}});
     })
@@ -83,6 +89,14 @@ export class ModelComponent {
     this.route.queryParams.subscribe(params => {
       this.job_id = params['job_id'];
       this.selectChange(this.job_id);
+      this.getJobDetail(this.job_id);
+    });
+  }
+
+
+  getJobDetail(job_id){
+    this.jobService.getJobDetailById(job_id).subscribe(jobDetail => {
+      this.job = jobDetail;
     });
   }
 
@@ -171,6 +185,13 @@ export class ModelComponent {
 
   back() {
     this._location.back();
+  }
+
+  showDetail(id){
+    clearInterval(this.interval);
+    this.currentId=id;
+    this.interval = setInterval(() => this.getResult(id), 500);
+
   }
 }
 
