@@ -49,9 +49,7 @@ export class AlgorithmChainComponent{
         });
         this.sceneService.getChainByScene(this.sceneId)
             .subscribe(plugin=>{
-              debugger
               this.PluginInfo=plugin;
-
               this.changPage(plugin);
 
 
@@ -66,7 +64,6 @@ export class AlgorithmChainComponent{
                 this.arr2 = this.selfTab.slice(0,10);
                 this.getInit();*/
             });
-
     }
     changPage(plugin){
       this.arr = plugin.slice(0,10);

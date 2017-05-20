@@ -84,7 +84,7 @@
             <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
           <div class="sceneHeader">
             <div class="sceneName">{{chosen_scene.translation}}</div>
-            <div class="sceneDescript"><span>场景描述：{{chosen_scene.description}}</span><a>编辑</a></div>
+            <div class="sceneDescript"><span>场景描述：{{chosen_scene.description}}</span><a (click)="edit()">编辑</a></div>
           </div>
             <div class="leftBox">
 <!--                <div class="condition" [style.display]="type==scene?'':'none'">
@@ -93,13 +93,15 @@
                 </div>-->
               <div class="chain">算法链：{{chainId}}</div>
                 <div class="alg_choose">
-             <!-- <div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>-->
+                  <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)"><img src="../assets/algchains/shengtailian.png"/><span>{{plugin.alg_name}}</span></div>
+                </div>
+            </div>
+         <!-- [style.display]="ifEdit==1?'':'none'"-->
+            <div class="chains">
+              <div class="alg_choose_descrip">可选算法层:</div>
+              <div class="alg_choose_drag">*支持拖拽</div>
               <div class="alg_choose_list" id="myPaletteDiv"></div>
             </div>
-            </div>
-            <!--<div class="chains">
-                <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.alg_name}}</div>
-            </div>-->
             <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
             <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
             <!--<div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">

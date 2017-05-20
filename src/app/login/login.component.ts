@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit{
     msg_content = "";
     msg_show = false;
     tabIndex:number=0;
+    hg:any;
     constructor(private resourcesService: ResourcesService, private userService: UserService,private router: Router){
         if((!sessionStorage['authenticationToken'])||sessionStorage['authenticationToken']==""){
             // this.logined = 0;

@@ -30,15 +30,22 @@ function init() {
         $(go.Node, "Spot", nodeStyle(),
             // 主要对象是一个环绕TextBlock的矩形的Panel
             $(go.Panel, "Auto",
-                $(go.Shape, "Rectangle",
-                    { minSize: new go.Size(138, 42), fill: null, stroke: "#52a683" },
+                $(go.Shape, "RoundedRectangle",
+                    { minSize: new go.Size(138, 40), fill: null, stroke: "#52a683", },
                     new go.Binding("figure", "figure")),
+              $(go.Picture,
+                {
+                  source:"../assets/network/chajian.png",
+                  background:"#ffffff",
+                  width:24,
+                  height:24,
+                }
+                ),
                 $(go.TextBlock,
                     {
                         font: "bold 11pt Helvetica, Arial, sans-serif",
-                        stroke: "#333333",
-                        margin:20,
-/*                      borderRadius:5,*/
+                        stroke: "#666666",
+                        margin:10,
                         maxSize: new go.Size(160, NaN),
                         wrap: go.TextBlock.WrapFit,
                         editable: true
@@ -47,7 +54,7 @@ function init() {
                 )
             ),
             // 节点周围提供连线的四点
-            makePort("T", go.Spot.Top, false, true),
+            //makePort("T", go.Spot.Top, false, true),
             // makePort("L", go.Spot.Left, true, true),
             // makePort("R", go.Spot.Right, true, true),
             makePort("B", go.Spot.Bottom, true, false),
@@ -59,12 +66,14 @@ function init() {
                 //
                 var str1 = document.getElementById("plugin_storage").value;//网络层信息
                 var test1 = JSON.parse(str1);
+
                 var str2 = document.getElementById("layer_dictionary").value;//数据字典
                 var test2 = JSON.parse(str2);
-                // console.log(test);
+
                 // var layerId = Node.toString().split("(")[1].split(")")[0];
                 var layerId = Node.data['nameId'];
                 var textName = Node.data['text'];
+
                 document.getElementById("property").innerHTML = "";
                 // for (var i = 0;i<test["layers"].length;i++){
                 //     if (layerId == test["layers"][i].name){
@@ -81,7 +90,7 @@ function init() {
                             for (var key in configStr){
                                 for (var j = 0;j < test2[layerId].editable_param_list.length; j++){
                                     if (key == test2[layerId].editable_param_list[j].path){
-                                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: #333333;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
+                                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="overflow: hidden"><div style="font-size: 20px;float: left;color: #666666;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +":"+'</div><input type="text" style="text-indent:6px;background: transparent;border: 0px;float: left; margin-top: 6px; width: 100px;font-size: 16px; display:inline-block;color: #666666;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                                         break;
                                     }else
                                         continue;
@@ -154,7 +163,7 @@ function init() {
                     {
                         textAlign: "center",
                         font: "10pt helvetica, arial, sans-serif",
-                        stroke: "#333333",
+                        stroke: "#666666",
                         editable: true
                     },
                     new go.Binding("text").makeTwoWay())

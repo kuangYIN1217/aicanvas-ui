@@ -21,7 +21,7 @@ export class AlgChainsComponent{
     chosen_scene: SceneInfo=new SceneInfo;
     pluginArr: PluginInfo[] = [];
     chosenPluginId: string;
-
+    ifEdit:number=0;
     haveModel: number = 0;
 
     // 字典
@@ -214,7 +214,9 @@ export class AlgChainsComponent{
         // 改变右侧显示的内容--显示plugin
         this.rightBox_node = 0;
     }
-
+  edit(){
+      this.ifEdit = 1;
+  }
     nodeClicked(){
         // 改变右侧显示的内容--显示node
         this.rightBox_node = 1;

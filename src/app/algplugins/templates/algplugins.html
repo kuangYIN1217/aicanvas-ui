@@ -19,10 +19,10 @@
             <td><a class="showDetail" routerLinkActive="active"  routerLink="/algpluginDetail/{{plugin.id}}"><img src="../assets/algplugin/chakan.png"/></a></td>
           </tr>
         </table>
-          <div class="bottom_menu">
+          <!--<div class="bottom_menu">
               <div class="label">
                   TotalPages:
-                  <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
+                  &lt;!&ndash; &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;&ndash;&gt;
                   <span>{{result}}</span>
               </div>
               <div class="selectDiv" >
@@ -34,7 +34,8 @@
               </div>
               <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
               <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
-          </div>
+          </div>-->
+        <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
       </div>
       <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
         <table id="selfTable" class="table">
@@ -49,10 +50,10 @@
                 <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id }}"><img src="../assets/algplugin/chakan.png"/></a></td>
             </tr>
         </table>
-          <div class="bottom_menu">
+          <!--<div class="bottom_menu">
               <div class="label">
                   TotalPages:
-                  <!-- &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;-->
+                  &lt;!&ndash; &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;&ndash;&gt;
                   <span>{{result}}</span>
               </div>
               <div class="selectDiv" >
@@ -64,7 +65,8 @@
               </div>
               <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
               <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
-          </div>
+          </div>-->
+        <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
       </div>
   </div>
 

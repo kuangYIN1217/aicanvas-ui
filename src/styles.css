@@ -43,7 +43,8 @@ html,body{
 .dots {
   position: absolute;
   text-align: center;
-  left: 290px;
+  left: 50%;
+  margin-left: -82px;
   bottom: 60px;
 }
 .dots li{

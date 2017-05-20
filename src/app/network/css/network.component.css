@@ -73,6 +73,30 @@ a{
     float: left;
     height: 100%;
 }
+.chains{
+  overflow: auto;
+  width: 20%;
+  height: 100%;
+  float: left;
+  background-color: #ffffff;
+  border-left: 1px solid #e8e8e8;
+}
+.alg_choose_descrip{
+  color: #333333;
+  font-size: 0.73vw;
+  padding:30px 28px 8px 30px;
+}
+.alg_choose_drag{
+  color: #ee8348;
+  font-size:0.62vw;
+  margin-left:30px;
+  margin-bottom: 33px;
+}
+.alg_choose_list{
+  color: #eeeee1;
+  /*margin-bottom: 50px;*/
+  height: 90%;
+}
 .condition{
     height: 250px;
     border-bottom: 1px solid #191919;
@@ -100,23 +124,6 @@ a{
     text-align: center;
 
 }
-.alg_choose_descrip{
-    color: #333333;
-    font-size: 0.73vw;
-    text-align: left;
-  margin:18px 0 8px 24px;
-}
-.alg_choose_drag{
-  color: #ee8348;
-  font-size:0.62vw;
-  margin-left:24px;
-  margin-bottom: 33px;
-}
-.alg_choose_list{
-    color: #eeeee1;
-    /*margin-bottom: 50px;*/
-    height: 90%;
-}
 .alg_plug{
     width: 100%;
     height: 30px;
@@ -137,12 +144,12 @@ a{
     float: left;
 }
 .chains{
-    overflow: auto;
-    width: 249px;
-    height: 100%;
-    float: left;
-    background-color: black;
-    border-left: 1px solid grey;
+  overflow: auto;
+  width: 20%;
+  height: 100%;
+  float: left;
+  background-color: #ffffff;
+  border-left: 1px solid #e8e8e8;
 }
 .content2{
     width: 930px;
@@ -153,7 +160,7 @@ a{
     width: 22%;
     float: right;
     height: 100%;
-  color: #333333;
+    color: #333333;
 }
 .rightBox2{
     width: 250px;

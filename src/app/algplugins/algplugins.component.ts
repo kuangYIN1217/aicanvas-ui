@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {PluginService} from "../common/services/plugin.service";
-import {PluginInfo} from "../common/defs/resources";
+import {Page, PluginInfo} from "../common/defs/resources";
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -21,6 +21,12 @@ export class AlgPluginsComponent{
     modalTab:any []=[];
     selfTab:any []=[];
     result:number=1;
+    pageParams=new Page();
+    params:any; // 保存页面url参数
+    totalNum:number = 0; // 总数据条数
+    pageSize:number = 20;// 每页数据条数
+    totalPage:number = 0;// 总页数
+    curPage:number = 1;// 当前页码
     constructor(private pluginService: PluginService) {
         if(sessionStorage['showSystemPlugin']){
             this.showSystemPlugin = sessionStorage['showSystemPlugin'];
@@ -30,43 +36,77 @@ export class AlgPluginsComponent{
         pluginService.getAllPlugins()
             .subscribe(plugins => {
                 this.plugins = plugins;
-                for(let i=0;i<this.plugins.length;i++){
-                    if(this.plugins[i].creator=='general'){
-                        this.modalTab.push(this.plugins[i]);
-                    }else{
-                        this.selfTab.push(this.plugins[i]);
-                    }
-                }
-                this.arr = this.modalTab.slice(0,10);
-              console.log(this.arr[0].id);
-                this.arr2 = this.selfTab.slice(0,10);
-                this.getInit();
+                this.changPage(plugins);
+                //this.arr = this.modalTab.slice(0,10);
+                //console.log(this.arr[0].id);
+                //this.arr2 = this.selfTab.slice(0,10);
+                //this.getInit();
+
             });
         // console.log(this.showSystemPlugin);
     }
-    getInit(){
-        if(this.result){
-            if(this.showSystemPlugin==1){
-                if(this.modalTab.length%this.pageMaxItem==0){
-                    this.result = this.modalTab.length/this.pageMaxItem;
-                }else{
-                    this.result = Math.floor(this.modalTab.length/this.pageMaxItem)+1;
-                }
-            }else if(this.showSystemPlugin==0){
-                if(this.selfTab.length%this.pageMaxItem==0){
-                    this.result = this.selfTab.length/this.pageMaxItem;
-                }else{
-                    this.result = Math.floor(this.selfTab.length/this.pageMaxItem)+1;
-                }
-            }
-        }
+  changPage(plugins){
+    for(let i=0;i<plugins.length;i++){
+      if(plugins[i].creator=='general'){
+        this.modalTab.push(plugins[i]);
+      }else{
+        this.selfTab.push(plugins[i]);
+      }
     }
+    if(this.showSystemPlugin==1){
+      this.getInit(this.modalTab);
+    }else if(this.showSystemPlugin==0){
+      this.getInit(this.selfTab);
+    }
+
+
+    /*if(this.arr.length%this.pageMaxItem==0){
+      this.totalPage = this.arr.length/this.pageMaxItem;
+    }else{
+      this.totalPage = Math.floor(this.arr.length/this.pageMaxItem)+1;
+    }
+    this.totalNum = this.arr.length;
+    let page = new Page();
+    page.pageMaxItem = this.pageMaxItem;
+    page.curPage = this.curPage;
+    page.totalPage = this.totalPage;
+    page.totalNum = this.totalNum;
+    this.pageParams=page;
+    console.log(page.pageMaxItem);
+    console.log(this.pageParams);*/
+  }
+  getInit(plugin){
+    this.arr = this.modalTab.slice(0,10);
+    this.arr2 = this.selfTab.slice(0,10);
+    if(plugin.length%this.pageMaxItem==0){
+      this.totalPage = plugin.length/this.pageMaxItem;
+    }else{
+      this.totalPage = Math.floor(plugin.length/this.pageMaxItem)+1;
+    }
+    this.totalNum = plugin.length;
+    let page = new Page();
+    page.pageMaxItem = this.pageMaxItem;
+    page.curPage = this.curPage;
+    page.totalPage = this.totalPage;
+    page.totalNum = this.totalNum;
+    this.pageParams=page;
+    console.log(page.pageMaxItem);
+    console.log(this.pageParams);
+  }
+  getPageData(paraParam) {
+    this.arr = this.modalTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
+    this.arr2 = this.selfTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
+    //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
+    console.log('触发', paraParam);
+
+  }
+
     sysTemplateClick(){
         // console.log("to Sys");
         this.showSystemPlugin = 1;
         sessionStorage.showSystemPlugin = 1;
         this.pageMaxItem=10;
-        this.result = this.modalTab.length%this.pageMaxItem==0?this.modalTab.length/this.pageMaxItem:Math.floor(this.modalTab.length/this.pageMaxItem)+1;
+        this.getInit(this.modalTab);
         this.arr = this.modalTab.slice(0,10);
         // console.log(this.showSystemPlugin);
         // console.log(this.plugins);
@@ -77,7 +117,8 @@ export class AlgPluginsComponent{
         this.showSystemPlugin = 0;
         sessionStorage['showSystemPlugin'] = 0;
         this.pageMaxItem=10;
-        this.result = this.selfTab.length%this.pageMaxItem==0?this.selfTab.length/this.pageMaxItem:Math.floor(this.selfTab.length/this.pageMaxItem)+1;
+        this.getInit(this.selfTab);
+        //this.result = this.selfTab.length%this.pageMaxItem==0?this.selfTab.length/this.pageMaxItem:Math.floor(this.selfTab.length/this.pageMaxItem)+1;
         this.arr2 = this.selfTab.slice(0,10);
         // console.log(this.showSystemPlugin);
     }
