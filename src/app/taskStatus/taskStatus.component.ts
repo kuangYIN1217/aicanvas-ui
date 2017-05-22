@@ -35,6 +35,7 @@ export class TaskStatusComponent{
     curPage:number = 1;// 当前页码
     @Input() statuss:string;
     @Input() sceneId:number;
+    @Input() jobName:string = null;
 
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
 
@@ -50,6 +51,7 @@ export class TaskStatusComponent{
 
   ngOnChanges(...args: any[]) {
      console.log(this.sceneId);
+     console.log(this.jobName);
      this.getSceneId();
    }
    getSceneId(){
@@ -65,7 +67,7 @@ export class TaskStatusComponent{
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
     }
     getAlljobs(status,page,size,sceneId){
-        this.jobService.getAllJobs(status,page,size,sceneId)
+        this.jobService.getAllJobs(status,page,size,sceneId,this.jobName)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;

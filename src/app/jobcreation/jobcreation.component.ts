@@ -57,6 +57,7 @@ export class JobCreationComponent {
   firstSceneId: number;
   firstChainId: string;
   @Input() statuss: string = '';
+  jobName:string;
 
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute) {
     pluginService.getLayerDict()
@@ -187,7 +188,12 @@ export class JobCreationComponent {
       alert("请选择算法链")
       return false;
     }
-    this.jobService.createJob(chosenSceneId, chainId)
+    if(!this.jobName){
+      alert("请输入任务名称")
+      return false;
+
+    }
+    this.jobService.createJob(chosenSceneId, chainId,this.jobName)
       .subscribe(createdJob => {
         //let job: any = createdJob;
         //this.createdJob = job;
