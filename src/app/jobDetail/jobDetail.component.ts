@@ -3,9 +3,10 @@ import {Location} from "@angular/common";
 // import { ActivatedRoute,Params} from '@angular/router';
 import {JobService} from "../common/services/job.service";
 
-import {JobInfo, JobParameter, UserInfo} from "../common/defs/resources";
+import {JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resources";
 import {AmChartsService} from "amcharts3-angular2";
 import {Router} from "@angular/router";
+import {AlgChainService} from "../common/services/algChain.service";
 declare var $: any;
 declare var unescape: any;
 @Component({
@@ -29,19 +30,17 @@ export class JobDetailComponent {
   val_acc_array = [];
   jobResult: any = {};
   MAX_CIRCLE = 40;
-
+  tabIndex: number = 0;
   private timer: any;
   private lossChart: any;
   private metricsChart: any;
-
-
+  changeIndex:number=0;
+  pluginArr: PluginInfo[] = [];
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
       epoch: "0"
     }];
-
-
     return dataProvider;
   }
 
@@ -54,9 +53,7 @@ export class JobDetailComponent {
 
     return dataProvider;
   }
-
-
-  constructor(private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router) {
+  constructor(private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
@@ -205,7 +202,15 @@ export class JobDetailComponent {
     this.AmCharts.destroyChart(this.metricsChart);
   }
 
-
+  changeTab(chainId,index){
+    this.changeIndex = index;
+    this.algchainService.getChainById(chainId)
+      .subscribe(plugin=>{
+        this.pluginArr=plugin;
+        // console.log(this.pluginArr[0]);
+        //this.changeChosenPlugin(this.pluginArr[0].id);
+      });
+  }
   // 不再running状态时一次性展示数据
   not_running_show(jobPath: string) {
     this.jobService.getUnrunningJob(jobPath)

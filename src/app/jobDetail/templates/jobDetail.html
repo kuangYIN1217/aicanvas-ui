@@ -28,27 +28,22 @@
               <div *ngIf="job?.status=='停止'||job?.status=='完成'">
                 <a href="#" class="button" onclick="return false" >重置</a>
                 <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
-                <a href="#" class="button" onclick="return false" >查看训练算法</a>
+                <a href="#" class="button" onclick="return false" (click)="changeTab(1)">查看训练算法</a>
                 <a href="#" class="button" onclick="return false" >下载训练日志</a>
               </div>
-
             <div *ngIf="job?.status=='运行'">
               <a href="#" class="button" onclick="return false" >重置</a>
               <a href="#" class="button" onclick="return false" (click)="stop(job?.jobPath)">停止</a>
-              <a href="#" class="button" onclick="return false" >查看训练算法</a>
+              <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1)">查看训练算法</a>
               <a href="#" class="button" onclick="return false" >下载训练日志</a>
             </div>
             </div>
           </div>
-
-
-          <div class="tab" *ngIf="job?.status=='运行'">
+          <div class="tab" *ngIf="job?.status=='运行'" [style.display]="changeIndex==0?'':'none'">
             <a href="#" onclick="return false" class="current_tab">训练结果</a>
             <a href="#" onclick="return false">资源详情</a>
-
           </div>
-
-            <div class="lossLine">
+          <div [style.display]="changeIndex==0?'':'none'" class="lossLine">
                 <div class="lossCard">
                     <div class="title">LOSS</div>
                     <div class="sub_title"><span class="span_not_val">--loss</span> & <span class="span_val">--val_loss</span></div>
@@ -134,7 +129,14 @@
 
               </div>
         </div>
-
+          <div [style.display]="changeIndex==1?'':'none'">
+            <div class="leftBox">
+              <div class="chain">算法链：{{chainId}}</div>
+              <div class="alg_choose">
+                <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)"><img src="../assets/algchains/shengtailian.png"/><span>{{plugin.alg_name}}</span></div>
+              </div>
+            </div>
+          </div>
     </div>
 </div>
 </div>
