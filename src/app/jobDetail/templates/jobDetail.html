@@ -50,8 +50,8 @@
 
             <div class="lossLine">
                 <div class="lossCard">
-                    <div class="title">LOSS</div>
-                    <div class="sub_title"><span class="span_not_val">--loss</span> & <span class="span_val">--val_loss</span></div>
+                    <div class="title">LOSS<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_loss:{{jobResult.bestLoss}}</span></div>
+                    <div class="sub_title"><span class="span_not_val">--loss</span> & <span class="span_val">--val_loss</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_loss:{{jobResult.bestValLoss}}</span></div>
                     <div class="">
                         <div id="lossGraph"  [style.width.%]="105" [style.height.px]="400">
                             <!-- <defs>
@@ -64,8 +64,8 @@
                     </div>
                 </div>
                 <div class="lossCard">
-                    <div class="title">{{jobResult.metrics_name}}</div>
-                    <div class="sub_title"><span class="span_not_val">--{{jobResult.metrics_name}}</span> & <span class="span_val">--val_{{jobResult.metrics_name}}</span></div>
+                    <div class="title">{{jobResult.metrics_name}}<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_{{jobResult.metrics_name}}:{{jobResult.bestMetrics}}</span></div>
+                    <div class="sub_title"><span class="span_not_val">--{{jobResult.metrics_name}}</span> & <span class="span_val">--val_{{jobResult.metrics_name}}</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_{{jobResult.metrics_name}}:{{jobResult.bestValMetrics}}</span></div>
                     <div>
                       <div id="metricsGraph"  [style.width.%]="105" [style.height.px]="400">
                     </div>
