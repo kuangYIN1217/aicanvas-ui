@@ -12,7 +12,7 @@
                     <div class="modelPreview">
                         <p>模型预览</p>
                         <div class="model">
-                            <div class="node" id="node1">Algplugin1</div>
+                            <div class="node" id="node1">Algplugin2</div>
                             <div class="nodeSpace">&nbsp;</div>
                             <div class="node" id="node2">Algplugin2</div>
                             <div class="nodeSpace">&nbsp;</div>
@@ -84,7 +84,13 @@
             <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
           <div class="sceneHeader">
             <div class="sceneName">{{chosen_scene.translation}}</div>
-            <div class="sceneDescript"><span>场景描述：{{chosen_scene.description}}</span><a (click)="edit()">编辑</a></div>
+            <div class="sceneDescript">
+              <span>场景描述：{{chosen_scene.description}}</span>
+              <a (click)="edit()" [style.display]="ifEdit==1?'none':''" id="edit">编辑</a>
+
+              <a class="bgColor" (click)="save()" [style.display]="ifEdit==1?'':'none'">保存</a>
+              <a class="bgColor" (click)="hideNetwork()" [style.display]="ifEdit==1?'':'none'">后退</a>
+            </div>
           </div>
             <div class="leftBox">
 <!--                <div class="condition" [style.display]="type==scene?'':'none'">
@@ -97,7 +103,7 @@
                 </div>
             </div>
          <!-- [style.display]="ifEdit==1?'':'none'"-->
-            <div class="chains">
+            <div class="chains" [style.display]="ifEdit==1?'':'none'">
               <div class="alg_choose_descrip">可选算法层:</div>
               <div class="alg_choose_drag">*支持拖拽</div>
               <div class="alg_choose_list" id="myPaletteDiv"></div>

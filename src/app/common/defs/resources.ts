@@ -148,6 +148,7 @@ export class SceneInfo{
     name: string;
     translation: string;
     description: string;
+
 }
 
 export  class ModelInfo{

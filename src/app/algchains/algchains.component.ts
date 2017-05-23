@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Directive} from "@angular/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SceneService} from "../common/services/scene.service";
@@ -14,16 +14,21 @@ declare var $:any;
   templateUrl: './templates/algchains.html',
   providers: [SceneService,PluginService,AlgChainService]
 })
+@Directive({
+  selector: '[symToggleRequired]'
+})
 export class AlgChainsComponent{
     sceneArrays: SceneInfo[]=[];
     ifShowNetwork:number = 0;
     chosenSceneId: number;
     chosen_scene: SceneInfo=new SceneInfo;
     pluginArr: PluginInfo[] = [];
+    plugins: PluginInfo[] = [];
     chosenPluginId: string;
     ifEdit:number=0;
     haveModel: number = 0;
-
+    PluginInfo:PluginInfo[]=[];
+    arrName:any[] =[];
     // 字典
     editable_params: Editable_param[] = [];
     // 被选中plugin的参数组合（结合了字典）
@@ -33,13 +38,11 @@ export class AlgChainsComponent{
     chainId:string;
     sceneId:number;
     creator:string;
-
+    flag:string="true";
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router){
-
 
     }
     ngOnInit(){
-
       this.sceneService.getAllScenes()
         .subscribe(sceneArray => this.getSceneArray(sceneArray));
       this.pluginService.getLayerDict()
@@ -50,17 +53,15 @@ export class AlgChainsComponent{
             this.chainId = params['chain_id'];
             this.sceneId = params['scene_id'];
             this.creator = params['creator'];
-
             if(this.chainId){
                 this.ifShowNetwork = 1;
                 this.algchainService.getChainById(this.chainId)
                     .subscribe(plugin=>{
                         this.pluginArr=plugin;
-                        console.log(this.pluginArr[0]);
+                       // console.log(this.pluginArr[0]);
                         this.changeChosenPlugin(this.pluginArr[0].id);
                     });
             }
-
         });
         // if(this.chainId){
         //     this.ifShowNetwork = 1;
@@ -76,16 +77,47 @@ export class AlgChainsComponent{
     }
     getSceneArray(sceneArray: SceneInfo[]){
         this.sceneArrays = sceneArray;
-        console.log(this.sceneArrays);
+
         for(let i=0;i<this.sceneArrays.length;i++){
             if(this.sceneId==this.sceneArrays[i].id){
                 this.chosen_scene = this.sceneArrays[i];
             }
-        }
+          console.log(this.sceneArrays[i].id);
+           this.sceneService.getChainByScene(this.sceneArrays[i].id)
+              .subscribe(plugin=>{
+                this.PluginInfo=plugin;
+                this.getName(this.PluginInfo[0].id);
 
+                //console.log(this.PluginInfo[0].id);
+              })
+            /*    for(let j=0;j<this.PluginInfo.length;j++){
+                  //console.log(this.PluginInfo[j].id);
+                  this.algchainService.getChainById(this.PluginInfo[j].id)
+                    .subscribe(plugin=>{
+                      this.plugins=plugin;
+                      for(let q=0;q<this.plugins.length;q++){
+
+                      }
+                     // console.log(this.plugins[q].alg_name);
+                      //this.sceneArrays.push(this.plugins[q].alg_name);
+                    });
+              }*/
+
+        }
         if(sessionStorage.algChain_scene&&sessionStorage.algChain_scene!=-1){
             this.showNetwork(sessionStorage.algChain_scene);
         }
+    }
+    getName(id){
+      this.algchainService.getChainById(id)
+        .subscribe(plugin=>{
+          this.plugins=plugin;
+          for(let j=0;j<this.plugins.length;j++){
+            this.arrName.push(this.plugins[j].alg_name);
+            console.log(this.arrName);
+          }
+
+        });
     }
     hideNetwork(){
       window.history.back();
@@ -215,7 +247,12 @@ export class AlgChainsComponent{
         this.rightBox_node = 0;
     }
   edit(){
+
       this.ifEdit = 1;
+      this.flag="false";
+      console.log($("#property").find("input").attr("readOnly","false"));
+      //document.getElementById("property").getElementsByTagName("input")[0].setAttribute("readonly", "");
+
   }
     nodeClicked(){
         // 改变右侧显示的内容--显示node

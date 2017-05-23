@@ -17,6 +17,7 @@
 }
 .disabled{
   background: #23a880 !important;
+  color: #ffffff !important;
 }
 .bottom_menu .label span{
   color: #23a880;

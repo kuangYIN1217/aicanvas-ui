@@ -483,7 +483,11 @@
     background-color: #ffffff;
     border-left: 1px solid #e8e8e8;
 }
-
+.bgColor{
+  background: #ff7c35 !important;
+  width: 114px !important;
+  margin-right: 20px !important;
+}
 /**//**/
 .pluginArr_item{
     width:146px;
