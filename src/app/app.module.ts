@@ -63,7 +63,7 @@ import { InputReadonlyDirective } from './input-readonly.directive';
     TestComponent,
     PageComponent,
     InferenceModelComponent,
-    InputReadonlyDirective
+    //InputReadonlyDirective
   ],
   imports: [
     AppRoutingModule,
