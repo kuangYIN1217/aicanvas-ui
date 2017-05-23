@@ -3,7 +3,7 @@
         <div class="tabs">
           <div class="tab_search">
             <!-- if too slow for each search, should change to (change) according to the num of data -->
-            <input id="search_input" type="text" name="" value="" placeholder="&nbsp;&nbsp;搜索" (input)="search_input=$event.target.value;inputchange();" />
+            <input id="search_input" type="text" [(ngModel)]="jobName" name="" value="" placeholder="&nbsp;&nbsp;任务名称" />
             <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon">
           </div>
             <div class="tab_item sm_tab_item" (click)="CSV()"> <a href="#" class="back">导入</a>
@@ -11,7 +11,7 @@
             <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
         </div>
         <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
-            <taskStatus [statuss]="statuss"></taskStatus>
+            <taskStatus [statuss]="statuss" [jobName]="jobName"></taskStatus>
         </div>
     </div>
     <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">
@@ -19,6 +19,15 @@
         <div id="step_content" class="step_content">
 
         <div>
+          <div class="row">
+            <div class="row_tr">
+              <span class="span" style="width: 100px">任务名称</span>
+              <div >
+            <input type="text" [(ngModel)]="jobName" name="" value=""class="input">
+              </div>
+            </div>
+
+          </div>
           <div class="row">
             <div class="row_tr">
               <span class="span" style="width: 100px">场景选择</span>
@@ -29,7 +38,6 @@
               </select>
               </div>
             </div>
-
             <div class="row_tr" >
               <span class="span" >算法链选择</span>
               <div>
@@ -39,6 +47,7 @@
               </select>
               </div>
             </div>
+
           </div>
           <div class="row">
 

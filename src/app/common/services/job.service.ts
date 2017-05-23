@@ -28,12 +28,13 @@ export class JobService {
         return headers;
     }
 
-    createJob(senceId,chainId){
+    createJob(senceId,chainId,jobName){
         let path = "/api/job";
         /*let number_senceId: number = Number(senceId);*/
          let senseId = {
              "chainId": chainId,
-             "senceId": senceId
+             "senceId": senceId,
+             "jobName":jobName
          };
         // console.log(body);
         let headers = this.getHeaders();
@@ -69,27 +70,22 @@ export class JobService {
                 }
         });
     }
-    getAllJobs(status,page,size,sencesId){
-      if(sencesId==null){
-        let path = "/api/jobs?page="+page+"&size="+size+"&status="+status+"&sort=id,desc";
-        let headers = this.getHeaders();
-        return this.http.get(this.SERVER_URL+path, { headers : headers} )
-          .map((response: Response) => {
-            if (response && response.json()) {
-              return response.json();
-            }
-          });
-      }else{
-        let path = "/api/jobs?page="+page+"&size="+size+"&status="+status+"&sencesId="+sencesId;
-        let headers = this.getHeaders();
-        return this.http.get(this.SERVER_URL+path, { headers : headers} )
-          .map((response: Response) => {
-            if (response && response.json()) {
-              return response.json();
-            }
-          });
+    getAllJobs(status,page,size,sencesId,jobName){
+      let condition="page="+page+"&size="+size+"&status="+status+"&sort=id,desc"
+      if(sencesId){
+        condition+="&sencesId="+sencesId
       }
-
+      if(jobName){
+          condition+="&search="+jobName
+      }
+        let path = "/api/jobs?"+condition;
+        let headers = this.getHeaders();
+        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+          .map((response: Response) => {
+            if (response && response.json()) {
+              return response.json();
+            }
+          });
     }
 
   getJobDetailById(jobId:number){
