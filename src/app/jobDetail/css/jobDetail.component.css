@@ -13,10 +13,10 @@
 
 }
 .span_not_val{
-    color: skyblue;
+    color: #d1655d;
 }
 .span_val{
-    color: yellow;
+    color: #23a880;
 }
 .tabs{
   position: relative;

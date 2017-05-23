@@ -66,7 +66,7 @@ export class JobDetailComponent {
         jobService.getJobDetail(jobPath).subscribe(jobDetail => {
           this.job = jobDetail;
           this.user = this.job.user;
-          if (this.job.status == "Running") {
+          if (this.job.status == "运行") {
             // console.log("Running");
             this.updatePage(jobPath, this.index);
             this.interval = setInterval(() => this.updatePage(jobPath, this.index), 3000);
@@ -102,6 +102,17 @@ export class JobDetailComponent {
         "negativeLineColor": "#d1655d",
         "type": "smoothedLine",
         "valueField": "loss"
+      },{
+        "id": "g2",
+        // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        // "bullet": "round",
+        // "bulletSize": 8,
+        "lineColor": "#23a880",
+        "fillAlphas": "0.3",
+        "lineThickness": 2,
+        "negativeLineColor": "#23a880",
+        "type": "smoothedLine",
+        "valueField": "val_loss"
       }],
       "chartScrollbar": {
         "graph": "g1",
@@ -159,6 +170,17 @@ export class JobDetailComponent {
         "negativeLineColor": "#d1655d",
         "type": "smoothedLine",
         "valueField": "metrics_value"
+      },{
+        "id": "g2",
+        // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        // "bullet": "round",
+        // "bulletSize": 8,
+        "lineColor": "#23a880",
+        "fillAlphas": "0.3",
+        "lineThickness": 2,
+        "negativeLineColor": "#23a880",
+        "type": "smoothedLine",
+        "valueField": "val_metrics_value"
       }],
       "chartScrollbar": {
         "graph": "g1",
@@ -188,7 +210,7 @@ export class JobDetailComponent {
       "categoryAxis": {
         "maxSeries": 300,
         "minorGridAlpha": 0.1,
-        "minorGridEnabled": true
+        "minorGridEnabled": true,
       },
       "export": {
         "enabled": true

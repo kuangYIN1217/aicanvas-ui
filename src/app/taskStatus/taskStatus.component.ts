@@ -45,7 +45,9 @@ export class TaskStatusComponent{
       //console.log('触发', paraParam);
     }
    ngOnInit(){
-     this.updatePage();
+
+      this.interval = setInterval(() =>this.updatePage(), 500);
+
      this.getSceneId();
    }
 
