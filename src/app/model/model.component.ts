@@ -53,6 +53,7 @@ export class ModelComponent {
 
 
   uploadFile() {
+
     this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
       this.uploader.queue[0].remove();
       var responsePath = response;
@@ -78,7 +79,7 @@ export class ModelComponent {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result => {
       // this.runId = result.id;
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
-      this.modelService.runInference(result.id, this.job_path).subscribe(data => {
+      this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
         alert("创建成功,可以在推演成功后查看!");
         this.selectChange(this.job_id);
         this.showAdd =false;
@@ -171,6 +172,7 @@ export class ModelComponent {
 
 
   getPageData(paraParam) {
+
     this.arr = this.ModelInfo.slice(paraParam.pageMaxItem * paraParam.curPage - 1, paraParam.pageMaxItem * paraParam.curPage);
   }
 
@@ -190,6 +192,7 @@ export class ModelComponent {
   }
 
   showDetail(id){
+    this.showAdd=false;
     clearInterval(this.interval);
     this.currentId=id;
 
@@ -197,5 +200,3 @@ export class ModelComponent {
 
   }
 }
-
-

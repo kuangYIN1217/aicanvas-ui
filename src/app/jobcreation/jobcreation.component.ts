@@ -207,127 +207,125 @@ export class JobCreationComponent {
   }
 
   // 根据chainId得到算法链,保存后进入下一页面
-  createJobBySenceId2(chainId) {
-    // console.log(this.createdJob);
-    console.log(chainId);
-    this.algChainService.getChainById(chainId)
-      .subscribe(pluginArr => {
-        this.pluginArr = pluginArr;
-        this.changeChosenPlugin(this.pluginArr[0].id);
-        this.stepNumber = this.stepNumber + 1;
-      });
-  }
+  // createJobBySenceId2(chainId) {
+  //   // console.log(this.createdJob);
+  //   console.log(chainId);
+  //   this.algChainService.getChainById(chainId)
+  //     .subscribe(pluginArr => {
+  //       this.pluginArr = pluginArr;
+  //       this.changeChosenPlugin(this.pluginArr[0].id);
+  //       this.stepNumber = this.stepNumber + 1;
+  //     });
+  // }
 
-  changeChosenPlugin(id: string) {
-    if (!this.chosenPluginId) {
-      this.chosenPluginId = id;
-      let training_network_json = this.findPluginById(this.chosenPluginId).model;
-      // console.log(training_network_json);
-      if (training_network_json) {
-        this.haveModel = 1;
-        // console.log(this.findPluginById(this.chosenPluginId));
-        // console.log(training_network_json);
-        $('#plugin_storage').val(JSON.stringify(training_network_json));
-        $('#hideBtn').click();
-      }
-    } else {
-      this.savePluginChange();
-      this.chosenPluginId = id;
-      let training_network_json = this.findPluginById(this.chosenPluginId).model;
-      //console.log(training_network_json);
-      if (training_network_json) {
-        // console.log(training_network_json);
-        let inited = false;
-        if ($('#plugin_storage').val() && $('#plugin_storage').val() !== "") {
-          inited = true;
-        }
-        $('#plugin_storage').val(JSON.stringify(training_network_json));
-        if (inited) {
-          $('#loadBtn').click();
-          // 等待动画效果结束后再展示，否则会闪烁一下
-          setTimeout(() => {
-            this.haveModel = 1;
-          }, 50);
-        } else {
-          $('#hideBtn').click();
-          this.haveModel = 1;
-        }
-      } else {
-        // 无网络层则将网络层隐藏
-        this.haveModel = 0;
+  // changeChosenPlugin(id: string) {
+  //   if (!this.chosenPluginId) {
+  //     this.chosenPluginId = id;
+  //     let training_network_json = this.findPluginById(this.chosenPluginId).model;
+  //     // console.log(training_network_json);
+  //     if (training_network_json) {
+  //       this.haveModel = 1;
+  //       // console.log(this.findPluginById(this.chosenPluginId));
+  //       // console.log(training_network_json);
+  //       $('#plugin_storage').val(JSON.stringify(training_network_json));
+  //       $('#hideBtn').click();
+  //     }
+  //   } else {
+  //     this.savePluginChange();
+  //     this.chosenPluginId = id;
+  //     let training_network_json = this.findPluginById(this.chosenPluginId).model;
+  //     //console.log(training_network_json);
+  //     if (training_network_json) {
+  //       // console.log(training_network_json);
+  //       let inited = false;
+  //       if ($('#plugin_storage').val() && $('#plugin_storage').val() !== "") {
+  //         inited = true;
+  //       }
+  //       $('#plugin_storage').val(JSON.stringify(training_network_json));
+  //       if (inited) {
+  //         $('#loadBtn').click();
+  //         // 等待动画效果结束后再展示，否则会闪烁一下
+  //         setTimeout(() => {
+  //           this.haveModel = 1;
+  //         }, 50);
+  //       } else {
+  //         $('#hideBtn').click();
+  //         this.haveModel = 1;
+  //       }
+  //     } else {
+  //       // 无网络层则将网络层隐藏
+  //       this.haveModel = 0;
+  //
+  //     }
+  //   }
+  //   this.pluginClicked();
+  // }
+  //
+  // savePluginChange() {
+  //   let id = this.chosenPluginId;
+  //   // let originJson = JSON.stringify(this.findPluginById(id).model);
+  //   let json = $('#plugin_storage').val();
+  //   if (json != "") {
+  //     let jsonData = JSON.parse(json);
+  //     this.findPluginById(id).model = jsonData;
+  //     let params: any = this.findPluginById(this.chosenPluginId).train_params;
+  //     for (var key in params) {
+  //       for (let editable_parameter of this.editable_params) {
+  //         if (editable_parameter.path == key) {
+  //           this.findPluginById(this.chosenPluginId).train_params[key] = editable_parameter.editable_param.set_value;
+  //         }
+  //       }
+  //     }
+  //   } else {
+  //     console.log("Without the network layer");
+  //   }
+  //
+  //
+  // }
 
-      }
-    }
-    this.pluginClicked();
-  }
-
-  savePluginChange() {
-    let id = this.chosenPluginId;
-    // let originJson = JSON.stringify(this.findPluginById(id).model);
-    let json = $('#plugin_storage').val();
-    if (json != "") {
-      let jsonData = JSON.parse(json);
-      this.findPluginById(id).model = jsonData;
-      let params: any = this.findPluginById(this.chosenPluginId).train_params;
-      for (var key in params) {
-        for (let editable_parameter of this.editable_params) {
-          if (editable_parameter.path == key) {
-            this.findPluginById(this.chosenPluginId).train_params[key] = editable_parameter.editable_param.set_value;
-          }
-        }
-      }
-    } else {
-      console.log("Without the network layer");
-    }
-
-
-  }
-
-  pluginClicked() {
-    let editable_parameters: Editable_param[] = [];
-    let params: any = this.findPluginById(this.chosenPluginId).train_params;
-    for (var param in params) {
-      for (let editable_parameter of this.editable_params) {
-        if (editable_parameter.path == param) {
-          editable_parameter.editable_param.set_value = params[param];
-          editable_parameters.push(editable_parameter);
-          break;
-        }
-      }
-    }
-    // 更新变量
-    this.editable_parameters = editable_parameters;
-
-    // 改变右侧显示的内容--显示plugin
-    this.rightBox_node = 0;
-  }
+  // pluginClicked() {
+  //   let editable_parameters: Editable_param[] = [];
+  //   let params: any = this.findPluginById(this.chosenPluginId).train_params;
+  //   for (var param in params) {
+  //     for (let editable_parameter of this.editable_params) {
+  //       if (editable_parameter.path == param) {
+  //         editable_parameter.editable_param.set_value = params[param];
+  //         editable_parameters.push(editable_parameter);
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   // 更新变量
+  //   this.editable_parameters = editable_parameters;
+  //
+  //   // 改变右侧显示的内容--显示plugin
+  //   this.rightBox_node = 0;
+  // }
 
   nodeClicked() {
     // 改变右侧显示的内容--显示node
     this.rightBox_node = 1;
   }
 
-  savePluginParams() {
 
-  }
 
-  findPluginById(id: string) {
-    for (let plugin of this.pluginArr) {
-      if (plugin.id == id) {
-        return plugin;
-      }
-    }
-  }
-
-  saveJob() {
-    console.log("saveJob...");
-    this.savePluginChange();
-    for (let plugin of this.pluginArr) {
-      this.pluginService.savePlugin(plugin)
-        .subscribe(response => this.saveJobNormalPlugin(response, plugin.id));
-    }
-    this.stepNumber = this.stepNumber + 1;
-  }
+  // findPluginById(id: string) {
+  //   for (let plugin of this.pluginArr) {
+  //     if (plugin.id == id) {
+  //       return plugin;
+  //     }
+  //   }
+  // }
+  //
+  // saveJob() {
+  //   console.log("saveJob...");
+  //   this.savePluginChange();
+  //   for (let plugin of this.pluginArr) {
+  //     this.pluginService.savePlugin(plugin)
+  //       .subscribe(response => this.saveJobNormalPlugin(response, plugin.id));
+  //   }
+  //   this.stepNumber = this.stepNumber + 1;
+  // }
 
   saveJobNormalPlugin(response, plugin_id) {
     if (response.status == 200) {
@@ -381,71 +379,10 @@ export class JobCreationComponent {
     this.getTotals(num);
   }
 
-  nextPage(num) {
-    this.remainder = this.PluginInfo.length % num;
-    if (this.remainder == 0) {
-      this.result = Math.floor(this.PluginInfo.length / num);
-      //console.log(this.result);
-      this.lastPage(num, this.result);
-    } else {
-      this.result = Math.floor(this.PluginInfo.length / num) + 1;
-      this.lastPage(num, this.result);
-      //console.log(this.result);
-    }
-  }
 
-  lastPage(num, result) {
-    if (this.page < result) {
-      this.page++;
-      this.arr = this.PluginInfo.slice(num * this.page - num, num * this.page);
-    } else {
-      alert('已经是最后一页');
-    }
-  }
 
-  previousPage(num) {
-    if (this.page > 1) {
-      this.page--;
-      this.arr = this.PluginInfo.slice(num * this.page - num, num * this.page);
-      console.log(this.arr);
-    } else {
-      alert('已经是首页');
-    }
-  }
 
-  // 修改参数
-  setValue(parameter: Parameter, value: string) {
-    if (parameter.type == 'string') {
-      parameter.set_value = value;
-    } else if (parameter.type == 'boolean') {
-      // 当作string
-      parameter.set_value = value;
-    } else if (parameter.type == 'int' || parameter.type == 'float') {
-      if (Number(value) + "" == NaN + "") {
-        alert('输入必须为数值!');
-      } else {
-        let condition: number = 1;
-        if (parameter.has_min) {
-          if (+value < parameter.min_value) {
-            condition = -1;
-            alert("Can't lower than min_value:" + parameter.min_value + "!  Back to default...");
-          }
-        }
-        if (parameter.has_max) {
-          if (+value > parameter.max_value) {
-            condition = -2;
-            alert("Can't higher than max_value:" + parameter.max_value + "!  Back to default...");
-          }
-        }
-        if (condition == 1) {
-          parameter.set_value = +value;
-        } else {
-          parameter.set_value = parameter.default_value;
-        }
-      }
-    }
-  }
-
+  
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       alert('输入必须为数值!');

@@ -101,8 +101,11 @@ export class HistoryDetailComponent {
   }
 
   output(input) {
-    this.outputArr = input.substring(1, input.length - 1).split(",");
-    return this.outputArr.slice(0, this.id);
+    if(input){
+      this.outputArr = input.substring(1, input.length - 1).split(",");
+      return this.outputArr.slice(0, this.id);
+    }
+
   }
 
   maxItemChange() {
