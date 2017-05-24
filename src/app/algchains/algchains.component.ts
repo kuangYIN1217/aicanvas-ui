@@ -14,9 +14,6 @@ declare var $:any;
   templateUrl: './templates/algchains.html',
   providers: [SceneService,PluginService,AlgChainService]
 })
-@Directive({
-  selector: '[symToggleRequired]'
-})
 export class AlgChainsComponent{
     sceneArrays: SceneInfo[]=[];
     ifShowNetwork:number = 0;
