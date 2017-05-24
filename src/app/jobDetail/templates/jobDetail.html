@@ -28,7 +28,7 @@
               <div *ngIf="job?.status=='停止'||job?.status=='完成'">
                 <a href="#" class="button" onclick="return false" >重置</a>
                 <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
-                <a href="#" class="button" onclick="return false" (click)="changeTab(1)">查看训练算法</a>
+                <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1)">查看训练算法</a>
                 <a href="#" class="button" onclick="return false" >下载训练日志</a>
               </div>
             <div *ngIf="job?.status=='运行'">
@@ -39,6 +39,13 @@
             </div>
             </div>
           </div>
+          <input hidden id="plugin_storage" />
+          <input hidden id="layer_dictionary" />
+          <input hidden id="param_dictionary" />
+          <button hidden id="node_click_btn" (click)="nodeClicked();"></button>
+          <button hidden onclick="init()" id="hideBtn" >Init</button>
+          <button hidden onclick="load()" id="loadBtn" >Hide</button>
+          <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
           <div class="tab" *ngIf="job?.status=='运行'" [style.display]="changeIndex==0?'':'none'">
             <a href="#" onclick="return false" class="current_tab">训练结果</a>
             <a href="#" onclick="return false">资源详情</a>
@@ -129,12 +136,23 @@
 
               </div>
         </div>
-          <div [style.display]="changeIndex==1?'':'none'">
+          <div [style.display]="changeIndex==1?'':'none'" class="status">
             <div class="leftBox">
-              <div class="chain">算法链：{{chainId}}</div>
+              <div class="chain">训练算法链：</div>
               <div class="alg_choose">
                 <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)"><img src="../assets/algchains/shengtailian.png"/><span>{{plugin.alg_name}}</span></div>
               </div>
+            </div>
+            <div class="chains">
+              <div class="alg_choose_descrip">可选算法层:</div>
+              <div class="alg_choose_drag">*支持拖拽</div>
+              <div class="alg_choose_list" id="myPaletteDiv"></div>
+            </div>
+            <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
+            <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
+            <div class="rightBox" id="rightBox_node" [style.display]="rightBox_node==0?'none':''">
+              <div class="layer_name"></div>
+              <div class="layer_params" id="property"></div>
             </div>
           </div>
     </div>

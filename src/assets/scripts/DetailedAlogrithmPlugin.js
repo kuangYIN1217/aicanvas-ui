@@ -32,7 +32,7 @@ function init() {
       // 主要对象是一个环绕TextBlock的矩形的Panel
      $(go.Panel, "Auto",
         $(go.Shape, "RoundedRectangle",
-          { minSize: new go.Size(138, 42), fill: "#ffffff", stroke: "#52a683", },
+          { minSize: new go.Size(148, 42), fill: "#ffffff", stroke: "#52a683", },
           new go.Binding("figure", "figure")),
        $(go.Panel, "Horizontal",
          $(go.Picture,
@@ -41,7 +41,7 @@ function init() {
             background:"#ffffff",
             width:24,
             height:24,
-            margin:10,
+            margin:12,
           }
         ),
         $(go.TextBlock,
@@ -57,7 +57,7 @@ function init() {
         ))
       ),
       // 节点周围提供连线的四点
-     // makePort("T", go.Spot.Top, false, true),
+      makePort("T", go.Spot.Top, false, true),
       // makePort("L", go.Spot.Left, true, true),
       // makePort("R", go.Spot.Right, true, true),
       makePort("B", go.Spot.Bottom, true, true),

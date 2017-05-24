@@ -7,7 +7,7 @@
             <div class="allPurchaseScene" id="b04">
                 <div class="scene" *ngFor="let SceneInfo of sceneArrays">
                     <span class="title">{{SceneInfo?.translation}}</span>
-                    <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active">详情>></a>
+                    <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active"><span>详情</span><img src="../assets/algchains/xiangqing.png"/></a>
                   <div class="sceneContent">
                     <div class="modelPreview">
                         <p>模型预览</p>
@@ -28,8 +28,9 @@
                 </div>
             </div>
 <!--            <div class="verticalLine"></div>-->
+          <div class="recommendBox">
             <div class="recommend">
-                <h4>相关推荐场景：</h4>
+                <h4 class="recommend_h4">相关推荐场景：</h4>
                 <div class="recommendScene">
                     <h4>航拍道路目标识别</h4>
                     <div class="modelPreview">
@@ -65,6 +66,7 @@
                 </div>
               </div>
             </div>
+          </div>
         </div>
     </div>
     <div class="networkBox" [style.display]="ifShowNetwork==1?'':'none'">

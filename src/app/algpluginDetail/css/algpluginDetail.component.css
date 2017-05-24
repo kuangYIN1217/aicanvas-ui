@@ -16,7 +16,7 @@
   margin-right: 4%;
   margin-left: 4px;
   text-align: center;
-  font-size: 0.83vw;
+  font-size: 16px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
@@ -63,7 +63,7 @@
   height: 4.63vh;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 0.83vw;
+  font-size: 16px;
   line-height: 50px;
   color: #333333;
   text-align: left;
@@ -73,7 +73,7 @@
   text-align: left;
   background: #eeeeee;
   height: 4.63vh;
-  font-size: 0.73vw;
+  font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-bottom:1px solid #d3d3d3;
   color: #666666;
@@ -83,7 +83,7 @@
   height: 4.63vh;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 0.83vw;
+  font-size: 16px;
   line-height: 50px;
   color: #333333;
   text-align: left;
@@ -94,7 +94,7 @@
   text-align: left;
   background: #eeeeee;
   height: 4.63vh;
-  font-size: 0.73vw;
+  font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-top: 1px solid #d3d3d3;
   color: #666666;
@@ -112,7 +112,7 @@
 .showDetail{
   cursor: pointer;
   color: #ff7c35;
-  font-size: 0.73vw;
+  font-size: 14px;
   text-decoration: none;
 }
 .plugin_id{
@@ -149,15 +149,15 @@
 }
 input{
     width:237px;
-    font-size: 0.73vw;
-    background-color: transparent;
+    font-size: 14px;
+    background-color: #ffffff;
     border: #d3d3d3 1px solid;
     border-radius: 5px;
     padding: 5px;
     display: block;
 }
 select{
-    font-size: 0.73vw;
+    font-size: 14px;
     border: #d3d3d3 1px solid;
     border-radius: 5px;
     padding: 5px;

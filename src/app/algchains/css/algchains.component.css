@@ -1,6 +1,6 @@
 .tabs{
     position: relative;
-    height: 4.6vh;
+    height: 53px;
     background-color: #ffffff;
     top:20px;
     border: 0px;
@@ -9,9 +9,9 @@
 .tab_item{
     position:absolute;
     width: 100px;
-    height: 4.6vh;
-    line-height:4.6vh;
-    font-size: 0.83vw;
+    height: 50px;
+    line-height:50px;
+    font-size: 16px;
     font-weight: normal;
     font-family: "MicrosoftYaHei";
     color: #ff7c35;
@@ -26,7 +26,7 @@
 .focus{
     color: #ff7c35;
     font-weight: normal;
-     border-bottom: 2px solid #ff7c35;
+     border-bottom: 3px solid #ff7c35;
 }
 .status{
     position: relative;
@@ -37,7 +37,7 @@
 .tabDiv{
     width: 96%;
     height: 100%;
-    margin-left:2%;
+    margin-left:30px;
 }
 .allPurchaseScene{
     position: relative;
@@ -52,13 +52,13 @@
 }
 .scene{
     position: relative;
-    margin-bottom: 50px;
+    margin-bottom: 46px;
     float: left;
     width: 46%;
     background: #f2f2f2;
     height: 38.4vh;
     border-radius: 5px;
-    margin-right: 4%;
+    margin-right: 35px;
 
 }
 .scene_1{
@@ -90,22 +90,33 @@
 .scene .title{
     font-family: "MicrosoftYaHei";
     color: #333333;
-    font-size: 0.83vw;
-    float: left;
+    font-size: 16px;
+   height:16px;
+   line-height: 16px;
+   float: left;
     display: inline-block;
-    border-left: 2px solid #ff7c35;
-    margin: 10px 0 10px 1.56vw;
+    border-left: 3px solid #ff7c35;
+    margin: 15px 0 15px 30px;
     padding-left: 6px;
 }
 .scene .detail{
   float: right;
-  display: inline-block;
-  font-size: 0.73vw;
+  display: table-cell;
+  font-size: 14px;
   color: #ff7c35;
-  margin: 10px 0 10px 30px;
+  margin: 15px 0 15px 30px;
   padding-right: 1.77vw;
   cursor: pointer;
 }
+.scene .detail span,.scene .detail img{
+  display: inline-block;
+  vertical-align: middle;
+}
+.scene .detail img{
+  padding-left: 2px;
+
+}
+
 .sceneContent{
   overflow: hidden;
   width:100%;
@@ -121,7 +132,7 @@
 
 .scene .descrip p{
     font-family: "MicrosoftYaHei";
-    font-size: 0.73vw;
+    font-size: 14px;
     letter-spacing:2px;
     color: #666666;
     width:80%;
@@ -148,7 +159,7 @@
 
 }
 .scene .modelPreview p,.scene .descrip .descriptScene{
-    font-size: 0.83vw;
+    font-size: 16px;
     text-align: center;
     margin-top: 2.8vh;
     margin-bottom: 4.2vh;
@@ -161,7 +172,7 @@
     border: 2px solid #23a880;
     border-radius: 5px;
     width:7.6vw;
-    font-size: 0.73vw;
+    font-size: 14px;
     height: 4.2vh;
     line-height: 4.2vh;
     text-align: center;
@@ -186,15 +197,27 @@
     min-height: 100%;
     float: left;
 }*/
+.recommendBox{
+  position: relative;
+  width: 32.3%;
+  margin-left: -5px;
+  float: left;
+
+  background-color: #ffffff;
+}
 .recommend{
-    position: relative;
-    width: 32%;
-    float: left;
-  margin-top: 44px;
+
+}
+.recommend_h4{
+  padding-top: 41px;
+  padding-bottom: 18px;
+  background-color: #eeeeee;
+  margin-bottom: 0px;
 }
 .recommend h4{
-    font-size: 0.83vw;
+    font-size: 16px;
     color: #333333;
+  font-weight: normal;
 }
 .recommend .recommendScene{
     position: relative;
@@ -208,9 +231,11 @@
 .recommendScene h4{
     font-family: "MicrosoftYaHei";
     color: #666666;
-    font-size: 0.73vw;
+    font-size: 14px;
     text-align: center;
-  padding: 2.4vh 0 2.2vh;
+    font-weight: normal;
+    padding: 26px 0 24px;
+    margin: 0;
 }
 .recommendScene .descrip{
     width: 44%;
@@ -222,7 +247,7 @@
     height: 15vh;
     font-family: "MicrosoftYaHei";
     color: #666666;
-    font-size: 0.73vw;
+    font-size: 14px;
     letter-spacing:2px;
     width:100%;
 
@@ -230,7 +255,7 @@
 }
 .recommendScene .descrip a{
     text-decoration: none;
-  font-size: 0.73vw;
+  font-size: 14px;
   color: #666666;
   width:5.7vw;
   text-align: center;
@@ -377,7 +402,7 @@
 }
 .sceneName{
   padding: 22px 0 24px 30px ;
-  font-size: 0.83vw;
+  font-size: 16px;
   color: #ff7c35;
 }
 .sceneDescript{
@@ -386,7 +411,7 @@
 .sceneDescript span{
   display: inline-block;
   color: #666666;
-  font-size: 0.73vw;
+  font-size: 14px;
   padding-left: 30px;
   padding-bottom: 30px;
   float: left;
@@ -395,7 +420,7 @@
   float: right;
   display: inline-block;
   color: #ffffff;
-  font-size: 0.73vw;
+  font-size: 14px;
   cursor: pointer;
   background: #23a880;
   border-radius: 5px;
@@ -407,7 +432,7 @@
 }
 .chain{
   padding:30px 28px 46px 30px;
-  font-size: 0.73vw;
+  font-size: 14px;
   color: #333333;
   word-break: break-all;
 }
@@ -444,7 +469,7 @@
 }
 .alg_choose_descrip{
     color: #333333;
-    font-size: 0.73vw;
+    font-size: 14px;
     padding:30px 28px 8px 30px;
 }
 .alg_choose_drag{
@@ -505,7 +530,7 @@
     border-radius: 8px;
     cursor: pointer;
 
-   font-size: 0.73vw;
+   font-size: 14px;
 }
 .pluginArr_item img{
   display: inline-block;
@@ -576,4 +601,22 @@
 .layer_params option{
     background: #444444 0px 0px;
     color: #ffffff;
+}
+@media (min-width:1440px) and (max-width:1540px) {
+  .scene{
+    margin-right: 32px;
+  }
+}
+@media (min-width:1200px) and (max-width:1440px) {
+  .tabDiv{
+    width: 95%;
+  }
+  .scene{
+    margin-right: 27px;
+  }
+}
+@media (max-width:1200px) {
+  .scene{
+    margin-right: 2%;
+  }
 }

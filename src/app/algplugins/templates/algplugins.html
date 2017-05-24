@@ -7,10 +7,12 @@
       <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
           <div id="title"></div>
         <table id="systemTable" class="table">
+          <tr>
           <th class="plugin_id">序号</th>
           <th class="plugin_name">名称</th>
           <th class="plugin_description">描述</th>
           <th class="operation">详情</th>
+          </tr>
             <!--[style.display]="plugin.creator=='general'?'':'none'"-->
           <tr *ngFor="let plugin of arr; let i = index">
             <td>{{ plugin.id }}</td>

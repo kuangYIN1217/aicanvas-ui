@@ -7,6 +7,8 @@ import {JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resour
 import {AmChartsService} from "amcharts3-angular2";
 import {Router} from "@angular/router";
 import {AlgChainService} from "../common/services/algChain.service";
+import {Editable_param} from "../common/defs/parameter";
+import {PluginService} from "../common/services/plugin.service";
 declare var $: any;
 declare var unescape: any;
 @Component({
@@ -14,7 +16,7 @@ declare var unescape: any;
   selector: 'jobDetail',
   styleUrls: ['./css/jobDetail.component.css'],
   templateUrl: './templates/jobDetail.html',
-  providers: [JobService]
+  providers: [JobService,AlgChainService,PluginService]
 })
 export class JobDetailComponent {
   jobResultParam = [];
@@ -36,6 +38,11 @@ export class JobDetailComponent {
   private metricsChart: any;
   changeIndex:number=0;
   pluginArr: PluginInfo[] = [];
+  rightBox_node:number = 0;
+  chosenPluginId: string;
+  haveModel: number;
+  editable_params: Editable_param[] = [];
+  editable_parameters: Editable_param[] = [];
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -53,7 +60,7 @@ export class JobDetailComponent {
 
     return dataProvider;
   }
-  constructor(private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router) {
+  constructor( private pluginService: PluginService ,private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
@@ -213,6 +220,10 @@ export class JobDetailComponent {
         "enabled": true
       }
     });
+    this.pluginService.getTranParamTypes()
+      .subscribe(editable_params => this.editable_params = editable_params);
+    this.pluginService.getLayerDict()
+      .subscribe(dictionary => this.getDictionary(dictionary));
   }
 
   ngOnDestroy() {
@@ -223,17 +234,92 @@ export class JobDetailComponent {
     this.AmCharts.destroyChart(this.lossChart);
     this.AmCharts.destroyChart(this.metricsChart);
   }
-
+  nodeClicked(){
+    // 改变右侧显示的内容--显示node
+    this.rightBox_node = 1;
+  }
   changeTab(chainId,index){
     this.changeIndex = index;
     this.algchainService.getChainById(chainId)
       .subscribe(plugin=>{
         this.pluginArr=plugin;
-        // console.log(this.pluginArr[0]);
-        //this.changeChosenPlugin(this.pluginArr[0].id);
+         //console.log(this.pluginArr[0]);
+        this.changeChosenPlugin(this.pluginArr[0].id);
       });
   }
-  // 不再running状态时一次性展示数据
+
+  changeChosenPlugin(id:string){
+    if(!this.chosenPluginId){
+      this.chosenPluginId = id;
+      let training_network_json = this.findPluginById(this.chosenPluginId).model;
+      // 有网络层
+      if (training_network_json){
+        this.haveModel = 1;
+        // console.log(this.findPluginById(this.chosenPluginId));
+        // console.log(training_network_json);
+        $('#plugin_storage').val(JSON.stringify(training_network_json));
+        $('#hideBtn').click();
+      }
+      // 无网络层则无需任何操作
+    }else{
+      // this.savePluginChange();
+      this.chosenPluginId = id;
+      let training_network_json = this.findPluginById(this.chosenPluginId).model;
+      if(training_network_json){
+        // console.log(training_network_json);
+        let inited = false;
+        if ($('#plugin_storage').val()&&$('#plugin_storage').val()!==""){
+          inited = true;
+        }
+        $('#plugin_storage').val(JSON.stringify(training_network_json));
+        if(inited){
+          $('#loadBtn').click();
+          // 等待动画效果结束后再展示，否则会闪烁一下
+          setTimeout(() => {
+            this.haveModel = 1;
+          },50);
+        }else{
+          $('#hideBtn').click();
+          this.haveModel = 1;
+        }
+      }else{
+        // 无网络层则将网络层隐藏
+        this.haveModel = 0;
+      }
+    }
+    this.pluginClicked();
+  }
+  pluginClicked(){
+    let editable_parameters: Editable_param[] = [];
+    let params: any = this.findPluginById(this.chosenPluginId).train_params;
+    // console.log(params);
+    for(var param in params){
+      // console.log(param);
+      for (let editable_parameter of this.editable_params){
+        if (editable_parameter.path == param){
+          editable_parameter.editable_param.set_value = params[param];
+          editable_parameters.push(editable_parameter);
+          break;
+        }
+      }
+    }
+    // 更新变量
+    this.editable_parameters = editable_parameters;
+
+    // 改变右侧显示的内容--显示plugin
+    this.rightBox_node = 0;
+  }
+  findPluginById(id:string){
+    for (let plugin of this.pluginArr){
+      if (plugin.id == id){
+        return plugin;
+      }
+    }
+  }
+  getDictionary(dictionary){
+    $('#layer_dictionary').val(JSON.stringify(dictionary));
+  }
+// 不再running状态时一次性展示数据
   not_running_show(jobPath: string) {
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {

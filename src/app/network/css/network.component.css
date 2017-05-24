@@ -24,10 +24,10 @@ a{
   position: relative;
   border: 0px;
   float: left;
-  margin-right: 4%;
+  margin-right: 20px;
   margin-left: 4px;
   text-align: center;
-  font-size: 0.83vw;
+  font-size: 16px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
@@ -41,6 +41,7 @@ a{
   background: #ff7c35;
   color: #fff;
   height:30px;
+  width:114px;
   line-height: 30px;
   border-radius: 4px;
   margin-top: 10px;
@@ -84,12 +85,12 @@ a{
 }
 .alg_choose_descrip{
   color: #333333;
-  font-size: 0.73vw;
+  font-size: 14px;
   padding:30px 28px 8px 30px;
 }
 .alg_choose_drag{
   color: #ee8348;
-  font-size:0.62vw;
+  font-size:12px;
   margin-left:30px;
   margin-bottom: 33px;
 }

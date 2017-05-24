@@ -30,6 +30,7 @@ export class OverviewComponent {
     interval: any;
     student:number=0;
     id:number;
+  focusImg:number=0;
     private timer: any;
     private chart: any;
   gpuIndex:number=0;
@@ -819,10 +820,12 @@ export class OverviewComponent {
         sessionStorage.overviewTab = tabIndex;
     }
     gpuToggle(){
-       if(this.gpuIndex==0){
+       if(this.gpuIndex==0&&this.focusImg==0){
          this.gpuIndex = 1;
+         this.focusImg=1;
        }else{
          this.gpuIndex = 0;
+         this.focusImg=0;
        }
     }
 /*  cpuToggle(){

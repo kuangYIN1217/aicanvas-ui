@@ -1,10 +1,10 @@
 .bottom_menu{
   position: relative;;
   width: 96%;
-  height: 4.62vh;
+  height: 50px;
   top:12px;
   left:30px;
-  font-size: 0.62vw;
+  font-size: 12px;
   color:#666666;
 }
 .bottom_menu .label{
@@ -30,7 +30,7 @@
 .bottom_menu .selectDiv{
   position: relative;
   width: 20%;
-  height: 4.62vh;
+  height: 50px;
   float: left;
   outline: none;
   text-align: right;

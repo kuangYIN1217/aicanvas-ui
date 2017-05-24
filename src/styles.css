@@ -358,20 +358,20 @@ canvas{
 .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 35px;
+  height: 40px;
+  line-height: 40px;
   font-size: 16px;
   font-family: "MicrosoftYaHei";
   border-top:1px solid #d3d3d3;
   color: #666666;
-  max-height: 35px;
 }
 
 .table th {
-  /*height: 0.63vh;*/
+  height: 40px;
   background: #ffffff;
   padding-left: 20px;
   font-size: 16px;
-  line-height: 56px;
+  line-height: 40px;
   color: #333333;
   text-align: left;
   font-weight: normal;
@@ -382,7 +382,7 @@ canvas{
   padding-left: 20px;
 }
 
-.table tr:nth-child(even) {
+.table tr:nth-child(odd) {
   background: #ffffff;
 }
 
