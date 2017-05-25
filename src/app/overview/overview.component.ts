@@ -25,11 +25,12 @@ export class OverviewComponent {
     jobArray: JobInfo[] = [];
     createdJob: JobInfo = new JobInfo();
     // show resource or task 0--resource, 1--task
-  GpuInfo:GpuInfo[]=[];
+    GpuInfo:GpuInfo[]=[];
     tabIndex: number = 0;
     interval: any;
     student:number=0;
     id:number;
+  focusImg:number=0;
     private timer: any;
     private chart: any;
   gpuIndex:number=0;
@@ -43,6 +44,8 @@ export class OverviewComponent {
   private chart6: any;
   private chart7: any;
   private chart8: any;
+  tot_memory:number;
+  totalGlobalMem:number;
     constructor(private sceneService: SceneService,private AmCharts: AmChartsService,private resourcesService: ResourcesService, private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
         resourcesService.getCpuInfo()
         .subscribe(cpu => this.getCpu(cpu));
@@ -89,7 +92,7 @@ export class OverviewComponent {
   makeRandomDataProvider4() {
     var dataProvider = [{
       created_at: "0",
-      used_memory:'0',
+      percent:'0',
     }];
     return dataProvider;
   }
@@ -248,7 +251,7 @@ export class OverviewComponent {
         "enabled": true
       }
     });
-   this.chart3 = this.AmCharts.makeChart("chartdiv3", {
+    this.chart3 = this.AmCharts.makeChart("chartdiv3", {
       "type": "serial",
       "theme": "light",
       "marginTop":0,
@@ -276,14 +279,14 @@ export class OverviewComponent {
       ],
       "chartScrollbar": {
         "graph":"g2",
-        "gridAlpha":0,
+        // "gridAlpha":0,
         "color":"#888888",
         "scrollbarHeight":55,
         "backgroundAlpha":0,
         "selectedBackgroundAlpha":0.1,
         "selectedBackgroundColor":"#888888",
         "graphFillAlpha":0,
-        "autoGridCount":true,
+        // "autoGridCount":true,
         "selectedGraphFillAlpha":0,
         "graphLineAlpha":0.2,
         "graphLineColor":"#c2c2c2",
@@ -298,20 +301,20 @@ export class OverviewComponent {
         "valueLineAlpha":0.5,
         "fullWidth":true
       },
-     "dataDateFormat": "JJ:NN:SS",
+      "dataDateFormat": "JJ:NN:SS",
       "categoryField": "created_at",
       "categoryAxis": {
-        "labelsEnabled": false,
-        //"minPeriod": "YYYY",
-       // "parseDates": true,
+        // "minPeriod": "YYYY",
+        // "parseDates": true,
         "minorGridAlpha": 0.1,
+        "labelsEnabled": false,
         "minorGridEnabled": true
       },
       "export": {
         "enabled": true
       }
     });
-     this.chart4 = this.AmCharts.makeChart("chartdiv4", {
+    this.chart4 = this.AmCharts.makeChart("chartdiv4", {
       "type": "serial",
       "theme": "light",
       "marginTop":0,
@@ -339,14 +342,14 @@ export class OverviewComponent {
       ],
       "chartScrollbar": {
         "graph":"g2",
-        "gridAlpha":0,
+       // "gridAlpha":0,
         "color":"#888888",
         "scrollbarHeight":55,
         "backgroundAlpha":0,
         "selectedBackgroundAlpha":0.1,
         "selectedBackgroundColor":"#888888",
         "graphFillAlpha":0,
-        "autoGridCount":true,
+        //"autoGridCount":true,
         "selectedGraphFillAlpha":0,
         "graphLineAlpha":0.2,
         "graphLineColor":"#c2c2c2",
@@ -645,12 +648,20 @@ export class OverviewComponent {
         this.resourcesService.getCpuStatus()
         /*.subscribe(cpuInfoArray => this.getCpuInfo(cpuInfoArray,cpu));*/
          .subscribe(cpuInfoArray =>  {
-            this.AmCharts.updateChart(this.chart3, () => {
-              this.chart3.dataProvider = cpuInfoArray;
-            });
-          this.AmCharts.updateChart(this.chart4, () => {
-              this.chart4.dataProvider = cpuInfoArray;
-            });
+           this.cpuInfoArray = cpuInfoArray;
+           this.tot_memory = cpu.tot_memory;
+           for(let i = 0;i<this.cpuInfoArray.length;i++){
+            let cpuInfo = cpuInfoArray[i].used_memory;
+            let data = Number((cpuInfo/this.tot_memory).toFixed(2))*100;
+             cpuInfoArray[i].used_memory = data;
+          }
+           //console.log(cpuInfoArray[0].used_memory);
+           this.AmCharts.updateChart(this.chart3, () => {
+             this.chart3.dataProvider = cpuInfoArray;
+           });
+           this.AmCharts.updateChart(this.chart4, () => {
+             this.chart4.dataProvider = cpuInfoArray;
+           });
           });
 
     }
@@ -679,6 +690,8 @@ export class OverviewComponent {
             }
         }else{
             this.gpuArray = gpuArray;
+          this.totalGlobalMem = this.gpuArray[0].totalGlobalMem;
+         // console.log(this.totalGlobalMem);
             for (let gpu of this.gpuArray){
                 let id = gpu.id;
                 if(id==0){
@@ -686,6 +699,11 @@ export class OverviewComponent {
                   /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
                     .subscribe(gpuInfoArray => {
                       this.GpuInfo = gpuInfoArray;
+                      for(let i = 0;i<this.GpuInfo.length;i++){
+                        let gpuInfo = gpuInfoArray[i].total_used_memory;
+                        let data = Number((gpuInfo/this.totalGlobalMem).toFixed(2))*100;
+                        gpuInfoArray[i].total_used_memory = data;
+                      }
                       this.AmCharts.updateChart(this.chart, () => {
                         this.chart.dataProvider = gpuInfoArray;
                       });
@@ -802,19 +820,21 @@ export class OverviewComponent {
         sessionStorage.overviewTab = tabIndex;
     }
     gpuToggle(){
-       if(this.gpuIndex==0){
+       if(this.gpuIndex==0&&this.focusImg==0){
          this.gpuIndex = 1;
+         this.focusImg=1;
        }else{
          this.gpuIndex = 0;
+         this.focusImg=0;
        }
     }
-  cpuToggle(){
+/*  cpuToggle(){
     if(this.cpuIndex==0){
       this.cpuIndex = 1;
     }else{
       this.cpuIndex = 0;
     }
-  }
+  }*/
     // 增加样式
     addStyle(){
         //change color

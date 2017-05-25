@@ -1,16 +1,16 @@
 .table {
   width: 96%;
   margin-left: 24px;
-  margin-top: 30px;
+  margin-top: 23px;
   border-collapse: collapse;
   border: solid 1px #d3d3d3;
 }
 .table th{
-  height: 4.63vh;
+  height: 40px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 0.83vw;
-  line-height: 50px;
+  font-size: 16px;
+  line-height: 40px;
   color: #333333;
   text-align: left;
   font-weight: normal;
@@ -18,19 +18,19 @@
 .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 4.63vh;
-  font-size: 0.73vw;
+  height:40px;
+  font-size:14px;
   font-family: "MicrosoftYaHei";
   border-bottom:1px solid #d3d3d3;
   color: #666666;
 }
 
 .table th {
-  height: 4.63vh;
+  height: 40px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 0.83vw;
-  line-height: 50px;
+  font-size: 16px;
+  line-height: 40px;
   color: #333333;
   text-align: left;
   font-weight: normal;
@@ -39,8 +39,8 @@
 .table tr {
   text-align: left;
   background: #eeeeee;
-  height: 4.63vh;
-  font-size: 0.73vw;
+  height: 40px;
+  font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-top: 1px solid #d3d3d3;
   color: #666666;
@@ -58,12 +58,12 @@
 .showDetailBtn {
   cursor: pointer;
   color: #ff7c35;
-  font-size: 0.73vw;
+  font-size: 14px;
   text-decoration: none;
 }
 .showDetailBtn img{
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 14px;
 }
 /* th */
 .id{
@@ -105,7 +105,7 @@
   margin-right: 4%;
   margin-left: 4px;
   text-align: center;
-  font-size: 0.83vw;
+  font-size: 16px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
@@ -181,7 +181,7 @@
 }
 .selectContainer{
   position: relative;
-  top:18px;
+  top:20px;
   height:56px;
   left:24px;
   width:293px;

@@ -52,8 +52,8 @@ export class TaskStatusComponent{
    }
 
   ngOnChanges(...args: any[]) {
-     console.log(this.sceneId);
-     console.log(this.jobName);
+     //console.log(this.sceneId);
+     //console.log(this.jobName);
      this.getSceneId();
    }
    getSceneId(){
@@ -80,7 +80,7 @@ export class TaskStatusComponent{
                 page.totalPage = Jobs.totalPages;
                 page.totalNum = Jobs.totalElements;
                 this.pageParams=page;
-                console.log(this.pageParams);
+               // console.log(this.pageParams);
             });
     }
     ngOnDestroy(){
@@ -130,7 +130,7 @@ export class TaskStatusComponent{
     nextPage(){
         this.page++;
         this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
-        console.log(this.createdJob);
+        //console.log(this.createdJob);
     }
     previousPage(){
         if (this.page>1){

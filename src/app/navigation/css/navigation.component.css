@@ -73,7 +73,7 @@ nav{
     overflow: hidden;
     background-color: #232323;
   position: absolute;
-  top: 0;
+  top: -30px;
   left: 0;
 }
 
@@ -137,5 +137,9 @@ nav{
 }
 .focusTab{
    background-color: #333333;
-  border-left:solid 6px #ee8348;;
+  border-left:solid 6px #ee8348;
+
+}
+.focusTab a{
+  color: #ffffff;
 }

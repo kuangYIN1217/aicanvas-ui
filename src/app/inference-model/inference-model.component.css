@@ -12,7 +12,18 @@
   margin: 30px;
 
 }
-
+.selectContainer{
+  position: relative;
+}
+.selectContainer select{
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+}
+.selectContainer img{
+  position: absolute;
+  right:0;
+  top:0;
+}
 .nav div{
   margin-right: 50px;
 }

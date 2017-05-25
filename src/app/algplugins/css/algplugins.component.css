@@ -8,7 +8,6 @@
   margin-top: 20px;
   margin-bottom: 0px;
   border: 0px;
-  left:2%;
 }
 .tab_item{
   position: relative;
@@ -17,7 +16,7 @@
   margin-right: 4%;
   margin-left: 4px;
   text-align: center;
-  font-size: 0.83vw;
+  font-size: 16px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
@@ -34,7 +33,6 @@
 }
 .status{
   background-color: #ffffff;
-  margin-left: 2%;
   margin-top: 30px;
   border-radius: 5px;
   min-height: 1000px;
@@ -46,6 +44,7 @@
   width: 96%;
   margin-left: 24px;
   margin-top: 30px;
+  margin
   border-collapse: collapse;
   border: solid 1px #d3d3d3;
 }
@@ -53,7 +52,7 @@
   height: 4.63vh;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 0.83vw;
+  font-size: 16px;
   line-height: 50px;
   color: #333333;
   text-align: left;
@@ -63,7 +62,7 @@
   text-align: left;
   background: #eeeeee;
   height: 4.63vh;
-  font-size: 0.73vw;
+  font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-bottom:1px solid #d3d3d3;
   color: #666666;
@@ -73,7 +72,7 @@
   height: 4.63vh;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 0.83vw;
+  font-size: 16px;
   line-height: 50px;
   color: #333333;
   text-align: left;
@@ -83,8 +82,8 @@
 .table tr {
   text-align: left;
   background: #eeeeee;
-  height: 4.63vh;
-  font-size: 0.73vw;
+  height: 40px;
+  font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-top: 1px solid #d3d3d3;
   color: #666666;
@@ -95,24 +94,24 @@
   word-break: break-all;
 }
 
-.table tr:nth-child(even) {
+.table tr:nth-child(odd) {
   background: #ffffff;
 }
 
 .showDetail{
   cursor: pointer;
   color: #ff7c35;
-  font-size: 0.73vw;
+  font-size: 14px;
   text-decoration: none;
 }
 .plugin_id{
-  width: 8%;
+  width: 16%;
 }
 .plugin_name{
   width: 20%;
 }
 .plugin_description{
-  width: 62%;
+  width: 54%;
 }
 .operation{
     width: 10%;
@@ -133,6 +132,11 @@
 #param_value{
     width: 70%;
 }
+#modalDiv{
+  width:96%;
+  margin-left: 30px;
+}
+
 input{
     position: relative;
     height: 100%;
@@ -312,4 +316,9 @@ input{
     font-size: 16px;
     font-family: "MicrosoftYaHei";
     cursor: pointer;
+}
+@media (min-width:1200px) and (max-width:1440px) {
+  #modalDiv{
+    width: 95%;
+  }
 }

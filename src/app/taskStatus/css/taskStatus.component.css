@@ -33,7 +33,9 @@
 .page{
 
 }
-
+.status{
+  background-color: #ffffff;
+}
 /*.table {*/
   /*width: 96%;*/
   /*margin-left: 30px;*/
@@ -171,6 +173,8 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  display: inline-block;
+  margin-right: 10px;
   /*margin: 0 auto;*/
 }
 
@@ -188,4 +192,9 @@
 }
 .operation{
   display: flex;    align-items: center;
+}
+@media (min-width:1200px) and (max-width:1440px) {
+  .table{
+    width: 95%;
+  }
 }

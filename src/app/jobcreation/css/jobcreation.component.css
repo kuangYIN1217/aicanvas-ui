@@ -7,7 +7,7 @@ select {
 .tabs {
   margin: 30px 0 0 30px;
   height: 60px;
-  width: 97%;
+  width: 96%;
   background-color: #fff;
   /*margin-bottom: 0px;*/
   /*margin-left: 30px;*/
@@ -17,11 +17,11 @@ select {
 
 .tab_item {
   float: right;
-  margin: 20px 0 20px 0;
+  margin: 20px 16px 20px 0;
 }
 
 .tab_item .back:last-child {
-  margin-right: 30px;
+  margin-right: 20px;
 }
 
 .focus {
@@ -42,7 +42,7 @@ select {
   margin-top: 20px;
   margin-left: 30px;
   border-radius: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 22px;
   float: left;
 }
 
@@ -90,11 +90,11 @@ select {
 }
 
 .table th {
-  height: 50px;
+  height: 40px;
   background: #4e3fa9;
   border: 0px;
   font-size: 20px;
-  line-height: 50px;
+  line-height: 40px;
   color: #ffffff;
   font-weight: normal;
 }
@@ -102,7 +102,7 @@ select {
 .table tr {
   text-align: center;
   background: #252525;
-  height: 50px;
+  height: 40px;
   font-size: 16px;
   font-family: "MicrosoftYaHei";
   color: #ededed;
@@ -121,7 +121,7 @@ select {
 }
 .tab_content{
   margin-left: 30px;
-  width: 97%;
+  width: 96%;
   border-radius: 0 0 5px 5px;
   background: #fff;
   margin-bottom: 100px;
@@ -821,4 +821,9 @@ select {
 
 .row:last-child{
   margin-top: 30px;
+}
+@media (min-width:1200px) and (max-width:1440px) {
+  .tab_item{
+    margin-right: 0px !important;
+  }
 }

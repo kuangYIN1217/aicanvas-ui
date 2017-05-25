@@ -23,9 +23,10 @@ export class AlgChainsComponent{
     plugins: PluginInfo[] = [];
     chosenPluginId: string;
     ifEdit:number=0;
-    haveModel: number = 0;
+    haveModel: number;
     PluginInfo:PluginInfo[]=[];
     arrName:any[] =[];
+    name:any[] =[];
     // 字典
     editable_params: Editable_param[] = [];
     // 被选中plugin的参数组合（结合了字典）
@@ -74,47 +75,38 @@ export class AlgChainsComponent{
     }
     getSceneArray(sceneArray: SceneInfo[]){
         this.sceneArrays = sceneArray;
-
         for(let i=0;i<this.sceneArrays.length;i++){
             if(this.sceneId==this.sceneArrays[i].id){
                 this.chosen_scene = this.sceneArrays[i];
             }
-          console.log(this.sceneArrays[i].id);
            this.sceneService.getChainByScene(this.sceneArrays[i].id)
               .subscribe(plugin=>{
                 this.PluginInfo=plugin;
-                this.getName(this.PluginInfo[0].id);
-
                 //console.log(this.PluginInfo[0].id);
+                // this.name =
+                if(plugin.length>0){
+                  this.sceneArrays[i].arrName = this.getName(this.PluginInfo[0].id,i);
+                  console.log(this.sceneArrays[i]);
+                }
               })
-            /*    for(let j=0;j<this.PluginInfo.length;j++){
-                  //console.log(this.PluginInfo[j].id);
-                  this.algchainService.getChainById(this.PluginInfo[j].id)
-                    .subscribe(plugin=>{
-                      this.plugins=plugin;
-                      for(let q=0;q<this.plugins.length;q++){
-
-                      }
-                     // console.log(this.plugins[q].alg_name);
-                      //this.sceneArrays.push(this.plugins[q].alg_name);
-                    });
-              }*/
-
         }
         if(sessionStorage.algChain_scene&&sessionStorage.algChain_scene!=-1){
             this.showNetwork(sessionStorage.algChain_scene);
         }
     }
-    getName(id){
+    getName(id,index){
       this.algchainService.getChainById(id)
         .subscribe(plugin=>{
           this.plugins=plugin;
+          this.arrName=[];
           for(let j=0;j<this.plugins.length;j++){
             this.arrName.push(this.plugins[j].alg_name);
-            console.log(this.arrName);
           }
-
+          this.sceneArrays[index].arrName=this.arrName
+          // console.log(this.arrName);
+          // return this.arrName;
         });
+
     }
     hideNetwork(){
       window.history.back();
