@@ -33,7 +33,7 @@ import {PageComponent} from "./page/page.component";
 import {TestComponent} from "./test/test.component";
 import {AmChartsModule} from "amcharts3-angular2";
 import { InferenceModelComponent } from './inference-model/inference-model.component';
-import { StompService } from 'ng2-stomp-service';
+import { StompService } from 'ng2-stomp-service-fixed';
 /*import {FontAwesomeDirective} from "ng2-fontawesome";*/
 
 @NgModule({

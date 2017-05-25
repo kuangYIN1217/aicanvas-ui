@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {StompService} from 'ng2-stomp-service';
+import {StompService} from 'ng2-stomp-service-fixed';
 import {SERVER_URL} from './app.constants';
 @Injectable()
 export class WebSocketService {
