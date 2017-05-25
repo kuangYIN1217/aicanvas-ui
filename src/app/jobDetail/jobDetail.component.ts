@@ -1,14 +1,14 @@
 import {Component} from "@angular/core";
 import {Location} from "@angular/common";
-// import { ActivatedRoute,Params} from '@angular/router';
 import {JobService} from "../common/services/job.service";
-
 import {JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resources";
 import {AmChartsService} from "amcharts3-angular2";
 import {Router} from "@angular/router";
 import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
+import {WebSocketService} from "../web-socket.service";
+
 declare var $: any;
 declare var unescape: any;
 @Component({
@@ -16,7 +16,8 @@ declare var unescape: any;
   selector: 'jobDetail',
   styleUrls: ['./css/jobDetail.component.css'],
   templateUrl: './templates/jobDetail.html',
-  providers: [JobService,AlgChainService,PluginService]
+
+  providers: [JobService,AlgChainService,PluginService,WebSocketService]
 })
 export class JobDetailComponent {
   jobResultParam = [];
@@ -60,7 +61,7 @@ export class JobDetailComponent {
 
     return dataProvider;
   }
-  constructor( private pluginService: PluginService ,private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router) {
+  constructor( private pluginService: PluginService ,private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router,private websocket:WebSocketService) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
@@ -68,19 +69,31 @@ export class JobDetailComponent {
         // jobService.getJob(jobPath)
         //     .subscribe(jobParam => this.jobParam = jobParam);
         jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-          this.job = jobDetail;
-          this.user = this.job.user;
-          if (this.job.status == "运行") {
-            // console.log("Running");
-            this.updatePage(jobPath, this.index);
-            this.interval = setInterval(() => this.updatePage(jobPath, this.index), 3000);
-          } else {
-            // console.log("not Running");
-            this.not_running_show(jobPath);
+          if(jobDetail){
+            this.job = jobDetail;
+            this.user = this.job.user;
+            if (this.job.status == "运行") {
+              // console.log("Running");
+              this.updatePage(jobPath, this.index);
+              this.interval = setInterval(() => {
+                this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+                  this.job = jobDetail;
+                  this.user = this.job.user;
+                });
+              }, 1000);
+            } else {
+              // console.log("not Running");
+              this.not_running_show(jobPath);
+            }
           }
+
         });
       }
     }
+
+
+    this.websocket.connect();
+
   }
 
 
@@ -231,6 +244,8 @@ export class JobDetailComponent {
     if (this.interval) {
       clearInterval(this.interval);
     }
+    this.websocket.unsubscribe();
+    this.websocket.disconnect(null);
     this.AmCharts.destroyChart(this.lossChart);
     this.AmCharts.destroyChart(this.metricsChart);
   }
@@ -339,11 +354,8 @@ export class JobDetailComponent {
   }
 
   updatePage(jobPath, index) {
-    this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-      this.job = jobDetail;
-      this.user = this.job.user;
-    });
-    this.jobService.getJob(jobPath, index)
+
+    this.jobService.getUnrunningJob(jobPath )
       .subscribe(jobParam => {
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
@@ -359,8 +371,24 @@ export class JobDetailComponent {
         });
         this.jobResult = jobParam[jobParam.length - 1];
         // this.jobResult =jobParam.jobResult;
+        this.websocket.subscribe('/job/'+jobPath,(data)=>{
+          this.updateChart(data);
+        });
       });
     // console.log(this.index);
+  }
+
+
+  updateChart(data){
+    let temp:JobParameter = data;
+    this.jobResultParam.push(temp);
+    this.AmCharts.updateChart(this.lossChart, () => {
+      this.lossChart.dataProvider = this.jobResultParam;
+    });
+    this.AmCharts.updateChart(this.metricsChart, () => {
+      this.metricsChart.dataProvider = this.jobResultParam;
+    });
+    this.jobResult = temp;
   }
 
 
@@ -382,13 +410,17 @@ export class JobDetailComponent {
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
         this.updatePage(jobPath, this.index);
-        this.interval = setInterval(() => this.updatePage(jobPath, this.index), 3000);
+        this.interval = setInterval(() => {
+          this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+            this.job = jobDetail;
+            this.user = this.job.user;
+          });
+        }, 1000);
       });
   }
 
 
   goModel(){
-
     this.router.navigate(['/model'],{queryParams: {'job_id': this.job.id }})
   }
 

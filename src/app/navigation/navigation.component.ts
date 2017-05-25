@@ -5,6 +5,9 @@ import {SceneService} from "../common/services/scene.service";
 import {SceneInfo} from "../common/defs/resources";
 import {Router} from "@angular/router";
 
+
+
+
 @Component({
   selector: 'navigation',
   styleUrls: ['./css/navigation.component.css'],
@@ -29,11 +32,19 @@ export class NavigationComponent {
     this.focusTab = nextFocus;
   }
 
+
+
   constructor(private location: Location,private router:Router) {
     if (!sessionStorage.username) {
       this.focusTab = 0;
       this.router.navigate(['/login'])
     }
+
+
+  }
+  //response
+  response(data){
+    console.log(data)
   }
 
   ngAfterContentChecked(){
