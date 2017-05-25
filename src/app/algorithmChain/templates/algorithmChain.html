@@ -6,10 +6,12 @@
     <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
       <div class="selectContainer">
         <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
-          <option value="0">选择场景</option>
           <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
         </select>
-        <img src="../assets/taskStatus/select.png">
+       <!-- <img src="../assets/taskStatus/select.png">-->
+      </div>
+      <div class="alg_back">
+        <a routerLinkActive="active" routerLink="/algchains">返回</a>
       </div>
         <table class="table">
           <tr>
@@ -22,7 +24,10 @@
             <th class="detail">操作</th>
           </tr>
             <tbody>
-            <tr *ngFor="let item of arr">
+            <tr *ngIf="dataIndex == 0">
+              <td colspan="7">无数据</td>
+            </tr>
+            <tr *ngFor="let item of arr" [style.display]="dataIndex == 1?'':'none'">
                 <td>{{item.id}}</td>
                 <td>{{item.chain_name}}</td>
                 <td>{{output(item.publish)}}</td>

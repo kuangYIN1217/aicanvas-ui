@@ -33,6 +33,7 @@ export class AlgorithmChainComponent{
     result:number=1;
     id:number;
     student:number=0;
+    dataIndex:number;
     remainder:number;
     params:any; // 保存页面url参数
     totalNum:number = 0; // 总数据条数
@@ -46,6 +47,7 @@ export class AlgorithmChainComponent{
     ngOnInit(){
         this.route.queryParams.subscribe(params => {
             this.sceneId = params['sceneId'];
+            this.student = this.sceneId;
         });
         this.sceneService.getChainByScene(this.sceneId)
             .subscribe(plugin=>{
@@ -66,6 +68,8 @@ export class AlgorithmChainComponent{
             });
     }
     changPage(plugin){
+      if(plugin.length>0){
+        this.dataIndex=1;
       this.arr = plugin.slice(0,10);
       this.totalNum = plugin.length;
       if(plugin.length%this.pageMaxItem==0){
@@ -79,8 +83,11 @@ export class AlgorithmChainComponent{
       page.totalPage = this.totalPage;
       page.totalNum = this.totalNum;
       this.pageParams=page;
-      console.log(page.pageMaxItem);
-      console.log(this.pageParams);
+      //console.log(page.pageMaxItem);
+      //console.log(this.pageParams);
+    }else{
+        this.dataIndex=0;
+      }
     }
   selectChange(){
     this.id=this.student;
@@ -91,6 +98,9 @@ export class AlgorithmChainComponent{
       });
     //this.arr = this.ModelInfo.slice(0,9);
     //console.log(this.arr);
+  }
+  goback(){
+    window.history.back();
   }
   getPageData(paraParam) {
     this.arr = this.PluginInfo.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage-1);

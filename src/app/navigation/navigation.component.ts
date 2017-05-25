@@ -33,7 +33,6 @@ export class NavigationComponent {
     if (!sessionStorage.username) {
       this.focusTab = 0;
       this.router.navigate(['/login'])
-
     }
   }
 

@@ -147,7 +147,9 @@ export class JobCreationComponent {
       });
     //console.log(this.student);
   }
-
+  goHistory(){
+    this.jobPageStatus='manage';
+  }
   viewDetail(id, name) {
     this.item = id;
     this.creator = name;
@@ -382,7 +384,7 @@ export class JobCreationComponent {
 
 
 
-  
+
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       alert('输入必须为数值!');

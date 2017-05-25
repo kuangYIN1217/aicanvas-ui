@@ -43,9 +43,9 @@
 .table{
   position: relative;
   top: 28px;
-  margin:0 0 0 30px;
+  margin:0 0 20px 30px;
   width: 96%;
-  border:1px solid #d3d3d3;
+  border:1px solid #d3d3d3 !important;
   border-collapse: collapse;
 }
 .table th{
@@ -70,7 +70,7 @@
 .table tr td{
   padding-left: 20px;
 }
-.table tr:nth-child(even){
+.table tr:nth-child(odd){
   background: #ffffff;
 }
 /*th*/
@@ -387,11 +387,16 @@ margin-left: 10px;
   font-size:14px;
   text-indent: 10px;
   color: #666;
+  background: url("../../../assets/taskStatus/select.png") no-repeat;
+  background-position: right;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
 }
-.selectContainer img{
+/*.selectContainer img{
   position: absolute;
   right:0;
-}
+}*/
 @media (min-width:1200px) and (max-width:1440px) {
   .status,.tabs,.dataTable{
     width: 95%;

@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {PluginService} from "../common/services/plugin.service";
 import {Page, PluginInfo} from "../common/defs/resources";
+import {ActivatedRoute, Router} from "@angular/router";
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -14,6 +15,7 @@ export class AlgPluginsComponent{
     plugins: PluginInfo[] = [];
     // show one of two different table
     showSystemPlugin: number = 1;
+    DeliverValue:number;
     page: number = 1;
     pageMaxItem: number = 10;
     arr:any[]=[];
@@ -21,13 +23,14 @@ export class AlgPluginsComponent{
     modalTab:any []=[];
     selfTab:any []=[];
     result:number=1;
+    dataIndex:number=1;
     pageParams=new Page();
     params:any; // 保存页面url参数
     totalNum:number = 0; // 总数据条数
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
-    constructor(private pluginService: PluginService) {
+    constructor(private route: ActivatedRoute, private router: Router,private pluginService: PluginService) {
         if(sessionStorage['showSystemPlugin']){
             this.showSystemPlugin = sessionStorage['showSystemPlugin'];
         }else{
@@ -46,18 +49,24 @@ export class AlgPluginsComponent{
         // console.log(this.showSystemPlugin);
     }
   changPage(plugins){
-    for(let i=0;i<plugins.length;i++){
-      if(plugins[i].creator=='general'){
-        this.modalTab.push(plugins[i]);
+      if(plugins.length>0){
+        this.dataIndex =1;
+        for(let i=0;i<plugins.length;i++){
+          if(plugins[i].creator=='general'){
+            this.modalTab.push(plugins[i]);
+          }else{
+            this.selfTab.push(plugins[i]);
+          }
+        }
+        if(this.showSystemPlugin==1){
+          this.getInit(this.modalTab);
+        }else if(this.showSystemPlugin==0){
+          this.getInit(this.selfTab);
+        }
       }else{
-        this.selfTab.push(plugins[i]);
+        this.dataIndex =0;
       }
-    }
-    if(this.showSystemPlugin==1){
-      this.getInit(this.modalTab);
-    }else if(this.showSystemPlugin==0){
-      this.getInit(this.selfTab);
-    }
+
 
 
     /*if(this.arr.length%this.pageMaxItem==0){
@@ -100,7 +109,9 @@ export class AlgPluginsComponent{
     console.log('触发', paraParam);
 
   }
-
+    checkIndex(pluginId,showSystemPlugin){
+    this.router.navigate(['../algpluginDetail'], {queryParams: {"showSystemPlugin": showSystemPlugin,"pluginId":pluginId}});
+    }
     sysTemplateClick(){
         // console.log("to Sys");
         this.showSystemPlugin = 1;

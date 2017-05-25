@@ -171,13 +171,13 @@
     position: relative;
     border: 2px solid #23a880;
     border-radius: 5px;
-    width:7.6vw;
+    width:7.4vw;
     font-size: 14px;
     height: 4.2vh;
     line-height: 4.2vh;
     text-align: center;
     margin: 0 auto;
-    word-break: break-all;
+  overflow: hidden;
 }
 #node1{
   margin-bottom: 1.4vh;
@@ -529,7 +529,7 @@
     color: #fefefe;
     border-radius: 8px;
     cursor: pointer;
-
+    overflow: hidden;
    font-size: 14px;
 }
 .pluginArr_item img{
@@ -568,6 +568,7 @@
   width: 22%;
   float: right;
   height: 100%;
+  margin-top: 20px;
   color: #333333;
 }
 /*.layer_name{
@@ -578,29 +579,30 @@
     color: white;
 }*/
 .layer_params{
-  padding:10px;
+  padding:10px 0;
 }
 .layer_params input{
-    background: transparent;
+    background: #ffffff;
    /* border: 0px;*/
-    border: 1px solid #e8e8e8;
-    height: 35px;
+    border: 1px solid #333333;
+    height: 30px;
     width: 90%;
-    color: white;
+    color: #333333;
     outline-style: none;
+  text-indent: 5px;
 }
 
 .layer_params select{
-    background: #444444 0px 0px;
-    color: #ffffff;
+    background: #ffffff 0px 0px;
+    color: #333333;
     font-size: 14px;
-    border: #000000 1px solid;
+    border: #333333 1px solid;
     padding: 5px;
 }
 
 .layer_params option{
-    background: #444444 0px 0px;
-    color: #ffffff;
+    background: #ffffff 0px 0px;
+  color: #333333;
 }
 @media (min-width:1440px) and (max-width:1540px) {
   .scene{

@@ -4,12 +4,12 @@
       <div class="selectContainer">
         <span>场景选择</span>
         <select name=""></select>
-        <img src="../assets/taskStatus/select.png">
+        <!--<img src="../assets/taskStatus/select.png">-->
       </div>
       <div class="selectContainer">
         <span>算法链选择</span>
         <select name=""></select>
-        <img src="../assets/taskStatus/select.png">
+        <!--<img src="../assets/taskStatus/select.png">-->
       </div>
     </div>
     <div class="table_section">
@@ -24,7 +24,10 @@
         <th>模型路径</th>
         <th>操作</th>
         </tr>
-        <tr>
+        <tr *ngIf="dataIndex == 0">
+          <td colspan="8">无数据</td>
+        </tr>
+        <tr  [style.display]="dataIndex == 1?'':'none'">
           <td>1</td>
           <td>admin</td>
           <td>字母识别</td>
@@ -37,6 +40,7 @@
           </td>
         </tr>
       </table>
+      <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
     </div>
   </div>
 

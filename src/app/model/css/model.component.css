@@ -103,7 +103,9 @@
   margin-top: 20px;
   border-radius: 5px;
 }
-
+.image input{
+  display: none;
+}
 .currentRow{
   color: #23a800;
 }

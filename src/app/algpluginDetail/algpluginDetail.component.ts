@@ -3,7 +3,7 @@ import {Location} from "@angular/common";
 import {PluginService} from "../common/services/plugin.service";
 import {PluginInfo} from "../common/defs/resources";
 import {Editable_param, Parameter} from "../common/defs/parameter";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 // import { ActivatedRoute,Params} from '@angular/router';
 // import { ResourcesService } from '../../common/services/resources.service'
 declare var $:any;
@@ -15,23 +15,38 @@ declare var $:any;
     providers: [PluginService]
 })
 export class AlgpluginDetailComponent {
+  showSystemPlugin:number;
     plugin_id: string= "";
     plugin: PluginInfo = new PluginInfo();
     editable_params: Editable_param[] = [];
     editable_parameters: Editable_param[] = [];
-    constructor(private pluginService: PluginService, private location: Location,private route:ActivatedRoute){
+    constructor(private pluginService: PluginService, private location: Location,private route: ActivatedRoute, private router: Router,){
     /*  this.route.queryParams.subscribe(params => {
         let id = params['pluginId'];*/
         if (location.path(false).indexOf('/algpluginDetail/') != -1) {
            let id = location.path(false).split('/algpluginDetail/')[1];
-        if(id){
-          this.pluginService.getPlugin(id)
-            .subscribe(plugin => this.getPlugin(plugin));
-          this.plugin_id = id;
+
+          if(id){
+            this.pluginService.getPlugin(id)
+              .subscribe(plugin => this.getPlugin(plugin));
+            this.plugin_id = id;
+          }
         }
-        }
+
       /*});*/
     }
+/*  ngOnInit(){
+    this.route.queryParams.subscribe(params => {
+      this.showSystemPlugin = params['showSystemPlugin'];
+      let id  = params['pluginId'];
+      if(id){
+        this.pluginService.getPlugin(id)
+          .subscribe(plugin => this.getPlugin(plugin));
+        this.plugin_id = id;
+      }
+      console.log(this.showSystemPlugin);
+    });
+  }*/
     getPlugin(plugin){
         this.plugin = plugin;
         this.pluginService.getTranParamTypes()

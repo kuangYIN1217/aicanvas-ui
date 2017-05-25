@@ -37,6 +37,7 @@ export class AlgChainsComponent{
     sceneId:number;
     creator:string;
     flag:string="true";
+    rightNodeIndex:number=0;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router){
 
     }
@@ -236,7 +237,8 @@ export class AlgChainsComponent{
         this.rightBox_node = 0;
     }
   edit(){
-
+      debugger
+      this.rightNodeIndex = 1;
       this.ifEdit = 1;
       this.flag="false";
       console.log($("#property").find("input").attr("readOnly","false"));

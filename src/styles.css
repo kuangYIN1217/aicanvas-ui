@@ -34,10 +34,9 @@ html,body{
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
-  height: 100%;
-  overflow: hidden;
+ /* height: 100%;*/
+  /*overflow: hidden;*/
 }
-
 
 /*login*/
 .dots {
@@ -314,7 +313,6 @@ a[href="http://www.amcharts.com/javascript-charts/"]{
 canvas{
   outline: none;
 }
-
 .back{
   text-decoration:none;
   width: 114px;
@@ -385,4 +383,5 @@ canvas{
 .table tr:nth-child(odd) {
   background: #ffffff;
 }
+
 

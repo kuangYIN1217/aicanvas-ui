@@ -23,11 +23,10 @@
                      <select *ngIf="editable_parameter.editable_param.type=='enums'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
                          <option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
                      </select>
-                     <select *ngIf="editable_parameter.editable_param.type=='boolean'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
+                     <select  *ngIf="editable_parameter.editable_param.type=='boolean'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">
                          <option value="true">true</option>
                          <option value="false">false</option>
                      </select>
-
                      <div *ngIf="editable_parameter.editable_param.type=='list'"class="select" name="data_select">
                          <div>
                               <table *ngIf="editable_parameter.editable_param.shape.length==2">

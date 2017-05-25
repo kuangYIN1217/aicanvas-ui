@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inference-model.component.css']
 })
 export class InferenceModelComponent implements OnInit {
-
+  dataIndex:number=0;
   constructor() { }
 
   ngOnInit() {
