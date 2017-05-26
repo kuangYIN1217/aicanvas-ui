@@ -95,14 +95,14 @@ export class AlgchainAloneComponent{
      }
     sysTemplateClick(){
         this.showSystemPlugin = 1;
-        sessionStorage.showSystemPlugin = 1;
+        sessionStorage['showSystemPlugin ']= 1;
         this.pageMaxItem=10;
         this.result = this.modalTab.length%this.pageMaxItem==0?this.modalTab.length/this.pageMaxItem:Math.floor(this.modalTab.length/this.pageMaxItem)+1;
         this.arr = this.modalTab.slice(0,10);
     }
     selfTemplateClick(){
         this.showSystemPlugin = 0;
-        sessionStorage.showSystemPlugin = 0;
+        sessionStorage['showSystemPlugin ']= 0;
         this.pageMaxItem=10;
         this.result = this.selfTab.length%this.pageMaxItem==0?this.selfTab.length/this.pageMaxItem:Math.floor(this.selfTab.length/this.pageMaxItem)+1;
         this.arr2 = this.selfTab.slice(0,10);

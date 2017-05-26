@@ -115,7 +115,7 @@ export class AlgPluginsComponent{
     sysTemplateClick(){
         // console.log("to Sys");
         this.showSystemPlugin = 1;
-        sessionStorage.showSystemPlugin = 1;
+        sessionStorage['showSystemPlugin']= 1;
         this.pageMaxItem=10;
         this.getInit(this.modalTab);
         this.arr = this.modalTab.slice(0,10);

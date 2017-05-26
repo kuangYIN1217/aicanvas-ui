@@ -33,7 +33,7 @@ export class NavigationComponent {
   }
 
   constructor(private location: Location,private router:Router) {
-    if (!sessionStorage.username) {
+    if (!sessionStorage['username']) {
       this.focusTab = 0;
       this.router.navigate(['/login'])
     }
@@ -50,8 +50,8 @@ export class NavigationComponent {
       // sceneService.getAllScenes()
       //     .subscribe(sceneArray => this.sceneArray = sceneArray);
     }
-    if (sessionStorage.username) {
-      this.username = sessionStorage.username;
+    if (sessionStorage['username']) {
+      this.username = sessionStorage['username'];
     } else {
       this.username = "Loading";
     }
