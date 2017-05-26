@@ -320,31 +320,38 @@
 }
 
 .layer_params{
-  padding:10px;
+  padding:10px 0;
 }
 .layer_params input{
-  background: transparent;
+  background: #ffffff;
   /* border: 0px;*/
-  border: 1px solid #e8e8e8;
-  height: 35px;
+  border: 1px solid #333333;
+  height: 30px;
   width: 90%;
-  color: white;
+  color: #333333;
   outline-style: none;
+  text-indent: 5px;
+}
+
+.layer_params select{
+  background: #ffffff 0px 0px;
+  color: #333333;
+  font-size: 14px;
+  border: #333333 1px solid;
+  padding: 5px;
+}
+
+.layer_params option{
+  background: #ffffff 0px 0px;
+  color: #333333;
 }
 .status{
   position: relative;
   height: 1402px;
 }
-.layer_params select{
-  background: #444444 0px 0px;
-  color: #ffffff;
-  font-size: 14px;
-  border: #000000 1px solid;
-  padding: 5px;
+.space{
+  margin-right: 20px;
 }
-
-.layer_params option{
-  background: #444444 0px 0px;
-  color: #ffffff;
+.space1{
+  margin-right: 10px;
 }
-
