@@ -23,6 +23,7 @@
     "amcharts3-angular2": "^1.2.1",
     "class-transformer": "^0.1.6",
     "core-js": "^2.4.1",
+    "d3": "^4.8.0",
     "es6-shim": "^0.35.3",
     "ng2-file-upload": "^1.2.1",
     "ng2-stomp-service-fixed": "^1.2.3",
