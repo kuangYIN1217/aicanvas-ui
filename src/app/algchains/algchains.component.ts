@@ -91,8 +91,8 @@ export class AlgChainsComponent{
                 }
               })
         }
-        if(sessionStorage.algChain_scene&&sessionStorage.algChain_scene!=-1){
-            this.showNetwork(sessionStorage.algChain_scene);
+        if(sessionStorage['algChain_scene']&&sessionStorage['algChain_scene']!=-1){
+            this.showNetwork(sessionStorage['algChain_scene']);
         }
     }
     getName(id,index){
@@ -113,10 +113,10 @@ export class AlgChainsComponent{
       window.history.back();
       if(this.sceneId){
             //this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: this.sceneId}});
-            sessionStorage.algChain_scene = -1;
+            sessionStorage['algChain_scene'] = -1;
         }else{
             //this.router.navigate(['../algchainAlone'],{queryParams: { creator: this.creator}});
-            sessionStorage.algChain_scene = -1;
+        sessionStorage['algChain_scene'] = -1;
         }
 
     }

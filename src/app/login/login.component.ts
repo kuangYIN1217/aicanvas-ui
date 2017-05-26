@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit{
             this.showMessage("登陆失败");
         }else if(returnToken&&returnToken.id_token){
             sessionStorage['authenticationToken'] = returnToken.id_token;
-            sessionStorage.username = username;
+            sessionStorage['username']= username;
             console.log(sessionStorage['authenticationToken']);
             console.log("登陆成功");
             // this.showMessage("登陆成功");

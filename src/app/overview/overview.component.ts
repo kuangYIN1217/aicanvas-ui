@@ -62,10 +62,10 @@ export class OverviewComponent {
             this.update();
         }, 10000);
 
-        if (sessionStorage.overviewTab){
-            this.changeTab(sessionStorage.overviewTab);
+        if (sessionStorage['overviewTab']){
+            this.changeTab(sessionStorage['overviewTab']);
         }else{
-            sessionStorage.overviewTab = 0;
+            sessionStorage['overviewTab'] = 0;
             this.tabIndex = 0;
         }
     }
@@ -818,7 +818,7 @@ export class OverviewComponent {
     }
     changeTab(tabIndex: number){
         this.tabIndex = tabIndex;
-        sessionStorage.overviewTab = tabIndex;
+        sessionStorage['overviewTab'] = tabIndex;
     }
     gpuToggle(){
        if(this.gpuIndex==0&&this.focusImg==0){
