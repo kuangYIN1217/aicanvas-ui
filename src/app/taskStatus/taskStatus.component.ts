@@ -21,6 +21,7 @@ export class TaskStatusComponent{
     student:number=0;
     id:number;
     interval: any;
+    dataIndex:number=1;
     Jobs: JobInfo[] = [];
     pageParams=new Page();
     Jobs_current: JobInfo[] = [];
@@ -28,6 +29,7 @@ export class TaskStatusComponent{
     ModelInfo:ModelInfo[] = [];
     createdJob: JobInfo = new JobInfo();
     scene_id:number;
+    historyId:number;
     params:any; // 保存页面url参数
     totalNum:number = 0; // 总数据条数
     pageSize:number = 20;// 每页数据条数
@@ -47,21 +49,25 @@ export class TaskStatusComponent{
    ngOnInit(){
 
       this.interval = setInterval(() =>this.updatePage(), 500);
-
-     this.getSceneId();
+     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
+    // this.getSceneId();
    }
 
   ngOnChanges(...args: any[]) {
      //console.log(this.sceneId);
      //console.log(this.jobName);
+    if(this.sceneId==0){
+      this.sceneId = this.historyId;
+    }
      this.getSceneId();
+
    }
    getSceneId(){
-     if(this.sceneId!==0){
-       console.log(this.sceneId);
-       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+     if(this.sceneId==0){
+     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
      }else{
-       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
+       this.historyId = this.sceneId;
+       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
      }
    }
     updatePage(){
@@ -73,13 +79,19 @@ export class TaskStatusComponent{
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
+                if(this.Jobs_current.length>0){
+                  this.dataIndex = 1;
+                }else{
+                  this.dataIndex = 0;
+                }
                 this.createdJob = Jobs;
                 let page = new Page();
                 page.pageMaxItem = Jobs.size;
                 page.curPage = Jobs.number+1;
                 page.totalPage = Jobs.totalPages;
                 page.totalNum = Jobs.totalElements;
-                this.pageParams=page;
+                this.pageParams = page;
+
                // console.log(this.pageParams);
             });
     }

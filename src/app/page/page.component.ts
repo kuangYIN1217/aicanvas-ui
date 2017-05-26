@@ -23,12 +23,15 @@ export class PageComponent {
   ngOnInit(){
     this.pageParams = {'totalNum':0,'curPage':1,'pageMaxItem':10,'totalPage':0}
   }
-
-
   getPageList(pageParams) {
-    /*分页设置*/
     let pageList=[];
-    if (pageParams.totalPage <= 5) {//如果总的页码数小于5（前五页），那么直接放进数组里显示
+    if(pageParams.totalPage==0){
+      pageList.push({
+        pageNo: 1
+      });
+    }else{
+    /*分页设置*/
+    if (pageParams.totalPage <= 5) {   //如果总的页码数小于5（前五页），那么直接放进数组里显示
       for (let i = 0; i < pageParams.totalPage; i++) {
         pageList.push({
           pageNo: i + 1
@@ -64,7 +67,9 @@ export class PageComponent {
         },
       ];
     }
+    }
     return pageList;
+
   }
   maxItemChange(){
     this.changePage(1);

@@ -31,6 +31,7 @@ export class OverviewComponent {
     student:number=0;
     id:number;
   focusImg:number=0;
+  dataIndex:number=0;
     private timer: any;
     private chart: any;
   gpuIndex:number=0;

@@ -85,18 +85,14 @@
         <td class="first_column">上传文件</td>
         <td>
           <div class="image" onclick="document.getElementById('file').click()">
-            <input type="file" id="file" multiple ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" style="display: none"/>
+            <input type="file" id="file" multiple ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
             <img src="assets/model/wenjian.png" alt="" >
           </div>
         </td>
       </tr>
     </table>
     <a href="#" class="back" onclick="return false" (click)="uploadFile()" style="float:left;margin: 30px;">推演</a>
-
   </div>
-
-
-
   <div [style.display]="!showAdd?'':'none'">
     <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='null'?'':'none'" *ngIf="type=='null'"></historyDetail>
     <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='raw_text'?'':'none'" *ngIf="type=='raw_text'"></historyDetail>

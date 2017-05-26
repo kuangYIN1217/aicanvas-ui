@@ -14,11 +14,14 @@
           <th class="operation">详情</th>
           </tr>
             <!--[style.display]="plugin.creator=='general'?'':'none'"-->
-          <tr *ngFor="let plugin of arr; let i = index">
+          <tr *ngIf="dataIndex == 0">
+            <td colspan="4">无数据</td>
+          </tr>
+          <tr *ngFor="let plugin of arr; let i = index" [style.display]="dataIndex == 1?'':'none'">
             <td>{{ plugin.id }}</td>
             <td>{{ plugin.alg_name }}</td>
             <td>{{ plugin.description }}</td>
-            <td><a class="showDetail" routerLinkActive="active"  routerLink="/algpluginDetail/{{plugin.id}}"><img src="../assets/algplugin/chakan.png"/></a></td>
+            <td><a class="showDetail" routerLinkActive="active"><img src="../assets/algplugin/chakan.png" (click)="checkIndex(plugin.id,showSystemPlugin)"/></a></td>
           </tr>
         </table>
           <!--<div class="bottom_menu">
@@ -41,15 +44,20 @@
       </div>
       <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
         <table id="selfTable" class="table">
+          <tr>
             <th class="plugin_id">序号</th>
             <th class="plugin_name">名称</th>
             <th class="plugin_description">描述</th>
             <th class="operation">详情</th>
-            <tr *ngFor="let plugin of arr2; let i = index">
+          </tr>
+          <tr *ngIf="dataIndex == 0">
+            <td colspan="4">无数据</td>
+          </tr>
+            <tr *ngFor="let plugin of arr2; let i = index" [style.display]="dataIndex == 1?'':'none'">
                 <td>{{ plugin.id }}</td>
                 <td>{{ plugin.alg_name }}</td>
                 <td>{{ plugin.description }}</td>
-                <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id }}"><img src="../assets/algplugin/chakan.png"/></a></td>
+                <td><a class="showDetail" routerLinkActive="active"><img src="../assets/algplugin/chakan.png" (click)="checkIndex(plugin.id,showSystemPlugin)"/></a></td>
             </tr>
         </table>
           <!--<div class="bottom_menu">

@@ -292,7 +292,7 @@
           <option value="0">选择场景</option>
           <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
         </select>
-        <img src="../assets/taskStatus/select.png">
+        <!--<img src="../assets/taskStatus/select.png">-->
       </div>
         <taskStatus [statuss]="statuss" [sceneId]="student"></taskStatus>
     </div>
@@ -301,10 +301,12 @@
         <span class="diskSpace">磁盘剩余空间：</span><span class="spaceOut"><span class="spaceIn"></span></span><span class="diskCapacity">100G</span>
       </div>
     <table id="jobTable" class="table dataTable">
-      <th class="name">数据集名称</th>
-      <th class="scene">创建者</th>
-      <th class="time">创建时间</th>
-      <th class="condition">存储空间</th>
+      <tr>
+        <th class="name">数据集名称</th>
+        <th class="scene">创建者</th>
+        <th class="time">创建时间</th>
+        <th class="condition">存储空间</th>
+      </tr>
      <!-- <tr *ngFor="let jobInfo of Jobs_current;let i = index;">
         <td>{{jobInfo.jobName}}</td>
         <td>{{jobInfo.sences==null?'无设置':jobInfo.sencesName}}</td>
@@ -315,18 +317,11 @@
           <a class="showDetailBtn" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}">查看详情</a>
         </td>
       </tr>-->
-      <tr>
-        <td>数据集1</td>
-        <td>admin</td>
-        <td>2016.01.11 08.12.34</td>
-        <td>12G</td>
+      <tr *ngIf="dataIndex == 0">
+        <td colspan="4">无数据</td>
       </tr>
-      <tr>
-        <td>数据集2</td>
-        <td>admin</td>
-        <td>2016.01.11 08.12.34</td>
-        <td>168M</td>
-      </tr>
+      <tr  [style.display]="dataIndex == 1?'':'none'"></tr>
     </table>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
   </div>
 </div>

@@ -62,6 +62,7 @@ function init() {
       // makePort("R", go.Spot.Right, true, true),
       makePort("B", go.Spot.Bottom, true, true),
       {click: function(e, Node) {
+
         // 触发按钮点击事件，达成状态转变
         if(document.getElementById("node_click_btn")){
           document.getElementById("node_click_btn").click();
@@ -74,7 +75,7 @@ function init() {
         // var layerId = Node.toString().split("(")[1].split(")")[0];
         var layerId = Node.data['nameId'];
         var textName = Node.data['text'];
-        var flag = "false";
+        //var flag = "false";
         document.getElementById("property").innerHTML = "";
         // for (var i = 0;i<test["layers"].length;i++){
         //     if (layerId == test["layers"][i].name){
@@ -91,7 +92,7 @@ function init() {
                 for (var key in configStr){
                   for (var j = 0;j < test2[layerId].editable_param_list.length; j++){
                     if (key == test2[layerId].editable_param_list[j].path){
-                      document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" [appInputReadonly]="{{flag}}"  style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 90%;color: #666666F;outline-style: none;" readonly="true" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
+                      document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text"  style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 90%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                       // document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text"  style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                       break;
                     }else

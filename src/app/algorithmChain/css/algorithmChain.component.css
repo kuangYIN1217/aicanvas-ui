@@ -125,6 +125,7 @@
   margin-left: 2%;
   margin-top: 30px;
   border-radius: 5px;
+  width:96%;
   min-height: 1000px;
   border:1px solid #ffffff;
   margin-bottom: 100px;
@@ -187,6 +188,8 @@
   width:293px;
 }
 .select{
+  background: url('../../../assets/taskStatus/select.png') no-repeat;
+  background-position: right;
   position: absolute;
   height:36px;
   border-radius: 5px;
@@ -195,8 +198,42 @@
   font-size: 0.7vw;
   text-indent: 10px;
   color: #666;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
 }
-.selectContainer img{
+/*.selectContainer img{
   position: absolute;
   right:0;
+}*/
+.alg_back{
+  position: absolute;
+  top:53px;
+  right:4%;
+}
+.alg_back a{
+  width:114px;
+  font-size:14px;
+  line-height: 30px;
+  height:30px;
+  color: #fff;
+  text-align: center;
+  background: #ff7c35;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+@media (min-width:1200px) and (max-width:1440px) {
+  .status{
+    width: 95%;
+  }
+  .alg_back{
+    right:5%;
+  }
+}
+@media (min-width:1600px) and (max-width:1920px) {
+  .alg_back{
+    right:4.5%;
+  }
 }

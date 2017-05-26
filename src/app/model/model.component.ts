@@ -7,8 +7,7 @@ import {Location} from '@angular/common';
 import {FileUploader} from "ng2-file-upload";
 import {SERVER_URL} from "../app.constants";
 import {JobService} from "../common/services/job.service";
-
-
+declare var $:any;
 @Component({
   moduleId: module.id,
   selector: 'model',
@@ -40,30 +39,28 @@ export class ModelComponent {
   interval:any;
   type:any;
   runId:number;
-
+  path:string;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService) {
 
   }
-
   public uploader: FileUploader = new FileUploader({
     url: SERVER_URL + "/api/model/upload",
     method: "POST",
     itemAlias: "file",
   });
-
-
+  selectedFileOnChanged(event:any) {
+    // 打印文件选择名称
+    console.log(event.target.value);
+  }
   uploadFile() {
-
     this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
       this.uploader.queue[0].remove();
       var responsePath = response;
-      console.log(response);
       this.saveModelAndUpload(responsePath);
     }
     this.uploader.queue[0].upload(); // 开始上传
     //this.tabIndex=this.scene;
   }
-
   getResult(modelId:number){
     this.modelService.getResult(modelId).subscribe(result=>{
       if (result.content.length!=0) {
@@ -77,6 +74,7 @@ export class ModelComponent {
   }
   saveModelAndUpload(filePath: string) {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result => {
+
       // this.runId = result.id;
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
