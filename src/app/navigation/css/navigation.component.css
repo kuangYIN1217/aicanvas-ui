@@ -136,8 +136,7 @@ nav{
 }
 .focusTab{
    background-color: #333333;
-  border-left:solid 6px #ee8348;
-
+   border-left:solid 6px #ee8348;
 }
 .focusTab a{
   color: #ffffff;
