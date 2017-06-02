@@ -733,6 +733,11 @@ export class OverviewComponent {
           /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
             .subscribe(gpuInfoArray => {
               this.GpuInfo = gpuInfoArray;
+              for (let i = 0; i < this.GpuInfo.length; i++) {
+                let gpuInfo = gpuInfoArray[i].total_used_memory;
+                let data = Number((gpuInfo / this.totalGlobalMem).toFixed(2)) * 100;
+                gpuInfoArray[i].total_used_memory = data;
+              }
               this.AmCharts.updateChart(this.chart5, () => {
                 this.chart5.dataProvider = gpuInfoArray;
               });

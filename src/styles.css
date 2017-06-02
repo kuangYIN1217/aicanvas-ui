@@ -4,6 +4,7 @@ body{
   margin: 0px;
   background-color: #eeeeee;
   font-family: MicrosoftYaHei;
+  overflow-x:hidden ;
 
 }
 
@@ -26,7 +27,6 @@ h2, h3 {
   height: 100%;
   float: right;
   background-color: #eeeeee;
-  overflow: auto;
 }
 /* words cannot be select */
 html,body{
@@ -228,8 +228,6 @@ html,body{
   width: 100%;
   max-width: 600px;
   height:150px;
-
-
   text-align: center;
 }
 .cd-popup-container p {
