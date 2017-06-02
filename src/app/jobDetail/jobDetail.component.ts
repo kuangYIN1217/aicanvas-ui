@@ -42,6 +42,8 @@ export class JobDetailComponent {
   rightBox_node:number = 0;
   chosenPluginId: string;
   haveModel: number;
+  statusIndex:number;
+  lookIt:number;
   editable_params: Editable_param[] = [];
   editable_parameters: Editable_param[] = [];
   lossChartInitData() {
@@ -253,8 +255,14 @@ export class JobDetailComponent {
     // 改变右侧显示的内容--显示node
     this.rightBox_node = 1;
   }
-  changeTab(chainId,index){
+  changeTab(chainId,index,status){
+    this.lookIt = 1;
     this.changeIndex = index;
+    if(status=="运行"){
+      this.statusIndex = 0;
+    }else{
+      this.statusIndex = 1;
+    }
     this.algchainService.getChainById(chainId)
       .subscribe(plugin=>{
         this.pluginArr=plugin;
@@ -262,7 +270,10 @@ export class JobDetailComponent {
         this.changeChosenPlugin(this.pluginArr[0].id);
       });
   }
-
+  goback(){
+    this.changeIndex=0;
+    this.lookIt = 0;
+}
   changeChosenPlugin(id:string){
     if(!this.chosenPluginId){
       this.chosenPluginId = id;
@@ -419,7 +430,21 @@ export class JobDetailComponent {
       });
   }
 
-
+  save(){
+    $('#saveBtn').click();
+    let json = $('#plugin_storage').val();
+    this.pluginArr[0].model = JSON.parse(json);
+    // if(this.plugin.creator!="general"){
+    this.pluginService.savePlugin(this.pluginArr[0])
+      .subscribe(msg => this.forkResult(msg));
+  }
+  forkResult(response){
+    if(response.status==200){
+      console.log("saved!");
+    }else{
+      console.log("save plugin failed");
+    }
+  }
   goModel(){
     this.router.navigate(['/model'],{queryParams: {'job_id': this.job.id }})
   }

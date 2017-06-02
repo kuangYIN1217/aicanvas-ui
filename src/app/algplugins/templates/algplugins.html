@@ -21,7 +21,7 @@
             <td>{{ plugin.id }}</td>
             <td>{{ plugin.alg_name }}</td>
             <td>{{ plugin.description }}</td>
-            <td><a class="showDetail" routerLinkActive="active"><img src="../assets/algplugin/chakan.png" (click)="checkIndex(plugin.id,showSystemPlugin)"/></a></td>
+            <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}},{{plugin.creator}}"><img src="../assets/algplugin/chakan.png" /></a></td>
           </tr>
         </table>
           <!--<div class="bottom_menu">
@@ -57,7 +57,7 @@
                 <td>{{ plugin.id }}</td>
                 <td>{{ plugin.alg_name }}</td>
                 <td>{{ plugin.description }}</td>
-                <td><a class="showDetail" routerLinkActive="active"><img src="../assets/algplugin/chakan.png" (click)="checkIndex(plugin.id,showSystemPlugin)"/></a></td>
+                <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}},{{plugin.creator}}"><img src="../assets/algplugin/chakan.png"/></a></td>
             </tr>
         </table>
           <!--<div class="bottom_menu">

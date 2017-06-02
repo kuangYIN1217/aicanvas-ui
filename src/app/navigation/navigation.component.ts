@@ -32,15 +32,11 @@ export class NavigationComponent {
     this.focusTab = nextFocus;
   }
 
-
-
   constructor(private location: Location,private router:Router) {
     if (!sessionStorage['username']) {
       this.focusTab = 0;
       this.router.navigate(['/login'])
     }
-
-
   }
   //response
   response(data){

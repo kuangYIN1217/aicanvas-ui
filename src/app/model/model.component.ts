@@ -48,10 +48,18 @@ export class ModelComponent {
     method: "POST",
     itemAlias: "file",
   });
+
   selectedFileOnChanged(event:any) {
     // 打印文件选择名称
     console.log(event.target.value);
+    let imageFile = event.target.value;
+    //创建一个FileReader对象
+    let reader = new FileReader();
+    reader.onload = function(e){
+
+    }
   }
+
   uploadFile() {
     this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
       this.uploader.queue[0].remove();

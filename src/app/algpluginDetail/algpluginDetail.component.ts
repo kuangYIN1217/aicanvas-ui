@@ -20,12 +20,14 @@ export class AlgpluginDetailComponent {
     plugin: PluginInfo = new PluginInfo();
     editable_params: Editable_param[] = [];
     editable_parameters: Editable_param[] = [];
+    creator:string;
     constructor(private pluginService: PluginService, private location: Location,private route: ActivatedRoute, private router: Router,){
     /*  this.route.queryParams.subscribe(params => {
         let id = params['pluginId'];*/
         if (location.path(false).indexOf('/algpluginDetail/') != -1) {
-           let id = location.path(false).split('/algpluginDetail/')[1];
-
+           let arr = location.path(false).split('/algpluginDetail/')[1];
+           let id = arr.split("%")[0];
+           this.creator = arr.split("%")[1].split("C")[1];
           if(id){
             this.pluginService.getPlugin(id)
               .subscribe(plugin => this.getPlugin(plugin));

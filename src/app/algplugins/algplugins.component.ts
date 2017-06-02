@@ -109,9 +109,9 @@ export class AlgPluginsComponent{
     console.log('触发', paraParam);
 
   }
-    checkIndex(pluginId,showSystemPlugin){
+/*    checkIndex(pluginId,showSystemPlugin){
     this.router.navigate(['../algpluginDetail'], {queryParams: {"showSystemPlugin": showSystemPlugin,"pluginId":pluginId}});
-    }
+    }*/
     sysTemplateClick(){
         // console.log("to Sys");
         this.showSystemPlugin = 1;
