@@ -13,39 +13,42 @@ export class WebSocketService {
     this.stomp.configure({
       host: SERVER_URL+'/websocket',
       debug: true,
-      queue: {'init': false}
+      queue: {'init': true}
     });
+    return this.stomp.startConnect();
   }
 
   public subscribe(subscribe: string,callback:(data:any)=>void){
 
-    this.stomp.startConnect().then(() => {
+    // this.stomp.afterConnection().then(() => {
       this.stomp.subscribe(subscribe,(result)=>{
         callback(result);
       });
 
-      }
-    );
+      // }
+    // );
 
 
 
   }
 
   public unsubscribe() {
-    this.stomp.startConnect().then(() => {
-        this.subscription.unsubscribe();
-      }
-    );
+    // this.stomp.startConnect().then(() => {
+    if(this.stomp)
+        this.stomp.unsubscribe();
+      // }
+    // );
 
   }
 
   public disconnect(callback: any) {
-    this.stomp.startConnect().then(() => {
+    // this.stomp.startConnect().then(() => {
+    if(this.stomp)
         this.stomp.disconnect().then(() => {
           callback();
         })
-      }
-    );
+      // }
+    // );
 
   }
 

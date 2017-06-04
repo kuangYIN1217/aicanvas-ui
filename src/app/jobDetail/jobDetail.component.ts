@@ -46,6 +46,7 @@ export class JobDetailComponent {
   lookIt:number;
   editable_params: Editable_param[] = [];
   editable_parameters: Editable_param[] = [];
+  log_list = [];
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -76,13 +77,16 @@ export class JobDetailComponent {
             this.user = this.job.user;
             if (this.job.status == "运行") {
               // console.log("Running");
-              this.updatePage(jobPath, this.index);
-              this.interval = setInterval(() => {
-                this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-                  this.job = jobDetail;
-                  this.user = this.job.user;
-                });
-              }, 1000);
+              this.jobService.resetLog(jobPath).subscribe(data=>{
+                this.updatePage(jobPath, this.index);
+                this.interval = setInterval(() => {
+                  this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+                    this.job = jobDetail;
+                    this.user = this.job.user;
+                  });
+                }, 1000);
+              });
+
             } else {
               // console.log("not Running");
               this.not_running_show(jobPath);
@@ -94,7 +98,7 @@ export class JobDetailComponent {
     }
 
 
-    this.websocket.connect();
+
 
   }
 
@@ -246,8 +250,8 @@ export class JobDetailComponent {
     if (this.interval) {
       clearInterval(this.interval);
     }
-    this.websocket.unsubscribe();
-    this.websocket.disconnect(null);
+    // this.websocket.unsubscribe();
+    // this.websocket.disconnect(null);
     this.AmCharts.destroyChart(this.lossChart);
     this.AmCharts.destroyChart(this.metricsChart);
   }
@@ -370,7 +374,7 @@ export class JobDetailComponent {
       .subscribe(jobParam => {
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
-
+        if(this.jobResult)
         this.index = this.jobResult.epoch;
         // debugger
         // this.update(jobParam);
@@ -381,10 +385,18 @@ export class JobDetailComponent {
           this.metricsChart.dataProvider = this.jobResultParam;
         });
         this.jobResult = jobParam[jobParam.length - 1];
+        this.websocket.connect().then(()=>{
+          this.websocket.subscribe('/job/'+jobPath,(data)=>{
+            this.updateChart(data);
+          });
+
+          this.websocket.subscribe('/logs/'+jobPath,(data)=>{
+            this.log_list=this.log_list.concat(data);
+            console.log(data);
+          });
+        })
         // this.jobResult =jobParam.jobResult;
-        this.websocket.subscribe('/job/'+jobPath,(data)=>{
-          this.updateChart(data);
-        });
+
       });
     // console.log(this.index);
   }

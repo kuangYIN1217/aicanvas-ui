@@ -52,8 +52,8 @@
           </div>
           <div [style.display]="changeIndex==0?'':'none'" class="lossLine">
                 <div class="lossCard">
-                    <div class="title">LOSS<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_loss:{{jobResult.bestLoss}}</span></div>
-                    <div class="sub_title"><span class="span_not_val">--loss</span> & <span class="span_val">--val_loss</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_loss:{{jobResult.bestValLoss}}</span></div>
+                    <div class="title">LOSS<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_loss:{{jobResult?.bestLoss}}</span></div>
+                    <div class="sub_title"><span class="span_not_val">--loss</span> & <span class="span_val">--val_loss</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_loss:{{jobResult?.bestValLoss}}</span></div>
                     <div class="">
                         <div id="lossGraph"  [style.width.%]="105" [style.height.px]="400">
                             <!-- <defs>
@@ -66,14 +66,14 @@
                     </div>
                 </div>
                 <div class="lossCard">
-                    <div class="title">{{jobResult.metrics_name}}<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_{{jobResult.metrics_name}}:{{jobResult.bestMetrics}}</span></div>
-                    <div class="sub_title"><span class="span_not_val">--{{jobResult.metrics_name}}</span> & <span class="span_val">--val_{{jobResult.metrics_name}}</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_{{jobResult.metrics_name}}:{{jobResult.bestValMetrics}}</span></div>
+                    <div class="title">{{jobResult?.metrics_name}}<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_{{jobResult?.metrics_name}}:{{jobResult?.bestMetrics}}</span></div>
+                    <div class="sub_title"><span class="span_not_val">--{{jobResult?.metrics_name}}</span> & <span class="span_val">--val_{{jobResult?.metrics_name}}</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_{{jobResult?.metrics_name}}:{{jobResult?.bestValMetrics}}</span></div>
                     <div>
                       <div id="metricsGraph"  [style.width.%]="105" [style.height.px]="400">
                     </div>
                 </div>
             </div>
-            <!--<div *ngFor="let item of jobResultParam">-->
+            <!--<div *ngFor="let item of jobResult?Param">-->
                 <!--<div class="propertyCard">-->
                     <!--<div class="icon"></div>-->
                     <!--<div class="cardInline">{{item.key}}</div>-->
@@ -96,37 +96,25 @@
             <!--<div class="propertyCard"  style="margin-left: 36px">-->
                 <!--<div class="icon"></div>-->
                 <!--<div class="cardInline">LOSS: (train/validation)</div>-->
-                <!--<div class="cardInline">{{jobResult.loss}}</div>-->
-                <!--<div class="cardInline">{{jobResult.bestLoss}}</div>-->
+                <!--<div class="cardInline">{{jobResult?.loss}}</div>-->
+                <!--<div class="cardInline">{{jobResult?.bestLoss}}</div>-->
             <!--</div>-->
             <!--<div class="propertyCard">-->
                 <!--<div class="icon"></div>-->
-                <!--<div class="cardInline">{{jobResult.metrics_name}}: (train/validation)</div>-->
-                <!--<div class="cardInline">{{jobResult.bestMetrics}}</div>-->
-                <!--<div class="cardInline">{{jobResult.bestValMetrics}}</div>-->
+                <!--<div class="cardInline">{{jobResult?.metrics_name}}: (train/validation)</div>-->
+                <!--<div class="cardInline">{{jobResult?.bestMetrics}}</div>-->
+                <!--<div class="cardInline">{{jobResult?.bestValMetrics}}</div>-->
             <!--</div>-->
             <div class="propertyCard" style="margin-left: 10px">
                 <div class="cardInline">Epoch:</div>
-                <div class="cardInline_value">{{jobResult.epoch}}</div>
+                <div class="cardInline_value">{{jobResult?.epoch}}</div>
             </div>
           </div>
           <div class="log" *ngIf="job?.status!='完成'">
             <h3>日志信息</h3>
         <span>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
-          <p> Using TensorFlow backend.</p>
+          <p *ngFor="let log of log_list">{{log}}</p>
+
         </span>
           </div>
 

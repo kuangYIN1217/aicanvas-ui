@@ -60,6 +60,17 @@ export class JobService {
         });
     }
 
+  resetLog(jobPath: string) {
+    let path = "/api/reset/"+jobPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
+  }
+
     getJob(jobPath: string, index): Observable<JobParameter[]>{
         let path = "/api/job/"+jobPath+"/"+index;
         let headers = this.getHeaders();
