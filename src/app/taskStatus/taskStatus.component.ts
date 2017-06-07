@@ -47,10 +47,9 @@ export class TaskStatusComponent{
       //console.log('触发', paraParam);
     }
    ngOnInit(){
-
       this.interval = setInterval(() =>this.updatePage(), 500);
-     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
-    // this.getSceneId();
+      this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
+    //this.getSceneId();
    }
 
   ngOnChanges(...args: any[]) {
@@ -80,6 +79,7 @@ export class TaskStatusComponent{
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
                 if(this.Jobs_current.length>0){
+                  clearInterval(this.interval);
                   this.dataIndex = 1;
                 }else{
                   this.dataIndex = 0;

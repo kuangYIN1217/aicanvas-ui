@@ -43,23 +43,36 @@ export class ModelComponent {
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService) {
 
   }
-  public uploader: FileUploader = new FileUploader({
-    url: SERVER_URL + "/api/model/upload",
+  Headers:Headers = this.modelService.getHeaders();
+  public uploader:FileUploader = new FileUploader({
+    url: SERVER_URL+"/api/model/upload",
     method: "POST",
     itemAlias: "file",
   });
-
-  selectedFileOnChanged(event:any) {
-    // 打印文件选择名称
-    console.log(event.target.value);
-    let imageFile = event.target.value;
-    //创建一个FileReader对象
-    let reader = new FileReader();
-    reader.onload = function(e){
-
-    }
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.job_id = params['job_id'];
+      this.selectChange(this.job_id);
+      this.getJobDetail(this.job_id);
+    });
   }
 
+  // C: 定义事件，选择文件
+  selectedFileOnChanged(event:any) {
+    console.log(this.uploader.queue[0].some);
+    let file = this.uploader.queue[0].some;
+    //var file = document.querySelector('input[type=file]').files[0];
+    let reader  = new FileReader();
+    reader.addEventListener("load", function () {
+      $('#image').attr("src",reader.result) ;
+
+    }, false);
+
+    if (file) {
+     reader.readAsDataURL(file);
+    }
+  }
+  // D: 定义事件，上传文件
   uploadFile() {
     this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
       this.uploader.queue[0].remove();
@@ -69,17 +82,7 @@ export class ModelComponent {
     this.uploader.queue[0].upload(); // 开始上传
     //this.tabIndex=this.scene;
   }
-  getResult(modelId:number){
-    this.modelService.getResult(modelId).subscribe(result=>{
-      if (result.content.length!=0) {
-        clearInterval(this.interval);
-        this.result = result.content;
-        this.type = this.result[0].resultType;
-        this.runId=modelId;
-        console.log(this.type);
-      }
-    })
-  }
+
   saveModelAndUpload(filePath: string) {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result => {
 
@@ -94,14 +97,17 @@ export class ModelComponent {
     })
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.job_id = params['job_id'];
-      this.selectChange(this.job_id);
-      this.getJobDetail(this.job_id);
-    });
+  getResult(modelId:number){
+    this.modelService.getResult(modelId).subscribe(result=>{
+      if (result.content.length!=0) {
+        clearInterval(this.interval);
+        this.result = result.content;
+        this.type = this.result[0].resultType;
+        this.runId=modelId;
+        console.log(this.runId);
+      }
+    })
   }
-
 
   getJobDetail(job_id){
     this.jobService.getJobDetailById(job_id).subscribe(jobDetail => {
@@ -116,7 +122,7 @@ export class ModelComponent {
     this.modelService.getModelPredictionByJob(job_id)
       .subscribe(model => {
         this.ModelInfo = model.content;
-        console.log(this.ModelInfo)
+        console.log(this.ModelInfo);
         let page = new Page();
         page.pageMaxItem = model.size;
         page.curPage = model.number + 1;
@@ -178,7 +184,6 @@ export class ModelComponent {
 
 
   getPageData(paraParam) {
-
     this.arr = this.ModelInfo.slice(paraParam.pageMaxItem * paraParam.curPage - 1, paraParam.pageMaxItem * paraParam.curPage);
   }
 

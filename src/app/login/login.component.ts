@@ -107,7 +107,6 @@ export class LoginComponent implements OnInit{
             .subscribe(returnToken => this.validToken(returnToken,username));
         // }
     }
-
     validToken(returnToken,username){
         console.log(returnToken);
         if(returnToken=="fail"){

@@ -157,6 +157,7 @@ export  class ModelInfo{
     created_at:string;
     model_path:string;
     job_path:string;
+    createTime:string;
 }
 
 export class inferenceResult{

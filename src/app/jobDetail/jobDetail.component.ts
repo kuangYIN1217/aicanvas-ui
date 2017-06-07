@@ -461,5 +461,4 @@ export class JobDetailComponent {
     this.router.navigate(['/model'],{queryParams: {'job_id': this.job.id }})
   }
 
-
 }

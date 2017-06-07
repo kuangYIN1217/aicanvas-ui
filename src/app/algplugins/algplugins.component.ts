@@ -66,23 +66,6 @@ export class AlgPluginsComponent{
       }else{
         this.dataIndex =0;
       }
-
-
-
-    /*if(this.arr.length%this.pageMaxItem==0){
-      this.totalPage = this.arr.length/this.pageMaxItem;
-    }else{
-      this.totalPage = Math.floor(this.arr.length/this.pageMaxItem)+1;
-    }
-    this.totalNum = this.arr.length;
-    let page = new Page();
-    page.pageMaxItem = this.pageMaxItem;
-    page.curPage = this.curPage;
-    page.totalPage = this.totalPage;
-    page.totalNum = this.totalNum;
-    this.pageParams=page;
-    console.log(page.pageMaxItem);
-    console.log(this.pageParams);*/
   }
   getInit(plugin){
     this.arr = this.modalTab.slice(0,10);
@@ -103,11 +86,11 @@ export class AlgPluginsComponent{
     console.log(this.pageParams);
   }
   getPageData(paraParam) {
+
     this.arr = this.modalTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
     this.arr2 = this.selfTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
     //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
     console.log('触发', paraParam);
-
   }
 /*    checkIndex(pluginId,showSystemPlugin){
     this.router.navigate(['../algpluginDetail'], {queryParams: {"showSystemPlugin": showSystemPlugin,"pluginId":pluginId}});
