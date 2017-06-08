@@ -22,7 +22,7 @@ export class AlgChainsComponent{
     pluginArr: PluginInfo[] = [];
     plugins: PluginInfo[] = [];
     chosenPluginId: string;
-    ifEdit:number=0;
+    ifEdit:number=1;
     haveModel: number;
     PluginInfo:PluginInfo[]=[];
     arrName:any[] =[];
@@ -197,6 +197,7 @@ export class AlgChainsComponent{
                 this.haveModel = 0;
             }
         }
+        this.ifEdit = 0;
         this.pluginClicked();
     }
 
@@ -237,11 +238,10 @@ export class AlgChainsComponent{
         this.rightBox_node = 0;
     }
   edit(){
-      debugger
       this.rightNodeIndex = 1;
       this.ifEdit = 1;
       this.flag="false";
-      console.log($("#property").find("input").attr("readOnly","false"));
+     $("#property").find("input").attr("readOnly","false");
       //document.getElementById("property").getElementsByTagName("input")[0].setAttribute("readonly", "");
 
   }

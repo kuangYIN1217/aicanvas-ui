@@ -59,18 +59,28 @@ export class ModelComponent {
 
   // C: 定义事件，选择文件
   selectedFileOnChanged(event:any) {
-    console.log(this.uploader.queue[0].some);
-    let file = this.uploader.queue[0].some;
-    //var file = document.querySelector('input[type=file]').files[0];
-    let reader  = new FileReader();
-    reader.addEventListener("load", function () {
-      $('#image').attr("src",reader.result) ;
+    //清除当前所选文件
+    //document.getElementById('file').outerHTML=document.getElementById('file').outerHTML.replace(/(value=\").+\"/i,"$1\"");
+    console.log(this.uploader.queue[0].file.name);
+    let fileName = this.uploader.queue[0].file.name;
+    if(fileName.length > 1 && fileName ) {
+      var ldot = fileName.lastIndexOf(".");
+      var type = fileName.substring(ldot + 1);
+      if(type == "zip"||type == "rar") {
+        $('#image').attr("src","../../assets/model/yasuo2.png") ;
+      }else{
+        let file = this.uploader.queue[0].some;
+        let reader  = new FileReader();
+        reader.addEventListener("load", function () {
+          $('#image').attr("src",reader.result) ;
+        }, false);
 
-    }, false);
-
-    if (file) {
-     reader.readAsDataURL(file);
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      }
     }
+
   }
   // D: 定义事件，上传文件
   uploadFile() {

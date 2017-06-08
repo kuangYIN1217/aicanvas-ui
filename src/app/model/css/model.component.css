@@ -103,11 +103,20 @@
   margin-top: 20px;
   border-radius: 5px;
 }
+.image{
+  background: url('../../../assets/model/wjphoto.png');
+  width:119px;
+  height:101px;
+}
 .image input{
   display: none;
 }
 .currentRow{
   color: #23a800;
+}
+#image{
+  width:119px;
+  height:101px;
 }
 
 
