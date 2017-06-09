@@ -5,7 +5,7 @@ import {JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resour
 import {AmChartsService} from "amcharts3-angular2";
 import {Router} from "@angular/router";
 import {AlgChainService} from "../common/services/algChain.service";
-import {Editable_param} from "../common/defs/parameter";
+import {Editable_param, Parameter} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
 
@@ -255,10 +255,7 @@ export class JobDetailComponent {
     this.AmCharts.destroyChart(this.lossChart);
     this.AmCharts.destroyChart(this.metricsChart);
   }
-  nodeClicked(){
-    // 改变右侧显示的内容--显示node
-    this.rightBox_node = 1;
-  }
+
   changeTab(chainId,index,status){
     this.lookIt = 1;
     this.changeIndex = index;
@@ -267,10 +264,12 @@ export class JobDetailComponent {
     }else{
       this.statusIndex = 1;
     }
+    console.log(chainId);
     this.algchainService.getChainById(chainId)
       .subscribe(plugin=>{
         this.pluginArr=plugin;
          //console.log(this.pluginArr[0]);
+        console.log(this.pluginArr[0].id);
         this.changeChosenPlugin(this.pluginArr[0].id);
       });
   }
@@ -322,12 +321,13 @@ export class JobDetailComponent {
   pluginClicked(){
     let editable_parameters: Editable_param[] = [];
     let params: any = this.findPluginById(this.chosenPluginId).train_params;
-    // console.log(params);
+     console.log(params);
     for(var param in params){
       // console.log(param);
       for (let editable_parameter of this.editable_params){
         if (editable_parameter.path == param){
           editable_parameter.editable_param.set_value = params[param];
+          console.log( editable_parameter.editable_param.set_value);
           editable_parameters.push(editable_parameter);
           break;
         }
@@ -335,9 +335,37 @@ export class JobDetailComponent {
     }
     // 更新变量
     this.editable_parameters = editable_parameters;
+    console.log( this.editable_parameters);
 
     // 改变右侧显示的内容--显示plugin
     this.rightBox_node = 0;
+  }
+  matchParams(){
+    let params: any = this.findPluginById(this.chosenPluginId).train_params;
+    for (var key in params){
+      for (let dict of this.editable_params){
+        if (key == dict.path){
+          params[key] = dict.editable_param.set_value;
+          console.log(params[key]);
+        }
+      }
+    }
+    this.findPluginById(this.chosenPluginId).train_params = params;
+    console.log(params);
+  }
+
+  save(){
+    $('#saveBtn').click();
+    this.matchParams();
+    let json = $('#plugin_storage').val();
+    this.pluginArr[0].model = JSON.parse(json);
+    this.pluginArr[0].train_params = this.findPluginById(this.chosenPluginId).train_params;
+    this.pluginService.savePlugin(this.pluginArr[0])
+      .subscribe(msg => this.forkResult(msg));
+  }
+  nodeClicked(){
+    // 改变右侧显示的内容--显示node
+    this.rightBox_node = 1;
   }
   findPluginById(id:string){
     for (let plugin of this.pluginArr){
@@ -356,7 +384,7 @@ export class JobDetailComponent {
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
 
-        console.log(this.jobResult)
+        console.log(this.jobResult);
         // debugger
         // this.update(jobParam);
         this.AmCharts.updateChart(this.lossChart, () => {
@@ -442,14 +470,7 @@ export class JobDetailComponent {
       });
   }
 
-  save(){
-    $('#saveBtn').click();
-    let json = $('#plugin_storage').val();
-    this.pluginArr[0].model = JSON.parse(json);
-    // if(this.plugin.creator!="general"){
-    this.pluginService.savePlugin(this.pluginArr[0])
-      .subscribe(msg => this.forkResult(msg));
-  }
+
   forkResult(response){
     if(response.status==200){
       console.log("saved!");
@@ -460,5 +481,42 @@ export class JobDetailComponent {
   goModel(){
     this.router.navigate(['/model'],{queryParams: {'job_id': this.job.id }})
   }
-
+  set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
+    if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
+      alert('输入必须为数值!');
+    }else{
+      parameter.set_value[i1][j1] = Number(value);
+    }
+  }
+  setValue(parameter: Parameter,value: string){
+    if (parameter.type=='string'){
+      parameter.set_value = value;
+    }else if(parameter.type=='boolean'){
+      // 当作string
+      parameter.set_value = value;
+    }else if(parameter.type=='int'||parameter.type=='float'){
+      if (Number(value)+""==NaN+""){
+        alert('输入必须为数值!');
+      }else{
+        let condition: number = 1;
+        if(parameter.has_min){
+          if(+value<parameter.min_value){
+            condition = -1;
+            alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+          }
+        }
+        if(parameter.has_max){
+          if(+value>parameter.max_value){
+            condition = -2;
+            alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
+          }
+        }
+        if(condition==1){
+          parameter.set_value = +value;
+        }else{
+          parameter.set_value = parameter.default_value;
+        }
+      }
+    }
+  }
 }

@@ -86,7 +86,6 @@ export class AlgpluginDetailComponent {
             }
         }
         this.plugin.train_params = params;
-        // console.log(this.plugin.train_params);
     }
     fork(){
         this.matchParams();

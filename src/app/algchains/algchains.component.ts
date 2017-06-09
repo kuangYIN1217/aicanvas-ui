@@ -241,7 +241,7 @@ export class AlgChainsComponent{
       this.rightNodeIndex = 1;
       this.ifEdit = 1;
       this.flag="false";
-     $("#property").find("input").attr("readOnly","false");
+     //$("#property").find("input").attr("readOnly","false");
       //document.getElementById("property").getElementsByTagName("input")[0].setAttribute("readonly", "");
 
   }
