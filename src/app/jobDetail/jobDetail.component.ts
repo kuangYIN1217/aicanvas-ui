@@ -264,12 +264,12 @@ export class JobDetailComponent {
     }else{
       this.statusIndex = 1;
     }
-    console.log(chainId);
+    //console.log(chainId);
     this.algchainService.getChainById(chainId)
       .subscribe(plugin=>{
         this.pluginArr=plugin;
          //console.log(this.pluginArr[0]);
-        console.log(this.pluginArr[0].id);
+        //console.log(this.pluginArr[0].id);
         this.changeChosenPlugin(this.pluginArr[0].id);
       });
   }
@@ -321,13 +321,13 @@ export class JobDetailComponent {
   pluginClicked(){
     let editable_parameters: Editable_param[] = [];
     let params: any = this.findPluginById(this.chosenPluginId).train_params;
-     console.log(params);
+     //console.log(params);
     for(var param in params){
       // console.log(param);
       for (let editable_parameter of this.editable_params){
         if (editable_parameter.path == param){
           editable_parameter.editable_param.set_value = params[param];
-          console.log( editable_parameter.editable_param.set_value);
+          //console.log( editable_parameter.editable_param.set_value);
           editable_parameters.push(editable_parameter);
           break;
         }
@@ -335,7 +335,7 @@ export class JobDetailComponent {
     }
     // 更新变量
     this.editable_parameters = editable_parameters;
-    console.log( this.editable_parameters);
+    //console.log( this.editable_parameters);
 
     // 改变右侧显示的内容--显示plugin
     this.rightBox_node = 0;
@@ -351,7 +351,7 @@ export class JobDetailComponent {
       }
     }
     this.findPluginById(this.chosenPluginId).train_params = params;
-    console.log(params);
+    //console.log(params);
   }
 
   save(){

@@ -12,7 +12,7 @@ a{
 }
 .tabs{
   position: relative;
-  height: 50px;
+  height: 39px;
   width:96%;
   background-color: #ffffff;
   margin-top: 20px;
@@ -27,24 +27,24 @@ a{
   margin-right: 20px;
   margin-left: 4px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
   color: #333333;
-  height:50px;
-  line-height: 50px;
+  height:39px;
+  line-height: 39px;
   cursor: pointer;
 }
 .tabs .tab_btn{
   float: right;
   background: #ff7c35;
   color: #fff;
-  height:30px;
-  width:114px;
-  line-height: 30px;
+  height:26px;
+  width:108px;
+  line-height: 26px;
   border-radius: 4px;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 .focus{
   color: #ff7c35;
@@ -81,7 +81,6 @@ a{
   height: 100%;
   float: left;
   background-color: #ffffff;
-  border-left: 1px solid #e8e8e8;
 }
 .alg_choose_descrip{
   color: #333333;
@@ -145,14 +144,7 @@ a{
     height: 1000px;
     float: left;
 }
-.chains{
-  overflow: auto;
-  width: 20%;
-  height: 100%;
-  float: left;
-  background-color: #ffffff;
-  border-left: 1px solid #e8e8e8;
-}
+
 .content2{
     width: 930px;
 }

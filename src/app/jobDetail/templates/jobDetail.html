@@ -10,21 +10,16 @@
                 <span>任务名称:&nbsp;&nbsp;{{job?.jobName}}</span>
                 <span>场景名称:&nbsp;&nbsp;{{job?.sencesName==null?'未设置':job.sencesName}}</span>
                 <span>创建时间:&nbsp;&nbsp;{{job?.createTime==null?'未设置':job.createTime}}</span>
-
               <div *ngIf="job?.status=='未启动'">
                 <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">开始运行</a>
-
               </div>
               <a href="#" class="back" routerLink="/jobcreation"  [style.display]="lookIt==1?'none':''">返回</a>
-
-
             </div>
             <div class="detailLine">
                 <span>创建者:&nbsp;&nbsp;{{job?.user?.login}}</span>
               <span>状态:&nbsp;&nbsp;{{job?.status==null?'未设置':job.status}}</span>
               <a class="back  space1"  (click)="save()"   [style.display]="lookIt==1?'':'none'">保存</a>
               <a class="back space" routerLink="/jobcreationDetail/{{job?.jobPath}}" (click)="goback()"   [style.display]="lookIt==1?'':'none'">返回</a>
-
               <div *ngIf="job?.status=='停止'||job?.status=='完成'" [style.display]="lookIt==1?'none':''">
                 <a href="#" class="button" onclick="return false" >重置</a>
                 <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
@@ -146,7 +141,7 @@
                          class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
                   <input  *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&statusIndex==1" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
                           class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
-                  <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='enums'&&statusIndex==0" class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value" (ngModelChange)="editable_parameter.editable_param.set_value=$event.target.value;">
+                  <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='enums'&&statusIndex==0" class="select" name="data_select"  [(ngModel)]="editable_parameter.editable_param.set_value" (ngModelChange)="editable_parameter.editable_param.set_value=$event.target.value;">
                     <option *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
                   </select>
                   <select enabled="enabled" *ngIf="editable_parameter.editable_param.type=='enums'&&statusIndex==1" class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value" (ngModelChange)="editable_parameter.editable_param.set_value=$event.target.value;">

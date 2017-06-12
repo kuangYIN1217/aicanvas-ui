@@ -6,11 +6,11 @@
   border: solid 1px #d3d3d3;
 }
 .table th{
-  height: 40px;
+  height: 36px;
   background: #ffffff;
   padding-left: 20px;
   font-size: 16px;
-  line-height: 40px;
+  line-height: 36px;
   color: #333333;
   text-align: left;
   font-weight: normal;
@@ -18,7 +18,7 @@
 .table tr{
   text-align: left;
   background: #eeeeee;
-  height:40px;
+  height:36px;
   font-size:14px;
   font-family: "MicrosoftYaHei";
   border-bottom:1px solid #d3d3d3;
@@ -26,16 +26,21 @@
 }
 
 .table th {
-  height: 40px;
+  height: 36px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 16px;
-  line-height: 40px;
+  font-size: 14px;
+  line-height: 36px;
   color: #333333;
   text-align: left;
   font-weight: normal;
 }
-
+select:focus{
+  border:1px solid #23a880;
+}
+select{
+  outline: none;
+}
 .table tr {
   text-align: left;
   background: #eeeeee;
@@ -212,7 +217,7 @@
   right:4%;
 }
 .alg_back a{
-  width:114px;
+  width:110px;
   font-size:14px;
   line-height: 30px;
   height:30px;

@@ -3,12 +3,12 @@
         <div class="tabs">
           <div class="tab_search">
             <!-- if too slow for each search, should change to (change) according to the num of data -->
-            <input id="search_input" type="text" [(ngModel)]="jobName" name="" value="" placeholder="&nbsp;&nbsp;任务名称" />
+            <input id="search_input" type="text" [(ngModel)]="jobName" name="" value="" placeholder="&nbsp;&nbsp;任务名称"/>
             <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon">
           </div>
             <div class="tab_item sm_tab_item" (click)="CSV()"> <a href="#" class="back">导入</a>
              </div>
-            <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
+            <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back" style="margin-right: 10px"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
         </div>
         <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
             <taskStatus [statuss]="statuss" [jobName]="jobName"></taskStatus>
@@ -21,7 +21,7 @@
         <div>
           <div class="row">
             <div class="row_tr">
-              <span class="span" style="width: 100px">任务名称</span>
+              <span class="span" style="line-height: 28px">任务名称</span>
               <div >
             <input type="text" [(ngModel)]="jobName" name="" value=""class="input">
               </div>
@@ -30,7 +30,7 @@
           </div>
           <div class="row">
             <div class="row_tr">
-              <span class="span" style="width: 100px">场景选择</span>
+              <span class="span" >场景选择</span>
               <div class="row_select">
               <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">
 
@@ -38,8 +38,8 @@
               </select>
               </div>
             </div>
-            <div class="row_tr" >
-              <span class="span" >算法链选择</span>
+            <div class="row_tr" style=" margin-left: 200px">
+              <span class="span" style="width:160px;" >算法链选择</span>
               <div>
               <select class="select" name="scene_select" [(ngModel)]="firstSceneId">
                 <option  selected>--请选择--</option>
@@ -52,7 +52,7 @@
           <div class="row">
 
             <div class="row_tr">
-              <span class="span" style="width:100px">数据集：</span>
+              <span class="span">数据集</span>
               <div>
               <select class="select" name="scene_select" >
                 <option >数据集1</option>
@@ -64,15 +64,15 @@
             </div>
 
           <div class="small_select" >
-            <span  class="span">训练 / 测试 /验证集比例：</span>
+            <span  class="span" style="width: 160px" >训练 / 测试 /验证集比例</span>
             <div>
               <select class="select" name="scene_select">
                 <option>33%</option>
               </select>
-              <select class="select" name="scene_select">
+              <select class="select s2" name="scene_select">
                 <option>33%</option>
               </select>
-              <select class="select" name="scene_select">
+              <select class="select s3" name="scene_select">
                 <option>33%</option>
               </select>
             </div>
@@ -86,12 +86,12 @@
 
           <div class="row">
             <div style="display: flex" class="row_tr">
-              <span class="span" style="width: 100px">所选记录数：</span>
-              <span class="span">7000</span>
+              <span class="span" >所选记录数</span>
+              <span class="span" style="text-align: left; margin-right: 170px">7000</span>
             </div>
             <div class="row_tr">
-              <span class="span">载入内存方式：</span>
-              <select class="big_select" name="scene_select" >
+              <span class="span"  style="width: 86px;">载入内存方式</span>
+              <select class="big_select" name="scene_select" style=" margin-left: 110px">
                 <option >分批加载</option>
                 <option >一次性加载</option>
               </select>
@@ -158,7 +158,7 @@
         </div>
 
           <i>
-            <a href="#" onclick="return false" (click)="nextStep()" class="back createBtn">创建</a>
+            <a href="#" onclick="return false" (click)="nextStep()" class="back createBtn btnLeft">创建</a>
             <a href="#" onclick="return false" (click)="goHistory()" class="back createBtn" style="margin-left: 0">返回</a>
           </i>
 

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .tabs{
   position: relative;
-  height: 50px;
+  height: 41px;
   width:100%;
   background-color: #ffffff;
   margin-top: 20px;
@@ -16,23 +16,23 @@
   margin-right: 4%;
   margin-left: 4px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
   color: #333333;
-  height:50px;
-  line-height: 50px;
+  height:39px;
+  line-height: 39px;
   cursor: pointer;
 }
 .tabs .tab_btn{
   float: right;
   background: #ff7c35;
   color: #fff;
-  height:30px;
-  line-height: 30px;
+  height:26px;
+  line-height:26px;
   border-radius: 4px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 .focus{
   color: #ff7c35;
@@ -60,11 +60,11 @@
   border: solid 1px #d3d3d3;
 }
 .table th{
-  height: 4.63vh;
+  height: 36px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 16px;
-  line-height: 50px;
+  font-size: 14px;
+  line-height: 36px;
   color: #333333;
   text-align: left;
   font-weight: normal;
@@ -72,31 +72,10 @@
 .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 4.63vh;
+  height: 36px;
   font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-bottom:1px solid #d3d3d3;
-  color: #666666;
-}
-
-.table th {
-  height: 4.63vh;
-  background: #ffffff;
-  padding-left: 20px;
-  font-size: 16px;
-  line-height: 50px;
-  color: #333333;
-  text-align: left;
-  font-weight: normal;
-}
-
-.table tr {
-  text-align: left;
-  background: #eeeeee;
-  height: 4.63vh;
-  font-size: 14px;
-  font-family: "MicrosoftYaHei";
-  border-top: 1px solid #d3d3d3;
   color: #666666;
 }
 

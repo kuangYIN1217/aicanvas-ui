@@ -13,9 +13,13 @@
   border-radius: 5px;
   width: 294px;
   border: 1px solid #d3d3d3;
-  font-size: 0.7vw;
+  font-size: 14px;
   text-indent: 10px;
   color: #666;
+  outline: none;
+}
+select:focus{
+  border:1px solid #23a880;
 }
 
 .selectContainer img {
@@ -79,20 +83,20 @@
 .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 40px;
-  line-height: 40px;
-  font-size: 16px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-top:1px solid #d3d3d3;
   color: #666666;
 }
 
 .table th {
-  height: 40px;
+  height: 36px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 16px;
-  line-height: 40px;
+  font-size: 14px;
+  line-height: 36px;
   color: #333333;
   text-align: left;
   font-weight: normal;

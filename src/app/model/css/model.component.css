@@ -16,7 +16,7 @@
 .nav .row .text{
   width:15vw;
   color: #333333;
-  font-size: 1rem;
+  font-size: 14px;
   font-family: MicrosoftYaHei;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .row h1{
-  font-size: 18px;
+  font-size: 16px;
   color: #ff7c35;
   font-family: MicrosoftYaHei;
 }
@@ -85,7 +85,7 @@
 
 .new_model table tr td{
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 50px;
 }
 

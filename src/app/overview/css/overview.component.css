@@ -2,10 +2,10 @@
 /*framework*/
 .tabs{
   position: relative;
-  height: 53px;
+  height: 42px;
   width:96%;
   background-color: #ffffff;
-  margin-top: 20px;
+  margin-top:20px;
   margin-bottom: 0px;
   border: 0px;
   left:30px;
@@ -16,13 +16,13 @@
   float: left;
   margin-right: 4%;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
   color: #333333;
-  height:50px;
-  line-height: 50px;
+  height:39px;
+  line-height: 39px;
   cursor: pointer;
 
 }
@@ -34,7 +34,7 @@
 .status{
   /*background-color: #ffffff;*/
   margin-left: 30px;
-  margin-top: 30px;
+  margin-top: 20px;
   border-radius: 5px;
   min-height: 500px;
   width: 96%;
@@ -49,11 +49,11 @@
   border-collapse: collapse;
 }
 .table th{
-  height: 40px;
+  height: 36px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 16px;
-  line-height:40px;
+  font-size: 14px;
+  line-height:36px;
   color: #333333;
   text-align: left;
   font-weight: normal;
@@ -61,7 +61,7 @@
 .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 40px;
+  height: 36px;
   font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-top:1px solid #d3d3d3;
@@ -100,7 +100,7 @@
   width: 1700px;
   font-family: "Microsoft YaHei";
   color: #ffffff;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   width:100%;
 
 }
@@ -109,13 +109,15 @@ h4{
 }
 .resourceTypeTitle{
   position: relative;
-  padding:14px 0 12px 2%;
+  padding:12px 0 10px 2%;
   text-align: left;
   font-family: "Microsoft YaHei";
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
 }
 .resourceTypeTitle img{
+  width:20px;
+  height:20px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -125,7 +127,7 @@ h4{
   margin-left: 14px;
 }
 .cpu{
-    height: 46vh;
+    height: 42vh;
     background: #ffffff;
     border-radius: 5px;
 }
@@ -145,13 +147,14 @@ h4{
   margin-top:15px;
 
 }*/
+
 .checkStatus{
   position:absolute;
-  top:14px;
+  top:11px;
   right:0;
   margin-right: 2.5%;
   color: #ff7c35;
-  font-size:16px;
+  font-size:14px;
 }
 .linechart{
     position: relative;
@@ -159,7 +162,7 @@ h4{
     /*box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: left;
     width: 46.5%;
-    height: 38vh;
+    height: 35vh;
     border-radius: 10px;
     margin-left: 2%;
     border:2px solid #dcdcdc;
@@ -170,7 +173,7 @@ h4{
    /* box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: left;
     width: 46.5%;
-    height: 38vh;
+    height: 35vh;
     border-radius: 10px;
     margin-left: 2%;
     border:2px solid #dcdcdc;
@@ -180,9 +183,9 @@ h4{
   font-family: "Microsoft YaHei";
   color: #333333;
   font-weight: normal;
-  font-size: 16px;
-  margin-top: 25px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   text-align: center;
 }
 .occupancyRate p,.chart p,.usageRateFluctuate p{
@@ -338,7 +341,7 @@ h4{
 .disk{
   background: #eeeeee;
   padding-bottom: 12px;
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   margin-top: -12px;
 }
@@ -380,18 +383,22 @@ margin-left: 10px;
 }
 .select{
   position: absolute;
-  height:36px;
+  height:34px;
   border-radius: 5px;
   width:294px;
   border: 1px solid #d3d3d3;
   font-size:14px;
   text-indent: 10px;
-  color: #666;
+  color: #999;
   background: url("../../../assets/taskStatus/select.png") no-repeat;
   background-position: right;
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;
+  outline: none;
+}
+select:focus{
+  border:1px solid #23a880;
 }
 /*.selectContainer img{
   position: absolute;

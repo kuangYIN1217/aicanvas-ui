@@ -1,6 +1,8 @@
 @charset "UTF-8";
 select {
   outline: none;
+  border:1px solid #d3d3d3;
+  border-radius: 4px;
 }
 
 /*manage table*/
@@ -49,20 +51,31 @@ select {
 #search_input {
   display: inline;
   width: 98%;
-  height: 36px;
+  height: 30px;
   border-radius: 5px;
   border: solid 1px #d3d3d3;
   float: left;
   font-family: "MicrosoftYaHei";
   font-size: 14px;
-  color: #666666;
+  color: #999999 !important;
   outline: none;
   padding-left: 10px;
 }
-
+input::-webkit-input-placeholder { /* WebKit browsers */
+  color:    #999;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    #999;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    #999;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:    #999;
+}
 .searchicon {
   display: inline;
-  margin-top: -30px;
+  margin-top: -26px;
   margin-right: 8px;
   width: 17px;
   height: 18px;
@@ -412,7 +425,8 @@ select {
 
 .big_select{
   width: 280px;
-  height: 36px;
+  height: 34px;
+  text-indent: 6px;
 }
 
 .dataset{
@@ -421,53 +435,75 @@ select {
 
 
 .dataset h1{
-  font-size: 18px;
+  font-size: 16px;
   color: #ff7c35;
   margin-top: 25px;
-  margin-left: 30px;
+  margin-left: 39px;
 
 }
 
 .dataset table{
-  margin:40px 30px;
+  margin:0px 30px;
 }
 
 .dataset .th{
-  width: 100px;
-  font-size: 16px;
+  width: 70px;
+  font-size: 14px;
   color:#333333;
+  text-align: right;
+  padding-right: 20px;
 }
 
 .dataset table tr{
-  height: 60px;
+  height: 50px;
 }
 .input {
 
-  width: 490px;
-  height: 36px;
+  width: 198px;
+  height: 26px;
 
+
+}
+input{
+  border:1px solid #d3d3d3;
+  border-radius: 4px;
+}
+input:focus{
+  border:1px solid #23a880 !important;
 }
 .dataset .input input{
   width: 490px;
-  height: 36px;
+  height: 26px;
 }
-
+.dataset .input input:focus{
+  border:1px solid #23a880;
+}
 .dataset .input select{
   width: 490px;
   height: 36px;
+  margin-top: -18px;
+  text-indent: 6px;
 }
 
 .row .select {
   width: 200px;
-  height: 36px;
+  height: 32px;
+  text-indent: 6px;
 }
-
+.small_select{
+  margin-left: 200px;
+}
 .small_select select{
-  margin-left: 20px;
+  margin-left: 10px;
   width: 80px !important;
-  height: 36px !important;;
+  height: 32px !important;;
 }
-
+.small_select .s2{
+  margin-left: 90px;
+}
+.small_select .s3{
+  margin-left: 180px;
+}
 .small_select select:first-child{
   margin-left: 0px;
 }
@@ -481,7 +517,7 @@ select {
 .fenge{
   margin: 30px 30px;
   line-height: 1px;
-  border: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
   text-align: center;
 }
 .small_select{
@@ -490,11 +526,25 @@ select {
  .span{
   display: block;
   font-family: MicrosoftYaHei;
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
-  width: 200px;
-  line-height: 36px;
+  width: 100px;
+   text-align: right;
+   margin-right: 20px;
+  line-height: 34px;
 }
+select{
+  position: absolute;
+  background: url("../../../assets/jobcreation/rightArrow.png") no-repeat right 6px center;
+
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  outline: none;
+}
+ .btnLeft{
+   margin-left: 126px !important;
+ }
 .row_select{
 }
 .row_tr{
@@ -540,7 +590,7 @@ select {
   height: 100%;
   line-height: 2vw;
   text-align: left;
-  font-size: 1.3vw;
+  font-size: 16px;
   float: left;
   margin-right: 1vw;
 }
@@ -813,14 +863,19 @@ select {
   width: 97%;
   color: #333333;
   font-size: 16px;
-  margin-top: 40px;
-  padding-left: 30px;
+  margin-top: 20px;
   line-height: 20px;
 
 }
 
 .row:last-child{
   margin-top: 30px;
+}
+select:focus{
+  border:1px solid #23a880;
+}
+select{
+  outline: none;
 }
 @media (min-width:1200px) and (max-width:1440px) {
   .tab_item{

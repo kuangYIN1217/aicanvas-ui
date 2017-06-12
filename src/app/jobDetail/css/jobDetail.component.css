@@ -20,7 +20,7 @@
 }
 .tabs{
   position: relative;
-  height: 60px;
+  height:39px;
   background-color: #131314;
   margin-bottom: 0px;
   border: 0px;
@@ -37,7 +37,7 @@
     float: left;
     text-align: center;
     line-height: 40px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     font-family: "MicrosoftYaHei";
     color: #5e5e5f;
@@ -79,7 +79,7 @@
 }
 .detailLine span{
     font-family: "MicrosoftYaHei";
-    font-size: 16px;
+    font-size: 14px;
     color:#333333;
     width: 25%;
     float: left;
@@ -109,7 +109,7 @@
     position: relative;
     top: 10px;
     font-family: "MicrosoftYaHei";
-    font-size: 16px;
+    font-size: 14px;
     color: #666666;
     margin-left: 25px;
     min-height: 22px;
@@ -118,7 +118,7 @@
     position: relative;
     top: 10px;
     font-family: "MicrosoftYaHei";
-    font-size: 19px;
+    font-size: 16px;
     color: #b3b3b3;
     margin-left: 25px;
 }
@@ -130,12 +130,12 @@
 }
 .lossLine .lossCard .chart .axisLabel{
     font-family: "MicrosoftYaHei";
-    font-size: 16px;
+    font-size: 14px;
     color: #666666;
 
 }
 .lossLine .lossCard .chart .axis{
-    font-size: 16px;
+    font-size: 14px;
     color: #e1e1e1;
 }
 .log{
@@ -160,7 +160,7 @@
   font-family: "MicrosoftYaHei";
   margin-left: 63px;
   margin-top: 15px;
-  font-size: 16px;
+  font-size: 14px;
   color:#333333;
 }
 
@@ -203,7 +203,7 @@
 }
 
 .propertyCard .cardInline_value{
-  font-size: 36px;
+  font-size: 32px;
   color: #333333;
   text-align: center;
   line-height: 120px;
@@ -213,16 +213,16 @@
 .tab{
   width:97%;
   background-color: #fff;
-  height: 50px;
+  height: 39px;
   margin: 30px;
-  line-height: 50px;
+  line-height:39px;
   display: flex;
 }
 
 .tab a{
   text-decoration: none;
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   margin-left: 30px;
   margin-right: 52px;
   font-family: MicrosoftYaHei;

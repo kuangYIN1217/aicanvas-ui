@@ -4,7 +4,7 @@
   overflow: hidden;
   margin: 30px;
   color: #333333;
-  font-size: 16px;
+  font-size:14px;
 }
 
 .nav{
@@ -35,7 +35,8 @@
 
 .nav select{
   width: 275px;
-  height: 36px;
+  height: 34px;
+  margin-left: 6px;
 }
 
 .table_section{

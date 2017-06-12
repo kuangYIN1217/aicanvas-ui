@@ -2,7 +2,7 @@
 /*framework*/
 .tabs{
   position: relative;
-  height: 50px;
+  height: 41px;
   width:100%;
   background-color: #ffffff;
   margin-top: 20px;
@@ -16,13 +16,13 @@
   margin-right: 4%;
   margin-left: 4px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   width:104px;
   font-family: "MicrosoftYaHei";
   color: #333333;
-  height:50px;
-  line-height: 50px;
+  height:39px;
+  line-height: 39px;
   cursor: pointer;
 
 }
@@ -49,11 +49,11 @@
   border: solid 1px #d3d3d3;
 }
 .table th{
-  height: 4.63vh;
+  height: 36px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 16px;
-  line-height: 50px;
+  font-size: 14px;
+  line-height: 36px;
   color: #333333;
   text-align: left;
   font-weight: normal;
@@ -61,7 +61,7 @@
 .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 4.63vh;
+  height: 36px;
   font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-bottom:1px solid #d3d3d3;
@@ -69,11 +69,11 @@
 }
 
 .table th {
-  height: 4.63vh;
+  height: 36px;
   background: #ffffff;
   padding-left: 20px;
-  font-size: 16px;
-  line-height: 50px;
+  font-size: 14px;
+  line-height: 36px;
   color: #333333;
   text-align: left;
   font-weight: normal;

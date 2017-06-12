@@ -1,6 +1,6 @@
 .tabs{
     position: relative;
-    height: 53px;
+    height: 42px;
     background-color: #ffffff;
     top:20px;
     border: 0px;
@@ -9,9 +9,9 @@
 .tab_item{
     position:absolute;
     width: 100px;
-    height: 50px;
-    line-height:50px;
-    font-size: 16px;
+    height: 39px;
+    line-height:39px;
+    font-size: 14px;
     font-weight: normal;
     font-family: "MicrosoftYaHei";
     color: #ff7c35;
@@ -52,11 +52,11 @@
 }
 .scene{
     position: relative;
-    margin-bottom: 46px;
+    margin-bottom: 30px;
     float: left;
     width: 46%;
     background: #f2f2f2;
-    height: 38.4vh;
+    height: 39.5vh;
     border-radius: 5px;
     margin-right: 35px;
 
@@ -90,21 +90,21 @@
 .scene .title{
     font-family: "MicrosoftYaHei";
     color: #333333;
-    font-size: 16px;
+    font-size: 14px;
    height:16px;
    line-height: 16px;
    float: left;
     display: inline-block;
     border-left: 3px solid #ff7c35;
-    margin: 15px 0 15px 30px;
+    margin: 12px 0 12px 30px;
     padding-left: 6px;
 }
 .scene .detail{
   float: right;
   display: table-cell;
-  font-size: 14px;
+  font-size: 11px;
   color: #ff7c35;
-  margin: 15px 0 15px 30px;
+  margin: 12px -6px 12px 30px;
   padding-right: 1.77vw;
   cursor: pointer;
 }
@@ -123,7 +123,7 @@
   background: #ffffff;
   color: #666666;
   border-radius: 0 0 10px 10px;
-  height:34.5vh;
+  height:35.2vh;
 }
 .scene .descrip{
     width: 46%;
@@ -159,7 +159,7 @@
 
 }
 .scene .modelPreview p,.scene .descrip .descriptScene{
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     margin-top: 2.8vh;
     margin-bottom: 4.2vh;
@@ -172,7 +172,7 @@
     border: 2px solid #23a880;
     border-radius: 5px;
     width:7.4vw;
-    font-size: 14px;
+    font-size: 12px;
     height: 4.2vh;
     line-height: 4.2vh;
     text-align: center;
@@ -210,18 +210,18 @@
 }
 .recommend_h4{
   padding-top: 41px;
-  padding-bottom: 18px;
+  padding-bottom: 14px;
   background-color: #eeeeee;
   margin-bottom: 0px;
 }
 .recommend h4{
-    font-size: 16px;
+    font-size: 14px;
     color: #333333;
   font-weight: normal;
 }
 .recommend .recommendScene{
     position: relative;
-    height: 33vh;
+    height: 31vh;
     border-radius: 5px;
     border-bottom: 1px solid #e8e8e8;
     background-color: #ffffff;
@@ -231,10 +231,10 @@
 .recommendScene h4{
     font-family: "MicrosoftYaHei";
     color: #666666;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     font-weight: normal;
-    padding: 26px 0 24px;
+    padding: 18px 0 20px;
     margin: 0;
 }
 .recommendScene .descrip{
@@ -247,7 +247,7 @@
     height: 15vh;
     font-family: "MicrosoftYaHei";
     color: #666666;
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing:2px;
     width:100%;
 
@@ -255,15 +255,15 @@
 }
 .recommendScene .descrip a{
     text-decoration: none;
-  font-size: 14px;
+  font-size: 12px;
   color: #666666;
   width:5.7vw;
   text-align: center;
   border-radius: 5px;
   border:1px solid #ff7c35;
   display: block;
-  height:3.3vh;
-  line-height: 3.3vh;
+  height:3vh;
+  line-height: 3vh;
   float: right;
   margin-right: 3%;
   letter-spacing: 2px;
@@ -587,7 +587,7 @@
     background: #ffffff;
    /* border: 0px;*/
     border: 1px solid #333333;
-    height: 30px;
+    height: 26px;
     width: 90%;
     color: #333333;
     outline-style: none;
