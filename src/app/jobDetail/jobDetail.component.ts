@@ -397,7 +397,6 @@ export class JobDetailComponent {
         }
       });
   }
-
   updatePage(jobPath, index) {
 
     this.jobService.getUnrunningJob(jobPath )
