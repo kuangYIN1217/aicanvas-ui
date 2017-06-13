@@ -1,5 +1,32 @@
 @charset "UTF-8";
-
+.job-detail-plugins {
+  margin: 20px 30px 20px 30px;
+  box-sizing: border-box;
+}
+.job-detail-plugins .plugin-item {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+.job-detail-plugins .plugin-item.disabled {
+  cursor: not-allowed;
+}
+.job-detail-plugins .plugin-item label {
+  position: absolute;
+  top: 6px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+.job-detail-plugins .plugin-item.disabled label {
+  cursor: not-allowed;
+}
+.job-detail-plugins .plugin-item .plugin-index {
+  left: 10px;
+}
+.job-detail-plugins .plugin-item .plugin-des {
+  left: 42px;
+}
 .bg{
   background-color: #eeeeee;
 }
@@ -9,7 +36,7 @@
   width:97%;;
   background-color: #fff;
   height:25%;
-  margin:30px;
+  margin:30px 30px 20px 30px;
 
 }
 .span_not_val{

@@ -24,13 +24,13 @@
                 <a href="#" class="button" onclick="return false" >重置</a>
                 <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
                 <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
-                <a href="#" class="button" onclick="return false" >下载训练日志</a>
+                <a href="#" class="button" onclick="return false" (click)="downloadLog()">下载训练日志</a>
               </div>
             <div *ngIf="job?.status=='运行'"  [style.display]="lookIt==1?'none':''">
               <a href="#" class="button" onclick="return false" >重置</a>
               <a href="#" class="button" onclick="return false" (click)="stop(job?.jobPath)">停止</a>
               <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
-              <a href="#" class="button" onclick="return false" >下载训练日志</a>
+              <a href="#" class="button" onclick="return false"  (click)="downloadLog()" >下载训练日志</a>
             </div>
             </div>
           </div>
@@ -41,6 +41,15 @@
           <button hidden onclick="init()" id="hideBtn" >Init</button>
           <button hidden onclick="load()" id="loadBtn" >Hide</button>
           <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
+          <!-- 选项卡 -->
+          <div *ngIf="chainInfo.length > 1" class="job-detail-plugins">
+            <div (click) = "pluginClick(plugin , i)" [ngClass]="{'disabled': runningPluginIndex < i}" class="plugin-item" *ngFor="let plugin of chainInfo; let i = index">
+              <label class="plugin-index">{{i + 1}}</label>
+              <img *ngIf="plugin.id == runningPluginId" src="../../../assets/jobdetail/item_active.png" alt="">
+              <img *ngIf="plugin.id != runningPluginId" src="../../../assets/jobdetail/item.png" alt="">
+              <label class="plugin-des">{{plugin_step_en[i]}}</label>
+            </div>
+          </div>
           <div class="tab" *ngIf="job?.status=='运行'" [style.display]="changeIndex==0?'':'none'">
             <a href="#" onclick="return false" class="current_tab">训练结果</a>
             <a href="#" onclick="return false">资源详情</a>

@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Location} from "@angular/common";
 import {JobService} from "../common/services/job.service";
-import {JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resources";
+import {ChainInfo, JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resources";
 import {AmChartsService} from "amcharts3-angular2";
 import {Router} from "@angular/router";
 import {AlgChainService} from "../common/services/algChain.service";
@@ -9,7 +9,8 @@ import {Editable_param, Parameter} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-
+import {SERVER_URL} from "../app.constants";
+import {addWarningToast} from '../common/ts/toast';
 declare var $: any;
 declare var unescape: any;
 @Component({
@@ -48,6 +49,12 @@ export class JobDetailComponent {
   editable_params: Editable_param[] = [];
   editable_parameters: Editable_param[] = [];
   log_list = [];
+  // 算法链信息
+  chainInfo = [];
+  // 当前正在运行的plugin
+  runningPluginId = null;
+  runningPluginIndex = -1;
+  plugin_step_en: Array<string> = ['第一步' , '第二步' , '第三步', '第四步', '第五步', '第六步', '第七步', '第八步', '第九步', '第十步'];
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -76,28 +83,23 @@ export class JobDetailComponent {
           if(jobDetail){
             this.job = jobDetail;
             this.user = this.job.user;
-            if (this.job.status == "运行") {
-              // console.log("Running");
-              this.jobService.resetLog(jobPath).subscribe(data=>{
-                this.updatePage(jobPath, this.index);
-                this.interval = setInterval(() => {
-                  this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-                    this.job = jobDetail;
-                    this.user = this.job.user;
-                  });
-                }, 1000);
-              });
-
-            } else {
-              // console.log("not Running");
-              this.not_running_show(jobPath);
-            }
+            // 处理jobDetail
+            this.resolveJobDetail(jobDetail , jobPath);
           }
 
         });
       }
     }
+  }
 
+
+  downloadLog(){
+    // this.jobService.downloadLog(this.job.jobPath).subscribe((data)=>{
+    let path = "/api/log?jobPath=" + this.job.jobPath;
+    let url =  SERVER_URL + path
+        // window.open(url);
+        location.href= url;
+    // });
   }
 
 // alert 提示
@@ -114,12 +116,80 @@ export class JobDetailComponent {
       },
       onRemove: function(toast:ToastData) {
       }
-    };
-
-    // Add see all possible types in one shot
-
-    this.toastyService[flag](toastOptions);
+    }
   }
+  /**
+   * 解析jobDetail
+   */
+  resolveJobDetail (jobDetail , jobPath) {
+    this.algchainService.getChainById(jobDetail.chainId).subscribe(chainInfo => {
+      console.log('init');
+      this.chainInfo = chainInfo;
+      switch (jobDetail.status) {
+        case '完成':
+          this.initNotRun(this.chainInfo.length - 1 , this.chainInfo[0].id , jobPath);
+          break;
+        case '未启动':
+          this.initNotRun(-1 , null , jobPath);
+          break;
+        case '运行':
+          this.initWithRun(jobPath);
+          break;
+        case '停止':
+          // todo 停止状态下初始化
+          break;
+      }
+    })
+  }
+
+  /**
+   * 非运行状态初始化
+   */
+  initNotRun(runningPluginIndex , runningPluginId , jobPath) {
+    this.setRunningInfo (runningPluginIndex , runningPluginId);
+    this.not_running_show(jobPath);
+  }
+
+  setRunningInfo (runningPluginIndex , runningPluginId) {
+    this.runningPluginIndex = runningPluginIndex;
+    this.runningPluginId = runningPluginId;
+  }
+  /**
+   * 运行状态下初始化
+   */
+  initWithRun(jobPath) {
+    this.jobService.resetLog(jobPath).subscribe(data=>{
+      this.updatePage(jobPath, this.index);
+      this.interval = setInterval(() => {
+        this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+          this.job = jobDetail;
+          this.user = this.job.user;
+        });
+      }, 1000);
+    });
+  }
+  /**
+   * plugin点击切换事件
+   */
+  pluginClick (plugin , index) {
+    console.log(plugin)
+    if (plugin.id == this.runningPluginId) {
+      // 当前选中plugin点击无效
+      console.log('click own -> return')
+      return;
+    } else if (this.runningPluginIndex < index) {
+      // 禁止未运行的plugin
+      console.log('click disabled -> return')
+      return;
+    } else if(true) {
+      // todo 回归当前running plugin
+      // 点击正在run的plugin
+    }
+    // todo plugin click
+    this.setRunningInfo(index , plugin.id);
+    // 获取点击选项卡的信息 ， 渲染图表
+  }
+
   ngOnInit() {
     this.lossChart = this.AmCharts.makeChart("lossGraph", {
       "type": "serial",
@@ -401,8 +471,6 @@ export class JobDetailComponent {
         if (jobParam.length && jobParam.length > 0) {
           this.jobResultParam = this.jobResultParam.concat(jobParam);
           this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
-
-          console.log(this.jobResult);
           // debugger
           // this.update(jobParam);
           this.AmCharts.updateChart(this.lossChart, () => {
@@ -418,12 +486,14 @@ export class JobDetailComponent {
 
     this.jobService.getUnrunningJob(jobPath )
       .subscribe(jobParam => {
+        console.log('run');
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
-        if(this.jobResult)
-        this.index = this.jobResult.epoch;
-        // debugger
-        // this.update(jobParam);
+        if(this.jobResult) {
+          this.index = this.jobResult.epoch;
+          this.getRunningPlugin(this.jobResult);
+        }
+
         this.AmCharts.updateChart(this.lossChart, () => {
           this.lossChart.dataProvider = this.jobResultParam;
         });
@@ -433,12 +503,12 @@ export class JobDetailComponent {
         this.jobResult = jobParam[jobParam.length - 1];
         this.websocket.connect().then(()=>{
           this.websocket.subscribe('/job/'+jobPath,(data)=>{
+            console.log(data);
             this.updateChart(data);
           });
 
           this.websocket.subscribe('/logs/'+jobPath,(data)=>{
             this.log_list=this.log_list.concat(data);
-            console.log(data);
           });
         })
         // this.jobResult =jobParam.jobResult;
@@ -446,9 +516,25 @@ export class JobDetailComponent {
       });
     // console.log(this.index);
   }
-
-
+  // 获取当前正在运行的插件信息
+   getRunningPlugin(data) {
+     // 判断当前状态
+     if (data.plugin_id) {
+       // 当前运行的plugin
+       this.runningPluginId = data.plugin_id;
+       for (let i = 0 ; i < this.chainInfo.length ; i++) {
+         if (this.chainInfo[i].id == this.runningPluginId) {
+            this.runningPluginIndex = i;
+            break;
+         }
+       }
+     }
+   }
   updateChart(data){
+    this.getRunningPlugin(data);
+
+    // todo 判断是否渲染当前数据
+
     let temp:JobParameter = data;
     this.jobResultParam.push(temp);
     this.AmCharts.updateChart(this.lossChart, () => {
@@ -502,7 +588,7 @@ export class JobDetailComponent {
   set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
     if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
       // alert('输入必须为数值!');
-      this.addToast("消息提示" , "输入必须为数值" , "warning");
+      addWarningToast(this.toastyService ,"输入必须为数值");
     }else{
       parameter.set_value[i1][j1] = Number(value);
     }
@@ -516,21 +602,21 @@ export class JobDetailComponent {
     }else if(parameter.type=='int'||parameter.type=='float'){
       if (Number(value)+""==NaN+""){
         // alert('输入必须为数值!');
-        this.addToast("消息提示" , "输入必须为数值" , "warning");
+        addWarningToast(this.toastyService ,"输入必须为数值" );
       }else{
         let condition: number = 1;
         if(parameter.has_min){
           if(+value<parameter.min_value){
             condition = -1;
             // alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
-            this.addToast("消息提示" , "Can't lower than min_value:"+parameter.min_value+"!  Back to default..." , "warning");
+            addWarningToast(this.toastyService ,"Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
           }
         }
         if(parameter.has_max){
           if(+value>parameter.max_value){
             condition = -2;
             // alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
-            this.addToast("消息提示" , "Can't higher than max_value:"+parameter.max_value+"!  Back to default..." , "warning");
+            addWarningToast(this.toastyService ,"Can't higher than max_value:"+parameter.max_value+"!  Back to default..." );
           }
         }
         if(condition==1){
