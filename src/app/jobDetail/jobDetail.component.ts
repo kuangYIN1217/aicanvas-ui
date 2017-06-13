@@ -8,7 +8,8 @@ import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param, Parameter} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
-import {ToastyService, ToastyConfig} from 'ng2-toasty';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {SERVER_URL} from "../app.constants";
 import {addWarningToast} from '../common/ts/toast';
 declare var $: any;
 declare var unescape: any;
@@ -93,6 +94,32 @@ export class JobDetailComponent {
     }
   }
 
+
+  downloadLog(){
+    // this.jobService.downloadLog(this.job.jobPath).subscribe((data)=>{
+    let path = "/api/log?jobPath=" + this.job.jobPath;
+    let url =  SERVER_URL + path
+        // window.open(url);
+        location.href= url;
+    // });
+  }
+
+// alert 提示
+  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
+    // Just add default Toast with title only
+    // Or create the instance of ToastOptions
+    var toastOptions:ToastOptions = {
+      title: title,
+      msg: msg,
+      showClose: true,
+      timeout: 3000,
+      theme: 'default',
+      onAdd: (toast:ToastData) => {
+      },
+      onRemove: function(toast:ToastData) {
+      }
+    }
+  }
   /**
    * 解析jobDetail
    */
