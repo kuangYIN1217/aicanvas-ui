@@ -109,7 +109,7 @@ export class NetworkComponent {
     let json = $('#plugin_storage').val();
     //console.log(JSON.stringify(this.plugin.model))
     this.plugin.model = JSON.parse(json);
-    console.log(this.plugin.model.layers);
+    //console.log(this.plugin.model.layers);
     //console.log(this.plugin);
     // if(this.plugin.creator!="general"){
     this.pluginService.savePlugin(this.plugin)
