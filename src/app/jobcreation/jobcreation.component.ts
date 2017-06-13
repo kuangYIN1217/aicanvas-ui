@@ -8,7 +8,8 @@ import {modelService} from "../common/services/model.service";
 import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param, Parameter} from "../common/defs/parameter";
 import {ChainInfo, JobInfo, PluginInfo, SceneInfo} from "../common/defs/resources";
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
+import {addWarningToast , addSuccessToast} from '../common/ts/toast';
 declare var $: any;
 @Component({
   moduleId: module.id,
@@ -66,26 +67,7 @@ export class JobCreationComponent {
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
   }
-  // alert 提示
-  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
-    // Just add default Toast with title only
-    // Or create the instance of ToastOptions
-    var toastOptions:ToastOptions = {
-      title: title,
-      msg: msg,
-      showClose: true,
-      timeout: 3000,
-      theme: 'default',
-      onAdd: (toast:ToastData) => {
-      },
-      onRemove: function(toast:ToastData) {
-      }
-    };
 
-    // Add see all possible types in one shot
-
-    this.toastyService[flag](toastOptions);
-  }
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -200,12 +182,12 @@ export class JobCreationComponent {
   createJobBySenceId(chosenSceneId, chainId) {
     if(!chainId){
       // alert("请选择算法链");
-      this.addToast("消息提示" , "请选择算法链" , "warning");
+      addWarningToast(this.toastyService , "请选择算法链" );
       return false;
     }
     if(!this.jobName){
       // alert("请输入任务名称")
-      this.addToast("消息提示" , "请输入任务名称" , "warning");
+      addWarningToast(this.toastyService , "请输入任务名称" );
       return false;
 
     }
@@ -215,7 +197,7 @@ export class JobCreationComponent {
         //this.createdJob = job;
         this.createdJob = createdJob;
         // alert("任务创建成功");
-        this.addToast("消息提示" , "任务创建成功" , "success");
+        addSuccessToast(this.toastyService , "任务创建成功");
         location.reload();
        // this.jobPageStatus='jobPageStatus';
         console.log(this.createdJob.chainId);
@@ -290,7 +272,7 @@ export class JobCreationComponent {
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       // alert('输入必须为数值!');
-      this.addToast("消息提示" , "输入必须为数值" , "warning");
+      addWarningToast(this.toastyService ,"输入必须为数值" );
     } else {
       parameter.set_value[i1][j1] = Number(value);
     }
@@ -299,7 +281,7 @@ export class JobCreationComponent {
   set3dArray(parameter: Parameter, i1: number, j1: number, z1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       // alert('输入必须为数值!');
-      this.addToast("消息提示" , "输入必须为数值" , "warning");
+      addWarningToast(this.toastyService ,"输入必须为数值" );
     } else {
       parameter.set_value[i1][j1][z1] = Number(value);
     }

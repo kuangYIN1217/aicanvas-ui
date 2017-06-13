@@ -8,7 +8,8 @@ import {FileUploader} from "ng2-file-upload";
 import {SERVER_URL} from "../app.constants";
 import {JobService} from "../common/services/job.service";
 import {Headers} from "@angular/http";
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
+import {addSuccessToast , addInfoToast} from '../common/ts/toast';
 
 declare var $:any;
 @Component({
@@ -46,26 +47,7 @@ export class ModelComponent {
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
-  // alert 提示
-  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
-    // Just add default Toast with title only
-    // Or create the instance of ToastOptions
-    var toastOptions:ToastOptions = {
-      title: title,
-      msg: msg,
-      showClose: true,
-      timeout: 3000,
-      theme: 'default',
-      onAdd: (toast:ToastData) => {
-      },
-      onRemove: function(toast:ToastData) {
-      }
-    };
 
-    // Add see all possible types in one shot
-
-    this.toastyService[flag](toastOptions);
-  }
   Headers:Headers = this.modelService.getHeaders();
   public uploader:FileUploader = new FileUploader({
     url: SERVER_URL+"/api/model/upload",
@@ -123,7 +105,7 @@ export class ModelComponent {
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
         // alert("创建成功,可以在推演成功后查看!");
-        this.addToast("消息提示" , "创建成功,可以在推演成功后查看!" , "success");
+        addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );
         this.selectChange(this.job_id);
         this.showAdd =false;
       })
@@ -228,7 +210,7 @@ export class ModelComponent {
       console.log(this.arr);
     } else {
       // alert('已经是首页');
-      this.addToast("消息提示" , "已经是首页" , "info");
+      addInfoToast(this.toastyService , "已经是首页" );
     }
   }
 

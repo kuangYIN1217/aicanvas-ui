@@ -2,7 +2,9 @@ import {Component} from "@angular/core";
 import {PluginService} from "../common/services/plugin.service";
 import {Page, PluginInfo} from "../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
+import {addInfoToast} from '../common/ts/toast';
+
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -49,25 +51,7 @@ export class AlgPluginsComponent{
             });
         // console.log(this.showSystemPlugin);
     }
-  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
-    // Just add default Toast with title only
-    // Or create the instance of ToastOptions
-    var toastOptions:ToastOptions = {
-      title: title,
-      msg: msg,
-      showClose: true,
-      timeout: 3000,
-      theme: 'default',
-      onAdd: (toast:ToastData) => {
-      },
-      onRemove: function(toast:ToastData) {
-      }
-    };
 
-    // Add see all possible types in one shot
-
-    this.toastyService[flag](toastOptions);
-  }
   changPage(plugins){
       if(plugins.length>0){
         this.dataIndex =1;
@@ -102,8 +86,8 @@ export class AlgPluginsComponent{
     page.totalPage = this.totalPage;
     page.totalNum = this.totalNum;
     this.pageParams=page;
-    console.log(page.pageMaxItem);
-    console.log(this.pageParams);
+    //console.log(page.pageMaxItem);
+   // console.log(this.pageParams);
   }
   getPageData(paraParam) {
 
@@ -176,7 +160,7 @@ export class AlgPluginsComponent{
                 this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
             }else{
                // alert('已经是最后一页');
-              this.addToast("消息提示" , "已经是最后一页" , "info");
+              addInfoToast(this.toastyService , "已经是最后一页");
             }
         }else if(this.showSystemPlugin==0){
             if(this.page<result){
@@ -184,7 +168,7 @@ export class AlgPluginsComponent{
                 this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
             }else{
                 // alert('已经是最后一页');
-              this.addToast("消息提示" , "已经是最后一页" , "info");
+              addInfoToast(this.toastyService , "已经是最后一页");
             }
         }
 
@@ -198,7 +182,7 @@ export class AlgPluginsComponent{
                 // console.log(this.arr);
             }else{
               // alert('已经是首页');
-              this.addToast("消息提示" , "已经是首页" , "info");
+              addInfoToast(this.toastyService , "已经是首页");
             }
         }else if(this.showSystemPlugin==0){
             if (this.page>1){
@@ -207,7 +191,7 @@ export class AlgPluginsComponent{
                 //console.log(this.arr2);
             }else{
                // alert('已经是首页');
-              this.addToast("消息提示" , "已经是首页" , "info");
+              addInfoToast(this.toastyService , "已经是首页");
             }
         }
 

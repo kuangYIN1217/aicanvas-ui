@@ -13,7 +13,7 @@
         </div>
     </div>
     <nav [style.display]="(focusTab!=0)?'':'none'">
-      <div class="nav_element">
+      <div class="nav_element" style="height: 120px;">
         <img src="assets/navigation/logo1.png" class="logo">
       </div>
         <div class="nav_element" [class.focusTab] = "focusTab==1" routerLinkActive="active" routerLink="/overview" (click)="changeTab(1);focusCollapse='0'">

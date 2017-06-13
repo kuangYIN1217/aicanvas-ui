@@ -249,19 +249,22 @@ function init() {
   function getLayers() {
     var str = document.getElementById("plugin_storage").value;
     var test = JSON.parse(str);
-    // console.log(test);
+    //console.log(test['layers']);
     var arr = "";
     var sep = "";
     var array = new Array();
+
     for (var i = 0;i<test['layers'].length;i++){
       if (arr == "")
         sep = "";
       else
         sep = ",";
       arr = '{ "text": "' + test['layers'][i].name + '" }';
+
       arr = JSON.parse(arr);
       array[i] = arr;
     }
+
     return array;
   }
 
@@ -287,7 +290,10 @@ function save() {
   var size = saveJson["linkDataArray"].length -1 ;
   var link = new Array(saveJson["linkDataArray"].length + 1);
   var index = 0;
-
+  var class_name = [];
+  var nodes = [];
+  var nodesName=[];
+  //console.log(saveJson["linkDataArray"]);
   for (var i = 0;i<saveJson["linkDataArray"].length;i++){
     fromArr[i] = -saveJson["linkDataArray"][i].from;
     toArr[i] = -saveJson["linkDataArray"][i].to;
@@ -298,7 +304,6 @@ function save() {
       link[size] = fromArr[j];
     }
   }
-
   for (var m = 1;m <= size;m++) {
     for (var l = 0; l < toArr.length; l++) {
       if (toArr[l] == link[size - index]) {
@@ -320,10 +325,10 @@ function save() {
   // }
 
 
-  console.log(JSON.stringify(fromArr));
-  console.log(JSON.stringify(toArr));
-  console.log(JSON.stringify(link));
-  console.log(JSON.stringify(saveJson["nodeDataArray"]));
+  //console.log(JSON.stringify(fromArr));
+ // console.log(JSON.stringify(toArr));
+ // console.log(JSON.stringify(link));
+ // console.log(JSON.stringify(saveJson["nodeDataArray"]));
 
   for (var n = 0;n<link.length;n++){
     var lIndex = link[n];
@@ -346,11 +351,24 @@ function save() {
     //             continue;
     //     }
   }
-
-
   test["layers"] = saveStr;
-  console.log(JSON.stringify(test));
+  for (var i = 0;i<test['layers'].length;i++){
+    class_name.push(test['layers'][i].class_name);
+    nodes.push(test['layers'][i].inbound_nodes[0]);
+  }
+ // console.log(class_name);
+  for(var j=0;j<nodes.length;j++){
+    if(nodes[j]==undefined){
+      nodesName.push('');
+    }
+    else{
+      nodesName.push(nodes[j][0][0]);
+    }
+  }
+  //console.log(nodesName);
+  //console.log(test["layers"]);
   document.getElementById("plugin_storage").value = JSON.stringify(test);
+  console.log(document.getElementById("plugin_storage").value);
   // console.log(myDiagram.model.toJson());
   // console.log(JSON.stringify(link));
   // console.log(JSON.stringify(fromArr));
@@ -466,5 +484,6 @@ function getPicMes() {
 //重新显示保存的流程图
 function load() {
   myDiagram.model = go.Model.fromJson(getPicMes());
+  //console.log(myDiagram.model);
   // console.log(myDiagram.model.toJson());
 }

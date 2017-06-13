@@ -41,7 +41,7 @@
 }
 .allPurchaseScene{
     position: relative;
-    margin-top: 50px;
+    margin-top: 40px;
     width: 68%;
     height:auto;
     min-height:923px;
@@ -209,7 +209,7 @@
 
 }
 .recommend_h4{
-  padding-top: 41px;
+  padding-top: 30px;
   padding-bottom: 14px;
   background-color: #eeeeee;
   margin-bottom: 0px;

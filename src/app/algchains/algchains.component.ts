@@ -6,7 +6,9 @@ import {PluginService} from "../common/services/plugin.service";
 import {AlgChainService} from "../common/services/algChain.service";
 import {PluginInfo, SceneInfo} from "../common/defs/resources";
 import {Editable_param, Parameter} from "../common/defs/parameter";
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
+import {addWarningToast} from '../common/ts/toast';
+
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -41,25 +43,6 @@ export class AlgChainsComponent{
     rightNodeIndex:number=0;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
 
-    }
-    addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
-      // Just add default Toast with title only
-      // Or create the instance of ToastOptions
-      var toastOptions:ToastOptions = {
-        title: title,
-        msg: msg,
-        showClose: true,
-        timeout: 3000,
-        theme: 'default',
-        onAdd: (toast:ToastData) => {
-        },
-        onRemove: function(toast:ToastData) {
-        }
-      };
-
-      // Add see all possible types in one shot
-
-      this.toastyService[flag](toastOptions);
     }
     ngOnInit(){
       this.sceneService.getAllScenes()
@@ -107,7 +90,7 @@ export class AlgChainsComponent{
                 // this.name =
                 if(plugin.length>0){
                   this.sceneArrays[i].arrName = this.getName(this.PluginInfo[0].id,i);
-                  console.log(this.sceneArrays[i]);
+                 // console.log(this.sceneArrays[i]);
                 }
               })
         }
@@ -280,21 +263,21 @@ export class AlgChainsComponent{
         }else if(parameter.type=='int'||parameter.type=='float'){
             if (Number(value)+""==NaN+""){
                 // alert('输入必须为数值!');
-              this.addToast("消息提示" , "输入必须为数值" , "warning");
+              addWarningToast(this.toastyService , "输入必须为数值" );
             }else{
                 let condition: number = 1;
                 if(parameter.has_min){
                     if(+value<parameter.min_value){
                         condition = -1;
                         // alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
-                      this.addToast("消息提示" , "Can't lower than min_value:"+parameter.min_value+"!  Back to default..." , "warning");
+                      addWarningToast(this.toastyService , "Can't lower than min_value:"+parameter.min_value+"!  Back to default..." );
                     }
                 }
                 if(parameter.has_max){
                     if(+value>parameter.max_value){
                         condition = -2;
+                      addWarningToast(this.toastyService , "Can't higher than max_value:"+parameter.max_value+"!  Back to default..." );
                        // alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
-                      this.addToast("消息提示" , "Can't higher than max_value:"+parameter.max_value+"!  Back to default...", "warning");
                     }
                 }
                 if(condition==1){
@@ -309,9 +292,8 @@ export class AlgChainsComponent{
     set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
         if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
             // alert('输入必须为数值!');
-          this.addToast("消息提示" , "输入必须为数值", "warning");
+          addWarningToast(this.toastyService , "输入必须为数值");
 
-        }else{
             parameter.set_value[i1][j1] = Number(value);
         }
     }
@@ -319,7 +301,7 @@ export class AlgChainsComponent{
     set3dArray(parameter: Parameter,i1: number,j1: number,z1: number,value: string){
         if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
            // alert('输入必须为数值!');
-          this.addToast("消息提示" , "输入必须为数值", "warning");
+          addWarningToast(this.toastyService , "输入必须为数值");
         }else{
             parameter.set_value[i1][j1][z1] = Number(value);
         }
