@@ -33,14 +33,14 @@
                <span>{{result}}</span>
             </div>
             <div class="selectDiv" >
-                <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
-                    <option value="10" selected="{{pageMaxItem1==10?'selected':''}}">10</option>
-                    <option value="20" selected="{{pageMaxItem1==20?'selected':''}}">20</option>
-                    <option value="50" selected="{{pageMaxItem1==50?'selected':''}}">50</option>
-                </select>
+                <!--<select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">-->
+                    <!--<option value="10" selected="{{pageMaxItem1==10?'selected':''}}">10</option>-->
+                    <!--<option value="20" selected="{{pageMaxItem1==20?'selected':''}}">20</option>-->
+                    <!--<option value="50" selected="{{pageMaxItem1==50?'selected':''}}">50</option>-->
+                <!--</select>-->
             </div>
-            <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
-            <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
+            <!--<div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>-->
+            <!--<div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>-->
         </div>
     </div>
     <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
@@ -73,14 +73,14 @@
                 <span>{{result}}</span>
             </div>
             <div class="selectDiv" >
-                <select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">
-                    <option value="10" selected="{{pageMaxItem2==10?'selected':''}}">10</option>
-                    <option value="20" selected="{{pageMaxItem2==20?'selected':''}}">20</option>
-                    <option value="50" selected="{{pageMaxItem2==50?'selected':''}}">50</option>
-                </select>
+                <!--<select class="select_pagemax" [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange(pageMaxItem);">-->
+                    <!--<option value="10" selected="{{pageMaxItem2==10?'selected':''}}">10</option>-->
+                    <!--<option value="20" selected="{{pageMaxItem2==20?'selected':''}}">20</option>-->
+                    <!--<option value="50" selected="{{pageMaxItem2==50?'selected':''}}">50</option>-->
+                <!--</select>-->
             </div>
-            <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
-            <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
+            <!--<div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>-->
+            <!--<div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>-->
         </div>
     </div>
 </div>
