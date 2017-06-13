@@ -6,6 +6,7 @@ import {Editable_param, Parameter} from "../common/defs/parameter";
 import {ActivatedRoute, Router} from "@angular/router";
 // import { ActivatedRoute,Params} from '@angular/router';
 // import { ResourcesService } from '../../common/services/resources.service'
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 declare var $:any;
 @Component({
     moduleId: module.id,
@@ -21,7 +22,7 @@ export class AlgpluginDetailComponent {
     editable_params: Editable_param[] = [];
     editable_parameters: Editable_param[] = [];
     creator:string;
-    constructor(private pluginService: PluginService, private location: Location,private route: ActivatedRoute, private router: Router,){
+    constructor(private pluginService: PluginService, private location: Location,private route: ActivatedRoute, private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
     /*  this.route.queryParams.subscribe(params => {
         let id = params['pluginId'];*/
         if (location.path(false).indexOf('/algpluginDetail/') != -1) {
@@ -37,6 +38,27 @@ export class AlgpluginDetailComponent {
 
       /*});*/
     }
+
+  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
+    // Just add default Toast with title only
+    // Or create the instance of ToastOptions
+    var toastOptions:ToastOptions = {
+      title: title,
+      msg: msg,
+      showClose: true,
+      timeout: 3000,
+      theme: 'default',
+      onAdd: (toast:ToastData) => {
+      },
+      onRemove: function(toast:ToastData) {
+      }
+    };
+
+    // Add see all possible types in one shot
+
+    this.toastyService[flag](toastOptions);
+  }
+
 /*  ngOnInit(){
     this.route.queryParams.subscribe(params => {
       this.showSystemPlugin = params['showSystemPlugin'];
@@ -134,19 +156,23 @@ export class AlgpluginDetailComponent {
             parameter.set_value = value;
         }else if(parameter.type=='int'||parameter.type=='float'){
             if (Number(value)+""==NaN+""){
-                alert('输入必须为数值!');
+              //  alert('输入必须为数值!');
+              this.addToast("消息提示" , "输入必须为数值" , "warning");
             }else{
                 let condition: number = 1;
                 if(parameter.has_min){
                     if(+value<parameter.min_value){
                         condition = -1;
-                        alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+                       // alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+                      this.addToast("消息提示" , "Can't lower than min_value:"+parameter.min_value+"!  Back to default..." , "warning");
                     }
                 }
                 if(parameter.has_max){
                     if(+value>parameter.max_value){
                         condition = -2;
-                        alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
+                       // alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
+                      this.addToast("消息提示" , "Can't higher than max_value:"+parameter.max_value+"!  Back to default..." , "warning");
+
                     }
                 }
                 if(condition==1){
@@ -160,7 +186,9 @@ export class AlgpluginDetailComponent {
 
     set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
         if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
-            alert('输入必须为数值!');
+          //  alert('输入必须为数值!');
+          this.addToast("消息提示" , "输入必须为数值" , "warning");
+
         }else{
             parameter.set_value[i1][j1] = Number(value);
         }
@@ -168,7 +196,8 @@ export class AlgpluginDetailComponent {
 
     set3dArray(parameter: Parameter,i1: number,j1: number,z1: number,value: string){
         if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
-            alert('输入必须为数值!');
+           // alert('输入必须为数值!');
+          this.addToast("消息提示" , "输入必须为数值" , "warning");
         }else{
             parameter.set_value[i1][j1][z1] = Number(value);
         }

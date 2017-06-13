@@ -7,6 +7,9 @@ import {Location} from '@angular/common';
 import {FileUploader} from "ng2-file-upload";
 import {SERVER_URL} from "../app.constants";
 import {JobService} from "../common/services/job.service";
+import {Headers} from "@angular/http";
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -40,8 +43,28 @@ export class ModelComponent {
   type:any;
   runId:number;
   path:string;
-  constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService) {
+  constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
+  }
+  // alert 提示
+  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
+    // Just add default Toast with title only
+    // Or create the instance of ToastOptions
+    var toastOptions:ToastOptions = {
+      title: title,
+      msg: msg,
+      showClose: true,
+      timeout: 3000,
+      theme: 'default',
+      onAdd: (toast:ToastData) => {
+      },
+      onRemove: function(toast:ToastData) {
+      }
+    };
+
+    // Add see all possible types in one shot
+
+    this.toastyService[flag](toastOptions);
   }
   Headers:Headers = this.modelService.getHeaders();
   public uploader:FileUploader = new FileUploader({
@@ -69,7 +92,7 @@ export class ModelComponent {
       if(type == "zip"||type == "rar") {
         $('#image').attr("src","../../assets/model/yasuo2.png") ;
       }else{
-        let file = this.uploader.queue[0].some;
+        let file = this.uploader.queue[0]._file;
         let reader  = new FileReader();
         reader.addEventListener("load", function () {
           $('#image').attr("src",reader.result) ;
@@ -99,7 +122,8 @@ export class ModelComponent {
       // this.runId = result.id;
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
-        alert("创建成功,可以在推演成功后查看!");
+        // alert("创建成功,可以在推演成功后查看!");
+        this.addToast("消息提示" , "创建成功,可以在推演成功后查看!" , "success");
         this.selectChange(this.job_id);
         this.showAdd =false;
       })
@@ -203,7 +227,8 @@ export class ModelComponent {
       this.arr = this.ModelInfo.slice(num * this.page - num, num * this.page);
       console.log(this.arr);
     } else {
-      alert('已经是首页');
+      // alert('已经是首页');
+      this.addToast("消息提示" , "已经是首页" , "info");
     }
   }
 

@@ -35,7 +35,7 @@ import {AmChartsModule} from "amcharts3-angular2";
 import { InferenceModelComponent } from './inference-model/inference-model.component';
 import { StompService } from 'ng2-stomp-service-fixed';
 /*import {FontAwesomeDirective} from "ng2-fontawesome";*/
-
+import {ToastyModule} from 'ng2-toasty';
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -72,6 +72,7 @@ import { StompService } from 'ng2-stomp-service-fixed';
     HttpModule,
     FileUploadModule,
     AmChartsModule,
+    ToastyModule
   ],
   providers: [StompService],
   bootstrap: [NavigationComponent]

@@ -98,6 +98,7 @@ nav{
   align-items: center;
   cursor: pointer;
   border-left:4px solid #232323;
+  outline: none;
 
 }
 .nav_element img{

@@ -6,6 +6,7 @@ import {PluginService} from "../common/services/plugin.service";
 import {SceneService} from "../common/services/scene.service";
 import {Page, PluginInfo, SceneInfo} from "../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 @Component({
     moduleId: module.id,
@@ -40,10 +41,29 @@ export class AlgorithmChainComponent{
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
-    constructor(private sceneService: SceneService,private pluginService: PluginService, private location: Location, private route: ActivatedRoute ,private router: Router){
+    constructor(private sceneService: SceneService,private pluginService: PluginService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
       this.sceneService.getAllScenes()
         .subscribe(scenes => this.SceneInfo=scenes);
     }
+  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
+    // Just add default Toast with title only
+    // Or create the instance of ToastOptions
+    var toastOptions:ToastOptions = {
+      title: title,
+      msg: msg,
+      showClose: true,
+      timeout: 3000,
+      theme: 'default',
+      onAdd: (toast:ToastData) => {
+      },
+      onRemove: function(toast:ToastData) {
+      }
+    };
+
+    // Add see all possible types in one shot
+
+    this.toastyService[flag](toastOptions);
+  }
     ngOnInit(){
         this.route.queryParams.subscribe(params => {
             this.sceneId = params['sceneId'];
@@ -191,14 +211,17 @@ export class AlgorithmChainComponent{
                 this.page++;
                 this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
             }else{
-                alert('已经是最后一页');
+               // alert('已经是最后一页');
+              this.addToast("消息提示" , "已经是最后一页" , "info");
             }
         }else if(this.showSystemPlugin==0){
             if(this.page<result){
                 this.page++;
                 this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
             }else{
-                alert('已经是最后一页');
+               // alert('已经是最后一页');
+              this.addToast("消息提示" , "已经是最后一页" , "info");
+
             }
         }
 
@@ -211,7 +234,9 @@ export class AlgorithmChainComponent{
                 this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
                 console.log(this.arr);
             }else{
-                alert('已经是首页');
+               // alert('已经是首页');
+              this.addToast("消息提示" , "已经是首页" , "info");
+
             }
         }else if(this.showSystemPlugin==0){
             if (this.page>1){
@@ -219,7 +244,9 @@ export class AlgorithmChainComponent{
                 this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
                 console.log(this.arr);
             }else{
-                alert('已经是首页');
+               // alert('已经是首页');
+              this.addToast("消息提示" , "已经是首页" , "info");
+
             }
         }
 

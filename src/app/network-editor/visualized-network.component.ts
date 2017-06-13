@@ -11,7 +11,7 @@ import * as d3 from 'd3';
   selector: 'visualized-network',
   templateUrl: './templates/visualized-network.component.html',
   styleUrls: ['./css/visualized-network.component.css'],
-  providers: [ParameterService, TrainingNetworkService]
+  providers: [ParameterService, TrainingNetworkService,NetworkEditorService]
 })
 export class VisualizedNetworkComponent implements OnInit {
 
@@ -19,12 +19,12 @@ export class VisualizedNetworkComponent implements OnInit {
   idCounter: number = 0;
 
   @Output() onLayerSelected: EventEmitter<Layer> = new EventEmitter<Layer>();
-;
+
 
   // Container to visualize all layers.
   container = null;
 
-  constructor(private networkEditorService: NetworkEditorService,
+  constructor(public networkEditorService: NetworkEditorService,
               private parameterService: ParameterService,
               private trainingNetworkService: TrainingNetworkService) {
   }

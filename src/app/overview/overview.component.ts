@@ -47,6 +47,7 @@ export class OverviewComponent {
   private chart8: any;
   tot_memory: number;
   totalGlobalMem: number;
+  pageParams:any;
 
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
     resourcesService.getCpuInfo()
@@ -1092,4 +1093,8 @@ export class OverviewComponent {
       .attr("y2", y).attr("x1", 0)
       .attr("x2", width).attr('transform', 'translate(45,27)');
   }
+  getPageData(){
+
+  }
+
 }

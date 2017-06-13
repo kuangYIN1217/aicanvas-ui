@@ -8,6 +8,7 @@ import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param, Parameter} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 declare var $: any;
 declare var unescape: any;
@@ -64,7 +65,7 @@ export class JobDetailComponent {
 
     return dataProvider;
   }
-  constructor( private pluginService: PluginService ,private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router,private websocket:WebSocketService) {
+  constructor( private pluginService: PluginService ,private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router,private websocket:WebSocketService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
@@ -97,12 +98,28 @@ export class JobDetailComponent {
       }
     }
 
-
-
-
   }
 
+// alert 提示
+  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
+    // Just add default Toast with title only
+    // Or create the instance of ToastOptions
+    var toastOptions:ToastOptions = {
+      title: title,
+      msg: msg,
+      showClose: true,
+      timeout: 3000,
+      theme: 'default',
+      onAdd: (toast:ToastData) => {
+      },
+      onRemove: function(toast:ToastData) {
+      }
+    };
 
+    // Add see all possible types in one shot
+
+    this.toastyService[flag](toastOptions);
+  }
   ngOnInit() {
     this.lossChart = this.AmCharts.makeChart("lossGraph", {
       "type": "serial",
@@ -381,21 +398,22 @@ export class JobDetailComponent {
   not_running_show(jobPath: string) {
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
-        this.jobResultParam = this.jobResultParam.concat(jobParam);
-        this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
+        if (jobParam.length && jobParam.length > 0) {
+          this.jobResultParam = this.jobResultParam.concat(jobParam);
+          this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
 
-        console.log(this.jobResult);
-        // debugger
-        // this.update(jobParam);
-        this.AmCharts.updateChart(this.lossChart, () => {
-          this.lossChart.dataProvider = this.jobResultParam;
-        });
-        this.AmCharts.updateChart(this.metricsChart, () => {
-          this.metricsChart.dataProvider = this.jobResultParam;
-        });
+          console.log(this.jobResult);
+          // debugger
+          // this.update(jobParam);
+          this.AmCharts.updateChart(this.lossChart, () => {
+            this.lossChart.dataProvider = this.jobResultParam;
+          });
+          this.AmCharts.updateChart(this.metricsChart, () => {
+            this.metricsChart.dataProvider = this.jobResultParam;
+          });
+        }
       });
   }
-
   updatePage(jobPath, index) {
 
     this.jobService.getUnrunningJob(jobPath )
@@ -483,7 +501,8 @@ export class JobDetailComponent {
   }
   set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
     if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
-      alert('输入必须为数值!');
+      // alert('输入必须为数值!');
+      this.addToast("消息提示" , "输入必须为数值" , "warning");
     }else{
       parameter.set_value[i1][j1] = Number(value);
     }
@@ -496,19 +515,22 @@ export class JobDetailComponent {
       parameter.set_value = value;
     }else if(parameter.type=='int'||parameter.type=='float'){
       if (Number(value)+""==NaN+""){
-        alert('输入必须为数值!');
+        // alert('输入必须为数值!');
+        this.addToast("消息提示" , "输入必须为数值" , "warning");
       }else{
         let condition: number = 1;
         if(parameter.has_min){
           if(+value<parameter.min_value){
             condition = -1;
-            alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+            // alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+            this.addToast("消息提示" , "Can't lower than min_value:"+parameter.min_value+"!  Back to default..." , "warning");
           }
         }
         if(parameter.has_max){
           if(+value>parameter.max_value){
             condition = -2;
-            alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
+            // alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
+            this.addToast("消息提示" , "Can't higher than max_value:"+parameter.max_value+"!  Back to default..." , "warning");
           }
         }
         if(condition==1){
