@@ -107,12 +107,10 @@ export class NetworkComponent {
     $('#saveBtn2').click();//save
     // $('#saveBtn').click(); //--saveParam
     let json = $('#plugin_storage').val();
-    console.log(this.plugin.model);
-    console.log(JSON.stringify(this.plugin.model))
+    //console.log(JSON.stringify(this.plugin.model))
     this.plugin.model = JSON.parse(json);
-    console.log(this.plugin.model);
-
-    // console.log(this.plugin);
+    console.log(this.plugin.model.layers);
+    //console.log(this.plugin);
     // if(this.plugin.creator!="general"){
     this.pluginService.savePlugin(this.plugin)
       .subscribe(msg => this.forkResult(msg));
