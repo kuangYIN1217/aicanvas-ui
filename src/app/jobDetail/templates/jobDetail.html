@@ -45,8 +45,8 @@
           <div *ngIf="chainInfo.length > 1" class="job-detail-plugins">
             <div (click) = "pluginClick(plugin , i)" [ngClass]="{'disabled': runningPluginIndex < i}" class="plugin-item" *ngFor="let plugin of chainInfo; let i = index">
               <label class="plugin-index">{{i + 1}}</label>
-              <img *ngIf="plugin.id == runningPluginId" src="../../../assets/jobdetail/item_active.png" alt="">
-              <img *ngIf="plugin.id != runningPluginId" src="../../../assets/jobdetail/item.png" alt="">
+              <img *ngIf="plugin.id == currentPluginId" src="../../../assets/jobdetail/item_active.png" alt="">
+              <img *ngIf="plugin.id != currentPluginId" src="../../../assets/jobdetail/item.png" alt="">
               <label class="plugin-des">{{plugin_step_en[i]}}</label>
             </div>
           </div>

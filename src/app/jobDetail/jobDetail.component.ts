@@ -53,6 +53,8 @@ export class JobDetailComponent {
   // 当前正在运行的plugin
   runningPluginId = null;
   runningPluginIndex = -1;
+  // 被选中plugin
+  currentPluginId = null;
   plugin_step_en: Array<string> = ['第一步' , '第二步' , '第三步', '第四步', '第五步', '第六步', '第七步', '第八步', '第九步', '第十步'];
   lossChartInitData() {
     var dataProvider = [{
@@ -100,10 +102,10 @@ export class JobDetailComponent {
       this.chainInfo = chainInfo;
       switch (jobDetail.status) {
         case '完成':
-          this.initNotRun(this.chainInfo.length - 1 , this.chainInfo[0].id , jobPath);
+          this.initNotRun(this.chainInfo.length - 1 , null , this.chainInfo[0].id , jobPath);
           break;
         case '未启动':
-          this.initNotRun(-1 , null , jobPath);
+          this.initNotRun(-1 , null , null , jobPath);
           break;
         case '运行':
           this.initWithRun(jobPath);
@@ -118,13 +120,14 @@ export class JobDetailComponent {
   /**
    * 非运行状态初始化
    */
-  initNotRun(runningPluginIndex , runningPluginId , jobPath) {
-    this.setRunningInfo (runningPluginIndex , runningPluginId);
+  initNotRun(runningPluginIndex , runningPluginId , currentPluginId , jobPath) {
+    this.setRunningInfo (runningPluginIndex , runningPluginId, currentPluginId);
     this.not_running_show(jobPath);
   }
 
-  setRunningInfo (runningPluginIndex , runningPluginId) {
+  setRunningInfo (runningPluginIndex , runningPluginId, currentPluginId) {
     this.runningPluginIndex = runningPluginIndex;
+    this.currentPluginId = currentPluginId;
     this.runningPluginId = runningPluginId;
   }
   /**
@@ -146,7 +149,7 @@ export class JobDetailComponent {
    */
   pluginClick (plugin , index) {
     console.log(plugin)
-    if (plugin.id == this.runningPluginId) {
+    if (plugin.id == this.currentPluginId) {
       // 当前选中plugin点击无效
       console.log('click own -> return')
       return;
@@ -155,11 +158,11 @@ export class JobDetailComponent {
       console.log('click disabled -> return')
       return;
     } else if(true) {
+      // current 与 running 比较
       // todo 回归当前running plugin
-      // 点击正在run的plugin
     }
     // todo plugin click
-    this.setRunningInfo(index , plugin.id);
+    this.currentPluginId = plugin.id;
     // 获取点击选项卡的信息 ， 渲染图表
   }
 
@@ -476,7 +479,7 @@ export class JobDetailComponent {
         this.jobResult = jobParam[jobParam.length - 1];
         this.websocket.connect().then(()=>{
           this.websocket.subscribe('/job/'+jobPath,(data)=>{
-            console.log(data);
+            // console.log(data);
             this.updateChart(data);
           });
 
