@@ -381,18 +381,20 @@ export class JobDetailComponent {
   not_running_show(jobPath: string) {
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
-        this.jobResultParam = this.jobResultParam.concat(jobParam);
-        this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
+        if (jobParam.length && jobParam.length > 0) {
+          this.jobResultParam = this.jobResultParam.concat(jobParam);
+          this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
 
-        console.log(this.jobResult);
-        // debugger
-        // this.update(jobParam);
-        this.AmCharts.updateChart(this.lossChart, () => {
-          this.lossChart.dataProvider = this.jobResultParam;
-        });
-        this.AmCharts.updateChart(this.metricsChart, () => {
-          this.metricsChart.dataProvider = this.jobResultParam;
-        });
+          console.log(this.jobResult);
+          // debugger
+          // this.update(jobParam);
+          this.AmCharts.updateChart(this.lossChart, () => {
+            this.lossChart.dataProvider = this.jobResultParam;
+          });
+          this.AmCharts.updateChart(this.metricsChart, () => {
+            this.metricsChart.dataProvider = this.jobResultParam;
+          });
+        }
       });
   }
 
