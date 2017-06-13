@@ -86,8 +86,8 @@ export class AlgPluginsComponent{
     page.totalPage = this.totalPage;
     page.totalNum = this.totalNum;
     this.pageParams=page;
-    console.log(page.pageMaxItem);
-    console.log(this.pageParams);
+    //console.log(page.pageMaxItem);
+   // console.log(this.pageParams);
   }
   getPageData(paraParam) {
 

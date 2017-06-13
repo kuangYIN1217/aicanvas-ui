@@ -90,7 +90,7 @@ export class AlgChainsComponent{
                 // this.name =
                 if(plugin.length>0){
                   this.sceneArrays[i].arrName = this.getName(this.PluginInfo[0].id,i);
-                  console.log(this.sceneArrays[i]);
+                 // console.log(this.sceneArrays[i]);
                 }
               })
         }

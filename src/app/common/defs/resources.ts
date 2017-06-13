@@ -81,6 +81,7 @@ export class PluginInfo{
     // parameters allowed to be modified
     model: any;
     publish:string;
+  has_training_network:any;
 }
 export class JobCollection{
     content: JobInfo[];
@@ -121,6 +122,7 @@ export class JobInfo{
     totalPages: number;
     totalElements: number;
     percent: number;
+  samples_sec:string;
 }
 export class JobResult{
     val_acc: string;

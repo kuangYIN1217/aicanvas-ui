@@ -49,23 +49,23 @@ export class LoginComponent implements OnInit{
             this.tabIndex=0;
         }
     }
-/*    changeValidCode(){
-         $("#code").empty();
-         this.validCode = this.getNewValidCode();
-         var checkCode = document.getElementById('code');
-         if (checkCode)
-         {
-            checkCode.className = "code";
-         }
-         var context = checkCode.getContext('2d');
-         context.clearRect(0,0,checkCode.width,checkCode.height);
-         context.fillStyle = '#000';
-        // 设置文字属性
-         context.font = 'bold italic 70px sans-serif';
-         context.textBaseline = 'top';
-         // 填充字符串
-      context.fillText(this.validCode,2,33);
-     }*/
+    changeValidCode(){
+      //    $("#code").empty();
+      //    this.validCode = this.getNewValidCode();
+      //    var checkCode = document.getElementById('code');
+      //    if (checkCode)
+      //    {
+      //       checkCode.className = "code";
+      //    }
+      //    var context = checkCode.getContext('2d');
+      //    context.clearRect(0,0,checkCode.width,checkCode.height);
+      //    context.fillStyle = '#000';
+      //   // 设置文字属性
+      //    context.font = 'bold italic 70px sans-serif';
+      //    context.textBaseline = 'top';
+      //    // 填充字符串
+      // context.fillText(this.validCode,2,33);
+     }
 
     getNewValidCode(): string{
         let result: string = "";

@@ -78,9 +78,10 @@
 
 .new_model table tr td .input{
   width: 275px;
-  height: 36px;
+  height: 26px;
   border: solid 1px #d3d3d3;
   border-radius: 5px;
+  text-indent: 6px;
 }
 
 .new_model table tr td{
