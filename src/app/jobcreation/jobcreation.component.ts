@@ -192,16 +192,8 @@ export class JobCreationComponent {
 
 
   nextStep() {
-    // if (this.stepNumber == 1 && this.created == 0) {
-    //   this.created = 1;
-    //   if (this.chosenSceneId == 0 || this.item == '0') {
-    //     this.chosenSceneId = this.firstSceneId;
-    //     this.item = this.firstChainId;
-    //   }
+
       this.createJobBySenceId(this.chosenSceneId, this.firstSceneId);
-    // } else if (this.stepNumber == 2) {
-    //   this.saveJob();
-    // }
   }
 
   // 第一次点击下一步时，创建job，存储下来
@@ -231,101 +223,6 @@ export class JobCreationComponent {
       });
   }
 
-  // 根据chainId得到算法链,保存后进入下一页面
-  // createJobBySenceId2(chainId) {
-  //   // console.log(this.createdJob);
-  //   console.log(chainId);
-  //   this.algChainService.getChainById(chainId)
-  //     .subscribe(pluginArr => {
-  //       this.pluginArr = pluginArr;
-  //       this.changeChosenPlugin(this.pluginArr[0].id);
-  //       this.stepNumber = this.stepNumber + 1;
-  //     });
-  // }
-
-  // changeChosenPlugin(id: string) {
-  //   if (!this.chosenPluginId) {
-  //     this.chosenPluginId = id;
-  //     let training_network_json = this.findPluginById(this.chosenPluginId).model;
-  //     // console.log(training_network_json);
-  //     if (training_network_json) {
-  //       this.haveModel = 1;
-  //       // console.log(this.findPluginById(this.chosenPluginId));
-  //       // console.log(training_network_json);
-  //       $('#plugin_storage').val(JSON.stringify(training_network_json));
-  //       $('#hideBtn').click();
-  //     }
-  //   } else {
-  //     this.savePluginChange();
-  //     this.chosenPluginId = id;
-  //     let training_network_json = this.findPluginById(this.chosenPluginId).model;
-  //     //console.log(training_network_json);
-  //     if (training_network_json) {
-  //       // console.log(training_network_json);
-  //       let inited = false;
-  //       if ($('#plugin_storage').val() && $('#plugin_storage').val() !== "") {
-  //         inited = true;
-  //       }
-  //       $('#plugin_storage').val(JSON.stringify(training_network_json));
-  //       if (inited) {
-  //         $('#loadBtn').click();
-  //         // 等待动画效果结束后再展示，否则会闪烁一下
-  //         setTimeout(() => {
-  //           this.haveModel = 1;
-  //         }, 50);
-  //       } else {
-  //         $('#hideBtn').click();
-  //         this.haveModel = 1;
-  //       }
-  //     } else {
-  //       // 无网络层则将网络层隐藏
-  //       this.haveModel = 0;
-  //
-  //     }
-  //   }
-  //   this.pluginClicked();
-  // }
-  //
-  // savePluginChange() {
-  //   let id = this.chosenPluginId;
-  //   // let originJson = JSON.stringify(this.findPluginById(id).model);
-  //   let json = $('#plugin_storage').val();
-  //   if (json != "") {
-  //     let jsonData = JSON.parse(json);
-  //     this.findPluginById(id).model = jsonData;
-  //     let params: any = this.findPluginById(this.chosenPluginId).train_params;
-  //     for (var key in params) {
-  //       for (let editable_parameter of this.editable_params) {
-  //         if (editable_parameter.path == key) {
-  //           this.findPluginById(this.chosenPluginId).train_params[key] = editable_parameter.editable_param.set_value;
-  //         }
-  //       }
-  //     }
-  //   } else {
-  //     console.log("Without the network layer");
-  //   }
-  //
-  //
-  // }
-
-  // pluginClicked() {
-  //   let editable_parameters: Editable_param[] = [];
-  //   let params: any = this.findPluginById(this.chosenPluginId).train_params;
-  //   for (var param in params) {
-  //     for (let editable_parameter of this.editable_params) {
-  //       if (editable_parameter.path == param) {
-  //         editable_parameter.editable_param.set_value = params[param];
-  //         editable_parameters.push(editable_parameter);
-  //         break;
-  //       }
-  //     }
-  //   }
-  //   // 更新变量
-  //   this.editable_parameters = editable_parameters;
-  //
-  //   // 改变右侧显示的内容--显示plugin
-  //   this.rightBox_node = 0;
-  // }
 
   nodeClicked() {
     // 改变右侧显示的内容--显示node
@@ -333,24 +230,6 @@ export class JobCreationComponent {
   }
 
 
-
-  // findPluginById(id: string) {
-  //   for (let plugin of this.pluginArr) {
-  //     if (plugin.id == id) {
-  //       return plugin;
-  //     }
-  //   }
-  // }
-  //
-  // saveJob() {
-  //   console.log("saveJob...");
-  //   this.savePluginChange();
-  //   for (let plugin of this.pluginArr) {
-  //     this.pluginService.savePlugin(plugin)
-  //       .subscribe(response => this.saveJobNormalPlugin(response, plugin.id));
-  //   }
-  //   this.stepNumber = this.stepNumber + 1;
-  // }
 
   saveJobNormalPlugin(response, plugin_id) {
     if (response.status == 200) {

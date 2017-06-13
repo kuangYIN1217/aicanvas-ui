@@ -9,6 +9,8 @@ import {Editable_param, Parameter} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {SERVER_URL} from "../app.constants";
+
 
 declare var $: any;
 declare var unescape: any;
@@ -98,6 +100,16 @@ export class JobDetailComponent {
       }
     }
 
+  }
+
+
+  downloadLog(){
+    // this.jobService.downloadLog(this.job.jobPath).subscribe((data)=>{
+    let path = "/api/log?jobPath=" + this.job.jobPath;
+    let url =  SERVER_URL + path
+        // window.open(url);
+        location.href= url;
+    // });
   }
 
 // alert 提示

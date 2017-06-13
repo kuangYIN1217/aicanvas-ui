@@ -24,13 +24,13 @@
                 <a href="#" class="button" onclick="return false" >重置</a>
                 <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
                 <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
-                <a href="#" class="button" onclick="return false" >下载训练日志</a>
+                <a href="#" class="button" onclick="return false" (click)="downloadLog()">下载训练日志</a>
               </div>
             <div *ngIf="job?.status=='运行'"  [style.display]="lookIt==1?'none':''">
               <a href="#" class="button" onclick="return false" >重置</a>
               <a href="#" class="button" onclick="return false" (click)="stop(job?.jobPath)">停止</a>
               <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
-              <a href="#" class="button" onclick="return false" >下载训练日志</a>
+              <a href="#" class="button" onclick="return false"  (click)="downloadLog()" >下载训练日志</a>
             </div>
             </div>
           </div>
