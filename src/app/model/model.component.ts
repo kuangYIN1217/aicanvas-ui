@@ -7,6 +7,7 @@ import {Location} from '@angular/common';
 import {FileUploader} from "ng2-file-upload";
 import {SERVER_URL} from "../app.constants";
 import {JobService} from "../common/services/job.service";
+import {Headers} from "@angular/http";
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -69,7 +70,7 @@ export class ModelComponent {
       if(type == "zip"||type == "rar") {
         $('#image').attr("src","../../assets/model/yasuo2.png") ;
       }else{
-        let file = this.uploader.queue[0].some;
+        let file = this.uploader.queue[0]._file;
         let reader  = new FileReader();
         reader.addEventListener("load", function () {
           $('#image').attr("src",reader.result) ;
