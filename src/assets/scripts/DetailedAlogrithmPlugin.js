@@ -368,7 +368,6 @@ function save() {
   //console.log(nodesName);
   //console.log(test["layers"]);
   document.getElementById("plugin_storage").value = JSON.stringify(test);
-  console.log(document.getElementById("plugin_storage").value);
   // console.log(myDiagram.model.toJson());
   // console.log(JSON.stringify(link));
   // console.log(JSON.stringify(fromArr));

@@ -76,7 +76,7 @@ export class AlgpluginDetailComponent {
         this.pluginService.getTranParamTypes()
             .subscribe(editable_params => {
               this.getTranParamTypes(editable_params,plugin);
-              console.log(editable_params);
+             // console.log(editable_params);
             });
     }
     // 得到参数列表后

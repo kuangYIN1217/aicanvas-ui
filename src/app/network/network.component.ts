@@ -118,7 +118,6 @@ export class NetworkComponent {
     //     this.saveSysPlugin(this.plugin);
     // }
   }
-
   forkResult(response) {
     if (response.status == 200) {
       console.log("saved!");

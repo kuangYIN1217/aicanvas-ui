@@ -86,11 +86,15 @@
         <td>
           <div class="image" onclick="document.getElementById('file').click()">
             <input type="file" id="file" name="file" multiple ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
-            <img src="" alt="" id="image">
           </div>
         </td>
       </tr>
     </table>
+    <div class="showPhoto">
+       <span  *ngFor="let item of container">
+         <img src="{{item}}" alt="">
+       </span>
+    </div>
     <a href="#" class="back" onclick="return false" (click)="uploadFile()" style="float:left;margin: 30px;">推演</a>
   </div>
   <div [style.display]="!showAdd?'':'none'">
