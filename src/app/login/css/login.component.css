@@ -201,6 +201,13 @@ ul, ol {
 #username,#password{
     float: left;
     margin-top:5px;
+    outline: none !important;
+}
+#username:focus,#password:focus{
+  border-left:1px solid #e5e5e5 !important;
+  border-right:none !important;
+  border-top:none !important;
+  border-bottom:none !important;
 }
 .pass{
     margin-bottom: 36px;

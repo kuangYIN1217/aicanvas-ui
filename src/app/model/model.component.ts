@@ -44,6 +44,9 @@ export class ModelComponent {
   type:any;
   runId:number;
   path:string;
+  times:number=0;
+  fileName:any[]=[];
+  container:any[]=[];
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -61,46 +64,50 @@ export class ModelComponent {
       this.getJobDetail(this.job_id);
     });
   }
-
   // C: 定义事件，选择文件
   selectedFileOnChanged(event:any) {
-    //清除当前所选文件
-    //document.getElementById('file').outerHTML=document.getElementById('file').outerHTML.replace(/(value=\").+\"/i,"$1\"");
-    console.log(this.uploader.queue[0].file.name);
-    let fileName = this.uploader.queue[0].file.name;
-    if(fileName.length > 1 && fileName ) {
-      var ldot = fileName.lastIndexOf(".");
-      var type = fileName.substring(ldot + 1);
-      if(type == "zip"||type == "rar") {
-        $('#image').attr("src","../../assets/model/yasuo2.png") ;
-      }else{
-        let file = this.uploader.queue[0]._file;
-        let reader  = new FileReader();
-        reader.addEventListener("load", function () {
-          $('#image').attr("src",reader.result) ;
-        }, false);
-
-        if (file) {
-          reader.readAsDataURL(file);
+    var obj = document.getElementById('file') ;
+    obj.outerHTML=obj.outerHTML;
+    for(let i in this.uploader.queue){
+      this.fileName.push(this.uploader.queue[i].file.name);
+    }
+    if(this.fileName.length > 0){
+      for(let j in this.fileName){
+       let type = this.fileName[j].split('.').pop().toLowerCase();
+        if(type == "zip"||type == "rar") {
+         // $('.image').find('img').attr("src","../../assets/model/yasuo2.png");
+          this.container.push("assets/model/yasuo2.png");
+        }else{
+          let file = this.uploader.queue[j]._file;
+          let container1 = this.container;
+          let reader  = new FileReader();
+          reader.addEventListener("load", function () {
+            container1.push(reader.result);
+          }, false);
+          if (file) {
+            reader.readAsDataURL(file);
+          }
         }
       }
+      //console.log(this.container);
     }
-
   }
   // D: 定义事件，上传文件
-  uploadFile() {
-    this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
-      this.uploader.queue[0].remove();
-      var responsePath = response;
+    uploadFile() {
+      var responsePath = [];
+      for(let i in this.container){
+        this.uploader.queue[i].onSuccess = (response: any, status: any, headers: any) => {
+          //this.uploader.queue[i].remove();
+          responsePath.push(response);
+        }
+        this.uploader.queue[i].upload(); // 开始上传
+      }
+      console.log(responsePath);
       this.saveModelAndUpload(responsePath);
-    }
-    this.uploader.queue[0].upload(); // 开始上传
-    //this.tabIndex=this.scene;
-  }
-
-  saveModelAndUpload(filePath: string) {
+   //this.tabIndex=this.scene;
+   }
+  saveModelAndUpload(filePath: any[]) {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result => {
-
       // this.runId = result.id;
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {

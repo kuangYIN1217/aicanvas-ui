@@ -93,7 +93,9 @@
 .new_model table{
   margin: 30px;
 }
-
+.new_model table{
+  margin-bottom: 0px !important;
+}
 .new_model .image{
   width: 119px;
   height: 101px;
@@ -115,10 +117,19 @@
 .currentRow{
   color: #23a800;
 }
-#image{
+/*.showPhoto{
+  margin-left: 127px;
+}*/
+.showPhoto img{
   width:119px;
   height:101px;
 }
+.showPhoto span{
+  margin-top: 20px;
+  margin-left: 30px;
+  display: inline-block;
+}
+
 
 
 
