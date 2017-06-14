@@ -224,4 +224,16 @@ export class JobService {
         }
       });
   }
+
+  getPluginInfoById(jobPath: string , pluginId: string) {
+    let path = "/api/jobProcess/" + jobPath + "/" + pluginId;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
+
 }

@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Location} from "@angular/common";
 import {JobService} from "../common/services/job.service";
-import {ChainInfo, JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resources";
+import {ChainInfo, JobInfo, JobParameter, JobResult, PluginInfo, UserInfo} from "../common/defs/resources";
 import {AmChartsService} from "amcharts3-angular2";
 import {Router} from "@angular/router";
 import {AlgChainService} from "../common/services/algChain.service";
@@ -56,6 +56,9 @@ export class JobDetailComponent {
   runningPluginIndex = -1;
   // 被选中plugin
   currentPluginId = null;
+  // 显示plugin是否为当前runningPlugin
+  runningFlag = false;
+  jobPath: string;
   plugin_step_en: Array<string> = ['第一步' , '第二步' , '第三步', '第四步', '第五步', '第六步', '第七步', '第八步', '第九步', '第十步'];
   lossChartInitData() {
     var dataProvider = [{
@@ -79,21 +82,27 @@ export class JobDetailComponent {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
         jobPath = unescape(jobPath);
+        this.jobPath = jobPath;
         // jobService.getJob(jobPath)
         //     .subscribe(jobParam => this.jobParam = jobParam);
-        jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-          if(jobDetail){
-            this.job = jobDetail;
-            this.user = this.job.user;
-            // 处理jobDetail
-            this.resolveJobDetail(jobDetail , jobPath);
-          }
-
-        });
+        this.initJobDetailByPath();
       }
     }
   }
 
+  /**
+   * 获取jobDetail
+   */
+  initJobDetailByPath () {
+    this.jobService.getJobDetail(this.jobPath).subscribe(jobDetail => {
+      if(jobDetail){
+        this.job = jobDetail;
+        this.user = this.job.user;
+        // 处理jobDetail
+        this.resolveJobDetail(jobDetail , this.jobPath);
+      }
+    });
+  }
 
   downloadLog(){
     // this.jobService.downloadLog(this.job.jobPath).subscribe((data)=>{
@@ -104,29 +113,15 @@ export class JobDetailComponent {
     // });
   }
 
-// alert 提示
-  addToast(title: string = '消息提示' , msg: string , flag: string = 'info') {
-    // Just add default Toast with title only
-    // Or create the instance of ToastOptions
-    var toastOptions:ToastOptions = {
-      title: title,
-      msg: msg,
-      showClose: true,
-      timeout: 3000,
-      theme: 'default',
-      onAdd: (toast:ToastData) => {
-      },
-      onRemove: function(toast:ToastData) {
-      }
-    }
-  }
+
   /**
    * 解析jobDetail
    */
   resolveJobDetail (jobDetail , jobPath) {
     this.algchainService.getChainById(jobDetail.chainId).subscribe(chainInfo => {
-      console.log('init');
+      // console.log('init');
       this.chainInfo = chainInfo;
+      // console.log(chainInfo);
       switch (jobDetail.status) {
         case '完成':
           this.initNotRun(this.chainInfo.length - 1 , null , this.chainInfo[0].id , jobPath);
@@ -138,7 +133,7 @@ export class JobDetailComponent {
           this.initWithRun(jobPath);
           break;
         case '停止':
-          // todo 停止状态下初始化
+          this.not_running_show(jobPath , '停止');
           break;
       }
     })
@@ -161,6 +156,7 @@ export class JobDetailComponent {
    * 运行状态下初始化
    */
   initWithRun(jobPath) {
+    this.runningFlag = true;
     this.jobService.resetLog(jobPath).subscribe(data=>{
       this.updatePage(jobPath, this.index);
       this.interval = setInterval(() => {
@@ -171,28 +167,46 @@ export class JobDetailComponent {
       }, 1000);
     });
   }
+
   /**
    * plugin点击切换事件
    */
   pluginClick (plugin , index) {
-    console.log(plugin)
+    // console.log(plugin)
     if (plugin.id == this.currentPluginId) {
       // 当前选中plugin点击无效
-      console.log('click own -> return')
+      // console.log('click own -> return')
       return;
     } else if (this.runningPluginIndex < index) {
       // 禁止未运行的plugin
-      console.log('click disabled -> return')
+      // console.log('click disabled -> return')
       return;
-    } else if(true) {
-      // current 与 running 比较
-      // todo 回归当前running plugin
+    } else if(plugin.id == this.runningPluginId) {
+      // console.log('click run plugin -> switch to run plugin')
+      this.runningFlag = true;
+    } else {
+      // console.log('click plugin -> switch to plugin')
+      this.runningFlag = false;
+      this.getPluginData(plugin.id);
     }
-    // todo plugin click
     this.currentPluginId = plugin.id;
-    // 获取点击选项卡的信息 ， 渲染图表
   }
 
+  /**
+   * 根据pluginId获取job信息
+   * @param pluginId
+   */
+  getPluginData( pluginId) {
+    this.jobService.getPluginInfoById(this.jobPath , pluginId).subscribe(data => {
+      this.AmCharts.updateChart(this.lossChart, () => {
+        this.lossChart.dataProvider = data;
+      });
+      this.AmCharts.updateChart(this.metricsChart, () => {
+        this.metricsChart.dataProvider = data;
+      });
+    });
+
+  }
   ngOnInit() {
     this.lossChart = this.AmCharts.makeChart("lossGraph", {
       "type": "serial",
@@ -468,42 +482,79 @@ export class JobDetailComponent {
     $('#layer_dictionary').val(JSON.stringify(dictionary));
   }
 // 不再running状态时一次性展示数据
-  not_running_show(jobPath: string) {
+  not_running_show(jobPath: string , status?: string) {
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
-        if (jobParam.length && jobParam.length > 0) {
-          this.jobResultParam = this.jobResultParam.concat(jobParam);
-          this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
-          // debugger
-          // this.update(jobParam);
-          this.AmCharts.updateChart(this.lossChart, () => {
-            this.lossChart.dataProvider = this.jobResultParam;
-          });
-          this.AmCharts.updateChart(this.metricsChart, () => {
-            this.metricsChart.dataProvider = this.jobResultParam;
-          });
-        }
+        this.resolveJobParam(jobParam , status);
       });
+  }
+
+  /**
+   * 处理非运行状态下图表数据
+   * @param jobParam
+   */
+  resolveJobParam(jobParam , status?: string) {
+   /* console.log('unrun status')
+    console.log(jobParam)*/
+    if (jobParam.length && jobParam.length > 0) {
+      if (status === '停止') {
+        this.getLastPluginJobParam(jobParam);
+      } else {
+        this.jobResultParam = this.jobResultParam.concat(jobParam);
+        this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
+      }
+      // debugger
+      // this.update(jobParam);
+      this.AmCharts.updateChart(this.lossChart, () => {
+        this.lossChart.dataProvider = this.jobResultParam;
+      });
+      this.AmCharts.updateChart(this.metricsChart, () => {
+        this.metricsChart.dataProvider = this.jobResultParam;
+      });
+    }
+  }
+
+  /**
+   * 解析停止状态下的job数据，获取停止位置与数据
+   * @param jobParam
+   */
+  getLastPluginJobParam(jobParam) {
+    /* console.log('stop status') */
+    let temp_pluginId = jobParam[jobParam.length - 1].pluginId;
+    this.currentPluginId = temp_pluginId;
+    this.getRunningPlugin(jobParam[jobParam.length - 1]);
+    this.runningPluginId = null;
+    for (let i = jobParam.length - 1; i >=0 ; i --) {
+      if (jobParam[i].pluginId !== temp_pluginId || i === 0) {
+        this.jobResultParam = this.jobResultParam.concat(jobParam.slice((i===0?-1:i) + 1 , jobParam.length));
+        this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
+        break;
+      }
+    }
   }
   updatePage(jobPath, index) {
 
     this.jobService.getUnrunningJob(jobPath )
       .subscribe(jobParam => {
-        console.log('run');
+       /* console.log('run'); */
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
+        // console.log(JobResult)
         if(this.jobResult) {
           this.index = this.jobResult.epoch;
           this.getRunningPlugin(this.jobResult);
+          // 展示plugin为runingplugin
+          if (this.runningFlag) {
+            this.AmCharts.updateChart(this.lossChart, () => {
+              this.lossChart.dataProvider = this.jobResultParam;
+            });
+            this.AmCharts.updateChart(this.metricsChart, () => {
+              this.metricsChart.dataProvider = this.jobResultParam;
+            });
+          }
         }
 
-        this.AmCharts.updateChart(this.lossChart, () => {
-          this.lossChart.dataProvider = this.jobResultParam;
-        });
-        this.AmCharts.updateChart(this.metricsChart, () => {
-          this.metricsChart.dataProvider = this.jobResultParam;
-        });
-        this.jobResult = jobParam[jobParam.length - 1];
+       /* this.jobResult = jobParam[jobParam.length - 1];*/
         this.websocket.connect().then(()=>{
           this.websocket.subscribe('/job/'+jobPath,(data)=>{
             // console.log(data);
@@ -519,12 +570,16 @@ export class JobDetailComponent {
       });
     // console.log(this.index);
   }
-  // 获取当前正在运行的插件信息
+
+  /**
+   * 获取当前正在运行的插件信息
+   * @param data
+   */
    getRunningPlugin(data) {
      // 判断当前状态
-     if (data.plugin_id) {
+     if (data.pluginId) {
        // 当前运行的plugin
-       this.runningPluginId = data.plugin_id;
+       this.runningPluginId = data.pluginId;
        for (let i = 0 ; i < this.chainInfo.length ; i++) {
          if (this.chainInfo[i].id == this.runningPluginId) {
             this.runningPluginIndex = i;
@@ -535,17 +590,17 @@ export class JobDetailComponent {
    }
   updateChart(data){
     this.getRunningPlugin(data);
-
-    // todo 判断是否渲染当前数据
-
     let temp:JobParameter = data;
     this.jobResultParam.push(temp);
-    this.AmCharts.updateChart(this.lossChart, () => {
-      this.lossChart.dataProvider = this.jobResultParam;
-    });
-    this.AmCharts.updateChart(this.metricsChart, () => {
-      this.metricsChart.dataProvider = this.jobResultParam;
-    });
+    // 展示plugin为runingplugin
+    if (this.runningFlag) {
+      this.AmCharts.updateChart(this.lossChart, () => {
+        this.lossChart.dataProvider = this.jobResultParam;
+      });
+      this.AmCharts.updateChart(this.metricsChart, () => {
+        this.metricsChart.dataProvider = this.jobResultParam;
+      });
+    }
     this.jobResult = temp;
   }
 
@@ -556,10 +611,11 @@ export class JobDetailComponent {
         clearInterval(this.interval);
       }
       this.index=-1;
-      this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+      this.initJobDetailByPath();
+     /* this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
         this.job = jobDetail;
         this.user = this.job.user;
-      });
+      });*/
     });
   }
 
@@ -567,13 +623,14 @@ export class JobDetailComponent {
   start(jobPath: string){
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
-        this.updatePage(jobPath, this.index);
+        this.initJobDetailByPath();
+        /*this.updatePage(jobPath, this.index);
         this.interval = setInterval(() => {
           this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
             this.job = jobDetail;
             this.user = this.job.user;
           });
-        }, 1000);
+        }, 1000);*/
       });
   }
 
