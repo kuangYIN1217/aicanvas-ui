@@ -8,7 +8,6 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
   providers: []
 })
 export class PageComponent {
-
   @Input('pageParams') pageParams;// 父组件向子组件传值
   @Output() changeCurPage:EventEmitter<string> = new EventEmitter;// 子组件向父组件广播事件，触发改变当前页面的事件
 

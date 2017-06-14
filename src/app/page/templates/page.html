@@ -1,26 +1,4 @@
-<!--
-<div class="bottom_menu">
-  <div class="label">
-    &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;
-    <span>共条记录</span>
-    <span>每页显示条</span>
-  </div>
-  <div class="selectDiv" >
-    <span>每页</span>
-    <select>
-      <option>10</option>
-    </select>
-    <span>条记录</span>
-  </div>
-  <div class="btnDiv">
-    <button class="btn">上一页</button>
-    <button>1</button>
-    <button>2</button>
-    <button>3</button>
-    <button class="btn">下一页</button>
-  </div>
-</div>
--->
+
 <!--分页组件-->
 <div class="bottom_menu" *ngIf="pageParams.totalPage>=0 && pageParams.totalNum>=0">
   <a class="label">共 {{pageParams.totalNum}} 条记录  当前显示第 <span>{{pageParams.curPage}}</span>页</a>

@@ -59,7 +59,6 @@ export class TaskStatusComponent{
       this.sceneId = this.historyId;
     }
      this.getSceneId();
-
    }
    getSceneId(){
      if(this.sceneId==0){

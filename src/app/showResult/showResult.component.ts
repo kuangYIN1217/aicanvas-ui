@@ -59,10 +59,11 @@ export class ShowResultComponent {
   item: string;
   pageParams=new Page();
     /*@Input() imgs: SlideImg[];*/
-    imgs: any[]=["banner4.jpg","banner3.jpg","banner2.jpg","banner1.png"];
+    imgs: any[]=[];
     public current;
     constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router) {
       this.route.queryParams.subscribe(params => {
+        debugger
         this.model_id = params['runId'];
         if (this.model_id && this.model_id != -1) {
           this.model_pre = this.model_id;

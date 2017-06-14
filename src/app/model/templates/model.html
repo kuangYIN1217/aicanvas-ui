@@ -1,5 +1,4 @@
 <div class="container">
-
   <div class="nav">
     <div class="row">
       <h1>推演服务</h1>
@@ -9,32 +8,24 @@
         <span>场景名称: </span>
         <span>{{job?.sencesName}}</span>
       </div>
-
       <div class="text">
         <span>算法: </span>
         <span>{{job?.chainId}}</span>
       </div>
-
-
       <div class="text">
         <span>训练任务: </span>
         <span>{{job?.jobName}}</span>
       </div>
-
-
       <div class="text">
         <span>创建时间: </span>
         <span>{{job?.createTime| date}}</span>
       </div>
-
       <div class="button_location">
         <a href="#" class="button" onclick="return false" (click)="showAdd=true;currentId=-1">新增推演</a>
         <a href="#" class="back" onclick="return false" (click)="back()">返回</a>
       </div>
     </div>
   </div>
-
-
   <div class="tableContainer">
     <table class="table">
       <th>推演名称</th>
@@ -53,12 +44,8 @@
       </tr>
     </table>
     <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
-
   </div>
-
-
   <div class="new_model" [style.display]="showAdd?'':'none'">
-
     <table>
       <tr>
         <td class="first_column">推演文件格式</td>
@@ -88,7 +75,7 @@
     <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='null'?'':'none'" *ngIf="type=='null'"></historyDetail>
     <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='raw_text'?'':'none'" *ngIf="type=='raw_text'"></historyDetail>
     <showImage [model_id]="runId" [style.display]="type=='multiple_labeled_images'?'':'none'" *ngIf="type=='multiple_labeled_images'"></showImage>
-    <!--<showResult [model_id]="runId" [style.display]="uploader.queue.length>=3" *ngIf="uploader.queue.length>=3"></showResult>-->
+    <showResult [model_id]="runId" [style.display]="type=='raw_text'&&uploader.queue.length>=3?'':'none'" *ngIf="type=='raw_text'&&uploader.queue.length>=3"></showResult>
   </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
 </div>

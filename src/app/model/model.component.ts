@@ -115,7 +115,6 @@ export class ModelComponent {
        // console.log(responsePath);
         this.uploader.queue[i].upload(); // 开始上传
       }
-
    //this.tabIndex=this.scene;
    }
   saveModelAndUpload(filePath: any[]) {
@@ -131,7 +130,6 @@ export class ModelComponent {
       //this.router.navigate(['../modelDetail'],{queryParams:{"runId":result.id}});
     })
   }
-
   getResult(modelId:number){
     this.modelService.getResult(modelId).subscribe(result=>{
       if (result.content.length!=0) {
@@ -143,22 +141,19 @@ export class ModelComponent {
       }
     })
   }
-
   getJobDetail(job_id){
     this.jobService.getJobDetailById(job_id).subscribe(jobDetail => {
       this.job = jobDetail;
     });
   }
-
   selectChange(job_id) {
     console.log(job_id);
     this.id = 1;
-    this.pageMaxItem = 10;
-    this.getData(job_id);
-
+    this.getData(job_id,this.page-1,this.pageMaxItem);
   }
-  getData(job_id){
-    this.modelService.getModelPredictionByJob(job_id)
+  getData(job_id,page,size){
+    console.log(job_id);
+    this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
         this.ModelInfo = model.content;
         console.log(this.ModelInfo);
@@ -168,17 +163,13 @@ export class ModelComponent {
         page.totalPage = model.totalPages;
         page.totalNum = model.totalElements;
         this.pageParams = page;
-        // this.firstPath = this.ModelInfo[0].job_path;
-        // this.firstId = this.ModelInfo[0].model_id;
-        // this.arr = this.ModelInfo.slice(0,10);
-        // this.getInit();
+        console.log(this.pageParams);
       });
   }
   getPageData(paraParam) {
-    //this.getData(this.job_id,paraParam.pageMaxItem * paraParam.curPage - 1, paraParam.pageMaxItem * paraParam.curPage);
+    console.log(this.job_id);
+    this.getData(this.job_id,paraParam.curPage-1,paraParam.pageMaxItem);
   }
-
-
   clickStatus(statu, model_id, job_path) {
     this.selected = statu;
     this.item = model_id;
@@ -198,12 +189,12 @@ export class ModelComponent {
       return false
     }
   }
-
   back() {
     this._location.back();
   }
   showDetail(id){
     this.showAdd=false;
+    console.log(id);
     clearInterval(this.interval);
     this.currentId=id;
     this.interval = setInterval(() => this.getResult(id), 500);
