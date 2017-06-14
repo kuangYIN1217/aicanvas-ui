@@ -44,7 +44,7 @@ export class ModelComponent {
   type:any;
   runId:number;
   path:string;
-  times:number=0;
+  times:number;
   fileName:any[]=[];
   container:any[]=[];
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
@@ -60,25 +60,34 @@ export class ModelComponent {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.job_id = params['job_id'];
+      console.log(this.job_id);
       this.selectChange(this.job_id);
       this.getJobDetail(this.job_id);
     });
   }
   // C: 定义事件，选择文件
   selectedFileOnChanged(event:any) {
-    var obj = document.getElementById('file') ;
-    obj.outerHTML=obj.outerHTML;
+    this.times = 0;
     for(let i in this.uploader.queue){
-      this.fileName.push(this.uploader.queue[i].file.name);
+      this.times++;
+      if(this.fileName.length>0){
+        for(let n=0;n<this.fileName.length;n++){
+          if(this.fileName[n]==this.uploader.queue[i].file.name){
+            this.fileName.splice(n,1);
+          }else{
+            this.fileName.push(this.uploader.queue[i].file.name);
+          }
+        }
+      }else{
+        this.fileName.push(this.uploader.queue[i].file.name);
+      }
     }
-    if(this.fileName.length > 0){
-      for(let j in this.fileName){
-       let type = this.fileName[j].split('.').pop().toLowerCase();
+       let type = this.fileName[0].split('.').pop().toLowerCase();
         if(type == "zip"||type == "rar") {
-         // $('.image').find('img').attr("src","../../assets/model/yasuo2.png");
           this.container.push("assets/model/yasuo2.png");
         }else{
-          let file = this.uploader.queue[j]._file;
+          let file = this.uploader.queue[this.times-1]._file;
+          console.log(file);
           let container1 = this.container;
           let reader  = new FileReader();
           reader.addEventListener("load", function () {
@@ -87,23 +96,26 @@ export class ModelComponent {
           if (file) {
             reader.readAsDataURL(file);
           }
-        }
-      }
       //console.log(this.container);
     }
   }
   // D: 定义事件，上传文件
     uploadFile() {
       var responsePath = [];
-      for(let i in this.container){
+      console.log(this.container);
+      for(var i=0;i<this.container.length;i++){
         this.uploader.queue[i].onSuccess = (response: any, status: any, headers: any) => {
           //this.uploader.queue[i].remove();
           responsePath.push(response);
+          if(responsePath.length==this.uploader.queue.length){
+            console.log(responsePath);
+            this.saveModelAndUpload(responsePath);
+          }
         }
+       // console.log(responsePath);
         this.uploader.queue[i].upload(); // 开始上传
       }
-      console.log(responsePath);
-      this.saveModelAndUpload(responsePath);
+
    //this.tabIndex=this.scene;
    }
   saveModelAndUpload(filePath: any[]) {
@@ -142,6 +154,10 @@ export class ModelComponent {
     console.log(job_id);
     this.id = 1;
     this.pageMaxItem = 10;
+    this.getData(job_id);
+
+  }
+  getData(job_id){
     this.modelService.getModelPredictionByJob(job_id)
       .subscribe(model => {
         this.ModelInfo = model.content;
@@ -157,8 +173,9 @@ export class ModelComponent {
         // this.arr = this.ModelInfo.slice(0,10);
         // this.getInit();
       });
-    //this.arr = this.ModelInfo.slice(0,9);
-    //console.log(this.arr);
+  }
+  getPageData(paraParam) {
+    //this.getData(this.job_id,paraParam.pageMaxItem * paraParam.curPage - 1, paraParam.pageMaxItem * paraParam.curPage);
   }
 
 
@@ -182,56 +199,13 @@ export class ModelComponent {
     }
   }
 
-  getTotals(num) {
-    if (this.ModelInfo.length % num == 0) {
-      this.result = Math.floor(this.ModelInfo.length / num);
-    } else {
-      this.result = Math.floor(this.ModelInfo.length / num) + 1;
-    }
-  }
-
-  maxItemChange(num) {
-    this.page = 1;
-    if (num == 10) {
-      this.arr = this.ModelInfo.slice(0, 10);
-      this.getTotals(num);
-    } else if (num == 20) {
-      this.arr = this.ModelInfo.slice(0, 20);
-      this.getTotals(num);
-    }
-    else if (num == 50) {
-      this.arr = this.ModelInfo.slice(0, 50);
-      this.getTotals(num);
-    }
-  }
-
-
-  getPageData(paraParam) {
-    this.arr = this.ModelInfo.slice(paraParam.pageMaxItem * paraParam.curPage - 1, paraParam.pageMaxItem * paraParam.curPage);
-  }
-
-  previousPage(num) {
-    if (this.page > 1) {
-      this.page--;
-      this.arr = this.ModelInfo.slice(num * this.page - num, num * this.page);
-      console.log(this.arr);
-    } else {
-      // alert('已经是首页');
-      addInfoToast(this.toastyService , "已经是首页" );
-    }
-  }
-
-
   back() {
     this._location.back();
   }
-
   showDetail(id){
     this.showAdd=false;
     clearInterval(this.interval);
     this.currentId=id;
-
     this.interval = setInterval(() => this.getResult(id), 500);
-
   }
 }

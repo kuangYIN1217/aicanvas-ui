@@ -1,12 +1,32 @@
 <div class="container">
-    <div class="showImage">
+  <div class="percent">
+    <span>展示结果：</span>
+  </div>
+  <table class="table">
+    <th>上传内容</th>
+    <th>显示结果</th>
+    <tbody>
+    <tr class="showImage">
+      <td class="leftImg">
+        <div class="imgs">
+          <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index"  [@imgMove]="ImgState(i)" width="100%" height="400px">
+        </div>
+      </td>
+      <td class="rightImg">
+        <div class="imgs">
+          <span style="display: inline-block" *ngFor="let img of imgs;let i=index">
+          <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index" (mySwipe)="Change($event)" [@imgMove]="ImgState(i)" width="100%" height="400px">
+          </span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+<!--    <div class="showImage">
         <div class="leftImg">
             <div class="imgs">
                 <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index"  [@imgMove]="ImgState(i)" width="100%" height="400px">
             </div>
-            <!--(mySwipe)="Change($event)"-->
-       <!--     <div class="leftbtn btn" (click)="Prev()"><</div>
-            <div class="rightbtn btn" (click)="Next()">></div>-->
         </div>
             <div class="space"></div>
         <div class="rightImg">
@@ -15,8 +35,6 @@
                 <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index" (mySwipe)="Change($event)" [@imgMove]="ImgState(i)" width="100%" height="400px">
                 </span>
             </div>
-         <!--   <div class="leftbtn btn" (click)="Prev()"><</div>
-            <div class="rightbtn btn" (click)="Next()">></div>-->
         </div>
-    </div>
+    </div>-->
 </div>

@@ -36,6 +36,7 @@ import { InferenceModelComponent } from './inference-model/inference-model.compo
 import { StompService } from 'ng2-stomp-service-fixed';
 /*import {FontAwesomeDirective} from "ng2-fontawesome";*/
 import {ToastyModule} from 'ng2-toasty';
+//import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -72,10 +73,12 @@ import {ToastyModule} from 'ng2-toasty';
     HttpModule,
     FileUploadModule,
     AmChartsModule,
-    ToastyModule
+    ToastyModule,
+    //BrowserAnimationsModule,
   ],
   providers: [StompService],
   bootstrap: [NavigationComponent]
 })
 export class AppModule {
+
 }

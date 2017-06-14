@@ -108,23 +108,4 @@ export class ShowImageComponent {
     return JSON.parse(this.stringArr).label
   }
 
-  maxItemChange() {
-    this.page = 1;
-    this.getResult(this.model_pre, this.page - 1, this.pageMaxItem)
-  }
-
-  nextPage() {
-    this.page++;
-    this.getResult(this.model_pre, this.page - 1, this.pageMaxItem)
-
-  }
-
-  previousPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.getResult(this.model_pre, this.page - 1, this.pageMaxItem)
-    } else {
-      alert('已经是首页');
-    }
-  }
 }
