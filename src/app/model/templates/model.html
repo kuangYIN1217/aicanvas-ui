@@ -75,7 +75,7 @@
     <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='null'?'':'none'" *ngIf="type=='null'"></historyDetail>
     <historyDetail [model_id]="runId"  style="margin-left: 0" [style.display]="type=='raw_text'?'':'none'" *ngIf="type=='raw_text'"></historyDetail>
     <showImage [model_id]="runId" [style.display]="type=='multiple_labeled_images'?'':'none'" *ngIf="type=='multiple_labeled_images'"></showImage>
-    <showResult [model_id]="runId" [style.display]="type=='raw_text'&&uploader.queue.length>=3?'':'none'" *ngIf="type=='raw_text'&&uploader.queue.length>=3"></showResult>
+    <showResult [model_id]="runId" [style.display]="type=='multiple_labeled_carousel_figures'?'':'none'" *ngIf="type=='multiple_labeled_carousel_figures'"></showResult>
   </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
 </div>

@@ -1,5 +1,5 @@
-
-  <div class="percent">
+<div class="image-container">
+<div class="percent">
     <span>展示结果：</span>
   </div>
   <table class="table">
@@ -9,32 +9,19 @@
     <tr class="showImage">
       <td class="leftImg">
         <div class="imgs">
-          <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index"  [@imgMove]="ImgState(i)" width="100%" height="400px">
+          <span style="display: inline-block" *ngFor="let img of inImgs;let i=index">
+          <img src="{{SERVER_URL}}/api/file?filePath={{img}}" alt="" class="img" *ngFor="let img of inImgs;let i=index"  [@imgMove]="ImgState1(i)" width="100%" height="400px">
+          </span>
         </div>
       </td>
       <td class="rightImg">
         <div class="imgs">
-          <span style="display: inline-block" *ngFor="let img of imgs;let i=index">
-          <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index" (mySwipe)="Change($event)" [@imgMove]="ImgState(i)" width="100%" height="400px">
+          <span style="display: inline-block" *ngFor="let img of outImgs;let i=index">
+          <img src="{{SERVER_URL}}/api/file?filePath={{outputImg(img)}}" alt="" class="img" *ngFor="let img of outImgs;let i=index" (mySwipe)="Change($event)" [@imgMove]="ImgState(i)" width="100%" height="400px">
           </span>
         </div>
       </td>
     </tr>
     </tbody>
   </table>
-<!--    <div class="showImage">
-        <div class="leftImg">
-            <div class="imgs">
-                <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index"  [@imgMove]="ImgState(i)" width="100%" height="400px">
-            </div>
-        </div>
-            <div class="space"></div>
-        <div class="rightImg">
-            <div class="imgs">
-                <span style="display: inline-block" *ngFor="let img of imgs;let i=index">
-                <img src="../assets/showResult/{{img}}" alt="" class="img" *ngFor="let img of imgs;let i=index" (mySwipe)="Change($event)" [@imgMove]="ImgState(i)" width="100%" height="400px">
-                </span>
-            </div>
-        </div>
-    </div>-->
-
+</div>

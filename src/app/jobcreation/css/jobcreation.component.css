@@ -88,7 +88,6 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   margin-top: 3px;
   margin-left: 10px;
   margin-right: -13px;
-
 }
 
 .status {
@@ -536,7 +535,6 @@ input:focus{
 select{
   position: absolute;
   background: url("../../../assets/jobcreation/rightArrow.png") no-repeat right 6px center;
-
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;

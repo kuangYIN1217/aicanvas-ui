@@ -51,10 +51,7 @@ export class TaskStatusComponent{
       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
     //this.getSceneId();
    }
-
   ngOnChanges(...args: any[]) {
-     //console.log(this.sceneId);
-     //console.log(this.jobName);
     if(this.sceneId==0){
       this.sceneId = this.historyId;
     }
@@ -133,24 +130,7 @@ export class TaskStatusComponent{
         }
         this.updatePage();
     }
-    maxItemChange(){
-        this.page=1;
-        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
-        //console.log(this.createdJob);
-    }
-    nextPage(){
-        this.page++;
-        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
-        //console.log(this.createdJob);
-    }
-    previousPage(){
-        if (this.page>1){
-            this.page--;
-            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
-        }else{
-            alert('已经是首页');
-        }
-    }
+
     output(percent){
         if(percent==100){
             return parseInt(percent)+"%";

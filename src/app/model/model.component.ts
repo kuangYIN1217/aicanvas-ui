@@ -47,6 +47,7 @@ export class ModelComponent {
   times:number;
   fileName:any[]=[];
   container:any[]=[];
+  responsePath:any[] = [];
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -60,9 +61,8 @@ export class ModelComponent {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.job_id = params['job_id'];
-      console.log(this.job_id);
       this.selectChange(this.job_id);
-      this.getJobDetail(this.job_id);
+        this.getJobDetail(this.job_id);
     });
   }
   // C: 定义事件，选择文件
@@ -101,18 +101,18 @@ export class ModelComponent {
   }
   // D: 定义事件，上传文件
     uploadFile() {
-      var responsePath = [];
+
       console.log(this.container);
       for(var i=0;i<this.container.length;i++){
         this.uploader.queue[i].onSuccess = (response: any, status: any, headers: any) => {
           //this.uploader.queue[i].remove();
-          responsePath.push(response);
-          if(responsePath.length==this.uploader.queue.length){
-            console.log(responsePath);
-            this.saveModelAndUpload(responsePath);
+          console.log(response);
+          this.responsePath.push(response);
+          if( this.responsePath.length==this.uploader.queue.length){
+            console.log( this.responsePath);
+            this.saveModelAndUpload( this.responsePath);
           }
         }
-       // console.log(responsePath);
         this.uploader.queue[i].upload(); // 开始上传
       }
    //this.tabIndex=this.scene;
@@ -131,7 +131,8 @@ export class ModelComponent {
     })
   }
   getResult(modelId:number){
-    this.modelService.getResult(modelId).subscribe(result=>{
+    this.modelService.getResult(modelId)
+      .subscribe(result=>{
       if (result.content.length!=0) {
         clearInterval(this.interval);
         this.result = result.content;
@@ -142,17 +143,16 @@ export class ModelComponent {
     })
   }
   getJobDetail(job_id){
-    this.jobService.getJobDetailById(job_id).subscribe(jobDetail => {
+    this.jobService.getJobDetailById(job_id)
+      .subscribe(jobDetail => {
       this.job = jobDetail;
     });
   }
   selectChange(job_id) {
-    console.log(job_id);
     this.id = 1;
     this.getData(job_id,this.page-1,this.pageMaxItem);
   }
   getData(job_id,page,size){
-    console.log(job_id);
     this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
         this.ModelInfo = model.content;
@@ -167,7 +167,6 @@ export class ModelComponent {
       });
   }
   getPageData(paraParam) {
-    console.log(this.job_id);
     this.getData(this.job_id,paraParam.curPage-1,paraParam.pageMaxItem);
   }
   clickStatus(statu, model_id, job_path) {

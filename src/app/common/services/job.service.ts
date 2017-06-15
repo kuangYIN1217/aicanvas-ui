@@ -110,19 +110,16 @@ export class JobService {
         }
       });
   }
-
   getJobDetailById(jobId: number) {
-    let path = "/api/jobDetailById/" + jobId;
-    let headers = this.getHeaders();
-    return this.http.get(this.SERVER_URL + path, {headers: headers})
-      .map((response: Response) => {
-        if (response && response.json()) {
-          return response.json();
-        }
-      });
+      let path = "/api/jobDetailById/" + jobId;
+      let headers = this.getHeaders();
+      return this.http.get(this.SERVER_URL + path, {headers: headers})
+        .map((response: Response) => {
+          if (response && response.json()) {
+            return response.json();
+          }
+        });
   }
-
-
   getJobDetail(jobPath: string) {
     let path = "/api/jobDetail/" + jobPath;
     let headers = this.getHeaders();

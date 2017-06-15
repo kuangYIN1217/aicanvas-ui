@@ -344,7 +344,7 @@ canvas{
 }
 
 select:focus{
-  border:1px solid #23a880 !important;
+  border:1px solid #23a880;
 }
 select{
   outline: none;
@@ -353,7 +353,7 @@ input{
   outline: none;
 }
 input:focus{
-  border:1px solid #23a880 !important;
+  border:1px solid #23a880;
 }
 .table {
   width: 96%;
