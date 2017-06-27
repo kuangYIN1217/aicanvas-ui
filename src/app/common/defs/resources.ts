@@ -27,6 +27,7 @@ export class Page{
   curPage: number;
   totalPage: number;
   totalNum:number;
+  job_id:number;
 }
 export class UserInfo{
     //

@@ -56,7 +56,7 @@ export class JobCreationComponent {
   data: number;
   length: number;
   haveModel: number = 0;
-  firstSceneId: number;
+  firstSceneId: string;
   firstChainId: string;
   @Input() statuss: string = '';
   jobName:string;
@@ -78,10 +78,8 @@ export class JobCreationComponent {
     this.editable_params = editable_params;
   }
 
-
-
-
   changeChosenSceneId() {
+    debugger
     let id = this.student;
     console.log(id);
     this.chosenSceneId = id;
@@ -89,9 +87,8 @@ export class JobCreationComponent {
       .subscribe(results => {
         this.PluginInfo = results;
         this.arr = results;
-        // this.firstChainId = this.PluginInfo[0].id;
-        console.log(this.firstChainId);
-
+        this.firstSceneId = this.PluginInfo[0].chain_name;
+        console.log(this.firstSceneId );
         this.data = Math.floor(this.PluginInfo.length / this.pageMaxItem) + 1;
         this.length = this.PluginInfo.length;
         if (this.result && this.length != 0) {
@@ -136,13 +133,15 @@ export class JobCreationComponent {
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
         this.student = scenes[0].id;
-        // this.firstSceneId = this.student;
+        console.log(this.student);
+        //this.firstSceneId = this.student;
         //console.log(this.firstSceneId);
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {
             this.PluginInfo = result;
-            // this.firstChainId = this.PluginInfo[0].id;
-            //console.log(this.firstChainId);
+            this.firstChainId = this.PluginInfo[0].id;
+            this.firstSceneId = this.PluginInfo[0].chain_name;
+            console.log(this.firstSceneId);
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
           })

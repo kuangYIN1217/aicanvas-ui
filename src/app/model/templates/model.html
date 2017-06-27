@@ -21,7 +21,7 @@
         <span>{{job?.createTime| date}}</span>
       </div>
       <div class="button_location">
-        <a href="#" class="button" onclick="return false" (click)="showAdd=true;currentId=-1">新增推演</a>
+        <a href="#" class="button" onclick="return false" (click)="deduction()">新增推演</a>
         <a href="#" class="back" onclick="return false" (click)="back()">返回</a>
       </div>
     </div>
@@ -43,7 +43,7 @@
         <td>{{model.percent==null?'0.0':model.percent|percent:'.2'}}</td>
       </tr>
     </table>
-    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)"  class="page"></page>
   </div>
   <div class="new_model" [style.display]="showAdd?'':'none'">
     <table>

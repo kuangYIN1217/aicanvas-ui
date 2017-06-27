@@ -14,13 +14,16 @@ export class PageComponent {
   public pageList = [1, 2, 3, 4, 5];
   public totalPage = 5;
   pageMaxItem =10;
+  job_id:number;
   constructor() {
     let vm = this;
     //console.log('从父组件获取的参数', vm['pageParams']);
   }
-
   ngOnInit(){
-    this.pageParams = {'totalNum':0,'curPage':1,'pageMaxItem':10,'totalPage':0}
+    this.pageParams = {'totalNum':0,'curPage':1,'pageMaxItem':10,'totalPage':0,'job_id':this.job_id};
+  }
+  ngOnChanges(...args: any[]) {
+    this.job_id = this.pageParams.job_id;
   }
   getPageList(pageParams) {
     let pageList=[];
@@ -68,7 +71,6 @@ export class PageComponent {
     }
     }
     return pageList;
-
   }
   maxItemChange(){
     this.changePage(1);
@@ -77,7 +79,9 @@ export class PageComponent {
     let vm = this;
     //console.log('修改页码', pageNo);
     vm.pageParams.curPage = pageNo;
+    vm.pageParams.job_id =  this.job_id;
     vm.pageParams.pageMaxItem = this.pageMaxItem;
+
     vm.changeCurPage.emit(vm.pageParams);
   }
 }

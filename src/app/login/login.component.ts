@@ -108,13 +108,13 @@ export class LoginComponent implements OnInit{
         // }
     }
     validToken(returnToken,username){
-        console.log(returnToken);
+        //console.log(returnToken);
         if(returnToken=="fail"){
             this.showMessage("登陆失败");
         }else if(returnToken&&returnToken.id_token){
             sessionStorage['authenticationToken'] = returnToken.id_token;
             sessionStorage['username']= username;
-            console.log(sessionStorage['authenticationToken']);
+           // console.log(sessionStorage['authenticationToken']);
             console.log("登陆成功");
             // this.showMessage("登陆成功");
           this.router.navigate(['/overview'])

@@ -103,11 +103,10 @@ export class modelService {
                 }
             });
     }
-
   getModelPredictionByJob(job_id, page=0,size=10){
     let path = "/api/modelPredictions/"+job_id+"?page="+page+"&size="+size;
     let headers = this.getHeaders();
-    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+    return this.http.get(this.SERVER_URL+path, { headers : headers})
       .map((response: Response) => {
         if (response && response.json()) {
           return response.json();

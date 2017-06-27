@@ -66,6 +66,8 @@ export class ShowImageComponent {
     //console.log('触发', paraParam);
   }
   getResult(modelId: number, page, size) {
+    console.log(this.model_id);
+    console.log(modelId);
     this.modelService.getResult(modelId, page, size).subscribe(result => {
       if (result.content.length != 0) {
         clearInterval(this.interval);

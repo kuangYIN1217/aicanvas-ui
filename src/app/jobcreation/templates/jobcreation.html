@@ -22,18 +22,16 @@
           <div class="row">
             <div class="row_tr">
               <span class="span" style="line-height: 28px">任务名称</span>
-              <div >
+              <div>
             <input type="text" [(ngModel)]="jobName" name="" value=""class="input">
               </div>
             </div>
-
           </div>
           <div class="row">
             <div class="row_tr">
               <span class="span" >场景选择</span>
               <div class="row_select">
               <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">
-
               <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
               </select>
               </div>
@@ -41,16 +39,14 @@
             <div class="row_tr" style=" margin-left: 200px">
               <span class="span" style="width:160px;" >算法链选择</span>
               <div>
-              <select class="select" name="scene_select" [(ngModel)]="firstSceneId">
-                <option  selected>--请选择--</option>
+              <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="firstSceneId=$event;">
+                <option selected>--请选择--</option>
                 <option *ngFor="let chain of arr" [value]="chain.id">{{chain.chain_name}}</option>
               </select>
               </div>
             </div>
-
           </div>
           <div class="row">
-
             <div class="row_tr">
               <span class="span">数据集</span>
               <div>

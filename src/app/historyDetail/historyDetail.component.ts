@@ -85,9 +85,6 @@ export class HistoryDetailComponent {
       }
     })
   }
-
-
-
   getPageData(paraParam) {
     this.getResult(this.model_id,paraParam.curPage-1,paraParam.pageMaxItem);
     //console.log('触发', paraParam);
@@ -106,26 +103,6 @@ export class HistoryDetailComponent {
       return this.outputArr.slice(0, this.id);
     }
 
-  }
-
-  maxItemChange() {
-    this.page = 1;
-    this.getResult(this.model_pre, this.page - 1, this.pageMaxItem)
-  }
-
-  nextPage() {
-    this.page++;
-    this.getResult(this.model_pre, this.page - 1, this.pageMaxItem)
-
-  }
-
-  previousPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.getResult(this.model_pre, this.page - 1, this.pageMaxItem)
-    } else {
-      alert('已经是首页');
-    }
   }
 
 }

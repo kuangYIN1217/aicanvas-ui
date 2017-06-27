@@ -13,10 +13,10 @@ import {inferenceResult, Page} from "../common/defs/resources";
     providers: [ResourcesService, modelService],
     animations: [
          trigger('imgMove', [
-             state('off', style({'display': 'none', 'z-index': '0', 'transform': 'scale(0)'})),
-             state('prev', style({'z-index': '1', 'transform': 'scale(0)'})),
-             state('next', style({'z-index': '2', 'transform': 'scale(0)'})),
-             state('on', style({'z-index': '3', 'transform': 'scale(1)'})),
+             state('off', style({'display': 'none', 'z-index': '0', 'opacity':0})),
+             state('prev', style({'z-index': '1', 'opacity': 0})),
+             state('next', style({'z-index': '2', 'opacity': 0})),
+             state('on', style({'z-index': '3', 'opacity': 1})),
                  transition('prev=>on', [
                      animate(1000, keyframes([
                          style({ opacity: 0 }),
@@ -25,8 +25,8 @@ import {inferenceResult, Page} from "../common/defs/resources";
                  ]),
                 transition('next=>on', [
                     animate(1000, keyframes([
-                        style({ opacity: 1 }),
-                        style({ opacity: 0})
+                        style({ opacity: 0 }),
+                        style({ opacity:1})
                     ]))
                  ]),
                  transition('on=>prev', [
@@ -37,8 +37,8 @@ import {inferenceResult, Page} from "../common/defs/resources";
                  ]),
                  transition('on=>next', [
                      animate(1000, keyframes([
-                         style({ opacity: 1 }),
-                         style({ opacity: 0})
+                         style({ opacity: 0 }),
+                         style({ opacity: 1})
                      ]))
                  ])
          ])
@@ -62,122 +62,6 @@ export class ShowResultComponent {
     /*@Input() imgs: SlideImg[];*/
     inImgs: any[]=[];
     outImgs: any[]=[];
-    content:any[]=[
-      {
-        "id": 351483,
-        "resultType": "multiple_labeled_images",
-        "inputPath": "/home/ligang/dataset/input/admin/351482/1/1497435530873SEVP_JSMC_RADR_R_BENJ_E15_PI_20160623100600000-2.png",
-        "output": "[{\"image_file_name\":\"\\/home\\/ligang\\/dataset\\/output\\/admin\\/351482\\/1497435530873SEVP_JSMC_RADR_R_BENJ_E15_PI_20160623100600000-2.png.output\\/output_img_1.bmp\",\"label\":\"index 1, intensity\"}]",
-        "success": true,
-        "modelPrediction": {
-          "id": 351482,
-          "predictionName": "q",
-          "job": {
-            "id": 351479,
-            "jobName": "thunder",
-            "jobPath": "L2hvbWUvbGlnYW5nL2FlLXNlcnZlci9hZS9iYWNrZW5kZGV2L3VzZXJzL2FkbWluL2pvYnMvam9iNzE=",
-            "user": {
-              "id": 3,
-              "login": "admin",
-              "firstName": "Administrator",
-              "lastName": "Administrator",
-              "email": "admin@localhost",
-              "activated": true,
-              "langKey": "en",
-              "imageUrl": "",
-              "resetKey": null,
-              "resetDate": null
-            },
-            "createTime": "2017-06-14 18:11:57",
-            "dataSet": null,
-            "chainId": "c0007_admin_1497435117",
-            "sences": "7",
-            "sencesName": "雷暴识别",
-            "status": "完成",
-            "startTime": "2017-06-14 18:12:02",
-            "stopTime": "2017-06-14 18:15:40",
-            "runningTime": "218",
-            "percent": "0.00",
-            "whichGpu": "",
-            "samples_sec": null
-          },
-          "inputPath": "/home/ligang/dataset/input/admin/351482",
-          "outputPath": "/home/ligang/dataset/output/admin/351482",
-          "percent": "0.00",
-          "user": {
-            "id": 3,
-            "login": "admin",
-            "firstName": "Administrator",
-            "lastName": "Administrator",
-            "email": "admin@localhost",
-            "activated": true,
-            "langKey": "en",
-            "imageUrl": "",
-            "resetKey": null,
-            "resetDate": null
-          },
-          "status": "success",
-          "createTime": "2017-06-14 18:18:51"
-        }
-      },
-      {
-        "id": 351484,
-        "resultType": "multiple_labeled_images",
-        "inputPath": "/home/ligang/dataset/input/admin/351482/1/1497435530832SEVP_JSMC_RADR_R_BENJ_E15_PI_20160623095400000-2.png",
-        "output": "[{\"image_file_name\":\"\\/home\\/ligang\\/dataset\\/output\\/admin\\/351482\\/1497435530832SEVP_JSMC_RADR_R_BENJ_E15_PI_20160623095400000-2.png.output\\/output_img_1.bmp\",\"label\":\"index 1, intensity\"}]",
-        "success": true,
-        "modelPrediction": {
-          "id": 351482,
-          "predictionName": "q",
-          "job": {
-            "id": 351479,
-            "jobName": "thunder",
-            "jobPath": "L2hvbWUvbGlnYW5nL2FlLXNlcnZlci9hZS9iYWNrZW5kZGV2L3VzZXJzL2FkbWluL2pvYnMvam9iNzE=",
-            "user": {
-              "id": 3,
-              "login": "admin",
-              "firstName": "Administrator",
-              "lastName": "Administrator",
-              "email": "admin@localhost",
-              "activated": true,
-              "langKey": "en",
-              "imageUrl": "",
-              "resetKey": null,
-              "resetDate": null
-            },
-            "createTime": "2017-06-14 18:11:57",
-            "dataSet": null,
-            "chainId": "c0007_admin_1497435117",
-            "sences": "7",
-            "sencesName": "雷暴识别",
-            "status": "完成",
-            "startTime": "2017-06-14 18:12:02",
-            "stopTime": "2017-06-14 18:15:40",
-            "runningTime": "218",
-            "percent": "0.00",
-            "whichGpu": "",
-            "samples_sec": null
-          },
-          "inputPath": "/home/ligang/dataset/input/admin/351482",
-          "outputPath": "/home/ligang/dataset/output/admin/351482",
-          "percent": "0.00",
-          "user": {
-            "id": 3,
-            "login": "admin",
-            "firstName": "Administrator",
-            "lastName": "Administrator",
-            "email": "admin@localhost",
-            "activated": true,
-            "langKey": "en",
-            "imageUrl": "",
-            "resetKey": null,
-            "resetDate": null
-          },
-          "status": "success",
-          "createTime": "2017-06-14 18:18:51"
-        }
-      }
-    ];
     public current;
     constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router) {
       this.route.queryParams.subscribe(params => {
@@ -189,17 +73,24 @@ export class ShowResultComponent {
       });
         this.current = 0;
        setInterval(() => {
-            let id = (this.current + 1) % 4;
+            let id = (this.current + 1) % this.result.length;
             this.current = id;
             //console.log(this.current);
         },1000);
-      for(let i in this.content){
-        this.inImgs.push(this.content[i].inputPath);
-        this.outImgs.push(this.content[i].output);
-      }
-      console.log(this.inImgs);
-      console.log(this.outImgs);
     }
+  ngOnChanges(...args: any[]) {
+    // for (let obj = 0; obj < args.length; obj++) {
+    //   if (args[obj]['model_id']["currentValue"]) {
+    //     this.model_pre = this.model_id;
+    this.interval = setInterval(() => this.getResult(this.model_id, this.page - 1, this.pageMaxItem), 500);
+    // }
+    // this.modelService.getPercent(this.model_id)
+    //   .subscribe(percent => {
+    //     this.PercentInfo = percent;
+    //     console.log(this.PercentInfo.percent);
+    //   });
+    // }
+  }
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -212,7 +103,7 @@ export class ShowResultComponent {
     this.modelService.getResult(modelId, page, size).subscribe(result => {
       if (result.content.length != 0) {
         clearInterval(this.interval);
-        this.result = this.content;
+        this.result = result.content;
         console.log(this.result);
         for(let i in this.result){
             this.inImgs.push(this.result[i].inputPath);
@@ -239,7 +130,7 @@ export class ShowResultComponent {
   }
   outputImg(input) {
     this.stringArr = input.substring(1, input.length - 1);
-    return JSON.parse(this.stringArr).image_file_name
+    return JSON.parse(this.stringArr).image_file_name;
   }
   ImgState1(index) {
     if (this.inImgs && this.inImgs.length) {
