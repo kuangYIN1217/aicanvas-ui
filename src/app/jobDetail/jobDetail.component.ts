@@ -122,6 +122,7 @@ export class JobDetailComponent {
       // console.log('init');
       this.chainInfo = chainInfo;
       // console.log(chainInfo);
+      console.log("===================current status :" + jobDetail.status)
       switch (jobDetail.status) {
         case '完成':
           this.initNotRun(this.chainInfo.length - 1 , null , this.chainInfo[0].id , jobPath);
@@ -579,7 +580,9 @@ export class JobDetailComponent {
      // 判断当前状态
      if (data.pluginId) {
        // 当前运行的plugin
+       console.log("=================current plugin :" + this.runningPluginId)
        this.runningPluginId = data.pluginId;
+       this.currentPluginId = data.pluginId;
        for (let i = 0 ; i < this.chainInfo.length ; i++) {
          if (this.chainInfo[i].id == this.runningPluginId) {
             this.runningPluginIndex = i;

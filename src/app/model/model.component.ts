@@ -59,10 +59,15 @@ export class ModelComponent {
     itemAlias: "file",
   });
   ngOnInit() {
+    let init_flag = true;
     this.route.queryParams.subscribe(params => {
-      this.job_id = params['job_id'];
-      this.selectChange(this.job_id);
-      this.getJobDetail(this.job_id);
+      if (init_flag) {
+        console.log(init_flag)
+        this.job_id = params['job_id'];
+        this.selectChange(this.job_id);
+        this.getJobDetail(this.job_id);
+        init_flag = false;
+      }
     });
   }
   // C: 定义事件，选择文件
@@ -169,7 +174,7 @@ export class ModelComponent {
         page.totalPage = model.totalPages;
         page.totalNum = model.totalElements;
         this.pageParams = page;
-        //console.log(this.pageParams);
+        console.log(this.pageParams);
       });
   }
   getPageData(paraParam){
