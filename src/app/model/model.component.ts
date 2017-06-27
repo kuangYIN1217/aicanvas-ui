@@ -85,7 +85,10 @@ export class ModelComponent {
        let type = this.fileName[0].split('.').pop().toLowerCase();
         if(type == "zip"||type == "rar") {
           this.container.push("assets/model/yasuo2.png");
-        }else{
+        }else if(type == "txt"||type == "csv"){
+          this.container.push("assets/model/txt.png");
+        }
+        else{
           let file = this.uploader.queue[this.times-1]._file;
           //console.log(file);
           let container1 = this.container;
