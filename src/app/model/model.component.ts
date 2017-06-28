@@ -61,8 +61,8 @@ export class ModelComponent {
   ngOnInit() {
     let init_flag = true;
     this.route.queryParams.subscribe(params => {
-      if (init_flag) {
-        console.log(init_flag)
+      if(init_flag) {
+        console.log(init_flag);
         this.job_id = params['job_id'];
         this.selectChange(this.job_id);
         this.getJobDetail(this.job_id);
