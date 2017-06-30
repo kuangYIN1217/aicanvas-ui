@@ -40,7 +40,7 @@
               <span class="span" style="width:160px;" >算法链选择</span>
               <div>
               <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="firstSceneId=$event;">
-                <option selected>--请选择--</option>
+                <!--<option selected>&#45;&#45;请选择&#45;&#45;</option>-->
                 <option *ngFor="let chain of arr" [value]="chain.id">{{chain.chain_name}}</option>
               </select>
               </div>

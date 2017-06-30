@@ -85,10 +85,8 @@ export class HistoryDetailComponent {
           result.content[0].inputPath = "/home/ligang/dataset/1498613919473showTxt.png";
           let input = result.content[0].output;
           this.arr=input.substring(2, input.length - 2).split(':');
-          //this.arr=[];
           this.arr1=[];
           this.arr2=[];
-          //this.arr3=[];
           for(let i=1;i<this.arr.length-1;i++){
             this.arr3=this.arr[i].split(',');
             this.arr1.push(this.arr3[this.arr3.length-1]);

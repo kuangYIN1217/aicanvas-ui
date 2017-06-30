@@ -79,7 +79,6 @@ export class JobCreationComponent {
   }
 
   changeChosenSceneId() {
-    debugger
     let id = this.student;
     console.log(id);
     this.chosenSceneId = id;

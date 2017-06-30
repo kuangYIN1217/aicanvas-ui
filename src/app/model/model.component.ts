@@ -72,6 +72,7 @@ export class ModelComponent {
   }
   // C: 定义事件，选择文件
   selectedFileOnChanged(event:any){
+    debugger
     this.times = 0;
     for(let i in this.uploader.queue){
       this.times++;

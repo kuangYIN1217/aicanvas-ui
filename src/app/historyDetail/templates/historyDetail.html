@@ -2,7 +2,7 @@
     <div class="percent">
         <span>展示结果：</span>
         <span></span>
-        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()" [style.display]="(type == 'jpg'||type == 'png')?'':'none'">
+        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()" [style.display]="(type == 'txt'||type == 'csv')?'none':''">
             <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
         </select>
       <select [(ngModel)]="word" (ngModelChange)="word=$event;changeWord(word)" [style.display]="(type == 'txt'||type == 'csv')?'':'none'" >
