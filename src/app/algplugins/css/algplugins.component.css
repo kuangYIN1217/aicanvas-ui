@@ -316,6 +316,20 @@ input{
     font-family: "MicrosoftYaHei";
     cursor: pointer;
 }
+.dialog{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(111, 111, 111, 0.3);
+  opacity: 1;
+}
+.dialogContainer{
+  position: absolute;
+  left:50%;
+  top:50%;
+}
 @media (min-width:1200px) and (max-width:1440px) {
   #modalDiv{
     width: 95%;

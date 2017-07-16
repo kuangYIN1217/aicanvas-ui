@@ -5,9 +5,9 @@
         <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()" [style.display]="(type == 'txt'||type == 'csv')?'none':''">
             <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
         </select>
-      <select [(ngModel)]="word" (ngModelChange)="word=$event;changeWord(word)" [style.display]="(type == 'txt'||type == 'csv')?'':'none'" >
+<!--      <select [(ngModel)]="word" (ngModelChange)="word=$event;changeWord(word)" [style.display]="(type == 'txt'||type == 'csv')?'':'none'" >
         <option value="{{i}}" *ngFor="let i of arr1">{{i}}</option>
-      </select>
+      </select>-->
     </div>
     <table class="table">
         <th>上传内容</th>
@@ -17,8 +17,8 @@
             <td style="width: 50%;">
               <img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" style="max-height: 50px;margin-top: 16px;padding-left: 10px">
             </td>
-            <td  *ngIf="type == 'txt'||type == 'csv'" >{{wordPut(re.output)}}</td>
-            <td *ngIf="type == 'jpg'||type == 'png'">{{outPut(re.output)}}</td>
+            <!--<td  *ngIf="type == 'txt'||type == 'csv'" >{{wordPut(re.output)}}</td>-->
+            <td>{{outPut(re.output)}}</td>
         </tr>
         </tbody>
     </table>

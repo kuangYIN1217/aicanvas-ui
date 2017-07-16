@@ -66,6 +66,7 @@ export class JobCreationComponent {
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
+
   }
 
   ngOnDestroy() {
@@ -77,7 +78,6 @@ export class JobCreationComponent {
     // editable_params为参数字典
     this.editable_params = editable_params;
   }
-
   changeChosenSceneId() {
     let id = this.student;
     console.log(id);
@@ -133,19 +133,27 @@ export class JobCreationComponent {
         this.createJob_getScene(scenes);
         this.student = scenes[0].id;
         console.log(this.student);
-        //this.firstSceneId = this.student;
-        //console.log(this.firstSceneId);
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {
             this.PluginInfo = result;
             this.firstChainId = this.PluginInfo[0].id;
             this.firstSceneId = this.PluginInfo[0].chain_name;
-            console.log(this.firstSceneId);
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
           })
       });
     //console.log(this.student);
+  }
+  changePluginName(){
+    this.getChainId(this.firstSceneId);
+  }
+  getChainId(name){
+    for(let i in this.PluginInfo){
+      if(name==this.PluginInfo[i].chain_name){
+          this.firstChainId = this.PluginInfo[i].id;
+          return this.firstChainId;
+      }
+    }
   }
   goHistory(){
     this.jobPageStatus='manage';
@@ -172,12 +180,12 @@ export class JobCreationComponent {
 
 
   nextStep() {
-
-      this.createJobBySenceId(this.chosenSceneId, this.firstSceneId);
+      this.createJobBySenceId(this.chosenSceneId, this.firstChainId);
   }
 
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId) {
+    console.log(chosenSceneId, chainId);
     if(!chainId){
       // alert("请选择算法链");
       addWarningToast(this.toastyService , "请选择算法链" );
@@ -189,7 +197,7 @@ export class JobCreationComponent {
       return false;
 
     }
-    this.jobService.createJob(chosenSceneId, chainId,this.jobName)
+    this.jobService.createJob( chainId,this.jobName,chosenSceneId)
       .subscribe(createdJob => {
         //let job: any = createdJob;
         //this.createdJob = job;

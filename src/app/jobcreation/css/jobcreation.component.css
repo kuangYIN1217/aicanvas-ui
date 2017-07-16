@@ -144,6 +144,9 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
     border:1px solid #a0a0a0;
     color: #ccc;
 }*/
+.color{
+  color: #fe1c1c;
+}
 .id {
   width: 10%;
 }
@@ -532,6 +535,12 @@ input:focus{
    margin-right: 20px;
   line-height: 34px;
 }
+input{
+  outline: none;
+}
+input:focus{
+  border:1px solid #23a880;
+}
 select{
   position: absolute;
   background: url("../../../assets/jobcreation/rightArrow.png") no-repeat right 6px center;
@@ -540,6 +549,7 @@ select{
   -webkit-appearance:none;
   outline: none;
 }
+
  .btnLeft{
    margin-left: 126px !important;
  }

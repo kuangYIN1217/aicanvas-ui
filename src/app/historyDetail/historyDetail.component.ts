@@ -79,11 +79,12 @@ export class HistoryDetailComponent {
     this.modelService.getResult(modelId, page, size).subscribe(result => {
       if (result.content.length != 0) {
         clearInterval(this.interval);
-        this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
+        this.result = result.content;
+       this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
         if(this.type == "txt"||this.type == "csv") {
-          this.result = result.content;
           result.content[0].inputPath = "/home/ligang/dataset/1498613919473showTxt.png";
-          let input = result.content[0].output;
+        }
+        /* let input = result.content[0].output;
           this.arr=input.substring(2, input.length - 2).split(':');
           this.arr1=[];
           this.arr2=[];
@@ -99,7 +100,7 @@ export class HistoryDetailComponent {
           result.content[0].output = this.arr2;
         }else{
           this.result = result.content;
-        }
+        }*/
         let page = new Page();
         page.pageMaxItem = result.size;
         page.curPage = result.number+1;

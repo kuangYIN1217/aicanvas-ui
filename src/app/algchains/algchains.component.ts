@@ -240,14 +240,14 @@ export class AlgChainsComponent{
         // 改变右侧显示的内容--显示plugin
         this.rightBox_node = 0;
     }
-  edit(){
-      this.rightNodeIndex = 1;
-      this.ifEdit = 1;
-      this.flag="false";
-     //$("#property").find("input").attr("readOnly","false");
-      //document.getElementById("property").getElementsByTagName("input")[0].setAttribute("readonly", "");
-
-  }
+  // edit(){
+  //     this.rightNodeIndex = 1;
+  //     this.ifEdit = 1;
+  //     this.flag="false";
+  //    //$("#property").find("input").attr("readOnly","false");
+  //     //document.getElementById("property").getElementsByTagName("input")[0].setAttribute("readonly", "");
+  //
+  // }
     nodeClicked(){
         // 改变右侧显示的内容--显示node
         this.rightBox_node = 1;

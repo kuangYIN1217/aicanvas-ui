@@ -30,15 +30,14 @@ export class JobService {
     return headers;
   }
 
-  createJob(senceId, chainId, jobName) {
+  createJob(chainId,jobName,senceId) {
     let path = "/api/job";
     /*let number_senceId: number = Number(senceId);*/
     let senseId = {
       "chainId": chainId,
-      "senceId": senceId,
-      "jobName": jobName
+      "jobName": jobName,
+      "senceId": senceId
     };
-    // console.log(body);
     let headers = this.getHeaders();
     return this.http.post(this.SERVER_URL + path, senseId, {headers: headers})
       .map((response: Response) => {

@@ -324,6 +324,7 @@ canvas{
   line-height: 26px;
   font-size: 14px;
   font-style: normal;
+  cursor: pointer;
 }
 
 
@@ -349,12 +350,7 @@ select:focus{
 select{
   outline: none;
 }
-input{
-  outline: none;
-}
-input:focus{
-  border:1px solid #23a880;
-}
+
 .table {
   width: 96%;
   margin-left: 30px;
