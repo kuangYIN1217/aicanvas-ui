@@ -30,13 +30,14 @@ export class JobService {
     return headers;
   }
 
-  createJob(senceId, chainId, jobName) {
+  createJob(senceId, chainId, jobName , dataId) {
     let path = "/api/job";
     /*let number_senceId: number = Number(senceId);*/
     let senseId = {
       "chainId": chainId,
       "senceId": senceId,
-      "jobName": jobName
+      "jobName": jobName,
+      "dataId": dataId
     };
     // console.log(body);
     let headers = this.getHeaders();

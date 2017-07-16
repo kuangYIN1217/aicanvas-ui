@@ -6,11 +6,11 @@ import {Injectable} from "@angular/core";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-
+import {SERVER_URL_DATASETS} from "../../app.constants";
 @Injectable()
 export class DatasetsService {
   // SERVER_URL: string = SERVER_URL;
-  SERVER_URL: string = 'http://192.168.16.99:8083';
+  SERVER_URL: string = SERVER_URL_DATASETS;
   constructor(private http: Http) { }
 
   getAuthorization(){

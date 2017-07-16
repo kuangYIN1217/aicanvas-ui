@@ -39,7 +39,7 @@
             <div class="row_tr" style=" margin-left: 200px">
               <span class="span" style="width:160px;" >算法链选择</span>
               <div>
-              <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="firstSceneId=$event;">
+              <select class="select" name="scene_select" [(ngModel)]="firstChainId" (ngModelChange)="$scene_select_change()">
                 <!--<option selected>&#45;&#45;请选择&#45;&#45;</option>-->
                 <option *ngFor="let chain of arr" [value]="chain.id">{{chain.chain_name}}</option>
               </select>
@@ -50,11 +50,8 @@
             <div class="row_tr">
               <span class="span">数据集</span>
               <div>
-              <select class="select" name="scene_select" >
-                <option >数据集1</option>
-                <option >数据集2</option>
-                <option >数据集3</option>
-                <option >数据集4</option>
+              <select class="select" name="scene_select" [(ngModel)] = "dataId" >
+                <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
               </select>
               </div>
             </div>

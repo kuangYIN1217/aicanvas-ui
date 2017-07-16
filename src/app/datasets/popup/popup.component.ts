@@ -7,14 +7,14 @@ import {calc_size} from '../calc-size'
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addSuccessToast} from '../../common/ts/toast';
 declare var $: any;
-import {SERVER_URL} from "../../app.constants";
+import {SERVER_URL_DATASETS} from "../../app.constants";
 @Component({
   selector: 'cpt-popup',
   styleUrls: ['./popup.component.css'],
   templateUrl: './popup.component.html'
 })
 export class PopupComponent {
-  SERVER_URL = 'http://192.168.16.99:8083';
+  SERVER_URL = SERVER_URL_DATASETS;
   @Input() d_dataTypes: any;
   s_select_datasetType: any; // type
   s_name: any;
@@ -108,10 +108,8 @@ export class PopupComponent {
       $this.s_uploading = false;
       $this.s_error_show = true;
       $this.s_error_level = "info";
+      $this.s_error_message = '压缩包中缺少datasource.csv文件';
       $this.resumable.pause();
-      console.log(file)
-      console.log(message)
-      $this.s_error_message = file.message.split(':').pop();
     });
     this.resumable.on('fileProgress', function(file){
       let ratio =  Math.floor($this.resumable.progress()*100);
