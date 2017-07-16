@@ -94,23 +94,22 @@ export class PopupComponent {
     this.resumable.on('fileSuccess', function(file,message){
     });
     this.resumable.on('complete', function(file,message){
-      console.log(file)
       // 上传成功
       // $this.s_form_show = true;
       $this.s_uploading = false;
       $this.s_progress_success = true;
       let $$this = $this;
+      addSuccessToast($this.toastyService , "数据集上传成功");
       setTimeout(function() {
         $$this.$hide_click();
       } , 2000)
-      addSuccessToast($this.toastyService , "数据集上传成功");
     });
     this.resumable.on('fileError', function(file, message){
       $this.s_uploading = false;
       $this.s_error_show = true;
       $this.s_error_level = "info";
       $this.s_error_message = '压缩包中缺少datasource.csv文件';
-      this.stop_resumable();
+      $this.stop_resumable();
     });
     this.resumable.on('fileProgress', function(file){
       let ratio =  Math.floor($this.resumable.progress()*100);
