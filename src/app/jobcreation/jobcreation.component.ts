@@ -61,6 +61,7 @@ export class JobCreationComponent {
   firstChainId: string;
   @Input() statuss: string = '';
   jobName:string;
+
   d_dataSets: any = [];
   dataId;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService) {

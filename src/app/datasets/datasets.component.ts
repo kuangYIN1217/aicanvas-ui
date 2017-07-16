@@ -37,7 +37,11 @@ export class DatasetsComponent{
       console.log(this.d_dataTypes)
     })
   }
-  initTable () {
+  initTable (init?) {
+    if (init) {
+      this.s_page = 1;
+    }
+    console.log('init table');
     let creator , dataSetType , name , sort, page , size;
     creator = this.s_nav_selected ;
     dataSetType = this.s_select_datasetType ;

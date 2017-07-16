@@ -14,7 +14,7 @@
     <div class="form item" *ngIf="s_form_show">
       <div class="selectContainer">
         <span>选择数据集分类:</span>
-        <select [(ngModel)]="s_select_datasetType" (change)="$select_change()">
+        <select [(ngModel)]="s_select_datasetType">
           <option *ngFor="let item of d_dataTypes" [value]="item.id">{{item.typeName}}</option>
         </select>
       </div>

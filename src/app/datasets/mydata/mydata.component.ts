@@ -48,7 +48,6 @@ export class MyDataComponent{
     // 重新获取数据
     this.datasetservice.getDataSets(sessionStorage['username'] , this.dataSetType , this.s_select_name , this.s_sort_type, this.s_page , this.s_size ).subscribe(rep =>{
       this.d_tableData = rep.content;
-      console.log('reload data')
       console.log(this.d_tableData)
       this.d_tableDataChange.emit(this.d_tableData);
     })

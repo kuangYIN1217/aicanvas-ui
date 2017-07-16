@@ -254,7 +254,7 @@ export default class Resumable {
       } else {
         input = document.createElement('input');
         input.setAttribute('type', 'file');
-        input.setAttribute('accept', '.zip,.ZIP');
+        // input.setAttribute('accept', '.zip,.ZIP');
         dn.style.display = 'inline-block';
         dn.style.position = 'relative';
         input.style.position = 'absolute';
@@ -463,7 +463,7 @@ class ResumableChunk {
 
   pushParams(params, key, value?) {
     // if (params.push) {
-      return params.push([encodeURIComponent(key), encodeURIComponent(value)].join('='));
+    return params.push([encodeURIComponent(key), encodeURIComponent(value)].join('='));
     // }
     // return params;
   };
@@ -617,12 +617,12 @@ class ResumableChunk {
       customQuery = customQuery(this.fileObj, this);
     }
 
-  /*  if (customQuery != null) {
-      for (key in customQuery) {
-        value = customQuery[key];
-        this.pushParams(params, key, value);
-      }
-    }*/
+    /*  if (customQuery != null) {
+     for (key in customQuery) {
+     value = customQuery[key];
+     this.pushParams(params, key, value);
+     }
+     }*/
 
     if (customQuery == null) {
       customQuery = {};
@@ -828,5 +828,3 @@ class ResumableFile {
     return ret;
   };
 }
-
-

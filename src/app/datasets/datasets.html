@@ -1,7 +1,7 @@
 <div class="container">
   <div class="datasets-wrapper">
     <nav class="nav">
-      <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">已购场景</div>
+      <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">我的数据集</div>
       <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">公共数据集</div>
     </nav>
 
@@ -31,5 +31,5 @@
 
   </div>
 
-  <cpt-popup [d_dataTypes] = "d_dataTypes"   [(show)]="s_popup_show"></cpt-popup>
+  <cpt-popup (reflashPage) = "initTable()" [d_dataTypes] = "d_dataTypes"   [(show)]="s_popup_show"></cpt-popup>
 </div>
