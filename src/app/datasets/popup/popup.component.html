@@ -1,0 +1,61 @@
+<div *ngIf="show" class="popup-wrapper" >
+  <div class="upload-wrapper">
+    <div class="top">
+      <label>上传数据集</label>
+      <img src="../../../assets/datasets/guanbi.png" (click)="$hide_click()">
+    </div>
+
+    <div class="error item" *ngIf="s_error_show">
+      <img [src]="'../../../assets/datasets/' + (s_error_level === 'error' ? 'cuowu.png' : 'tishi.png')" alt="">
+      <label>{{s_error_level === 'error' ? '错误！' : '提示！'}}</label>
+      {{s_error_message}}
+    </div>
+
+    <div class="form item" *ngIf="s_form_show">
+      <div class="selectContainer">
+        <span>选择数据集分类:</span>
+        <select [(ngModel)]="s_select_datasetType" (change)="$select_change()">
+          <option *ngFor="let item of d_dataTypes" [value]="item.id">{{item.typeName}}</option>
+        </select>
+      </div>
+
+      <div class="inputContainer">
+        <!-- if too slow for each search, should change to (change) according to the num of data -->
+        <input [(ngModel)]="s_name" (ngModelChange)="$name_change()" class="search-input" type="text"  placeholder="数据集名称"/>
+      </div>
+    </div>
+
+    <div class="upload-dataset resumable-browse" (click)="$upload_click($event)" *ngIf="s_form_show">
+      <div *ngIf="once_click" class="lds-css ng-scope">
+        <div class="lds-rolling">
+          <div></div>
+        </div>
+      </div>
+      <span *ngIf="!once_click">上传数据集</span>
+    </div>
+
+    <div class="progress item" *ngIf="s_progress_show">
+      <div class="head">
+        <img class="upload" src="../../../assets/datasets/upload_shangchuan.png" alt="">
+        <label>{{s_progress_name}} ( {{s_progress_size}} )</label>
+      </div>
+      <div class="bar">
+        <div class="active" [ngClass]="{'success': s_progress_success}" [ngStyle]="{'width': s_progress_ratio}">{{s_progress_ratio}}&nbsp;</div>
+      </div>
+      <img src="../../../assets/datasets/upload_remove.png" alt="" class="remove" (click)="$remove_click()">
+    </div>
+    <div class="notes">
+      <div>提示：</div>
+      <ol>
+        <li> 请上传<label class="orange">ZIP</label>格式的文件，数据集文件大小最大不超过<label class="green">1GB</label></li>
+        <li> ZIP文件需包含<label class="green">datasource.csv</label>，并位于压缩文件根目录，维护ZIP文件中各个文件的相对路径</li>
+        <li> 对于图像数据集，根目录仅包含图像分类文件夹，在文件夹中维护各个分类图片，支持文件类型：png、jpg、jpeg、bmp</li>
+        <li> 对于文本数据/情感识别数据集，根目录仅包含文本分类文件夹，在文件夹中文虎各个分类文本，支持文件类型txt（可无后缀），文本的中文数据编码需为utf-8</li>
+        <li> 对于语义分割数据集，根目录仅包含原始图片文件夹image及目标图片文件夹mask，二级文件夹同名：/image/image，mask/mask，二级文件夹image和mask中图片均需同名，支持文件类型：png、jpg、jpeg、bmp</li>
+      </ol>
+    </div>
+  </div>
+
+  <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
+
+</div>

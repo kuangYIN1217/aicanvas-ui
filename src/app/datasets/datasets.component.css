@@ -1,0 +1,134 @@
+.datasets-wrapper {
+  padding: 30px;
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  height: 42px;
+  background: #fff;
+}
+
+.nav .item {
+  flex: 0 0 104px;
+  height: 100%;
+  width: 104px;
+  text-align: center;
+  line-height: 42px;
+  font-size: 14px;
+  color: #333;
+  margin-left: 14px;
+  transition: 0.2s all linear 0s;
+  cursor: pointer;
+}
+.nav .item:hover {
+  color: #ff7c35;
+}
+.nav .item.selected {
+  color: #ff7c35;
+}
+
+.content {
+  padding: 20px 30px;
+  margin-top: 20px;
+  background: #fff;
+}
+.toolbar {
+  width: 100%;
+  display: flex;
+}
+.selectContainer{
+  flex: 1;
+  position: relative;
+}
+
+.selectContainer select{
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  background: url("../../assets/taskStatus/select.png") no-repeat;
+  background-position: right;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+}
+.selectContainer span {
+  font-size: 14px;
+  color: #333;
+  margin-right: 20px;
+}
+.selectContainer select{
+  color: #666;
+  width: 275px;
+  height: 36px;
+  margin-left: 6px;
+  padding-left: 10px;
+}
+.tab_search {
+  width: 275px;
+  height: 36px;
+  margin-top: 20px;
+  margin-left: 30px;
+  border-radius: 8px;
+  margin-bottom: 22px;
+  float: left;
+}
+
+.searchContainer {
+  position: relative;
+  flex: 0 0 275px;
+  width: 275px;
+  height: 36px;
+  border-radius: 5px;
+  font-family: "MicrosoftYaHei";
+  font-size: 14px;
+  color: #999999 !important;
+  outline: none;
+  margin-right: 115px;
+}
+input::-webkit-input-placeholder { /* WebKit browsers */
+  color:#999;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:#999;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:#999;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:#999;
+}
+.search-icon {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  width: 17px;
+  height: 18px;
+}
+.search-input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-left: 10px;
+  width: 275px;
+  height: 36px;
+  border-radius: 5px;
+  border: solid 1px #d3d3d3;
+  font-family: "MicrosoftYaHei";
+  font-size: 14px;
+  color: #999999 !important;
+  outline: none;
+}
+.upload-dataset {
+  flex: 0 0 130px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #fff;
+  background: #ff7c35;
+  cursor: pointer;
+}
+.upload-dataset:hover{
+  opacity: 0.9;
+}

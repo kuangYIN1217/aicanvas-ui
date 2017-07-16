@@ -35,8 +35,13 @@ import {AmChartsModule} from "amcharts3-angular2";
 import { InferenceModelComponent } from './inference-model/inference-model.component';
 import { StompService } from 'ng2-stomp-service-fixed';
 /*import {FontAwesomeDirective} from "ng2-fontawesome";*/
+import {MyDataComponent} from './datasets/mydata/mydata.component'
+import {PublicDataComponent} from './datasets/publicdata/publicdata.component'
+
 import {ToastyModule} from 'ng2-toasty';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { PopupComponent } from './datasets/popup/popup.component';
+import { ResumableModule } from 'ng2-resumable';
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -64,6 +69,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     TestComponent,
     PageComponent,
     InferenceModelComponent,
+    MyDataComponent,
+    PublicDataComponent,
+    PopupComponent
     //InputReadonlyDirective
   ],
   imports: [
@@ -74,7 +82,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FileUploadModule,
     AmChartsModule,
     ToastyModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ResumableModule
   ],
   providers: [StompService],
   bootstrap: [NavigationComponent]
