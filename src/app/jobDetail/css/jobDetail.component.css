@@ -382,3 +382,9 @@
 .space1{
   margin-right: 10px;
 }
+input{
+  outline: none;
+}
+input:focus{
+  border:1px solid #23a880;
+}

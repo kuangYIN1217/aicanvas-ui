@@ -6,9 +6,9 @@
             <input id="search_input" type="text" [(ngModel)]="jobName" name="" value="" placeholder="&nbsp;&nbsp;任务名称"/>
             <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon">
           </div>
-            <div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a>
-             </div>
-            <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back" style="margin-right: 10px"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
+            <!--<div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a>-->
+             <!--</div>-->
+            <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
         </div>
         <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
             <taskStatus [statuss]="statuss" [jobName]="jobName"></taskStatus>
@@ -39,9 +39,9 @@
             <div class="row_tr" style=" margin-left: 200px">
               <span class="span" style="width:160px;" >算法链选择</span>
               <div>
-              <select class="select" name="scene_select" [(ngModel)]="firstChainId" (ngModelChange)="$scene_select_change()">
+              <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="firstSceneId=$event;$scene_select_change()">
                 <!--<option selected>&#45;&#45;请选择&#45;&#45;</option>-->
-                <option *ngFor="let chain of arr" [value]="chain.id">{{chain.chain_name}}</option>
+                <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
               </select>
               </div>
             </div>
@@ -93,7 +93,7 @@
           <div   class="fenge"></div>
 
 
-          <div class="dataset">
+          <!--<div class="dataset">
             <h1>数据标注</h1>
             <section>
               <table>
@@ -148,7 +148,7 @@
 
               </table>
             </section>
-        </div>
+        </div>-->
 
           <i>
             <a href="#" onclick="return false" (click)="nextStep()" class="back createBtn btnLeft">创建</a>

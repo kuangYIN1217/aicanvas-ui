@@ -33,14 +33,17 @@ export class AlgPluginsComponent{
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
+    loading:number=2;
     constructor(private route: ActivatedRoute, private router: Router,private pluginService: PluginService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
         if(sessionStorage['showSystemPlugin']){
             this.showSystemPlugin = sessionStorage['showSystemPlugin'];
         }else{
             sessionStorage['showSystemPlugin'] = 1;
-        }
+        };
+        this.loading=1;
         pluginService.getAllPlugins()
             .subscribe(plugins => {
+              this.loading=2;
                 this.plugins = plugins;
                 this.changPage(plugins);
                 //this.arr = this.modalTab.slice(0,10);
@@ -58,22 +61,25 @@ export class AlgPluginsComponent{
         for(let i=0;i<plugins.length;i++){
           if(plugins[i].creator=='general'){
             this.modalTab.push(plugins[i]);
-          }else{
-            this.selfTab.push(plugins[i]);
-          }
+           }
+           //else{
+          //   this.selfTab.push(plugins[i]);
+          // }
         }
         if(this.showSystemPlugin==1){
           this.getInit(this.modalTab);
-        }else if(this.showSystemPlugin==0){
-          this.getInit(this.selfTab);
-        }
+         }
+         //else if(this.showSystemPlugin==0){
+        //   this.getInit(this.selfTab);
+        // }
       }else{
         this.dataIndex =0;
       }
   }
   getInit(plugin){
+
     this.arr = this.modalTab.slice(0,10);
-    this.arr2 = this.selfTab.slice(0,10);
+    //this.arr2 = this.selfTab.slice(0,10);
     if(plugin.length%this.pageMaxItem==0){
       this.totalPage = plugin.length/this.pageMaxItem;
     }else{
@@ -90,9 +96,8 @@ export class AlgPluginsComponent{
    // console.log(this.pageParams);
   }
   getPageData(paraParam) {
-
     this.arr = this.modalTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
-    this.arr2 = this.selfTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
+    //this.arr2 = this.selfTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
     //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
     console.log('触发', paraParam);
   }
@@ -110,16 +115,16 @@ export class AlgPluginsComponent{
         // console.log(this.plugins);
     }
 
-    selfTemplateClick(){
-        // console.log("to Self");
-        this.showSystemPlugin = 0;
-        sessionStorage['showSystemPlugin'] = 0;
-        this.pageMaxItem=10;
-        this.getInit(this.selfTab);
-        //this.result = this.selfTab.length%this.pageMaxItem==0?this.selfTab.length/this.pageMaxItem:Math.floor(this.selfTab.length/this.pageMaxItem)+1;
-        this.arr2 = this.selfTab.slice(0,10);
-        // console.log(this.showSystemPlugin);
-    }
+    // selfTemplateClick(){
+    //     // console.log("to Self");
+    //     this.showSystemPlugin = 0;
+    //     sessionStorage['showSystemPlugin'] = 0;
+    //     this.pageMaxItem=10;
+    //     this.getInit(this.selfTab);
+    //     //this.result = this.selfTab.length%this.pageMaxItem==0?this.selfTab.length/this.pageMaxItem:Math.floor(this.selfTab.length/this.pageMaxItem)+1;
+    //     this.arr2 = this.selfTab.slice(0,10);
+    //     // console.log(this.showSystemPlugin);
+    // }
     maxItemChange(num){
         this.page=1;
         this.changeValue(num);
@@ -128,10 +133,11 @@ export class AlgPluginsComponent{
         if(this.showSystemPlugin==1){
             this.arr = this.modalTab.slice(0,num);
             this.getTotals(num,this.modalTab);
-        }else{
-            this.arr2 = this.selfTab.slice(0,num);
-            this.getTotals(num,this.selfTab);
         }
+        // else{
+        //     this.arr2 = this.selfTab.slice(0,num);
+        //     this.getTotals(num,this.selfTab);
+        // }
     }
     getTotals(num,obj){
         if(obj.length%num==0){
@@ -145,9 +151,9 @@ export class AlgPluginsComponent{
         if(this.showSystemPlugin==1){
             this.next(num,this.modalTab);
         }
-        else if(this.showSystemPlugin==0){
-            this.next(num,this.selfTab);
-        }
+        // else if(this.showSystemPlugin==0){
+        //     this.next(num,this.selfTab);
+        // }
     }
     next(num,obj){
         this.result = (obj.length%num == 0)?(obj.length/num):(Math.floor(obj.length/num)+1);
@@ -162,15 +168,16 @@ export class AlgPluginsComponent{
                // alert('已经是最后一页');
               addInfoToast(this.toastyService , "已经是最后一页");
             }
-        }else if(this.showSystemPlugin==0){
-            if(this.page<result){
-                this.page++;
-                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
-            }else{
-                // alert('已经是最后一页');
-              addInfoToast(this.toastyService , "已经是最后一页");
-            }
         }
+        // else if(this.showSystemPlugin==0){
+        //     if(this.page<result){
+        //         this.page++;
+        //         this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
+        //     }else{
+        //         // alert('已经是最后一页');
+        //       addInfoToast(this.toastyService , "已经是最后一页");
+        //     }
+        // }
 
     }
 
@@ -184,16 +191,17 @@ export class AlgPluginsComponent{
               // alert('已经是首页');
               addInfoToast(this.toastyService , "已经是首页");
             }
-        }else if(this.showSystemPlugin==0){
-            if (this.page>1){
-                this.page--;
-                this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
-                //console.log(this.arr2);
-            }else{
-               // alert('已经是首页');
-              addInfoToast(this.toastyService , "已经是首页");
-            }
         }
+        // else if(this.showSystemPlugin==0){
+        //     if (this.page>1){
+        //         this.page--;
+        //         this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
+        //         //console.log(this.arr2);
+        //     }else{
+        //        // alert('已经是首页');
+        //       addInfoToast(this.toastyService , "已经是首页");
+        //     }
+        // }
 
     }
 

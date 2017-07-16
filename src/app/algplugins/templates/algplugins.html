@@ -2,7 +2,7 @@
     <div id="modalDiv">
       <div class="tabs">
         <div (click)="sysTemplateClick()" id="tab_item1" class="tab_item" [class.focus]="showSystemPlugin==1">系统模版</div>
-        <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [class.focus]="showSystemPlugin==0">自定义模版</div>
+        <!--<div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [class.focus]="showSystemPlugin==0">自定义模版</div>-->
       </div>
       <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
           <div id="title"></div>
@@ -42,7 +42,7 @@
           </div>-->
         <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
       </div>
-      <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
+<!--      <div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
         <table id="selfTable" class="table">
           <tr>
             <th class="plugin_id">序号</th>
@@ -60,7 +60,7 @@
                 <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}},{{plugin.creator}}"><img src="../assets/algplugin/chakan.png"/></a></td>
             </tr>
         </table>
-          <!--<div class="bottom_menu">
+          &lt;!&ndash;<div class="bottom_menu">
               <div class="label">
                   TotalPages:
                   &lt;!&ndash; &lt;!&ndash;Showing {{(page-1)*pageMaxItem+1}} to {{page*pageMaxItem>ModelInfo.length?ModelInfo.length:page*pageMaxItem}} of {{page*pageMaxItem>ModelInfo.length?ModelInfo.length-(page-1)*pageMaxItem:pageMaxItem}} items&ndash;&gt;&ndash;&gt;
@@ -75,9 +75,12 @@
               </div>
               <div class="pagebtn" (click)="nextPage(pageMaxItem)">Next</div>
               <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
-          </div>-->
+          </div>&ndash;&gt;
         <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
-      </div>
+      </div>-->
+  </div>
+  <div class="dialog" [style.display]="loading==1?'':'none'">
+    <div class="dialogContainer">加载中，请稍后。。。</div>
   </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
  </div>
