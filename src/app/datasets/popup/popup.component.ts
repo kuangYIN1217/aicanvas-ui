@@ -5,7 +5,7 @@ import {Component, Input, Output , EventEmitter} from '@angular/core';
 import Resumable from './resumable'
 import {calc_size} from '../calc-size'
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
-import {addSuccessToast} from '../../common/ts/toast';
+import {addSuccessToast , addWarningToast} from '../../common/ts/toast';
 declare var $: any;
 import {SERVER_URL_DATASETS} from "../../app.constants";
 @Component({
@@ -94,6 +94,7 @@ export class PopupComponent {
     this.resumable.on('fileSuccess', function(file,message){
     });
     this.resumable.on('complete', function(file,message){
+      console.log(file)
       // 上传成功
       // $this.s_form_show = true;
       $this.s_uploading = false;
@@ -109,7 +110,7 @@ export class PopupComponent {
       $this.s_error_show = true;
       $this.s_error_level = "info";
       $this.s_error_message = '压缩包中缺少datasource.csv文件';
-      $this.resumable.pause();
+      this.stop_resumable();
     });
     this.resumable.on('fileProgress', function(file){
       let ratio =  Math.floor($this.resumable.progress()*100);
@@ -155,7 +156,26 @@ export class PopupComponent {
   }
 
   $remove_click() {
-    // todo 删除
-    this.resumable.cancel();
+    this.s_error_show = false;
+    this.s_uploading = false;
+    this.s_form_show = true;
+    this.s_progress_show = false;
+    this.stop_resumable();
+    addWarningToast(this.toastyService , "上传已中断");
+  }
+
+  stop_resumable() {
+    if (this.resumable.pause) {
+      this.resumable.pause()
+    }
+    if (this.resumable.cancel) {
+      this.resumable.cancel()
+    }
+    if (this.resumable.cancelAll) {
+      this.resumable.cancelAll()
+    }
+    if (this.resumable.destroy) {
+      this.resumable.destroy()
+    }
   }
 }
