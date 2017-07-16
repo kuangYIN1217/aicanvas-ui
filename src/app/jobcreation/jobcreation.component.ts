@@ -89,7 +89,7 @@ export class JobCreationComponent {
       .subscribe(results => {
         this.PluginInfo = results;
         this.arr = results;
-        this.firstSceneId = this.PluginInfo[0].chain_name;
+        // this.firstSceneId = this.PluginInfo[0].chain_name;
         this.data = Math.floor(this.PluginInfo.length / this.pageMaxItem) + 1;
         this.length = this.PluginInfo.length;
         if (this.result && this.length != 0) {
@@ -140,8 +140,8 @@ export class JobCreationComponent {
           .subscribe(result => {
             console.log(result)
             this.PluginInfo = result;
-            this.firstChainId = this.PluginInfo[0].id;
-            this.firstSceneId = this.PluginInfo[0].chain_name;
+            // this.firstChainId = this.PluginInfo[0].id;
+            // this.firstSceneId = this.PluginInfo[0].chain_name;
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
             this.$scene_select_change (name);
@@ -183,16 +183,21 @@ getPluginName(name){
 
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId , dataId) {
+
+    if(!this.jobName){
+      // alert("请输入任务名称")
+      addWarningToast(this.toastyService , "请输入任务名称" );
+      return false;
+    }
     if(!chainId){
       // alert("请选择算法链");
       addWarningToast(this.toastyService , "请选择算法链" );
       return false;
     }
-    if(!this.jobName){
-      // alert("请输入任务名称")
-      addWarningToast(this.toastyService , "请输入任务名称" );
+    if(!dataId){
+      // alert("请选择算法链");
+      addWarningToast(this.toastyService , "请选择数据集" );
       return false;
-
     }
     this.jobService.createJob( chainId,dataId,this.jobName,chosenSceneId)
       .subscribe(createdJob => {
@@ -287,6 +292,7 @@ getPluginName(name){
   }
 
   $scene_select_change (name) {
+    this.firstSceneId = name;
     for(let i in this.PluginInfo){
       if(name==this.PluginInfo[i].chain_name){
         this.firstChainId = this.PluginInfo[i].id;
@@ -295,9 +301,10 @@ getPluginName(name){
     this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
       this.datasetsService.getDataSets(null , rep.dataset_type , null , 'createTime,desc', null , null ).subscribe(rep =>{
         this.d_dataSets = rep.content;
-        if (this.d_dataSets) {
+        this.dataId = null;
+        /*if (this.d_dataSets) {
           this.dataId = this.d_dataSets[0].dataId
-        }
+        }*/
       })
     })
   }

@@ -32,8 +32,8 @@ export class JobService {
 
   createJob(chainId,dataId,jobName,senceId) {
     let path = "/api/job";
-    debugger
     /*let number_senceId: number = Number(senceId);*/
+    console.log(chainId,dataId,jobName,senceId)
     let senseId = {
       "chainId": chainId,
       "dataId": dataId,
