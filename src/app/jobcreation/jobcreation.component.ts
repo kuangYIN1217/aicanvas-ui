@@ -143,11 +143,14 @@ export class JobCreationComponent {
             this.firstSceneId = this.PluginInfo[0].chain_name;
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
-            this.$scene_select_change ();
+            this.$scene_select_change (name);
           })
       });
     //console.log(this.student);
   }
+getPluginName(name){
+
+}
   goHistory(){
     this.jobPageStatus='manage';
   }
@@ -174,7 +177,7 @@ export class JobCreationComponent {
 
   nextStep() {
 
-      this.createJobBySenceId(this.chosenSceneId, this.firstSceneId , this.dataId);
+      this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
 
   // 第一次点击下一步时，创建job，存储下来
@@ -190,7 +193,7 @@ export class JobCreationComponent {
       return false;
 
     }
-    this.jobService.createJob(chosenSceneId, chainId,this.jobName , dataId)
+    this.jobService.createJob( chainId,dataId,this.jobName,chosenSceneId)
       .subscribe(createdJob => {
         //let job: any = createdJob;
         //this.createdJob = job;
@@ -264,10 +267,6 @@ export class JobCreationComponent {
     this.getTotals(num);
   }
 
-
-
-
-
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       // alert('输入必须为数值!');
@@ -286,7 +285,12 @@ export class JobCreationComponent {
     }
   }
 
-  $scene_select_change () {
+  $scene_select_change (name) {
+    for(let i in this.PluginInfo){
+      if(name==this.PluginInfo[i].chain_name){
+        this.firstChainId = this.PluginInfo[i].id;
+      }
+    }
     this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
       this.datasetsService.getDataSets(null , rep.dataset_type , null , 'createTime,desc', null , null ).subscribe(rep =>{
         this.d_dataSets = rep.content;
