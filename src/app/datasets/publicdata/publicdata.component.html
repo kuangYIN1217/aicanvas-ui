@@ -1,0 +1,25 @@
+<div class="publicdata-wrapper">
+  <table class="table">
+    <tr>
+      <th class="name">数据集名称</th>
+      <th class="scene">数据集分类</th>
+      <th class="time">存储空间</th>
+      <th class="condition">总文件数</th>
+      <th class="progress">有效文件数</th>
+      <!--<th class="operation">操作</th>-->
+      <th class="formore">无效文件数</th>
+    </tr>
+    <!--*ngIf="jobInfo.sences==sceneId"-->
+    <tr *ngIf="d_tableData.length === 0">
+      <td class="no-data"  colspan="6">无数据</td>
+    </tr>
+    <tr *ngFor="let item of d_tableData">
+      <td>{{item.dataName}}</td>
+      <td>{{item.dataTypeName}}</td>
+      <td>{{calc_size(item.diskUsageAccount)}}</td>
+      <td>{{item.fileCount}}</td>
+      <td>{{item.fileVaild}}</td>
+      <td>{{item.fileFailed}}</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,16 @@
+.table {
+  width: 100%;
+  margin: 20px 0;
+}
+.no-data {
+  text-align: center;
+}
+.sortBydate {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+img.icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
