@@ -37,4 +37,16 @@ export class AlgChainService {
                 }
         });
     }
+
+  getChainDetailById(chainId: string){
+    let path = "/api/algChainDetail/"+chainId;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response) {
+          return response.json();
+        }
+      });
+  }
+
 }

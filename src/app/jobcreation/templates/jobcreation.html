@@ -6,8 +6,9 @@
             <input id="search_input" type="text" [(ngModel)]="jobName" name="" value="" placeholder="&nbsp;&nbsp;任务名称"/>
             <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon">
           </div>
-            <!--<div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a></div>-->
-            <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
+            <div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a>
+             </div>
+            <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back" style="margin-right: 10px"><img src="assets/jobcreation/jiahao.png" class="addicon" alt="">新建任务</a></div>
         </div>
         <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
             <taskStatus [statuss]="statuss" [jobName]="jobName"></taskStatus>
@@ -20,7 +21,7 @@
         <div>
           <div class="row">
             <div class="row_tr">
-              <span class="span" style="line-height: 28px"><span class="color">*</span>任务名称</span>
+              <span class="span" style="line-height: 28px">任务名称</span>
               <div>
             <input type="text" [(ngModel)]="jobName" name="" value=""class="input">
               </div>
@@ -28,7 +29,7 @@
           </div>
           <div class="row">
             <div class="row_tr">
-              <span class="span" ><span class="color">*</span>场景选择</span>
+              <span class="span" >场景选择</span>
               <div class="row_select">
               <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">
               <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
@@ -36,10 +37,11 @@
               </div>
             </div>
             <div class="row_tr" style=" margin-left: 200px">
-              <span class="span" style="width:160px;" ><span class="color">*</span>算法链选择</span>
+              <span class="span" style="width:160px;" >算法链选择</span>
               <div>
-              <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="firstSceneId=$event;changePluginName()">
-                <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
+              <select class="select" name="scene_select" [(ngModel)]="firstChainId" (ngModelChange)="$scene_select_change()">
+                <!--<option selected>&#45;&#45;请选择&#45;&#45;</option>-->
+                <option *ngFor="let chain of arr" [value]="chain.id">{{chain.chain_name}}</option>
               </select>
               </div>
             </div>
@@ -48,11 +50,8 @@
             <div class="row_tr">
               <span class="span">数据集</span>
               <div>
-              <select class="select" name="scene_select" >
-                <option >数据集1</option>
-                <option >数据集2</option>
-                <option >数据集3</option>
-                <option >数据集4</option>
+              <select class="select" name="scene_select" [(ngModel)] = "dataId" >
+                <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
               </select>
               </div>
             </div>
@@ -94,7 +93,7 @@
           <div   class="fenge"></div>
 
 
-<!--          <div class="dataset">
+          <div class="dataset">
             <h1>数据标注</h1>
             <section>
               <table>
@@ -149,7 +148,7 @@
 
               </table>
             </section>
-        </div>-->
+        </div>
 
           <i>
             <a href="#" onclick="return false" (click)="nextStep()" class="back createBtn btnLeft">创建</a>

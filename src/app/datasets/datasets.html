@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="datasets-wrapper">
+    <nav class="nav">
+      <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">已购场景</div>
+      <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">公共数据集</div>
+    </nav>
+
+    <div class="content">
+      <div class="toolbar">
+        <div class="searchContainer">
+          <!-- if too slow for each search, should change to (change) according to the num of data -->
+          <input [(ngModel)]="s_select_name" (ngModelChange)="$name_change()" class="search-input" type="text"  placeholder="搜索数据集名称"/>
+          <img class="search-icon" src="../../assets/jobcreation/sousuo.png">
+        </div>
+
+        <div class="selectContainer">
+          <span>数据集分类:</span>
+          <select [(ngModel)]="s_select_datasetType" (change)="$select_change()">
+            <option value="all">全部</option>
+            <option *ngFor="let item of d_dataTypes" [value]="item.id">{{item.typeName}}</option>
+          </select>
+          <!--<img src="../assets/taskStatus/select.png">-->
+        </div>
+
+        <div *ngIf="s_nav_selected === 0" class="upload-dataset" (click)="$upload_click()">上传数据集</div>
+      </div>
+      <cpt-mydata [s_select_datasetType] = "s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0"></cpt-mydata>
+      <cpt-publicdata [d_tableData] = "d_tableData" *ngIf="s_nav_selected === 1"></cpt-publicdata>
+      <page [pageParams] = "pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+    </div>
+
+  </div>
+
+  <cpt-popup [d_dataTypes] = "d_dataTypes"   [(show)]="s_popup_show"></cpt-popup>
+</div>

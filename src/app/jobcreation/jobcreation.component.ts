@@ -10,13 +10,14 @@ import {Editable_param, Parameter} from "../common/defs/parameter";
 import {ChainInfo, JobInfo, PluginInfo, SceneInfo} from "../common/defs/resources";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addWarningToast , addSuccessToast} from '../common/ts/toast';
+import {DatasetsService} from "../common/services/datasets.service";
 declare var $: any;
 @Component({
   moduleId: module.id,
   selector: 'jobcreation',
   styleUrls: ['./css/jobcreation.component.css'],
   templateUrl: './templates/jobcreation.html',
-  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService]
+  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService,DatasetsService]
 })
 export class JobCreationComponent {
   creator: any;
@@ -60,13 +61,13 @@ export class JobCreationComponent {
   firstChainId: string;
   @Input() statuss: string = '';
   jobName:string;
-
-  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
+  d_dataSets: any = [];
+  dataId;
+  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
-
   }
 
   ngOnDestroy() {
@@ -78,6 +79,7 @@ export class JobCreationComponent {
     // editable_params为参数字典
     this.editable_params = editable_params;
   }
+
   changeChosenSceneId() {
     let id = this.student;
     console.log(id);
@@ -87,7 +89,6 @@ export class JobCreationComponent {
         this.PluginInfo = results;
         this.arr = results;
         this.firstSceneId = this.PluginInfo[0].chain_name;
-        console.log(this.firstSceneId );
         this.data = Math.floor(this.PluginInfo.length / this.pageMaxItem) + 1;
         this.length = this.PluginInfo.length;
         if (this.result && this.length != 0) {
@@ -132,28 +133,20 @@ export class JobCreationComponent {
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
         this.student = scenes[0].id;
-        console.log(this.student);
+        //this.firstSceneId = this.student;
+        //console.log(this.firstSceneId);
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {
+            console.log(result)
             this.PluginInfo = result;
             this.firstChainId = this.PluginInfo[0].id;
             this.firstSceneId = this.PluginInfo[0].chain_name;
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
+            this.$scene_select_change ();
           })
       });
     //console.log(this.student);
-  }
-  changePluginName(){
-    this.getChainId(this.firstSceneId);
-  }
-  getChainId(name){
-    for(let i in this.PluginInfo){
-      if(name==this.PluginInfo[i].chain_name){
-          this.firstChainId = this.PluginInfo[i].id;
-          return this.firstChainId;
-      }
-    }
   }
   goHistory(){
     this.jobPageStatus='manage';
@@ -180,12 +173,12 @@ export class JobCreationComponent {
 
 
   nextStep() {
-      this.createJobBySenceId(this.chosenSceneId, this.firstChainId);
+
+      this.createJobBySenceId(this.chosenSceneId, this.firstSceneId , this.dataId);
   }
 
   // 第一次点击下一步时，创建job，存储下来
-  createJobBySenceId(chosenSceneId, chainId) {
-    console.log(chosenSceneId, chainId);
+  createJobBySenceId(chosenSceneId, chainId , dataId) {
     if(!chainId){
       // alert("请选择算法链");
       addWarningToast(this.toastyService , "请选择算法链" );
@@ -197,7 +190,7 @@ export class JobCreationComponent {
       return false;
 
     }
-    this.jobService.createJob( chainId,this.jobName,chosenSceneId)
+    this.jobService.createJob(chosenSceneId, chainId,this.jobName , dataId)
       .subscribe(createdJob => {
         //let job: any = createdJob;
         //this.createdJob = job;
@@ -293,5 +286,15 @@ export class JobCreationComponent {
     }
   }
 
+  $scene_select_change () {
+    this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
+      this.datasetsService.getDataSets(null , rep.dataset_type , null , 'createTime,desc', null , null ).subscribe(rep =>{
+        this.d_dataSets = rep.content;
+        if (this.d_dataSets) {
+          this.dataId = this.d_dataSets[0].dataId
+        }
+      })
+    })
+  }
 
 }
