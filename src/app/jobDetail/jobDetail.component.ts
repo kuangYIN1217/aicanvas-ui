@@ -60,6 +60,7 @@ export class JobDetailComponent {
   runningFlag = false;
   jobPath: string;
   step: number=2;
+  page:string;
   plugin_step_en: Array<string> = ['第一步' , '第二步' , '第三步', '第四步', '第五步', '第六步', '第七步', '第八步', '第九步', '第十步'];
   lossChartInitData() {
     var dataProvider = [{
@@ -74,8 +75,6 @@ export class JobDetailComponent {
       metrics_value: "0",
       epoch: "0"
     }];
-
-
     return dataProvider;
   }
   constructor( private pluginService: PluginService ,private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router,private websocket:WebSocketService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
@@ -89,6 +88,8 @@ export class JobDetailComponent {
         this.initJobDetailByPath();
       }
     }
+    this.page = sessionStorage.getItem('curPage');
+    console.log(this.page);
   }
 
   /**

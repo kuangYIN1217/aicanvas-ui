@@ -71,7 +71,6 @@ export class TaskStatusComponent{
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
     }
     getAlljobs(status,page,size,sceneId){
-      console.log(status,page,size,sceneId);
         this.jobService.getAllJobs(status,page,size,sceneId,this.jobName)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
