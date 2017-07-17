@@ -30,8 +30,10 @@
       <td>{{item.createTime}}</td>
       <td class="operation">
         <img (click)="$remove_dataSet(item.dataId , i)" class="icon" src="../../../assets/datasets/shanchu.png" alt="">
-        <img class="icon" src="../../../assets/datasets/shangchuan.png" alt="">
+        <!--<img class="icon" src="../../../assets/datasets/shangchuan.png" alt="">-->
       </td>
     </tr>
   </table>
+
+  <ele-confirm [(show)] = "s_remove"></ele-confirm>
 </div>

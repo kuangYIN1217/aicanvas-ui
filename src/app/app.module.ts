@@ -42,6 +42,7 @@ import {ToastyModule} from 'ng2-toasty';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PopupComponent } from './datasets/popup/popup.component';
 import { ResumableModule } from 'ng2-resumable';
+import { ConfirmComponent } from './confirm/confirm.component';
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -71,7 +72,8 @@ import { ResumableModule } from 'ng2-resumable';
     InferenceModelComponent,
     MyDataComponent,
     PublicDataComponent,
-    PopupComponent
+    PopupComponent,
+    ConfirmComponent
     //InputReadonlyDirective
   ],
   imports: [

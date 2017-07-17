@@ -54,8 +54,8 @@ export class DatasetsComponent{
     if (!name) {
       name = null;
     }
-    if (sort) {
-      name = null;
+    if (!sort) {
+      sort = null;
     }
     this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
       this.d_tableData = rep.content;
