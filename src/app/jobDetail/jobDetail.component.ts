@@ -59,7 +59,7 @@ export class JobDetailComponent {
   // 显示plugin是否为当前runningPlugin
   runningFlag = false;
   jobPath: string;
-  step:number=2;
+  step: number=2;
   plugin_step_en: Array<string> = ['第一步' , '第二步' , '第三步', '第四步', '第五步', '第六步', '第七步', '第八步', '第九步', '第十步'];
   lossChartInitData() {
     var dataProvider = [{
@@ -381,6 +381,7 @@ export class JobDetailComponent {
       });
   }
   goback(){
+    this.step=2;
     this.changeIndex=0;
     this.lookIt = 0;
 }
