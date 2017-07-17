@@ -39,7 +39,7 @@ export class TaskStatusComponent{
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
-
+    @Input() pageNo:string = null;
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
 
     }
@@ -57,7 +57,11 @@ export class TaskStatusComponent{
       this.sceneId = this.historyId;
     }
      this.getSceneId();
+    if(this.pageNo){
+      this.getAlljobs(this.statuss,this.pageNo,this.pageMaxItem,this.sceneId);
+    }
    }
+
    getSceneId(){
      if(this.sceneId==0){
      this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);

@@ -8,7 +8,7 @@
         <div class="total">
             <div class="cpu">
                 <div class="resourceTypeTitle"><span>GPU0</span>
-                  <div class="checkStatus"><span [style.display]="focusImg==0?'':'none'">展开</span><span [style.display]="focusImg!=0?'':'none'">收起</span><img [src]="focusImg==0?'assets/overview/redown.png':'assets/overview/reup.png'" (click)="gpuToggle()"/></div>
+                  <div class="checkStatus"><span *ngIf="focusImg==0" (click)="gpuToggle()">展开</span><span *ngIf="focusImg!=0" (click)="gpuToggle()">收起</span><img [src]="focusImg==0?'../assets/overview/redown.png':'../assets/overview/reup.png'" (click)="gpuToggle()"/></div>
                 </div>
                 <div class="chart linechart">
                     <h4>GPU使用率(%)</h4>

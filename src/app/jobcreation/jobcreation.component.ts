@@ -62,7 +62,7 @@ export class JobCreationComponent {
   firstChainId: string;
   @Input() statuss: string = '';
   jobName:string;
-  pageNo:number;
+  pageNo:string;
   d_dataSets: any = [];
   dataId;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService, private location: Location) {
@@ -70,13 +70,15 @@ export class JobCreationComponent {
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
+
+    if (location.path(false).indexOf('/jobcreation/') != -1) {
+      this.pageNo = location.path(false).split('/jobcreation/')[1];
+      if(this.pageNo){
+        console.log(this.pageNo);
+      }
+    }
   }
-  ngOnInit(){
-    this.route.queryParams.subscribe(params => {
-      this.pageNo = params['pageNo'];
-    });
-    console.log(this.pageNo);
-  }
+
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);

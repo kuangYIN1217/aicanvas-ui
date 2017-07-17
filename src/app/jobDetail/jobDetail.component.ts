@@ -89,7 +89,7 @@ export class JobDetailComponent {
       }
     }
     this.page = sessionStorage.getItem('curPage');
-    console.log(this.page);
+
   }
 
   /**
