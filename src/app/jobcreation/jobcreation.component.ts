@@ -61,7 +61,7 @@ export class JobCreationComponent {
   firstChainId: string;
   @Input() statuss: string = '';
   jobName:string;
-
+  pageNo:number;
   d_dataSets: any = [];
   dataId;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService) {
@@ -70,7 +70,12 @@ export class JobCreationComponent {
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
   }
-
+  ngOnInit(){
+    this.route.queryParams.subscribe(params => {
+      this.pageNo = params['pageNo'];
+    });
+    console.log(this.pageNo);
+  }
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -171,13 +176,8 @@ getPluginName(name){
     if (scenes[0]) {
       this.chosenSceneId = scenes[0].id;
     }
-
   }
-
-
-
   nextStep() {
-
       this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
 
@@ -292,11 +292,20 @@ getPluginName(name){
   }
 
   $scene_select_change (name) {
-    this.firstSceneId = name;
+    //this.firstSceneId = name;
     for(let i in this.PluginInfo){
       if(name==this.PluginInfo[i].chain_name){
         this.firstChainId = this.PluginInfo[i].id;
       }
+    }
+
+    if(name=='--请选择--'){
+      document.getElementById('data').setAttribute('disabled','disabled');
+      this.firstChainId='';
+      return false;
+    }
+    if(this.firstChainId){
+      document.getElementById('data').removeAttribute('disabled');
     }
     this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
       this.datasetsService.getDataSets(null , rep.dataset_type , null , 'createTime,desc', null , null ).subscribe(rep =>{

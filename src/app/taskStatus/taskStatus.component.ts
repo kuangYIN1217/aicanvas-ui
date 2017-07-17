@@ -35,6 +35,7 @@ export class TaskStatusComponent{
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
+
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
@@ -47,8 +48,8 @@ export class TaskStatusComponent{
       //console.log('触发', paraParam);
     }
    ngOnInit(){
-      this.interval = setInterval(() =>this.updatePage(), 500);
-      this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
+        this.interval = setInterval(() =>this.updatePage(), 500);
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
     //this.getSceneId();
    }
   ngOnChanges(...args: any[]) {
@@ -70,6 +71,7 @@ export class TaskStatusComponent{
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
     }
     getAlljobs(status,page,size,sceneId){
+      console.log(status,page,size,sceneId);
         this.jobService.getAllJobs(status,page,size,sceneId,this.jobName)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;

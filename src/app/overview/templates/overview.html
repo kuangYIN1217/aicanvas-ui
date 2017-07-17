@@ -7,8 +7,8 @@
     <div [style.display]="tabIndex==0?'':'none'" id="resourceDiv" class="status">
         <div class="total">
             <div class="cpu">
-                <div class="resourceTypeTitle"><img [src]="focusImg==0?'assets/overview/jiahao.png':'assets/overview/jianhao.png'" (click)="gpuToggle()"/><span>GPU0</span>
-                  <!--<div class="checkStatus">任务状态查询</div>-->
+                <div class="resourceTypeTitle"><span>GPU0</span>
+                  <div class="checkStatus"><span [style.display]="focusImg==0?'':'none'">展开</span><span [style.display]="focusImg!=0?'':'none'">收起</span><img [src]="focusImg==0?'assets/overview/redown.png':'assets/overview/reup.png'" (click)="gpuToggle()"/></div>
                 </div>
                 <div class="chart linechart">
                     <h4>GPU使用率(%)</h4>
@@ -32,7 +32,7 @@
                     </div>-->
                   <div id="chartdiv2" [style.width.%]="108" [style.height.vh]="29"></div>
                 </div>
-            </div>
+              </div>
 <!--            <div class="gpu">
                 <div class="resourceTypeTitle">GPU资源</div>
                 <div class="gpu_content" *ngFor="let gpu of gpuArray;let i = index;">
@@ -61,7 +61,7 @@
                 </div>
             </div>-->   <div class="cpu" [style.display]="gpuIndex==1?'':'none'">
               <div class="resourceTypeTitle"><span>GPU1</span>
-                <div class="checkStatus">任务状态查询</div>
+                <!--<div class="checkStatus">任务状态查询</div>-->
               </div>
               <div class="chart linechart">
                 <h4>GPU使用率(%)</h4>
@@ -99,7 +99,7 @@
       <div class="total" style="margin-bottom: 120px">
         <div class="cpu">
           <div class="resourceTypeTitle"><span>CPU0</span>
-            <div class="checkStatus">任务状态查询</div>
+            <!--<div class="checkStatus">任务状态查询</div>-->
           </div>
           <div class="chart linechart">
             <h4>CPU使用率(%)</h4>
