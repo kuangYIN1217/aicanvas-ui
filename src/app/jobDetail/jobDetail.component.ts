@@ -201,10 +201,18 @@ export class JobDetailComponent {
   getPluginData( pluginId) {
     this.jobService.getPluginInfoById(this.jobPath , pluginId).subscribe(data => {
       this.AmCharts.updateChart(this.lossChart, () => {
-        this.lossChart.dataProvider = data;
+        if (data && data.length > 0) {
+          this.lossChart.dataProvider = data;
+        } else {
+          this.lossChart.dataProvider = this.lossChartInitData();
+        }
       });
       this.AmCharts.updateChart(this.metricsChart, () => {
-        this.metricsChart.dataProvider = data;
+        if (data && data.length > 0) {
+          this.metricsChart.dataProvider = data;
+        } else {
+          this.metricsChart.dataProvider = this.metricsChartInitData();
+        }
       });
     });
 

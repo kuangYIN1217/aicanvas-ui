@@ -120,7 +120,7 @@ export class PopupComponent {
       $this.resumable.cancel();
       $this.s_error_level = "info";
       $this.s_error_message = '压缩包中缺少datasource.csv文件';
-      file.abc;
+      file.abc[99];
     });
     this.resumable.on('fileProgress', function(file){
       let ratio =  Math.floor($this.resumable.progress()*100);
