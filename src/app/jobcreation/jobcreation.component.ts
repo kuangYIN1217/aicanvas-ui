@@ -1,4 +1,5 @@
 import {Component, Input} from "@angular/core";
+import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../common/services/user.service";
 import {JobService} from "../common/services/job.service";
@@ -64,7 +65,7 @@ export class JobCreationComponent {
   pageNo:number;
   d_dataSets: any = [];
   dataId;
-  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService) {
+  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
