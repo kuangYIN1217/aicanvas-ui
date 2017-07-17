@@ -40,11 +40,11 @@
 }
 
 .form.item {
-  display: flex;
+  padding: 20px 34px 5px 34px;
 }
 .selectContainer{
-  flex: 1;
   position: relative;
+  height: 50px;
 }
 
 .selectContainer select{
@@ -57,29 +57,33 @@
   -webkit-appearance:none;
   padding-left: 10px;
 }
-.selectContainer span {
-  font-size: 14px;
-  color: #333;
-  margin-right: 10px;
-}
+
 .selectContainer select{
   color: #666;
   width: 275px;
   height: 36px;
-  margin-left: 6px;
 }
 
 .inputContainer {
   position: relative;
-  flex: 0 0 275px;
-  width: 275px;
-  height: 36px;
+  height: 50px;
   border-radius: 5px;
   font-family: "MicrosoftYaHei";
   font-size: 14px;
   color: #999999 !important;
   outline: none;
-  margin-right: 80px;
+}
+.inputContainer span , .selectContainer span {
+  width: 105px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #333;
+}
+.inputContainer input {
+  width: 275px;
+  height: 36px;
 }
 input::-webkit-input-placeholder { /* WebKit browsers */
   color:#999;

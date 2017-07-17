@@ -12,16 +12,17 @@
     </div>
 
     <div class="form item" *ngIf="s_form_show">
+      <div class="inputContainer">
+        <span><label class="orange">*</label>数据集名称 :</span>
+        <!-- if too slow for each search, should change to (change) according to the num of data -->
+        <input [(ngModel)]="s_name" (ngModelChange)="$name_change()" class="search-input" type="text"  placeholder="数据集名称"/>
+      </div>
+
       <div class="selectContainer">
-        <span>选择数据集分类:</span>
+        <span><label class="orange">*</label>选择分类 :</span>
         <select [(ngModel)]="s_select_datasetType">
           <option *ngFor="let item of d_dataTypes" [value]="item.id">{{item.typeName}}</option>
         </select>
-      </div>
-
-      <div class="inputContainer">
-        <!-- if too slow for each search, should change to (change) according to the num of data -->
-        <input [(ngModel)]="s_name" (ngModelChange)="$name_change()" class="search-input" type="text"  placeholder="数据集名称"/>
       </div>
     </div>
 
