@@ -3,18 +3,14 @@
 .tabs{
   position: relative;
   height: 42px;
-  width:96%;
   background-color: #ffffff;
-  margin-top:20px;
-  margin-bottom: 0px;
+  margin:20px 30px 0 30px;
   border: 0px;
-  left:30px;
 }
 .tab_item{
   position: relative;
   border: 0px;
   float: left;
-  margin-right: 4%;
   text-align: center;
   font-size: 14px;
   font-weight: normal;
@@ -33,11 +29,10 @@
 }
 .status{
   /*background-color: #ffffff;*/
-  margin-left: 30px;
-  margin-top: 20px;
+  margin:20px 30px 0 30px;
   border-radius: 5px;
   min-height: 500px;
-  width: 96%;
+
 }
 /*table*/
 .table{
@@ -109,23 +104,23 @@ h4{
 }
 .resourceTypeTitle{
   position: relative;
-  padding:12px 0 10px 2%;
+  padding:12px 30px 10px 30px;
   text-align: left;
   font-family: "Microsoft YaHei";
   color: #333333;
   font-size: 14px;
 }
 .resourceTypeTitle img{
-  width:20px;
-  height:20px;
+  width:14px;
+  height:11px;
   display: inline-block;
   vertical-align: middle;
 }
 .resourceTypeTitle span{
   display: inline-block;
   vertical-align: middle;
-  margin-left: 14px;
 }
+
 .cpu{
     height: 42vh;
     background: #ffffff;
@@ -156,6 +151,11 @@ h4{
   color: #ff7c35;
   font-size:14px;
 }
+.checkStatus span{
+  padding-right: 6px;
+  font-size: 14px;
+}
+
 .linechart{
     position: relative;
     background-color: #ffffff;
@@ -380,6 +380,7 @@ h4{
 }
 #tab_item1{
 margin-left: 10px;
+  margin-right: 14px;
 }
 .select{
   position: absolute;

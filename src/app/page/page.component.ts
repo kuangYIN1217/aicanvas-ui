@@ -79,6 +79,7 @@ export class PageComponent {
     let vm = this;
     //console.log('修改页码', pageNo);
     vm.pageParams.curPage = pageNo;
+    sessionStorage.setItem("curPage", pageNo);
     vm.pageParams.job_id =  this.job_id;
     vm.pageParams.pageMaxItem = this.pageMaxItem;
 

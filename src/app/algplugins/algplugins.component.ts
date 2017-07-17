@@ -98,7 +98,6 @@ export class AlgPluginsComponent{
   getPageData(paraParam) {
     this.arr = this.modalTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
     //this.arr2 = this.selfTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
-    //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
     console.log('触发', paraParam);
   }
 /*    checkIndex(pluginId,showSystemPlugin){
@@ -178,9 +177,7 @@ export class AlgPluginsComponent{
         //       addInfoToast(this.toastyService , "已经是最后一页");
         //     }
         // }
-
     }
-
     previousPage(num){
         if(this.showSystemPlugin==1){
             if (this.page>1){
@@ -202,7 +199,5 @@ export class AlgPluginsComponent{
         //       addInfoToast(this.toastyService , "已经是首页");
         //     }
         // }
-
     }
-
 }

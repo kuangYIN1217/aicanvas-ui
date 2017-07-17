@@ -32,7 +32,7 @@
 }
 .selectDiv select{
   width:50px;
-  text-indent: 5px;
+  padding-left: 5px;
   color: #666666;
 }
 .btnDiv{

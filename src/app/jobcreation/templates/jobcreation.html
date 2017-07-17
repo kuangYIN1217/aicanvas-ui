@@ -50,7 +50,7 @@
             <div class="row_tr">
               <span class="span">数据集</span>
               <div>
-              <select class="select" name="scene_select" [(ngModel)] = "dataId" >
+              <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" disabled="disabled">
                 <option selected>--请选择--</option>
                 <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
               </select>

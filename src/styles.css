@@ -381,7 +381,6 @@ select{
   font-weight: normal;
 }
 
-
 .table tr td {
   padding-left: 20px;
 }
@@ -390,4 +389,6 @@ select{
   background: #ffffff;
 }
 
-
+a:focus {
+  outline: none;
+}

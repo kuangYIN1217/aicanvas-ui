@@ -637,6 +637,16 @@ export class JobDetailComponent {
   start(jobPath: string){
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
+        this.jobResult.bestLoss=null;
+        this.jobResult.bestValLoss=null;
+        this.jobResult.bestMetrics=null;
+        this.jobResult.bestValMetrics=null;
+        this.job.samples_sec=null;
+        this.jobResult.sec_epoch=null;
+        this.job.percent=0;
+        this.jobResult.epoch=null;
+        this.log_list=[];
+
         this.initJobDetailByPath();
         /*this.updatePage(jobPath, this.index);
         this.interval = setInterval(() => {
