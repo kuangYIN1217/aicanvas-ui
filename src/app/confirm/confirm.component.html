@@ -1,5 +1,12 @@
 <div class="confirm-wrapper" *ngIf="show">
   <div class="confirm-content">
-
+    <div class="top item">
+      <label>{{title}}</label>
+      <img src="../../../assets/datasets/guanbi.png" (click)="$hide_click()"></div>
+    <div class="content item">{{content}}</div>
+    <div class="op item">
+      <div class="cancel btn" (click)="$cancel_click()">取消</div>
+      <div class="sure btn" (click)="$sure_click()">确定</div>
+    </div>
   </div>
 </div>

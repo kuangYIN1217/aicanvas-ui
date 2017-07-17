@@ -35,5 +35,5 @@
     </tr>
   </table>
 
-  <ele-confirm [(show)] = "s_remove"></ele-confirm>
+  <ele-confirm [(show)] = "s_remove" [content]="'确定删除本条数据集？'" (sure)="$confirm_sure()" (cancel)="$confirm_cancel()"></ele-confirm>
 </div>

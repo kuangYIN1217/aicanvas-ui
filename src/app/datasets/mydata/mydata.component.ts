@@ -22,6 +22,8 @@ export class MyDataComponent{
   @Input() s_page: any;
   @Input() s_size: any;
 
+  s_remove_index;
+  s_remove_id;
   s_remove: boolean = false;
   constructor (private datasetservice: DatasetsService) {
     // 获取datasetType
@@ -33,12 +35,8 @@ export class MyDataComponent{
   $remove_dataSet(id , index) {
     console.log('delete')
     this.s_remove = true;
-    /*this.datasetservice.deleteDataSet(id).subscribe(rep => {
-      if (rep.ok) {
-        this.d_tableData.splice(index , 1);
-        this.d_tableDataChange.emit(this.d_tableData);
-      }
-    })*/
+    this.s_remove_id = id;
+    this.s_remove_index = index;
   }
 
   $sort_click () {
@@ -57,4 +55,18 @@ export class MyDataComponent{
     })
   }
   calc_size = calc_size;
+
+  $confirm_sure () {
+    this.datasetservice.deleteDataSet(this.s_remove_id).subscribe(rep => {
+      if (rep.ok) {
+        this.d_tableData.splice(this.s_remove_index , 1);
+        this.d_tableDataChange.emit(this.d_tableData);
+      }
+    })
+    this.s_remove = false;
+  }
+
+  $confirm_cancel() {
+    this.s_remove = false;
+  }
 }
