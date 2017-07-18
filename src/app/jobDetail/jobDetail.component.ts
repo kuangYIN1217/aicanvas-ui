@@ -88,10 +88,14 @@ export class JobDetailComponent {
         this.initJobDetailByPath();
       }
     }
-    this.page = sessionStorage.getItem('curPage');
-
   }
-
+  back(){
+    if(sessionStorage['curPage']){
+      this.page = sessionStorage['curPage'];
+      console.log(this.page);
+      this.router.navigate(['/jobcreation'],{queryParams: { page: this.page}});
+    }
+  }
   /**
    * 获取jobDetail
    */

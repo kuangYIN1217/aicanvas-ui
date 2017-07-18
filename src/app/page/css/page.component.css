@@ -1,8 +1,7 @@
 .bottom_menu{
-  width: 96%;
   height: 40px;
   font-size: 12px;
-  margin:0 auto;
+  margin:14px auto 0;
   color:#666666;
 }
 .bottom_menu .label{
@@ -39,8 +38,7 @@
   float: right;
   display: table-cell;
   text-align: right;
-  margin-left: 30px;
-  margin-right: 2px;
+  margin-left: 20px;
   line-height: 35px;
 }
 .btnDiv button {
@@ -79,11 +77,3 @@
   cursor: pointer;
 }
 
-@media (min-width:1200px) and (max-width:1680px) {
-  .bottom_menu .label{
-    margin-left: 4px;
-  }
-  .btnDiv{
-    margin-right: 4px;
-  }
-}

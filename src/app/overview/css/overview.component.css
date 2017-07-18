@@ -104,11 +104,12 @@ h4{
 }
 .resourceTypeTitle{
   position: relative;
-  padding:12px 30px 10px 30px;
+  padding:12px 20px 10px 20px;
   text-align: left;
   font-family: "Microsoft YaHei";
   color: #333333;
   font-size: 14px;
+  overflow: hidden;
 }
 .resourceTypeTitle img{
   width:14px;
@@ -117,12 +118,14 @@ h4{
   vertical-align: middle;
 }
 .resourceTypeTitle span{
+  float: left;
   display: inline-block;
   vertical-align: middle;
+  padding:5px 0;
 }
 
 .cpu{
-    height: 42vh;
+    height: 43vh;
     background: #ffffff;
     border-radius: 5px;
 }
@@ -142,35 +145,45 @@ h4{
   margin-top:15px;
 
 }*/
-
+.chartsCont{
+  width:100%;
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+.flex-item{
+  width:20px;
+}
 .checkStatus{
-  position:absolute;
-  top:11px;
-  right:0;
-  margin-right: 2.5%;
+  float: right;
   color: #ff7c35;
   font-size:14px;
 }
 .checkStatus span{
-  padding-right: 6px;
   font-size: 14px;
   cursor: pointer;
+  padding:2px 6px 0 0 ;
 }
 .checkStatus img{
   cursor: pointer;
 }
 .linechart{
     position: relative;
+    flex:1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
     background-color: #ffffff;
     /*box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: left;
     width: 46.5%;
     height: 35vh;
     border-radius: 10px;
-    margin-left: 2%;
     border:2px solid #dcdcdc;
 }
 .piechart{
+    flex:1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
     position: relative;
     background-color: #ffffff;
    /* box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
@@ -178,7 +191,6 @@ h4{
     width: 46.5%;
     height: 35vh;
     border-radius: 10px;
-    margin-left: 2%;
     border:2px solid #dcdcdc;
 }
 
@@ -375,21 +387,17 @@ h4{
   margin-left: 10px;
 }
 .selectContainer{
-  position: relative;
-  top:18px;
-  height:76px;
-  left:30px;
-  width:293px;
+  padding:20px;
 }
 #tab_item1{
 margin-left: 10px;
   margin-right: 14px;
 }
 .select{
-  position: absolute;
-  height:34px;
+  box-sizing: border-box;
+  height:36px;
   border-radius: 5px;
-  width:294px;
+  width:275px;
   border: 1px solid #d3d3d3;
   font-size:14px;
   text-indent: 10px;

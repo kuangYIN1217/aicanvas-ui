@@ -1,7 +1,11 @@
 <div class="container bg">
     <div class="detailPage">
         <!--<div class="tabs">-->
-          <!--<div id="tab_item1" class="tab_item"><a routerLinkActive="active" routerLink="/jobcreation" >训练任务管理</a></div>-->
+          <!--<div id="tab_item1" class="tab_item"><a
+
+
+
+           routerLink="/jobcreation" >训练任务管理</a></div>-->
           <!--<div class="tab_item" [class.focus]="true">任务管理详情</div>-->
         <!--</div>-->
         <div class="">
@@ -13,7 +17,8 @@
               <div *ngIf="job?.status=='未启动'">
                 <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">开始运行</a>
               </div>
-              <a href="#" class="back" routerLink="/jobcreation/{{page}}"  [style.display]="lookIt==1?'none':''" >返回</a>
+              <a href="#" class="back"  [style.display]="lookIt==1?'none':''" (click)="back()">返回</a>
+              <!--routerLink="/jobcreation?pageNo={{page}}"-->
             </div>
             <div class="detailLine">
                 <span>创建者:&nbsp;&nbsp;{{job?.user?.login}}</span>

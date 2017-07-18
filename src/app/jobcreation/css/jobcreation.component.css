@@ -6,10 +6,10 @@ select {
 }
 
 /*manage table*/
+
 .tabs {
-  margin: 30px 0 0 30px;
+  margin:20px 30px 0 30px;
   height: 60px;
-  width: 96%;
   background-color: #fff;
   /*margin-bottom: 0px;*/
   /*margin-left: 30px;*/
@@ -19,11 +19,7 @@ select {
 
 .tab_item {
   float: right;
-  margin: 20px 16px 20px 0;
-}
-
-.tab_item .back:last-child {
-  margin-right: 20px;
+  margin: 20px 0px 20px 0;
 }
 
 .focus {
@@ -42,16 +38,18 @@ select {
   width: 275px;
   height: 36px;
   margin-top: 20px;
-  margin-left: 30px;
   border-radius: 8px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   float: left;
 }
-
+.tabs_cont{
+  padding:0 20px;
+}
 #search_input {
+  width:275px;
   display: inline;
-  width: 98%;
-  height: 30px;
+  box-sizing: border-box;
+  height: 36px;
   border-radius: 5px;
   border: solid 1px #d3d3d3;
   float: left;
@@ -132,8 +130,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   background: #000000;
 }
 .tab_content{
-  margin-left: 30px;
-  width: 96%;
+  margin:0 30px;
   border-radius: 0 0 5px 5px;
   background: #fff;
   margin-bottom: 100px;
@@ -363,17 +360,20 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 
 .step_content {
   background-color: #fff;
-  width: 97%;
   /*color: #eeeeee;*/
-  margin-left: 30px;
-  margin-top: 30px;
+  margin:20px 30px 0 30px;
   overflow:hidden;
 }
-
+.step_content h3{
+  font-weight: 600;
+  font-size: 16px;
+  color: #333333;
+  padding:20px 0 22px 20px;
+  margin:0;
+}
 .center{
   display: flex;
   width:97%;
-
 }
 
 .nextBtn {
@@ -459,12 +459,14 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .dataset table tr{
   height: 50px;
 }
+.allContent{
+  margin-left: 20px;
+}
 .input {
-
-  width: 198px;
-  height: 26px;
-
-
+  width: 490px;
+  height: 36px;
+  box-sizing: border-box;
+  text-indent: 10px;
 }
 input{
   border:1px solid #d3d3d3;
@@ -484,13 +486,16 @@ input:focus{
   width: 490px;
   height: 36px;
   margin-top: -18px;
-  text-indent: 6px;
+  text-indent: 10px;
 }
 
 .row .select {
-  width: 200px;
-  height: 32px;
-  text-indent: 6px;
+  width: 490px;
+  height: 36px;
+  box-sizing: border-box;
+  text-indent: 10px;
+  margin-left: 193px;
+
 }
 .small_select{
   margin-left: 200px;
@@ -500,12 +505,7 @@ input:focus{
   width: 80px !important;
   height: 32px !important;;
 }
-.small_select .s2{
-  margin-left: 90px;
-}
-.small_select .s3{
-  margin-left: 180px;
-}
+
 .small_select select:first-child{
   margin-left: 0px;
 }
@@ -530,10 +530,37 @@ input:focus{
   font-family: MicrosoftYaHei;
   font-size: 14px;
   color: #333333;
-  width: 100px;
+  width: 171px;
    text-align: right;
-   margin-right: 20px;
-  line-height: 34px;
+   margin-right: 22px;
+  line-height: 36px;
+}
+ .smallSel{
+   width: 150px;
+   height: 36px;
+   box-sizing: border-box;
+   text-indent: 10px;
+   margin-right:22px;
+   margin-left: 192px;
+ }
+.s2{
+  margin-left: 362px;
+}
+.s3{
+  margin-left: 532px;
+}
+.smallBtn{
+  font-size: 14px;
+  color: #666666;
+  width:74px;
+  line-height: 28px;
+  height:28px;
+  border:1px solid #d3d3d3;
+  border-radius: 5px;
+  background: #eeeeee;
+  text-decoration: none;
+  text-align: center;
+
 }
 input{
   outline: none;
@@ -543,11 +570,12 @@ input:focus{
 }
 select{
   position: absolute;
-  background: url("../../../assets/jobcreation/rightArrow.png") no-repeat right 6px center;
+  background: url("../../../assets/jobcreation/rightArrow.png") no-repeat right 10px center;
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;
   outline: none;
+  color: #666666;
 }
 
  .btnLeft{
@@ -853,9 +881,15 @@ select{
 /*3*/
 .createBtn {
   float: left;
-  margin: 30px;
+  margin-right: 20px;
 }
-
+.btnRow{
+  margin-top: 186px;
+}
+.mustColor{
+  color: #fe1c1c;
+  font-size: 12px;
+}
 .detail {
   position: relative;
   margin-top: 2vw;
@@ -868,23 +902,17 @@ select{
 
 .row{
   display: flex;
-  width: 97%;
   color: #333333;
-  font-size: 16px;
-  margin-top: 20px;
-  line-height: 20px;
-
+  margin-bottom: 20px;
 }
 
-.row:last-child{
-  margin-top: 30px;
-}
 select:focus{
   border:1px solid #23a880;
 }
 select{
   outline: none;
 }
+
 @media (min-width:1200px) and (max-width:1440px) {
   .tab_item{
     margin-right: 0px !important;
