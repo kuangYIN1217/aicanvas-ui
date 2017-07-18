@@ -67,7 +67,8 @@ export class PluginService {
     }
 
     getAllPlugins(): Observable<PluginInfo[]>{
-        let path = "/api/plugins";
+      let owner = 'general'
+        let path = "/api/plugins/"+owner;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
             .map((response: Response) => {
