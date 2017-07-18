@@ -189,12 +189,12 @@ getPluginName(name){
   nextStep() {
       this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
-  ngAfterViewChecked(){
+ /* ngAfterViewChecked(){
     if(this.jobName!=''&&this.firstChainId!=''&&this.dataId!=''){
       console.log(this.jobName,this.firstChainId,this.dataId)
       this.createBtn=1;
     }
-  }
+  }*/
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId , dataId) {
 
