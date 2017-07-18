@@ -1,0 +1,23 @@
+<div class="progress-wrapper" *ngIf="show">
+  <div class="progress-content">
+    <div class="animate"></div>
+    <img class="close-icon" src="../../../assets/jobdetail/close.png" (click)="$hide_click()">
+    <div class="title">正在下载数据...</div>
+
+    <div class="logs">
+      <p class="one">start logs:</p>
+      <p class="two">Found 1521212 images belonging to 10 classes Found 1521212 images belonging to 10 classes</p>
+      <p class="three">Found 34 images belonging to 10 classes</p>
+      <p class="four">Found 5545 images belonging to 10 classes</p>
+      <p class="five">Found 5 images belonging to 10 classes</p>
+      <p class="six">Found 14561551515 images belonging to 10 classes</p>
+    </div>
+
+    <div class="progress">
+      32 <span class="suffix">%</span>
+    </div>
+
+    <div class="finish" [ngStyle]="{'width': width}">
+    </div>
+  </div>
+</div>

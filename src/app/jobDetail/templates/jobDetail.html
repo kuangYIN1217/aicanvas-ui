@@ -1,224 +1,304 @@
 <div class="container bg">
-    <div class="detailPage">
-        <!--<div class="tabs">-->
-          <!--<div id="tab_item1" class="tab_item"><a routerLinkActive="active" routerLink="/jobcreation" >训练任务管理</a></div>-->
-          <!--<div class="tab_item" [class.focus]="true">任务管理详情</div>-->
+
+  <div class="btn-wrapper">
+
+    <a href="#" class="back" routerLink="/jobcreation/{{page}}" [style.display]="lookIt==1?'none':''">返回</a>
+    <div class="btn-item" *ngIf="job?.status=='未启动'">
+      <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">开始运行</a>
+    </div>
+    <div class="btn-item" *ngIf="job?.status=='停止'||job?.status=='完成'" [style.display]="lookIt==1?'none':''">
+      <!--<a href="#" class="button" onclick="return false" >重置</a>-->
+      <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
+      <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
+      <a href="#" class="button" onclick="return false" (click)="downloadLog()">下载训练日志</a>
+    </div>
+    <div class="btn-item" *ngIf="job?.status=='运行'" [style.display]="lookIt==1?'none':''">
+      <!--<a href="#" class="button" onclick="return false" >重置</a>-->
+      <a href="#" class="button" onclick="return false" (click)="stop(job?.jobPath)">停止</a>
+      <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
+      <a href="#" class="button" onclick="return false" (click)="downloadLog()">下载训练日志</a>
+    </div>
+
+    <div *ngIf="job?.status=='完成'" class="publish btn-item">
+      <!--<a href="#" class="button" onclick="return false" >模型发布</a>-->
+      <a href="#" class="button" onclick="return false" (click)="goModel()">推演服务</a>
+    </div>
+
+  </div>
+
+
+  <div class="detailPage">
+
+    <!--<div class="tabs">-->
+    <!--<div id="tab_item1" class="tab_item"><a routerLinkActive="active" routerLink="/jobcreation" >训练任务管理</a></div>-->
+    <!--<div class="tab_item" [class.focus]="true">任务管理详情</div>-->
+    <!--</div>-->
+    <div class="">
+
+
+      <div class="nav">
+        <div class="detailLine">
+          <span>任务名称:&nbsp;&nbsp;{{job?.jobName}}</span>
+          <span>场景名称:&nbsp;&nbsp;{{job?.sencesName==null?'未设置':job.sencesName}}</span>
+          <span>创建时间:&nbsp;&nbsp;{{job?.createTime==null?'未设置':job.createTime}}</span>
+
+        </div>
+        <div class="detailLine">
+          <span>创建者:&nbsp;&nbsp;{{job?.user?.login}}</span>
+          <span>状态:&nbsp;&nbsp;{{job?.status==null?'未设置':job.status}}</span>
+          <a class="back  space1" (click)="save()" [style.display]="lookIt==1?'':'none'">保存</a>
+          <a class="back space" routerLink="/jobcreationDetail/{{job?.jobPath}}" (click)="goback()"
+             [style.display]="lookIt==1?'':'none'">返回</a>
+        </div>
+      </div>
+
+
+      <input hidden id="plugin_storage"/>
+      <input hidden id="layer_dictionary"/>
+      <input hidden id="param_dictionary"/>
+      <button hidden id="node_click_btn" (click)="nodeClicked();"></button>
+      <button hidden onclick="init()" id="hideBtn">Init</button>
+      <button hidden onclick="load()" id="loadBtn">Hide</button>
+      <button hidden onclick="saveParam()" id="saveBtn">Hide</button>
+
+      <!-- 选项卡 -->
+      <div *ngIf="chainInfo.length > 1" class="job-detail-plugins" [style.display]="step==1?'none':''">
+        <div (click)="pluginClick(plugin , i)"
+             [ngClass]="{'disabled': runningPluginIndex < i , 'selected': plugin.id == currentPluginId}"
+             class="plugin-item"
+             *ngFor="let plugin of chainInfo; let i = index">
+          {{plugin.alg_name}}
+        </div>
+      </div>
+
+      <!--          <div class="tab" *ngIf="job?.status=='运行'" [style.display]="changeIndex==0?'':'none'">
+                  <a href="#" onclick="return false" class="current_tab">训练结果</a>
+                  <a href="#" onclick="return false">资源详情</a>
+                </div>-->
+      <div [style.display]="changeIndex==0?'':'none'" class="lossLine">
+        <div class="lossCard left">
+          <div class="head">
+            <div class="chart-title"><span class="img-span">LOSS</span> <img class="question-icon" title="损失函数" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="chart-tip">
+              <div class="item">
+                <div class="color red"></div>
+                <label class="green">best_loss</label>
+              </div>
+              <div class="item">
+                <div class="color green"></div>
+                <label class="red">best_val_loss</label>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div id="lossGraph" [style.width.%]="105" [style.height.px]="400">
+            </div>
+          </div>
+        </div>
+
+        <div class="lossCard right">
+          <div class="head">
+            <div class="chart-title"><span class="img-span">{{jobResult?.metrics_name}}</span><img class="question-icon" title="度量函数" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="chart-tip">
+              <div class="item">
+                <div class="color red"></div>
+                <label class="green">best_{{jobResult?.metrics_name}}</label>
+              </div>
+              <div class="item">
+                <div class="color green"></div>
+                <label class="red">best_val_{{jobResult?.metrics_name}}</label>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div id="metricsGraph" [style.width.%]="105" [style.height.px]="400">
+            </div>
+          </div>
+        </div>
+        <div style="clear: both"></div>
+        <!--<div *ngFor="let item of jobResult?Param">-->
+        <!--<div class="propertyCard">-->
+        <!--<div class="icon"></div>-->
+        <!--<div class="cardInline">{{item.key}}</div>-->
+        <!--<div class="cardInline">{{item.value}}</div>-->
         <!--</div>-->
-        <div class="">
-          <div class="nav">
-            <div class="detailLine">
-                <span>任务名称:&nbsp;&nbsp;{{job?.jobName}}</span>
-                <span>场景名称:&nbsp;&nbsp;{{job?.sencesName==null?'未设置':job.sencesName}}</span>
-                <span>创建时间:&nbsp;&nbsp;{{job?.createTime==null?'未设置':job.createTime}}</span>
-              <div *ngIf="job?.status=='未启动'">
-                <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">开始运行</a>
-              </div>
-              <a href="#" class="back" routerLink="/jobcreation/{{page}}"  [style.display]="lookIt==1?'none':''" >返回</a>
-            </div>
-            <div class="detailLine">
-                <span>创建者:&nbsp;&nbsp;{{job?.user?.login}}</span>
-              <span>状态:&nbsp;&nbsp;{{job?.status==null?'未设置':job.status}}</span>
-              <a class="back  space1"  (click)="save()"  [style.display]="lookIt==1?'':'none'">保存</a>
-              <a class="back space" routerLink="/jobcreationDetail/{{job?.jobPath}}" (click)="goback()"   [style.display]="lookIt==1?'':'none'">返回</a>
-              <div *ngIf="job?.status=='停止'||job?.status=='完成'" [style.display]="lookIt==1?'none':''">
-                <!--<a href="#" class="button" onclick="return false" >重置</a>-->
-                <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">运行</a>
-                <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
-                <a href="#" class="button" onclick="return false" (click)="downloadLog()">下载训练日志</a>
-              </div>
-            <div *ngIf="job?.status=='运行'"  [style.display]="lookIt==1?'none':''">
-              <!--<a href="#" class="button" onclick="return false" >重置</a>-->
-              <a href="#" class="button" onclick="return false" (click)="stop(job?.jobPath)">停止</a>
-              <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
-              <a href="#" class="button" onclick="return false"  (click)="downloadLog()" >下载训练日志</a>
-            </div>
-            </div>
+        <!--</div>-->
+
+        <div class="propertyLine">
+          <div class="propertyCard">
+            <div class="cardInline"> <span class="img-span">best_loss</span><img class="question-icon" title="最佳训练集损失函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{jobResult?.bestLoss |number:'1.2-2'}}</div>
           </div>
-          <input hidden id="plugin_storage" />
-          <input hidden id="layer_dictionary" />
-          <input hidden id="param_dictionary" />
-          <button hidden id="node_click_btn" (click)="nodeClicked();"></button>
-          <button hidden onclick="init()" id="hideBtn" >Init</button>
-          <button hidden onclick="load()" id="loadBtn" >Hide</button>
-          <button hidden onclick="saveParam()" id="saveBtn" >Hide</button>
-          <!-- 选项卡 -->
-          <div *ngIf="chainInfo.length > 1" class="job-detail-plugins" [style.display]="step==1?'none':''">
-            <div (click) = "pluginClick(plugin , i)" [ngClass]="{'disabled': runningPluginIndex < i}" class="plugin-item" *ngFor="let plugin of chainInfo; let i = index">
-              <label class="plugin-index">{{i + 1}}</label>
-              <img *ngIf="plugin.id == currentPluginId" src="../../../assets/jobdetail/item_active.png" alt="">
-              <img *ngIf="plugin.id != currentPluginId" src="../../../assets/jobdetail/item.png" alt="">
-              <label class="plugin-des">{{plugin_step_en[i]}}</label>
-            </div>
+          <div class="propertyCard" style="margin-left: 10px">
+            <div class="cardInline"><span class="img-span">best_val_loss</span><img class="question-icon" title="最佳验证集损失函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{jobResult?.bestValLoss |number:'1.2-2'}}</div>
           </div>
-<!--          <div class="tab" *ngIf="job?.status=='运行'" [style.display]="changeIndex==0?'':'none'">
-            <a href="#" onclick="return false" class="current_tab">训练结果</a>
-            <a href="#" onclick="return false">资源详情</a>
-          </div>-->
-          <div [style.display]="changeIndex==0?'':'none'" class="lossLine">
-                <div class="lossCard">
-                    <div class="title">LOSS<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_loss:{{jobResult?.bestLoss |number:'1.2-2'}}</span></div>
-                    <div class="sub_title"><span class="span_not_val">--loss</span> & <span class="span_val">--val_loss</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_loss:{{jobResult?.bestValLoss |number:'1.2-2'}}</span></div>
-                    <div class="">
-                        <div id="lossGraph"  [style.width.%]="105" [style.height.px]="400">
-                            <!-- <defs>
-                                <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
-                                    <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
-                                    <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
-                                </linearGradient>
-                            </defs> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="lossCard">
-                    <div class="title">{{jobResult?.metrics_name}}<span class="span_not_val" style="float:right;margin-right:10px;font-size:16px;color:#666666">best_{{jobResult?.metrics_name}}:{{jobResult?.bestMetrics|number:'1.2-2'}}</span></div>
-                    <div class="sub_title"><span class="span_not_val">--{{jobResult?.metrics_name}}</span> & <span class="span_val">--val_{{jobResult?.metrics_name}}</span><span style="float:right;margin-right:10px;font-size:16px;color:#666666">best_val_{{jobResult?.metrics_name}}:{{jobResult?.bestValMetrics| number:'1.2-2'}}</span></div>
-                    <div>
-                      <div id="metricsGraph"  [style.width.%]="105" [style.height.px]="400">
-                    </div>
-                </div>
-            </div>
-            <!--<div *ngFor="let item of jobResult?Param">-->
-                <!--<div class="propertyCard">-->
-                    <!--<div class="icon"></div>-->
-                    <!--<div class="cardInline">{{item.key}}</div>-->
-                    <!--<div class="cardInline">{{item.value}}</div>-->
-                <!--</div>-->
-            <!--</div>-->
-          <div class="propertyLine">
-            <div class="propertyCard">
-                <div class="cardInline"> Samples/Sec</div>
-                <div class="cardInline_value">{{job?.samples_sec|number:'1.2-2'}}</div>
-            </div>
-            <div  class="propertyCard" style="margin-left: 10px">
-                <div class="cardInline">Sec/Epoch</div>
-                <div class="cardInline_value">{{jobResult?.sec_epoch|number:'1.2-2'}}</div>
-            </div>
-            <div class="propertyCard" style="margin-left: 20px">
-                <div class="cardInline">Sample Process</div>
-                <div class="cardInline_value">{{job?.percent|percent:'.2'}}</div>
-            </div>
-            <!--<div class="propertyCard"  style="margin-left: 36px">-->
-                <!--<div class="icon"></div>-->
-                <!--<div class="cardInline">LOSS: (train/validation)</div>-->
-                <!--<div class="cardInline">{{jobResult?.loss}}</div>-->
-                <!--<div class="cardInline">{{jobResult?.bestLoss}}</div>-->
-            <!--</div>-->
-            <!--<div class="propertyCard">-->
-                <!--<div class="icon"></div>-->
-                <!--<div class="cardInline">{{jobResult?.metrics_name}}: (train/validation)</div>-->
-                <!--<div class="cardInline">{{jobResult?.bestMetrics}}</div>-->
-                <!--<div class="cardInline">{{jobResult?.bestValMetrics}}</div>-->
-            <!--</div>-->
-            <div class="propertyCard" style="margin-left: 10px">
-                <div class="cardInline">Epoch:</div>
-                <div class="cardInline_value">{{jobResult?.epoch| number:'1.2-2'}}</div>
-            </div>
+          <div class="propertyCard" style="margin-left: 20px">
+            <div class="cardInline"><span class="img-span">best_{{jobResult?.metrics_name}}</span><img class="question-icon" title="最佳训练集度量函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{jobResult?.bestMetrics|number:'1.2-2'}}</div>
           </div>
-          <div class="log" *ngIf="job?.status!='完成'">
-            <h3>日志信息</h3>
-        <span>
+          <div class="propertyCard" style="margin-left: 10px">
+            <div class="cardInline"><span class="img-span">best_val_{{jobResult?.metrics_name}}</span><img class="question-icon" title="最佳验证集度量函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{jobResult?.bestValMetrics| number:'1.2-2'}}</div>
+          </div>
+        </div>
+
+        <div class="propertyLine padding" style="margin-top: 20px">
+          <div class="propertyCard">
+            <div class="cardInline"><span class="img-span">Samples/Sec</span> <img class="question-icon" title="每秒训练样本数量" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{job?.samples_sec|number:'1.2-2'}}</div>
+          </div>
+          <div class="propertyCard" style="margin-left: 10px">
+            <div class="cardInline"><span class="img-span">Sec/Epoch</span> <img class="question-icon" title="每轮训练所用秒数" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{jobResult?.sec_epoch|number:'1.2-2'}}</div>
+          </div>
+          <div class="propertyCard" style="margin-left: 20px">
+            <div class="cardInline"><span class="img-span">Sample Process</span> <img class="question-icon" title="训练速度" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{job?.percent|percent:'.2'}}</div>
+          </div>
+          <div class="propertyCard" style="margin-left: 10px">
+            <div class="cardInline"><span class="img-span">Epoch</span> <img class="question-icon" title="训练轮数" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline_value">{{jobResult?.epoch| number:'1.2-2'}}</div>
+          </div>
+        </div>
+
+
+        <div class="log" *ngIf="job?.status!='完成'">
+          <h3>日志信息</h3>
+          <span>
           <p *ngFor="let log of log_list">{{log}}</p>
 
         </span>
-          </div>
-
-              <div *ngIf="job?.status=='完成'" class="publish">
-                <!--<a href="#" class="button" onclick="return false" >模型发布</a>-->
-                <a href="#" class="button" onclick="return false" (click)="goModel()">推演服务</a>
-
-              </div>
         </div>
-          <div [style.display]="changeIndex==1?'':'none'" class="status">
-            <div class="leftBox">
-              <div class="chain">训练算法链：</div>
-              <div class="alg_choose">
-                <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)"><img src="../assets/algchains/shengtailian.png"/><span>{{plugin.alg_name}}</span></div>
-              </div>
-            </div>
-            <div class="chains">
-              <div class="alg_choose_descrip">可选算法层:</div>
-              <div class="alg_choose_drag">*支持拖拽</div>
-              <div class="alg_choose_list" id="myPaletteDiv"></div>
-            </div>
-            <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
-            <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
-            <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
-              <div *ngFor="let editable_parameter of editable_parameters">
-                <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
-                <div class="layer_params" id="property_plugin">
-                  <input readonly  *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&statusIndex==0" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
-                         class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
-                  <input  *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&statusIndex==1" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
-                          class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
-                  <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='enums'&&statusIndex==0" class="select" name="data_select"  [(ngModel)]="editable_parameter.editable_param.set_value" (ngModelChange)="editable_parameter.editable_param.set_value;">
-                    <option *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
-                  </select>
-                  <select enabled="enabled" *ngIf="editable_parameter.editable_param.type=='enums'&&statusIndex==1" class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value" (ngModelChange)="editable_parameter.editable_param.set_value;">
-                    <option *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
-                  </select>
-                  <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='boolean'&&statusIndex==0" class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value" (ngModelChange)="editable_parameter.editable_param.set_value;">
-                    <option value="true">true</option>
-                    <option value="false">false</option>
-                  </select>
-                  <select enabled="enabled" *ngIf="editable_parameter.editable_param.type=='boolean'&&statusIndex==1" class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value" (ngModelChange)="editable_parameter.editable_param.set_value;">
-                    <option value="true">true</option>
-                    <option value="false">false</option>
-                  </select>
-                  <div *ngIf="editable_parameter.editable_param.type=='list'"class="select" name="data_select">
-                    <div>
-                      <table *ngIf="editable_parameter.editable_param.shape.length==2">
-                        <tr *ngFor="let array1 of editable_parameter.editable_param.default_value;let i1 = index;">
-                          <td *ngFor="let value1 of array1;let j1 = index;">
-                            <!-- <input *ngIf="editable_parameter.editable_param.d_type!='ENUM'&&editable_parameter.editable_param.d_type!='LIST'&&editable_parameter.editable_param.d_type!='BOOL'" [placeholder]="'From '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
-                                class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=editable_parameter.editable_param.set_value;" />
 
-                            <select *ngIf="editable_parameter.editable_param.type=='ENUM'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
-                                <option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
-                            </select>
+      </div>
+      <div [style.display]="changeIndex==1?'':'none'" class="status">
+        <div class="leftBox">
+          <div class="chain">训练算法链：</div>
+          <div class="alg_choose">
+            <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId"
+                 (click)="changeChosenPlugin(plugin.id)"><img src="../assets/algchains/shengtailian.png"/><span>{{plugin.alg_name}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="chains">
+          <div class="alg_choose_descrip">可选算法层:</div>
+          <div class="alg_choose_drag">*支持拖拽</div>
+          <div class="alg_choose_list" id="myPaletteDiv"></div>
+        </div>
+        <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
+        <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">
+          该插件无网络层</h1></div>
+        <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
+          <div *ngFor="let editable_parameter of editable_parameters">
+            <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
+            <div class="layer_params" id="property_plugin">
+              <input readonly
+                     *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&statusIndex==0"
+                     [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                     class="param_input" [value]="editable_parameter.editable_param.set_value"
+                     (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;"/>
+              <input
+                *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&statusIndex==1"
+                [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                class="param_input" [value]="editable_parameter.editable_param.set_value"
+                (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;"/>
+              <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='enums'&&statusIndex==0"
+                      class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value"
+                      (ngModelChange)="editable_parameter.editable_param.set_value;">
+                <option *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{
+                  value }}
+                </option>
+              </select>
+              <select enabled="enabled" *ngIf="editable_parameter.editable_param.type=='enums'&&statusIndex==1"
+                      class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value"
+                      (ngModelChange)="editable_parameter.editable_param.set_value;">
+                <option *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{
+                  value }}
+                </option>
+              </select>
+              <select disabled="disabled" *ngIf="editable_parameter.editable_param.type=='boolean'&&statusIndex==0"
+                      class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value"
+                      (ngModelChange)="editable_parameter.editable_param.set_value;">
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+              <select enabled="enabled" *ngIf="editable_parameter.editable_param.type=='boolean'&&statusIndex==1"
+                      class="select" name="data_select" [(ngModel)]="editable_parameter.editable_param.set_value"
+                      (ngModelChange)="editable_parameter.editable_param.set_value;">
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+              <div *ngIf="editable_parameter.editable_param.type=='list'" class="select" name="data_select">
+                <div>
+                  <table *ngIf="editable_parameter.editable_param.shape.length==2">
+                    <tr *ngFor="let array1 of editable_parameter.editable_param.default_value;let i1 = index;">
+                      <td *ngFor="let value1 of array1;let j1 = index;">
+                        <!-- <input *ngIf="editable_parameter.editable_param.d_type!='ENUM'&&editable_parameter.editable_param.d_type!='LIST'&&editable_parameter.editable_param.d_type!='BOOL'" [placeholder]="'From '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
+                            class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=editable_parameter.editable_param.set_value;" />
 
-                            <select *ngIf="editable_parameter.editable_param.type=='BOOL'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
-                                <option value="true">true</option>
-                                <option value="false">false</option>
-                            </select> -->
-                            <input readonly type="text" name="" *ngIf="statusIndex==0" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
-                            <input  *ngIf="statusIndex==1" type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
-                          </td>
-                        </tr>
-                      </table>
-                      <div *ngIf="editable_parameter.editable_param.shape.length==3">
-                        <select *ngIf="statusIndex==0" disabled="disabled">
-                          <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
+                        <select *ngIf="editable_parameter.editable_param.type=='ENUM'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
+                            <option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>
                         </select>
-                        <select *ngIf="statusIndex==1" enabled="enabled">
-                          <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
-                        </select>
-                        <select *ngIf="statusIndex==0" disabled="disabled">
-                          <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
-                        </select>
-                        <select *ngIf="statusIndex==1" enabled="enabled">
-                          <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>
-                        </select>
-                        <table>
-                          <tr *ngFor="let array2 of array_2d;let j2 = index;">
-                            <td *ngFor="let value2 of array2;let z2 = index;">
-                              <input  readonly *ngIf="statusIndex==0" type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
-                              <input  *ngIf="statusIndex==1" type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
+
+                        <select *ngIf="editable_parameter.editable_param.type=='BOOL'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select> -->
+                        <input readonly type="text" name="" *ngIf="statusIndex==0" value="{{ value1 }}"
+                               (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
+                        <input *ngIf="statusIndex==1" type="text" name="" value="{{ value1 }}"
+                               (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">
+                      </td>
+                    </tr>
+                  </table>
+                  <div *ngIf="editable_parameter.editable_param.shape.length==3">
+                    <select *ngIf="statusIndex==0" disabled="disabled">
+                      <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;"
+                              value="{{ i2+1 }}">{{ i2+1 }}
+                      </option>
+                    </select>
+                    <select *ngIf="statusIndex==1" enabled="enabled">
+                      <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;"
+                              value="{{ i2+1 }}">{{ i2+1 }}
+                      </option>
+                    </select>
+                    <select *ngIf="statusIndex==0" disabled="disabled">
+                      <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;"
+                              value="{{ i2+1 }}">{{ i2+1 }}
+                      </option>
+                    </select>
+                    <select *ngIf="statusIndex==1" enabled="enabled">
+                      <option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;"
+                              value="{{ i2+1 }}">{{ i2+1 }}
+                      </option>
+                    </select>
+                    <table>
+                      <tr *ngFor="let array2 of array_2d;let j2 = index;">
+                        <td *ngFor="let value2 of array2;let z2 = index;">
+                          <input readonly *ngIf="statusIndex==0" type="text" name="" value="{{ value2 }}"
+                                 (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
+                          <input *ngIf="statusIndex==1" type="text" name="" value="{{ value2 }}"
+                                 (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>
+                        </td>
+                      </tr>
+                    </table>
                   </div>
-
                 </div>
               </div>
-            </div>
-            <div class="rightBox" id="rightBox_node" [style.display]="rightBox_node==0?'none':''">
-              <div class="layer_name"></div>
-              <div class="layer_params" id="property"></div>
+
             </div>
           </div>
+        </div>
+        <div class="rightBox" id="rightBox_node" [style.display]="rightBox_node==0?'none':''">
+          <div class="layer_name"></div>
+          <div class="layer_params" id="property"></div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
+
+  <ele-progress [(show)] = "s_progress_show"></ele-progress>
 </div>

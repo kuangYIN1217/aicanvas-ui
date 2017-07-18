@@ -85,9 +85,9 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .addicon {
   display: inline;
   float: left;
-  margin-top: 3px;
-  margin-left: 10px;
-  margin-right: -13px;
+  margin-top: 2px;
+  /*margin-left: 10px;
+  margin-right: -13px;*/
 }
 
 .status {

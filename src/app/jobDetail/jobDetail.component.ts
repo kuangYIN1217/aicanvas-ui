@@ -61,7 +61,8 @@ export class JobDetailComponent {
   jobPath: string;
   step: number=2;
   page:string;
-  plugin_step_en: Array<string> = ['第一步' , '第二步' , '第三步', '第四步', '第五步', '第六步', '第七步', '第八步', '第九步', '第十步'];
+  // todo 默认为false
+  s_progress_show: boolean = true;
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -123,7 +124,7 @@ export class JobDetailComponent {
     this.algchainService.getChainById(jobDetail.chainId).subscribe(chainInfo => {
       // console.log('init');
       this.chainInfo = chainInfo;
-      // console.log(chainInfo);
+      console.log(chainInfo);
       console.log("===================current status :" + jobDetail.status)
       switch (jobDetail.status) {
         case '完成':
@@ -234,10 +235,10 @@ export class JobDetailComponent {
         // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
         // "bullet": "round",
         // "bulletSize": 8,
-        "lineColor": "#d1655d",
+        "lineColor": "#d4695e",
         "fillAlphas": "0.3",
         "lineThickness": 2,
-        "negativeLineColor": "#d1655d",
+        "negativeLineColor": "#d4695e",
         "type": "smoothedLine",
         "valueField": "loss"
       },{
@@ -245,10 +246,10 @@ export class JobDetailComponent {
         // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
         // "bullet": "round",
         // "bulletSize": 8,
-        "lineColor": "#23a880",
+        "lineColor": "#22a981",
         "fillAlphas": "0.3",
         "lineThickness": 2,
-        "negativeLineColor": "#23a880",
+        "negativeLineColor": "#22a981",
         "type": "smoothedLine",
         "valueField": "val_loss"
       }],
@@ -256,7 +257,7 @@ export class JobDetailComponent {
         "graph": "g1",
         "gridAlpha": 0,
         "color": "#888888",
-        "scrollbarHeight": 55,
+        "scrollbarHeight": 30,
         "backgroundAlpha": 0,
         "selectedBackgroundAlpha": 0.1,
         "selectedBackgroundColor": "#888888",
@@ -302,10 +303,10 @@ export class JobDetailComponent {
         // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
         // "bullet": "round",
         // "bulletSize": 8,
-        "lineColor": "#d1655d",
+        "lineColor": "#d4695e",
         "fillAlphas": "0.3",
         "lineThickness": 2,
-        "negativeLineColor": "#d1655d",
+        "negativeLineColor": "#d4695e",
         "type": "smoothedLine",
         "valueField": "metrics_value"
       },{
@@ -313,10 +314,10 @@ export class JobDetailComponent {
         // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
         // "bullet": "round",
         // "bulletSize": 8,
-        "lineColor": "#23a880",
+        "lineColor": "#22a981",
         "fillAlphas": "0.3",
         "lineThickness": 2,
-        "negativeLineColor": "#23a880",
+        "negativeLineColor": "#22a981",
         "type": "smoothedLine",
         "valueField": "val_metrics_value"
       }],
@@ -324,7 +325,7 @@ export class JobDetailComponent {
         "graph": "g1",
         "gridAlpha": 0,
         "color": "#888888",
-        "scrollbarHeight": 55,
+        "scrollbarHeight": 30,
         "backgroundAlpha": 0,
         "selectedBackgroundAlpha": 0.1,
         "selectedBackgroundColor": "#888888",
@@ -621,6 +622,7 @@ export class JobDetailComponent {
 
 
   stop(jobPath: string) {
+    // todo 清除信息，日志， 图表...
     this.jobService.stopJob(jobPath).subscribe(job=>{
       if (this.interval) {
         clearInterval(this.interval);
@@ -638,6 +640,7 @@ export class JobDetailComponent {
   start(jobPath: string){
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
+        this.s_progress_show = true;
         this.jobResult.bestLoss=null;
         this.jobResult.bestValLoss=null;
         this.jobResult.bestMetrics=null;
