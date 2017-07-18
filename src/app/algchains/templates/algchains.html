@@ -1,14 +1,16 @@
 <div class="container">
     <div class="tabDiv sceneManage" [style.display]="ifShowNetwork==0?'':'none'">
-        <div class="tabs">
+<!--        <div class="tabs">
             <div class="tab_item" [class.focus] = "1">已购场景</div>
-        </div>
+        </div>-->
         <div class="status">
             <div class="allPurchaseScene" id="b04">
                 <div class="scene" *ngFor="let SceneInfo of sceneArrays">
+                  <div class="sceneTitle">
                     <span class="title">{{SceneInfo?.translation}}</span>
                     <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active"><span>详情</span><img src="../assets/algchains/xiangqing.png"/></a>
-                  <div class="sceneContent">
+                  </div>
+                    <div class="sceneContent">
                     <div class="modelPreview">
                         <p>模型预览</p>
                         <div class="model">
@@ -28,7 +30,7 @@
                 </div>
             </div>
 <!--            <div class="verticalLine"></div>-->
-          <div class="recommendBox">
+<!--          <div class="recommendBox">
             <div class="recommend">
                 <h4 class="recommend_h4">相关推荐场景：</h4>
                 <div class="recommendScene">
@@ -66,7 +68,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
     </div>
     <div class="networkBox" [style.display]="ifShowNetwork==1?'':'none'">

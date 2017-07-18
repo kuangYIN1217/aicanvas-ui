@@ -65,20 +65,26 @@ export class JobCreationComponent {
   pageNo:string;
   d_dataSets: any = [];
   dataId;
+  createBtn:number=0;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
 
-    if (location.path(false).indexOf('/jobcreation/') != -1) {
-      this.pageNo = location.path(false).split('/jobcreation/')[1];
-      if(this.pageNo){
-        console.log(this.pageNo);
-      }
-    }
+    // if (location.path(false).indexOf('/jobcreation/') != -1) {
+    //   this.pageNo = location.path(false).split('/jobcreation/')[1];
+    //   if(this.pageNo){
+    //     console.log(this.pageNo);
+    //   }
+    // }
   }
-
+  ngOnInit(){
+    this.route.queryParams.subscribe(params => {
+      this.pageNo = params['page'];
+    });
+    console.log(this.pageNo);
+  }
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -183,7 +189,12 @@ getPluginName(name){
   nextStep() {
       this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
-
+  ngAfterViewChecked(){
+    if(this.jobName!=''&&this.firstChainId!=''&&this.dataId!=''){
+      console.log(this.jobName,this.firstChainId,this.dataId)
+      this.createBtn=1;
+    }
+  }
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId , dataId) {
 
