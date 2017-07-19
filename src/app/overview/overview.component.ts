@@ -25,7 +25,8 @@ export class OverviewComponent {
   jobArray: JobInfo[] = [];
   createdJob: JobInfo = new JobInfo();
   // show resource or task 0--resource, 1--task
-  GpuInfo: GpuInfo[] = [];
+  GpuInfo1: GpuInfo[] = [];
+  GpuInfo2: GpuInfo[] = [];
   tabIndex: number = 0;
   interval: any;
   student: number = 0;
@@ -43,12 +44,14 @@ export class OverviewComponent {
   private chart4: any;
   private chart5: any;
   private chart6: any;
-  private chart7: any;
-  private chart8: any;
+  // private chart7: any;
+  // private chart8: any;
   tot_memory: number;
   totalGlobalMem: number;
   pageParams:any;
   allArr:any[]=[];
+  gpuArr1:any[]=[];
+  gpuArr2:any[]=[];
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
     resourcesService.getCpuInfo()
       .subscribe(cpu => this.getCpu(cpu));
@@ -120,13 +123,14 @@ export class OverviewComponent {
     return dataProvider;
   }
 
-  makeRandomDataProvider7() {
+  /*  makeRandomDataProvider7() {
     var dataProvider = [{
       created_at: "0",
       cpu_utilization: '0',
     }];
     return dataProvider;
   }
+
 
   makeRandomDataProvider8() {
     var dataProvider = [{
@@ -135,6 +139,7 @@ export class OverviewComponent {
     }];
     return dataProvider;
   }
+*/
 
   ngOnInit() {
     this.chart = this.AmCharts.makeChart("chartdiv1", {
@@ -515,7 +520,7 @@ export class OverviewComponent {
         "enabled": true
       }
     });
-    this.chart7 = this.AmCharts.makeChart("chartdiv7", {
+/*    this.chart7 = this.AmCharts.makeChart("chartdiv7", {
       "type": "serial",
       "theme": "light",
       "marginTop": 0,
@@ -640,7 +645,7 @@ export class OverviewComponent {
       "export": {
         "enabled": true
       }
-    });
+    });*/
   }
 
   ngOnDestroy() {
@@ -700,11 +705,11 @@ export class OverviewComponent {
 
   getGpus(gpuArray: Gpu[]) {
     // 如果长度不变且不为0 默认gpu没变，不需改变this.gpuArray,因为改变this.gpuArray时，页面会刷新
-    if (this.gpuArray.length != 0 && this.gpuArray.length == gpuArray.length) {
+/*    if (this.gpuArray.length != 0 && this.gpuArray.length == gpuArray.length) {
       for (let gpu of this.gpuArray) {
         let id = gpu.id;
         this.resourcesService.getGpuStatus(id)
-        /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+        /!*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*!/
           .subscribe(gpuInfoArray => {
             //
             // this.AmCharts.updateChart(this.chart, () => {
@@ -712,7 +717,7 @@ export class OverviewComponent {
             // });
           });
       }
-    } else {
+    } else {*/
       this.gpuArray = gpuArray;
       this.totalGlobalMem = this.gpuArray[0].totalGlobalMem;
       // console.log(this.totalGlobalMem);
@@ -722,41 +727,58 @@ export class OverviewComponent {
           this.resourcesService.getGpuStatus(id)
           /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
             .subscribe(gpuInfoArray => {
-              this.GpuInfo = gpuInfoArray;
-              for (let i = 0; i < this.GpuInfo.length; i++) {
-                let gpuInfo = gpuInfoArray[i].total_used_memory;
-                let data = Number((gpuInfo / this.totalGlobalMem).toFixed(2)) * 100;
-                gpuInfoArray[i].total_used_memory = data;
+              this.GpuInfo1 = gpuInfoArray;
+              for (let i = 0; i < this.GpuInfo1.length; i++) {
+                let gpuInfo1 = gpuInfoArray[i].total_used_memory;
+                let data1 = Number((gpuInfo1 / this.totalGlobalMem).toFixed(2)) * 100;
+                gpuInfoArray[i].total_used_memory = data1;
+                console.log(gpuInfoArray);
               }
+              for(let j = 0; j < gpuInfoArray.length; j++){
+                this.gpuArr1.push(gpuInfoArray[j]);
+              }
+              console.log(this.gpuArr1);
+              if(this.gpuArr1.length>500){
+                this.gpuArr1.splice(0,2)
+              }
+
               this.AmCharts.updateChart(this.chart, () => {
-                this.chart.dataProvider = gpuInfoArray;
+                this.chart.dataProvider = this.gpuArr1;
               });
               this.AmCharts.updateChart(this.chart2, () => {
-                this.chart2.dataProvider = gpuInfoArray;
+                this.chart2.dataProvider = this.gpuArr1;
               });
             });
         } else if (id == 1) {
           this.resourcesService.getGpuStatus(id)
           /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
             .subscribe(gpuInfoArray => {
-              this.GpuInfo = gpuInfoArray;
-              for (let i = 0; i < this.GpuInfo.length; i++) {
-                let gpuInfo = gpuInfoArray[i].total_used_memory;
-                let data = Number((gpuInfo / this.totalGlobalMem).toFixed(2)) * 100;
-                gpuInfoArray[i].total_used_memory = data;
+              this.GpuInfo2 = gpuInfoArray;
+              for (let i = 0; i < this.GpuInfo2.length; i++) {
+                let gpuInfo2 = gpuInfoArray[i].total_used_memory;
+                let data2 = Number((gpuInfo2 / this.totalGlobalMem).toFixed(2)) * 100;
+                gpuInfoArray[i].total_used_memory = data2;
               }
+              for(let j = 0; j < gpuInfoArray.length; j++){
+                this.gpuArr2.push(gpuInfoArray[j]);
+              }
+              console.log(this.gpuArr2);
+              if(this.gpuArr2.length>500){
+                this.gpuArr2.splice(0,2)
+              }
+
               this.AmCharts.updateChart(this.chart5, () => {
-                this.chart5.dataProvider = gpuInfoArray;
+                this.chart5.dataProvider = this.gpuArr2;
               });
               this.AmCharts.updateChart(this.chart6, () => {
-                this.chart6.dataProvider = gpuInfoArray;
+                this.chart6.dataProvider = this.gpuArr2;
               });
             });
         }
 
       }
     }
-  }
+  // }
 
   getGpuInfo(gpuInfoArray: GpuInfo[], gpu: Gpu) {
     this.drawGpuLine(gpuInfoArray, gpu);
