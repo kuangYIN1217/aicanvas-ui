@@ -44,8 +44,13 @@ export class TaskStatusComponent{
     }
     getPageData(paraParam) {
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
+      sessionStorage['curPage']=paraParam.curPage;
       //console.log('触发', paraParam);
     }
+  getPage(){
+      let pageNo = sessionStorage['curPage'];
+      console.log(pageNo);
+  }
    ngOnInit(){
 /*     this.route.queryParams.subscribe(params =>{
        this.pageNumber = params['pageNumber'];
@@ -57,20 +62,16 @@ export class TaskStatusComponent{
 
     //this.getSceneId();
    }
-  ngOnChanges(...args: any[]) {
-    if(this.sceneId==0){
-      this.sceneId = this.historyId;
-    }
+  ngOnChanges(...args: any[]){
      this.getSceneId();
     // if(this.pageNo){
     //   this.getAlljobs(this.statuss,this.pageNo,this.pageMaxItem,this.sceneId);
     // }
 
    }
-
    getSceneId(){
      if(this.sceneId==0){
-     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' ');
      }else{
        this.historyId = this.sceneId;
        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);

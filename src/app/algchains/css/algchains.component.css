@@ -134,7 +134,6 @@
     width: 46%;
     float: left;
 }
-
 .scene .descrip p{
     font-family: "MicrosoftYaHei";
     font-size: 14px;
@@ -142,6 +141,10 @@
     color: #666666;
     width:80%;
     margin: 0 auto;
+}
+.scene .descrip .scenceCont{
+  height:22vh;
+  overflow: hidden;
 }
 .scene .descrip a{
     font-size: 1rem;

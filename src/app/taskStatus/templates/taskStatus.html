@@ -25,7 +25,7 @@
                   <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
               </td>-->
       <td class="operation">
-        <a class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}"></a>&nbsp;&nbsp;
+        <a class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}" (click)="getPage()"></a>&nbsp;&nbsp;
         <a *ngIf="jobInfo.status=='运行'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></a>
         <a *ngIf="jobInfo.status!='运行'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></a>
         <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
