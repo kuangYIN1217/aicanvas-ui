@@ -160,6 +160,10 @@ export class ModelComponent {
       this.job = jobDetail;
     });
   }
+  ngOnDestroy() {
+    // 退出时停止更新
+    clearInterval(this.interval);
+  }
   selectChange(job_id) {
     this.id = 1;
     this.getData(job_id,this.page-1,this.pageMaxItem);
