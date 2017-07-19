@@ -234,6 +234,7 @@ export class JobDetailComponent {
       return;
     } else if(plugin.id == this.runningPluginId) {
       // console.log('click run plugin -> switch to run plugin')
+      this.loadCharts();
       this.runningFlag = true;
     } else {
       // console.log('click plugin -> switch to plugin')
@@ -566,23 +567,29 @@ export class JobDetailComponent {
       }
       // debugger
       // this.update(jobParam);
-      this.AmCharts.updateChart(this.lossChart, () => {
-        if (this.jobResultParam.length == 0) {
-          this.lossChart.dataProvider = this.lossChartInitData();
-        } else {
-          this.lossChart.dataProvider = this.jobResultParam;
-        }
-      });
-      this.AmCharts.updateChart(this.metricsChart, () => {
-        if (this.jobResultParam.length == 0) {
-          this.metricsChart.dataProvider = this.metricsChartInitData();
-        } else {
-          this.metricsChart.dataProvider = this.jobResultParam;
-        }
-      });
+      this.loadCharts();
     }
   }
 
+  /**
+   * 加载图表信息
+   * */
+  loadCharts() {
+    this.AmCharts.updateChart(this.lossChart, () => {
+      if (this.jobResultParam.length == 0) {
+        this.lossChart.dataProvider = this.lossChartInitData();
+      } else {
+        this.lossChart.dataProvider = this.jobResultParam;
+      }
+    });
+    this.AmCharts.updateChart(this.metricsChart, () => {
+      if (this.jobResultParam.length == 0) {
+        this.metricsChart.dataProvider = this.metricsChartInitData();
+      } else {
+        this.metricsChart.dataProvider = this.jobResultParam;
+      }
+    });
+  }
   /**
    * 解析停止状态下的job数据，获取停止位置与数据
    * @param jobParam
@@ -614,20 +621,7 @@ export class JobDetailComponent {
           this.getRunningPlugin(this.jobResult);
           // 展示plugin为runingplugin
           if (this.runningFlag) {
-            this.AmCharts.updateChart(this.lossChart, () => {
-              if (this.jobResultParam.length == 0) {
-                this.lossChart.dataProvider = this.lossChartInitData();
-              } else {
-                this.lossChart.dataProvider = this.jobResultParam;
-              }
-            });
-            this.AmCharts.updateChart(this.metricsChart, () => {
-              if (this.jobResultParam.length == 0) {
-                this.metricsChart.dataProvider = this.metricsChartInitData();
-              } else {
-                this.metricsChart.dataProvider = this.jobResultParam;
-              }
-            });
+            this.loadCharts();
           }
         }
        /* this.jobResult = jobParam[jobParam.length - 1];*/
@@ -681,12 +675,7 @@ export class JobDetailComponent {
     this.jobResultParam.push(temp);
     // 展示plugin为runingplugin
     if (this.runningFlag) {
-      this.AmCharts.updateChart(this.lossChart, () => {
-        this.lossChart.dataProvider = this.jobResultParam;
-      });
-      this.AmCharts.updateChart(this.metricsChart, () => {
-        this.metricsChart.dataProvider = this.jobResultParam;
-      });
+      this.loadCharts();
     }
     this.jobResult = temp;
   }
