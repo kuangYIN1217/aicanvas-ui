@@ -1,17 +1,25 @@
 .image-container{
-  width:97%;
+
   margin: 30px;
   background-color: #fff;
   overflow: hidden;
 }
-
+.imgCont{
+  padding:0 20px;
+}
 .percent{
   color: #333333;
   font-size: 16px;
-  margin: 30px;
+  margin:20px 0;
 }
-
-
+.imgCont .table{
+  width:100%;
+  padding:0;
+  margin:0;
+}
+.imgCont .table tr td{
+  padding:20px;
+}
 .large{
   margin: auto;
   position: absolute;
