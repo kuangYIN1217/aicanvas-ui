@@ -11,7 +11,6 @@
                   <div class="checkStatus"><span *ngIf="focusImg==0" (click)="gpuToggle()">展开</span><span *ngIf="focusImg!=0" (click)="gpuToggle()">收起</span><img [src]="focusImg==0?'../assets/overview/redown.png':'../assets/overview/reup.png'" (click)="gpuToggle()"/></div>
                 </div>
               <div class="chartsCont">
-                <div class="flex-item"></div>
                 <div class="chart linechart">
                     <h4>GPU使用率(%)</h4>
                     <!--<div class="cpuSvg" id="cpu_utilization_line">
@@ -26,7 +25,6 @@
                     </div>-->
                   <div id="chartdiv1" [style.width.%]="108" [style.height.vh]="29"></div>
                 </div>
-                <div class="flex-item"></div>
                 <div class="chart piechart">
                     <h4>GPU内存(M)</h4>
                     <!--<div class="pie" id="cpu_storage_pie">
@@ -35,7 +33,6 @@
                     </div>-->
                   <div id="chartdiv2" [style.width.%]="108" [style.height.vh]="29"></div>
                 </div>
-                <div class="flex-item"></div>
               </div>
               </div>
 <!--            <div class="gpu">
