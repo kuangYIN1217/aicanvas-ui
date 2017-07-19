@@ -213,6 +213,13 @@ export class JobDetailComponent {
       this.interval = setInterval(() => {
         this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
           this.job = jobDetail;
+          if (this.job.percent == 1) {
+            // 任务完成
+            this.websocket.stopWebsocket();
+            if (this.interval) {
+              clearInterval(this.interval);
+            }
+          }
           this.user = this.job.user;
         });
       }, 1000);
@@ -414,8 +421,7 @@ export class JobDetailComponent {
     if (this.interval) {
       clearInterval(this.interval);
     }
-    /*this.websocket.unsubscribe();
-    this.websocket.disconnect(null);*/
+    this.websocket.stopWebsocket();
     this.AmCharts.destroyChart(this.lossChart);
     this.AmCharts.destroyChart(this.metricsChart);
   }
@@ -686,6 +692,7 @@ export class JobDetailComponent {
       if (this.interval) {
         clearInterval(this.interval);
       }
+      this.websocket.stopWebsocket();
       this.index=-1;
       this.initJobDetailByPath();
      /* this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {

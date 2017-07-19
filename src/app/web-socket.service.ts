@@ -6,8 +6,7 @@ export class WebSocketService {
 
   constructor(private stomp: StompService) {
   }
-
-  private subscription: any;
+  private subscribtions = [];
   public queuePromises :any;
   public  connect() {
     this.stomp.configure({
@@ -21,9 +20,9 @@ export class WebSocketService {
   public subscribe(subscribe: string,callback:(data:any)=>void){
 
     // this.stomp.afterConnection().then(() => {
-      this.stomp.subscribe(subscribe,(result)=>{
+      this.subscribtions.push(this.stomp.subscribe(subscribe,(result)=>{
         callback(result);
-      });
+      }))
 
       // }
     // );
@@ -34,17 +33,16 @@ export class WebSocketService {
 
   public unsubscribe() {
     // this.stomp.startConnect().then(() => {
-    if(this.stomp)
-        this.stomp.unsubscribe();
-      // }
-    // );
+    for (let i = 0 ; i < this.subscribtions.length ; i ++) {
+      this.subscribtions[i].unsubscribe();
+    }
 
   }
 
   public disconnect(callback: any) {
     // this.stomp.startConnect().then(() => {
     if(this.stomp)
-        this.stomp.disconnect().then(() => {
+      this.stomp.disconnect().then(() => {
           callback();
         })
       // }
@@ -52,5 +50,9 @@ export class WebSocketService {
 
   }
 
+  public stopWebsocket () {
+    this.unsubscribe();
+    // this.disconnect(null);
+  }
 
 }
