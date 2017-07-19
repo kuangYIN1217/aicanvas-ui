@@ -32,13 +32,13 @@ function init() {
       // 主要对象是一个环绕TextBlock的矩形的Panel
      $(go.Panel, "Auto",
         $(go.Shape, "RoundedRectangle",
-          { minSize: new go.Size(148, 42), fill: "#ffffff", stroke: "#52a683", },
+          { minSize: new go.Size(138, 35), fill: "#01bb91", stroke: "#01bb91", },
           new go.Binding("figure", "figure")),
        $(go.Panel, "Horizontal",
          $(go.Picture,
           {
             source:"../assets/network/chajian.png",
-            background:"#ffffff",
+            // background:"#ffffff",
             width:24,
             height:24,
             margin:12,
@@ -47,7 +47,7 @@ function init() {
         $(go.TextBlock,
           {
             font: "bold 11pt Helvetica, Arial, sans-serif",
-            stroke: "#666666",
+            stroke: "#ffffff",
             // margin:10,
             maxSize: new go.Size(160, NaN),
             wrap: go.TextBlock.WrapFit,
@@ -92,7 +92,7 @@ function init() {
                 for (var key in configStr){
                   for (var j = 0;j < test2[layerId].editable_param_list.length; j++){
                     if (key == test2[layerId].editable_param_list[j].path){
-                      document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 90%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
+                      document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 90%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '" readonly/></div>';
                       // document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text"  style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                       break;
                     }else

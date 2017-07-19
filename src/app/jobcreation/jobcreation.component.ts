@@ -12,6 +12,7 @@ import {ChainInfo, JobInfo, PluginInfo, SceneInfo} from "../common/defs/resource
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addWarningToast , addSuccessToast} from '../common/ts/toast';
 import {DatasetsService} from "../common/services/datasets.service";
+import {escape} from "querystring";
 declare var $: any;
 @Component({
   moduleId: module.id,
@@ -62,7 +63,7 @@ export class JobCreationComponent {
   firstChainId: string;
   @Input() statuss: string = '';
   jobName:string;
-  pageNo:string;
+  pageNumber:number;
   d_dataSets: any = [];
   dataId;
   createBtn:number=0;
@@ -80,10 +81,11 @@ export class JobCreationComponent {
     // }
   }
   ngOnInit(){
-    this.route.queryParams.subscribe(params => {
-      this.pageNo = params['page'];
+    this.route.queryParams.subscribe(params =>{
+      this.pageNumber = params['pageNo'];
+      console.log(this.pageNumber);
     });
-    console.log(this.pageNo);
+    //this.router.navigate(['../taskStatus'],{queryParams: { pageNumber: this.pageNumber}});
   }
   ngOnDestroy() {
     // 退出时停止更新
@@ -189,12 +191,6 @@ getPluginName(name){
   nextStep() {
       this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
- /* ngAfterViewChecked(){
-    if(this.jobName!=''&&this.firstChainId!=''&&this.dataId!=''){
-      console.log(this.jobName,this.firstChainId,this.dataId)
-      this.createBtn=1;
-    }
-  }*/
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId , dataId) {
 
@@ -213,6 +209,7 @@ getPluginName(name){
       addWarningToast(this.toastyService , "请选择数据集" );
       return false;
     }
+    this.createBtn=1;
     this.jobService.createJob( chainId,dataId,this.jobName,chosenSceneId)
       .subscribe(createdJob => {
         //let job: any = createdJob;

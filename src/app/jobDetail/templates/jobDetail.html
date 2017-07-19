@@ -2,7 +2,7 @@
 
   <div class="btn-wrapper">
 
-    <a href="#" class="back" routerLink="/jobcreation/{{page}}" [style.display]="lookIt==1?'none':''">返回</a>
+    <a href="#" class="back" routerLink="/jobcreation" [style.display]="lookIt==1?'none':''" (click)="back()">返回</a>
     <div class="btn-item" *ngIf="job?.status=='未启动'">
       <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">开始运行</a>
     </div>

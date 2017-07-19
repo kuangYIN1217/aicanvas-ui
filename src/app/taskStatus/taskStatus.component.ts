@@ -35,11 +35,10 @@ export class TaskStatusComponent{
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
-
+    pageNumber:string;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
-    @Input() pageNo:string = null;
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
 
     }
@@ -48,8 +47,14 @@ export class TaskStatusComponent{
       //console.log('触发', paraParam);
     }
    ngOnInit(){
+/*     this.route.queryParams.subscribe(params =>{
+       this.pageNumber = params['pageNumber'];
+       this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,null);
+       console.log(this.pageNumber);
+     });*/
         this.interval = setInterval(() =>this.updatePage(), 500);
         this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
+
     //this.getSceneId();
    }
   ngOnChanges(...args: any[]) {
@@ -57,9 +62,10 @@ export class TaskStatusComponent{
       this.sceneId = this.historyId;
     }
      this.getSceneId();
-    if(this.pageNo){
-      this.getAlljobs(this.statuss,this.pageNo,this.pageMaxItem,this.sceneId);
-    }
+    // if(this.pageNo){
+    //   this.getAlljobs(this.statuss,this.pageNo,this.pageMaxItem,this.sceneId);
+    // }
+
    }
 
    getSceneId(){

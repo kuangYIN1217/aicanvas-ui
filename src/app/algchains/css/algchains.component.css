@@ -52,9 +52,9 @@
     position: relative;
     margin-bottom: 20px;
     float: left;
-    width: 31.3%;
-    margin-left:1%;
-    margin-right: 1%;
+    width: 32.3%;
+    margin-left:0.5%;
+    margin-right: 0.5%;
     background: #ffffff;
     height: 39.5vh;
     border-radius: 5px;
@@ -86,6 +86,7 @@
 }
 .sceneTitle{
   height:44px;
+  overflow: hidden;
 }
 .scene .title{
     font-family: "MicrosoftYaHei";
@@ -102,10 +103,13 @@
 .scene .detail{
   float: right;
   display: table-cell;
-  font-size: 11px;
+  font-size: 14px;
   color: #ff7c35;
-  margin: 12px 20px 12px 30px;
+  display: inline-block;
   cursor: pointer;
+}
+.scene .detail span{
+  padding:12.5px 20px;
 }
 .scene .detail span,.scene .detail img{
   display: inline-block;
@@ -500,9 +504,7 @@
 }
 /**/
 .networkBox{
-  width:96%;
-  margin-left: 30px;
-  margin-top: 30px;
+  margin:20px 30px 0;
   background-color: #ffffff;
 }
 

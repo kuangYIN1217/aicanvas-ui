@@ -1,4 +1,5 @@
 <div class="result-container">
+  <div class="historyCont">
     <div class="percent">
         <span>展示结果：</span>
         <span></span>
@@ -22,5 +23,6 @@
         </tr>
         </tbody>
     </table>
-  <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+  </div>
 </div>

@@ -21,7 +21,7 @@ export class NetworkComponent {
   chosenPluginId: string;
   plugin_id: string;
   plugin: PluginInfo = new PluginInfo();
-
+  general:string='general';
   constructor(private sceneService: SceneService, private pluginService: PluginService, private location: Location,private router:Router) {
     if (this.location.path(false).indexOf('/network/') != -1) {
       let id = this.location.path(false).split('/network/')[1];

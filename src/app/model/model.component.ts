@@ -75,6 +75,7 @@ export class ModelComponent {
     this.times = 0;
     for(let i in this.uploader.queue){
       this.times++;
+      this.fileName=[];
       if(this.fileName.length>0){
         for(let n=0;n<this.fileName.length;n++){
           if(this.fileName[n]==this.uploader.queue[i].file.name){
@@ -111,6 +112,7 @@ export class ModelComponent {
     uploadFile() {
       console.log(this.uploader.queue);
       //console.log(this.container);
+      this.responsePath=[];
       for(var i=0;i<this.container.length;i++){
         this.uploader.queue[i].onSuccess = (response: any, status: any, headers: any) => {
           //this.uploader.queue[i].remove();

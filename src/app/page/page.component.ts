@@ -25,6 +25,7 @@ export class PageComponent {
   ngOnChanges(...args: any[]) {
     this.job_id = this.pageParams.job_id;
   }
+
   getPageList(pageParams) {
     let pageList=[];
     if(pageParams.totalPage==0){
