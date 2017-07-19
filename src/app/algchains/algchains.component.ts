@@ -139,7 +139,23 @@ export class AlgChainsComponent{
         }
     }
     showNetwork(sceneId){
-        this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: sceneId }});
+      console.log(sceneId);
+      this.sceneService.getChainByScene(sceneId)
+        .subscribe(plugin=>{
+          this.PluginInfo=plugin;
+          this.chainId=this.PluginInfo[0].id;
+          if(this.chainId){
+            this.ifShowNetwork = 1;
+            this.algchainService.getChainById(this.chainId)
+              .subscribe(plugin=>{
+                this.pluginArr=plugin;
+                // console.log(this.pluginArr[0]);
+                this.changeChosenPlugin(this.pluginArr[0].id);
+              });
+          }
+        });
+
+        //this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: sceneId }});
 /*      this.ifShowNetwork = 1;
         sessionStorage.algChain_scene = sceneId;
         for (let scene of this.sceneArray){
