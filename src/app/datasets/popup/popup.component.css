@@ -151,7 +151,10 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   padding-left: 18px;
 }
 .orange {
-  color: #ff7c35;
+  color: #fe1c1c;
+  font-size: 12px;
+  position: relative;
+  top:-2px;
 }
 .green {
   color: #23a880;
@@ -159,7 +162,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 
 .error.item {
   position: relative;
-  margin: 20px 34px 0 34px;
+  margin: 20px 57px 0 57px;
   padding:0 45px;
   height: 30px;
   line-height: 30px;
@@ -285,4 +288,17 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   height: 24px !important;
   -webkit-transform: translate(-12px, -12px) scale(0.12) translate(12px, 12px);
   transform: translate(-12px, -12px) scale(0.12) translate(12px, 12px);
+}
+input {
+  outline: none;
+}
+
+input:focus {
+  border: 1px solid #23a880;
+}
+select:focus{
+  border:1px solid #23a880;
+}
+select{
+  outline: none;
 }

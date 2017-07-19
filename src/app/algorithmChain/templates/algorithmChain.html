@@ -4,15 +4,18 @@
         <div (click)="selfTemplateClick()" id="tab_item2" class="tab_item" [ngClass]="{current: showSystemPlugin==0}">自定义模版</div>
     </div>-->
     <div [style.display]="showSystemPlugin==1 ? '' : 'none'" id="systemDiv" class="status">
-      <div class="selectContainer">
-        <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
-          <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
-        </select>
-       <!-- <img src="../assets/taskStatus/select.png">-->
+      <div class="selectCont">
+        <div class="selectContainer">
+          <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;selectChange()">
+            <option value="{{scene.id}}" *ngFor=" let scene of SceneInfo" >{{scene.translation}}</option>
+          </select>
+         <!-- <img src="../assets/taskStatus/select.png">-->
+        </div>
+        <div class="alg_back">
+          <a routerLinkActive="active" routerLink="/algchains">返回</a>
+        </div>
       </div>
-      <div class="alg_back">
-        <a routerLinkActive="active" routerLink="/algchains">返回</a>
-      </div>
+      <div class="tableCont">
         <table class="table">
           <tr>
             <th class="id">序号</th>
@@ -59,6 +62,7 @@
             <div class="pagebtn"  (click)="previousPage(pageMaxItem)">Previous</div>
         </div>-->
       <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+      </div>
     </div>
     <!--<div [style.display]="showSystemPlugin==0 ? '' : 'none'" id="selfDiv" class="status">
         <table class="table">

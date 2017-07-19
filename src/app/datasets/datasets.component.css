@@ -132,3 +132,16 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .upload-dataset:hover{
   opacity: 0.9;
 }
+input {
+  outline: none;
+}
+
+input:focus {
+  border: 1px solid #23a880;
+}
+select:focus{
+  border:1px solid #23a880;
+}
+select{
+  outline: none;
+}

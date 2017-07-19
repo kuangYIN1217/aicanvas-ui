@@ -560,7 +560,6 @@ input:focus{
   background: #eeeeee;
   text-decoration: none;
   text-align: center;
-
 }
 input{
   outline: none;
@@ -889,6 +888,8 @@ select{
 .mustColor{
   color: #fe1c1c;
   font-size: 12px;
+  position: relative;
+  top:-2px;
 }
 .detail {
   position: relative;

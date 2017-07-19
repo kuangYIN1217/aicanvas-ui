@@ -1,9 +1,12 @@
-.table {
-  width: 96%;
-  margin-left: 24px;
-  margin-top: 23px;
+.tableCont{
+  padding:0 20px;
+}
+.tableCont .table {
+  width:100%;
   border-collapse: collapse;
   border: solid 1px #d3d3d3;
+  margin: 0;
+  padding:0;
 }
 .table th{
   height: 36px;
@@ -186,35 +189,34 @@ select{
     cursor: pointer;
 }
 .selectContainer{
-  position: relative;
-  top:20px;
-  height:56px;
-  left:24px;
+ float: left;
   width:293px;
+}
+.selectCont{
+  padding:20px;
+  overflow: hidden;
 }
 .select{
   background: url('../../../assets/taskStatus/select.png') no-repeat;
   background-position: right;
-  position: absolute;
   height:36px;
   border-radius: 5px;
-  width:294px;
+  width:275px;
   border: 1px solid #d3d3d3;
-  font-size: 0.7vw;
+  font-size: 14px;
   text-indent: 10px;
   color: #666;
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;
+  box-sizing: border-box;
 }
 /*.selectContainer img{
   position: absolute;
   right:0;
 }*/
 .alg_back{
-  position: absolute;
-  top:53px;
-  right:4%;
+  float: right;
 }
 .alg_back a{
   width:110px;

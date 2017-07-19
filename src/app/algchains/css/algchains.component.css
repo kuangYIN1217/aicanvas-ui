@@ -500,9 +500,7 @@
 }
 /**/
 .networkBox{
-  width:96%;
-  margin-left: 30px;
-  margin-top: 30px;
+  margin:20px 30px 0;
   background-color: #ffffff;
 }
 
