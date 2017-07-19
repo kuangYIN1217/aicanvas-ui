@@ -70,6 +70,7 @@ export class JobDetailComponent {
   page:string;
 
   // progress logs
+  s_process_flag: boolean = true;
   s_progress_show: boolean = false;
   d_progress_logs = [];
   d_progress_log: any = {
@@ -113,17 +114,46 @@ export class JobDetailComponent {
   /**
    * 获取jobDetail
    */
-  initJobDetailByPath () {
+  initJobDetailByPath (flag?) {
     this.jobService.getJobDetail(this.jobPath).subscribe(jobDetail => {
       if(jobDetail){
         this.job = jobDetail;
+        if (flag) {
+          this.initData();
+        }
         this.user = this.job.user;
         // 处理jobDetail
-        this.resolveJobDetail(jobDetail , this.jobPath);
+        this.resolveJobDetail(this.job , this.jobPath);
       }
     });
   }
-
+  /* 初始化数据 */
+  initData() {
+    // 初始化图表信息
+    this.runningPluginId = null;
+    this.runningPluginIndex = -1;
+    // 被选中plugin
+    this.currentPluginId = null;
+    /*this.job = new JobInfo();*/
+    this.job.samples_sec = null;
+    this.job.percent = null;
+    this.job.sences = null;
+    this.log_list = [];
+    this.d_progress_logs = [];
+    this.d_progress_log = {
+      percent: 0,
+      step: '正在初始化'
+    };
+    this.s_process_flag = true;
+    // 清空图表数据
+    this.jobResultParam = []
+    this.AmCharts.updateChart(this.metricsChart, () => {
+      this.metricsChart.dataProvider= this.metricsChartInitData();
+    });
+    this.AmCharts.updateChart(this.lossChart, () => {
+      this.lossChart.dataProvider = this.lossChartInitData();
+    });
+  }
   downloadLog(){
     // this.jobService.downloadLog(this.job.jobPath).subscribe((data)=>{
     let path = "/api/log?jobPath=" + this.job.jobPath;
@@ -383,8 +413,8 @@ export class JobDetailComponent {
     if (this.interval) {
       clearInterval(this.interval);
     }
-    // this.websocket.unsubscribe();
-    // this.websocket.disconnect(null);
+    /*this.websocket.unsubscribe();
+    this.websocket.disconnect(null);*/
     this.AmCharts.destroyChart(this.lossChart);
     this.AmCharts.destroyChart(this.metricsChart);
   }
@@ -537,10 +567,18 @@ export class JobDetailComponent {
       // debugger
       // this.update(jobParam);
       this.AmCharts.updateChart(this.lossChart, () => {
-        this.lossChart.dataProvider = this.jobResultParam;
+        if (this.jobResultParam.length == 0) {
+          this.lossChart.dataProvider = this.lossChartInitData();
+        } else {
+          this.lossChart.dataProvider = this.jobResultParam;
+        }
       });
       this.AmCharts.updateChart(this.metricsChart, () => {
-        this.metricsChart.dataProvider = this.jobResultParam;
+        if (this.jobResultParam.length == 0) {
+          this.metricsChart.dataProvider = this.metricsChartInitData();
+        } else {
+          this.metricsChart.dataProvider = this.jobResultParam;
+        }
       });
     }
   }
@@ -577,14 +615,21 @@ export class JobDetailComponent {
           // 展示plugin为runingplugin
           if (this.runningFlag) {
             this.AmCharts.updateChart(this.lossChart, () => {
-              this.lossChart.dataProvider = this.jobResultParam;
+              if (this.jobResultParam.length == 0) {
+                this.lossChart.dataProvider = this.lossChartInitData();
+              } else {
+                this.lossChart.dataProvider = this.jobResultParam;
+              }
             });
             this.AmCharts.updateChart(this.metricsChart, () => {
-              this.metricsChart.dataProvider = this.jobResultParam;
+              if (this.jobResultParam.length == 0) {
+                this.metricsChart.dataProvider = this.metricsChartInitData();
+              } else {
+                this.metricsChart.dataProvider = this.jobResultParam;
+              }
             });
           }
         }
-
        /* this.jobResult = jobParam[jobParam.length - 1];*/
         this.websocket.connect().then(()=>{
           this.websocket.subscribe('/job/'+jobPath,(data)=>{
@@ -596,8 +641,11 @@ export class JobDetailComponent {
             this.log_list=this.log_list.concat(data);
           });
           this.websocket.subscribe('/preLog/'+ this.jobPath,(data)=>{
+            if (this.s_process_flag) {
+              this.s_progress_show = true;
+              this.s_process_flag = false;
+            }
             console.log(data);
-            this.s_progress_show = true;
             this.d_progress_logs.push(data);
             this.d_progress_log = data;
           });
@@ -660,23 +708,9 @@ export class JobDetailComponent {
 
 
   start(jobPath: string){
-    // todo 清除信息，日志， 图表...
-
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
-        // 初始化图表信息
-        this.lossChart.dataProvider = this.lossChartInitData();
-        this.metricsChart.dataProvide= this.metricsChartInitData();
-        this.log_list = [];
-        this.d_progress_logs = [];
-        this.d_progress_log = {
-          percent: 0,
-          step: '正在初始化'
-        };
-        this.job.samples_sec=null;
-        this.job.percent=0;
-
-        this.initJobDetailByPath();
+        this.initJobDetailByPath(true);
       });
   }
 
