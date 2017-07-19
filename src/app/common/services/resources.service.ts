@@ -19,12 +19,9 @@ import { Parameter, TrainingNetwork } from "../defs/parameter";
 export class ResourcesService {
     SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
-
-
     getAuthorization(){
         return 'Bearer '+ sessionStorage['authenticationToken'];
     }
-
     getHeaders(){
         let headers = new Headers();
         headers.append('Content-Type','application/json');

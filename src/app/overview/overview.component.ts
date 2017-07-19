@@ -48,7 +48,7 @@ export class OverviewComponent {
   tot_memory: number;
   totalGlobalMem: number;
   pageParams:any;
-
+  allArr:any[]=[];
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
     resourcesService.getCpuInfo()
       .subscribe(cpu => this.getCpu(cpu));
@@ -658,7 +658,6 @@ export class OverviewComponent {
   selectChange() {
     this.id = this.student;
   }
-
   getCpu(cpu) {
     // console.log(cpu);
     this.resourcesService.getCpuStatus()
@@ -671,12 +670,19 @@ export class OverviewComponent {
           let data = Number((cpuInfo / this.tot_memory).toFixed(2)) * 100;
           cpuInfoArray[i].used_memory = data;
         }
+        for(let j = 0; j < cpuInfoArray.length; j++){
+          this.allArr.push(cpuInfoArray[j]);
+        }
+        //console.log(this.allArr);
         //console.log(cpuInfoArray[0].used_memory);
+        if(this.allArr.length>500){
+          this.allArr.splice(0,2)
+        }
         this.AmCharts.updateChart(this.chart3, () => {
-          this.chart3.dataProvider = cpuInfoArray;
+          this.chart3.dataProvider = this.allArr;
         });
         this.AmCharts.updateChart(this.chart4, () => {
-          this.chart4.dataProvider = cpuInfoArray;
+          this.chart4.dataProvider = this.allArr;
         });
       });
 
