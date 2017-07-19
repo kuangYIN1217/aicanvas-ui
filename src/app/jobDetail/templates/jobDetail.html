@@ -1,5 +1,5 @@
 <div class="container bg">
-  
+
   <div class="btn-wrapper">
 
     <a href="#" class="back" routerLink="/jobcreation/{{page}}" [style.display]="lookIt==1?'none':''">返回</a>
@@ -82,11 +82,11 @@
             <div class="chart-tip">
               <div class="item">
                 <div class="color red"></div>
-                <label class="green">best_loss</label>
+                <label class="red">best_loss</label>
               </div>
               <div class="item">
                 <div class="color green"></div>
-                <label class="red">best_val_loss</label>
+                <label class="green">best_val_loss</label>
               </div>
             </div>
           </div>
@@ -102,11 +102,11 @@
             <div class="chart-tip">
               <div class="item">
                 <div class="color red"></div>
-                <label class="green">best_{{jobResult?.metrics_name}}</label>
+                <label class="red">best_{{jobResult?.metrics_name}}</label>
               </div>
               <div class="item">
                 <div class="color green"></div>
-                <label class="red">best_val_{{jobResult?.metrics_name}}</label>
+                <label class="green">best_val_{{jobResult?.metrics_name}}</label>
               </div>
             </div>
           </div>
@@ -300,5 +300,5 @@
   </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
 
-  <ele-progress [(show)] = "s_progress_show"></ele-progress>
+  <ele-progress [(show)] = "s_progress_show" [logs]="d_progress_logs" [log] = "d_progress_log"></ele-progress>
 </div>

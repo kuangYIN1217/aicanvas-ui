@@ -33,7 +33,14 @@ export class JobDetailComponent {
   accuracyArray = [];
   val_loss_array = [];
   val_acc_array = [];
-  jobResult: any = {};
+  jobResult: any = {
+    bestLoss: null,
+    bestValLoss: null,
+    bestMetrics: null,
+    bestValMetrics: null,
+    sec_epoch: null,
+    epoch: null
+  };
   MAX_CIRCLE = 40;
   tabIndex: number = 0;
   private timer: any;
@@ -61,8 +68,14 @@ export class JobDetailComponent {
   jobPath: string;
   step: number=2;
   page:string;
-  // todo 默认为false
-  s_progress_show: boolean = true;
+
+  // progress logs
+  s_progress_show: boolean = false;
+  d_progress_logs = [];
+  d_progress_log: any = {
+    percent: 0,
+    step: '初始化'
+  };
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -174,8 +187,8 @@ export class JobDetailComponent {
         });
       }, 1000);
     });
-  }
 
+  }
   /**
    * plugin点击切换事件
    */
@@ -582,6 +595,12 @@ export class JobDetailComponent {
           this.websocket.subscribe('/logs/'+jobPath,(data)=>{
             this.log_list=this.log_list.concat(data);
           });
+          this.websocket.subscribe('/preLog/'+ this.jobPath,(data)=>{
+            console.log(data);
+            this.s_progress_show = true;
+            this.d_progress_logs.push(data);
+            this.d_progress_log = data;
+          });
         })
         // this.jobResult =jobParam.jobResult;
 
@@ -626,7 +645,6 @@ export class JobDetailComponent {
 
 
   stop(jobPath: string) {
-    // todo 清除信息，日志， 图表...
     this.jobService.stopJob(jobPath).subscribe(job=>{
       if (this.interval) {
         clearInterval(this.interval);
@@ -642,27 +660,23 @@ export class JobDetailComponent {
 
 
   start(jobPath: string){
+    // todo 清除信息，日志， 图表...
+
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
-        this.s_progress_show = true;
-        this.jobResult.bestLoss=null;
-        this.jobResult.bestValLoss=null;
-        this.jobResult.bestMetrics=null;
-        this.jobResult.bestValMetrics=null;
+        // 初始化图表信息
+        this.lossChart.dataProvider = this.lossChartInitData();
+        this.metricsChart.dataProvide= this.metricsChartInitData();
+        this.log_list = [];
+        this.d_progress_logs = [];
+        this.d_progress_log = {
+          percent: 0,
+          step: '正在初始化'
+        };
         this.job.samples_sec=null;
-        this.jobResult.sec_epoch=null;
         this.job.percent=0;
-        this.jobResult.epoch=null;
-        this.log_list=[];
 
         this.initJobDetailByPath();
-        /*this.updatePage(jobPath, this.index);
-        this.interval = setInterval(() => {
-          this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-            this.job = jobDetail;
-            this.user = this.job.user;
-          });
-        }, 1000);*/
       });
   }
 

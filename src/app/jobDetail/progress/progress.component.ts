@@ -1,29 +1,37 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {WebSocketService} from "../../web-socket.service";
 declare var $: any;
 
 @Component({
   selector: 'ele-progress',
   styleUrls: ['./progress.component.css'],
-  templateUrl: './progress.component.html',
-  providers: [WebSocketService]
+  templateUrl: './progress.component.html'
 })
 export class ProgressComponent {
   @Input() show: boolean = false;
   @Output() showChange: EventEmitter<any> = new EventEmitter();
-  constructor (private webSocketService: WebSocketService) {
+  @Input() log: any = {
+    percent: 0,
+    step: '正在初始化'
+  };
+  @Input() logs: any = [];
 
-    /*this.webSocketService.connect().then(()=>{
-      this.webSocketService.subscribe('/job/',(data)=>{
-        console.log(data);
-      });
-    })*/
-
-  }
-  width: string = '32%';
+  /*ngAfterViewChecked() {
+    alert(this.log)
+    if (this.log.percent == 1) {
+      this.$hide_click();
+    }
+  }*/
   $hide_click() {
     this.show = false;
     this.showChange.emit(this.show);
   }
-
+  getPercent() {
+    let $this = this;
+    if (this.log.percent == 1) {
+      setTimeout(function () {
+        $this.$hide_click();
+      } , 1000);
+    }
+    return Math.floor(this.log.percent * 100);
+  }
 }
