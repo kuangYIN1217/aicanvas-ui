@@ -34,12 +34,15 @@
 
 .tableContainer{
   background-color: #fff;
-  width: 97%;
-  padding-top: 22px;
-  margin-left: 30px;
+  padding:20px 20px 0 20px;
+  margin:0 30px;
   border-radius: 5px;
 }
-
+.tableContainer .table{
+  width:100%;
+  margin:0;
+  padding:0;
+}
 
 
 .see-detail{
