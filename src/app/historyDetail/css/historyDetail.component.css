@@ -1,5 +1,4 @@
 .result-container{
-  width: 97%;
   margin: 30px;
   background-color: #fff;
   overflow: hidden;
@@ -8,10 +7,17 @@
 .percent{
   color: #333333;
   font-size: 16px;
-  margin: 30px;
+  margin: 20px 0;
 }
-
-
+.historyCont{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.historyCont .table{
+  width:100%;
+  margin:0;
+  padding:0;
+}
 .result-container select{
   float: right;
 }
