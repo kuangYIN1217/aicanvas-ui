@@ -132,8 +132,10 @@ export class ModelComponent {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result => {
       // this.runId = result.id;
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
+      console.log(result.id, this.job.jobPath);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
         // alert("创建成功,可以在推演成功后查看!");
+        console.log(data);
         addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );
         this.selectChange(this.job_id);
         this.showAdd =false;
@@ -169,6 +171,7 @@ export class ModelComponent {
     this.getData(job_id,this.page-1,this.pageMaxItem);
   }
   getData(job_id,page,size){
+    console.log(job_id);
     this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
         this.ModelInfo = model.content;

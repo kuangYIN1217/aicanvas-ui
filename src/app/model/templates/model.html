@@ -35,8 +35,8 @@
       <th>进度</th>
       <tr *ngFor="let model of ModelInfo;let i = index;"  [ngClass]="{'currentRow': model.id==currentId}">
         <td>{{model.predictionName}}</td>
-        <td>{{model.sencesName}}</td>
         <td>{{model.createTime==null?'无设置':model.createTime}}</td>
+        <td>{{model.inputPath}}</td>
         <td class="operation">
           <a class="showDetailBtn see-detail" (click)="showDetail(model.id)"></a>&nbsp;&nbsp;
         </td>

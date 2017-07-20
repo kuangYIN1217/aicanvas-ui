@@ -200,6 +200,7 @@
   background: #eeeeee;
   text-decoration: none;
   text-align: center;
+  cursor: pointer;
 }
 .scene .modelPreview .model .nodeSpace{
   position: relative;
@@ -422,19 +423,20 @@
   border-bottom: 1px solid #e8e8e8;
 }
 .sceneName{
-  padding: 22px 0 24px 30px ;
+  padding: 20px 0 20px 30px ;
   font-size: 16px;
   color: #ff7c35;
 }
 .sceneDescript{
   overflow: hidden;
+  margin-bottom: 20px;
 }
 .sceneDescript span{
   display: inline-block;
   color: #666666;
   font-size: 14px;
   padding-left: 30px;
-  padding-bottom: 30px;
+  padding-top: 6px;
   float: left;
 }
 .sceneDescript a{

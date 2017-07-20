@@ -82,8 +82,8 @@ export class JobCreationComponent {
   }
   ngOnInit(){
     this.route.queryParams.subscribe(params =>{
-      this.pageNumber = params['pageNo'];
-      console.log(this.pageNumber);
+      this.pageNumber = params['page'];
+      //console.log(this.pageNumber);
     });
     //this.router.navigate(['../taskStatus'],{queryParams: { pageNumber: this.pageNumber}});
   }

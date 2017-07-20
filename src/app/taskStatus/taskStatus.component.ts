@@ -35,21 +35,23 @@ export class TaskStatusComponent{
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
-    pageNumber:string;
+    pageNow:string;
+    pageChange:number;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
+    @Input() pageNumber:number;
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
 
     }
     getPageData(paraParam) {
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
-      sessionStorage['curPage']=paraParam.curPage;
+      this.pageNow=paraParam.curPage;
       //console.log('触发', paraParam);
     }
   getPage(){
-      let pageNo = sessionStorage['curPage'];
-      console.log(pageNo);
+      sessionStorage['curPage'] = this.pageNow;
+      console.log(sessionStorage['curPage']);
   }
    ngOnInit(){
 /*     this.route.queryParams.subscribe(params =>{
@@ -57,17 +59,17 @@ export class TaskStatusComponent{
        this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,null);
        console.log(this.pageNumber);
      });*/
-        this.interval = setInterval(() =>this.updatePage(), 500);
-        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
-
+         if(this.pageNumber!=undefined){
+           this.getAlljobs(this.statuss,this.pageNumber-1,this.pageMaxItem,this.sceneId);
+         }else{
+           this.interval = setInterval(() =>this.updatePage(), 500);
+           this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
+         }
     //this.getSceneId();
    }
   ngOnChanges(...args: any[]){
      this.getSceneId();
-    // if(this.pageNo){
-    //   this.getAlljobs(this.statuss,this.pageNo,this.pageMaxItem,this.sceneId);
-    // }
-
+     this.pageChange = this.pageNumber;
    }
    getSceneId(){
      if(this.sceneId==0){
