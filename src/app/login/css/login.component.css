@@ -12,6 +12,10 @@
   right:0;
   bottom:0;
 }
+.headerCont{
+  width:1400px;
+  margin:0 auto;
+}
 .bodyContainer .content{
   background: #ffffff;
 }
@@ -31,7 +35,6 @@
 .logo{
     margin-top: 6px;
     float: left;
-    margin-left: 12%;
 }
 .title{
     color: #333333;

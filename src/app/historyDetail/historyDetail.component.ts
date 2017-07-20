@@ -73,7 +73,6 @@ export class HistoryDetailComponent {
     this.model_pre = this.model_id;
     this.interval = setInterval(() => this.getResult(this.model_id, this.page - 1, this.pageMaxItem), 500);
   }
-
   getResult(modelId: number, page, size) {
     console.log(modelId);
     this.modelService.getResult(modelId, page, size).subscribe(result => {
@@ -89,24 +88,6 @@ export class HistoryDetailComponent {
         }else if(this.inputType=='text'){
           this.result = result.content;
         }
-
-        /* let input = result.content[0].output;
-          this.arr=input.substring(2, input.length - 2).split(':');
-          this.arr1=[];
-          this.arr2=[];
-          for(let i=1;i<this.arr.length-1;i++){
-            this.arr3=this.arr[i].split(',');
-            this.arr1.push(this.arr3[this.arr3.length-1]);
-            this.arr3.splice(this.arr3.length-1,1);
-            this.arr2.push(this.arr3.join(''));
-          }
-          this.arr1.splice(0,0,this.arr[0]);
-          this.arr2.push(this.arr[this.arr.length-1]);
-          this.word = this.arr1[0];
-          result.content[0].output = this.arr2;
-        }else{
-          this.result = result.content;
-        }*/
         let page = new Page();
         page.pageMaxItem = result.size;
         page.curPage = result.number+1;

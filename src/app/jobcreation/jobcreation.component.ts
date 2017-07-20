@@ -91,6 +91,11 @@ export class JobCreationComponent {
     });
     //this.router.navigate(['../taskStatus'],{queryParams: { pageNumber: this.pageNumber}});
   }
+  ngAfterViewChecked(){
+    if(this.jobName&&this.firstSceneId&&this.dataId){
+        this.createBtn=1;
+    }
+  }
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -105,11 +110,12 @@ export class JobCreationComponent {
     let id = this.student;
     console.log(id);
     this.chosenSceneId = id;
+    this.firstChainId=null;
+    this.dataId=null;
     this.sceneService.getChainByScene(id)
       .subscribe(results => {
         this.PluginInfo = results;
         this.arr = results;
-        // this.firstSceneId = this.PluginInfo[0].chain_name;
         this.data = Math.floor(this.PluginInfo.length / this.pageMaxItem) + 1;
         this.length = this.PluginInfo.length;
         if (this.result && this.length != 0) {
@@ -333,14 +339,12 @@ getPluginName(name){
   }
 
   $scene_select_change (name) {
-
-    //this.firstSceneId = name;
+    console.log(this.firstSceneId);
     for(let i in this.PluginInfo){
       if(name==this.PluginInfo[i].chain_name){
         this.firstChainId = this.PluginInfo[i].id;
       }
     }
-
     if(name=='--请选择--'){
       document.getElementById('data').setAttribute('disabled','disabled');
       this.firstChainId='';

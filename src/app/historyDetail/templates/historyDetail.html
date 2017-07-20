@@ -3,7 +3,7 @@
     <div class="percent">
         <span>展示结果：</span>
         <span></span>
-        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()" [style.display]="(type == 'txt'||type == 'csv')?'none':''">
+        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()"  *ngIf="inputType=='path'">
             <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
         </select>
 <!--      <select [(ngModel)]="word" (ngModelChange)="word=$event;changeWord(word)" [style.display]="(type == 'txt'||type == 'csv')?'':'none'" >
@@ -22,7 +22,8 @@
               {{re.inputPath}}
             </td>
             <!--<td  *ngIf="type == 'txt'||type == 'csv'" >{{wordPut(re.output)}}</td>-->
-            <td>{{outPut(re.output)}}</td>
+            <td *ngIf="inputType=='path'">{{outPut(re.output)}}</td>
+            <td *ngIf="inputType=='text'">{{re.output}}</td>
         </tr>
         </tbody>
     </table>
