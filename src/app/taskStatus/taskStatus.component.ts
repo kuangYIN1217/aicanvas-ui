@@ -152,4 +152,8 @@ export class TaskStatusComponent{
             return percent.toFixed(2)+"%";
         }
     }
+
+  goModel(id){
+    this.router.navigate(['/model'],{queryParams: {'job_id': id }})
+  }
 }

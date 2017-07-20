@@ -134,7 +134,12 @@ select:focus{
   background: url('../../../assets/taskStatus/zanting.png') no-repeat center;
 
 }
-
+.model {
+  background: url('../../../assets/taskStatus/tuiyan.png') no-repeat center;
+  position: absolute;
+  top: 8px;
+  left: 20px;
+}
 .start {
   background: url('../../../assets/taskStatus/qidong.png') no-repeat center;
 }

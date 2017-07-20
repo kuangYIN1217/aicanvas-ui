@@ -70,6 +70,7 @@ export class JobCreationComponent {
   s_error_show: boolean = false;
   s_error_message: string = '';
   s_error_level: string = 'error';
+  click_flag: boolean = true;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
@@ -196,7 +197,7 @@ getPluginName(name){
     }
   }
   nextStep() {
-      this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
+    this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
   nameChange () {
     if(this.jobName) {
@@ -205,13 +206,17 @@ getPluginName(name){
   }
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId , dataId) {
-
+    if (!this.click_flag) {
+      return;
+    }
+    this.click_flag = false;
     if(!this.jobName){
       // alert("请输入任务名称")
       this.s_error_show = true;
       this.s_error_message = '请输入任务名称';
       this.s_error_level = "error";
       //addWarningToast(this.toastyService , "请输入任务名称" );
+      this.click_flag = true;
       return false;
     }
     if(!chainId){
@@ -220,6 +225,7 @@ getPluginName(name){
       this.s_error_message = '请选择算法链';
       this.s_error_level = "error";
       //addWarningToast(this.toastyService , "请选择算法链" );
+      this.click_flag = true;
       return false;
     }
     if(!dataId){
@@ -228,6 +234,7 @@ getPluginName(name){
       this.s_error_message = '请选择数据集';
       this.s_error_level = "error";
       //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
       return false;
     }
     this.createBtn=1;
@@ -242,6 +249,7 @@ getPluginName(name){
        // this.jobPageStatus='jobPageStatus';
         console.log(this.createdJob.chainId);
         // this.createJobBySenceId2(this.createdJob.chainId);
+        this.click_flag = true;
       });
   }
 

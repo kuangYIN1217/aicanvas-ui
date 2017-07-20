@@ -24,10 +24,12 @@
                   <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
                   <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
               </td>-->
-      <td class="operation">
-        <a class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}" (click)="getPage()"></a>&nbsp;&nbsp;
-        <a *ngIf="jobInfo.status=='运行'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></a>
-        <a *ngIf="jobInfo.status!='运行'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></a>
+      <td class="operation" style="position: relative">
+
+        <a *ngIf="jobInfo.trainable != 0" class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}" (click)="getPage()"></a>&nbsp;&nbsp;
+        <a *ngIf="jobInfo.trainable == 0" class="operationBtn model" (click)="goModel(jobInfo.id)"></a>
+        <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></a>
+        <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0" class="operationBtn start" (click)="start(jobInfo.jobPath)"></a>
         <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
       </td>
     </tr>
