@@ -38,6 +38,7 @@ export class HistoryDetailComponent {
   word: string;
   wordId:string='0';
   val:string;
+
   constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       this.model_id = params['runId'];
@@ -49,7 +50,6 @@ export class HistoryDetailComponent {
     this.item = this.items[0];
     this.changeValue();
   }
-
   ngOnChanges(...args: any[]) {
     // for (let obj = 0; obj < args.length; obj++) {
     //   if (args[obj]['model_id']["currentValue"]) {
@@ -68,7 +68,6 @@ export class HistoryDetailComponent {
     // 退出时停止更新
     clearInterval(this.interval);
   }
-
   queryResult(runId) {
     this.model_id = runId;
     this.model_pre = this.model_id;
