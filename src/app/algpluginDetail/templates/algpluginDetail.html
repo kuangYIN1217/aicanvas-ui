@@ -4,11 +4,12 @@
             <div id="tab_item1" class="tab_item focus" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}}">参数列表</div>
             <div id="tab_item2" routerLinkActive="active" routerLink="/network/{{plugin.id}}" class="tab_item" [style.display]="plugin.has_training_network==0?'none':''">网络层</div>
           <div (click)="fork()" id="tab_item3" class="tab_item tab_btn" [style.display]="creator=='general'?'none':''">保存</div>
-          <div id="tab_item0" class="tab_item tab_btn"><a routerLinkActive="active" routerLink="/algplugins">返回</a></div>
+          <div id="tab_item0" class="tab_btn"><a routerLinkActive="active" routerLink="/algplugins" class="smallBtn">返回</a></div>
 
         </div>
     </div>
     <div id="systemDiv" class="status">
+      <div class="pluginCont">
          <table id="paramTable" class="table">
            <tr>
              <th id="param_name">参数名称</th>
@@ -74,6 +75,7 @@
                  </td>
              </tr>
          </table>
+      </div>
      </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
 </div>

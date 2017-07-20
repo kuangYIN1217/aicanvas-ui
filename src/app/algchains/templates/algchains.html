@@ -14,9 +14,11 @@
                     <div class="modelPreview">
                         <p>模型预览</p>
                         <div class="model">
-                            <div class="node" id="node1" *ngFor="let item of SceneInfo.arrName">{{item}}</div>
-                          <!--  <div class="nodeSpace">&nbsp;</div>
-                           <div class="node" id="node2">Algplugin2</div>
+                          <div *ngFor="let item of SceneInfo.arrName;let i=index">
+                            <div class="node" id="node1">{{item}}</div>
+                            <div class="nodeSpace" *ngIf="i!=SceneInfo.arrName.length-1">&nbsp;</div>
+                          </div>
+                         <!--    <div class="node" id="node2">Algplugin2</div>
                            <div class="nodeSpace">&nbsp;</div>
                            <div class="node" id="node3">Algplugin2</div>-->
                         </div>
@@ -90,7 +92,7 @@
             <div class="sceneName">{{chosen_scene.translation}}</div>
             <div class="sceneDescript">
               <span>场景描述：{{chosen_scene.description}}</span>
-              <a class="bgColor" (click)="hideNetwork()">返回</a>
+              <a class="smallBtn" (click)="hideNetwork()">返回</a>
               <!--<a (click)="edit()" [style.display]="ifEdit==1?'none':''" id="edit" class="bgColor">编辑</a>-->
 
 

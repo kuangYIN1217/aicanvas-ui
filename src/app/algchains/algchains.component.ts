@@ -113,7 +113,7 @@ export class AlgChainsComponent{
 
     }
     hideNetwork(){
-      window.history.back();
+      this.ifShowNetwork=0;
       if(this.sceneId){
             //this.router.navigate(['../algorithmChain'],{queryParams: { sceneId: this.sceneId}});
             sessionStorage['algChain_scene'] = -1;
