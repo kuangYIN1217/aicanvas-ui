@@ -219,6 +219,7 @@ export class JobDetailComponent {
             if (this.interval) {
               clearInterval(this.interval);
             }
+            this.job.status = '完成';
           }
           this.user = this.job.user;
         });
