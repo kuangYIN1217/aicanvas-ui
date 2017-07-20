@@ -187,12 +187,10 @@
     margin: 0 auto;
   overflow: hidden;
 }
-#node1{
-  margin-bottom: 1.4vh;
-}
+
 .scene .modelPreview .model .nodeSpace{
   position: relative;
-  margin: 1vh auto;
+  margin: 8px auto;
   width:1px;
   text-align: center;
   border-right: 1px solid #d3d3d3;

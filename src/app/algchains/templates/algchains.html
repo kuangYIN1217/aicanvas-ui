@@ -14,9 +14,11 @@
                     <div class="modelPreview">
                         <p>模型预览</p>
                         <div class="model">
-                            <div class="node" id="node1" *ngFor="let item of SceneInfo.arrName">{{item}}</div>
-                          <!--  <div class="nodeSpace">&nbsp;</div>
-                           <div class="node" id="node2">Algplugin2</div>
+                          <div *ngFor="let item of SceneInfo.arrName;let i=index">
+                            <div class="node" id="node1">{{item}}</div>
+                            <div class="nodeSpace" *ngIf="i!=SceneInfo.arrName.length-1">&nbsp;</div>
+                          </div>
+                         <!--    <div class="node" id="node2">Algplugin2</div>
                            <div class="nodeSpace">&nbsp;</div>
                            <div class="node" id="node3">Algplugin2</div>-->
                         </div>
