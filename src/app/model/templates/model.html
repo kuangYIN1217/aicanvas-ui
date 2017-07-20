@@ -49,7 +49,8 @@
     <table>
       <tr>
         <td class="first_column">推演文件格式</td>
-        <td>png,jpg</td>
+        <td *ngIf="job.sences==3||job.sences==4">png,jpg</td>
+        <td *ngIf="job.sences==5||job.sences==9||job.sences==15">csv,txt</td>
       </tr>
       <tr>
         <td class="first_column">新建推演名称</td>

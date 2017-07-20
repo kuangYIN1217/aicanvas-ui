@@ -38,13 +38,21 @@ a{
 }
 .tabs .tab_btn{
   float: right;
-  background: #ff7c35;
-  color: #fff;
-  height:26px;
-  width:108px;
-  line-height: 26px;
-  border-radius: 4px;
-  margin-top: 7px;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+.smallBtn{
+  display: inline-block;
+  font-size: 14px;
+  color: #666666;
+  width:74px;
+  line-height: 28px;
+  height:28px;
+  border:1px solid #d3d3d3;
+  border-radius: 5px;
+  background: #eeeeee;
+  text-decoration: none;
+  text-align: center;
 }
 .focus{
   color: #ff7c35;
