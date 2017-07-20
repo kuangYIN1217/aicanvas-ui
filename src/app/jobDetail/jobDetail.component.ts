@@ -10,7 +10,7 @@ import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import {SERVER_URL} from "../app.constants";
-import {addWarningToast} from '../common/ts/toast';
+import {addSuccessToast, addWarningToast} from '../common/ts/toast';
 declare var $: any;
 declare var unescape: any;
 @Component({
@@ -459,6 +459,7 @@ export class JobDetailComponent {
     this.lookIt = 0;
   }
   changeChosenPlugin(id:string){
+    this.haveModel = 0;
     if(!this.chosenPluginId){
       this.chosenPluginId = id;
       let training_network_json = this.findPluginById(this.chosenPluginId).model;
@@ -539,10 +540,15 @@ export class JobDetailComponent {
     $('#saveBtn').click();
     this.matchParams();
     let json = $('#plugin_storage').val();
-    this.pluginArr[0].model = JSON.parse(json);
-    this.pluginArr[0].train_params = this.findPluginById(this.chosenPluginId).train_params;
-    this.pluginService.savePlugin(this.pluginArr[0])
-      .subscribe(msg => this.forkResult(msg));
+    /*this.pluginArr[0].model = JSON.parse(json);
+    this.pluginArr[0].train_params = this.findPluginById(this.chosenPluginId).train_params;*/
+    let plugin = this.findPluginById(this.chosenPluginId);
+    plugin.model = JSON.parse(json);
+    this.pluginService.savePlugin(plugin)
+      .subscribe(msg => {
+        this.forkResult(msg);
+        addSuccessToast(this.toastyService , "保存成功");
+      });
   }
   nodeClicked(){
     // 改变右侧显示的内容--显示node
