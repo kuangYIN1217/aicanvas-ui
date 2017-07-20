@@ -13,6 +13,7 @@ import {SERVER_URL} from "../app.constants";
 import {addSuccessToast, addWarningToast} from '../common/ts/toast';
 declare var $: any;
 declare var unescape: any;
+declare var window: any;
 @Component({
   moduleId: module.id,
   selector: 'jobDetail',
@@ -284,6 +285,7 @@ export class JobDetailComponent {
 
   }
   ngOnInit() {
+    window.$ReadOnly = true;
     this.lossChart = this.AmCharts.makeChart("lossGraph", {
       "type": "serial",
       "theme": "light",
@@ -426,6 +428,7 @@ export class JobDetailComponent {
   }
 
   ngOnDestroy() {
+    window.$ReadOnly = false;
     // 退出时停止更新
     if (this.interval) {
       clearInterval(this.interval);
@@ -439,7 +442,6 @@ export class JobDetailComponent {
     this.step=1;
     this.lookIt = 1;
     this.changeIndex = index;
-    $('.layer_params input').attr('disabled' , false)
     if(status=="运行"){
       this.statusIndex = 0;
     }else{
@@ -522,6 +524,8 @@ export class JobDetailComponent {
 
     // 改变右侧显示的内容--显示plugin
     this.rightBox_node = 0;
+
+    // $('.layer_params input').removeAttr('readonly');
   }
   matchParams(){
     let params: any = this.findPluginById(this.chosenPluginId).train_params;
