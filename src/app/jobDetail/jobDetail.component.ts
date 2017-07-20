@@ -116,7 +116,7 @@ export class JobDetailComponent {
   back(){
     if(sessionStorage['curPage']){
       this.page = sessionStorage['curPage'];
-      console.log(this.page);
+      //console.log(this.page);
       this.router.navigate(['/jobcreation'],{queryParams: { page: this.page}});
     }
   }

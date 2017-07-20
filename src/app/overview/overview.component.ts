@@ -732,12 +732,12 @@ export class OverviewComponent {
                 let gpuInfo1 = gpuInfoArray[i].total_used_memory;
                 let data1 = Number((gpuInfo1 / this.totalGlobalMem).toFixed(2)) * 100;
                 gpuInfoArray[i].total_used_memory = data1;
-                console.log(gpuInfoArray);
+                //console.log(gpuInfoArray);
               }
               for(let j = 0; j < gpuInfoArray.length; j++){
                 this.gpuArr1.push(gpuInfoArray[j]);
               }
-              console.log(this.gpuArr1);
+              //console.log(this.gpuArr1);
               if(this.gpuArr1.length>500){
                 this.gpuArr1.splice(0,2)
               }
@@ -762,7 +762,7 @@ export class OverviewComponent {
               for(let j = 0; j < gpuInfoArray.length; j++){
                 this.gpuArr2.push(gpuInfoArray[j]);
               }
-              console.log(this.gpuArr2);
+              //console.log(this.gpuArr2);
               if(this.gpuArr2.length>500){
                 this.gpuArr2.splice(0,2)
               }

@@ -21,7 +21,10 @@ select {
   float: right;
   margin: 24px 0px;
 }
-
+.error{
+  width:796px;
+  margin-left: -37px;
+}
 .focus {
   background-color: #19191a;
   color: #6e7ae8;
