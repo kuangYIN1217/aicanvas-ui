@@ -67,12 +67,12 @@ export class OverviewComponent {
       this.update();
     }, 10000);
 
-    if (sessionStorage['overviewTab']) {
+/*    if (sessionStorage['overviewTab']) {
       this.changeTab(sessionStorage['overviewTab']);
     } else {
       sessionStorage['overviewTab'] = 0;
       this.tabIndex = 0;
-    }
+    }*/
   }
 
   makeRandomDataProvider1() {
