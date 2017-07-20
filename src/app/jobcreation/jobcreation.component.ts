@@ -93,7 +93,7 @@ export class JobCreationComponent {
   }
   ngAfterViewChecked(){
     if(this.jobName&&this.firstSceneId&&this.dataId){
-
+        this.createBtn=1;
     }
   }
   ngOnDestroy() {
