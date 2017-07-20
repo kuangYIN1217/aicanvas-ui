@@ -15,8 +15,11 @@
         <th>显示结果</th>
         <tbody>
         <tr *ngFor="let re of result">
-            <td style="width: 50%;">
+            <td style="width: 50%;"  *ngIf="inputType=='path'">
               <img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" style="max-height: 50px;margin-top: 16px;padding-left: 10px">
+            </td>
+            <td style="width: 50%;"  *ngIf="inputType=='text'">
+              {{re.inputPath}}
             </td>
             <!--<td  *ngIf="type == 'txt'||type == 'csv'" >{{wordPut(re.output)}}</td>-->
             <td>{{outPut(re.output)}}</td>

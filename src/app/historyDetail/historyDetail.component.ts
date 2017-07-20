@@ -38,7 +38,7 @@ export class HistoryDetailComponent {
   word: string;
   wordId:string='0';
   val:string;
-
+  inputType:string;
   constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       this.model_id = params['runId'];
@@ -80,11 +80,16 @@ export class HistoryDetailComponent {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
-        console.log(this.result);
-       this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
-        if(this.type == "txt"||this.type == "csv") {
-          result.content[0].inputPath = "/home/ligang/dataset/1498613919473showTxt.png";
+        this.inputType = this.result[0].inputType;
+        if(this.inputType=='path'){
+          this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
+          if(this.type == "txt"||this.type == "csv"){
+            result.content[0].inputPath = "/home/ligang/dataset/1498613919473showTxt.png";
+          }
+        }else if(this.inputType=='text'){
+          this.result = result.content;
         }
+
         /* let input = result.content[0].output;
           this.arr=input.substring(2, input.length - 2).split(':');
           this.arr1=[];
