@@ -67,6 +67,9 @@ export class JobCreationComponent {
   d_dataSets: any = [];
   dataId;
   createBtn:number=0;
+  s_error_show: boolean = false;
+  s_error_message: string = '';
+  s_error_level: string = 'error';
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
@@ -129,7 +132,11 @@ export class JobCreationComponent {
       }
     }
   }
-
+  dataChange(){
+    if(this.dataId) {
+      this.s_error_show = false;
+    }
+  }
   clickStatus(statu, id) {
     this.selected = statu;
     this.item = id;
@@ -191,22 +198,36 @@ getPluginName(name){
   nextStep() {
       this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
+  nameChange () {
+    if(this.jobName) {
+      this.s_error_show = false;
+    }
+  }
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId , dataId) {
 
     if(!this.jobName){
       // alert("请输入任务名称")
-      addWarningToast(this.toastyService , "请输入任务名称" );
+      this.s_error_show = true;
+      this.s_error_message = '请输入任务名称';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请输入任务名称" );
       return false;
     }
     if(!chainId){
       // alert("请选择算法链");
-      addWarningToast(this.toastyService , "请选择算法链" );
+      this.s_error_show = true;
+      this.s_error_message = '请选择算法链';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择算法链" );
       return false;
     }
     if(!dataId){
       // alert("请选择算法链");
-      addWarningToast(this.toastyService , "请选择数据集" );
+      this.s_error_show = true;
+      this.s_error_message = '请选择数据集';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
       return false;
     }
     this.createBtn=1;
@@ -303,6 +324,7 @@ getPluginName(name){
   }
 
   $scene_select_change (name) {
+
     //this.firstSceneId = name;
     for(let i in this.PluginInfo){
       if(name==this.PluginInfo[i].chain_name){
@@ -326,7 +348,10 @@ getPluginName(name){
           this.dataId = this.d_dataSets[0].dataId
         }*/
       })
-    })
+    });
+    if(this.firstSceneId) {
+      this.s_error_show = false;
+    }
   }
 
 }
