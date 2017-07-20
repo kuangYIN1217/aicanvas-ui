@@ -285,7 +285,7 @@ export class JobDetailComponent {
 
   }
   ngOnInit() {
-    window.$ReadOnly = true;
+    window.$ReadOnly = false;
     this.lossChart = this.AmCharts.makeChart("lossGraph", {
       "type": "serial",
       "theme": "light",
@@ -428,7 +428,7 @@ export class JobDetailComponent {
   }
 
   ngOnDestroy() {
-    window.$ReadOnly = false;
+    window.$ReadOnly = true;
     // 退出时停止更新
     if (this.interval) {
       clearInterval(this.interval);
@@ -453,6 +453,7 @@ export class JobDetailComponent {
         this.pluginArr=plugin;
          //console.log(this.pluginArr[0]);
         //console.log(this.pluginArr[0].id);
+        console.log(this.pluginArr)
         this.changeChosenPlugin(this.pluginArr[0].id);
       });
   }
@@ -544,10 +545,11 @@ export class JobDetailComponent {
   save(){
     $('#saveBtn').click();
     this.matchParams();
+    let plugin = this.findPluginById(this.chosenPluginId);
     let json = $('#plugin_storage').val();
     /*this.pluginArr[0].model = JSON.parse(json);
     this.pluginArr[0].train_params = this.findPluginById(this.chosenPluginId).train_params;*/
-    let plugin = this.findPluginById(this.chosenPluginId);
+
     plugin.model = JSON.parse(json);
     this.pluginService.savePlugin(plugin)
       .subscribe(msg => {

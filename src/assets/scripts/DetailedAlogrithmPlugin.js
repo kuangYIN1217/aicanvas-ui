@@ -26,6 +26,28 @@ function init() {
 
   });
 
+  myDiagram.addDiagramListener('ExternalObjectsDropped' , function (e) {
+    console.log('ExternalObjectsDropped')
+  })
+  myDiagram.addDiagramListener('DocumentBoundsChanged' , function (e , Node) {
+    console.log('DocumentBoundsChanged')
+  })
+  myDiagram.addDiagramListener('LinkDrawn' , function (e) {
+    console.log('LinkDrawn')
+  })
+  myDiagram.addDiagramListener('SelectionMoved' , function (e) {
+    console.log('SelectionMoved')
+  })
+  myDiagram.addDiagramListener('SelectionDeleted' , function (e) {
+    console.log('SelectionDeleted')
+  })
+  myDiagram.addDiagramListener('SelectionCopied' , function (e) {
+    console.log('SelectionCopied')
+  })
+  myDiagram.addDiagramListener('SelectionDeleting' , function (e , Node) {
+    console.log(e)
+    console.log('SelectionDeleting')
+  })
   var idArr = getLayers();
 
   // 为普通节点定义节点模板
@@ -94,9 +116,9 @@ function init() {
                   for (var j = 0;j < test2[layerId].editable_param_list.length; j++){
                     if (key == test2[layerId].editable_param_list[j].path){
                       if (window.$ReadOnly) {
-                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 90%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
-                      } else {
                         document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 90%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '" readonly/></div>';
+                      } else {
+                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 90%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                       }
                       // document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text"  style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                       break;
