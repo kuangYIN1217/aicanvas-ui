@@ -48,6 +48,7 @@ export class ModelComponent {
   fileName:any[]=[];
   container:any[]=[];
   responsePath:any[] = [];
+  perInterval:any;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -137,7 +138,7 @@ export class ModelComponent {
         // alert("创建成功,可以在推演成功后查看!");
         console.log(data);
         addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );
-        this.selectChange(this.job_id);
+        this.selChange(this.job_id);
         this.showAdd =false;
       })
       //this.router.navigate(['../modelDetail'],{queryParams:{"runId":result.id}});
@@ -166,6 +167,10 @@ export class ModelComponent {
     // 退出时停止更新
     clearInterval(this.interval);
   }
+  selChange(job_id){
+    this.id = 1;
+    this.perInterval = setInterval(() => this.getData(job_id,this.page-1,this.pageMaxItem), 500);
+  }
   selectChange(job_id) {
     this.id = 1;
     this.getData(job_id,this.page-1,this.pageMaxItem);
@@ -175,6 +180,9 @@ export class ModelComponent {
     this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
         this.ModelInfo = model.content;
+          if(this.ModelInfo[0].percent==1.0000) {
+            clearInterval(this.perInterval);
+          }
         let page = new Page();
         page.job_id = this.job_id;
         page.pageMaxItem = model.size;
