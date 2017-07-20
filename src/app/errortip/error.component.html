@@ -1,0 +1,5 @@
+<div class="error-content" *ngIf="show">
+  <img [src]="'../../assets/datasets/' + (level === 'error' ? 'cuowu.png' : 'tishi.png')" alt="">
+  <label>{{level === 'error' ? '错误！' : '提示！'}}</label>
+  {{message}}
+</div>

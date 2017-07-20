@@ -1,0 +1,22 @@
+.error-content {
+  position: relative;
+  padding:0 45px;
+  height: 30px;
+  line-height: 30px;
+  background: #ffcbc3;
+  border: 1px solid #fe644b;
+  border-radius: 3px;
+  color: #666666;
+  font-size: 12px;
+  overflow: hidden;
+  margin: 20px 57px 0 57px;
+}
+.error-content label {
+  font-size: 14px;
+  color: #333;
+}
+.error-content img {
+  position: absolute;
+  left: 18px;
+  top: 5px;
+}

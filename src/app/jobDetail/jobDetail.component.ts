@@ -439,6 +439,7 @@ export class JobDetailComponent {
     this.step=1;
     this.lookIt = 1;
     this.changeIndex = index;
+    $('.layer_params input').attr('disabled' , false)
     if(status=="运行"){
       this.statusIndex = 0;
     }else{
