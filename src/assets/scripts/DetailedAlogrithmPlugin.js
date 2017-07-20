@@ -1,4 +1,6 @@
 function init() {
+  // myPaletteDiv
+  // myDiagramDiv
   var $ = go.GraphObject.make;  // 简洁定义模板
   myDiagram =
     $(go.Diagram, "myDiagramDiv",  // 绘图区和HTML中div的id绑定
@@ -32,26 +34,25 @@ function init() {
       // 主要对象是一个环绕TextBlock的矩形的Panel
      $(go.Panel, "Auto",
         $(go.Shape, "RoundedRectangle",
-          { minSize: new go.Size(138, 35), fill: "#01bb91", stroke: "#01bb91", },
+          { minSize: new go.Size(140, 42), maxSize: new go.Size(140, 42) ,fill: "#01bb91", stroke: "#01bb91", },
           new go.Binding("figure", "figure")),
        $(go.Panel, "Horizontal",
          $(go.Picture,
           {
             source:"../assets/network/chajian.png",
             // background:"#ffffff",
-            width:24,
-            height:24,
-            margin:12,
+            width:20,
+            height:20,
+            margin:10,
           }
         ),
         $(go.TextBlock,
           {
             font: "bold 11pt Helvetica, Arial, sans-serif",
             stroke: "#ffffff",
-            // margin:10,
-            maxSize: new go.Size(160, NaN),
+            maxSize: new go.Size(130, 35),
             wrap: go.TextBlock.WrapFit,
-            editable: true
+            editable: false
           },
           new go.Binding("text").makeTwoWay()
         ))
@@ -77,14 +78,14 @@ function init() {
         var textName = Node.data['text'];
         //var flag = "false";
         document.getElementById("property").innerHTML = "";
-        // for (var i = 0;i<test["layers"].length;i++){
-        //     if (layerId == test["layers"][i].name){
-        //         document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].config.name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
-        //             test["layers"][i].config.name + '" name="' + test["layers"][i].name + '" placeholder="' + test["layers"][i].config.sparse + '"/></div>';
-        //     }else {
-        //         continue;
-        //     }
-        // }
+        /*for (var i = 0;i<test["layers"].length;i++){
+          if (layerId == test["layers"][i].name){
+            document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test["layers"][i].config.name +'</div><input type="text" style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: white;outline-style: none;" id="' +
+              test["layers"][i].config.name + '" name="' + test["layers"][i].name + '" placeholder="' + test["layers"][i].config.sparse + '"/></div>';
+          }else {
+            continue;
+          }
+        }*/
           for (var i = 0;i < test1["layers"].length;i++){
             if (test1["layers"][i].class_name == layerId && test1["layers"][i].name == textName){
               var configStr = test1["layers"][i].config;
@@ -119,14 +120,14 @@ function init() {
       // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
       $(go.Panel, "Auto",
         $(go.Shape, "Rectangle",
-          { minSize: new go.Size(100, 70), fill: "#ea1b1d", stroke: null },
+          { minSize: new go.Size(140, 42) ,maxSize: new go.Size(140, 42), fill: "#ea1b1d", stroke: null },
           new go.Binding("figure", "figure")),
         $(go.TextBlock,
           {
             font: "bold 11pt Helvetica, Arial, sans-serif",
-            stroke:"#52a683",
-            margin: 20,
-            maxSize: new go.Size(100, NaN),
+            stroke:"#fff",
+            // margin: 20,
+            maxSize: new go.Size(130, 35),
             wrap: go.TextBlock.WrapFit,
             editable: true
           },
@@ -155,9 +156,9 @@ function init() {
       $(go.Shape,  // 突出显示形状，通常是透明的
         { isPanelMain: true, strokeWidth: 8, stroke: "transparent", name: "HIGHLIGHT" }),
       $(go.Shape,  // 连接线的形状
-        { isPanelMain: true, stroke: "gray", strokeWidth: 2 }),
+        { isPanelMain: true, stroke: "#bcbcbc", strokeWidth: 1 }),
       $(go.Shape,  // 连接线箭头
-        { toArrow: "standard", stroke: null, fill: "gray"}),
+        { visible: true, toArrow: "standard", stroke: null, fill: "#bcbcbc"}),
       $(go.Panel, "Auto",  // 连接线label,通常是不可见的
         { visible: false, name: "LABEL", segmentIndex: 2, segmentFraction: 0.5},
         new go.Binding("visible", "visible").makeTwoWay(),
@@ -226,13 +227,13 @@ function init() {
     // the port is basically just a small circle that has a white stroke when it is made visible
     return $(go.Shape, "Circle",
       {
-        fill: "transparent",
-        stroke: "#52a683",  // this is changed to "white" in the showPorts function
-        desiredSize: new go.Size(8, 8),
+        stroke: "#01bb91",  // this is changed to "white" in the showPorts function
+        fill: "#fff",
+        desiredSize: new go.Size(9, 9),
         alignment: spot, alignmentFocus: spot,  // align the port on the main Shape
         portId: name,  // declare this object to be a "port"
         fromSpot: spot, toSpot: spot,  // declare where links may connect at this port
-        fromLinkable: output, toLinkable: input,  // declare whether the user may draw links to/from here
+        fromLinkable: true, toLinkable: true,  // declare whether the user may draw links to/from here
         cursor: "pointer"  // show a different cursor to indicate potential link point
 
       });
@@ -273,7 +274,7 @@ function init() {
     var diagram = node.diagram;
     if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
     node.ports.each(function(port) {
-      port.stroke = (show ? "#52a683" : null);
+      port.stroke = (show ? "#fff" : null);
     });
   }
 } // 初始化函数结束

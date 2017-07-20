@@ -36,7 +36,7 @@
     <div class="">
 
 
-      <div class="nav">
+      <div class="nav" [ngStyle]="navStyle()">
         <div class="detailLine">
           <span>任务名称:&nbsp;&nbsp;{{job?.jobName}}</span>
           <span>场景名称:&nbsp;&nbsp;{{job?.sencesName==null?'未设置':job.sencesName}}</span>
@@ -47,7 +47,7 @@
           <span>创建者:&nbsp;&nbsp;{{job?.user?.login}}</span>
           <span>状态:&nbsp;&nbsp;{{job?.status==null?'未设置':job.status}}</span>
           <a class="back  space1" *ngIf="job?.status!='运行'" (click)="save()" [style.display]="lookIt==1?'':'none'">保存</a>
-          <a class="back space" routerLink="/jobcreationDetail/{{job?.jobPath}}" (click)="goback()"
+          <a class="back space" (click)="goback()"
              [style.display]="lookIt==1?'':'none'">返回</a>
         </div>
       </div>
@@ -173,6 +173,8 @@
         </div>
 
       </div>
+
+      <!-- 插件编辑 -->
       <div [style.display]="changeIndex==1?'':'none'" class="status">
         <div class="leftBox">
           <div class="chain">训练算法链：</div>
@@ -293,7 +295,7 @@
         </div>
         <div class="rightBox" id="rightBox_node" [style.display]="rightBox_node==0?'none':''">
           <div class="layer_name"></div>
-          <div class="layer_params" id="property"></div>
+          <div class="layer_params" id="property"></div> <!--property-->
         </div>
       </div>
     </div>

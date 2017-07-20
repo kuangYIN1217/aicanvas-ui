@@ -84,7 +84,16 @@ export class JobDetailComponent {
     }];
     return dataProvider;
   }
-
+  navStyle() {
+    if (this.lookIt == 1) {
+      return {
+        'margin': '0 0 20px 0'
+      };
+    }
+    return {
+      'margin': '20px 0'
+    };
+  }
   metricsChartInitData() {
     var dataProvider = [{
       metrics_value: "0",
@@ -213,13 +222,12 @@ export class JobDetailComponent {
       this.interval = setInterval(() => {
         this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
           this.job = jobDetail;
-          if (this.job.percent == 1) {
+          if (this.job.status == '完成') {
             // 任务完成
             this.websocket.stopWebsocket();
             if (this.interval) {
               clearInterval(this.interval);
             }
-            this.job.status = '完成';
           }
           this.user = this.job.user;
         });
@@ -449,7 +457,7 @@ export class JobDetailComponent {
     this.step=2;
     this.changeIndex=0;
     this.lookIt = 0;
-}
+  }
   changeChosenPlugin(id:string){
     if(!this.chosenPluginId){
       this.chosenPluginId = id;
