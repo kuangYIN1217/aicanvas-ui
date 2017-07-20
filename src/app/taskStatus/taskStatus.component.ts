@@ -35,7 +35,7 @@ export class TaskStatusComponent{
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
-    pageNow:string;
+    pageNow:number;
     pageChange:number;
     @Input() statuss:string;
     @Input() sceneId:number;
@@ -130,7 +130,7 @@ export class TaskStatusComponent{
         }else{
             console.log("Start Failed!");
         }
-        this.updatePage();
+      this.getAlljobs(this.statuss,this.pageNow-1,this.pageMaxItem,this.sceneId);
     }
     stop(jobPath: string){
         this.jobService.stopJob(jobPath)
@@ -142,7 +142,7 @@ export class TaskStatusComponent{
         }else{
             console.log("Stop Failed!");
         }
-        this.updatePage();
+      this.getAlljobs(this.statuss,this.pageNow-1,this.pageMaxItem,this.sceneId);
     }
 
     output(percent){
