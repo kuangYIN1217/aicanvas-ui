@@ -219,7 +219,7 @@ getPluginName(name){
       this.click_flag = true;
       return false;
     }
-    if(!chainId || dataId == -1){
+    if(!chainId || this.firstSceneId == '-1'){
       // alert("请选择算法链");
       this.s_error_show = true;
       this.s_error_message = '请选择算法链';
@@ -250,6 +250,7 @@ getPluginName(name){
         console.log(this.createdJob.chainId);
         // this.createJobBySenceId2(this.createdJob.chainId);
         this.click_flag = true;
+        this.jobName = null;
       });
   }
 
