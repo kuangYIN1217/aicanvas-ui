@@ -80,9 +80,6 @@ export class AlgChainsComponent{
     getSceneArray(sceneArray: SceneInfo[]){
         this.sceneArrays = sceneArray;
         for(let i=0;i<this.sceneArrays.length;i++){
-            if(this.sceneId==this.sceneArrays[i].id){
-                this.chosen_scene = this.sceneArrays[i];
-            }
            this.sceneService.getChainByScene(this.sceneArrays[i].id)
               .subscribe(plugin=>{
                 this.PluginInfo=plugin;
@@ -140,6 +137,14 @@ export class AlgChainsComponent{
     }
     showNetwork(sceneId){
       console.log(sceneId);
+      this.sceneService.getAllScenes()
+        .subscribe(sceneArray => {
+          for(let i=0;i<sceneArray.length;i++) {
+            if (sceneId == sceneArray[i].id) {
+              this.chosen_scene = sceneArray[i];
+            }
+          }
+        });
       this.sceneService.getChainByScene(sceneId)
         .subscribe(plugin=>{
           this.PluginInfo=plugin;

@@ -13,7 +13,7 @@
             </div>
           </div>
         <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
-            <taskStatus [statuss]="statuss" [jobName]="jobName"></taskStatus>
+            <taskStatus [statuss]="statuss" [jobName]="jobName" [pageNumber]="pageNumber"></taskStatus>
         </div>
     </div>
     <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">

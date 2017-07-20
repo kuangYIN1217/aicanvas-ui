@@ -76,10 +76,12 @@ export class HistoryDetailComponent {
   }
 
   getResult(modelId: number, page, size) {
+    console.log(modelId);
     this.modelService.getResult(modelId, page, size).subscribe(result => {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
+        console.log(this.result);
        this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
         if(this.type == "txt"||this.type == "csv") {
           result.content[0].inputPath = "/home/ligang/dataset/1498613919473showTxt.png";
