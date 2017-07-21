@@ -236,7 +236,7 @@ export class JobDetailComponent {
           this.job = jobDetail;
           if (this.job.status == '完成') {
             // 任务完成
-            this.websocket.stopWebsocket();
+            /*this.websocket.stopWebsocket();*/
             if (this.interval) {
               clearInterval(this.interval);
             }
