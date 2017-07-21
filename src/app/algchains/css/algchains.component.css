@@ -576,7 +576,7 @@
 }
 .content{
     overflow: auto;
-    width:62%;
+    width:61.9%;
     height: 100%;
     float: left;
     background-color: #ffffff;
@@ -633,6 +633,11 @@
 }
 
 .layer_params select{
+    background: url('../../../assets/algpluginDetail/xia.png') no-repeat;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  background-position: right -3px center;
     background: #ffffff 0px 0px;
     color: #333333;
     font-size: 14px;
