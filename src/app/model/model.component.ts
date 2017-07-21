@@ -49,6 +49,7 @@ export class ModelComponent {
   container:any[]=[];
   responsePath:any[] = [];
   perInterval:any;
+  upload_click_flag: boolean = true;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -111,6 +112,10 @@ export class ModelComponent {
   }
   // D: 定义事件，上传文件
     uploadFile() {
+      if(!this.upload_click_flag) {
+        return;
+      }
+      this.upload_click_flag = false;
       console.log(this.uploader.queue);
       //console.log(this.container);
       this.responsePath=[];
@@ -140,6 +145,7 @@ export class ModelComponent {
         addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );
         this.selChange(this.job_id);
         this.showAdd =false;
+        this.upload_click_flag = true;
       })
       //this.router.navigate(['../modelDetail'],{queryParams:{"runId":result.id}});
     })

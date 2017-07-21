@@ -10,7 +10,7 @@ import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param, Parameter} from "../common/defs/parameter";
 import {ChainInfo, JobInfo, PluginInfo, SceneInfo} from "../common/defs/resources";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
-import {addWarningToast , addSuccessToast} from '../common/ts/toast';
+import {addWarningToast, addSuccessToast} from '../common/ts/toast';
 import {DatasetsService} from "../common/services/datasets.service";
 import {escape} from "querystring";
 declare var $: any;
@@ -19,7 +19,7 @@ declare var $: any;
   selector: 'jobcreation',
   styleUrls: ['./css/jobcreation.component.css'],
   templateUrl: './templates/jobcreation.html',
-  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService,DatasetsService]
+  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService, DatasetsService]
 })
 export class JobCreationComponent {
   creator: any;
@@ -62,19 +62,20 @@ export class JobCreationComponent {
   firstSceneId: string;
   firstChainId: string;
   @Input() statuss: string = '';
-  jobName:string;
-  pageNumber:number;
+  jobName: string;
+  pageNumber: number;
   d_dataSets: any = [];
   dataId;
-  createBtn:number=0;
+  createBtn: number = 0;
   s_error_show: boolean = false;
   s_error_message: string = '';
   s_error_level: string = 'error';
   click_flag: boolean = true;
-  name_validation:boolean=false;
-  plugin_validation:boolean=false;
-  data_validation:boolean=false;
-  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService, private location: Location) {
+  name_validation: boolean = false;
+  plugin_validation: boolean = false;
+  data_validation: boolean = false;
+
+  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
@@ -87,19 +88,21 @@ export class JobCreationComponent {
     //   }
     // }
   }
-  ngOnInit(){
-    this.route.queryParams.subscribe(params =>{
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
       this.pageNumber = params['page'];
       //console.log(this.pageNumber);
     });
     //this.router.navigate(['../taskStatus'],{queryParams: { pageNumber: this.pageNumber}});
   }
-  ngAfterViewChecked(){
-    console.log(this.name_validation,this.plugin_validation,this.data_validation);
-    if(this.name_validation&&this.plugin_validation&&this.data_validation){
-        this.createBtn=1;
-    }
-  }
+
+  /*ngAfterViewChecked(){
+   console.log(this.name_validation,this.plugin_validation,this.data_validation);
+   if(this.name_validation&&this.plugin_validation&&this.data_validation){
+   this.createBtn=1;
+   }
+   }*/
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -114,8 +117,8 @@ export class JobCreationComponent {
     let id = this.student;
     console.log(id);
     this.chosenSceneId = id;
-    this.firstChainId=null;
-    this.dataId=null;
+    this.firstChainId = null;
+    this.dataId = null;
     this.sceneService.getChainByScene(id)
       .subscribe(results => {
         this.PluginInfo = results;
@@ -143,12 +146,18 @@ export class JobCreationComponent {
       }
     }
   }
-  dataChange(){
-    this.data_validation=true;
-    if(this.dataId) {
+
+  dataChange() {
+    if (this.dataId) {
       this.s_error_show = false;
+      this.data_validation = true;
+    } else {
+      this.s_error_show = true;
+      this.data_validation = false;
     }
+    this.judgeClick();
   }
+
   clickStatus(statu, id) {
     this.selected = statu;
     this.item = id;
@@ -165,7 +174,7 @@ export class JobCreationComponent {
 
   // createJob
   createJob() {
-    this.jobName=null;
+    this.jobName = null;
     this.sceneService.getAllScenes()
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
@@ -180,17 +189,20 @@ export class JobCreationComponent {
             // this.firstSceneId = this.PluginInfo[0].chain_name;
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
-            this.$scene_select_change (name);
+            this.$scene_select_change(name);
           })
       });
     //console.log(this.student);
   }
-getPluginName(name){
 
-}
-  goHistory(){
-    this.jobPageStatus='manage';
+  getPluginName(name) {
+
   }
+
+  goHistory() {
+    this.jobPageStatus = 'manage';
+  }
+
   viewDetail(id, name) {
     this.item = id;
     this.creator = name;
@@ -208,22 +220,41 @@ getPluginName(name){
       this.chosenSceneId = scenes[0].id;
     }
   }
+
   nextStep() {
-    this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
+    this.createJobBySenceId(this.chosenSceneId, this.firstChainId, this.dataId);
   }
-  nameChange () {
-    this.name_validation=true;
-    if(this.jobName) {
+
+  nameChange() {
+    if (this.jobName) {
+      this.name_validation = true;
       this.s_error_show = false;
+    } else {
+      this.name_validation = false;
+      this.s_error_show = true;
+    }
+
+    this.judgeClick();
+  }
+
+  /**
+   * 是否可以点击创建
+   * */
+  judgeClick() {
+    if (this.name_validation && this.plugin_validation && this.data_validation) {
+      this.createBtn = 1;
+    } else {
+      this.createBtn = 0;
     }
   }
+
   // 第一次点击下一步时，创建job，存储下来
-  createJobBySenceId(chosenSceneId, chainId , dataId) {
+  createJobBySenceId(chosenSceneId, chainId, dataId) {
     if (!this.click_flag) {
       return;
     }
     this.click_flag = false;
-    if(!this.jobName){
+    if (!this.jobName) {
       // alert("请输入任务名称")
       this.s_error_show = true;
       this.s_error_message = '请输入任务名称';
@@ -232,7 +263,7 @@ getPluginName(name){
       this.click_flag = true;
       return false;
     }
-    if(!chainId || this.firstSceneId == '-1'){
+    if (!chainId || this.firstSceneId == '-1') {
       // alert("请选择算法链");
       this.s_error_show = true;
       this.s_error_message = '请选择算法链';
@@ -241,7 +272,7 @@ getPluginName(name){
       this.click_flag = true;
       return false;
     }
-    if(!dataId || dataId == -1){
+    if (!dataId || dataId == -1) {
       // alert("请选择算法链");
       this.s_error_show = true;
       this.s_error_message = '请选择数据集';
@@ -250,16 +281,16 @@ getPluginName(name){
       this.click_flag = true;
       return false;
     }
-    this.createBtn=1;
-    this.jobService.createJob( chainId,dataId,this.jobName,chosenSceneId)
+    this.createBtn = 1;
+    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId)
       .subscribe(createdJob => {
         //let job: any = createdJob;
         //this.createdJob = job;
         this.createdJob = createdJob;
         // alert("任务创建成功");
-        addSuccessToast(this.toastyService , "任务创建成功" , '消息提示',  1500);
+        addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 1500);
         location.reload();
-       // this.jobPageStatus='jobPageStatus';
+        // this.jobPageStatus='jobPageStatus';
         console.log(this.createdJob.chainId);
         // this.createJobBySenceId2(this.createdJob.chainId);
         this.click_flag = true;
@@ -272,7 +303,6 @@ getPluginName(name){
     // 改变右侧显示的内容--显示node
     this.rightBox_node = 1;
   }
-
 
 
   saveJobNormalPlugin(response, plugin_id) {
@@ -330,7 +360,7 @@ getPluginName(name){
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       // alert('输入必须为数值!');
-      addWarningToast(this.toastyService ,"输入必须为数值" );
+      addWarningToast(this.toastyService, "输入必须为数值");
     } else {
       parameter.set_value[i1][j1] = Number(value);
     }
@@ -339,40 +369,44 @@ getPluginName(name){
   set3dArray(parameter: Parameter, i1: number, j1: number, z1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       // alert('输入必须为数值!');
-      addWarningToast(this.toastyService ,"输入必须为数值" );
+      addWarningToast(this.toastyService, "输入必须为数值");
     } else {
       parameter.set_value[i1][j1][z1] = Number(value);
     }
   }
 
-  $scene_select_change (name) {
+  $scene_select_change(name) {
     console.log(this.firstSceneId);
-    for(let i in this.PluginInfo){
-      if(name==this.PluginInfo[i].chain_name){
+    for (let i in this.PluginInfo) {
+      if (name == this.PluginInfo[i].chain_name) {
         this.firstChainId = this.PluginInfo[i].id;
       }
     }
-    if(name=='--请选择--'){
-      document.getElementById('data').setAttribute('disabled','disabled');
-      this.firstChainId='';
+    if (name == '--请选择--') {
+      document.getElementById('data').setAttribute('disabled', 'disabled');
+      this.firstChainId = '';
+      this.plugin_validation = false;
       return false;
     }
-    if(this.firstChainId){
+    if (this.firstChainId) {
       document.getElementById('data').removeAttribute('disabled');
-      this.plugin_validation=true;
+      this.plugin_validation = true;
+    } else {
+      this.plugin_validation = false;
     }
     this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
-      this.datasetsService.getDataSets(null , rep.dataset_type , null , 'createTime,desc', null , null ).subscribe(rep =>{
+      this.datasetsService.getDataSets(null, rep.dataset_type, null, 'createTime,desc', null, null).subscribe(rep => {
         this.d_dataSets = rep.content;
         this.dataId = null;
         /*if (this.d_dataSets) {
-          this.dataId = this.d_dataSets[0].dataId
-        }*/
+         this.dataId = this.d_dataSets[0].dataId
+         }*/
       })
     });
-    if(this.firstSceneId) {
+    if (this.firstSceneId) {
       this.s_error_show = false;
     }
+    this.judgeClick();
   }
 
 }
