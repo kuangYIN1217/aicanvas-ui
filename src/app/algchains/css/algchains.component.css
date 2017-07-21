@@ -163,8 +163,6 @@
     width: 46%;
     float: left;
    margin-left: 2%;
-
-
 }
 .scene .modelPreview p,.scene .descrip .descriptScene{
     font-size: 14px;
@@ -201,6 +199,12 @@
   text-decoration: none;
   text-align: center;
   cursor: pointer;
+}
+.space{
+  width:0.5%;
+  height:100%;
+  float: left;
+  background: #eeeeee;
 }
 .scene .modelPreview .model .nodeSpace{
   position: relative;
@@ -420,6 +424,7 @@
 }
 .sceneHeader{
   background: #ffffff;
+  margin-bottom: 20px;
   border-bottom: 1px solid #e8e8e8;
 }
 .sceneName{
@@ -454,7 +459,7 @@
   text-align: center;*/
 }
 .chain{
-  padding:30px 28px 46px 30px;
+  padding:20px 28px 40px 30px;
   font-size: 14px;
   color: #333333;
   word-break: break-all;
@@ -464,6 +469,9 @@
     width: 20%;
     float: left;
     height: 100%;
+    background: #fff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 .condition{
     height: 250px;
@@ -521,7 +529,6 @@
 /**/
 .networkBox{
   margin:20px 30px 0;
-  background-color: #ffffff;
 }
 
 
@@ -568,11 +575,13 @@
 }
 .content{
     overflow: auto;
-    width:36%;
+    width:56%;
     height: 100%;
     float: left;
     background-color: #ffffff;
     border-left: 1px solid #e8e8e8;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 /*.rightBox{
@@ -586,11 +595,14 @@
   border-radius:10px;
 }*/
 .rightBox{
-  width: 22%;
+  width: 21.5%;
   float: right;
+  padding-left: 10px;
+  padding-top: 20px;
   height: 100%;
-  margin-top: 20px;
   color: #333333;
+  background: #fff;
+  border-radius: 5px;
 }
 /*.layer_name{
     margin-top: 30px;

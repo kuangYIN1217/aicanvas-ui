@@ -8,7 +8,7 @@ import {PluginInfo, SceneInfo} from "../common/defs/resources";
 import {Editable_param, Parameter} from "../common/defs/parameter";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addWarningToast} from '../common/ts/toast';
-const PARAMJSON = require('../common/ts/param.name.json');
+import { PARAM} from '../common/ts/param.name';
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -41,7 +41,7 @@ export class AlgChainsComponent{
     creator:string;
     flag:string="true";
     rightNodeIndex:number=0;
-    paramjson: any = PARAMJSON;
+    paramjson: any = PARAM;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
 
     }
