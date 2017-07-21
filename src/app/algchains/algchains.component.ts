@@ -43,7 +43,7 @@ export class AlgChainsComponent{
     rightNodeIndex:number=0;
     paramjson: any = PARAM;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
-
+      window.scrollTo(0,0);
     }
     ngOnInit(){
       this.sceneService.getAllScenes()

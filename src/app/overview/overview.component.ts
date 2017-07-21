@@ -53,6 +53,7 @@ export class OverviewComponent {
   gpuArr1:any[]=[];
   gpuArr2:any[]=[];
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
+    window.scrollTo(0,0);
     resourcesService.getCpuInfo()
       .subscribe(cpu => this.getCpu(cpu));
     resourcesService.getAllGpus()
