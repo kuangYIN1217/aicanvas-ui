@@ -136,20 +136,24 @@
     width: 70%;
 }
 input{
-    width:237px;
+    width:275px;
+    box-sizing: border-box;
     font-size: 14px;
     background-color: #ffffff;
     border: #d3d3d3 1px solid;
     border-radius: 5px;
-    padding: 5px;
+    padding-left: 5px;
+    height:36px;
     display: block;
 }
 select{
     font-size: 14px;
     border: #d3d3d3 1px solid;
+    box-sizing: border-box;
     border-radius: 5px;
-    padding: 5px;
-    width:250px;
+    padding-left: 5px;
+    width:275px;
+    height:36px;
 }
 
 option{

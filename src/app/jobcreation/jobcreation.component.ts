@@ -74,7 +74,7 @@ export class JobCreationComponent {
   name_validation: boolean = false;
   plugin_validation: boolean = false;
   data_validation: boolean = false;
-
+  fileCount:number=0;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
@@ -147,7 +147,13 @@ export class JobCreationComponent {
     }
   }
 
-  dataChange() {
+  dataChange(event:any) {
+    for(let i in this.d_dataSets){
+      if(this.dataId==this.d_dataSets[i].dataId){
+        this.fileCount = this.d_dataSets[i].fileCount;
+      }
+    }
+    console.log(this.fileCount);
     if (this.dataId) {
       this.s_error_show = false;
       this.data_validation = true;
@@ -155,6 +161,7 @@ export class JobCreationComponent {
       this.s_error_show = true;
       this.data_validation = false;
     }
+
     this.judgeClick();
   }
 
@@ -389,7 +396,7 @@ export class JobCreationComponent {
       this.plugin_validation = false;
       return false;
     }
-    if (this.firstChainId) {
+    if(this.firstChainId) {
       document.getElementById('data').removeAttribute('disabled');
       this.plugin_validation = true;
     } else {
