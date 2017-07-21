@@ -100,7 +100,7 @@
 
         <div class="lossCard right">
           <div class="head">
-            <div class="chart-title"><span class="img-span">{{jobResult?.metrics_name == null ? 'MEASURE' : jobResult?.metrics_name}}</span><img class="question-icon" title="度量函数" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="chart-title"><span class="img-span">{{jobResult?.metrics_name == null ? 'METRIC' : jobResult?.metrics_name.toUpperCase()}}</span><img class="question-icon" title="度量函数" src="../../../assets/jobdetail/question.png" alt=""></div>
             <div class="chart-tip">
               <div class="item">
                 <div class="color red"></div>

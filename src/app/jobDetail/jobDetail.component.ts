@@ -81,6 +81,7 @@ export class JobDetailComponent {
     step: '初始化'
   };
 
+  s_start_stop_click: boolean = true;
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -679,6 +680,7 @@ export class JobDetailComponent {
 
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
+        this.s_start_stop_click = true;
         /* console.log('run'); */
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
@@ -748,6 +750,10 @@ export class JobDetailComponent {
 
 
   stop(jobPath: string) {
+    if (!this.s_start_stop_click) {
+      return;
+    }
+    this.s_start_stop_click = false;
     this.jobService.stopJob(jobPath).subscribe(job => {
       if (this.interval) {
         clearInterval(this.interval);
@@ -759,11 +765,16 @@ export class JobDetailComponent {
        this.job = jobDetail;
        this.user = this.job.user;
        });*/
+      this.s_start_stop_click = true;
     });
   }
 
 
   start(jobPath: string) {
+    if (!this.s_start_stop_click) {
+      return;
+    }
+    this.s_start_stop_click = false;
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
         this.initJobDetailByPath(true);
