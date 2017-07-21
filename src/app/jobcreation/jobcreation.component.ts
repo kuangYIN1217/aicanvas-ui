@@ -158,7 +158,6 @@ export class JobCreationComponent {
       this.s_error_show = false;
       this.data_validation = true;
     } else {
-      this.s_error_show = true;
       this.data_validation = false;
     }
 
@@ -239,7 +238,6 @@ export class JobCreationComponent {
       this.s_error_show = false;
     } else {
       this.name_validation = false;
-      this.s_error_show = true;
     }
 
     this.judgeClick();
