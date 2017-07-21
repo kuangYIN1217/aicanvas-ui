@@ -13,6 +13,7 @@ export class ProgressComponent {
     percent: 0,
     step: '正在初始化'
   };
+  @Output() logChange: EventEmitter<any> = new EventEmitter();
   @Input() logs: any = [];
 
   /*ngAfterViewChecked() {
@@ -30,6 +31,9 @@ export class ProgressComponent {
     if (this.log.percent == 1) {
       setTimeout(function () {
         $this.$hide_click();
+        this.logs = [];
+        this.log = {}
+        this.logChange.emit(this.log);
       } , 1000);
     }
     return Math.floor(this.log.percent * 100);
