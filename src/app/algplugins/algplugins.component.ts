@@ -4,7 +4,8 @@ import {Page, PluginInfo} from "../common/defs/resources";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addInfoToast} from '../common/ts/toast';
-
+import {calc_height} from '../common/ts/calc_height'
+import {nextTick} from "q";
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -54,7 +55,9 @@ export class AlgPluginsComponent{
             });
         // console.log(this.showSystemPlugin);
     }
-
+  ngOnInit() {
+    calc_height(document.getElementById('systemDiv'));
+  }
   changPage(plugins){
       if(plugins.length>0){
         this.dataIndex =1;

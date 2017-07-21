@@ -14,6 +14,8 @@ import {addWarningToast, addSuccessToast} from '../common/ts/toast';
 import {DatasetsService} from "../common/services/datasets.service";
 import {escape} from "querystring";
 declare var $: any;
+import {calc_height} from '../common/ts/calc_height'
+import {nextTick} from "q";
 @Component({
   moduleId: module.id,
   selector: 'jobcreation',
@@ -90,6 +92,7 @@ export class JobCreationComponent {
   }
 
   ngOnInit() {
+    calc_height(document.getElementsByClassName('tab_content')[0]);
     this.route.queryParams.subscribe(params => {
       this.pageNumber = params['page'];
       //console.log(this.pageNumber);
@@ -226,6 +229,9 @@ export class JobCreationComponent {
     if (scenes[0]) {
       this.chosenSceneId = scenes[0].id;
     }
+    nextTick(() => {
+      calc_height(document.getElementsByClassName('allContent')[0]);
+    })
   }
 
   nextStep() {

@@ -136,7 +136,6 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   margin:0 30px;
   border-radius: 0 0 5px 5px;
   background: #fff;
-  margin-bottom: 100px;
   padding-bottom: 50px;
 }
 /*.step_pane .href{

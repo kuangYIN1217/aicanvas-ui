@@ -9,6 +9,8 @@ import {AmChartsService} from "amcharts3-angular2";
 import {modelService} from "../common/services/model.service";
 import {SceneService} from "../common/services/scene.service";
 declare var $: any;
+import {calc_height} from '../common/ts/calc_height'
+import {nextTick} from "q";
 @Component({
   moduleId: module.id,
   selector: 'overview',
@@ -732,6 +734,9 @@ export class OverviewComponent {
   changeTab(tabIndex: number) {
     this.tabIndex = tabIndex;
     sessionStorage['overviewTab'] = tabIndex;
+    nextTick(() => {
+      calc_height(document.getElementById('tab_content'));
+    })
   }
 
   gpuToggle() {

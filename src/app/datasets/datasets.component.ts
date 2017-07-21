@@ -32,7 +32,7 @@ export class DatasetsComponent{
   }
 
   ngOnInit() {
-    calc_height(document.getElementsByClassName('content wrapper'));
+    calc_height(document.getElementsByClassName('content wrapper')[0]);
   }
 
   // -----初始化数据 ------------------------------------------------
