@@ -1,6 +1,6 @@
 # FROM centos:centos7
 FROM ubuntu:16.04
-USER hinesboy
+USER root
 MAINTAINER hinesboy hines.zhu@gmail.com
 
 # 安装node环境
