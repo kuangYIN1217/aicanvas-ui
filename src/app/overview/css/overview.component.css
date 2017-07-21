@@ -125,9 +125,17 @@ h4{
 }
 
 .cpu{
-    height: 43vh;
+    height: 42.5vh;
     background: #ffffff;
     border-radius: 5px;
+}
+.gpu{
+  border-bottom-left-radius:0 !important;
+  border-bottom-right-radius:0 !important;
+}
+.gpu1{
+  border-top-left-radius:0;
+  border-top-right-radius:0;
 }
 .taskStatus{
   background-color: #ffffff;
