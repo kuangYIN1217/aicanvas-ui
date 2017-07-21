@@ -44,7 +44,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PopupComponent } from './datasets/popup/popup.component';
 import { ResumableModule } from 'ng2-resumable';
 import { ConfirmComponent } from './confirm/confirm.component';
-import {ErrorComponent} from './errortip/error.component'
+import {ErrorComponent} from './errortip/error.component';
+import {NodataComponent} from './nodata/nodata.component'
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -77,7 +78,8 @@ import {ErrorComponent} from './errortip/error.component'
     PopupComponent,
     ConfirmComponent,
     ProgressComponent,
-    ErrorComponent
+    ErrorComponent,
+    NodataComponent
     //InputReadonlyDirective
   ],
   imports: [
