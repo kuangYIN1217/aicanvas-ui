@@ -147,7 +147,7 @@ export class JobCreationComponent {
     }
   }
 
-  dataChange(event:any) {
+  dataChange(event?:any) {
     for(let i in this.d_dataSets){
       if(this.dataId==this.d_dataSets[i].dataId){
         this.fileCount = this.d_dataSets[i].fileCount;
