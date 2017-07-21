@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {DatasetsService} from "../common/services/datasets.service";
 import {Page} from "../common/defs/resources";
+import {calc_height} from '../common/ts/calc_height'
 @Component({
   selector: 'datasets',
   styleUrls: ['./datasets.component.css'],
@@ -28,6 +29,10 @@ export class DatasetsComponent{
     this.getDataSetsTypes();
     this.username = sessionStorage['username'];
     this.initTable();
+  }
+
+  ngOnInit() {
+    calc_height(document.getElementsByClassName('content wrapper'));
   }
 
   // -----初始化数据 ------------------------------------------------
