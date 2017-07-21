@@ -14,9 +14,7 @@
           <th class="operation">详情</th>
           </tr>
             <!--[style.display]="plugin.creator=='general'?'':'none'"-->
-          <tr *ngIf="dataIndex == 0">
-            <td colspan="4">无数据</td>
-          </tr>
+          <cpt-nodata *ngIf="dataIndex == 0" [colspan]="4"></cpt-nodata>
           <tr *ngFor="let plugin of arr; let i = index" [style.display]="dataIndex == 1?'':'none'">
             <td>{{ plugin.id }}</td>
             <td>{{ plugin.alg_name }}</td>

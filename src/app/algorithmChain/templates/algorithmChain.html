@@ -27,9 +27,7 @@
             <th class="detail">操作</th>
           </tr>
             <tbody>
-            <tr *ngIf="dataIndex == 0">
-              <td colspan="7">无数据</td>
-            </tr>
+            <cpt-nodata *ngIf="dataIndex == 0" [colspan]="7"></cpt-nodata>
             <tr *ngFor="let item of arr" [style.display]="dataIndex == 1?'':'none'">
                 <td>{{item.id}}</td>
                 <td>{{item.chain_name}}</td>

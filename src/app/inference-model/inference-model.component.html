@@ -24,9 +24,7 @@
         <th>模型路径</th>
         <th>操作</th>
         </tr>
-        <tr *ngIf="dataIndex == 0">
-          <td colspan="8">无数据</td>
-        </tr>
+        <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
         <tr  [style.display]="dataIndex == 1?'':'none'">
           <td>1</td>
           <td>admin</td>

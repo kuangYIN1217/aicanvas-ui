@@ -10,9 +10,7 @@
       <th class="formore">操作</th>
     </tr>
     <!--*ngIf="jobInfo.sences==sceneId"-->
-    <tr *ngIf="dataIndex == 0">
-      <td colspan="6">无数据</td>
-    </tr>
+    <cpt-nodata *ngIf="dataIndex == 0" [colspan]="6"></cpt-nodata>
     <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="dataIndex == 1?'':'none'">
       <td>{{jobInfo.jobName}}</td>
       <td>{{jobInfo.sencesName}}</td>
