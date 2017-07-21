@@ -2,6 +2,7 @@
 
   <div class="btn-wrapper">
 
+
     <a href="#" class="back" routerLink="/jobcreation" [style.display]="lookIt==1?'none':''" (click)="back()">返回</a>
    <!-- <div class="btn-item" *ngIf="job?.status=='未启动'">
       <a href="#" class="button" onclick="return false" (click)="start(job?.jobPath)">开始运行</a>
@@ -35,8 +36,11 @@
     <!--</div>-->
     <div class="">
 
+      <a class="back space" (click)="goback()" [style.display]="lookIt==1?'':'none'">返回</a>
+      <a class="back  space1" *ngIf="job?.status!='运行'" (click)="save()" [style.display]="lookIt==1?'':'none'">保存</a>
 
       <div class="nav" [ngStyle]="navStyle()">
+
         <div class="detailLine">
           <span>任务名称:&nbsp;&nbsp;{{job?.jobName}}</span>
           <span>场景名称:&nbsp;&nbsp;{{job?.sencesName==null?'未设置':job.sencesName}}</span>
@@ -46,9 +50,6 @@
         <div class="detailLine">
           <span>创建者:&nbsp;&nbsp;{{job?.user?.login}}</span>
           <span>状态:&nbsp;&nbsp;{{job?.status==null?'未设置':job.status}}</span>
-          <a class="back  space1" *ngIf="job?.status!='运行'" (click)="save()" [style.display]="lookIt==1?'':'none'">保存</a>
-          <a class="back space" (click)="goback()"
-             [style.display]="lookIt==1?'':'none'">返回</a>
         </div>
       </div>
 

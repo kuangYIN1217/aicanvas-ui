@@ -373,11 +373,15 @@
 }
 
 .space {
-  margin-right: 20px;
+  margin-right: 16px;
+  margin-bottom: 20px;
 }
 
 .space1 {
-  margin-right: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ff7c35 !important;
+  color: #fff !important;
+  background: #ff7c35 !important;
 }
 
 input {
