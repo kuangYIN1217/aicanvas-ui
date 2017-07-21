@@ -82,8 +82,8 @@ select:focus{
 .taskStatusContainer .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 36px;
-  line-height: 36px;
+  height: 35px;
+  line-height: 35px;
   font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-top:1px solid #d3d3d3;
@@ -100,7 +100,6 @@ select:focus{
   text-align: left;
   font-weight: normal;
 }
-
 
 .taskStatusContainer .table tr td {
   padding-left: 20px;

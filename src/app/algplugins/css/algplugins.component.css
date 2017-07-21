@@ -62,10 +62,10 @@
 .status .table tr{
   text-align: left;
   background: #eeeeee;
-  height: 36px;
+  height: 35px;
+  line-height: 35px;
   font-size: 14px;
   font-family: "MicrosoftYaHei";
-  border-bottom:1px solid #d3d3d3;
   color: #666666;
 }
 
@@ -83,7 +83,7 @@
 .status .table tr {
   text-align: left;
   background: #eeeeee;
-  height: 40px;
+  height: 35px;
   font-size: 14px;
   font-family: "MicrosoftYaHei";
   border-top: 1px solid #d3d3d3;
@@ -93,7 +93,6 @@
 .status .table tr td {
   padding-left: 20px;
   word-break: break-all;
-
 }
 
 .status .table tr:nth-child(odd) {
