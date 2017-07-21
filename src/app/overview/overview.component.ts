@@ -65,7 +65,7 @@ export class OverviewComponent {
     this.loading();
     this.interval = setInterval(() => {
       this.update();
-    }, 10000);
+    }, 2000);
 
 /*    if (sessionStorage['overviewTab']) {
       this.changeTab(sessionStorage['overviewTab']);

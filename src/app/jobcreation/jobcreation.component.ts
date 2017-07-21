@@ -211,7 +211,7 @@ getPluginName(name){
     }
   }
   // 第一次点击下一步时，创建job，存储下来
-  createJobBySenceId(chosenSceneId, chainId , dataId) {
+  createJobBySenceId(chosenSceneId, chainId , dataId) { 
     if (!this.click_flag) {
       return;
     }

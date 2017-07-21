@@ -116,9 +116,8 @@ select:focus{
   font-size: 0.73vw;
   text-decoration: none;
 }
-
 .operationBtn {
-  width: 20px;
+  width: 21px;
   height: 20px;
   cursor: pointer;
   display: inline-block;
@@ -142,6 +141,24 @@ select:focus{
 }
 .start {
   background: url('../../../assets/taskStatus/qidong.png') no-repeat center;
+}
+.name{
+  width:19%;
+}
+.scene{
+  width:17%;
+}
+.time{
+  width:18%;
+}
+.condition {
+  width:14%;
+}
+.progress{
+  width:16%;
+}
+.formore{
+  width:16%;
 }
 .operation{
   display: flex;    align-items: center;
