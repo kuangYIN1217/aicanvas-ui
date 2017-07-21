@@ -143,17 +143,22 @@ input{
     border: #d3d3d3 1px solid;
     border-radius: 5px;
     padding-left: 5px;
-    height:36px;
+    height:30px;
     display: block;
+    color: #666666;
 }
 select{
+    background: url('../../../assets/algpluginDetail/xia.png') no-repeat;
+    background-position: right 5px center;
     font-size: 14px;
     border: #d3d3d3 1px solid;
     box-sizing: border-box;
     border-radius: 5px;
+    background-color: #ffffff;
     padding-left: 5px;
+    color: #666666;
     width:275px;
-    height:36px;
+    height:30px;
 }
 
 option{
