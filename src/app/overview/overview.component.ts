@@ -589,7 +589,7 @@ export class OverviewComponent {
                 let gpuInfo1 = gpuInfoArray[i].total_used_memory;
                 let data1 = Number((gpuInfo1 / this.totalGlobalMem).toFixed(2)) * 100;
                 gpuInfoArray[i].total_used_memory = data1;
-                //console.log(gpuInfoArray);
+                console.log(gpuInfoArray);
               }
               for(let j = 0; j < gpuInfoArray.length; j++){
                 this.gpuArr1.push(gpuInfoArray[j]);
