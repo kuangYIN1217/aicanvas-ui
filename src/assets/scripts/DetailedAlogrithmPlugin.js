@@ -25,28 +25,6 @@ function init() {
     }
   });
 
-  myDiagram.addDiagramListener('ExternalObjectsDropped' , function (e) {
-    console.log('ExternalObjectsDropped')
-  })
-  myDiagram.addDiagramListener('DocumentBoundsChanged' , function (e , Node) {
-    console.log('DocumentBoundsChanged')
-  })
-  myDiagram.addDiagramListener('LinkDrawn' , function (e) {
-    console.log('LinkDrawn')
-  })
-  myDiagram.addDiagramListener('SelectionMoved' , function (e) {
-    console.log('SelectionMoved')
-  })
-  myDiagram.addDiagramListener('SelectionDeleted' , function (e) {
-    console.log('SelectionDeleted')
-  })
-  myDiagram.addDiagramListener('SelectionCopied' , function (e) {
-    console.log('SelectionCopied')
-  })
-  myDiagram.addDiagramListener('SelectionDeleting' , function (e , Node) {
-    console.log(e)
-    console.log('SelectionDeleting')
-  })
   var idArr = getLayers();
 
   // 为普通节点定义节点模板
@@ -305,7 +283,7 @@ function init() {
 } // 初始化函数结束
 
 // 保存编辑的流程图
-function save() {
+function saveChain() {
   var str = document.getElementById("plugin_storage").value;
   var test = JSON.parse(str);
   var saveJson = JSON.parse(myDiagram.model.toJson());

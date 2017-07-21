@@ -10,17 +10,18 @@ import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import {SERVER_URL} from "../app.constants";
-import {addSuccessToast, addWarningToast} from '../common/ts/toast';
+import {addErrorToast, addSuccessToast, addWarningToast} from '../common/ts/toast';
 declare var $: any;
 declare var unescape: any;
 declare var window: any;
+
 @Component({
   moduleId: module.id,
   selector: 'jobDetail',
   styleUrls: ['./css/jobDetail.component.css'],
   templateUrl: './templates/jobDetail.html',
 
-  providers: [JobService,AlgChainService,PluginService,WebSocketService]
+  providers: [JobService, AlgChainService, PluginService, WebSocketService]
 })
 export class JobDetailComponent {
   jobResultParam = [];
@@ -47,13 +48,13 @@ export class JobDetailComponent {
   private timer: any;
   private lossChart: any;
   private metricsChart: any;
-  changeIndex:number=0;
+  changeIndex: number = 0;
   pluginArr: PluginInfo[] = [];
-  rightBox_node:number = 0;
+  rightBox_node: number = 0;
   chosenPluginId: string;
   haveModel: number;
-  statusIndex:number;
-  lookIt:number;
+  statusIndex: number;
+  lookIt: number;
   editable_params: Editable_param[] = [];
   editable_parameters: Editable_param[] = [];
   log_list = [];
@@ -67,17 +68,19 @@ export class JobDetailComponent {
   // 显示plugin是否为当前runningPlugin
   runningFlag = false;
   jobPath: string;
-  step: number=2;
-  page:string;
+  step: number = 2;
+  page: string;
 
   // progress logs
   s_process_flag: boolean = true;
   s_progress_show: boolean = false;
   d_progress_logs = [];
+  s_save_flag: boolean = true;
   d_progress_log: any = {
     percent: 0,
     step: '初始化'
   };
+
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -85,6 +88,7 @@ export class JobDetailComponent {
     }];
     return dataProvider;
   }
+
   navStyle() {
     if (this.lookIt == 1) {
       return {
@@ -95,6 +99,7 @@ export class JobDetailComponent {
       'margin': '20px 0'
     };
   }
+
   metricsChartInitData() {
     var dataProvider = [{
       metrics_value: "0",
@@ -102,7 +107,8 @@ export class JobDetailComponent {
     }];
     return dataProvider;
   }
-  constructor( private pluginService: PluginService ,private algchainService: AlgChainService,private jobService: JobService, private location: Location, private AmCharts: AmChartsService,private router:Router,private websocket:WebSocketService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
+
+  constructor(private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
@@ -114,29 +120,32 @@ export class JobDetailComponent {
       }
     }
   }
-  back(){
-    if(sessionStorage['curPage']){
+
+  back() {
+    if (sessionStorage['curPage']) {
       this.page = sessionStorage['curPage'];
       //console.log(this.page);
-      this.router.navigate(['/jobcreation'],{queryParams: { page: this.page}});
+      this.router.navigate(['/jobcreation'], {queryParams: {page: this.page}});
     }
   }
+
   /**
    * 获取jobDetail
    */
-  initJobDetailByPath (flag?) {
+  initJobDetailByPath(flag?) {
     this.jobService.getJobDetail(this.jobPath).subscribe(jobDetail => {
-      if(jobDetail){
+      if (jobDetail) {
         this.job = jobDetail;
         if (flag) {
           this.initData();
         }
         this.user = this.job.user;
         // 处理jobDetail
-        this.resolveJobDetail(this.job , this.jobPath);
+        this.resolveJobDetail(this.job, this.jobPath);
       }
     });
   }
+
   /* 初始化数据 */
   initData() {
     // 初始化图表信息
@@ -158,18 +167,19 @@ export class JobDetailComponent {
     // 清空图表数据
     this.jobResultParam = []
     this.AmCharts.updateChart(this.metricsChart, () => {
-      this.metricsChart.dataProvider= this.metricsChartInitData();
+      this.metricsChart.dataProvider = this.metricsChartInitData();
     });
     this.AmCharts.updateChart(this.lossChart, () => {
       this.lossChart.dataProvider = this.lossChartInitData();
     });
   }
-  downloadLog(){
+
+  downloadLog() {
     // this.jobService.downloadLog(this.job.jobPath).subscribe((data)=>{
     let path = "/api/log?jobPath=" + this.job.jobPath;
-    let url =  SERVER_URL + path
-        // window.open(url);
-        location.href= url;
+    let url = SERVER_URL + path
+    // window.open(url);
+    location.href = url;
     // });
   }
 
@@ -177,24 +187,23 @@ export class JobDetailComponent {
   /**
    * 解析jobDetail
    */
-  resolveJobDetail (jobDetail , jobPath) {
+  resolveJobDetail(jobDetail, jobPath) {
     this.algchainService.getChainById(jobDetail.chainId).subscribe(chainInfo => {
       // console.log('init');
       this.chainInfo = chainInfo;
       console.log(chainInfo);
-      console.log("===================current status :" + jobDetail.status)
       switch (jobDetail.status) {
         case '完成':
-          this.initNotRun(this.chainInfo.length - 1 , null , this.chainInfo[0].id , jobPath);
+          this.initNotRun(this.chainInfo.length - 1, null, this.chainInfo[0].id, jobPath);
           break;
         case '未启动':
-          this.initNotRun(-1 , null , null , jobPath);
+          this.initNotRun(-1, null, null, jobPath);
           break;
         case '运行':
           this.initWithRun(jobPath);
           break;
         case '停止':
-          this.not_running_show(jobPath , '停止');
+          this.not_running_show(jobPath, '停止');
           break;
       }
     })
@@ -203,22 +212,23 @@ export class JobDetailComponent {
   /**
    * 非运行状态初始化
    */
-  initNotRun(runningPluginIndex , runningPluginId , currentPluginId , jobPath) {
-    this.setRunningInfo (runningPluginIndex , runningPluginId, currentPluginId);
+  initNotRun(runningPluginIndex, runningPluginId, currentPluginId, jobPath) {
+    this.setRunningInfo(runningPluginIndex, runningPluginId, currentPluginId);
     this.not_running_show(jobPath);
   }
 
-  setRunningInfo (runningPluginIndex , runningPluginId, currentPluginId) {
+  setRunningInfo(runningPluginIndex, runningPluginId, currentPluginId) {
     this.runningPluginIndex = runningPluginIndex;
     this.currentPluginId = currentPluginId;
     this.runningPluginId = runningPluginId;
   }
+
   /**
    * 运行状态下初始化
    */
   initWithRun(jobPath) {
     this.runningFlag = true;
-    this.jobService.resetLog(jobPath).subscribe(data=>{
+    this.jobService.resetLog(jobPath).subscribe(data => {
       this.updatePage(jobPath, this.index);
       this.interval = setInterval(() => {
         this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
@@ -236,10 +246,11 @@ export class JobDetailComponent {
     });
 
   }
+
   /**
    * plugin点击切换事件
    */
-  pluginClick (plugin , index) {
+  pluginClick(plugin, index) {
     // console.log(plugin)
     if (plugin.id == this.currentPluginId) {
       // 当前选中plugin点击无效
@@ -249,7 +260,7 @@ export class JobDetailComponent {
       // 禁止未运行的plugin
       // console.log('click disabled -> return')
       return;
-    } else if(plugin.id == this.runningPluginId) {
+    } else if (plugin.id == this.runningPluginId) {
       // console.log('click run plugin -> switch to run plugin')
       this.loadCharts();
       this.runningFlag = true;
@@ -265,8 +276,8 @@ export class JobDetailComponent {
    * 根据pluginId获取job信息
    * @param pluginId
    */
-  getPluginData( pluginId) {
-    this.jobService.getPluginInfoById(this.jobPath , pluginId).subscribe(data => {
+  getPluginData(pluginId) {
+    this.jobService.getPluginInfoById(this.jobPath, pluginId).subscribe(data => {
       this.AmCharts.updateChart(this.lossChart, () => {
         if (data && data.length > 0) {
           this.lossChart.dataProvider = data;
@@ -284,6 +295,7 @@ export class JobDetailComponent {
     });
 
   }
+
   ngOnInit() {
     window.$ReadOnly = false;
     this.lossChart = this.AmCharts.makeChart("lossGraph", {
@@ -307,7 +319,7 @@ export class JobDetailComponent {
         "negativeLineColor": "#d4695e",
         "type": "smoothedLine",
         "valueField": "loss"
-      },{
+      }, {
         "id": "g2",
         // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
         // "bullet": "round",
@@ -375,7 +387,7 @@ export class JobDetailComponent {
         "negativeLineColor": "#d4695e",
         "type": "smoothedLine",
         "valueField": "metrics_value"
-      },{
+      }, {
         "id": "g2",
         // "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
         // "bullet": "round",
@@ -438,37 +450,38 @@ export class JobDetailComponent {
     this.AmCharts.destroyChart(this.metricsChart);
   }
 
-  changeTab(chainId,index,status){
-    this.step=1;
+  changeTab(chainId, index, status) {
+    this.step = 1;
     this.lookIt = 1;
     this.changeIndex = index;
-    if(status=="运行"){
+    if (status == "运行") {
       this.statusIndex = 0;
-    }else{
+    } else {
       this.statusIndex = 1;
     }
     //console.log(chainId);
     this.algchainService.getChainById(chainId)
-      .subscribe(plugin=>{
-        this.pluginArr=plugin;
-         //console.log(this.pluginArr[0]);
+      .subscribe(plugin => {
+        this.pluginArr = plugin;
+        //console.log(this.pluginArr[0]);
         //console.log(this.pluginArr[0].id);
-        console.log(this.pluginArr)
         this.changeChosenPlugin(this.pluginArr[0].id);
       });
   }
-  goback(){
-    this.step=2;
-    this.changeIndex=0;
+
+  goback() {
+    this.step = 2;
+    this.changeIndex = 0;
     this.lookIt = 0;
   }
-  changeChosenPlugin(id:string){
+
+  changeChosenPlugin(id: string) {
     this.haveModel = 0;
-    if(!this.chosenPluginId){
+    if (!this.chosenPluginId) {
       this.chosenPluginId = id;
       let training_network_json = this.findPluginById(this.chosenPluginId).model;
       // 有网络层
-      if (training_network_json){
+      if (training_network_json) {
         this.haveModel = 1;
         // console.log(this.findPluginById(this.chosenPluginId));
         // console.log(training_network_json);
@@ -476,42 +489,44 @@ export class JobDetailComponent {
         $('#hideBtn').click();
       }
       // 无网络层则无需任何操作
-    }else{
+    } else {
       // this.savePluginChange();
       this.chosenPluginId = id;
       let training_network_json = this.findPluginById(this.chosenPluginId).model;
-      if(training_network_json){
+      if (training_network_json) {
         // console.log(training_network_json);
         let inited = false;
-        if ($('#plugin_storage').val()&&$('#plugin_storage').val()!==""){
+        if ($('#plugin_storage').val() && $('#plugin_storage').val() !== "") {
           inited = true;
         }
         $('#plugin_storage').val(JSON.stringify(training_network_json));
-        if(inited){
+        if (inited) {
           $('#loadBtn').click();
           // 等待动画效果结束后再展示，否则会闪烁一下
           setTimeout(() => {
             this.haveModel = 1;
-          },50);
-        }else{
+          }, 50);
+        } else {
           $('#hideBtn').click();
           this.haveModel = 1;
         }
-      }else{
+      } else {
         // 无网络层则将网络层隐藏
         this.haveModel = 0;
       }
     }
     this.pluginClicked();
   }
-  pluginClicked(){
+
+
+  pluginClicked() {
     let editable_parameters: Editable_param[] = [];
     let params: any = this.findPluginById(this.chosenPluginId).train_params;
-     //console.log(params);
-    for(var param in params){
+    //console.log(params);
+    for (var param in params) {
       // console.log(param);
-      for (let editable_parameter of this.editable_params){
-        if (editable_parameter.path == param){
+      for (let editable_parameter of this.editable_params) {
+        if (editable_parameter.path == param) {
           editable_parameter.editable_param.set_value = params[param];
           //console.log( editable_parameter.editable_param.set_value);
           editable_parameters.push(editable_parameter);
@@ -528,13 +543,13 @@ export class JobDetailComponent {
 
     // $('.layer_params input').removeAttr('readonly');
   }
-  matchParams(){
+
+  matchParams() {
     let params: any = this.findPluginById(this.chosenPluginId).train_params;
-    for (var key in params){
-      for (let dict of this.editable_params){
-        if (key == dict.path){
+    for (var key in params) {
+      for (let dict of this.editable_params) {
+        if (key == dict.path) {
           params[key] = dict.editable_param.set_value;
-          console.log(params[key]);
         }
       }
     }
@@ -542,40 +557,62 @@ export class JobDetailComponent {
     //console.log(params);
   }
 
-  save(){
+  save() {
+    if (!this.s_save_flag) {
+      return;
+    }
+    this.s_save_flag = false;
     $('#saveBtn').click();
+    $('#saveChainBtn').click();
     this.matchParams();
     let plugin = this.findPluginById(this.chosenPluginId);
     let json = $('#plugin_storage').val();
-    /*this.pluginArr[0].model = JSON.parse(json);
-    this.pluginArr[0].train_params = this.findPluginById(this.chosenPluginId).train_params;*/
+    this.pluginArr[0].model = JSON.parse(json);
+    this.pluginArr[0].train_params = this.findPluginById(this.chosenPluginId).train_params;
 
     plugin.model = JSON.parse(json);
+    // this.savePluginChange();
     this.pluginService.savePlugin(plugin)
       .subscribe(msg => {
         this.forkResult(msg);
-        addSuccessToast(this.toastyService , "保存成功");
+        this.s_save_flag = true;
       });
   }
-  nodeClicked(){
+  forkResult(response) {
+    if (response.status == 200) {
+      let result = JSON.parse(response._body)
+      if (result.state == 1) {
+        addSuccessToast(this.toastyService, "保存成功");
+      } else {
+        addWarningToast(this.toastyService, "网络层结构错误");
+      }
+    } else {
+      addErrorToast(this.toastyService, "保存异常");
+    }
+  }
+
+  nodeClicked() {
     // 改变右侧显示的内容--显示node
     this.rightBox_node = 1;
   }
-  findPluginById(id:string){
-    for (let plugin of this.pluginArr){
-      if (plugin.id == id){
+
+  findPluginById(id: string) {
+    for (let plugin of this.pluginArr) {
+      if (plugin.id == id) {
         return plugin;
       }
     }
   }
-  getDictionary(dictionary){
+
+  getDictionary(dictionary) {
     $('#layer_dictionary').val(JSON.stringify(dictionary));
   }
+
 // 不再running状态时一次性展示数据
-  not_running_show(jobPath: string , status?: string) {
+  not_running_show(jobPath: string, status?: string) {
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
-        this.resolveJobParam(jobParam , status);
+        this.resolveJobParam(jobParam, status);
       });
   }
 
@@ -583,9 +620,9 @@ export class JobDetailComponent {
    * 处理非运行状态下图表数据
    * @param jobParam
    */
-  resolveJobParam(jobParam , status?: string) {
-   /* console.log('unrun status')
-    console.log(jobParam)*/
+  resolveJobParam(jobParam, status?: string) {
+    /* console.log('unrun status')
+     console.log(jobParam)*/
     if (jobParam.length && jobParam.length > 0) {
       if (status === '停止') {
         this.getLastPluginJobParam(jobParam);
@@ -618,6 +655,7 @@ export class JobDetailComponent {
       }
     });
   }
+
   /**
    * 解析停止状态下的job数据，获取停止位置与数据
    * @param jobParam
@@ -628,23 +666,24 @@ export class JobDetailComponent {
     this.currentPluginId = temp_pluginId;
     this.getRunningPlugin(jobParam[jobParam.length - 1]);
     this.runningPluginId = null;
-    for (let i = jobParam.length - 1; i >=0 ; i --) {
+    for (let i = jobParam.length - 1; i >= 0; i--) {
       if (jobParam[i].pluginId !== temp_pluginId || i === 0) {
-        this.jobResultParam = this.jobResultParam.concat(jobParam.slice((i===0?-1:i) + 1 , jobParam.length));
+        this.jobResultParam = this.jobResultParam.concat(jobParam.slice((i === 0 ? -1 : i) + 1, jobParam.length));
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
         break;
       }
     }
   }
+
   updatePage(jobPath, index) {
 
-    this.jobService.getUnrunningJob(jobPath )
+    this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
-       /* console.log('run'); */
+        /* console.log('run'); */
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
         // console.log(JobResult)
-        if(this.jobResult) {
+        if (this.jobResult) {
           this.index = this.jobResult.epoch;
           this.getRunningPlugin(this.jobResult);
           // 展示plugin为runingplugin
@@ -652,22 +691,21 @@ export class JobDetailComponent {
             this.loadCharts();
           }
         }
-       /* this.jobResult = jobParam[jobParam.length - 1];*/
-        this.websocket.connect().then(()=>{
-          this.websocket.subscribe('/job/'+jobPath,(data)=>{
+        /* this.jobResult = jobParam[jobParam.length - 1];*/
+        this.websocket.connect().then(() => {
+          this.websocket.subscribe('/job/' + jobPath, (data) => {
             // console.log(data);
             this.updateChart(data);
           });
 
-          this.websocket.subscribe('/logs/'+jobPath,(data)=>{
-            this.log_list=this.log_list.concat(data);
+          this.websocket.subscribe('/logs/' + jobPath, (data) => {
+            this.log_list = this.log_list.concat(data);
           });
-          this.websocket.subscribe('/preLog/'+ this.jobPath,(data)=>{
+          this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
             if (this.s_process_flag) {
               this.s_progress_show = true;
               this.s_process_flag = false;
             }
-            console.log(data);
             this.d_progress_logs.push(data);
             this.d_progress_log = data;
           });
@@ -682,24 +720,24 @@ export class JobDetailComponent {
    * 获取当前正在运行的插件信息
    * @param data
    */
-   getRunningPlugin(data) {
-     // 判断当前状态
-     if (data.pluginId) {
-       // 当前运行的plugin
-       console.log("=================current plugin :" + this.runningPluginId)
-       this.runningPluginId = data.pluginId;
-       this.currentPluginId = data.pluginId;
-       for (let i = 0 ; i < this.chainInfo.length ; i++) {
-         if (this.chainInfo[i].id == this.runningPluginId) {
-            this.runningPluginIndex = i;
-            break;
-         }
-       }
-     }
-   }
-  updateChart(data){
+  getRunningPlugin(data) {
+    // 判断当前状态
+    if (data.pluginId) {
+      // 当前运行的plugin
+      this.runningPluginId = data.pluginId;
+      this.currentPluginId = data.pluginId;
+      for (let i = 0; i < this.chainInfo.length; i++) {
+        if (this.chainInfo[i].id == this.runningPluginId) {
+          this.runningPluginIndex = i;
+          break;
+        }
+      }
+    }
+  }
+
+  updateChart(data) {
     this.getRunningPlugin(data);
-    let temp:JobParameter = data;
+    let temp: JobParameter = data;
     this.jobResultParam.push(temp);
     // 展示plugin为runingplugin
     if (this.runningFlag) {
@@ -710,22 +748,22 @@ export class JobDetailComponent {
 
 
   stop(jobPath: string) {
-    this.jobService.stopJob(jobPath).subscribe(job=>{
+    this.jobService.stopJob(jobPath).subscribe(job => {
       if (this.interval) {
         clearInterval(this.interval);
       }
       this.websocket.stopWebsocket();
-      this.index=-1;
+      this.index = -1;
       this.initJobDetailByPath();
-     /* this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-        this.job = jobDetail;
-        this.user = this.job.user;
-      });*/
+      /* this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
+       this.job = jobDetail;
+       this.user = this.job.user;
+       });*/
     });
   }
 
 
-  start(jobPath: string){
+  start(jobPath: string) {
     this.jobService.runJob(jobPath)
       .subscribe(reply => {
         this.initJobDetailByPath(true);
@@ -733,53 +771,48 @@ export class JobDetailComponent {
   }
 
 
-  forkResult(response){
-    if(response.status==200){
-      console.log("saved!");
-    }else{
-      console.log("save plugin failed");
-    }
+  goModel() {
+    this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id}})
   }
-  goModel(){
-    this.router.navigate(['/model'],{queryParams: {'job_id': this.job.id }})
-  }
-  set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
-    if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
+
+  set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {
+    if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       // alert('输入必须为数值!');
-      addWarningToast(this.toastyService ,"输入必须为数值");
-    }else{
+      addWarningToast(this.toastyService, "输入必须为数值");
+    } else {
       parameter.set_value[i1][j1] = Number(value);
     }
   }
-  setValue(parameter: Parameter,value: string){
-    if (parameter.type=='string'){
+
+  setValue(parameter: Parameter, value: string) {
+    if (parameter.type == 'string') {
       parameter.set_value = value;
-    }else if(parameter.type=='boolean'){
+    } else if (parameter.type == 'boolean') {
       // 当作string
       parameter.set_value = value;
-    }else if(parameter.type=='int'||parameter.type=='float'){
-      if (Number(value)+""==NaN+""){
+    } else if (parameter.type == 'int' || parameter.type == 'float') {
+      if (Number(value) + "" == NaN + "") {
         // alert('输入必须为数值!');
-        addWarningToast(this.toastyService ,"输入必须为数值" );
-      }else{
+        addWarningToast(this.toastyService, "输入必须为数值");
+      } else {
         let condition: number = 1;
-        if(parameter.has_min){
-          if(+value<parameter.min_value){
+        if (parameter.has_min) {
+          if (+value < parameter.min_value) {
             condition = -1;
             // alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
-            addWarningToast(this.toastyService ,"Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
+            addWarningToast(this.toastyService, "Can't lower than min_value:" + parameter.min_value + "!  Back to default...");
           }
         }
-        if(parameter.has_max){
-          if(+value>parameter.max_value){
+        if (parameter.has_max) {
+          if (+value > parameter.max_value) {
             condition = -2;
             // alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
-            addWarningToast(this.toastyService ,"Can't higher than max_value:"+parameter.max_value+"!  Back to default..." );
+            addWarningToast(this.toastyService, "Can't higher than max_value:" + parameter.max_value + "!  Back to default...");
           }
         }
-        if(condition==1){
+        if (condition == 1) {
           parameter.set_value = +value;
-        }else{
+        } else {
           parameter.set_value = parameter.default_value;
         }
       }
