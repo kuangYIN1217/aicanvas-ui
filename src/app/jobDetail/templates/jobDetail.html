@@ -175,6 +175,7 @@
 
       </div>
 
+      <div class="chain-model" *ngIf="job?.status == '运行' && changeIndex == 1"></div>
       <!-- 插件编辑 -->
       <div [style.display]="changeIndex==1?'':'none'" class="status">
         <div class="leftBox">
