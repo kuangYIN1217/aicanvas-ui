@@ -431,7 +431,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .big_select{
   width: 280px;
   height: 34px;
-  text-indent: 6px;
+  padding-left: 6px;
 }
 
 .dataset{
@@ -469,7 +469,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   width: 490px;
   height: 36px;
   box-sizing: border-box;
-  text-indent: 10px;
+  padding-left: 10px;
 }
 input{
   border:1px solid #d3d3d3;
@@ -489,14 +489,14 @@ input:focus{
   width: 490px;
   height: 36px;
   margin-top: -18px;
-  text-indent: 10px;
+  padding-left: 10px;
 }
 
 .row .select {
   width: 490px;
   height: 36px;
   box-sizing: border-box;
-  text-indent: 10px;
+  padding-left: 10px;
   margin-left: 193px;
 
 }
@@ -542,7 +542,7 @@ input:focus{
    width: 150px;
    height: 36px;
    box-sizing: border-box;
-   text-indent: 10px;
+   padding-left: 10px;
    margin-right:22px;
    margin-left: 192px;
  }
@@ -916,4 +916,5 @@ select:focus{
 select{
   outline: none;
 }
+
 
