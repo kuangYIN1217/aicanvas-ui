@@ -201,6 +201,7 @@ export class JobCreationComponent {
 
   goHistory() {
     this.jobPageStatus = 'manage';
+    this.jobName='';
   }
 
   viewDetail(id, name) {
