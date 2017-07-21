@@ -65,7 +65,7 @@ export class JobCreationComponent {
   jobName: string;
   pageNumber: number;
   d_dataSets: any = [];
-  dataId;
+  dataId: any;
   createBtn: number = 0;
   s_error_show: boolean = false;
   s_error_message: string = '';
