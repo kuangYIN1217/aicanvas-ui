@@ -257,7 +257,7 @@ getPluginName(name){
         //this.createdJob = job;
         this.createdJob = createdJob;
         // alert("任务创建成功");
-        addSuccessToast(this.toastyService , "任务创建成功");
+        addSuccessToast(this.toastyService , "任务创建成功" , '消息提示',  1500);
         location.reload();
        // this.jobPageStatus='jobPageStatus';
         console.log(this.createdJob.chainId);
