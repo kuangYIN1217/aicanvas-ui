@@ -71,6 +71,9 @@ export class JobCreationComponent {
   s_error_message: string = '';
   s_error_level: string = 'error';
   click_flag: boolean = true;
+  name_validation:boolean=false;
+  plugin_validation:boolean=false;
+  data_validation:boolean=false;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService:ToastyService, private toastyConfig: ToastyConfig , private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
@@ -92,7 +95,8 @@ export class JobCreationComponent {
     //this.router.navigate(['../taskStatus'],{queryParams: { pageNumber: this.pageNumber}});
   }
   ngAfterViewChecked(){
-    if(this.jobName&&this.firstSceneId&&this.dataId){
+    console.log(this.name_validation,this.plugin_validation,this.data_validation);
+    if(this.name_validation&&this.plugin_validation&&this.data_validation){
         this.createBtn=1;
     }
   }
@@ -140,6 +144,7 @@ export class JobCreationComponent {
     }
   }
   dataChange(){
+    this.data_validation=true;
     if(this.dataId) {
       this.s_error_show = false;
     }
@@ -160,6 +165,7 @@ export class JobCreationComponent {
 
   // createJob
   createJob() {
+    this.jobName=null;
     this.sceneService.getAllScenes()
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
@@ -206,12 +212,13 @@ getPluginName(name){
     this.createJobBySenceId(this.chosenSceneId, this.firstChainId , this.dataId);
   }
   nameChange () {
+    this.name_validation=true;
     if(this.jobName) {
       this.s_error_show = false;
     }
   }
   // 第一次点击下一步时，创建job，存储下来
-  createJobBySenceId(chosenSceneId, chainId , dataId) { 
+  createJobBySenceId(chosenSceneId, chainId , dataId) {
     if (!this.click_flag) {
       return;
     }
@@ -352,6 +359,7 @@ getPluginName(name){
     }
     if(this.firstChainId){
       document.getElementById('data').removeAttribute('disabled');
+      this.plugin_validation=true;
     }
     this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
       this.datasetsService.getDataSets(null , rep.dataset_type , null , 'createTime,desc', null , null ).subscribe(rep =>{

@@ -93,6 +93,7 @@
 .status .table tr td {
   padding-left: 20px;
   word-break: break-all;
+
 }
 
 .status .table tr:nth-child(odd) {
