@@ -120,7 +120,7 @@
             <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
             <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
                 <div *ngFor="let editable_parameter of editable_parameters">
-                    <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
+                    <div class="layer_name">{{editable_parameter.editable_param.name}} <img src="" [title]="paramjson[editable_parameter.editable_param.name]" alt=""></div>
                     <div class="layer_params" id="property_plugin">
                         <input readonly  *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&rightNodeIndex==0" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"
                             class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />
