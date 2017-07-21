@@ -1,11 +1,9 @@
 .nav{
   background-color: #fff;
-  margin: 30px;
+  margin: 20px 30px;
   padding-left: 30px;
   height:121px;
 }
-
-
 .nav .row{
   display: flex;
   align-items: center;
@@ -68,9 +66,8 @@
 
 
 .new_model{
-  width:97%;
   background-color: #fff;
-  margin:30px;
+  margin:20px 30px;
   overflow: hidden;
 }
 

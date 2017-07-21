@@ -141,6 +141,7 @@ export class ModelComponent {
       console.log(result.id, this.job.jobPath);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
         // alert("创建成功,可以在推演成功后查看!");
+        this.type=null;
         console.log(data);
         addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );
         this.selChange(this.job_id);
@@ -186,7 +187,7 @@ export class ModelComponent {
     this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
         this.ModelInfo = model.content;
-          if(this.ModelInfo[0].percent==1.0000) {
+          if(this.ModelInfo[0].percent==1) {
             clearInterval(this.perInterval);
           }
         let page = new Page();
