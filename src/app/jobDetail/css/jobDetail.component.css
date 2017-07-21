@@ -323,20 +323,46 @@
   /*margin-bottom: 50px;*/
   height: 90%;
 }
-
+.cntWidth{
+  width:80% !important;
+  margin:0 auto;
+  height:100%;
+}
 .content {
   overflow: auto;
-  width: 36%;
+  width:22%;
   height: 100%;
   float: left;
+  background-color: #ffffff;
   border-left: 1px solid #e8e8e8;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
-
+.cnt{
+  overflow: hidden;
+}
+.cnt img{
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+}
+.cnt span{
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 16px;
+  color: #333333;
+  margin-left: 10px;
+}
 .rightBox {
-  width: 22%;
+  width: 17%;
   float: right;
+  padding-left: 10px;
+  padding-top: 20px;
   height: 100%;
   color: #333333;
+  background: #fff;
+  border-radius: 5px;
 }
 
 .layer_params {
@@ -346,20 +372,30 @@
 .layer_params input {
   background: #ffffff;
   /* border: 0px;*/
-  border: 1px solid #333333;
-  height: 30px;
-  width: 90%;
+  border: 1px solid #d3d3d3;
   color: #333333;
   outline-style: none;
-  text-indent: 5px;
+  padding-left: 5px;
+  border-radius: 5px;
+  height:36px;
+  box-sizing: border-box;
+  width:94%;
+  display: inline-block;
+  margin:0 auto;
 }
 
 .layer_params select {
   background: #ffffff 0px 0px;
   color: #333333;
   font-size: 14px;
-  border: #333333 1px solid;
-  padding: 5px;
+  border: #d3d3d3 1px solid;
+  padding-left: 5px;
+  border-radius: 5px;
+  height:36px;
+  box-sizing: border-box;
+  width:94%;
+  display: inline-block;
+  margin:0 auto;
 }
 
 .layer_params option {

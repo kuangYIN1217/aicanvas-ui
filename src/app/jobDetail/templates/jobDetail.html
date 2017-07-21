@@ -193,8 +193,12 @@
           <div class="alg_choose_list" id="myPaletteDiv"></div>
         </div>
         <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
-        <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">
-          该插件无网络层</h1></div>
+        <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent" [ngClass]="{cntWidth: haveModel==0}">
+          <div class="cnt">
+            <img src="../assets/jobdetail/tishi.png"/>
+            <span>当前插件没有网络层</span>
+          </div>
+        </div>
         <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
           <div *ngFor="let editable_parameter of editable_parameters">
             <div class="layer_name">{{editable_parameter.editable_param.name}}</div>

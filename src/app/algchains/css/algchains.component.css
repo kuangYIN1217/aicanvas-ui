@@ -631,12 +631,14 @@
     margin:0 auto;
 }
 
-.layer_params select{
-    background: url('../../../assets/algpluginDetail/xia.png') no-repeat;
+/*select{
+  background: url('../../../assets/algpluginDetail/xia.png') no-repeat;
+  background-position: right -3px center;
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;
-  background-position: right -3px center;
+}*/
+.layer_params select{
     background: #ffffff 0px 0px;
     color: #333333;
     font-size: 14px;
