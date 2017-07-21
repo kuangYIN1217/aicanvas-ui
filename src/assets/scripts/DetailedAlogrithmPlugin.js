@@ -23,7 +23,6 @@ function init() {
     } else {
       if (idx >= 0) document.title = document.title.substr(0, idx);
     }
-
   });
 
   myDiagram.addDiagramListener('ExternalObjectsDropped' , function (e) {
