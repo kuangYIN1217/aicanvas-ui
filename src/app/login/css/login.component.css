@@ -367,4 +367,8 @@ input{
 
 }
 */
-
+@media (max-width:1400px) {
+  .headerCont{
+    width:1200px;
+  }
+}
