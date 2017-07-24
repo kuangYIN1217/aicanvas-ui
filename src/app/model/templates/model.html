@@ -60,8 +60,9 @@
         <td class="first_column">上传文件</td>
         <td>
           <div class="showPhoto">
-             <span  *ngFor="let item of container">
-               <img src="{{item}}" alt="">
+             <span  *ngFor="let item of container;let i=index">
+               <img src="{{item}}" alt="" class="photo">
+               <img src="../assets/model/delete.png" class="del" (click)="delPhoto(i)"/>
              </span>
           </div>
           <div class="image" onclick="document.getElementById('file').click()">

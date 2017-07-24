@@ -1,6 +1,12 @@
 .table {
   width: 100%;
   margin: 20px 0;
+  table-layout:fixed;
+}
+.table td{
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
 }
 .no-data {
   text-align: center;

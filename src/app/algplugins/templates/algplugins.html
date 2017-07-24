@@ -16,9 +16,9 @@
             <!--[style.display]="plugin.creator=='general'?'':'none'"-->
           <cpt-nodata *ngIf="dataIndex == 0" [colspan]="4"></cpt-nodata>
           <tr *ngFor="let plugin of arr; let i = index" [style.display]="dataIndex == 1?'':'none'">
-            <td>{{ plugin.id }}</td>
-            <td>{{ plugin.alg_name }}</td>
-            <td>{{ plugin.description }}</td>
+            <td title="{{plugin.id}}">{{ plugin.id }}</td>
+            <td title="{{plugin.alg_name}}">{{ plugin.alg_name }}</td>
+            <td title="{{plugin.description}}">{{ plugin.description }}</td>
             <td><a class="showDetail" routerLinkActive="active" routerLink="/algpluginDetail/{{plugin.id}},{{plugin.creator}}"><img src="../assets/algplugin/chakan.png" /></a></td>
           </tr>
         </table>

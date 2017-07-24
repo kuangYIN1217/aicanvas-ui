@@ -122,16 +122,24 @@
 .showPhoto{
   float: left;
 }
-.showPhoto img{
+.showPhoto .photo{
   width:119px;
   height:101px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+
 }
 .showPhoto span{
+  position: relative;
   margin-top: 20px;
   margin-right: 20px;
   display: inline-block;
+}
+.showPhoto .del{
+  cursor: pointer;
+  position: absolute;
+  top:0;
+  right:0;
 }
 
 

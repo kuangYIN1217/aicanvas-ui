@@ -54,6 +54,8 @@ export class OverviewComponent {
   allArr:any[]=[];
   gpuArr1:any[]=[];
   gpuArr2:any[]=[];
+  time1:string;
+  time2:string;
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
     window.scrollTo(0,0);
     resourcesService.getCpuInfo()
@@ -534,9 +536,10 @@ export class OverviewComponent {
           let data = Number((cpuInfo / this.tot_memory).toFixed(2)) * 100;
           cpuInfoArray[i].used_memory = data;
         }
-        for(let j = 0; j < cpuInfoArray.length; j++){
+/*        for(let j = 0; j < cpuInfoArray.length; j++){
           this.allArr.push(cpuInfoArray[j]);
-        }
+        }*/
+        this.sort(cpuInfoArray,this.allArr);
         //console.log(this.allArr);
         //console.log(cpuInfoArray[0].used_memory);
         if(this.allArr.length>500){
@@ -593,9 +596,7 @@ export class OverviewComponent {
                 gpuInfoArray[i].total_used_memory = data1;
                 console.log(gpuInfoArray);
               }
-              for(let j = 0; j < gpuInfoArray.length; j++){
-                this.gpuArr1.push(gpuInfoArray[j]);
-              }
+              this.sort(gpuInfoArray,this.gpuArr1);
               //console.log(this.gpuArr1);
               if(this.gpuArr1.length>500){
                 this.gpuArr1.splice(0,2)
@@ -618,9 +619,10 @@ export class OverviewComponent {
                 let data2 = Number((gpuInfo2 / this.totalGlobalMem).toFixed(2)) * 100;
                 gpuInfoArray[i].total_used_memory = data2;
               }
-              for(let j = 0; j < gpuInfoArray.length; j++){
+              this.sort(gpuInfoArray,this.gpuArr2);
+/*              for(let j = 0; j < gpuInfoArray.length; j++){
                 this.gpuArr2.push(gpuInfoArray[j]);
-              }
+              }*/
               //console.log(this.gpuArr2);
               if(this.gpuArr2.length>500){
                 this.gpuArr2.splice(0,2)
@@ -638,7 +640,23 @@ export class OverviewComponent {
       }
     }
   // }
-
+sort(arr1, arr2){
+  for(let j = 0; j < arr1.length; j++){
+    if(arr1.length==1){
+      arr2.push(arr1[j]);
+    }else{
+      this.time1=arr1[length-2].created_at;
+      this.time2=arr1[length-1].created_at;
+      if(this.time1>this.time2){
+        arr2.push(arr1[length-1]);
+        arr2.push(arr1[length-2]);
+      }else{
+        arr2.push(arr1[length-2]);
+        arr2.push(arr1[length-1]);
+      }
+    }
+  }
+}
   getGpuInfo(gpuInfoArray: GpuInfo[], gpu: Gpu) {
     this.drawGpuLine(gpuInfoArray, gpu);
     this.drawGpuPie(gpuInfoArray, gpu);
