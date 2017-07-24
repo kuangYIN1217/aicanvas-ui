@@ -333,13 +333,20 @@
 .content {
   position: relative;
   overflow: auto;
-  width:22%;
+  width:42%;
   height: 100%;
   float: left;
   background-color: #ffffff;
   border-left: 1px solid #e8e8e8;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+.middle{
+  display: inline-block;
+  vertical-align: middle;
+}
+.layer_name img{
+  margin-left: 6px;
 }
 .cnt{
   overflow: hidden;
@@ -399,6 +406,11 @@
   width:94%;
   display: inline-block;
   margin:0 auto;
+  background: url('../../../assets/jobdetail/xia.png') no-repeat;
+  background-position: right center;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
 }
 
 .layer_params option {
@@ -411,7 +423,12 @@
   height: 1402px;
   background: #fff;
 }
-
+.spaceCnt{
+  width:0.5%;
+  background: #eeeeee;
+  height:100%;
+  float: left;
+}
 .space {
   margin-right: 16px;
   margin-bottom: 20px;
