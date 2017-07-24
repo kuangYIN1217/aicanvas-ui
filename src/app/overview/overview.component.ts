@@ -753,7 +753,7 @@ sort(arr1, arr2){
     this.tabIndex = tabIndex;
     sessionStorage['overviewTab'] = tabIndex;
     nextTick(() => {
-      calc_height(document.getElementById('tab_content'));
+      calc_height(document.getElementById('taskDiv'));
     })
   }
 

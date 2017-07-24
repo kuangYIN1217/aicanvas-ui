@@ -89,7 +89,7 @@ export class JobDetailComponent {
     }];
     return dataProvider;
   }
-
+  s_selected_plugin: number = 0;
   navStyle() {
     if (this.lookIt == 1) {
       return {
@@ -466,7 +466,7 @@ export class JobDetailComponent {
         this.pluginArr = plugin;
         //console.log(this.pluginArr[0]);
         //console.log(this.pluginArr[0].id);
-        this.changeChosenPlugin(this.pluginArr[0].id);
+        this.changeChosenPlugin(this.pluginArr[0].id , 0);
       });
   }
 
@@ -476,8 +476,9 @@ export class JobDetailComponent {
     this.lookIt = 0;
   }
 
-  changeChosenPlugin(id: string) {
+  changeChosenPlugin(id: string , index?) {
     this.haveModel = 0;
+    this.s_selected_plugin = index;
     if (!this.chosenPluginId) {
       this.chosenPluginId = id;
       let training_network_json = this.findPluginById(this.chosenPluginId).model;

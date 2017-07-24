@@ -182,15 +182,15 @@
         <div class="leftBox">
           <div class="chain">训练算法链：</div>
           <div class="alg_choose">
-            <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId"
-                 (click)="changeChosenPlugin(plugin.id)"><img src="../assets/algchains/shengtailian.png"/><span>{{plugin.alg_name}}</span>
+            <div class="pluginArr_item" *ngFor="let plugin of pluginArr; let i = index" [ngClass]="{'selected': s_selected_plugin == i}" [class.focus]="plugin.id==chosenPluginId"
+                 (click)="changeChosenPlugin(plugin.id , i)"><img src="../assets/algchains/shengtailian.png"/><span>{{plugin.alg_name}}</span>
             </div>
           </div>
         </div>
-        <div class="chains">
+        <div class="chains" [style.display]="haveModel==1?'':'none'">
           <div class="alg_choose_descrip">可选算法层:</div>
           <div class="alg_choose_drag">*支持拖拽</div>
-          <div class="alg_choose_list" [style.visibility]="haveModel==1?'visible':'hidden'" id="myPaletteDiv"></div>
+          <div class="alg_choose_list"  id="myPaletteDiv"></div>
         </div>
         <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
         <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent" [ngClass]="{cntWidth: haveModel==0}">

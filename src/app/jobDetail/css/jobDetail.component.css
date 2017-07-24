@@ -273,14 +273,16 @@
   line-height: 46px;
   text-align: center;
   margin-top: 20px;
-  background: #ff7c35;
+  background: #999;
   color: #fefefe;
   border-radius: 8px;
   cursor: pointer;
   overflow: hidden;
   font-size: 0.73vw;
 }
-
+.selected.pluginArr_item {
+  background: #ff7c35;
+}
 .pluginArr_item img {
   display: inline-block;
   vertical-align: middle;
@@ -329,6 +331,7 @@
   height:100%;
 }
 .content {
+  position: relative;
   overflow: auto;
   width:22%;
   height: 100%;
@@ -342,17 +345,17 @@
   overflow: hidden;
 }
 .cnt img{
-  float: left;
-  display: inline-block;
-  vertical-align: middle;
+  position: absolute;
+  top:150px;
+  left: 32%;
 }
 .cnt span{
-  float: left;
-  display: inline-block;
-  vertical-align: middle;
+  position: absolute;
   font-size: 16px;
   color: #333333;
   margin-left: 10px;
+  top:150px;
+  left: 35%;
 }
 .rightBox {
   width: 17%;

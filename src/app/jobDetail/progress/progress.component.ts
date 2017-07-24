@@ -33,7 +33,7 @@ export class ProgressComponent {
         $this.$hide_click();
         this.logs = [];
         this.log = {}
-        this.logChange.emit(this.log);
+        // this.logChange.emit(this.log);
       } , 1000);
     }
     return Math.floor(this.log.percent * 100);
