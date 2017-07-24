@@ -47,6 +47,7 @@
   border-collapse: collapse;
   border: solid 1px #d3d3d3;
   margin-left: 0;
+  table-layout:fixed;
 }
 .status .table th{
   height: 36px;
@@ -91,7 +92,9 @@
 
 .status .table tr td {
   padding-left: 20px;
-  word-break: break-all;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
 }
 
 .status .table tr:nth-child(odd) {

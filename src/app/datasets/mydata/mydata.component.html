@@ -19,14 +19,14 @@
     <cpt-nodata *ngIf="d_tableData.length === 0" [colspan]="7"></cpt-nodata>
 
     <tr *ngFor="let item of d_tableData;let i = index">
-      <td>{{item.dataName}}</td>
-      <td>{{item.dataTypeName}}</td>
-      <td>{{calc_size(item.diskUsageAccount)}}</td>
-      <td>{{item.fileCount}}</td>
+      <td title="{{item.dataName}}">{{item.dataName}}</td>
+      <td title="{{item.dataTypeName}}">{{item.dataTypeName}}</td>
+      <td title="{{calc_size(item.diskUsageAccount)}}">{{calc_size(item.diskUsageAccount)}}</td>
+      <td title="{{item.fileCount}}">{{item.fileCount}}</td>
       <!--td>{{item.fileVaild}}</td>
       <td>{{item.fileFailed}}</td>-->
-      <td>{{item.creator}}</td>
-      <td>{{item.createTime}}</td>
+      <td title="{{item.creator}}">{{item.creator}}</td>
+      <td title="{{item.createTime}}">{{item.createTime}}</td>
       <td class="operation">
         <img (click)="$remove_dataSet(item.dataId , i)" class="icon" src="../../../assets/datasets/shanchu.png" alt="删除" title="删除">
         <!--<img class="icon" src="../../../assets/datasets/shangchuan.png" alt="">-->

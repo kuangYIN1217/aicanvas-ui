@@ -107,7 +107,6 @@ export class ModelComponent {
           if (file) {
             reader.readAsDataURL(file);
           }
-      //console.log(this.container);
     }
   }
   // D: 定义事件，上传文件
@@ -208,7 +207,12 @@ export class ModelComponent {
     this.item = model_id;
     this.job_path = job_path;
   }
-
+  delPhoto(index){
+    this.container.splice(index,1);
+    this.uploader.queue[index].remove();
+    console.log(this.container);
+    console.log(this.uploader.queue);
+  }
   clickBtn() {
     //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});
     //console.log(this.ModelInfo.length);

@@ -132,17 +132,17 @@ ul, ol {
     font-family: "Microsoft YaHei";
     width: 398px;
     height:438px;
-  margin-left: 785px;
-    border: 1px solid #d3d3d3;
+    margin-left: 785px;
+    border: 2px solid #d3d3d3;
     border-radius: 8px;
 }
 .main h5{
     color: #333333;
     margin-top: 50px;
-  margin-bottom: 50px;
+    margin-bottom: 50px;
     font-size: 24px;
     text-align: center;
-  font-weight: normal;
+    font-weight: normal;
 }
 .main form{
     width: 340px;
@@ -231,7 +231,7 @@ input{
     width: 234px;
     height: 30px;
     font-family: "Microsoft YaHei";
-    color: #aeaeae;
+    color: #333333;
    /* margin-left: 40px;
     border-radius: 8px;*/
    /* margin: auto;*/
@@ -243,6 +243,18 @@ input{
 
 /*    margin-top: 15px;
     margin-bottom: 15px;*/
+}
+input::-webkit-input-placeholder { /* WebKit browsers */
+  color:#999;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:#999;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:#999;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:#999;
 }
 .yzm{
     overflow: hidden;
@@ -275,7 +287,8 @@ input{
     cursor: pointer;
     letter-spacing: 4px;
     border-radius: 5px;
-    background: linear-gradient(rgba(253,155,102,0.7), rgb(254,125,52));
+    background: #ff8b4d;
+    /*background: linear-gradient(rgba(253,155,102,0.7), rgb(254,125,52));*/
     border:1px solid #ffffff !important;
 }
 .forget{

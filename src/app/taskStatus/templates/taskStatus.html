@@ -12,13 +12,13 @@
     <!--*ngIf="jobInfo.sences==sceneId"-->
     <cpt-nodata *ngIf="dataIndex == 0" [colspan]="6"></cpt-nodata>
     <tr *ngFor="let jobInfo of Jobs_current;let i = index;" [style.display]="dataIndex == 1?'':'none'">
-      <td>{{jobInfo.jobName}}</td>
-      <td>{{jobInfo.sencesName}}</td>
-      <td>{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
+      <td title="{{jobInfo.jobName}}">{{jobInfo.jobName}}</td>
+      <td title="{{jobInfo.sencesName}}">{{jobInfo.sencesName}}</td>
+      <td title="{{jobInfo.createTime}}">{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
       <td *ngIf="jobInfo.trainable == 0"></td>
-      <td *ngIf="jobInfo.trainable != 0">{{jobInfo.status}}</td>
+      <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.status}}">{{jobInfo.status}}</td>
       <td *ngIf="jobInfo.trainable == 0"></td>
-      <td *ngIf="jobInfo.trainable != 0">{{jobInfo.percent==null?'0.00':jobInfo.percent|percent:'.2'}}</td>
+      <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.percent}}">{{jobInfo.percent==null?'0.00':jobInfo.percent|percent:'.2'}}</td>
       <!-- <td>{{jobInfo.job_progress}}%</td> -->
       <!--        <td class="operationTd">
                   <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
