@@ -17,7 +17,7 @@ export class PluginService {
     constructor(private http: Http) { }
 
     getAuthorization(){
-        return 'Bearer '+ sessionStorage['authenticationToken'];
+        return 'Bearer '+ localStorage['authenticationToken'];
     }
 
     getHeaders(){

@@ -37,7 +37,7 @@
     <div class="">
 
       <a class="back space" (click)="goback()" [style.display]="lookIt==1?'':'none'">返回</a>
-      <a class="back  space1" *ngIf="job?.status!='运行'" (click)="save()" [style.display]="lookIt==1?'':'none'">保存</a>
+      <a class="back  space1" *ngIf="job?.status!='运行' && haveModel == 1" (click)="save()" [style.display]="lookIt==1?'':'none'">保存</a>
 
       <div class="nav" [ngStyle]="navStyle()">
 
@@ -190,7 +190,7 @@
         <div class="chains">
           <div class="alg_choose_descrip">可选算法层:</div>
           <div class="alg_choose_drag">*支持拖拽</div>
-          <div class="alg_choose_list" id="myPaletteDiv"></div>
+          <div class="alg_choose_list" [style.visibility]="haveModel==1?'visible':'hidden'" id="myPaletteDiv"></div>
         </div>
         <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
         <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent" [ngClass]="{cntWidth: haveModel==0}">

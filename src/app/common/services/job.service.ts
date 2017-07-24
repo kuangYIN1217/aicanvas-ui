@@ -19,7 +19,7 @@ export class JobService {
   }
 
   getAuthorization() {
-    return 'Bearer ' + sessionStorage['authenticationToken'];
+    return 'Bearer ' + localStorage['authenticationToken'];
   }
 
   getHeaders() {

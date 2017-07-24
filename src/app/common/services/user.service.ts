@@ -16,7 +16,7 @@ export class UserService {
     constructor(private http: Http) { }
     // common functions
     getAuthorization(){
-        return 'Bearer '+ sessionStorage['authenticationToken'];
+        return 'Bearer '+ localStorage['authenticationToken'];
         // return 'Bearer '+ 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTQ5MjcyNDI5N30.j8nOGPy-W_pZW3Co1gpubwtmRz1VkNecxYWTV2KMEM6muwOtOehStM92kxjtOh1CILJznmmquSK2IdrebuNc3A';
     }
     getHeaders(){

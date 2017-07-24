@@ -27,7 +27,7 @@ export class DatasetsComponent{
     this.pageParams.curPage = this.s_page;
     // 获取datasetType
     this.getDataSetsTypes();
-    this.username = sessionStorage['username'];
+    this.username = localStorage['username'];
     this.initTable();
   }
 

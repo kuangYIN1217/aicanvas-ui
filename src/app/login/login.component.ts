@@ -21,11 +21,11 @@ export class LoginComponent implements OnInit{
     tabIndex:number=0;
     hg:any;
     constructor(private resourcesService: ResourcesService, private userService: UserService,private router: Router){
-        if((!sessionStorage['authenticationToken'])||sessionStorage['authenticationToken']==""){
+        if((!localStorage['authenticationToken'])||localStorage['authenticationToken']==""){
             // this.logined = 0;
             // console.log(sessionStorage['authenticationToken']);
         }else{
-            let token = sessionStorage['authenticationToken'];
+            let token = localStorage['authenticationToken'];
             // modal for going to overview
             // userService.getAccount().subscribe(account => console.log(account));
             // console.log(userService.getAccount());
@@ -112,8 +112,8 @@ export class LoginComponent implements OnInit{
         if(returnToken=="fail"){
             this.showMessage("登陆失败");
         }else if(returnToken&&returnToken.id_token){
-            sessionStorage['authenticationToken'] = returnToken.id_token;
-            sessionStorage['username']= username;
+          localStorage['authenticationToken'] = returnToken.id_token;
+          localStorage['username']= username;
            // console.log(sessionStorage['authenticationToken']);
             console.log("登陆成功");
             // this.showMessage("登陆成功");

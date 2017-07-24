@@ -20,7 +20,7 @@ export class ResourcesService {
     SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
     getAuthorization(){
-        return 'Bearer '+ sessionStorage['authenticationToken'];
+        return 'Bearer '+ localStorage['authenticationToken'];
     }
     getHeaders(){
         let headers = new Headers();

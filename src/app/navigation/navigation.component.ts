@@ -33,7 +33,7 @@ export class NavigationComponent {
   }
 
   constructor(private location: Location,private router:Router) {
-    if (!sessionStorage['username']) {
+    if (!localStorage['username']) {
       this.focusTab = 0;
       this.router.navigate(['/login'])
     }
@@ -50,8 +50,8 @@ export class NavigationComponent {
       // sceneService.getAllScenes()
       //     .subscribe(sceneArray => this.sceneArray = sceneArray);
     }
-    if (sessionStorage['username']) {
-      this.username = sessionStorage['username'];
+    if (localStorage['username']) {
+      this.username = localStorage['username'];
     } else {
       this.username = "Loading";
     }
@@ -88,8 +88,8 @@ export class NavigationComponent {
   }
 
   logout() {
-    sessionStorage.removeItem("authenticationToken");
-    sessionStorage.removeItem("username");
+    localStorage.removeItem("authenticationToken");
+    localStorage.removeItem("username");
     this.router.navigate(['/login'])
 
     // window.location.href = "/login";

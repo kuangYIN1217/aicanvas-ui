@@ -65,7 +65,7 @@ export class PopupComponent {
       query: {
           name: this.s_name,
           type: this.s_select_datasetType,
-          creator: sessionStorage['username']
+          creator: localStorage['username']
         }
     });
     if(!this.resumable.support) {
@@ -119,7 +119,7 @@ export class PopupComponent {
       $this.resumable.pause();
       $this.resumable.cancel();
       $this.s_error_level = "info";
-      $this.s_error_message = '压缩包中缺少datasource.csv文件';
+      $this.s_error_message = '文件解压失败或压缩包中缺少datasource.csv文件';
       file.abc[99];
     });
     this.resumable.on('fileProgress', function(file){

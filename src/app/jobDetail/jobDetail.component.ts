@@ -1,14 +1,14 @@
 import {Component} from "@angular/core";
 import {Location} from "@angular/common";
 import {JobService} from "../common/services/job.service";
-import {ChainInfo, JobInfo, JobParameter, JobResult, PluginInfo, UserInfo} from "../common/defs/resources";
+import {JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resources";
 import {AmChartsService} from "amcharts3-angular2";
 import {Router} from "@angular/router";
 import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param, Parameter} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
 import {WebSocketService} from "../web-socket.service";
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {SERVER_URL} from "../app.constants";
 import {addErrorToast, addSuccessToast, addWarningToast} from '../common/ts/toast';
 declare var $: any;
@@ -27,14 +27,14 @@ export class JobDetailComponent {
   jobResultParam = [];
   job: JobInfo = new JobInfo();
   user: UserInfo = new UserInfo();
-  jobParam: JobParameter[] = [];
+  // jobParam: JobParameter[] = [];
   initial: number = 0;
   interval: any;
   index: number = -1;
-  lossArray = [];
-  accuracyArray = [];
-  val_loss_array = [];
-  val_acc_array = [];
+  // lossArray = [];
+  // accuracyArray = [];
+  // val_loss_array = [];
+  // val_acc_array = [];
   jobResult: any = {
     bestLoss: null,
     bestValLoss: null,
@@ -740,12 +740,15 @@ export class JobDetailComponent {
   updateChart(data) {
     this.getRunningPlugin(data);
     let temp: JobParameter = data;
-    this.jobResultParam.push(temp);
-    // 展示plugin为runingplugin
-    if (this.runningFlag) {
-      this.loadCharts();
+    // todo judge temp
+    if (data.epoch) {
+      this.jobResultParam.push(temp);
+      // 展示plugin为runingplugin
+      if (this.runningFlag) {
+        this.loadCharts();
+      }
+      this.jobResult = temp;
     }
-    this.jobResult = temp;
   }
 
 
@@ -761,10 +764,6 @@ export class JobDetailComponent {
       this.websocket.stopWebsocket();
       this.index = -1;
       this.initJobDetailByPath();
-      /* this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-       this.job = jobDetail;
-       this.user = this.job.user;
-       });*/
       this.s_start_stop_click = true;
     });
   }
