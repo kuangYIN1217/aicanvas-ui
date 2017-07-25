@@ -281,7 +281,7 @@
   font-size: 0.73vw;
 }
 .selected.pluginArr_item {
-  background: #ff7c35;
+  background: #ff7c35 !important;
 }
 .pluginArr_item img {
   display: inline-block;
