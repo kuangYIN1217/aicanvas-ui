@@ -36,6 +36,7 @@ a{
   height:39px;
   line-height: 39px;
   cursor: pointer;
+  outline: none;
 }
 .tabs .tab_btn{
   float: right;
