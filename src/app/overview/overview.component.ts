@@ -107,7 +107,7 @@ export class OverviewComponent {
   makeRandomDataProvider4() {
     var dataProvider = [{
       created_at: "0",
-      percent: '0',
+      used_memory: '0',
     }];
     return dataProvider;
   }
