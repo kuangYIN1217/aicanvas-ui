@@ -25,7 +25,7 @@ export class AlgChainsComponent{
     pluginArr: PluginInfo[] = [];
     plugins: PluginInfo[] = [];
     chosenPluginId: string;
-    ifEdit:number=1;
+    ifEdit:number=0;
     haveModel: number;
     PluginInfo:PluginInfo[]=[];
     arrName:any[] =[];
