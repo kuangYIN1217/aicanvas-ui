@@ -174,6 +174,14 @@ export class AlgChainsComponent{
                 break;
             }
         }*/
+
+      let dom = document.querySelector('.status');
+      let top = $(dom).offset().top;
+      let win_height = $(window).height();
+      $(dom).css({
+        'height': win_height - top + 'px',
+        'box-sizing': 'border-box'
+      })
     }
 /*
     getPluginArray(pluginArr: PluginInfo[]){

@@ -468,7 +468,6 @@ npm start
 .leftBox{
     width: 20%;
     float: left;
-    height: 1000px;
     background: #fff;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -577,7 +576,6 @@ npm start
 .content{
     overflow: auto;
     width:61.8%;
-    height: 1000px;
     float: left;
     background-color: #ffffff;
     border-left: 1px solid #e8e8e8;
@@ -599,7 +597,6 @@ npm start
   float: right;
   padding-left: 10px;
   padding-top: 20px;
-  height: 980px;
   color: #333333;
   background: #fff;
   border-radius: 5px;

@@ -15,7 +15,8 @@ import { PARAM} from '../common/ts/param.name';
 declare var $: any;
 declare var unescape: any;
 declare var window: any;
-
+import {calc_height} from '../common/ts/calc_height'
+import {nextTick} from "q";
 @Component({
   moduleId: module.id,
   selector: 'jobDetail',
@@ -474,6 +475,18 @@ export class JobDetailComponent {
         //console.log(this.pluginArr[0].id);
         this.changeChosenPlugin(this.pluginArr[0].id , 0);
       });
+
+    nextTick(() => {
+      //calc_height(document.querySelector('.chains'));
+      //calc_height(document.querySelector('#myDiagramDiv'));
+      let dom = document.querySelector('.status');
+      let top = $(dom).offset().top;
+      let win_height = $(window).height();
+      $(dom).css({
+        'height': win_height - top + 'px',
+        'box-sizing': 'border-box'
+      })
+    })
   }
 
   goback() {
