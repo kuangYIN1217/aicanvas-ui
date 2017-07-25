@@ -57,10 +57,13 @@ select {
   border: solid 1px #d3d3d3;
   float: left;
   font-family: "MicrosoftYaHei";
-  font-size: 14px;
+  font-size: 12px;
   color: #999999 !important;
   outline: none;
-  padding-left: 24px;
+  padding-left: 35px;
+}
+.paddingLeft{
+  padding-left: 20px !important;
 }
 input::-webkit-input-placeholder { /* WebKit browsers */
   color:#999;

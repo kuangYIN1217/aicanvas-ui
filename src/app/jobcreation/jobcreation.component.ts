@@ -77,6 +77,8 @@ export class JobCreationComponent {
   plugin_validation: boolean = false;
   data_validation: boolean = false;
   fileCount:number=0;
+  focus:number=0;
+  blur:number=0;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
@@ -110,7 +112,18 @@ export class JobCreationComponent {
     // 退出时停止更新
     clearInterval(this.interval);
   }
-
+  searchLeft(){
+    this.focus=1;
+    this.blur=1;
+  }
+  searchBlur(){
+    if(this.jobName){
+      this.focus=1;
+    }else{
+      this.focus=0;
+    }
+    this.blur=0;
+  }
   getTranParamTypes(editable_params) {
     // editable_params为参数字典
     this.editable_params = editable_params;

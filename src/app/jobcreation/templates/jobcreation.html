@@ -4,8 +4,8 @@
             <div class="tabs_cont">
             <div class="tab_search">
               <!-- if too slow for each search, should change to (change) according to the num of data -->
-              <input id="search_input" type="text" [(ngModel)]="jobName" name="" value="" placeholder="&nbsp;&nbsp;搜索"/>
-              <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="jobName==null||jobName==''">
+              <input id="search_input" type="text" [(ngModel)]="jobName" name="" value=""  [attr.placeholder]="blur==0?'搜索':''" [ngClass]="{paddingLeft: focus==1}" (focus)="searchLeft()" (blur)="searchBlur()"/>
+              <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="jobName==null||jobName==''" [style.display]="blur==0?'':'none'">
             </div>
               <!--<div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a>-->
                <!--</div>-->
