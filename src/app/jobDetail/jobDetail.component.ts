@@ -643,6 +643,12 @@ export class JobDetailComponent {
   resolveJobParam(jobParam, status?: string) {
     /* console.log('unrun status')
      console.log(jobParam)*/
+    // 过滤jobparam
+    jobParam = jobParam.filter(job => {
+      if (job.epoch) {
+        return job;
+      }
+    })
     if (jobParam.length && jobParam.length > 0) {
       if (status === '停止') {
         this.getLastPluginJobParam(jobParam);
