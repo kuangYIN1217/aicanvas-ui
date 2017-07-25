@@ -125,7 +125,7 @@ h4{
 }
 
 .cpu{
-    height: 42.5vh;
+    height: 416px;
     background: #ffffff;
     border-radius: 5px;
 }
@@ -175,7 +175,7 @@ h4{
     /*box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: left;
     width: 49%;
-    height: 35vh;
+    height: 344px;
     border-radius: 10px;
     border:2px solid #dcdcdc;
 }
@@ -184,7 +184,7 @@ h4{
    /* box-shadow: 1px 1px 30px rgba(0,0,0,0.5);*/
     float: right;
     width: 49%;
-    height: 35vh;
+    height: 344px;
     border-radius: 10px;
     border:2px solid #dcdcdc;
 }

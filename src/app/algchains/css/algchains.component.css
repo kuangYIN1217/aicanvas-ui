@@ -490,7 +490,7 @@ npm start
     margin-right: 20px;
 }
 .alg_choose{
-    height: 1050px;
+   /* height: 1050px;*/
 }
 .alg_name{
     color: #eeeee1;
@@ -600,7 +600,7 @@ npm start
   padding-left: 10px;
   padding-top: 20px;
   height: 980px;
-  color: #333333;
+  color: #666666;
   background: #fff;
   border-radius: 5px;
 }

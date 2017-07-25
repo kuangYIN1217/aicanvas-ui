@@ -10,6 +10,7 @@ import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addWarningToast} from '../common/ts/toast';
 import { PARAM} from '../common/ts/param.name';
 declare var $:any;
+declare var window: any;
 @Component({
   moduleId: module.id,
   selector: 'algchains',
@@ -46,6 +47,7 @@ export class AlgChainsComponent{
       window.scrollTo(0,0);
     }
     ngOnInit(){
+      window.$ReadOnly = false;
       this.sceneService.getAllScenes()
         .subscribe(sceneArray => this.getSceneArray(sceneArray));
       this.pluginService.getLayerDict()
@@ -75,6 +77,9 @@ export class AlgChainsComponent{
         //         });
         // }
     }
+  ngOnDestroy() {
+    window.$ReadOnly = true;
+  }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
     }
