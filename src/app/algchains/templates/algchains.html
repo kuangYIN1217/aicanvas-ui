@@ -108,7 +108,7 @@
                               </div>-->
               <div class="chain">算法链：{{chainId}}</div>
               <div class="alg_choose">
-                <div class="pluginArr_item" *ngFor="let plugin of pluginArr" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)"><img src="../assets/algchains/Plugin.png"/><span>{{plugin.alg_name}}</span></div>
+                <div class="pluginArr_item" *ngFor="let plugin of pluginArr;let i=index" [ngClass]="{'selected': selected_plugin == i}" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id,i)"><img src="../assets/algchains/Plugin.png"/><span>{{plugin.alg_name}}</span></div>
               </div>
             </div>
             <!-- [style.display]="ifEdit==1?'':'none'"-->
@@ -118,8 +118,13 @@
               <div class="alg_choose_list" id="myPaletteDiv"></div>
             </div>
             <div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>
-            <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>
-            <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
+            <div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent" [ngClass]="{cntWidth: haveModel==0}">
+              <div class="cnt">
+                <img src="../assets/jobdetail/tishi.png"/>
+                <span>当前插件没有网络层</span>
+              </div>
+            </div>
+            <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0 && haveModel==1 ? '':'none'">
               <div *ngFor="let editable_parameter of editable_parameters">
                 <div class="layer_name"><span class="middle">{{editable_parameter.editable_param.name}}</span><img src="../assets/jobdetail/question.png" class="middle" [title]="paramjson[editable_parameter.editable_param.name]" alt=""></div>
                 <div class="layer_params" id="property_plugin">

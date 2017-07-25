@@ -44,6 +44,7 @@ export class AlgChainsComponent{
     flag:string="true";
     rightNodeIndex:number=0;
     paramjson: any = PARAM;
+    selected_plugin:number = 0;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
       window.scrollTo(0,0);
     }
@@ -65,7 +66,8 @@ export class AlgChainsComponent{
                     .subscribe(plugin=>{
                         this.pluginArr=plugin;
                        // console.log(this.pluginArr[0]);
-                        this.changeChosenPlugin(this.pluginArr[0].id);
+                      debugger
+                        this.changeChosenPlugin(this.pluginArr[0].id,0);
                     });
             }
         });
@@ -162,7 +164,7 @@ export class AlgChainsComponent{
               .subscribe(plugin=>{
                 this.pluginArr=plugin;
                 // console.log(this.pluginArr[0]);
-                this.changeChosenPlugin(this.pluginArr[0].id);
+                this.changeChosenPlugin(this.pluginArr[0].id,0);
               });
           }
         });
@@ -198,7 +200,9 @@ export class AlgChainsComponent{
     }
 */
 
-    changeChosenPlugin(id:string){
+    changeChosenPlugin(id:string,index?){
+      this.haveModel = 0;
+      this.selected_plugin = index;
         if(!this.chosenPluginId){
             this.chosenPluginId = id;
             let training_network_json = this.findPluginById(this.chosenPluginId).model;

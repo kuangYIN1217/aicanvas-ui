@@ -26,7 +26,7 @@
 .focus{
     color: #ff7c35;
     font-weight: normal;
-     border-bottom: 3px solid #ff7c35;
+    border-bottom: 3px solid #ff7c35;
 }
 .status{
     position: relative;
@@ -546,6 +546,10 @@ npm start
   margin-right: 20px !important;
 }
 /**//**/
+.selected.pluginArr_item {
+  background: #ff7c35;
+  border-bottom: 3px solid #ff7c35;
+}
 .pluginArr_item{
     width:146px;
     margin:0 auto;
@@ -553,12 +557,14 @@ npm start
     line-height: 46px;
     text-align: center;
     margin-top: 20px;
-    background: #ff7c35;
+    background: #999;
     color: #fefefe;
     border-radius: 8px;
     cursor: pointer;
     overflow: hidden;
-   font-size: 14px;
+    font-size: 14px;
+    font-weight: normal;
+    border-bottom: 3px solid #999;
 }
 .pluginArr_item img{
   display: inline-block;
@@ -575,7 +581,7 @@ npm start
 }
 .content{
     overflow-x: hidden;
-  overflow-y: auto;
+    overflow-y: auto;
     width:61.8%;
     height: 100%;
     float: left;
@@ -644,6 +650,26 @@ npm start
   -moz-appearance:none;
   -webkit-appearance:none;
 }*/
+.cntWidth{
+  width:79% !important;
+  margin:0 auto;
+  height:100%;
+}
+.cnt{
+  overflow: hidden;
+}
+.cnt img{
+  position: absolute;
+  top:200px;
+  left: 32%;
+}
+.cnt span{
+  position: absolute;
+  font-size: 16px;
+  color: #333333;
+  top:200px;
+  left: 35%;
+}
 .layer_params select{
     background: #ffffff 0px 0px;
     color: #333333;
