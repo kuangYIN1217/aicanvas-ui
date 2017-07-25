@@ -201,7 +201,7 @@
         </div>
         <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0?'':'none'">
           <div *ngFor="let editable_parameter of editable_parameters">
-            <div class="layer_name">{{editable_parameter.editable_param.name}}</div>
+            <div class="layer_name"><span class="middle">{{editable_parameter.editable_param.name}}</span><img src="../assets/jobdetail/question.png" class="middle" [title]="paramjson[editable_parameter.editable_param.name]" alt=""></div>
             <div class="layer_params" id="property_plugin">
               <input readonly
                      *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'&&statusIndex==0"
@@ -296,10 +296,10 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
+        <div class="spaceCnt">&nbsp;</div>
         <div class="rightBox" id="rightBox_node" [style.display]="rightBox_node==0?'none':''">
           <div class="layer_name"></div>
           <div class="layer_params" id="property"></div> <!--property-->

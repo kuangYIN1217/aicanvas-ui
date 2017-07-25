@@ -11,6 +11,7 @@ import {WebSocketService} from "../web-socket.service";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {SERVER_URL} from "../app.constants";
 import {addErrorToast, addSuccessToast, addWarningToast} from '../common/ts/toast';
+import { PARAM} from '../common/ts/param.name';
 declare var $: any;
 declare var unescape: any;
 declare var window: any;
@@ -70,6 +71,7 @@ export class JobDetailComponent {
   jobPath: string;
   step: number = 2;
   page: string;
+  paramjson: any = PARAM;
   // progress logs
   s_process_flag: boolean = true;
 

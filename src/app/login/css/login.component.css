@@ -279,7 +279,6 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 #submit{
     width: 340px;
     height: 50px;
-    background-color: #fe7d34;
     font-weight: bolder;
     font-family: "Microsoft YaHei";
     color: #ffffff;
@@ -287,7 +286,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
     cursor: pointer;
     letter-spacing: 4px;
     border-radius: 5px;
-    background: #ff8b4d;
+    background: #ff9861;
     /*background: linear-gradient(rgba(253,155,102,0.7), rgb(254,125,52));*/
     border:1px solid #ffffff !important;
 }
