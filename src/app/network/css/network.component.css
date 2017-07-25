@@ -3,7 +3,6 @@ a{
     text-decoration: none;
     color: white;
 }
-
 .networkBox{
     width: 100%;
     background-color: transparent;
@@ -11,7 +10,7 @@ a{
     min-height: 800px;
 }
 .spaceCnt{
-  width:0.5%;
+  width:1%;
   background: #eeeeee;
   height:100%;
   float: left;
@@ -75,7 +74,7 @@ a{
 .status{
   background-color: #ffffff;
   margin-left: 2%;
-  margin-top: 30px;
+  margin-top: 20px;
   width:96%;
   height: 1402px;
   border-radius: 5px;
@@ -154,7 +153,7 @@ a{
 /**/
 .content{
     overflow: auto;
-    width: 56%;
+    width: 77%;
     height: 1000px;
     float: left;
 }

@@ -20,7 +20,8 @@ export class DatasetsComponent{
   s_sort_type: any = 'createTime,desc';
   s_page: any = 1;
   s_size: any = 10;
-
+  focus:number=0;
+  blur:number=0;
   pageParams=new Page();
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
@@ -90,7 +91,18 @@ export class DatasetsComponent{
     console.log(this.s_select_name);
     this.initTable();
   }
-
+  searchLeft(){
+    this.focus=1;
+    this.blur=1;
+  }
+  searchBlur(){
+    if(this.s_select_name){
+      this.focus=1;
+    }else{
+      this.focus=0;
+    }
+    this.blur=0;
+  }
   changePageParmas(result) {
     console.log(result)
     let page = new Page();
