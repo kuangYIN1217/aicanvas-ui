@@ -540,7 +540,7 @@ export class OverviewComponent {
           this.allArr.push(cpuInfoArray[j]);
         }*/
        this.sort(cpuInfoArray,this.allArr);
-        console.log(this.allArr);
+        //console.log(this.allArr);
         //console.log(cpuInfoArray[0].used_memory);
         if(this.allArr.length>500){
           this.allArr.splice(0,2)
@@ -600,7 +600,7 @@ export class OverviewComponent {
                 this.gpuArr1.push(gpuInfoArray[j]);
               }*/
               this.sort(gpuInfoArray,this.gpuArr1);
-              console.log(this.gpuArr1);
+              //console.log(this.gpuArr1);
               if(this.gpuArr1.length>500){
                 this.gpuArr1.splice(0,2)
               }
@@ -626,7 +626,7 @@ export class OverviewComponent {
                this.gpuArr2.push(gpuInfoArray[j]);
                }*/
               this.sort(gpuInfoArray,this.gpuArr2);
-              console.log(this.gpuArr2);
+              //console.log(this.gpuArr2);
               if(this.gpuArr2.length>500){
                 this.gpuArr2.splice(0,2)
               }

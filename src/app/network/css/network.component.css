@@ -16,14 +16,10 @@ a{
   float: left;
 }
 .tabs{
-  position: relative;
   height: 39px;
-  width:96%;
   background-color: #ffffff;
-  margin-top: 20px;
-  margin-bottom: 0px;
+  margin:20px 30px 0 30px;
   border: 0px;
-  left:2%;
 }
 .tab_item{
   position: relative;
@@ -40,6 +36,7 @@ a{
   height:39px;
   line-height: 39px;
   cursor: pointer;
+  outline: none;
 }
 .tabs .tab_btn{
   float: right;
@@ -73,13 +70,10 @@ a{
 }
 .status{
   background-color: #ffffff;
-  margin-left: 2%;
-  margin-top: 20px;
-  width:96%;
+  margin:20px 30px 0 30px;
   height: 1402px;
   border-radius: 5px;
   min-height: 1000px;
-  border:1px solid #ffffff;
 }
 /*left*/
 .leftBox{
