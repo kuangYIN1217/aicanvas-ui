@@ -29,7 +29,7 @@ import {InferenceModelComponent} from "./inference-model/inference-model.compone
 
 const routes: Routes = [
   //{ path: '', component: NavigationComponent },
-  {path: 'algchainDetail/:scene_id', component: AlgchainDetailComponent},
+  {path: 'algchainDetail/:scene_id', component: AlgchainDetailComponent },
   {path: 'algchains', component: AlgChainsComponent},
   {path: 'algplugins', component: AlgPluginsComponent},
   {path: 'datasets', component: DatasetsComponent},

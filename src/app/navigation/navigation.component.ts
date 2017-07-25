@@ -28,8 +28,10 @@ export class NavigationComponent {
     this.collapse = 1 - this.collapse;
   }
 
-  changeTab(nextFocus: number) {
+  changeTab(nextFocus: number , url?) {
     this.focusTab = nextFocus;
+    this.router.navigate(['/'], {skipLocationChange: true})
+      .then(() => { this.router.navigate([url]); });
   }
 
   constructor(private location: Location,private router:Router) {

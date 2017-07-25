@@ -100,7 +100,7 @@
 
         <div class="lossCard right">
           <div class="head">
-            <div class="chart-title"><span class="img-span">{{jobResult?.metrics_name == null ? 'METRIC' : jobResult?.metrics_name.toUpperCase()}}</span><img class="question-icon" title="度量函数" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="chart-title"><span class="img-span">{{jobResult?.metrics_name == null ? 'METRIC' : jobResult?.metrics_name.toUpperCase()}}</span><img class="question-icon" [title]="getMetric()" src="../../../assets/jobdetail/question.png" alt=""></div>
             <div class="chart-tip">
               <div class="item">
                 <div class="color red"></div>
@@ -137,11 +137,11 @@
             <div class="cardInline_value">{{jobResult?.bestValLoss |number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 20px">
-            <div class="cardInline"><span class="img-span">best_{{jobResult?.metrics_name}}</span><img class="question-icon" title="最佳训练集度量函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline"><span class="img-span">best_{{jobResult?.metrics_name}}</span><img class="question-icon" [title]="'最佳训练集' + getMetric()" src="../../../assets/jobdetail/question.png" alt=""></div>
             <div class="cardInline_value">{{jobResult?.bestMetrics|number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 10px">
-            <div class="cardInline"><span class="img-span">best_val_{{jobResult?.metrics_name}}</span><img class="question-icon" title="最佳验证集度量函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
+            <div class="cardInline"><span class="img-span">best_val_{{jobResult?.metrics_name}}</span><img class="question-icon" [title]="'最佳验证集' + getMetric()" src="../../../assets/jobdetail/question.png" alt=""></div>
             <div class="cardInline_value">{{jobResult?.bestValMetrics| number:'1.2-2'}}</div>
           </div>
         </div>

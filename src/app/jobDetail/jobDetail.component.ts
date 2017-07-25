@@ -70,9 +70,9 @@ export class JobDetailComponent {
   jobPath: string;
   step: number = 2;
   page: string;
-
   // progress logs
   s_process_flag: boolean = true;
+
   s_progress_show: boolean = false;
   d_progress_logs = [];
   s_save_flag: boolean = true;
@@ -80,8 +80,11 @@ export class JobDetailComponent {
     percent: 0,
     step: '初始化'
   };
-
   s_start_stop_click: boolean = true;
+
+  METRIC_PARAMS: any = {
+    'acc': '准确率'
+  }
   lossChartInitData() {
     var dataProvider = [{
       loss: "0",
@@ -828,5 +831,12 @@ export class JobDetailComponent {
         }
       }
     }
+  }
+
+  getMetric() {
+    if (this.jobResult.metrics_name) {
+      return this.METRIC_PARAMS[this.jobResult.metrics_name] ? this.METRIC_PARAMS[this.jobResult.metrics_name] : '度量函数';
+    }
+    return '度量函数';
   }
 }
