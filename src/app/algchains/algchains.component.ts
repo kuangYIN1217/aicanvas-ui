@@ -184,7 +184,7 @@ export class AlgChainsComponent{
         let dom = document.getElementsByClassName('chain-wrapper')[0];
         let win_height = $(window).height();
         $(dom).css({
-          'height': win_height - 215 + 'px',
+          'height': win_height - 225 + 'px',
           'box-sizing': 'border-box'
         })
       })

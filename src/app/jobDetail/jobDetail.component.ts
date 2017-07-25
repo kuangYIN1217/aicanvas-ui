@@ -482,7 +482,7 @@ export class JobDetailComponent {
       let dom = document.querySelector('.status');
       let win_height = $(window).height();
       $(dom).css({
-        'height': win_height - 215 + 'px',
+        'height': win_height -225 + 'px',
         'box-sizing': 'border-box'
       })
     })

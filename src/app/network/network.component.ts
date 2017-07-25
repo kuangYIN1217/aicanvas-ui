@@ -4,6 +4,7 @@ import {SceneService} from "../common/services/scene.service";
 import {PluginService} from "../common/services/plugin.service";
 import {PluginInfo} from "../common/defs/resources";
 import {Router} from "@angular/router";
+import {nextTick} from "q";
 declare var $: any;
 declare var window: any;
 @Component({
@@ -34,7 +35,18 @@ export class NetworkComponent {
       }
     }
   }
-
+  ngOnInit() {
+    nextTick(() => {
+      //calc_height(document.querySelector('.chains'));
+      //calc_height(document.querySelector('#myDiagramDiv'));
+      let dom = document.querySelector('.status');
+      let win_height = $(window).height();
+      $(dom).css({
+        'height': win_height - 150 + 'px',
+        'box-sizing': 'border-box'
+      })
+    })
+  }
   // getSceneArray(sceneArray: SceneInfo[]){
   //     this.sceneArray = sceneArray;
   //     for (let scene of this.sceneArray){

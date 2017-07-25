@@ -71,9 +71,7 @@ a{
 .status{
   background-color: #ffffff;
   margin:20px 30px 0 30px;
-  height: 1402px;
   border-radius: 5px;
-  min-height: 1000px;
 }
 /*left*/
 .leftBox{
@@ -83,7 +81,7 @@ a{
     height: 100%;
 }
 .chains{
-  overflow: auto;
+  overflow: hidden;
   width: 20%;
   height: 100%;
   float: left;
@@ -146,9 +144,11 @@ a{
 }
 /**/
 .content{
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 77%;
-    height: 1000px;
+    height: 100%;
+    box-sizing: border-box;
     float: left;
 }
 

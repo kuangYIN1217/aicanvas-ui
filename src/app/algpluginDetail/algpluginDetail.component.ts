@@ -6,9 +6,11 @@ import {Editable_param, Parameter} from "../common/defs/parameter";
 import {ActivatedRoute, Router} from "@angular/router";
 // import { ActivatedRoute,Params} from '@angular/router';
 // import { ResourcesService } from '../../common/services/resources.service'
+import {calc_height} from '../common/ts/calc_height'
 import {addWarningToast} from '../common/ts/toast';
 
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
+import {nextTick} from "q";
 declare var $:any;
 @Component({
     moduleId: module.id,
@@ -44,7 +46,11 @@ export class AlgpluginDetailComponent {
 
       /*});*/
     }
-
+    ngOnInit() {
+      nextTick(() => {
+        calc_height(document.getElementsByClassName('status')[0]);
+      })
+    }
 
 /*  ngOnInit(){
     this.route.queryParams.subscribe(params => {
