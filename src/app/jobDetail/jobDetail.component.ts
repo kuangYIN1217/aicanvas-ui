@@ -42,7 +42,8 @@ export class JobDetailComponent {
     bestMetrics: null,
     bestValMetrics: null,
     sec_epoch: null,
-    epoch: null
+    epoch: null,
+    metrics_name: null
   };
   MAX_CIRCLE = 40;
   tabIndex: number = 0;
@@ -836,7 +837,7 @@ export class JobDetailComponent {
   }
 
   getMetric() {
-    if (this.jobResult.metrics_name) {
+    if (this.jobResult && this.jobResult.metrics_name) {
       return this.METRIC_PARAMS[this.jobResult.metrics_name] ? this.METRIC_PARAMS[this.jobResult.metrics_name] : '度量函数';
     }
     return '度量函数';
