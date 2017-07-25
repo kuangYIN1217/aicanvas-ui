@@ -539,8 +539,8 @@ export class OverviewComponent {
 /*        for(let j = 0; j < cpuInfoArray.length; j++){
           this.allArr.push(cpuInfoArray[j]);
         }*/
-        this.sort(cpuInfoArray,this.allArr);
-        //console.log(this.allArr);
+       this.sort(cpuInfoArray,this.allArr);
+        console.log(this.allArr);
         //console.log(cpuInfoArray[0].used_memory);
         if(this.allArr.length>500){
           this.allArr.splice(0,2)
@@ -594,10 +594,13 @@ export class OverviewComponent {
                 let gpuInfo1 = gpuInfoArray[i].total_used_memory;
                 let data1 = Number((gpuInfo1 / this.totalGlobalMem).toFixed(2)) * 100;
                 gpuInfoArray[i].total_used_memory = data1;
-                console.log(gpuInfoArray);
+                //console.log(gpuInfoArray);
               }
+/*              for(let j = 0; j < gpuInfoArray.length; j++){
+                this.gpuArr1.push(gpuInfoArray[j]);
+              }*/
               this.sort(gpuInfoArray,this.gpuArr1);
-              //console.log(this.gpuArr1);
+              console.log(this.gpuArr1);
               if(this.gpuArr1.length>500){
                 this.gpuArr1.splice(0,2)
               }
@@ -619,15 +622,14 @@ export class OverviewComponent {
                 let data2 = Number((gpuInfo2 / this.totalGlobalMem).toFixed(2)) * 100;
                 gpuInfoArray[i].total_used_memory = data2;
               }
-              this.sort(gpuInfoArray,this.gpuArr2);
 /*              for(let j = 0; j < gpuInfoArray.length; j++){
-                this.gpuArr2.push(gpuInfoArray[j]);
-              }*/
-              //console.log(this.gpuArr2);
+               this.gpuArr2.push(gpuInfoArray[j]);
+               }*/
+              this.sort(gpuInfoArray,this.gpuArr2);
+              console.log(this.gpuArr2);
               if(this.gpuArr2.length>500){
                 this.gpuArr2.splice(0,2)
               }
-
               this.AmCharts.updateChart(this.chart5, () => {
                 this.chart5.dataProvider = this.gpuArr2;
               });
@@ -636,7 +638,6 @@ export class OverviewComponent {
               });
             });
         }
-
       }
     }
   // }
@@ -644,17 +645,21 @@ sort(arr1, arr2){
   for(let j = 0; j < arr1.length; j++){
     if(arr1.length==1){
       arr2.push(arr1[j]);
+      return;
     }else{
-      this.time1=arr1[length-2].created_at;
-      this.time2=arr1[length-1].created_at;
+      this.time1=arr1[0].created_at;
+      this.time2=arr1[1].created_at;
       if(this.time1>this.time2){
-        arr2.push(arr1[length-1]);
-        arr2.push(arr1[length-2]);
+        arr2.push(arr1[1]);
+        arr2.push(arr1[0]);
+        return;
       }else{
-        arr2.push(arr1[length-2]);
-        arr2.push(arr1[length-1]);
+        arr2.push(arr1[0]);
+        arr2.push(arr1[1]);
+        return;
       }
     }
+    //this.gpuArr1.push(arr1[j]);
   }
 }
   getGpuInfo(gpuInfoArray: GpuInfo[], gpu: Gpu) {
