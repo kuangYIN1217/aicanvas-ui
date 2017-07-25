@@ -5,6 +5,7 @@ import {PluginService} from "../common/services/plugin.service";
 import {PluginInfo} from "../common/defs/resources";
 import {Router} from "@angular/router";
 declare var $: any;
+declare var window: any;
 @Component({
   moduleId: module.id,
   selector: 'network',
@@ -23,6 +24,7 @@ export class NetworkComponent {
   plugin: PluginInfo = new PluginInfo();
   general:string='general';
   constructor(private sceneService: SceneService, private pluginService: PluginService, private location: Location,private router:Router) {
+    window.$ReadOnly = false;
     if (this.location.path(false).indexOf('/network/') != -1) {
       let id = this.location.path(false).split('/network/')[1];
       if (id) {
@@ -83,7 +85,9 @@ export class NetworkComponent {
   //         }
   //     }
   // }
-
+  ngOnDestroy() {
+    window.$ReadOnly = true;
+  }
   getPlugin(plugin) {
     this.plugin = plugin;
     let training_network_json = plugin.model;

@@ -9,7 +9,9 @@ import {Editable_param, Parameter} from "../common/defs/parameter";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addWarningToast} from '../common/ts/toast';
 import { PARAM} from '../common/ts/param.name';
+import {nextTick} from "q";
 declare var $:any;
+declare var window: any;
 @Component({
   moduleId: module.id,
   selector: 'algchains',
@@ -46,6 +48,7 @@ export class AlgChainsComponent{
       window.scrollTo(0,0);
     }
     ngOnInit(){
+      window.$ReadOnly = false;
       this.sceneService.getAllScenes()
         .subscribe(sceneArray => this.getSceneArray(sceneArray));
       this.pluginService.getLayerDict()
@@ -75,6 +78,9 @@ export class AlgChainsComponent{
         //         });
         // }
     }
+  ngOnDestroy() {
+    window.$ReadOnly = true;
+  }
     getDictionary(dictionary){
         $('#layer_dictionary').val(JSON.stringify(dictionary));
     }
@@ -174,14 +180,15 @@ export class AlgChainsComponent{
                 break;
             }
         }*/
-
-      let dom = document.querySelector('.status');
-      let top = $(dom).offset().top;
-      let win_height = $(window).height();
-      $(dom).css({
-        'height': win_height - top + 'px',
-        'box-sizing': 'border-box'
+      nextTick(() => {
+        let dom = document.getElementsByClassName('chain-wrapper')[0];
+        let win_height = $(window).height();
+        $(dom).css({
+          'height': win_height - 215 + 'px',
+          'box-sizing': 'border-box'
+        })
       })
+
     }
 /*
     getPluginArray(pluginArr: PluginInfo[]){

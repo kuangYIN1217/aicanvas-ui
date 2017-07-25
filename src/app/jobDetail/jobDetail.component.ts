@@ -480,10 +480,9 @@ export class JobDetailComponent {
       //calc_height(document.querySelector('.chains'));
       //calc_height(document.querySelector('#myDiagramDiv'));
       let dom = document.querySelector('.status');
-      let top = $(dom).offset().top;
       let win_height = $(window).height();
       $(dom).css({
-        'height': win_height - top + 'px',
+        'height': win_height - 215 + 'px',
         'box-sizing': 'border-box'
       })
     })

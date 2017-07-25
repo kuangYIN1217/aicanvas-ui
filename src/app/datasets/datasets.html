@@ -9,8 +9,8 @@
       <div class="toolbar">
         <div class="searchContainer">
           <!-- if too slow for each search, should change to (change) according to the num of data -->
-          <input [(ngModel)]="s_select_name" (ngModelChange)="$name_change()" class="search-input" type="text"  placeholder="搜索数据集名称"/>
-          <img class="search-icon" src="../../assets/jobcreation/sousuo.png">
+          <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="s_select_name==null||s_select_name==''" [style.display]="blur==0?'':'none'">
+          <input [(ngModel)]="s_select_name" (ngModelChange)="$name_change()" class="search-input" type="text" [attr.placeholder]="blur==0?'搜索数据集名称':''" [ngClass]="{paddingLeft: focus==1}" (focus)="searchLeft()" (blur)="searchBlur()"/>
         </div>
 
         <div class="selectContainer">
