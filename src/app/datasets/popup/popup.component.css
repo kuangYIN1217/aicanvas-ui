@@ -50,6 +50,7 @@
 .selectContainer select{
   border-radius: 5px;
   border: 1px solid #d3d3d3;
+  font-size: 14px;
   background: url("../../../assets/taskStatus/select.png") no-repeat;
   background-position: right;
   appearance:none;
