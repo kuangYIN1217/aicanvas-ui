@@ -17,6 +17,8 @@ RUN npm install -g n
 RUN n v6.11.0
 RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
 
+# 安装angular/cli
+RUN cnpm install -g @angular/cli
 # build 项目
 ADD . /src
 RUN cd /src; cnpm install --force
@@ -38,7 +40,3 @@ EXPOSE 80
 
 # start开启nginx
 ENTRYPOINT nginx -g "daemon off;"
-
-
-
-
