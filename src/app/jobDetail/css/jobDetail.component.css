@@ -309,21 +309,21 @@
 
 .alg_choose_descrip {
   color: #333333;
-  font-size: 0.73vw;
+  font-size: 14px;
   padding: 30px 28px 8px 30px;
 }
 
 .alg_choose_drag {
   color: #ee8348;
-  font-size: 0.62vw;
+  font-size: 12px;
   margin-left: 30px;
   margin-bottom: 33px;
 }
 
 .alg_choose_list {
-  color: #eeeee1;
-  /*margin-bottom: 50px;*/
-  height: 90%;
+  color: #eeeeee;
+  overflow-y:auto;
+  height: 80%;
 }
 .cntWidth{
   width:80% !important;
