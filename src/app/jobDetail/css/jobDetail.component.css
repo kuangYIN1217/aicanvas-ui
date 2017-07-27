@@ -4,7 +4,7 @@
 }
 
 .bg {
-  padding: 20px 30px;
+  padding: 20px 30px 0;
   background-color: #eeeeee;
 }
 
@@ -262,9 +262,9 @@
   word-break: break-all;
 }
 
-.alg_choose {
+/*.alg_choose {
   height: 1050px;
-}
+}*/
 
 .pluginArr_item {
   width: 146px;
