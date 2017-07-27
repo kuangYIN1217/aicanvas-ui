@@ -1,5 +1,5 @@
 # FROM centos:centos7
-FROM ubuntu:16.04
+FROM daocloud.io/library/ubuntu:16.04
 USER root
 MAINTAINER hinesboy hines.zhu@gmail.com
 
@@ -15,13 +15,14 @@ RUN apt-get -y install npm
 RUN npm cache clean
 RUN npm install -g n
 RUN n v6.11.0
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
-
+# RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
+RUN npm install -g yarn
 # 安装angular/cli
-RUN cnpm install -g @angular/cli
+# RUN yarn install -g @angular/cli
+
 # build 项目
 ADD . /src
-RUN cd /src; cnpm install --force
+RUN cd /src; yarn install
 
 # build
 RUN cd /src; npm run build
