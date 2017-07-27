@@ -15,15 +15,18 @@ export class PageComponent {
   public totalPage = 5;
   pageMaxItem =10;
   job_id:number;
+  model_id:number;
   constructor() {
     let vm = this;
     //console.log('从父组件获取的参数', vm['pageParams']);
   }
   ngOnInit(){
-    this.pageParams = {'totalNum':0,'curPage':1,'pageMaxItem':10,'totalPage':0,'job_id':this.job_id};
+    console.log(this.model_id);
+    this.pageParams = {'totalNum':0,'curPage':1,'pageMaxItem':10,'totalPage':0,'job_id':this.job_id,'model_id':this.model_id};
   }
   ngOnChanges(...args: any[]) {
     this.job_id = this.pageParams.job_id;
+    this.model_id = this.pageParams.model_id;
   }
 
   getPageList(pageParams) {
@@ -82,6 +85,7 @@ export class PageComponent {
     vm.pageParams.curPage = pageNo;
     //sessionStorage['curPage']=pageNo;
     vm.pageParams.job_id =  this.job_id;
+    vm.pageParams.model_id =  this.model_id;
     vm.pageParams.pageMaxItem = this.pageMaxItem;
 
     vm.changeCurPage.emit(vm.pageParams);

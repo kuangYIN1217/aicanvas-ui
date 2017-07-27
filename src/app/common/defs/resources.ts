@@ -28,6 +28,7 @@ export class Page{
   totalPage: number;
   totalNum:number;
   job_id:number;
+  model_id:number;
 }
 export class UserInfo{
     //

@@ -29,7 +29,7 @@ export class HistoryDetailComponent {
   resultP: inferenceResult[] = [];
   page: number = 1;
   pageMaxItem: number = 10;
-  pageParams: Page = new Page;
+  pageParams = new Page();
   type:string;
   arr:any[]=[];
   arr1:any[]=[];
@@ -50,6 +50,7 @@ export class HistoryDetailComponent {
     this.item = this.items[0];
     this.changeValue();
   }
+
   ngOnChanges(...args: any[]) {
     // for (let obj = 0; obj < args.length; obj++) {
     //   if (args[obj]['model_id']["currentValue"]) {
@@ -91,6 +92,7 @@ export class HistoryDetailComponent {
         }*/ }
         this.result = result.content;
         let page = new Page();
+        page.model_id = this.model_id;
         page.pageMaxItem = result.size;
         page.curPage = result.number+1;
         page.totalPage = result.totalPages;
@@ -101,7 +103,8 @@ export class HistoryDetailComponent {
     })
   }
   getPageData(paraParam) {
-    this.getResult(this.model_id,paraParam.curPage-1,paraParam.pageMaxItem);
+    console.log(paraParam);
+    this.getResult(paraParam.model_id,paraParam.curPage-1,paraParam.pageMaxItem);
     //console.log('触发', paraParam);
   }
   changeValue() {
@@ -132,5 +135,9 @@ export class HistoryDetailComponent {
         return this.outputArr.slice(0, this.id);
     }
   }
-
+  outName(input) {
+    if(input){
+      return input.slice(50, input.length);
+    }
+  }
 }

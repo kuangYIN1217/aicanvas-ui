@@ -31,7 +31,7 @@ export class AlgpluginDetailComponent {
         let id = params['pluginId'];*/
         if (location.path(false).indexOf('/algpluginDetail/') != -1) {
            let arr = location.path(false).split('/algpluginDetail/')[1];
-           arr = decodeURI(arr);
+           arr = decodeURIComponent(arr);
            let params = arr.split(',');
            let id = params[0];
            this.creator = params[1];

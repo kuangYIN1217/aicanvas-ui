@@ -46,9 +46,21 @@ export class TaskStatusComponent{
 
     }
     getPageData(paraParam) {
+      //clearInterval(this.interval);
+      // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 500);
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
+      //this.changePage(paraParam.curPage-1,paraParam.pageMaxItem);
       this.pageNow=paraParam.curPage;
       //console.log('触发', paraParam);
+    }
+    changePage(page,max){
+      if(page==page+1){
+        clearInterval(this.interval1);
+        this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,page+1,max,this.sceneId), 500);
+      } else if(page==page-1){
+        clearInterval(this.interval1);
+        this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,page--,max,this.sceneId), 500);
+      }
     }
   getPage(){
       sessionStorage['curPage'] = this.pageNow;
@@ -81,12 +93,7 @@ export class TaskStatusComponent{
      }
    }
     updatePage(){
-       //console.log(this.statuss);
-      if(this.page!=1){
-        clearInterval(this.interval);
-      }else{
-        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
-      }
+      this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
 
     }
     getAlljobs(status,page,size,sceneId){

@@ -50,7 +50,7 @@ export class ModelComponent {
   responsePath:any[] = [];
   perInterval:any;
   upload_click_flag: boolean = true;
-  uploadName:string;
+  uploadName:any[]=[];
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -117,7 +117,10 @@ export class ModelComponent {
       }
       this.upload_click_flag = false;
       console.log(this.uploader.queue);
-      //console.log(this.container);
+      for(let i in this.uploader.queue){
+        this.uploadName.push(this.uploader.queue[i].file.name);
+      }
+      console.log(this.uploadName);
       this.responsePath=[];
       for(var i=0;i<this.container.length;i++){
         this.uploader.queue[i].onSuccess = (response: any, status: any, headers: any) => {
@@ -135,7 +138,7 @@ export class ModelComponent {
    //this.tabIndex=this.scene;
    }
   saveModelAndUpload(filePath: any[]) {
-    this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result => {
+    this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result =>{
       // this.runId = result.id;
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
       console.log(result.id, this.job.jobPath);
@@ -245,5 +248,6 @@ export class ModelComponent {
     clearInterval(this.interval);
     this.currentId=id;
     this.interval = setInterval(() => this.getResult(id), 500);
+
   }
 }
