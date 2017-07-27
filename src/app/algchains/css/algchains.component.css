@@ -550,6 +550,12 @@ npm start
   background: #ff7c35;
   border-bottom: 3px solid #ff7c35;
 }
+.spaceCnt{
+  width:1%;
+  background: #eeeeee;
+  height:100%;
+  float: left;
+}
 .pluginArr_item{
     width:146px;
     margin:0 auto;
@@ -582,7 +588,8 @@ npm start
 .content{
     overflow-x: hidden;
     overflow-y: auto;
-    width:61.8%;
+    width:61.1%;
+    box-sizing: border-box;
     height: 100%;
     float: left;
     background-color: #ffffff;
@@ -657,18 +664,15 @@ npm start
 }
 .cnt{
   overflow: hidden;
+  text-align: center;
+  margin-top: 100px;
 }
 .cnt img{
-  position: absolute;
-  top:200px;
-  left: 32%;
+
 }
 .cnt span{
-  position: absolute;
   font-size: 16px;
   color: #333333;
-  top:200px;
-  left: 35%;
 }
 .layer_params select{
     background: #ffffff 0px 0px;

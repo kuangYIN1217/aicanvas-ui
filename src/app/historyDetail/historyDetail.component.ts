@@ -92,7 +92,7 @@ export class HistoryDetailComponent {
         }*/ }
         this.result = result.content;
         let page = new Page();
-        page.model_id = this.model_id;
+        page.model_id = modelId;
         page.pageMaxItem = result.size;
         page.curPage = result.number+1;
         page.totalPage = result.totalPages;
@@ -137,7 +137,7 @@ export class HistoryDetailComponent {
   }
   outName(input) {
     if(input){
-      return input.slice(50, input.length);
+      return input.slice(51, input.length);
     }
   }
 }
