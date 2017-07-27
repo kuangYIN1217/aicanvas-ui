@@ -50,6 +50,7 @@ export class ModelComponent {
   responsePath:any[] = [];
   perInterval:any;
   upload_click_flag: boolean = true;
+  uploadName:string;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -185,10 +186,12 @@ export class ModelComponent {
     console.log(job_id);
     this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
-        this.ModelInfo = model.content;
+        if(model.content){
+          this.ModelInfo = model.content;
           if(this.ModelInfo[0].percent==1) {
             clearInterval(this.perInterval);
           }
+        }
         let page = new Page();
         page.job_id = this.job_id;
         page.pageMaxItem = model.size;

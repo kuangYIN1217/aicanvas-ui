@@ -21,6 +21,7 @@ export class TaskStatusComponent{
     student:number=0;
     id:number;
     interval: any;
+    interval1:any;
     dataIndex:number=1;
     Jobs: JobInfo[] = [];
     pageParams=new Page();
@@ -40,7 +41,7 @@ export class TaskStatusComponent{
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
-    @Input() pageNumber:number;
+    @Input() pageNumber:number=1;
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
 
     }
@@ -81,7 +82,12 @@ export class TaskStatusComponent{
    }
     updatePage(){
        //console.log(this.statuss);
-       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+      if(this.page!=1){
+        clearInterval(this.interval);
+      }else{
+        this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+      }
+
     }
     getAlljobs(status,page,size,sceneId){
         this.jobService.getAllJobs(status,page,size,sceneId,this.jobName)
@@ -101,7 +107,6 @@ export class TaskStatusComponent{
                 page.totalPage = Jobs.totalPages;
                 page.totalNum = Jobs.totalElements;
                 this.pageParams = page;
-
                // console.log(this.pageParams);
             });
     }

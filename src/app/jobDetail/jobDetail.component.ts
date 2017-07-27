@@ -481,8 +481,9 @@ export class JobDetailComponent {
       //calc_height(document.querySelector('#myDiagramDiv'));
       let dom = document.querySelector('.status');
       let win_height = $(window).height();
+      //console.log(win_height);
       $(dom).css({
-        'height': win_height -225 + 'px',
+        'height': win_height -258 + 'px',
         'box-sizing': 'border-box'
       })
     })

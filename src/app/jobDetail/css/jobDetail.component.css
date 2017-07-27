@@ -4,7 +4,7 @@
 }
 
 .bg {
-  padding: 20px 30px;
+  padding: 20px 30px 0;
   background-color: #eeeeee;
 }
 
@@ -262,9 +262,9 @@
   word-break: break-all;
 }
 
-.alg_choose {
+/*.alg_choose {
   height: 1050px;
-}
+}*/
 
 .pluginArr_item {
   width: 146px;
@@ -309,21 +309,21 @@
 
 .alg_choose_descrip {
   color: #333333;
-  font-size: 0.73vw;
+  font-size: 14px;
   padding: 30px 28px 8px 30px;
 }
 
 .alg_choose_drag {
   color: #ee8348;
-  font-size: 0.62vw;
+  font-size: 12px;
   margin-left: 30px;
   margin-bottom: 33px;
 }
 
 .alg_choose_list {
-  color: #eeeee1;
-  /*margin-bottom: 50px;*/
-  height: 90%;
+  color: #eeeeee;
+  overflow-y:auto;
+  height: 80%;
 }
 .cntWidth{
   width:80% !important;
