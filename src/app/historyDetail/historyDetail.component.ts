@@ -82,12 +82,14 @@ export class HistoryDetailComponent {
         this.inputType = this.result[0].inputType;
         if(this.inputType=='path'){
           this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
-          if(this.type == "txt"||this.type == "csv"){
-            result.content[0].inputPath = "/home/ligang/dataset/1498613919473showTxt.png";
-          }
+          console.log(this.type);
+/*          if(this.type == "txt"||this.type == "csv"){
+            result.content[0].inputPath = "/home/ligang/dataset/1501128031530showTxt.png";
+
         }else if(this.inputType=='text'){
           this.result = result.content;
-        }
+        }*/ }
+        this.result = result.content;
         let page = new Page();
         page.pageMaxItem = result.size;
         page.curPage = result.number+1;
