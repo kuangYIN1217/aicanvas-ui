@@ -351,19 +351,17 @@
 }
 .cnt{
   overflow: hidden;
+  text-align: center;
+  margin-top: 100px;
 }
+
 .cnt img{
-  position: absolute;
-  top:150px;
-  left: 32%;
+
 }
 .cnt span{
-  position: absolute;
   font-size: 16px;
   color: #333333;
   margin-left: 10px;
-  top:150px;
-  left: 35%;
 }
 .rightBox {
   width: 17%;
@@ -580,5 +578,5 @@ input:focus {
   right: 0;
   bottom: 0;
   top: 200px;
-  left: 320px;
+  left: 30%;
 }
