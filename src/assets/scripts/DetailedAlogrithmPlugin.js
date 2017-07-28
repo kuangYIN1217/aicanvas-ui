@@ -231,7 +231,7 @@ function init() {
       {
         stroke: "#01bb91",  // this is changed to "white" in the showPorts function
         fill: "#fff",
-        desiredSize: new go.Size(9, 9),
+        desiredSize: new go.Size(10, 10),
         alignment: spot, alignmentFocus: spot,  // align the port on the main Shape
         portId: name,  // declare this object to be a "port"
         fromSpot: spot, toSpot: spot,  // declare where links may connect at this port
@@ -276,7 +276,7 @@ function init() {
     var diagram = node.diagram;
     if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
     node.ports.each(function(port) {
-      port.stroke = (show ? "#fff" : null);
+      port.stroke = (show ? "#01bb91" : "#01bb91");
     });
   }
 } // 初始化函数结束

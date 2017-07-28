@@ -24,6 +24,7 @@ export class HistoryDetailComponent {
   items: any[] = ['top1', 'top2', 'top3', 'All'];
   item: string;
   outputArr: any[] = [];
+  outputName: any[] = [];
   id: number;
   result: inferenceResult[] = [];
   resultP: inferenceResult[] = [];
@@ -39,6 +40,7 @@ export class HistoryDetailComponent {
   wordId:string='0';
   val:string;
   inputType:string;
+
   constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       this.model_id = params['runId'];
@@ -137,7 +139,8 @@ export class HistoryDetailComponent {
   }
   outName(input) {
     if(input){
-      return input.slice(51, input.length);
+      this.outputName = input.split("/")[7];
+      return this.outputName.slice(13, this.outputName.length);
     }
   }
 }
