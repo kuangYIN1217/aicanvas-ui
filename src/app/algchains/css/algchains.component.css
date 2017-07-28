@@ -622,6 +622,7 @@ npm start
   background: #fff;
   border-radius: 5px;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 /*.layer_name{
     margin-top: 30px;

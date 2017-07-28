@@ -372,6 +372,7 @@
   color: #333333;
   background: #fff;
   border-radius: 5px;
+  overflow-y: auto;
 }
 
 .layer_params {
