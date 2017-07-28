@@ -124,7 +124,7 @@
                 <span class="middle">当前插件没有网络层</span>
               </div>
             </div>
-            <div class="spaceCnt">&nbsp;</div>
+            <div class="spaceCnt"  [style.display]="haveModel==1?'':'none'">&nbsp;</div>
             <div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node==0 && haveModel==1 ? '':'none'">
               <div *ngFor="let editable_parameter of editable_parameters">
                 <div class="layer_name"><span class="middle">{{editable_parameter.editable_param.name}}</span><img src="../assets/jobdetail/question.png" class="middle" [title]="paramjson[editable_parameter.editable_param.name]" alt=""></div>

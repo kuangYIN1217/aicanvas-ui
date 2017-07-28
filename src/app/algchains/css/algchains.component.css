@@ -177,12 +177,12 @@
     border: 1px solid #999999;
     border-radius: 5px;
     width:7.4vw;
-    font-size: 12px;
+    font-size: 14px;
     height: 4.2vh;
     line-height: 4.2vh;
     text-align: center;
     margin: 0 auto;
-  overflow: hidden;
+    overflow: hidden;
 }
 .smallBtn{
   display: inline-block;
@@ -428,7 +428,7 @@ npm start
   border-bottom: 1px solid #e8e8e8;
 }
 .sceneName{
-  padding: 20px 0 20px 30px ;
+  padding: 20px 0 20px 20px ;
   font-size: 16px;
   color: #ff7c35;
 }
@@ -440,7 +440,7 @@ npm start
   display: inline-block;
   color: #666666;
   font-size: 14px;
-  padding-left: 30px;
+  padding-left: 20px;
   padding-top: 6px;
   float: left;
 }
@@ -459,7 +459,7 @@ npm start
   text-align: center;*/
 }
 .chain{
-  padding:20px 28px 40px 30px;
+  padding:20px 28px 40px 20px;
   font-size: 14px;
   color: #333333;
   word-break: break-all;
@@ -588,7 +588,7 @@ npm start
 .content{
     overflow-x: hidden;
     overflow-y: auto;
-    width:61.1%;
+    width:62%;
     box-sizing: border-box;
     height: 100%;
     float: left;
@@ -597,6 +597,7 @@ npm start
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
 .chain-wrapper{
   position: relative;
   background: #fff;
@@ -618,9 +619,9 @@ npm start
   padding-left: 10px;
   padding-top: 20px;
   color: #333333;
-  color: #666666;
   background: #fff;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 /*.layer_name{
     margin-top: 30px;
