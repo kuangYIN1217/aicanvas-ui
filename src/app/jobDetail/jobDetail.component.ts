@@ -286,16 +286,23 @@ export class JobDetailComponent {
    */
   getPluginData(pluginId) {
     this.jobService.getPluginInfoById(this.jobPath, pluginId).subscribe(data => {
+      // 过滤器
+      let temp_data = []
+      temp_data = data.filter(rep => {
+        if (rep.epoch) {
+          return rep;
+        }
+      })
       this.AmCharts.updateChart(this.lossChart, () => {
-        if (data && data.length > 0) {
-          this.lossChart.dataProvider = data;
+        if (temp_data && temp_data.length > 0) {
+          this.lossChart.dataProvider = temp_data;
         } else {
           this.lossChart.dataProvider = this.lossChartInitData();
         }
       });
       this.AmCharts.updateChart(this.metricsChart, () => {
-        if (data && data.length > 0) {
-          this.metricsChart.dataProvider = data;
+        if (temp_data && temp_data.length > 0) {
+          this.metricsChart.dataProvider = temp_data;
         } else {
           this.metricsChart.dataProvider = this.metricsChartInitData();
         }
