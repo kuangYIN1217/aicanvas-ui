@@ -189,7 +189,7 @@ export class ModelComponent {
     console.log(job_id);
     this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
-        if(model.content){
+        if(model.content.length>0){
           this.ModelInfo = model.content;
           if(this.ModelInfo[0].percent==1) {
             clearInterval(this.perInterval);

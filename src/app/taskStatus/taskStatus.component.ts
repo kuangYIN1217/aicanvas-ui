@@ -46,9 +46,11 @@ export class TaskStatusComponent{
 
     }
     getPageData(paraParam) {
-      //clearInterval(this.interval);
-      // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 500);
-      this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
+      clearInterval(this.interval);
+      clearInterval(this.interval1);
+      this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId)
+      this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
+      //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
       //this.changePage(paraParam.curPage-1,paraParam.pageMaxItem);
       this.pageNow=paraParam.curPage;
       //console.log('触发', paraParam);
@@ -102,7 +104,7 @@ export class TaskStatusComponent{
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
                 if(this.Jobs_current.length>0){
-                  clearInterval(this.interval);
+                  //clearInterval(this.interval);
                   this.dataIndex = 1;
                 }else{
                   this.dataIndex = 0;
@@ -120,6 +122,7 @@ export class TaskStatusComponent{
     ngOnDestroy(){
         // 退出时停止更新
         clearInterval(this.interval);
+        clearInterval(this.interval1);
     }
     checkStatus(status,sence , jobPath){
         if(status=='Finished'){
