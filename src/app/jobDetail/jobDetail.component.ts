@@ -720,10 +720,7 @@ export class JobDetailComponent {
     };
   }
   updatePage(jobPath, index) {
-    if (this.s_process_flag) {
-     this.s_progress_show = true;
-     this.s_process_flag = false;
-    }
+    this.s_progress_show = true;
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
         this.s_start_stop_click = true;
@@ -750,6 +747,10 @@ export class JobDetailComponent {
             this.log_list = this.log_list.concat(data);
           });
           this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
+           /* if (this.s_process_flag) {
+              this.s_progress_show = true;
+              this.s_process_flag = false;
+            }*/
             this.d_progress_logs.push(data);
             this.d_progress_log = data;
           });
