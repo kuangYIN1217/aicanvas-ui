@@ -75,7 +75,7 @@ export class JobDetailComponent {
   page: string;
   paramjson: any = PARAM;
   // progress logs
-  s_process_flag: boolean = true;
+  s_process_flag: boolean = false;
 
   s_progress_show: boolean = false;
   d_progress_logs = [];
@@ -216,7 +216,10 @@ export class JobDetailComponent {
       }
     })
   }
-
+  getNumber(val: any) {
+    if (isNaN(val)) return 0;
+    return +val;
+  }
   /**
    * 非运行状态初始化
    */
@@ -708,9 +711,19 @@ export class JobDetailComponent {
       }
     }
   }
-
+  $close_progress() {
+    this.s_progress_show = false;
+    this.s_process_flag = true;
+    this.d_progress_log = {
+      percent: 0,
+      step: '初始化'
+    };
+  }
   updatePage(jobPath, index) {
-
+    if (this.s_process_flag) {
+     this.s_progress_show = true;
+     this.s_process_flag = false;
+    }
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
         this.s_start_stop_click = true;
@@ -737,10 +750,6 @@ export class JobDetailComponent {
             this.log_list = this.log_list.concat(data);
           });
           this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
-            if (this.s_process_flag) {
-              this.s_progress_show = true;
-              this.s_process_flag = false;
-            }
             this.d_progress_logs.push(data);
             this.d_progress_log = data;
           });

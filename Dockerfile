@@ -2,7 +2,6 @@
 FROM daocloud.io/library/ubuntu:16.04
 USER root
 MAINTAINER hinesboy hines.zhu@gmail.com
-
 # 安装node环境
 # RUN apt-get -y update
 # RUN apt-get -y install apt-utils

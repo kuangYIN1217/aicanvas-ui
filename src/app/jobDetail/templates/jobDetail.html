@@ -130,38 +130,38 @@
         <div class="propertyLine">
           <div class="propertyCard">
             <div class="cardInline"> <span class="img-span">best_loss</span><img class="question-icon" title="最佳训练集损失函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{jobResult?.bestLoss |number:'1.2-2'}}</div>
+            <div class="cardInline_value">{{getNumber(jobResult?.bestLoss) |number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 10px">
             <div class="cardInline"><span class="img-span">best_val_loss</span><img class="question-icon" title="最佳验证集损失函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{jobResult?.bestValLoss |number:'1.2-2'}}</div>
+            <div class="cardInline_value">{{getNumber(jobResult?.bestValLoss) |number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 20px">
             <div class="cardInline"><span class="img-span">best_{{jobResult?.metrics_name}}</span><img class="question-icon" [title]="'最佳训练集' + getMetric()" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{jobResult?.bestMetrics|number:'1.2-2'}}</div>
+            <div class="cardInline_value">{{getNumber(jobResult?.bestMetrics)|number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 10px">
             <div class="cardInline"><span class="img-span">best_val_{{jobResult?.metrics_name}}</span><img class="question-icon" [title]="'最佳验证集' + getMetric()" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{jobResult?.bestValMetrics| number:'1.2-2'}}</div>
+            <div class="cardInline_value">{{getNumber(jobResult?.bestValMetrics)| number:'1.2-2'}}</div>
           </div>
         </div>
 
         <div class="propertyLine padding" style="margin-top: 20px">
           <div class="propertyCard">
             <div class="cardInline"><span class="img-span">Samples/Sec</span> <img class="question-icon" title="每秒训练样本数量" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{job?.samples_sec|number:'1.2-2'}}</div>
+            <div class="cardInline_value">{{getNumber(job?.samples_sec)|number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 10px">
             <div class="cardInline"><span class="img-span">Sec/Epoch</span> <img class="question-icon" title="每轮训练所用秒数" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{jobResult?.sec_epoch|number:'1.2-2'}}</div>
+            <div class="cardInline_value">{{getNumber(jobResult?.sec_epoch)|number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 20px">
             <div class="cardInline"><span class="img-span">Process</span> <img class="question-icon" title="训练进度" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{job?.percent|percent:'.2'}}</div>
+            <div class="cardInline_value">{{getNumber(job?.percent)|percent:'.2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 10px">
             <div class="cardInline"><span class="img-span">Epoch</span> <img class="question-icon" title="训练轮数" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value">{{jobResult?.epoch| number:'1.2-2'}}</div>
+            <div class="cardInline_value">{{getNumber(jobResult?.epoch)| number:'1.2-2'}}</div>
           </div>
         </div>
 
@@ -309,5 +309,5 @@
   </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
 
-  <ele-progress [(show)] = "s_progress_show" [logs]="d_progress_logs" [(log)] = "d_progress_log"></ele-progress>
+  <ele-progress (close) = "$close_progress()" [show] = "s_progress_show" [logs]="d_progress_logs" [log] = "d_progress_log"></ele-progress>
 </div>

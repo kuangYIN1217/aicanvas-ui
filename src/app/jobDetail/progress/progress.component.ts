@@ -8,33 +8,20 @@ declare var $: any;
 })
 export class ProgressComponent {
   @Input() show: boolean = false;
-  @Output() showChange: EventEmitter<any> = new EventEmitter();
+  @Output() close: EventEmitter<any> = new EventEmitter();
   @Input() log: any = {
     percent: 0,
     step: '正在初始化'
   };
-  @Output() logChange: EventEmitter<any> = new EventEmitter();
   @Input() logs: any = [];
 
-  /*ngAfterViewChecked() {
-    alert(this.log)
-    if (this.log.percent == 1) {
-      this.$hide_click();
-    }
-  }*/
   $hide_click() {
-    this.show = false;
-    this.showChange.emit(this.show);
+    this.close.emit();
   }
   getPercent() {
-    let $this = this;
     if (this.log.percent == 1) {
-      setTimeout(function () {
-        $this.$hide_click();
-        this.logs = [];
-        this.log = {}
-        // this.logChange.emit(this.log);
-      } , 1000);
+      this.$hide_click();
+      return;
     }
     return Math.floor(this.log.percent * 100);
   }

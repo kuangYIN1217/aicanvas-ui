@@ -35,6 +35,8 @@ import {AmChartsModule} from "amcharts3-angular2";
 import { InferenceModelComponent } from './inference-model/inference-model.component';
 import { StompService } from 'ng2-stomp-service-fixed';
 /*import {FontAwesomeDirective} from "ng2-fontawesome";*/
+import {enableProdMode} from '@angular/core';
+enableProdMode();
 import { ProgressComponent } from './jobDetail/progress/progress.component'
 import {MyDataComponent} from './datasets/mydata/mydata.component'
 import {PublicDataComponent} from './datasets/publicdata/publicdata.component'

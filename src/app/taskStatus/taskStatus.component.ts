@@ -20,8 +20,8 @@ export class TaskStatusComponent{
     pageMaxItem: number = 10;
     student:number=0;
     id:number;
-    interval: any;
-    interval1:any;
+   /* interval: any;
+    interval1:any;*/
     dataIndex:number=1;
     Jobs: JobInfo[] = [];
     pageParams=new Page();
@@ -46,10 +46,10 @@ export class TaskStatusComponent{
 
     }
     getPageData(paraParam) {
-      clearInterval(this.interval);
-      clearInterval(this.interval1);
+      /*clearInterval(this.interval);
+      clearInterval(this.interval1);*/
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId)
-      this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
+      // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
       this.pageNow=paraParam.curPage;
       //console.log('触发', paraParam);
     }
@@ -66,7 +66,7 @@ export class TaskStatusComponent{
          if(this.pageNumber!=undefined){
            this.getAlljobs(this.statuss,this.pageNumber-1,this.pageMaxItem,this.sceneId);
          }else{
-           this.interval = setInterval(() =>this.updatePage(), 3000);
+           // this.interval = setInterval(() =>this.updatePage(), 3000);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
          }
     //this.getSceneId();
@@ -77,10 +77,10 @@ export class TaskStatusComponent{
    }
    getSceneId(){
      if(this.sceneId==0){
-       this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' '),3000);
+       // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' '),3000);
      }else{
        this.historyId = this.sceneId;
-       this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId),3000);
+       // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId),3000);
      }
    }
     updatePage(){
@@ -110,8 +110,8 @@ export class TaskStatusComponent{
     }
     ngOnDestroy(){
         // 退出时停止更新
-        clearInterval(this.interval);
-        clearInterval(this.interval1);
+        /*clearInterval(this.interval);
+        clearInterval(this.interval1);*/
     }
     checkStatus(status,sence , jobPath){
         if(status=='Finished'){
