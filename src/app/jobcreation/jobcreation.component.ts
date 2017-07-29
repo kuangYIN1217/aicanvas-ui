@@ -68,7 +68,6 @@ export class JobCreationComponent {
   pageNumber: number;
   d_dataSets: any = [];
   dataId: any;
-  createBtn: number = 0;
   s_error_show: boolean = false;
   s_error_message: string = '';
   s_error_level: string = 'error';
@@ -177,7 +176,7 @@ export class JobCreationComponent {
       this.data_validation = false;
     }
 
-    this.judgeClick();
+    //this.judgeClick();
   }
 
   clickStatus(statu, id) {
@@ -259,19 +258,19 @@ export class JobCreationComponent {
       this.name_validation = false;
     }
 
-    this.judgeClick();
+    //this.judgeClick();
   }
 
   /**
    * 是否可以点击创建
    * */
-  judgeClick() {
+/*  judgeClick() {
     if (this.name_validation && this.plugin_validation && this.data_validation) {
       this.createBtn = 1;
     } else {
       this.createBtn = 0;
     }
-  }
+  }*/
 
   // 第一次点击下一步时，创建job，存储下来
   createJobBySenceId(chosenSceneId, chainId, dataId) {
@@ -306,7 +305,7 @@ export class JobCreationComponent {
       this.click_flag = true;
       return false;
     }
-    this.createBtn = 1;
+    //this.createBtn = 1;
     this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId)
       .subscribe(createdJob => {
         //let job: any = createdJob;
@@ -431,7 +430,7 @@ export class JobCreationComponent {
     if (this.firstSceneId) {
       this.s_error_show = false;
     }
-    this.judgeClick();
+    //this.judgeClick();
   }
 
 }

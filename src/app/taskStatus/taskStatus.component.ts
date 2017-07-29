@@ -50,19 +50,8 @@ export class TaskStatusComponent{
       clearInterval(this.interval1);
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId)
       this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
-      //this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
-      //this.changePage(paraParam.curPage-1,paraParam.pageMaxItem);
       this.pageNow=paraParam.curPage;
       //console.log('触发', paraParam);
-    }
-    changePage(page,max){
-      if(page==page+1){
-        clearInterval(this.interval1);
-        this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,page+1,max,this.sceneId), 500);
-      } else if(page==page-1){
-        clearInterval(this.interval1);
-        this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,page--,max,this.sceneId), 500);
-      }
     }
   getPage(){
       sessionStorage['curPage'] = this.pageNow;
@@ -77,7 +66,7 @@ export class TaskStatusComponent{
          if(this.pageNumber!=undefined){
            this.getAlljobs(this.statuss,this.pageNumber-1,this.pageMaxItem,this.sceneId);
          }else{
-           this.interval = setInterval(() =>this.updatePage(), 500);
+           this.interval = setInterval(() =>this.updatePage(), 3000);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
          }
     //this.getSceneId();
@@ -88,10 +77,10 @@ export class TaskStatusComponent{
    }
    getSceneId(){
      if(this.sceneId==0){
-     this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' ');
+       this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' '),3000);
      }else{
        this.historyId = this.sceneId;
-       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+       this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId),3000);
      }
    }
     updatePage(){
