@@ -1,0 +1,80 @@
+.bottom_menu{
+  height: 40px;
+  font-size: 12px;
+  margin:14px auto 0;
+  color:#666666;
+}
+.bottom_menu .label{
+  font-family: "MicrosoftYaHei";
+  line-height: 40px;
+  float: left;
+
+}
+.disabled{
+  background: #23a880 !important;
+  color: #ffffff !important;
+}
+.bottom_menu .label span{
+  color: #23a880;
+
+}
+
+/*.bottom_menu .label span:nth-of-type(2){
+  color: #23a880;
+}*/
+.bottom_menu .selectDiv{
+  height: 40px;
+  float: right;
+  outline: none;
+  line-height: 40px;
+  text-align: right;
+}
+.selectDiv select{
+  width:50px;
+  padding-left: 4px;
+  color: #666666;
+  border:1px solid #c2c2c2;
+}
+.btnDiv{
+  float: right;
+  display: table-cell;
+  text-align: right;
+  margin-left: 20px;
+  line-height: 35px;
+}
+.btnDiv button {
+  background: #ffffff;
+  border:1px solid #c2c2c2;
+  height:20px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 2px;
+  color: #666666;
+}
+.btnDiv .btn{
+  width:60px;
+}
+.bottom_menu .selectDiv .select_pagemax{
+  position: relative;
+  width: 80px;
+  height: 30px;
+  top: 10px;
+  outline: none;
+}
+.bottom_menu .pagebtn{
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  width: 90px;
+  margin: 11px 8px 0 10px;
+  float: right;
+  background-color: #252525;
+  color: #f7f7f7;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: "MicrosoftYaHei";
+  cursor: pointer;
+}
+
