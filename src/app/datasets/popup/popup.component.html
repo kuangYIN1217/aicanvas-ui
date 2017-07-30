@@ -20,7 +20,7 @@
 
       <div class="selectContainer">
         <span><label class="orange">*</label>选择分类 :</span>
-        <select [(ngModel)]="s_select_datasetType">
+        <select [(ngModel)]="s_select_datasetType" (ngModelChange)="$name_change()">
           <option *ngFor="let item of d_dataTypes" [value]="item.id">{{item.typeName}}</option>
         </select>
       </div>

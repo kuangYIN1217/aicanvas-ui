@@ -581,7 +581,9 @@ export class OverviewComponent {
       }
     } else {*/
       this.gpuArray = gpuArray;
-      this.totalGlobalMem = this.gpuArray[0].totalGlobalMem;
+      if (this.gpuArray.length) {
+        this.totalGlobalMem = this.gpuArray[0].totalGlobalMem;
+      }
       // console.log(this.totalGlobalMem);
       for (let gpu of this.gpuArray) {
         let id = gpu.id;

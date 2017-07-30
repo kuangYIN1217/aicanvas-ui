@@ -677,18 +677,24 @@ export class JobDetailComponent {
    * 加载图表信息
    * */
   loadCharts() {
+    let temp_data = []
+    temp_data = this.jobResultParam.filter(rep => {
+      if (rep.epoch) {
+        return rep;
+      }
+    })
     this.AmCharts.updateChart(this.lossChart, () => {
-      if (this.jobResultParam.length == 0) {
+      if (temp_data.length == 0) {
         this.lossChart.dataProvider = this.lossChartInitData();
       } else {
-        this.lossChart.dataProvider = this.jobResultParam;
+        this.lossChart.dataProvider = temp_data;
       }
     });
     this.AmCharts.updateChart(this.metricsChart, () => {
-      if (this.jobResultParam.length == 0) {
+      if (temp_data.length == 0) {
         this.metricsChart.dataProvider = this.metricsChartInitData();
       } else {
-        this.metricsChart.dataProvider = this.jobResultParam;
+        this.metricsChart.dataProvider = temp_data;
       }
     });
   }
@@ -714,13 +720,9 @@ export class JobDetailComponent {
   $close_progress() {
     this.s_progress_show = false;
     this.s_process_flag = true;
-    this.d_progress_log = {
-      percent: 0,
-      step: '初始化'
-    };
   }
   updatePage(jobPath, index) {
-    this.s_progress_show = true;
+    // this.s_progress_show = true;
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
         this.s_start_stop_click = true;
@@ -747,10 +749,14 @@ export class JobDetailComponent {
             this.log_list = this.log_list.concat(data);
           });
           this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
-           /* if (this.s_process_flag) {
+            if (this.s_process_flag) {
+              this.d_progress_log = {
+                percent: 0,
+                step: '初始化'
+              };
               this.s_progress_show = true;
               this.s_process_flag = false;
-            }*/
+            }
             this.d_progress_logs.push(data);
             this.d_progress_log = data;
           });
@@ -783,7 +789,6 @@ export class JobDetailComponent {
   updateChart(data) {
     this.getRunningPlugin(data);
     let temp: JobParameter = data;
-    // todo judge temp
     if (data.epoch) {
       this.jobResultParam.push(temp);
       // 展示plugin为runingplugin
@@ -817,12 +822,19 @@ export class JobDetailComponent {
       return;
     }
     this.s_start_stop_click = false;
-    this.jobService.runJob(jobPath)
-      .subscribe(reply => {
-        this.initJobDetailByPath(true);
-      });
+    // todo 判断当前运行job数量 > 3 不允许
+    this.jobService.getAllJobs('运行', null , null , null , null ).subscribe(rep => {
+      if (rep.totalElements >= 3) {
+        addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
+        return;
+      }else {
+        this.jobService.runJob(jobPath)
+          .subscribe(reply => {
+            this.initJobDetailByPath(true);
+          });
+      }
+    })
   }
-
 
   goModel() {
     this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id}})

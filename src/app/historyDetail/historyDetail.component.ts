@@ -5,7 +5,9 @@ import {ResourcesService} from "../common/services/resources.service";
 import {modelService} from "../common/services/model.service";
 import {inferenceResult, Page, PercentInfo} from "../common/defs/resources";
 import {SERVER_URL} from "../app.constants";
+import {addErrorToast} from '../common/ts/toast';
 import {debug} from "util";
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
 declare var $: any;
 @Component({
   moduleId: module.id,
@@ -41,7 +43,7 @@ export class HistoryDetailComponent {
   val:string;
   inputType:string;
 
-  constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute, private router: Router) {
+  constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute, private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.route.queryParams.subscribe(params => {
       this.model_id = params['runId'];
       if (this.model_id && this.model_id != -1) {
@@ -82,6 +84,10 @@ export class HistoryDetailComponent {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
+        if (this.result[0].modelPrediction.status!='success') {
+          addErrorToast(this.toastyService, '推演结果异常！');
+          return;
+        }
         this.inputType = this.result[0].inputType;
         if(this.inputType=='path'){
           this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
@@ -139,7 +145,8 @@ export class HistoryDetailComponent {
   }
   outName(input) {
     if(input){
-      this.outputName = input.split("/")[7];
+      let input_arr = input.split('/');
+      this.outputName = input_arr.pop();
       return this.outputName.slice(13, this.outputName.length);
     }
   }

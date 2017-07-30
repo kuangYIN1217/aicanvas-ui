@@ -7,7 +7,8 @@ import {PluginService} from "../common/services/plugin.service";
 import {JobInfo, ModelInfo, Page, SceneInfo} from "../common/defs/resources";
 import {JobService} from "../common/services/job.service";
 import {SceneService} from "../common/services/scene.service";
-
+import {addWarningToast} from "../common/ts/toast";
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
 @Component({
     moduleId: module.id,
     selector: 'taskStatus',
@@ -20,8 +21,8 @@ export class TaskStatusComponent{
     pageMaxItem: number = 10;
     student:number=0;
     id:number;
-   /* interval: any;
-    interval1:any;*/
+   /* interval: any;*/
+    interval1: any;
     dataIndex:number=1;
     Jobs: JobInfo[] = [];
     pageParams=new Page();
@@ -42,14 +43,14 @@ export class TaskStatusComponent{
     @Input() sceneId:number;
     @Input() jobName:string = null;
     @Input() pageNumber:number=1;
-    constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router){
+    constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig){
 
     }
     getPageData(paraParam) {
       /*clearInterval(this.interval);
       clearInterval(this.interval1);*/
-      this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId)
-      // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
+      this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
+      //this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
       this.pageNow=paraParam.curPage;
       //console.log('触发', paraParam);
     }
@@ -74,10 +75,11 @@ export class TaskStatusComponent{
   ngOnChanges(...args: any[]){
      this.getSceneId();
      this.pageChange = this.pageNumber;
+      this.getAlljobs(this.statuss,this.pageNumber-1,this.pageMaxItem,this.sceneId);
    }
    getSceneId(){
      if(this.sceneId==0){
-       // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' '),3000);
+       //this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' '),3000);
      }else{
        this.historyId = this.sceneId;
        // this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId),3000);
@@ -110,7 +112,7 @@ export class TaskStatusComponent{
     }
     ngOnDestroy(){
         // 退出时停止更新
-        /*clearInterval(this.interval);
+       /* clearInterval(this.interval);
         clearInterval(this.interval1);*/
     }
     checkStatus(status,sence , jobPath){
@@ -125,8 +127,17 @@ export class TaskStatusComponent{
         }
     }
     start(jobPath: string){
-        this.jobService.runJob(jobPath)
+      // todo 判断当前运行job数量 > 3 不允许
+      this.jobService.getAllJobs('运行', null , null , null , null ).subscribe(rep => {
+        if (rep.totalElements >= 3) {
+          addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
+          return;
+        } else {
+          this.jobService.runJob(jobPath)
             .subscribe(reply => this.start_reply(reply));
+        }
+      })
+
     }
     start_reply(reply){
         if(reply.status==200){

@@ -171,6 +171,7 @@ export class inferenceResult{
     output:string;
     success:boolean;
     inputType:string;
+    modelPrediction: any;
 }
 export class PercentInfo{
     id:number;

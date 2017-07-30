@@ -17,6 +17,7 @@
         <tr *ngFor="let re of result">
             <td style="width: 50%;"  *ngIf="(type!='txt'&&type!='csv')&&(inputType=='path')">
               <img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" style="max-height: 50px;margin-top: 16px;padding-left: 10px">
+              <br/>{{outName(re.inputPath)}}
              <!-- <img src="../assets/model/showTxt.png" *ngIf="type=='txt'||type=='csv'" style="max-height: 50px;margin-top: 16px;padding-left: 10px">-->
             </td>
             <td style="width: 50%;"  *ngIf="(type=='txt'||type=='csv')&&(inputType=='path')">

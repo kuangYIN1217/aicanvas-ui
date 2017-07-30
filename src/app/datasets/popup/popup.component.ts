@@ -142,11 +142,16 @@ export class PopupComponent {
   }
   $upload_click (event) {
     event = event || window.event;
+    // this.initUpload();
     if (!this.s_name) {
       this.s_error_show = true;
       this.s_error_message = '请先填写数据集名称';
       this.s_error_level = "error";
-    }
+      // $('.resumable-browse input').remove();
+    } /*else {
+      this.s_error_show = false;
+      this.initUpload();
+    }*/
     /* else {
       if (this.once_click) {
         event.preventDefault();
