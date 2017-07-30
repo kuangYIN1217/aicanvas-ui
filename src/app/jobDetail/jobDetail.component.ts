@@ -75,7 +75,7 @@ export class JobDetailComponent {
   page: string;
   paramjson: any = PARAM;
   // progress logs
-  s_process_flag: boolean = false;
+  s_process_flag: boolean = true;
 
   s_progress_show: boolean = false;
   d_progress_logs = [];

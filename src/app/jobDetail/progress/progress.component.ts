@@ -20,8 +20,10 @@ export class ProgressComponent {
   }
   getPercent() {
     if (this.log.percent == 1) {
-      this.$hide_click();
-      return;
+      let $this = this;
+      setTimeout(function () {
+        $this.$hide_click();
+      } , 800)
     }
     return Math.floor(this.log.percent * 100);
   }
