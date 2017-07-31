@@ -29,7 +29,7 @@ export class ShowImageComponent {
   PercentInfo: PercentInfo = new PercentInfo;
   stringArr: string;
   pageParams=new Page();
-
+  outputName:any[]=[];
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       this.model_id = params['runId'];
@@ -109,5 +109,11 @@ export class ShowImageComponent {
     this.stringArr = input.substring(1, input.length - 1);
     return JSON.parse(this.stringArr).label
   }
-
+  outName(input) {
+    if(input){
+      let input_arr = input.split('/');
+      this.outputName = input_arr.pop();
+      return this.outputName.slice(13, this.outputName.length);
+    }
+  }
 }

@@ -8,8 +8,9 @@
         <th>显示结果</th>
         <tbody>
         <tr *ngFor="let re of result">
-            <td><img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" class="img" style="width:200px;"></td>
-            <td style="display: flex;flex-direction: column"><img src="{{SERVER_URL}}/api/file?filePath={{outputImg(re.output)}}" (click)="enlarge(outputImg(re.output))" class="result" style="width: 200px"/><label class="text">{{outputLabel(re.output)}}</label></td>
+            <td><img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" class="img" style="width:200px;"><label class="text">{{outName(re.inputPath)}}</label>
+            </td>
+            <td><img src="{{SERVER_URL}}/api/file?filePath={{outputImg(re.output)}}" (click)="enlarge(outputImg(re.output))" class="result" style="width: 200px"/><label class="text">{{outputLabel(re.output)}}</label></td>
         </tr>
         </tbody>
     </table>
