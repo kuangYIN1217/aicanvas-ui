@@ -84,7 +84,7 @@ export class HistoryDetailComponent {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
-        if (this.result[0].modelPrediction.status!='success') {
+        if (this.result[0].modelPrediction.status!=3) {
           addErrorToast(this.toastyService, '推演结果异常！');
           return;
         }
