@@ -85,7 +85,7 @@ export class JobDetailComponent {
     step: '初始化'
   };
   s_start_stop_click: boolean = true;
-
+  pluginIndex:number;
   METRIC_PARAMS: any = {
     'acc': '准确率'
   }
@@ -190,16 +190,14 @@ export class JobDetailComponent {
     location.href = url;
     // });
   }
-
-
   /**
    * 解析jobDetail
    */
   resolveJobDetail(jobDetail, jobPath) {
+    console.log(jobDetail.chainId);
     this.algchainService.getChainById(jobDetail.chainId).subscribe(chainInfo => {
       // console.log('init');
       this.chainInfo = chainInfo;
-      console.log(chainInfo);
       switch (jobDetail.status) {
         case '完成':
           this.initNotRun(this.chainInfo.length - 1, null, this.chainInfo[0].id, jobPath);
@@ -226,12 +224,14 @@ export class JobDetailComponent {
   initNotRun(runningPluginIndex, runningPluginId, currentPluginId, jobPath) {
     this.setRunningInfo(runningPluginIndex, runningPluginId, currentPluginId);
     this.not_running_show(jobPath);
+    this.getPluginData(currentPluginId);
   }
 
   setRunningInfo(runningPluginIndex, runningPluginId, currentPluginId) {
     this.runningPluginIndex = runningPluginIndex;
     this.currentPluginId = currentPluginId;
     this.runningPluginId = runningPluginId;
+    console.log(this.runningPluginIndex,this.currentPluginId,this.runningPluginId);
   }
 
   /**
@@ -262,7 +262,8 @@ export class JobDetailComponent {
    * plugin点击切换事件
    */
   pluginClick(plugin, index) {
-    // console.log(plugin)
+    this.pluginIndex = index;
+    console.log(plugin.id);
     if (plugin.id == this.currentPluginId) {
       // 当前选中plugin点击无效
       // console.log('click own -> return')
@@ -288,14 +289,16 @@ export class JobDetailComponent {
    * @param pluginId
    */
   getPluginData(pluginId) {
+    console.log(pluginId);
     this.jobService.getPluginInfoById(this.jobPath, pluginId).subscribe(data => {
       // 过滤器
-      let temp_data = []
+      let temp_data = [];
       temp_data = data.filter(rep => {
         if (rep.epoch) {
           return rep;
         }
-      })
+      });
+      console.log(temp_data);
       this.AmCharts.updateChart(this.lossChart, () => {
         if (temp_data && temp_data.length > 0) {
           this.lossChart.dataProvider = temp_data;
@@ -640,7 +643,9 @@ export class JobDetailComponent {
   }
 
 // 不再running状态时一次性展示数据
+
   not_running_show(jobPath: string, status?: string) {
+    console.log(jobPath);
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
         this.resolveJobParam(jobParam, status);
@@ -652,7 +657,7 @@ export class JobDetailComponent {
    * @param jobParam
    */
   resolveJobParam(jobParam, status?: string) {
-    /* console.log('unrun status')
+     /*console.log('unrun status')
      console.log(jobParam)*/
     // 过滤jobparam
     jobParam = jobParam.filter(job => {
@@ -677,7 +682,7 @@ export class JobDetailComponent {
    * 加载图表信息
    * */
   loadCharts() {
-    let temp_data = []
+    let temp_data = [];
     temp_data = this.jobResultParam.filter(rep => {
       if (rep.epoch) {
         return rep;
@@ -729,7 +734,7 @@ export class JobDetailComponent {
         /* console.log('run'); */
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
-        // console.log(JobResult)
+        console.log(this.jobResult);
         if (this.jobResult) {
           this.index = this.jobResult.epoch;
           this.getRunningPlugin(this.jobResult);
