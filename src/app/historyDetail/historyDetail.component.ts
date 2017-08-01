@@ -84,10 +84,10 @@ export class HistoryDetailComponent {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
-        if (this.result[0].modelPrediction.status!='success') {
+/*        if (this.result[0].modelPrediction.success!=true) {
           addErrorToast(this.toastyService, '推演结果异常！');
           return;
-        }
+        }*/
         this.inputType = this.result[0].inputType;
         if(this.inputType=='path'){
           this.type = result.content[0].inputPath.split('.').pop().toLowerCase();

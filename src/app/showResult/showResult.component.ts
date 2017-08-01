@@ -4,6 +4,8 @@ import {modelService} from "../common/services/model.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SERVER_URL} from "../app.constants";
 import {inferenceResult, Page} from "../common/defs/resources";
+import {addErrorToast} from "../common/ts/toast";
+import {ToastyService} from "ng2-toasty";
 /*import { SlideImg } from './slide-img.interface';*/
 @Component({
     moduleId: module.id,
@@ -63,7 +65,7 @@ export class ShowResultComponent {
     inImgs: any[]=[];
     outImgs: any[]=[];
     public current;
-    constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router) {
+    constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router,private toastyService: ToastyService) {
       this.route.queryParams.subscribe(params => {
         this.model_id = params['runId'];
         if (this.model_id && this.model_id != -1) {

@@ -9,7 +9,7 @@ import {SERVER_URL} from "../app.constants";
 import {JobService} from "../common/services/job.service";
 import {Headers} from "@angular/http";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
-import {addSuccessToast , addInfoToast} from '../common/ts/toast';
+import {addSuccessToast, addInfoToast, addErrorToast} from '../common/ts/toast';
 
 declare var $:any;
 @Component({
@@ -158,6 +158,12 @@ export class ModelComponent {
     this.modelService.getResult(modelId)
       .subscribe(result=>{
       if(result.content.length!=0) {
+        if (result.content[0].success!=true) {
+          addErrorToast(this.toastyService, '推演结果异常！');
+          console.log(result.content[0].percent);
+          clearInterval(this.interval);
+          return;
+        }
         clearInterval(this.interval);
         this.result = result.content;
         this.type = this.result[0].resultType;
@@ -248,6 +254,5 @@ export class ModelComponent {
     clearInterval(this.interval);
     this.currentId=id;
     this.interval = setInterval(() => this.getResult(id), 500);
-
   }
 }

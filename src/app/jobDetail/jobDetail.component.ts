@@ -692,6 +692,7 @@ export class JobDetailComponent {
       if (temp_data.length == 0) {
         this.lossChart.dataProvider = this.lossChartInitData();
       } else {
+        //console.log(temp_data);
         this.lossChart.dataProvider = temp_data;
       }
     });
@@ -699,6 +700,7 @@ export class JobDetailComponent {
       if (temp_data.length == 0) {
         this.metricsChart.dataProvider = this.metricsChartInitData();
       } else {
+        //console.log(temp_data);
         this.metricsChart.dataProvider = temp_data;
       }
     });

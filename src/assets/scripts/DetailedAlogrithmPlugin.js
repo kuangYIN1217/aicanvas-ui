@@ -237,7 +237,6 @@ function init() {
         fromSpot: spot, toSpot: spot,  // declare where links may connect at this port
         fromLinkable: true, toLinkable: true,  // declare whether the user may draw links to/from here
         cursor: "pointer"  // show a different cursor to indicate potential link point
-
       });
   }
 // 限制窗口滚动

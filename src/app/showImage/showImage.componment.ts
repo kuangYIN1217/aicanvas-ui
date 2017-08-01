@@ -4,6 +4,8 @@ import {SERVER_URL} from "../app.constants";
 import {modelService} from "../common/services/model.service";
 import {ResourcesService} from "../common/services/resources.service";
 import {inferenceResult, Page, PercentInfo} from "../common/defs/resources";
+import {addErrorToast} from "../common/ts/toast";
+import {ToastyConfig, ToastyService} from "ng2-toasty";
 @Component({
   moduleId: module.id,
   selector: 'showImage',
@@ -30,7 +32,7 @@ export class ShowImageComponent {
   stringArr: string;
   pageParams=new Page();
   outputName:any[]=[];
-  constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router) {
+  constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router,private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.route.queryParams.subscribe(params => {
       this.model_id = params['runId'];
       if (this.model_id && this.model_id != -1) {
@@ -72,6 +74,7 @@ export class ShowImageComponent {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
+
         this.resultP = result;
         let page = new Page();
         page.pageMaxItem = result.size;
