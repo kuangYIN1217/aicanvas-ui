@@ -85,7 +85,6 @@ export class JobDetailComponent {
     step: '初始化'
   };
   s_start_stop_click: boolean = true;
-  pluginIndex:number;
   METRIC_PARAMS: any = {
     'acc': '准确率'
   }
@@ -262,7 +261,6 @@ export class JobDetailComponent {
    * plugin点击切换事件
    */
   pluginClick(plugin, index) {
-    this.pluginIndex = index;
     console.log(plugin.id);
     if (plugin.id == this.currentPluginId) {
       // 当前选中plugin点击无效
@@ -291,6 +289,7 @@ export class JobDetailComponent {
   getPluginData(pluginId) {
     console.log(pluginId);
     this.jobService.getPluginInfoById(this.jobPath, pluginId).subscribe(data => {
+      console.log(data);
       // 过滤器
       let temp_data = [];
       temp_data = data.filter(rep => {
