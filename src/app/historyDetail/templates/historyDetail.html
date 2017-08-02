@@ -14,7 +14,11 @@
         <th>上传内容</th>
         <th>显示结果</th>
         <tbody>
-        <tr *ngFor="let re of result">
+        <tr [style.display]="status!=true?'':'none'">
+          <td>&nbsp;</td>
+          <td>异常</td>
+        </tr>
+        <tr *ngFor="let re of result" [style.display]="status==true?'':'none'">
             <td style="width: 50%;"  *ngIf="(type!='txt'&&type!='csv')&&(inputType=='path')">
               <img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" style="max-height: 50px;margin-top: 16px;padding-left: 10px">
               <br/>{{outName(re.inputPath)}}

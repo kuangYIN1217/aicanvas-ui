@@ -42,7 +42,7 @@ export class HistoryDetailComponent {
   wordId:string='0';
   val:string;
   inputType:string;
-
+  status:string;
   constructor(private modelService: modelService, private location: Location, private route: ActivatedRoute, private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.route.queryParams.subscribe(params => {
       this.model_id = params['runId'];
@@ -84,6 +84,7 @@ export class HistoryDetailComponent {
       if (result.content.length != 0) {
         clearInterval(this.interval);
         this.result = result.content;
+        this.status = result.content[0].success;
 /*        if (this.result[0].modelPrediction.success!=true) {
           addErrorToast(this.toastyService, '推演结果异常！');
           return;

@@ -160,14 +160,14 @@ export class ModelComponent {
       if(result.content.length!=0) {
         if (result.content[0].success!=true) {
           addErrorToast(this.toastyService, '推演结果异常！');
-          console.log(result.content[0].percent);
-          clearInterval(this.interval);
-          return;
+          //console.log(result.content[0].percent);
+         // clearInterval(this.interval);
         }
         clearInterval(this.interval);
         this.result = result.content;
         this.type = this.result[0].resultType;
         this.runId=modelId;
+        console.log(this.type);
         console.log(this.result);
         console.log(this.runId);
       }

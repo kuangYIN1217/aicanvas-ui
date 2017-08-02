@@ -2,6 +2,7 @@
 let _BASE = 'http://192.168.16.190';
 /*192.168.16.190*/
 /*10.165.33.20*/
+/*172.16.34.150*/
 let _SERVER_URL = _BASE + ':8090';
 
 let _SERVER_URL_DATASETS =  _BASE + ':8093';
