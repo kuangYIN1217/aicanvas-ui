@@ -127,8 +127,9 @@
         <div class="propertyLine">
           <div class="propertyCard">
             <div class="cardInline"> <span class="img-span">best_loss</span><img class="question-icon" title="最佳训练集损失函数值" src="../../../assets/jobdetail/question.png" alt=""></div>
-            <div class="cardInline_value" *ngIf="(runningPluginIndex>0)&&(runningPluginIndex!=pluginIndex)">0.00</div>
+            <div class="cardInline_value" *ngIf="(runningPluginIndex>0)&&(runningPluginIndex!=pluginIndex)" [style.display]="runningPluginIndex==chainInfo.length-1?'':'none'">0.00</div>
             <div class="cardInline_value" *ngIf="(runningPluginIndex>0)&&(runningPluginIndex==pluginIndex)">{{getNumber(jobResult?.bestLoss) |number:'1.2-2'}}</div>
+            <!--<div class="cardInline_value" *ngIf="(runningPluginIndex>0)&&(runningPluginIndex==chainInfo.length-1)">{{getNumber(jobResult?.bestLoss) |number:'1.2-2'}}</div>-->
             <div class="cardInline_value" *ngIf="runningPluginIndex==0">{{getNumber(jobResult?.bestLoss) |number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 10px">
@@ -141,7 +142,7 @@
             <div class="cardInline"><span class="img-span">best_{{jobResult?.metrics_name}}</span><img class="question-icon" [title]="'最佳训练集' + getMetric()" src="../../../assets/jobdetail/question.png" alt=""></div>
             <div class="cardInline_value" *ngIf="(runningPluginIndex>0)&&(runningPluginIndex!=pluginIndex)">0.00</div>
             <div class="cardInline_value" *ngIf="(runningPluginIndex>0)&&(runningPluginIndex==pluginIndex)">{{getNumber(jobResult?.bestMetrics)|number:'1.2-2'}}</div>
-            <div class="cardInline_value" *ngIf="runningPluginIndex==0">{{getNumber(jobResult?.bestMetrics)|number:'1.2-2'}}</div>
+            <div class="cardInline_value" *ngIf="(runningPluginIndex==0)">{{getNumber(jobResult?.bestMetrics)|number:'1.2-2'}}</div>
           </div>
           <div class="propertyCard" style="margin-left: 10px">
             <div class="cardInline"><span class="img-span">best_val_{{jobResult?.metrics_name}}</span><img class="question-icon" [title]="'最佳验证集' + getMetric()" src="../../../assets/jobdetail/question.png" alt=""></div>

@@ -4,11 +4,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DatasetsService} from "../../common/services/datasets.service";
 import {calc_size} from '../calc-size'
+import {JobService} from "../../common/services/job.service";
+import {ToastyService} from "ng2-toasty";
+import {addErrorToast} from "../../common/ts/toast";
 @Component({
   selector: 'cpt-mydata',
   styleUrls: ['./mydata.component.css'],
   templateUrl: './mydata.component.html',
-  providers: [DatasetsService]
+  providers: [DatasetsService,JobService]
 })
 export class MyDataComponent{
   @Input() s_sort_type: any;
@@ -25,18 +28,23 @@ export class MyDataComponent{
   s_remove_index;
   s_remove_id;
   s_remove: boolean = false;
-  constructor (private datasetservice: DatasetsService) {
+  constructor (private datasetservice: DatasetsService,private jobService: JobService,private toastyService:ToastyService) {
     // 获取datasetType
     /*this.datasetservice.getDataSets(null , null , null , null, 1 , 10 ).subscribe(rep =>{
       console.log(rep);
     })*/
   }
-
   $remove_dataSet(id , index) {
-    console.log('delete')
-    this.s_remove = true;
-    this.s_remove_id = id;
-    this.s_remove_index = index;
+    this.jobService.deletaDate(id).subscribe(data=>{
+      if(data.length==0){
+        console.log('delete');
+        this.s_remove = true;
+        this.s_remove_id = id;
+        this.s_remove_index = index;
+      }else{
+        addErrorToast(this.toastyService, '该数据集下有挂载任务，不能删除！');
+      }
+    });
   }
 
   $sort_click () {

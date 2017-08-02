@@ -418,6 +418,10 @@ export class JobCreationComponent {
     } else {
       this.plugin_validation = false;
     }
+    if(this.student==15){
+      document.getElementById('data').setAttribute('disabled', 'disabled');
+      return
+    }
     this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
       this.datasetsService.getDataSets(null, rep.dataset_type, null, 'createTime,desc', null, null).subscribe(rep => {
         this.d_dataSets = rep.content;

@@ -52,14 +52,28 @@ export class JobService {
         }
       });
   }
-
+  deletaDate(data_set){
+    let path = "/api/getJobByDataSet/" + data_set;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response)=> {
+        if (response && response.json()) {
+          if(response.status==200){
+            return response.json();
+          }else{
+            return "fail";
+          }
+        }
+      });
+  }
   getUnrunningJob(jobPath: string): Observable<JobParameter[]> {
     let path = "/api/job/" + jobPath;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
       .map((response: Response) => {
         if (response && response.json()) {
-          return plainToClass(JobParameter, response.json());
+          // return plainToClass(JobParameter, response.json());
+          return response.json();
         }
       });
   }

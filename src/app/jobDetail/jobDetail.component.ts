@@ -244,7 +244,7 @@ export class JobDetailComponent {
       this.interval = setInterval(() => {
         this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
           this.job = jobDetail;
-          if (this.job.status == '完成') {
+          if (this.job.status == '完成'){
             // 任务完成
             this.websocket.stopWebsocket();
             if (this.interval) {
@@ -736,13 +736,13 @@ export class JobDetailComponent {
         /* console.log('run'); */
         this.jobResultParam = this.jobResultParam.concat(jobParam);
         this.jobResult = this.jobResultParam[this.jobResultParam.length - 1];
-        console.log(this.jobResult);
         if (this.jobResult) {
           this.index = this.jobResult.epoch;
           this.getRunningPlugin(this.jobResult);
           // 展示plugin为runingplugin
           if (this.runningFlag) {
             this.loadCharts();
+            //this.getRunningPlugin(this.jobResult);
           }
         }
         /* this.jobResult = jobParam[jobParam.length - 1];*/
