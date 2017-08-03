@@ -129,6 +129,10 @@ export class JobCreationComponent {
   }
 
   changeChosenSceneId() {
+    if(this.student==15){
+      document.getElementById('data').setAttribute('disabled', 'disabled');
+    }
+    this.fileCount=0;
     let id = this.student;
     console.log(id);
     this.chosenSceneId = id;
