@@ -19,7 +19,7 @@
   </div>
   <div class="selectDiv" >
     <span>每页</span>
-    <select [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();">
+    <select [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();" onchange="this.blur()">
       <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
       <option value="20" selected="{{pageMaxItem==20?'selected':''}}">20</option>
       <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
