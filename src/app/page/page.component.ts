@@ -10,7 +10,6 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 export class PageComponent {
   @Input('pageParams') pageParams;// 父组件向子组件传值
   @Output() changeCurPage:EventEmitter<string> = new EventEmitter;// 子组件向父组件广播事件，触发改变当前页面的事件
-
   public pageList = [1, 2, 3, 4, 5];
   public totalPage = 5;
   pageMaxItem =10;
@@ -21,14 +20,13 @@ export class PageComponent {
     //console.log('从父组件获取的参数', vm['pageParams']);
   }
   ngOnInit(){
-    console.log(this.model_id);
+    //console.log(this.model_id);
     this.pageParams = {'totalNum':0,'curPage':1,'pageMaxItem':10,'totalPage':0,'job_id':this.job_id,'model_id':this.model_id};
   }
   ngOnChanges(...args: any[]) {
     this.job_id = this.pageParams.job_id;
     this.model_id = this.pageParams.model_id;
   }
-
   getPageList(pageParams) {
     let pageList=[];
     if(pageParams.totalPage==0){
@@ -86,8 +84,10 @@ export class PageComponent {
     //sessionStorage['curPage']=pageNo;
     vm.pageParams.job_id =  this.job_id;
     vm.pageParams.model_id =  this.model_id;
+    let totalPage = vm.pageParams.totalNum/this.pageMaxItem;
+    vm.pageParams.totalPage=vm.pageParams.totalNum%this.pageMaxItem==0?totalPage:Math.floor(totalPage)+1;
+    console.log(vm.pageParams.totalPage);
     vm.pageParams.pageMaxItem = this.pageMaxItem;
-
     vm.changeCurPage.emit(vm.pageParams);
   }
 }
