@@ -10,6 +10,8 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 export class PageComponent {
   @Input('pageParams') pageParams;// 父组件向子组件传值
   @Output() changeCurPage:EventEmitter<string> = new EventEmitter;// 子组件向父组件广播事件，触发改变当前页面的事件
+  @Input() s_totalNum:any;
+  @Output() d_tableDataChange: EventEmitter<any> = new EventEmitter();
   public pageList = [1, 2, 3, 4, 5];
   public totalPage = 5;
   pageMaxItem =10;
@@ -87,6 +89,7 @@ export class PageComponent {
     let totalPage = vm.pageParams.totalNum/this.pageMaxItem;
     vm.pageParams.totalPage=vm.pageParams.totalNum%this.pageMaxItem==0?totalPage:Math.floor(totalPage)+1;
     vm.pageParams.pageMaxItem = this.pageMaxItem;
+    console.log(vm.pageParams.totalNum);
     vm.changeCurPage.emit(vm.pageParams);
   }
 /*  change(page){

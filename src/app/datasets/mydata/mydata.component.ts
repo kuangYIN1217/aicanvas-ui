@@ -24,7 +24,9 @@ export class MyDataComponent{
   @Input() s_select_name: any = ''; // name
   @Input() s_page: any;
   @Input() s_size: any;
-
+  @Input() s_totalNum: any;
+  @Output() s_totalNumChange: EventEmitter<any> = new EventEmitter();
+  @Output() s_sizeChange: EventEmitter<any> = new EventEmitter();
   s_remove_index;
   s_remove_id;
   s_remove: boolean = false;
@@ -35,6 +37,7 @@ export class MyDataComponent{
     })*/
   }
   $remove_dataSet(id , index) {
+    console.log(this.s_totalNum);
     this.jobService.deletaDate(id).subscribe(data=>{
       if(data.length==0){
         console.log('delete');
@@ -58,7 +61,7 @@ export class MyDataComponent{
     // 重新获取数据
     this.datasetservice.getDataSets(localStorage['username'] , this.dataSetType , this.s_select_name , this.s_sort_type, this.s_page , this.s_size ).subscribe(rep =>{
       this.d_tableData = rep.content;
-      console.log(this.d_tableData)
+      //console.log(this.d_tableData)
       this.d_tableDataChange.emit(this.d_tableData);
     })
   }
@@ -67,13 +70,18 @@ export class MyDataComponent{
   $confirm_sure () {
     this.datasetservice.deleteDataSet(this.s_remove_id).subscribe(rep => {
       if (rep.ok) {
+        this.datasetservice.getDataSets(localStorage['username'] , this.dataSetType , this.s_select_name , this.s_sort_type, this.s_page , this.s_size ).subscribe(rep =>{
+          this.s_totalNum = rep.totalElements;
+          this.s_size = rep.size;
+        });
+        this.s_totalNumChange.emit(this.s_totalNum);
+        this.s_sizeChange.emit(this.s_size);
         this.d_tableData.splice(this.s_remove_index , 1);
         this.d_tableDataChange.emit(this.d_tableData);
       }
     })
     this.s_remove = false;
   }
-
   $confirm_cancel() {
     this.s_remove = false;
   }

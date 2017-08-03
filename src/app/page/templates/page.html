@@ -1,7 +1,7 @@
 
 <!--分页组件-->
 <div class="bottom_menu" *ngIf="pageParams.totalPage>=0 && pageParams.totalNum>=0">
-  <a class="label">共 {{pageParams.totalNum}} 条记录  当前显示第 <span>{{pageParams.curPage}}</span>页</a>
+  <a class="label">共 {{s_totalNum?s_totalNum:pageParams.totalNum}} 条记录  当前显示第 <span>{{pageParams.curPage}}</span>页</a>
 
   <div class="btnDiv">
 <!--  <button class="btn" [routerLink]="['./']" [disabled]="pageParams.curPage<=5"

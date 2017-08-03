@@ -20,6 +20,7 @@ export class DatasetsComponent{
   s_sort_type: any = 'createTime,desc';
   s_page: any = 1;
   s_size: any = 10;
+  s_totalNum:any=0;
   focus:number=0;
   blur:number=0;
   pageParams=new Page();
@@ -65,7 +66,7 @@ export class DatasetsComponent{
     }
     this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
       this.d_tableData = rep.content;
-      console.log(this.d_tableData)
+      console.log(this.d_tableData);
       this.changePageParmas(rep);
     })
   }
@@ -83,7 +84,7 @@ export class DatasetsComponent{
   }
 
   $select_change() {
-    console.log(this.s_select_datasetType)
+    console.log(this.s_select_datasetType);
     this.initTable ();
   }
 
@@ -104,20 +105,30 @@ export class DatasetsComponent{
     this.blur=0;
   }
   changePageParmas(result) {
-    console.log(result)
+    this.s_totalNum = result.totalElements;
+    console.log(result);
     let page = new Page();
     page.pageMaxItem = result.size;
     page.curPage = result.number+1;
     page.totalPage = result.totalPages;
     page.totalNum = result.totalElements;
+    //page.totalNum = this.s_totalNum;
     this.s_page = page.curPage;
     this.s_size = page.pageMaxItem;
     this.pageParams = page;
   }
-
+  changeNum(num){
+    this.s_totalNum = num;
+    //console.log(this.s_totalNum);
+  }
+  changeSize(size){
+    this.s_size = size;
+    this.initTable();
+  }
   getPageData(paraParam) {
     this.s_page = paraParam.curPage;
-    this.s_size = paraParam.pageMaxItem
+    this.s_size = paraParam.pageMaxItem;
+    this.s_totalNum = paraParam.totalNum;
     this.initTable();
     //console.log('触发', paraParam);
   }

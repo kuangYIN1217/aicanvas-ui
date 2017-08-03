@@ -12,7 +12,6 @@
           <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="s_select_name==null||s_select_name==''" [style.display]="blur==0?'':'none'">
           <input [(ngModel)]="s_select_name" (ngModelChange)="$name_change()" class="search-input" type="text" [attr.placeholder]="blur==0?'搜索数据集名称':''" [ngClass]="{paddingLeft: focus==1}" (focus)="searchLeft()" (blur)="searchBlur()"/>
         </div>
-
         <div class="selectContainer">
           <span>数据集分类:</span>
           <select [(ngModel)]="s_select_datasetType" (change)="$select_change()">
@@ -21,12 +20,11 @@
           </select>
           <!--<img src="../assets/taskStatus/select.png">-->
         </div>
-
         <div *ngIf="s_nav_selected === 0" class="upload-dataset" (click)="$upload_click()">上传数据集</div>
       </div>
-      <cpt-mydata [s_select_datasetType] = "s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0"></cpt-mydata>
+      <cpt-mydata [s_select_datasetType] = "s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [s_totalNum] = "s_totalNum" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0" [(s_totalNum)]="s_totalNum" (s_totalNumChange)="changeNum($event)" (s_sizeChange)="changeSize($event)"></cpt-mydata>
       <cpt-publicdata [d_tableData] = "d_tableData" *ngIf="s_nav_selected === 1"></cpt-publicdata>
-      <page [pageParams] = "pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+      <page [pageParams] = "pageParams" [s_totalNum] = "s_totalNum" (changeCurPage)="getPageData($event)" class="page"></page>
     </div>
 
   </div>
