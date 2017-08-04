@@ -37,7 +37,7 @@ export class MyDataComponent{
     })*/
   }
   $remove_dataSet(id , index) {
-    console.log(this.s_totalNum);
+    //console.log(this.s_totalNum);
     this.jobService.deletaDate(id).subscribe(data=>{
       if(data.length==0){
         console.log('delete');

@@ -41,7 +41,7 @@ export class DatasetsComponent{
   getDataSetsTypes() {
     this.datasetservice.getDataSetType().subscribe(rep => {
       this.d_dataTypes = rep;
-      console.log(this.d_dataTypes)
+      //console.log(this.d_dataTypes);
     })
   }
   initTable (init?) {
