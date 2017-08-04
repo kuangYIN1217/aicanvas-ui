@@ -84,7 +84,7 @@ export class DatasetsComponent{
   }
 
   $select_change() {
-    console.log(this.s_select_datasetType);
+    //console.log(this.s_select_datasetType);
     this.initTable ();
   }
 
