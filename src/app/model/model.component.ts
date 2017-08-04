@@ -167,9 +167,9 @@ export class ModelComponent {
         this.result = result.content;
         this.type = this.result[0].resultType;
         this.runId=modelId;
-        console.log(this.type);
-        console.log(this.result);
-        console.log(this.runId);
+        //console.log(this.type);
+        //console.log(this.result);
+        //console.log(this.runId);
       }
     })
   }
