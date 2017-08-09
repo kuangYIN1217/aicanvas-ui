@@ -617,7 +617,8 @@ export class JobDetailComponent {
       if (result.state == 1) {
         addSuccessToast(this.toastyService, "保存成功");
       } else {
-        addWarningToast(this.toastyService, "网络层结构错误");
+        let reg = /([<>"])/g
+        addWarningToast(this.toastyService , result.msg.replace( reg , '\\“$1”') , "保存失败" , 8000);
       }
     } else {
       addErrorToast(this.toastyService, "保存异常");

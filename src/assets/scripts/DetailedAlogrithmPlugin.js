@@ -92,9 +92,9 @@ function init() {
                   for (var j = 0;j < test2[layerId].editable_param_list.length; j++){
                     if (key == test2[layerId].editable_param_list[j].path){
                       if (window.$ReadOnly) {
-                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 16px;margin-bottom: 5px; color: #666666;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border: 1px solid #d3d3d3;height: 36px; box-sizing:border-box; border-radius:5px;width: 94%;color: #666666;padding-left:5px;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '" readonly/></div>';
+                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 16px;margin-bottom: 5px; color: #666666;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border: 1px solid #d3d3d3;height: 36px; box-sizing:border-box; border-radius:5px;width: 94%;color: #666666;padding-left:5px;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" valueType = "'+typeof test1["layers"][i].config[key]+'" value="' + test1["layers"][i].config[key] + '" readonly/></div>';
                       } else {
-                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 16px;margin-bottom: 5px;color: #666666;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border: 1px solid #d3d3d3;height: 36px; box-sizing:border-box;width: 94%; border-radius:5px;color: #666666;padding-left:5px;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
+                        document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 16px;margin-bottom: 5px;color: #666666;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text" style="background: transparent;border: 0px;border: 1px solid #d3d3d3;height: 36px; box-sizing:border-box;width: 94%; border-radius:5px;color: #666666;padding-left:5px;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" valueType = "'+typeof test1["layers"][i].config[key]+'" value="' + test1["layers"][i].config[key] + '"/></div>';
                       }
                       // document.getElementById("property").innerHTML = document.getElementById("property").innerHTML + '<div style="margin-bottom: 15px;"><div style="font-size: 20px;margin-bottom: 5px;">'+ test2[layerId].editable_param_list[j]["editable_param"].name +'</div><input type="text"  style="background: transparent;border: 0px;border-bottom: 1px solid grey;height: 35px;width: 100%;color: #666666F;outline-style: none;" id="' + layerId + '@' + textName + '" name="' + test2[layerId].editable_param_list[j]["editable_param"].name + '" placeholder="' + test2[layerId].editable_param_list[j]["editable_param"].default_value + '" value="' + test1["layers"][i].config[key] + '"/></div>';
                       break;
@@ -391,7 +391,7 @@ function saveParam() {
     var pathName = test3[i].name
     for (var j = 0;j < test1["layers"].length; j++){
       if (test1["layers"][j].class_name == layerClass && test1["layers"][j].name == layerName){
-        if (test3[i].value.indexOf(",")){
+        if (test3[i].value.indexOf(",") >= 0 && test3[i].getAttribute('valueType') === 'object'){
           var dataArr = test3[i].value.split(",");
           var data = new Array();
           for (var k = 0;k < dataArr.length; k++){
@@ -402,7 +402,9 @@ function saveParam() {
 
           }
           test1["layers"][j].config[pathName] = data;
-        }else {
+        } else if(test3[i].getAttribute('valueType') === 'number') {
+          test1["layers"][j].config[pathName] = +test3[i].value;
+        } else{
           test1["layers"][j].config[pathName] = test3[i].value;
         }
         // console.log(JSON.stringify(test1["layers"][j]));

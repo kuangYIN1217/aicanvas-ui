@@ -59,7 +59,7 @@ const routes: Routes = [
   {path: 'showImage', component: ShowImageComponent},
   {path: 'nav', component: NavigationComponent},
   {path: 'inferenceModel', component: InferenceModelComponent},
-  {path: '', redirectTo: '/nav', pathMatch: 'full'},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 
 ];
