@@ -42,4 +42,4 @@ RUN nginx -t
 EXPOSE 80
 
 # start开启nginx
-ENTRYPOINT cd /src/dist; sed -i "s/&REPLACEHOST&/${hostip}/g" main.bundle.js; nginx -g "daemon off;"
+CMD sed -i "s/&REPLACEHOST&/$hostip/g" /src/dist/main.bundle.js; nginx -g "daemon off;"
