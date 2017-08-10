@@ -23,6 +23,9 @@ MAINTAINER hinesboy hines.zhu@gmail.com
 ADD . /src
 # RUN cd /src; yarn install
 
+ENV hostip = '127.0.0.1'
+
+
 # build
 # RUN cd /src; npm run build
 
@@ -39,4 +42,4 @@ RUN nginx -t
 EXPOSE 80
 
 # start开启nginx
-ENTRYPOINT nginx -g "daemon off;"
+ENTRYPOINT cd /src/dist; sed -i "s/&REPLACEHOST&/${hostip}/g" ./; nginx -g "daemon off;"
