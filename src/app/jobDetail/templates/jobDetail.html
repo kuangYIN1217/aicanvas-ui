@@ -304,5 +304,5 @@
   </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
   <ele-progress (close) = "$close_progress()" [show] = "s_progress_show" [logs]="d_progress_logs" [log] = "d_progress_log"></ele-progress>
-  <app-gpu [show] = "gpu_show"  (sure)="sure($event)" (showChange)="showChange($event)"></app-gpu>
+  <app-gpu [show] = "gpu_show" [gpuNum]="gpuNum" (sure)="sure($event)" (showChange)="showChange($event)"></app-gpu>
 </div>

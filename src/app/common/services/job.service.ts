@@ -1,12 +1,11 @@
 import {Headers, Http, Response} from "@angular/http";
 import {Injectable} from "@angular/core";
-
 import {plainToClass} from "class-transformer";
 
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-
+import 'rxjs/add/operator/toPromise';
 import {JobInfo} from "../defs/resources";
 import {JobParameter} from "../defs/resources";
 
@@ -162,16 +161,8 @@ export class JobService {
     let path = "/api/runJob/" + jobPath + "/" + num;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
-      .map((response: Response) => {
-        if (response) {
-          if (response.status == 200) {
-            return "success";
-          }else
-            return "输入的gpu编号不合法";
-        }
-      });
+      .toPromise();
   }
-
   stopJob(jobPath: string) {
     let path = "/api/stopJob/" + jobPath;
     let headers = this.getHeaders();

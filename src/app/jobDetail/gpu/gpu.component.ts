@@ -11,7 +11,7 @@ import {Component, Input, Output , EventEmitter} from '@angular/core';
   templateUrl: './templates/gpu.html'
 })
 export class GpuComponent{
-  gpuNum:number;
+  @Input() gpuNum: any = null;
   @Input() show: boolean = false;
   @Output() showChange: EventEmitter<any> = new EventEmitter();
 
@@ -22,7 +22,6 @@ export class GpuComponent{
     // this.once_click = false;
     this.showChange.emit(this.show);
   }
-
   cancelClick() {
     this.show = false;
     this.showChange.emit(this.show);
