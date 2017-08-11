@@ -300,7 +300,7 @@ export class JobCreationComponent {
       this.click_flag = true;
       return false;
     }
-    if (!dataId || dataId == -1) {
+    if ((!dataId || dataId == -1)&&(this.student!=15)) {
       // alert("请选择算法链");
       this.s_error_show = true;
       this.s_error_message = '请选择数据集';
