@@ -48,6 +48,7 @@ import { ResumableModule } from 'ng2-resumable';
 import { ConfirmComponent } from './confirm/confirm.component';
 import {ErrorComponent} from './errortip/error.component';
 import {NodataComponent} from './nodata/nodata.component'
+import {GpuComponent} from "./jobDetail/gpu/gpu.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -81,7 +82,8 @@ import {NodataComponent} from './nodata/nodata.component'
     ConfirmComponent,
     ProgressComponent,
     ErrorComponent,
-    NodataComponent
+    NodataComponent,
+    GpuComponent
     //InputReadonlyDirective
   ],
   imports: [

@@ -158,13 +158,16 @@ export class JobService {
       });
   }
 
-  runJob(jobPath: string) {
-    let path = "/api/runJob/" + jobPath;
+  runJob(jobPath,num) {
+    let path = "/api/runJob/" + jobPath + "/" + num;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
       .map((response: Response) => {
         if (response) {
-          return response;
+          if (response.status == 200) {
+            return "success";
+          }else
+            return "输入的gpu编号不合法";
         }
       });
   }

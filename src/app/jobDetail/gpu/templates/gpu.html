@@ -1,0 +1,16 @@
+<div class="confirm-wrapper" *ngIf="show">
+  <div class="confirm-content">
+    <div class="top item">
+      <label>消息提示</label>
+      <img src="../../../assets/datasets/guanbi.png" (click)="$hide_click()"></div>
+    <div class="content item">
+      <div class="input">
+        <label>请输入显卡id：</label><input type="number" [(ngModel)]="gpuNum" (ngModelChange)="gpuNum=$event;"/>
+      </div>
+    </div>
+    <div class="op item">
+      <div class="cancel btn" (click)="cancelClick()">取消</div>
+      <div class="sure btn" (click)="sureClick()">确定</div>
+    </div>
+  </div>
+</div>

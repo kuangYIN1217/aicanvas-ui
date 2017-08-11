@@ -341,10 +341,12 @@ export class JobCreationComponent {
     }
   }
 
+/*
   create() {
     this.jobService.runJob(this.createdJob.jobPath)
       .subscribe(reply => this.runJobResult(reply, this.createdJob.jobPath));
   }
+*/
 
   runJobResult(reply, jobPath) {
     // 成功运行

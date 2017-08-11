@@ -71,13 +71,17 @@ export class JobDetailComponent {
   // 显示plugin是否为当前runningPlugin
   runningFlag = false;
   jobPath: string;
+  runPath:string;
   step: number = 2;
   page: string;
+  gpuNum:number;
   paramjson: any = PARAM;
+  input_content:string;
   // progress logs
   s_process_flag: boolean = true;
 
   s_progress_show: boolean = false;
+  gpu_show:boolean = false;
   d_progress_logs = [];
   s_save_flag: boolean = true;
   d_progress_log: any = {
@@ -835,14 +839,27 @@ export class JobDetailComponent {
         addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
         return;
       }else {
-        this.jobService.runJob(jobPath)
-          .subscribe(reply => {
-            this.initJobDetailByPath(true);
-          });
+        this.gpu_show = true;
+        this.runPath = jobPath;
       }
     })
   }
-
+  sure(event){
+    this.gpuNum = event;
+    this.jobService.runJob(this.runPath,this.gpuNum)
+      .subscribe(result => {
+        if(result=="success"){
+        this.initJobDetailByPath(true);
+        }else{
+          addErrorToast(this.toastyService,result);
+          this.s_start_stop_click = true;
+        return;
+        }
+      });
+  }
+  showChange(event){
+    this.gpu_show = event;
+  }
   goModel() {
     this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id}})
   }

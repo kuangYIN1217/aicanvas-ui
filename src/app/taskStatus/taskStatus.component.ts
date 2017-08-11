@@ -7,8 +7,9 @@ import {PluginService} from "../common/services/plugin.service";
 import {JobInfo, ModelInfo, Page, SceneInfo} from "../common/defs/resources";
 import {JobService} from "../common/services/job.service";
 import {SceneService} from "../common/services/scene.service";
-import {addWarningToast} from "../common/ts/toast";
+import {addErrorToast, addSuccessToast, addWarningToast} from '../common/ts/toast';
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
+
 @Component({
     moduleId: module.id,
     selector: 'taskStatus',
@@ -32,6 +33,9 @@ export class TaskStatusComponent{
     createdJob: JobInfo = new JobInfo();
     scene_id:number;
     historyId:number;
+    gpu_show:boolean=false;
+    runPath:string;
+    gpuNum:number;
     params:any; // 保存页面url参数
     totalNum:number = 0; // 总数据条数
     pageSize:number = 20;// 每页数据条数
@@ -133,14 +137,32 @@ export class TaskStatusComponent{
           addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
           return;
         } else {
-          this.jobService.runJob(jobPath)
-            .subscribe(reply => this.start_reply(reply));
+          this.gpu_show = true;
+          this.runPath = jobPath;
+         /* this.jobService.runJob(jobPath)
+            .subscribe(reply => this.start_reply(reply));*/
         }
       })
 
     }
+  sure(event){
+    this.gpuNum = event;
+    this.jobService.runJob(this.runPath,this.gpuNum)
+      .subscribe(result => {
+        if(result=="success"){
+         this.start_reply(result);
+        }else{
+          console.log(result);
+          addErrorToast(this.toastyService,result);
+          return;
+        }
+      });
+  }
+  showChange(event){
+    this.gpu_show = event;
+  }
     start_reply(reply){
-        if(reply.status==200){
+        if(reply==200){
             console.log("Start Successfully!");
         }else{
             console.log("Start Failed!");
