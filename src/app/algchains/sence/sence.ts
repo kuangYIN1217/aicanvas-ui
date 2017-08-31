@@ -39,7 +39,7 @@ export class SenceComponent {
           this.uploadShow = 0;
           this.uploadShowChange.emit(this.uploadShow);
         }, 5000);*/
-
+        this.uploader.queue=[];
       }
     };
     this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {

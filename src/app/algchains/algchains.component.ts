@@ -52,13 +52,8 @@ export class AlgChainsComponent{
     }
     ngOnInit(){
       window.$ReadOnly = false;
-      if(this.showSence == 0){
-        this.sceneService.getAllScenes(1)
-          .subscribe(sceneArray => this.getSceneArray(sceneArray));
-      }else{
-        this.sceneService.getAllScenes(0)
-          .subscribe(sceneArray => this.getSceneArray(sceneArray));
-      }
+      this.sceneService.getAllScenes(1)
+        .subscribe(sceneArray => this.getSceneArray(sceneArray));
       this.pluginService.getLayerDict()
         .subscribe(dictionary => this.getDictionary(dictionary));
       this.pluginService.getTranParamTypes()
@@ -94,9 +89,13 @@ export class AlgChainsComponent{
   }
   mysenceClick(){
       this.showSence = 0;
+    this.sceneService.getAllScenes(1)
+      .subscribe(sceneArray => this.getSceneArray(sceneArray));
   }
   publicsenceClick(){
     this.showSence = 1;
+    this.sceneService.getAllScenes(0)
+      .subscribe(sceneArray => this.getSceneArray(sceneArray));
   }
   ngOnDestroy() {
     window.$ReadOnly = true;
@@ -164,7 +163,7 @@ export class AlgChainsComponent{
     }
     showNetwork(sceneId){
       console.log(sceneId);
-      this.sceneService.getAllScenes(0)
+      this.sceneService.getAllScenes(-1)
         .subscribe(sceneArray => {
           for(let i=0;i<sceneArray.length;i++) {
             if (sceneId == sceneArray[i].id) {
