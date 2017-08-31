@@ -126,10 +126,12 @@ export class AlgChainsComponent{
         .subscribe(plugin=>{
           this.plugins=plugin;
           this.arrName=[];
-          for(let j=0;j<this.plugins.length;j++){
-            this.arrName.push(this.plugins[j].alg_name);
+          if(this.plugins[0].alg_name!=undefined){
+            for(let j=0;j<this.plugins.length;j++){
+              this.arrName.push(this.plugins[j].alg_name);
+            }
+            this.sceneArrays[index].arrName=this.arrName;
           }
-          this.sceneArrays[index].arrName=this.arrName
           // console.log(this.arrName);
           // return this.arrName;
         });
