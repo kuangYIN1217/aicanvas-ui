@@ -51,7 +51,6 @@ export class AlgPluginsComponent{
                 //console.log(this.arr[0].id);
                 //this.arr2 = this.selfTab.slice(0,10);
                 //this.getInit();
-
             });
         // console.log(this.showSystemPlugin);
     }
@@ -99,7 +98,6 @@ export class AlgPluginsComponent{
    // console.log(this.pageParams);
   }
   getPageData(paraParam) {
-    debugger
     this.arr = this.modalTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
     //this.arr2 = this.selfTab.slice(paraParam.pageMaxItem*paraParam.curPage-paraParam.pageMaxItem,paraParam.pageMaxItem*paraParam.curPage);
     console.log('触发', paraParam);

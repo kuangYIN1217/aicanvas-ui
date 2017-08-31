@@ -752,7 +752,7 @@ export class JobDetailComponent {
         /* this.jobResult = jobParam[jobParam.length - 1];*/
         this.websocket.connect().then(() => {
           this.websocket.subscribe('/job/' + jobPath, (data) => {
-            // console.log(data);
+             //console.log(data);
             this.updateChart(data);
           });
 
@@ -760,6 +760,8 @@ export class JobDetailComponent {
             this.log_list = this.log_list.concat(data);
           });
           this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
+
+
             if (this.s_process_flag) {
               this.d_progress_log = {
                 percent: 0,
@@ -860,7 +862,7 @@ export class JobDetailComponent {
   showChange(event){
     this.gpu_show = event;
   }
-  goModel() {
+  goModel(){
     this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id}})
   }
 

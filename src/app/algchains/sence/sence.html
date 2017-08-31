@@ -1,0 +1,44 @@
+<div class="popup-wrapper">
+  <div class="upload-wrapper">
+    <div class="top">
+      <label>上传场景（算法链）</label>
+      <img src="../../../assets/datasets/guanbi.png" (click)="hide_click()">
+    </div>
+    <cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>
+   <!-- <div class="error item" *ngIf="s_error_show">
+      <img [src]="'../../../assets/datasets/' + (s_error_level === 'error' ? 'cuowu.png' : 'tishi.png')" alt="">
+      <label>{{s_error_level === 'error' ? '错误！' : '提示！'}}</label>
+      {{s_error_message}}
+    </div>
+-->
+    <div class="form item" *ngIf="uploader.queue.length==0">
+      <div class="upload" onclick="document.getElementById('file').click()">上传场景（算法链）</div>
+      <input type="file" id="file" name="file" ng2FileSelect [uploader]="uploader" accept=".zip" (change)="selectedFileOnChanged($event)"/>
+    </div>
+    <table class="uploadShow" *ngIf="uploader.queue.length>0">
+      <tr *ngFor="let item of uploader.queue;let i =index" class="uploadTr">
+        <td class="uploadTxt paddingLeft"><img src="../assets/datasets/shangchuan.png" class="imgMiddle right" *ngIf="item.progress==0"/><img src="../assets/datasets/shangchuan.png" class="imgMiddle right"  *ngIf="item.progress!=100&&(item.progress!=0)"/>{{item.file.name}}<span *ngIf="(item.file.size/1024)>=1024">（{{item.file.size/1024/1024|number:'1.2-2'}}）MB</span><span *ngIf="(item.file.size/1024)<1024">（{{item.file.size/1024|number:'1.2-2'}}）KB</span></td>
+        <div class="progressouter">
+          <span>{{item.progress}}%</span>
+          <div class="progressinner" [ngStyle]="{width: item.progress + '%'}"></div>
+          <img src="../assets/datasets/shanchu.png" class="imgMiddle" (click)="item.remove()"/>
+        </div>
+      </tr>
+    </table>
+    <div class="notes">
+      <div>提示：</div>
+      <ol>
+        <li> 请上传<label class="orange">ZIP</label>格式的文件，文件名称即为自定义场景/算法链名称</li>
+        <li> 文件夹内应当包含一个configure.txt文件，包含四行：chain_name,chain_describe,train,predict的执行命令</li>
+        <li> 文件夹内需包含train和predict执行命令对应的文件/代码（名称和文件格式可自定义）</li>
+        <li> train过程中，有产出需保存的情况，需维护相对路径</li>
+        <li> predict过程中，若需调用train过程的产出，需维护同级相对路径</li>
+        <li> train过程中，使用的数据集路径需维护同级相对路径</li>
+        <span>请参考上传文件范例：<label class="green">demo.zip</label></span>
+      </ol>
+    </div>
+  </div>
+
+  <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
+
+</div>

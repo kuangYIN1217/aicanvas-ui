@@ -17,7 +17,6 @@
         <!-- if too slow for each search, should change to (change) according to the num of data -->
         <input [(ngModel)]="s_name" (ngModelChange)="$name_change()" class="search-input" type="text"  placeholder="数据集名称"/>
       </div>
-
       <div class="selectContainer">
         <span><label class="orange">*</label>选择分类 :</span>
         <select [(ngModel)]="s_select_datasetType" (ngModelChange)="$name_change()">

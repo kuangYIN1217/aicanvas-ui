@@ -40,8 +40,8 @@ export class SceneService {
         });
     }
 
-    getAllScenes(): Observable<SceneInfo[]>{
-        let path = "/api/senses";
+    getAllScenes(id){
+        let path = "/api/senses/"+id;
         let headers = this.getHeaders();
         return this.http.get(this.SERVER_URL+path, { headers : headers} )
             .map((response: Response) => {

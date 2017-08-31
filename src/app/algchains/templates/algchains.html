@@ -1,10 +1,13 @@
 <div class="container">
     <div class="tabDiv sceneManage" [style.display]="ifShowNetwork==0?'':'none'">
-<!--        <div class="tabs">
-            <div class="tab_item" [class.focus] = "1">已购场景</div>
-        </div>-->
+        <div class="tabs">
+            <div class="tab_item" [class.focus]="showSence==0" (click)="mysenceClick()">我的场景</div>
+            <div class="tab_item" [class.focus]="showSence==1" (click)="publicsenceClick()">公共场景</div>
+            <div class="tab_item upload" (click)="uploadSence()">上传场景</div>
+            <!--<input type="file" id="file" name="file" ng2FileSelect [uploader]="uploader" accept=".zip" (change)="selectedFileOnChanged($event)"/>-->
+        </div>
         <div class="status">
-            <div class="allPurchaseScene" id="b04">
+            <div class="allPurchaseScene" id="b04" *ngIf="showSence==1">
                 <div class="scene" *ngFor="let SceneInfo of sceneArrays">
                   <div class="sceneTitle">
                     <span class="title">{{SceneInfo?.translation}}</span>
@@ -31,6 +34,17 @@
                   </div>
                 </div>
             </div>
+          <div class="allPurchaseScene" id="b05" *ngIf="showSence==0">
+            <div class="scene" *ngFor="let SceneInfo of sceneArrays" style="height:226px">
+              <div class="sceneTitle">
+                <span class="title">{{SceneInfo?.translation}}</span>
+                <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active"><span>算法链详情</span></a>
+              </div>
+              <div class="privateDescript">
+                <p class="privateTitle">场景描述：</p>
+                <p class="privateContent">{{SceneInfo?.description}}</p>
+            </div>
+          </div>
 <!--            <div class="verticalLine"></div>-->
 <!--          <div class="recommendBox">
             <div class="recommend">
@@ -72,6 +86,7 @@
             </div>
           </div>-->
         </div>
+      <cpt-sence [style.display]="uploadShow==1?'':'none'" (uploadShowChange)="uploadShowChange($event)"></cpt-sence>
     </div>
     <div class="networkBox" [style.display]="ifShowNetwork==1?'':'none'">
 <!--        <div class="tabs">

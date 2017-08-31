@@ -43,7 +43,7 @@ export class AlgorithmChainComponent{
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
     constructor(private sceneService: SceneService,private pluginService: PluginService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
-      this.sceneService.getAllScenes()
+      this.sceneService.getAllScenes(-1)
         .subscribe(scenes => this.SceneInfo=scenes);
     }
 

@@ -64,7 +64,7 @@ export class OverviewComponent {
       .subscribe(gpuArray => this.getGpus(gpuArray));
     //this.getAlljobs(this.page-1,this.pageMaxItem);
     // loading show
-    this.sceneService.getAllScenes()
+    this.sceneService.getAllScenes(-1)
       .subscribe(scenes => this.SceneInfo = scenes);
 
     this.loading();

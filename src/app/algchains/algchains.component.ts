@@ -45,13 +45,20 @@ export class AlgChainsComponent{
     rightNodeIndex:number=0;
     paramjson: any = PARAM;
     selected_plugin:number = 0;
+    showSence:number=0;
+    uploadShow:number=0;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
       window.scrollTo(0,0);
     }
     ngOnInit(){
       window.$ReadOnly = false;
-      this.sceneService.getAllScenes()
-        .subscribe(sceneArray => this.getSceneArray(sceneArray));
+      if(this.showSence == 0){
+        this.sceneService.getAllScenes(1)
+          .subscribe(sceneArray => this.getSceneArray(sceneArray));
+      }else{
+        this.sceneService.getAllScenes(0)
+          .subscribe(sceneArray => this.getSceneArray(sceneArray));
+      }
       this.pluginService.getLayerDict()
         .subscribe(dictionary => this.getDictionary(dictionary));
       this.pluginService.getTranParamTypes()
@@ -66,7 +73,6 @@ export class AlgChainsComponent{
                     .subscribe(plugin=>{
                         this.pluginArr=plugin;
                        // console.log(this.pluginArr[0]);
-                      debugger
                         this.changeChosenPlugin(this.pluginArr[0].id,0);
                     });
             }
@@ -80,6 +86,18 @@ export class AlgChainsComponent{
         //         });
         // }
     }
+  uploadSence () {
+    this.uploadShow = 1;
+  }
+  uploadShowChange(event){
+    this.uploadShow = event;
+  }
+  mysenceClick(){
+      this.showSence = 0;
+  }
+  publicsenceClick(){
+    this.showSence = 1;
+  }
   ngOnDestroy() {
     window.$ReadOnly = true;
   }
@@ -146,7 +164,7 @@ export class AlgChainsComponent{
     }
     showNetwork(sceneId){
       console.log(sceneId);
-      this.sceneService.getAllScenes()
+      this.sceneService.getAllScenes(0)
         .subscribe(sceneArray => {
           for(let i=0;i<sceneArray.length;i++) {
             if (sceneId == sceneArray[i].id) {

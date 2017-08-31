@@ -200,7 +200,7 @@ export class JobCreationComponent {
   // createJob
   createJob() {
     this.jobName = null;
-    this.sceneService.getAllScenes()
+    this.sceneService.getAllScenes(-1)
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
         this.student = scenes[0].id;

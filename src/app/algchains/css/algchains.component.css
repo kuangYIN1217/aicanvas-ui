@@ -1,32 +1,63 @@
 .tabs{
-    position: relative;
-    height: 42px;
-    background-color: #ffffff;
-    top:20px;
-    border: 0px;
-
+  position: relative;
+  height: 42px;
+  background-color: #ffffff;
+  border: 0px;
+  box-sizing: border-box;
+  margin: 0 0.5% 20px 0.5%;
+  border-radius: 5px;
 }
 .tab_item{
-    position:absolute;
-    width: 100px;
-    height: 39px;
-    line-height:39px;
-    font-size: 14px;
-    font-weight: normal;
-    font-family: "MicrosoftYaHei";
-    color: #ff7c35;
-    text-align: center;
-    cursor: pointer;
-    left:10px;
+  position: relative;
+  border: 0px;
+  float: left;
+  margin-left: 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: normal;
+  width:104px;
+  font-family: "MicrosoftYaHei";
+  color: #333333;
+  height:39px;
+  line-height: 39px;
+  cursor: pointer;
+}
+.upload{
+  float: right !important;
+  margin-right: 20px;
+  width:114px;
+  height: 30px;
+  line-height: 30px;
+  box-sizing: border-box;
+  border:1px solid #ff7c35;
+  color: #ff7c35;
+  border-radius: 5px;
+  margin-top: 6px;
+}
+.privateDescript{
+  padding:0 0 0 22px;
+  border-top:1px solid #d3d3d3;
+  font-size: 14px;
+  color: #666666;
+}
+.privateTitle,.privateContent{
+  display: inline-block;
+  vertical-align: top;
+}
+.privateContent{
+  width:82%;
+}
+#file{
+  display: none;
 }
 .tab_item a{
     text-decoration: none;
     color: #5e5e5f;
 }
 .focus{
-    color: #ff7c35;
-    font-weight: normal;
-    border-bottom: 3px solid #ff7c35;
+  color: #ff7c35;
+  font-weight: normal;
+  border-bottom: 3px solid #ff7c35;
 }
 .status{
     position: relative;

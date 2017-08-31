@@ -152,6 +152,7 @@ export class SceneInfo{
     name: string;
     translation: string;
     description: string;
+    tag:string;
     arrName:any;
 }
 

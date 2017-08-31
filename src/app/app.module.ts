@@ -49,6 +49,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
 import {ErrorComponent} from './errortip/error.component';
 import {NodataComponent} from './nodata/nodata.component'
 import {GpuComponent} from "./jobDetail/gpu/gpu.component";
+import {SenceComponent} from "./algchains/sence/sence";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -83,7 +84,8 @@ import {GpuComponent} from "./jobDetail/gpu/gpu.component";
     ProgressComponent,
     ErrorComponent,
     NodataComponent,
-    GpuComponent
+    GpuComponent,
+    SenceComponent
     //InputReadonlyDirective
   ],
   imports: [
