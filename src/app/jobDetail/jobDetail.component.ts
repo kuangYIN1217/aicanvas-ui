@@ -74,7 +74,7 @@ export class JobDetailComponent {
   runPath:string;
   step: number = 2;
   page: string;
-  gpuNum:number;
+  gpuNum:any;
   paramjson: any = PARAM;
   input_content:string;
   // progress logs
@@ -841,6 +841,7 @@ export class JobDetailComponent {
         addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
         return;
       }else {
+        this.gpuNum = null;
         this.gpu_show = true;
         this.runPath = jobPath;
       }
@@ -849,18 +850,18 @@ export class JobDetailComponent {
   sure(event){
     this.gpuNum = event;
     this.jobService.runJob(this.runPath,this.gpuNum)
-      .subscribe(result => {
-        if(result=="success"){
+      .then(result => {
         this.initJobDetailByPath(true);
-        }else{
-          addErrorToast(this.toastyService,result);
-          this.s_start_stop_click = true;
-        return;
-        }
+      }).catch((error) => {
+      // this.s_start_stop_click = true;
+      addErrorToast(this.toastyService,'输入的gpu编号不合法');
       });
   }
   showChange(event){
     this.gpu_show = event;
+    if (!event) {
+      this.s_start_stop_click = true;
+    }
   }
   goModel(){
     this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id}})

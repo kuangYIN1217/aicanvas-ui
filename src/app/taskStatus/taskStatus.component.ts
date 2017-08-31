@@ -35,7 +35,7 @@ export class TaskStatusComponent{
     historyId:number;
     gpu_show:boolean=false;
     runPath:string;
-    gpuNum:number;
+    gpuNum:any;
     params:any; // 保存页面url参数
     totalNum:number = 0; // 总数据条数
     pageSize:number = 20;// 每页数据条数
@@ -137,6 +137,7 @@ export class TaskStatusComponent{
           addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
           return;
         } else {
+          this.gpuNum = null;
           this.gpu_show = true;
           this.runPath = jobPath;
          /* this.jobService.runJob(jobPath)
@@ -148,14 +149,10 @@ export class TaskStatusComponent{
   sure(event){
     this.gpuNum = event;
     this.jobService.runJob(this.runPath,this.gpuNum)
-      .subscribe(result => {
-        if(result=="success"){
-         this.start_reply(result);
-        }else{
-          console.log(result);
-          addErrorToast(this.toastyService,result);
-          return;
-        }
+      .then(result => {
+        this.start_reply(true);
+      }).catch((error) => {
+        addErrorToast(this.toastyService,'输入的gpu编号不合法');
       });
   }
   showChange(event){
