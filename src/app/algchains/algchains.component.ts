@@ -126,7 +126,7 @@ export class AlgChainsComponent{
         .subscribe(plugin=>{
           this.plugins=plugin;
           this.arrName=[];
-          if(this.plugins[0].alg_name!=undefined){
+          if(plugin.length>0){
             for(let j=0;j<this.plugins.length;j++){
               this.arrName.push(this.plugins[j].alg_name);
             }
