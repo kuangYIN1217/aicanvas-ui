@@ -34,7 +34,7 @@ export class SenceComponent {
     this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
       this.progress=0;
       if(progress==100){
-        addSuccessToast(this.toastyService , "数据集上传成功");
+        addSuccessToast(this.toastyService , "算法链上传成功");
         setTimeout(()=>{
           this.uploadShow = 0;
           this.uploader.queue=[];
