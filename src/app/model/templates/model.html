@@ -49,7 +49,7 @@
     <table>
       <tr>
         <td class="first_column">推演文件格式</td>
-        <td *ngIf="job.sences==3||job.sences==4">png,jpg</td>
+        <td *ngIf="job.sences!=5||job.sences!=9||job.sences!=15">png,jpg</td>
         <td *ngIf="job.sences==5||job.sences==9||job.sences==15">csv,txt</td>
       </tr>
       <tr>
@@ -65,7 +65,7 @@
                <img src="../assets/model/delete.png" class="del" (click)="delPhoto(i)"/>
              </span>
           </div>
-          <div class="image" onclick="document.getElementById('file').click()" *ngIf="job.sences==3||job.sences==4">
+          <div class="image" onclick="document.getElementById('file').click()" *ngIf="job.sences!=5||job.sences!=9||job.sences!=15">
             <input type="file" id="file" name="file" multiple accept=".png,.jpg" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
 <!--            <input type="file" *ngIf="job.sences==5||job.sences==9||job.sences==15" class="file" name="file" multiple accept=".csv,.txt" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>-->
           </div>
