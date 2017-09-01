@@ -163,9 +163,15 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   display: inline-block;
   vertical-align: middle;
 }
+.imgMiddle1{
+  display: inline-block;
+  vertical-align: middle;
+  float: right;
+  margin-left: 20px;
+}
 .uploadShow{
-  width:484px;
-  margin-left:83px;
+  width:602px;
+  margin-left:100px;
 }
 .importDown{
   float: left;
@@ -173,7 +179,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .uploadTr{
   border-collapse:collapse;
   display: block;
-  padding:20px 0 10px 0;
+  padding:60px 0 50px 0;
   overflow: hidden;
 }
 .uploadTxt{
@@ -200,7 +206,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   padding-right: 8px;
 }
 .paddingLeft{
-  padding-left: 8px;
+  padding-bottom: 10px;
 }
 .right{
   margin-right: 12px;
@@ -210,17 +216,17 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   margin-left: 20px !important;
 }
 .progressouter{
-  width:484px;
+  width:560px;
   height:15px;
   background: #999999;
   border:1px solid #b5b5b5;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow:0px 5px 5px #818181 inset;
   clear: both;
-  margin-left:20px;
   text-align: center;
   color: #ffffff;
-  position: relative;
+  display: inline-block;
+  float: left;
 }
 .progressouter span{
   position: absolute;
@@ -233,10 +239,13 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .progressinner{
   /*background: #ed8942;*/
   background: linear-gradient(rgb(236,148,81),rgb(235,123,53));
-  border-radius: 10px;
+  border-radius: 5px;
   height:18px;
   /*box-shadow:0px 2px 2px #ccc inset;*/
   margin:0 1px;
+}
+.progressinnerbg{
+  background: #23a880 !important;
 }
 #file{
   display: none;

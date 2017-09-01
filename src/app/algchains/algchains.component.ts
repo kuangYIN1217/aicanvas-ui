@@ -86,6 +86,8 @@ export class AlgChainsComponent{
   }
   uploadShowChange(event){
     this.uploadShow = event;
+    this.sceneService.getAllScenes(1)
+      .subscribe(sceneArray => this.getSceneArray(sceneArray));
   }
   mysenceClick(){
       this.showSence = 0;

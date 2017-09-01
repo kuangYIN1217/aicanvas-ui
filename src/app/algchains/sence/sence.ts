@@ -27,22 +27,23 @@ export class SenceComponent {
   });
   selectedFileOnChanged(event:any) {
     console.log(event.target.value);
-    this.upload();
+    this.upload(event);
   }
-  upload(){
+  upload(event){
     this.uploader.queue[0].upload(); // 开始上传
     this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
       this.progress=0;
       if(progress==100){
         addSuccessToast(this.toastyService , "数据集上传成功");
-/*        setTimeout(()=>{
+        setTimeout(()=>{
           this.uploadShow = 0;
+          this.uploader.queue=[];
           this.uploadShowChange.emit(this.uploadShow);
-        }, 5000);*/
-        this.uploader.queue=[];
+        }, 3000);
       }
     };
     this.uploader.queue[0].onSuccess = (response: any, status: any, headers: any) => {
+      event.target.value = '';
       this.importPath = response;
     }
   }

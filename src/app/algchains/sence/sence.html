@@ -19,10 +19,10 @@
       <tr *ngFor="let item of uploader.queue;let i =index" class="uploadTr">
         <td class="uploadTxt paddingLeft"><img src="../assets/datasets/shangchuan.png" class="imgMiddle right" *ngIf="item.progress==0"/><img src="../assets/datasets/shangchuan.png" class="imgMiddle right"  *ngIf="item.progress!=100&&(item.progress!=0)"/>{{item.file.name}}<span *ngIf="(item.file.size/1024)>=1024">（{{item.file.size/1024/1024|number:'1.2-2'}}）MB</span><span *ngIf="(item.file.size/1024)<1024">（{{item.file.size/1024|number:'1.2-2'}}）KB</span></td>
         <div class="progressouter">
-          <span>{{item.progress}}%</span>
-          <div class="progressinner" [ngStyle]="{width: item.progress + '%'}"></div>
-          <img src="../assets/datasets/shanchu.png" class="imgMiddle" (click)="item.remove()"/>
+          <!--<span>{{item.progress}}%</span>-->
+          <div class="progressinner" [ngStyle]="{width: item.progress + '%'}" [ngClass]="{progressinnerbg: item.progress==100}">{{item.progress}}%</div>
         </div>
+        <img src="../assets/datasets/shanchu.png" class="imgMiddle1" (click)="item.remove()"/>
       </tr>
     </table>
     <div class="notes">
