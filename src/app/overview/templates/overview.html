@@ -6,40 +6,41 @@
   </div>
   <div [style.display]="tabIndex==0?'':'none'" id="resourceDiv" class="status">
     <div class="total">
-      <div class="cpu" [ngClass]="{gpu: gpuIndex==1}">
-        <div class="resourceTypeTitle"><span>GPU0</span>
-          <div class="checkStatus"><span *ngIf="focusImg==0" (click)="gpuToggle()">展开</span><span *ngIf="focusImg!=0" (click)="gpuToggle()">收起</span>
-            <img [src]="focusImg==0?'../assets/overview/redown.png':'../assets/overview/reup.png'" (click)="gpuToggle()"/>
+      <div class="cpu_gpu" [ngClass]="{gpu: gpuIndex==1}">
+        <div class="chartsCont" *ngFor="let item of showGpu;let i=index">
+          <div class="resourceTypeTitle"><span>GPU{{i}}</span>
+            <div class="checkStatus" *ngIf="i==0"><span *ngIf="focusImg==0" (click)="gpuToggle(1)">展开</span><span *ngIf="focusImg!=0" (click)="gpuToggle(0)">收起</span>
+              <img src="../assets/overview/redown.png" (click)="gpuToggle(1)" *ngIf="focusImg==0"/>
+              <img src="../assets/overview/reup.png" (click)="gpuToggle(0)" *ngIf="focusImg!=0"/>
+            </div>
           </div>
-        </div>
-        <div class="chartsCont">
           <div class="chart linechart">
             <h4>GPU使用率(%)</h4>
-            <div id="chartdiv1" [style.width.%]="108" [style.height.px]="282"></div>
+            <div id="chartdiv{{item.tema}}" [style.width.%]="108" [style.height.px]="282"></div>
           </div>
           <div class="chart piechart">
             <h4>GPU内存(%)</h4>
-            <div id="chartdiv2" [style.width.%]="108" [style.height.px]="282"></div>
+            <div id="chartdiv{{item.temb}}" [style.width.%]="108" [style.height.px]="282"></div>
           </div>
         </div>
       </div>
-      <div class="cpu gpu1" [style.display]="gpuIndex==1?'':'none'">
+<!--      <div class="cpu gpu1" [style.display]="gpuIndex==1?'':'none'">
         <div class="resourceTypeTitle" style="padding-top: 0"><span style="padding-top: 0">GPU1</span>
         </div>
         <div class="chartsCont">
           <div class="flex-item"></div>
           <div class="chart linechart">
             <h4>GPU使用率(%)</h4>
-            <div id="chartdiv5" [style.width.%]="108" [style.height.px]="282"></div>
+            <div id="chartdiv3" [style.width.%]="108" [style.height.px]="282"></div>
           </div>
           <div class="flex-item"></div>
           <div class="chart piechart">
             <h4>GPU内存(%)</h4>
-            <div id="chartdiv6" [style.width.%]="108" [style.height.px]="282"></div>
+            <div id="chartdiv4" [style.width.%]="108" [style.height.px]="282"></div>
           </div>
           <div class="flex-item"></div>
         </div>
-      </div>
+      </div>-->
     </div>
     <div class="total" style="margin-bottom: 120px">
       <div class="cpu">
@@ -49,12 +50,12 @@
           <div class="flex-item"></div>
           <div class="chart linechart">
             <h4>CPU使用率(%)</h4>
-            <div id="chartdiv3" [style.width.%]="108" [style.height.px]="282"></div>
+            <div id="chartdiv0" [style.width.%]="108" [style.height.px]="282"></div>
           </div>
           <div class="flex-item"></div>
           <div class="chart piechart">
             <h4>物理内存(%)</h4>
-            <div id="chartdiv4" [style.width.%]="108" [style.height.px]="282"></div>
+            <div id="chartdiv" [style.width.%]="108" [style.height.px]="282"></div>
           </div>
           <div class="flex-item"></div>
         </div>

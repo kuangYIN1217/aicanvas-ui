@@ -14,6 +14,8 @@ export class Gpu{
     totalGlobalMem: number;
     id: number;
     name: string;
+  tema:number;
+  temb:number;
 }
 export class Cpu{
     brand: string;

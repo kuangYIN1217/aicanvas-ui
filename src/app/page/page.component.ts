@@ -89,7 +89,7 @@ export class PageComponent {
     let totalPage = vm.pageParams.totalNum/this.pageMaxItem;
     vm.pageParams.totalPage=vm.pageParams.totalNum%this.pageMaxItem==0?totalPage:Math.floor(totalPage)+1;
     vm.pageParams.pageMaxItem = this.pageMaxItem;
-    console.log(vm.pageParams.totalNum);
+    //console.log(vm.pageParams.totalNum);
     vm.changeCurPage.emit(vm.pageParams);
   }
 /*  change(page){

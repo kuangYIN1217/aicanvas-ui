@@ -129,6 +129,11 @@ h4{
     background: #ffffff;
     border-radius: 5px;
 }
+.cpu_gpu{
+  height: auto;
+  background: #ffffff;
+  border-radius: 5px;
+}
 .gpu{
   border-bottom-left-radius:0 !important;
   border-bottom-right-radius:0 !important;
@@ -155,7 +160,7 @@ h4{
 }*/
 .chartsCont{
   overflow: hidden;
-  padding:0 20px;
+  padding:0 20px 20px;
 }
 .checkStatus{
   float: right;

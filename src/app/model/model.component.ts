@@ -208,7 +208,7 @@ export class ModelComponent {
         page.totalPage = model.totalPages;
         page.totalNum = model.totalElements;
         this.pageParams = page;
-        console.log(this.pageParams);
+        //console.log(this.pageParams);
       });
   }
   getPageData(paraParam){
