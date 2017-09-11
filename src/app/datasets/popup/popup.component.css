@@ -155,7 +155,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   color: #fe1c1c;
   font-size: 12px;
   position: relative;
-  top:-2px;
+  /*top:-2px;*/
 }
 .green {
   color: #23a880;

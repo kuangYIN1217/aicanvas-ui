@@ -49,8 +49,8 @@
     <table>
       <tr>
         <td class="first_column">推演文件格式</td>
-        <td [style.display]="(job.sences!=5||job.sences!=9||job.sences!=15)?'':'none'">png,jpg</td>
-        <td [style.display]="(job.sences!=5||job.sences!=9||job.sences!=15)?'none':''">csv,txt</td>
+        <td [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11)?'':'none'">png,jpg</td>
+        <td [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11)?'none':''">csv,txt</td>
       </tr>
       <tr>
         <td class="first_column">新建推演名称</td>
@@ -65,11 +65,11 @@
                <img src="../assets/model/delete.png" class="del" (click)="delPhoto(i)"/>
              </span>
           </div>
-          <div class="image" onclick="document.getElementById('file').click()" [style.display]="(job.sences!=5||job.sences!=9||job.sences!=15)?'':'none'">
+          <div class="image" onclick="document.getElementById('file').click()" [style.display]="(job.sences!=5||job.sences!=9||job.sences!=15||job.sences!=11)?'':'none'">
             <input type="file" id="file" name="file" multiple accept=".png,.jpg" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
 <!--            <input type="file" *ngIf="job.sences==5||job.sences==9||job.sences==15" class="file" name="file" multiple accept=".csv,.txt" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>-->
           </div>
-          <div class="image" onclick="document.getElementById('file1').click()" [style.display]="(job.sences!=5||job.sences!=9||job.sences!=15)?'none':''">
+          <div class="image" onclick="document.getElementById('file1').click()" [style.display]="(job.sences!=5||job.sences!=9||job.sences!=15||job.sences!=11)?'none':''">
             <!--<input type="file" *ngIf="job.sences==3||job.sences==4" id="file" name="file" multiple accept=".png,.jpg" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>-->
             <input type="file"  id="file1" name="file" multiple accept=".csv,.txt" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
           </div>
