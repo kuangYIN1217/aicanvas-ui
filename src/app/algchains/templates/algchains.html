@@ -38,11 +38,12 @@
             <div class="scene" *ngFor="let SceneInfo of sceneArrays" style="height:226px">
               <div class="sceneTitle">
                 <span class="title">{{SceneInfo?.translation}}</span>
-                <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active"><span>算法链详情</span></a>
+                <!--<a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active"><span>算法链详情</span></a>-->
               </div>
               <div class="privateDescript">
                 <p class="privateTitle">场景描述：</p>
                 <p class="privateContent">{{SceneInfo?.description}}</p>
+              </div>
             </div>
           </div>
 <!--            <div class="verticalLine"></div>-->
@@ -85,6 +86,7 @@
               </div>
             </div>
           </div>-->
+
         </div>
       <cpt-sence [style.display]="uploadShow==1?'':'none'" (uploadShowChange)="uploadShowChange($event)"></cpt-sence>
     </div>
