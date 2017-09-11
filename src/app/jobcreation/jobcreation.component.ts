@@ -129,7 +129,7 @@ export class JobCreationComponent {
   }
 
   changeChosenSceneId() {
-    if(this.student==15){
+    if(this.student==15||this.student==11){
       document.getElementById('data').setAttribute('disabled', 'disabled');
     }
     this.fileCount=0;
@@ -300,7 +300,7 @@ export class JobCreationComponent {
       this.click_flag = true;
       return false;
     }
-    if ((!dataId || dataId == -1)&&(this.student!=15)) {
+    if ((!dataId || dataId == -1)&&(this.student!=15)&&(this.student!=11)) {
       // alert("请选择算法链");
       this.s_error_show = true;
       this.s_error_message = '请选择数据集';
@@ -424,7 +424,7 @@ export class JobCreationComponent {
     } else {
       this.plugin_validation = false;
     }
-    if(this.student==15){
+    if(this.student==15||this.student==11){
       document.getElementById('data').setAttribute('disabled', 'disabled');
       return
     }
