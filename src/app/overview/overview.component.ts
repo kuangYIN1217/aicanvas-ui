@@ -61,7 +61,7 @@ export class OverviewComponent {
   time2:string;
   window:any={};
   gpuTemp:any={};
-  showGpu:any[]=[{},{}];
+  showGpu:any[]=[{},{},{},{}];
   gpuBollean:boolean=true;
   showGpuTemp:any[]=[];
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
@@ -278,6 +278,7 @@ export class OverviewComponent {
             }
           });
         }
+        this.showGpu[0].flag = 1;
         this.chart0 = this.AmCharts.makeChart("chartdiv0", {
           "type": "serial",
           "theme": "light",
@@ -700,13 +701,16 @@ export class OverviewComponent {
     gpuToggle(index) {
       if(index!=1){
         this.focusImg = 0;
-        this.showGpuTemp = this.showGpu;
-        this.showGpu.splice(1,this.showGpu.length);
+        for(let i=0;i<this.showGpu.length;i++){
+          this.showGpu[i].flag = 2;
+        }
+        this.showGpu[0].flag = 1;
       }else{
         this.focusImg = 1;
-        this.showGpu = this.showGpuTemp;
+        for(let i=0;i<this.showGpu.length;i++){
+          this.showGpu[i].flag = 1;
+        }
       }
-      console.log(this.showGpuTemp);
 /*      if (this.gpuIndex == 0 && this.focusImg == 0) {
         this.gpuIndex = 1;
         this.focusImg = 1;

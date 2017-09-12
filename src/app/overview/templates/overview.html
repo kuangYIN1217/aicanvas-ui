@@ -8,17 +8,17 @@
     <div class="total">
       <div class="cpu_gpu" [ngClass]="{gpu: gpuIndex==1}">
         <div class="chartsCont" *ngFor="let item of showGpu;let i=index">
-          <div class="resourceTypeTitle"><span>GPU{{i}}</span>
+          <div class="resourceTypeTitle" [style.display]="item.flag==1?'':'none'"><span>GPU{{i}}</span>
             <div class="checkStatus" *ngIf="i==0"><span *ngIf="focusImg==0" (click)="gpuToggle(1)">展开</span><span *ngIf="focusImg!=0" (click)="gpuToggle(0)">收起</span>
               <img src="../assets/overview/redown.png" (click)="gpuToggle(1)" *ngIf="focusImg==0"/>
               <img src="../assets/overview/reup.png" (click)="gpuToggle(0)" *ngIf="focusImg!=0"/>
             </div>
           </div>
-          <div class="chart linechart">
+          <div class="chart linechart" [style.display]="item.flag==1?'':'none'">
             <h4>GPU使用率(%)</h4>
             <div id="chartdiv{{item.tema}}" [style.width.%]="108" [style.height.px]="282"></div>
           </div>
-          <div class="chart piechart">
+          <div class="chart piechart" [style.display]="item.flag==1?'':'none'">
             <h4>GPU内存(%)</h4>
             <div id="chartdiv{{item.temb}}" [style.width.%]="108" [style.height.px]="282"></div>
           </div>

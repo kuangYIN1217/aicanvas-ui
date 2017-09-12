@@ -158,6 +158,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .green {
   color: #23a880;
   cursor: pointer;
+  text-decoration: none;
 }
 .imgMiddle{
   display: inline-block;

@@ -13,7 +13,7 @@
 -->
     <div class="form item" *ngIf="uploader.queue.length==0">
       <div class="upload" onclick="document.getElementById('file').click()">上传场景（算法链）</div>
-      <input type="file" id="file" name="file" ng2FileSelect [uploader]="uploader" accept=".zip" (change)="selectedFileOnChanged($event)"/>
+      <input type="file" id="file" name="file" ng2FileSelect [uploader]="uploader" accept="aplication/zip" (change)="selectedFileOnChanged($event)"/>
     </div>
     <table class="uploadShow" *ngIf="uploader.queue.length>0">
       <tr *ngFor="let item of uploader.queue;let i =index" class="uploadTr">
@@ -34,7 +34,7 @@
         <li> train过程中，有产出需保存的情况，需维护相对路径</li>
         <li> predict过程中，若需调用train过程的产出，需维护同级相对路径</li>
         <li> train过程中，使用的数据集路径需维护同级相对路径</li>
-        <span>请参考上传文件范例：<label class="green">demo.zip</label></span>
+        <span>请参考上传文件范例：<a class="green" href="{{SERVER_URL}}/Demo.zip" download>demo.zip</a></span>
       </ol>
     </div>
   </div>
