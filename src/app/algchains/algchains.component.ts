@@ -112,17 +112,19 @@ export class AlgChainsComponent{
     }
     getSceneArray(sceneArray: SceneInfo[]){
         this.sceneArrays = sceneArray;
-        for(let i=0;i<this.sceneArrays.length;i++){
-           this.sceneService.getChainByScene(this.sceneArrays[i].id)
+        if(this.showSence==1){
+          for(let i=0;i<this.sceneArrays.length;i++){
+            this.sceneService.getChainByScene(this.sceneArrays[i].id)
               .subscribe(plugin=>{
                 this.PluginInfo=plugin;
                 //console.log(this.PluginInfo[0].id);
                 // this.name =
                 if(plugin.length>0){
                   this.sceneArrays[i].arrName = this.getName(this.PluginInfo[0].id,i);
-                 // console.log(this.sceneArrays[i]);
+                  // console.log(this.sceneArrays[i]);
                 }
               })
+          }
         }
         if(sessionStorage['algChain_scene']&&sessionStorage['algChain_scene']!=-1){
             this.showNetwork(sessionStorage['algChain_scene']);

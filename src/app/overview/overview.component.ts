@@ -37,7 +37,6 @@ export class OverviewComponent {
   id: number;
   focusImg: number = 0;
   dataIndex: number = 0;
-  private timer: any;
   private chart0: any;
   private chart: any;
   gpuIndex: number = 0;
@@ -409,11 +408,9 @@ export class OverviewComponent {
 
     ngOnDestroy() {
       // 退出时停止更新
-      if (this.interval) {
-        clearInterval(this.interval);
-      }
-      clearInterval(this.timer);
-      this.AmCharts.destroyChart(this.chart);
+      debugger
+      clearInterval(this.interval);
+      //this.AmCharts.destroyChart(this.chart);
     }
 
     loading() {
