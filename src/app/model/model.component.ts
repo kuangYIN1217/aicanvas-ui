@@ -143,6 +143,7 @@ export class ModelComponent {
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
       console.log(result.id, this.job.jobPath);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
+        debugger
         // alert("创建成功,可以在推演成功后查看!");
         this.type=null;
         console.log(data);
@@ -166,6 +167,7 @@ export class ModelComponent {
         clearInterval(this.interval);
         this.result = result.content;
         this.type = this.result[0].resultType;
+        console.log(this.type);
         this.runId=modelId;
         //console.log(this.type);
         //console.log(this.result);

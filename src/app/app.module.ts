@@ -50,6 +50,7 @@ import {ErrorComponent} from './errortip/error.component';
 import {NodataComponent} from './nodata/nodata.component'
 import {GpuComponent} from "./jobDetail/gpu/gpu.component";
 import {SenceComponent} from "./algchains/sence/sence";
+import {ShowAllComponent} from "./showAll/showAll.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -85,7 +86,8 @@ import {SenceComponent} from "./algchains/sence/sence";
     ErrorComponent,
     NodataComponent,
     GpuComponent,
-    SenceComponent
+    SenceComponent,
+    ShowAllComponent
     //InputReadonlyDirective
   ],
   imports: [

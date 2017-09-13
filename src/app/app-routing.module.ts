@@ -26,6 +26,7 @@ import {TestComponent} from "./test/test.component";
 import {PageComponent} from "./page/page.component";
 import {InferenceModelComponent} from "./inference-model/inference-model.component";
 import {GpuComponent} from "./jobDetail/gpu/gpu.component";
+import {ShowAllComponent} from "./showAll/showAll.component";
 
 
 const routes: Routes = [
@@ -61,6 +62,8 @@ const routes: Routes = [
   {path: 'nav', component: NavigationComponent},
   {path: 'inferenceModel', component: InferenceModelComponent},
   {path: 'gpu', component: GpuComponent},
+  {path: 'showall', component: ShowAllComponent},
+
 
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },

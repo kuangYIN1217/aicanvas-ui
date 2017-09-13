@@ -1,0 +1,42 @@
+<div class="result-container">
+  <div class="historyCont">
+    <div class="percent">
+        <span>展示结果：</span>
+        <span></span>
+        <select [(ngModel)]="item" (ngModelChange)="item=$event;changeValue()"  *ngIf="inputType=='path'">
+            <option value="{{i}}" *ngFor="let i of items">{{i}}</option>
+        </select>
+<!--      <select [(ngModel)]="word" (ngModelChange)="word=$event;changeWord(word)" [style.display]="(type == 'txt'||type == 'csv')?'':'none'" >
+        <option value="{{i}}" *ngFor="let i of arr1">{{i}}</option>
+      </select>-->
+    </div>
+    <table class="table">
+        <th>上传内容</th>
+        <th>显示结果</th>
+        <tbody>
+        <tr [style.display]="status!=true?'':'none'">
+          <td>&nbsp;</td>
+          <td>异常</td>
+        </tr>
+        <tr *ngFor="let re of result" [style.display]="status==true?'':'none'">
+          <td style="width: 50%;" *ngIf="getInput(re.inputType)=='image'">
+            <img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" style="max-height: 50px;margin-top: 16px;padding-left: 10px"/>
+            <br/>{{outName(re.inputPath)}}
+          </td>
+          <td style="width: 50%;" *ngIf="getInput(re.inputType)=='text'">
+            <img src="../assets/model/showTxt.png" style="max-height: 50px;margin-top: 16px;padding-left: 10px"/>
+            {{re.inputPath}}
+          </td>
+          <td style="width: 50%;"  *ngIf="getOutput(re.inputType)=='image'">
+            <img src="{{SERVER_URL}}/api/file?filePath={{re.output}}" style="max-height: 50px;margin-top: 16px;padding-left: 10px"/>
+            <br/>{{outName(re.output)}}
+          </td>
+          <td style="width: 50%;"  *ngIf="getOutput(re.inputType)=='text'">
+            {{re.output}}
+          </td>
+        </tr>
+        </tbody>
+    </table>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+  </div>
+</div>
