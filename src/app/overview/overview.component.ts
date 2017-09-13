@@ -31,6 +31,8 @@ export class OverviewComponent {
   // show resource or task 0--resource, 1--task
   GpuInfo1: GpuInfo[] = [];
   GpuInfo2: GpuInfo[] = [];
+  GpuInfo3: GpuInfo[] = [];
+  GpuInfo4: GpuInfo[] = [];
   tabIndex: number = 0;
   interval: any;
   student: number = 0;
@@ -43,11 +45,14 @@ export class OverviewComponent {
   cpuIndex: number = 0;
   @Input() statuss: string = '运行';
   @Input() sceneId: number = this.id;
+  private chart1: any;
   private chart2: any;
   private chart3: any;
   private chart4: any;
   private chart5: any;
   private chart6: any;
+  private chart7: any;
+  private chart8: any;
   // private chart7: any;
   // private chart8: any;
   tot_memory: number;
@@ -56,16 +61,16 @@ export class OverviewComponent {
   allArr:any[]=[];
   gpuArr1:any[]=[];
   gpuArr2:any[]=[];
+  gpuArr3:any[]=[];
+  gpuArr4:any[]=[];
   time1:string;
   time2:string;
   window:any={};
   gpuTemp:any={};
   showGpu:any[]=[{},{},{},{}];
   gpuBollean:boolean=true;
-  showGpuTemp:any[]=[];
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
     window.scrollTo(0,0);
-    this.showGpuTemp = this.showGpu;
     this.resourcesService.getCpuInfo()
       .subscribe(cpu => this.getCpu(cpu));
 /*    $.get(SERVER_URL+"/api/gpus", function(result){
@@ -74,7 +79,6 @@ export class OverviewComponent {
 
       this.resourcesService.getAllGpus()
         .subscribe(gpuArray => {
-          debugger
       //this.gpuArray = gpuArray;
       this.getGpus(gpuArray);
     });
@@ -128,8 +132,7 @@ export class OverviewComponent {
    }*/
 
   ngOnInit() {
-    debugger
-      let a = 0;
+/*      let a = 0;
       let b = 0;
       let tema = 0;
       let temb = 0;
@@ -279,7 +282,538 @@ export class OverviewComponent {
             }
           });
         }
-        this.showGpu[0].flag = 1;
+        this.showGpu[0].flag = 1;*/
+      this.chart1 = this.AmCharts.makeChart("chartdiv1", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_gpu_utilization: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_gpu_utilization"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        // "minPeriod": "YYYY",
+        // "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "labelsEnabled": false,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+      this.chart2 = this.AmCharts.makeChart("chartdiv2", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_used_memory: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+      this.chart3 = this.AmCharts.makeChart("chartdiv3", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_gpu_utilization: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_gpu_utilization"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        // "minPeriod": "YYYY",
+        // "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "labelsEnabled": false,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+      this.chart4 = this.AmCharts.makeChart("chartdiv4", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_used_memory: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+      this.chart5 = this.AmCharts.makeChart("chartdiv5", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_gpu_utilization: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_gpu_utilization"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        // "minPeriod": "YYYY",
+        // "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "labelsEnabled": false,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+      this.chart6 = this.AmCharts.makeChart("chartdiv6", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_used_memory: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+      this.chart7 = this.AmCharts.makeChart("chartdiv7", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_gpu_utilization: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_gpu_utilization"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        // "minPeriod": "YYYY",
+        // "parseDates": true,
+        "minorGridAlpha": 0.1,
+        "labelsEnabled": false,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+      this.chart8 = this.AmCharts.makeChart("chartdiv8", {
+      "type": "serial",
+      "theme": "light",
+      "marginTop": 0,
+      "marginRight": 80,
+      "dataProvider": [{
+        created_at: "0",
+        total_used_memory: '0'
+      }],
+      "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left"
+      }],
+      "graphs": [{
+
+        "id": "g2",
+        "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+        //"bullet": "round",
+        "bulletSize": 0,
+        "lineColor": "#65af91",
+        "lineColorField": "lineColor",
+        "fillColorsField": "lineColor",
+        "fillAlphas": "0.3",
+        "lineThickness": 1,
+        "type": "smoothedLine",
+        // "type": "line",
+        "valueField": "total_used_memory"
+      },
+      ],
+      "chartScrollbar": {
+        "graph": "g2",
+        // "gridAlpha":0,
+        "color": "#888888",
+        "scrollbarHeight": 30,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        // "autoGridCount":true,
+        "selectedGraphFillAlpha": 0,
+        "graphLineAlpha": 0.2,
+        "graphLineColor": "#c2c2c2",
+        "selectedGraphLineColor": "#888888",
+        "selectedGraphLineAlpha": 1
+      },
+      "chartCursor": {
+        "categoryBalloonDateFormat": "YYYY",
+        "cursorAlpha": 0,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "valueLineAlpha": 0.5,
+        "fullWidth": true
+      },
+      "dataDateFormat": "JJ:NN:SS",
+      "categoryField": "created_at",
+      "categoryAxis": {
+        "labelsEnabled": false,
+        //"minPeriod": "YYYY",
+        //"parseDates": true,
+        "minorGridAlpha": 0.1,
+        "minorGridEnabled": true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+
+
+
         this.chart0 = this.AmCharts.makeChart("chartdiv0", {
           "type": "serial",
           "theme": "light",
@@ -410,9 +944,8 @@ export class OverviewComponent {
 
     ngOnDestroy() {
       // 退出时停止更新
-      debugger
       clearInterval(this.interval);
-      this.AmCharts.destroyChart(this.chart);
+      //this.AmCharts.destroyChart(this.chart);
     }
 
     loading() {
@@ -478,8 +1011,7 @@ export class OverviewComponent {
        }
        } else {*/
       //this.gpuArray = gpuArray;
-      debugger
-      if (gpuArray.length) {
+/*      if (gpuArray.length) {
         this.totalGlobalMem = gpuArray[0].totalGlobalMem;
       }
       //console.log(this.totalGlobalMem);
@@ -488,7 +1020,7 @@ export class OverviewComponent {
       for(let gpu=0;gpu<gpuArray.length;gpu++){
         //console.log(gpu);
         this.resourcesService.getGpuStatus(gpu)
-        /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+        /!*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*!/
           .subscribe(gpuInfoArray => {
             console.log(gpu);
             for (let i = 0; i < gpuInfoArray.length; i++) {
@@ -505,7 +1037,18 @@ export class OverviewComponent {
                 this.gpuBollean = false;
               }
             }
-            this.gpuTemp["gpuArr"+gpu] = this.sort(gpuInfoArray,this.gpuTemp["gpuArr"+gpu]);
+            if(gpuInfoArray.length>1){
+                if(gpuInfoArray[0].created_at>gpuInfoArray[1].created_at){
+                  this.gpuTemp["gpuArr"+gpu].push(gpuInfoArray[1]);
+                  this.gpuTemp["gpuArr"+gpu].push(gpuInfoArray[0]);
+                }else{
+                  this.gpuTemp["gpuArr"+gpu].push(gpuInfoArray[0]);
+                  this.gpuTemp["gpuArr"+gpu].push(gpuInfoArray[1]);
+                }
+            }else{
+              this.gpuTemp["gpuArr"+gpu].push(gpuInfoArray);
+            }
+            //this.gpuTemp["gpuArr"+gpu] = this.sort(gpuInfoArray,this.gpuTemp["gpuArr"+gpu]);
             if(this.gpuTemp["gpuArr"+gpu].length>500) {
               this.gpuTemp["gpuArr"+gpu].splice(0, 2);
             }
@@ -518,66 +1061,123 @@ export class OverviewComponent {
             this.AmCharts.updateChart(this.window['chart' + b], () => {
               this.window['chart' + b].dataProvider = this.gpuTemp["gpuArr"+gpu];
             });
-          });
+          });*/
 
+      this.gpuArray = gpuArray;
+      if (this.gpuArray.length) {
+        this.totalGlobalMem = this.gpuArray[0].totalGlobalMem;
+      }
+      // console.log(this.totalGlobalMem);
+      for (let gpu of this.gpuArray) {
+        let id = gpu.id;
+        if (id == 0) {
+          this.resourcesService.getGpuStatus(id)
+          /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+            .subscribe(gpuInfoArray => {
+              this.GpuInfo1 = gpuInfoArray;
+              for (let i = 0; i < this.GpuInfo1.length; i++) {
+                let gpuInfo1 = gpuInfoArray[i].total_used_memory;
+                let data1 = Number((gpuInfo1 / this.totalGlobalMem).toFixed(2)) * 100;
+                gpuInfoArray[i].total_used_memory = data1;
+                //console.log(gpuInfoArray);
+              }
+              /*              for(let j = 0; j < gpuInfoArray.length; j++){
+               this.gpuArr1.push(gpuInfoArray[j]);
+               }*/
+              this.sort(gpuInfoArray,this.gpuArr1);
+              //console.log(this.gpuArr1);
+              if(this.gpuArr1.length>500){
+                this.gpuArr1.splice(0,2)
+              }
 
-        /*        if (id == 0) {
-         this.resourcesService.getGpuStatus(id)
-         //.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));
-         .subscribe(gpuInfoArray => {
-         this.GpuInfo1 = gpuInfoArray;
-         for (let i = 0; i < this.GpuInfo1.length; i++) {
-         let gpuInfo1 = gpuInfoArray[i].total_used_memory;
-         let data1 = Number((gpuInfo1 / this.totalGlobalMem).toFixed(2)) * 100;
-         gpuInfoArray[i].total_used_memory = data1;
-         //console.log(gpuInfoArray);
-         }
-         for(let j = 0; j < gpuInfoArray.length; j++){
-         this.gpuArr1.push(gpuInfoArray[j]);
-         }
-         this.sort(gpuInfoArray,this.gpuArr1);
-         //console.log(this.gpuArr1);
-         if(this.gpuArr1.length>500){
-         this.gpuArr1.splice(0,2)
-         }
-
-         this.AmCharts.updateChart(this.chart, () => {
-         this.chart.dataProvider = this.gpuArr1;
-         });
-         this.AmCharts.updateChart(this.chart2, () => {
-         this.chart2.dataProvider = this.gpuArr1;
-         });
-         });
-         } else if (id == 1) {
-         this.resourcesService.getGpuStatus(id)
-         //.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));
-         .subscribe(gpuInfoArray => {
-         this.GpuInfo2 = gpuInfoArray;
-         for (let i = 0; i < this.GpuInfo2.length; i++) {
-         let gpuInfo2 = gpuInfoArray[i].total_used_memory;
-         let data2 = Number((gpuInfo2 / this.totalGlobalMem).toFixed(2)) * 100;
-         gpuInfoArray[i].total_used_memory = data2;
-         }
-         for(let j = 0; j < gpuInfoArray.length; j++){
-         this.gpuArr2.push(gpuInfoArray[j]);
-         }
-         this.sort(gpuInfoArray,this.gpuArr2);
-         //console.log(this.gpuArr2);
-         if(this.gpuArr2.length>500){
-         this.gpuArr2.splice(0,2)
-         }
-         this.AmCharts.updateChart(this.chart5, () => {
-         this.chart5.dataProvider = this.gpuArr2;
-         });
-         this.AmCharts.updateChart(this.chart6, () => {
-         this.chart6.dataProvider = this.gpuArr2;
-         });
-         });
-         }*/
+              this.AmCharts.updateChart(this.chart1, () => {
+                this.chart1.dataProvider = this.gpuArr1;
+              });
+              this.AmCharts.updateChart(this.chart2, () => {
+                this.chart2.dataProvider = this.gpuArr1;
+              });
+            });
+        } else if (id == 1) {
+          this.resourcesService.getGpuStatus(id)
+          /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+            .subscribe(gpuInfoArray => {
+              this.GpuInfo2 = gpuInfoArray;
+              for (let i = 0; i < this.GpuInfo2.length; i++) {
+                let gpuInfo2 = gpuInfoArray[i].total_used_memory;
+                let data2 = Number((gpuInfo2 / this.totalGlobalMem).toFixed(2)) * 100;
+                gpuInfoArray[i].total_used_memory = data2;
+              }
+              /*              for(let j = 0; j < gpuInfoArray.length; j++){
+               this.gpuArr2.push(gpuInfoArray[j]);
+               }*/
+              this.sort(gpuInfoArray,this.gpuArr2);
+              //console.log(this.gpuArr2);
+              if(this.gpuArr2.length>500){
+                this.gpuArr2.splice(0,2)
+              }
+              this.AmCharts.updateChart(this.chart3, () => {
+                this.chart3.dataProvider = this.gpuArr2;
+              });
+              this.AmCharts.updateChart(this.chart4, () => {
+                this.chart4.dataProvider = this.gpuArr2;
+              });
+            });
+        }else if (id == 2) {
+          this.resourcesService.getGpuStatus(id)
+          /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+            .subscribe(gpuInfoArray => {
+              this.GpuInfo3 = gpuInfoArray;
+              for (let i = 0; i < this.GpuInfo3.length; i++) {
+                let gpuInfo3 = gpuInfoArray[i].total_used_memory;
+                let data3 = Number((gpuInfo3 / this.totalGlobalMem).toFixed(2)) * 100;
+                gpuInfoArray[i].total_used_memory = data3;
+              }
+              /*              for(let j = 0; j < gpuInfoArray.length; j++){
+               this.gpuArr2.push(gpuInfoArray[j]);
+               }*/
+              this.sort(gpuInfoArray,this.gpuArr3);
+              //console.log(this.gpuArr2);
+              if(this.gpuArr3.length>500){
+                this.gpuArr3.splice(0,2)
+              }
+              this.AmCharts.updateChart(this.chart5, () => {
+                this.chart5.dataProvider = this.gpuArr3;
+              });
+              this.AmCharts.updateChart(this.chart6, () => {
+                this.chart6.dataProvider = this.gpuArr3;
+              });
+            });
+        }else if (id == 3) {
+          this.resourcesService.getGpuStatus(id)
+          /*.subscribe(gpuInfoArray => this.getGpuInfo(gpuInfoArray,gpu));*/
+            .subscribe(gpuInfoArray => {
+              this.GpuInfo4 = gpuInfoArray;
+              for (let i = 0; i < this.GpuInfo4.length; i++) {
+                let gpuInfo4 = gpuInfoArray[i].total_used_memory;
+                let data4 = Number((gpuInfo4 / this.totalGlobalMem).toFixed(2)) * 100;
+                gpuInfoArray[i].total_used_memory = data4;
+              }
+              /*              for(let j = 0; j < gpuInfoArray.length; j++){
+               this.gpuArr2.push(gpuInfoArray[j]);
+               }*/
+              this.sort(gpuInfoArray,this.gpuArr4);
+              //console.log(this.gpuArr2);
+              if(this.gpuArr4.length>500){
+                this.gpuArr4.splice(0,2)
+              }
+              this.AmCharts.updateChart(this.chart7, () => {
+                this.chart7.dataProvider = this.gpuArr4;
+              });
+              this.AmCharts.updateChart(this.chart8, () => {
+                this.chart8.dataProvider = this.gpuArr4;
+              });
+            });
+        }
       }
     }
-    // }
+  // }
     sort(arr1, arr2){
+    if(arr1.length>0){
       for(let j = 0; j < arr1.length; j++){
         if(arr1.length==1){
           arr2.push(arr1[j]);
@@ -597,6 +1197,7 @@ export class OverviewComponent {
         }
         //this.gpuArr1.push(arr1[j]);
       }
+    }
     }
     getGpuInfo(gpuInfoArray: GpuInfo[], gpu: Gpu) {
       this.drawGpuLine(gpuInfoArray, gpu);
@@ -699,7 +1300,7 @@ export class OverviewComponent {
     }
 
     gpuToggle(index) {
-      if(index!=1){
+/*      if(index!=1){
         this.focusImg = 0;
         for(let i=0;i<this.showGpu.length;i++){
           this.showGpu[i].flag = 2;
@@ -710,14 +1311,14 @@ export class OverviewComponent {
         for(let i=0;i<this.showGpu.length;i++){
           this.showGpu[i].flag = 1;
         }
-      }
-/*      if (this.gpuIndex == 0 && this.focusImg == 0) {
+      }*/
+      if (this.gpuIndex == 0 && this.focusImg == 0) {
         this.gpuIndex = 1;
         this.focusImg = 1;
       } else {
         this.gpuIndex = 0;
         this.focusImg = 0;
-      }*/
+      }
     }
 
     /*  cpuToggle(){
