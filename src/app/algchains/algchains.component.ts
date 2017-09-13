@@ -53,7 +53,11 @@ export class AlgChainsComponent{
     ngOnInit(){
       window.$ReadOnly = false;
       this.sceneService.getAllScenes(1)
-        .subscribe(sceneArray => this.getSceneArray(sceneArray));
+        .subscribe(sceneArray =>
+          {
+            debugger
+            this.getSceneArray(sceneArray)
+          });
       this.pluginService.getLayerDict()
         .subscribe(dictionary => this.getDictionary(dictionary));
       this.pluginService.getTranParamTypes()
@@ -111,6 +115,7 @@ export class AlgChainsComponent{
         $('#layer_dictionary').val(JSON.stringify(dictionary));
     }
     getSceneArray(sceneArray: SceneInfo[]){
+      debugger
         this.sceneArrays = sceneArray;
         if(this.showSence==1){
           for(let i=0;i<this.sceneArrays.length;i++){

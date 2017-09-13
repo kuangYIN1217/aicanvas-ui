@@ -74,6 +74,7 @@ export class OverviewComponent {
 
       this.resourcesService.getAllGpus()
         .subscribe(gpuArray => {
+          debugger
       //this.gpuArray = gpuArray;
       this.getGpus(gpuArray);
     });
@@ -127,6 +128,7 @@ export class OverviewComponent {
    }*/
 
   ngOnInit() {
+    debugger
       let a = 0;
       let b = 0;
       let tema = 0;
@@ -410,7 +412,7 @@ export class OverviewComponent {
       // 退出时停止更新
       debugger
       clearInterval(this.interval);
-      //this.AmCharts.destroyChart(this.chart);
+      this.AmCharts.destroyChart(this.chart);
     }
 
     loading() {
@@ -476,6 +478,7 @@ export class OverviewComponent {
        }
        } else {*/
       //this.gpuArray = gpuArray;
+      debugger
       if (gpuArray.length) {
         this.totalGlobalMem = gpuArray[0].totalGlobalMem;
       }
