@@ -50,7 +50,7 @@
       <tr>
         <td class="first_column">推演文件格式</td>
         <td [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11&&job.sences<100)?'':'none'">png,jpg</td>
-        <td [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11&&job.sences>=100)?'none':''">csv,txt</td>
+        <td [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11)?'none':''">csv,txt</td>
         <td [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11&&job.sences>=100)?'':'none'">png,jpg,csv,txt</td>
       </tr>
       <tr>
@@ -70,7 +70,7 @@
             <input type="file" id="file" name="file" multiple accept=".png,.jpg" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
 <!--            <input type="file" *ngIf="job.sences==5||job.sences==9||job.sences==15" class="file" name="file" multiple accept=".csv,.txt" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>-->
           </div>
-          <div class="image" onclick="document.getElementById('file1').click()" [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11&&job.sences>=100)?'none':''">
+          <div class="image" onclick="document.getElementById('file1').click()" [style.display]="job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11?'none':''">
             <!--<input type="file" *ngIf="job.sences==3||job.sences==4" id="file" name="file" multiple accept=".png,.jpg" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>-->
             <input type="file"  id="file1" name="file" multiple accept=".csv,.txt" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
           </div>
