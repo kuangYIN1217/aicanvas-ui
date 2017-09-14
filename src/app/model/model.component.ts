@@ -143,10 +143,9 @@ export class ModelComponent {
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
       console.log(result.id, this.job.jobPath);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
-        debugger
         // alert("创建成功,可以在推演成功后查看!");
         this.type=null;
-        console.log(data);
+        //console.log(data);
         addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );
         this.selChange(this.job_id);
         this.showAdd =false;
