@@ -39,7 +39,16 @@ export class SceneService {
                 }
         });
     }
-
+    deleteScene(id){
+      let path = "/api/deleteAlgChain/" + id;
+      let headers = this.getHeaders();
+      return this.http.delete(this.SERVER_URL+path, { headers : headers} )
+        .map((response: Response) => {
+          if (response) {
+            return response;
+          }
+        });
+    }
     getAllScenes(id){
         let path = "/api/senses/"+id;
         let headers = this.getHeaders();

@@ -47,6 +47,8 @@ export class AlgChainsComponent{
     selected_plugin:number = 0;
     showSence:number=0;
     uploadShow:number=0;
+    s_remove: boolean = false;
+    deleteId:number;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
       window.scrollTo(0,0);
     }
@@ -112,6 +114,7 @@ export class AlgChainsComponent{
     }
     getSceneArray(sceneArray: SceneInfo[]){
         this.sceneArrays = sceneArray;
+        console.log(this.sceneArrays);
         if(this.showSence==1){
           for(let i=0;i<this.sceneArrays.length;i++){
             this.sceneService.getChainByScene(this.sceneArrays[i].id)
@@ -130,6 +133,18 @@ export class AlgChainsComponent{
             this.showNetwork(sessionStorage['algChain_scene']);
         }
     }
+  delete(item){
+    this.s_remove = true;
+    this.deleteId = item;
+  }
+  $confirm_sure(){
+    this.s_remove = false;
+    this.sceneService.getAllScenes(1)
+      .subscribe(sceneArray => this.getSceneArray(sceneArray));
+  }
+  $confirm_cancel() {
+    this.s_remove = false;
+  }
     getName(id,index){
       this.algchainService.getChainById(id)
         .subscribe(plugin=>{

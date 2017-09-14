@@ -51,6 +51,7 @@ import {NodataComponent} from './nodata/nodata.component'
 import {GpuComponent} from "./jobDetail/gpu/gpu.component";
 import {SenceComponent} from "./algchains/sence/sence";
 import {ShowAllComponent} from "./showAll/showAll.component";
+import {DelConfirmComponent} from "./algchains/confirm/delConfirm.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -87,7 +88,8 @@ import {ShowAllComponent} from "./showAll/showAll.component";
     NodataComponent,
     GpuComponent,
     SenceComponent,
-    ShowAllComponent
+    ShowAllComponent,
+    DelConfirmComponent
     //InputReadonlyDirective
   ],
   imports: [
