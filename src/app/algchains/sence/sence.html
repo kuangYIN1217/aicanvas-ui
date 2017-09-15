@@ -29,12 +29,12 @@
       <div>提示：</div>
       <ol>
         <li> 请上传<label class="orange">ZIP</label>格式的文件</li>
-        <li> 文件夹内应当包含一个configure.txt文件，包含四行：算法链名称,算法链描述,train的执行命令,predict的执行命令</li>
+        <li> 文件夹内应当包含一个configure.txt文件，包含四行：算法链名称,算法链描述,train命令,predict命令</li>
         <li> 文件夹内需包含train和predict执行命令所需要的文件/代码（名称和文件格式可自定义）</li>
-        <li> train过程中，使用的数据集路径应假设存在文件夹根路径下（但压缩包不应该包含数据集，需通过数据集功能单独上传）</li>
+        <li> train过程中，使用的数据集路径应假设在文件夹根路径下（压缩包无需包含数据集）</li>
         <li> train过程中，有产出需保存的情况，需保存在该文件夹根目录下</li>
-        <li> predict命令，需要通过‘--input_path’指定输入路径，‘--output_dir’指定输出结果所在目录（输出文件名无要求），但这两个参数无需在predict命令中指定，系统会自动通过利用这两个参数进行传参</li>
-        <li> predict的输入和输出支持只文本（txt，csv）或者图片（png，jpg）。如果输出是概率信息请写入文本文件中保存</li>
+        <li> predict命令需支持两个可传参数，输入路径‘--input_path’，输出结果所在目录‘--output_dir’</li>
+        <li> predict的输入和输出只支持文本（txt，csv）或者图片（png，jpg）</li>
         <li> predict过程中，若需调用train过程的产出，应按照文件夹根目录来进行调用</li>
         <span>请参考上传文件范例：<a class="green" href="{{SERVER_URL}}/Demo.zip" download>demo.zip</a></span>
       </ol>
