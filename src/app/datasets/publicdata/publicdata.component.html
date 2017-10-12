@@ -5,6 +5,7 @@
       <th class="scene">数据集分类</th>
       <th class="time">存储空间</th>
       <th class="condition">总文件数</th>
+      <th class="option">操作</th>
       <!--<th class="progress">有效文件数</th>-->
       <!--<th class="operation">操作</th>-->
       <!--<th class="formore">无效文件数</th>-->
@@ -16,8 +17,12 @@
       <td>{{item.dataTypeName}}</td>
       <td>{{calc_size(item.diskUsageAccount)}}</td>
       <td>{{item.fileCount}}</td>
+      <td class="operation">
+        <img (click)="look_dataSet(item)"class="icon" src="../../../../assets/taskStatus/chakan-.png" alt="查看详情" title="查看详情">
+      </td>
       <!--<td>{{item.fileVaild}}</td>
       <td>{{item.fileFailed}}</td>-->
     </tr>
   </table>
+  <datasets-detail [(show)] = "look_detail" [dataList]="dataList"></datasets-detail>
 </div>

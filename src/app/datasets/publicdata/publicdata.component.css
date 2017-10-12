@@ -5,3 +5,10 @@
 .no-data {
   text-align: center;
 }
+.icon {
+  /*margin-right: 10px;*/
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}

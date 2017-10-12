@@ -12,8 +12,14 @@ import {calc_size} from '../calc-size'
 })
 export class PublicDataComponent{
   @Input() d_tableData: any = [];
+  look_detail:boolean = false;
+  dataList:any={};
   constructor (private datasetservice: DatasetsService) {
     // 获取datasetType
+  }
+  look_dataSet(item){
+    this.look_detail = true;
+    this.dataList = item;
   }
   calc_size = calc_size;
 }
