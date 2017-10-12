@@ -50,7 +50,21 @@ export class modelService {
                 }
             });
     }
-
+    getJobDataset(jobPath,arr,path1){
+      let path = "/api/scanDataSetFileDetail";
+      let body = JSON.stringify({
+        "jobPath": jobPath,
+        "label": arr,
+        "path":path1
+      });
+      let headers = this.getHeaders();
+      return this.http.post(this.SERVER_URL + path, body, { headers: headers })
+        .map((response: Response) => {
+          if (response) {
+            return response;
+          }
+        });
+    }
     saveModelAndUpload(name, jobId, file) {
         let path = "/api/model";
         let body = JSON.stringify({
@@ -105,6 +119,16 @@ export class modelService {
     }
   getModelPredictionByJob(job_id, page=0,size=10){
     let path = "/api/modelPredictions/"+job_id+"?page="+page+"&size="+size;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
+  getAllModel(sceneId,chainId, page=0,size=10){
+    let path = "/api/modelList/"+sceneId+"/"+chainId+"?page="+page+"&size="+size;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL+path, { headers : headers})
       .map((response: Response) => {

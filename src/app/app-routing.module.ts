@@ -27,6 +27,9 @@ import {PageComponent} from "./page/page.component";
 import {InferenceModelComponent} from "./inference-model/inference-model.component";
 import {GpuComponent} from "./jobDetail/gpu/gpu.component";
 import {ShowAllComponent} from "./showAll/showAll.component";
+import {ApiComponent} from "./api/api.component";
+import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
+import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 
 
 const routes: Routes = [
@@ -63,8 +66,9 @@ const routes: Routes = [
   {path: 'inferenceModel', component: InferenceModelComponent},
   {path: 'gpu', component: GpuComponent},
   {path: 'showall', component: ShowAllComponent},
-
-
+  {path: 'api', component: ApiComponent},
+  {path: 'datasetsdetail', component: DatasetsDetailComponent},
+  {path: 'publishmodel', component: PublishModelComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 

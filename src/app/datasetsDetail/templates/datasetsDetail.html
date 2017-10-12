@@ -1,0 +1,72 @@
+<div class="dataset-wrapper" *ngIf="show">
+  <div class="dataset-content">
+    <div class="dataset-header">
+      <div class="dataset-name" *ngIf="jobPath==undefined">{{dataList?.dataName}}</div>
+      <div class="dataset-name" *ngIf="jobPath!=undefined">{{dataInfo?.dataName}}</div>
+      <div class="dataset-detail">
+        <div class="dataset-detailbox">
+          <div class="dataset-text first">
+            <span>数据集分类：</span>
+            <span *ngIf="jobPath==undefined">{{dataList?.dataTypeName}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.dataTypeName}}</span>
+          </div>
+          <div class="dataset-text second">
+            <span>数据集类型：</span>
+            <span *ngIf="jobPath==undefined">{{dataList?.creator=='system'?'公共数据集':'个人数据集'}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.creator=='system'?'公共数据集':'个人数据集'}}</span>
+          </div>
+          <div class="dataset-text third">
+            <span>存储空间：</span>
+            <span *ngIf="jobPath==undefined">{{calc_size(dataList?.diskUsageAccount)}}</span>
+            <span *ngIf="jobPath!=undefined">{{calc_size(dataInfo?.diskUsageAccount)}}</span>
+          </div>
+        </div>
+        <div class="dataset-detailbox">
+          <div class="dataset-text first">
+            <span>总文件数：</span>
+            <span *ngIf="jobPath==undefined">{{dataList?.fileCount}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.fileCount}}</span>
+          </div>
+          <div class="dataset-text second">
+            <span>创建人：</span>
+            <span *ngIf="jobPath==undefined">{{dataList?.creator}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.creator}}</span>
+          </div>
+          <div class="dataset-text third">
+            <span>创建时间：</span>
+            <span *ngIf="jobPath==undefined">{{dataList?.createTime}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.createTime}}</span>
+          </div>
+        </div>
+      </div>
+      <img src="../../../assets/datasets/guanbi.png" (click)="close()" class="close"/>
+    </div>
+    <div class="dataset-body">
+      <div class="dataset-path">
+        <img [src]="arr.length>1?'assets/datasetsDetail/zuo-shen.png':'assets/datasetsDetail/zuo-qian.png'" class="middle leftArrow" (click)="left()"/>
+        <img [src]="arr.length==arr.length-1?'assets/datasetsDetail/you-shen.png':'assets/datasetsDetail/you-qian.png'" class="middle rightArrow"  (click)="right()"/>
+        <span class="dataset-pathText" *ngFor="let path of arr">{{output(path)}}</span>
+      </div>
+      <div class="dataset-sidebar">
+        <div class="dataset-item" (click)="allfile()">全部文件</div>
+        <div class="dataset-item" (click)="allimage()">图片</div>
+        <div class="dataset-item" (click)="alltext()">文本</div>
+        <div class="dataset-item" (click)="allother()">其他</div>
+      </div>
+      <div class="dataset-show">
+        <div class="dataset-model" *ngFor="let item of filterArr;let i=index" [style.display]="item.flag==1?'none':''">
+          <div class="dataset-center">
+            <img [src]="getItem(item)" (dblclick)="enterPath(item)" (click)="open(item)"/>
+            <span>{{getSet(item)}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fangda" [style.display]="image?'':'none'">
+        <span>
+          <img src="{{SERVER_URL}}/download/{{imageUrl}}" class="jietu"/>
+          <img src="../assets/datasetsDetail/delete.png" class="close" (click)="closeImage()"/>
+        </span>
+    </div>
+  </div>
+</div>

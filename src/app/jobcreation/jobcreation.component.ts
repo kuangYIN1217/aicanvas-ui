@@ -61,8 +61,8 @@ export class JobCreationComponent {
   data: number;
   length: number;
   haveModel: number = 0;
-  firstSceneId: string;
   firstChainId: string;
+  firstSceneId:string='-1'
   @Input() statuss: string = '';
   jobName: string;
   pageNumber: number;
@@ -78,6 +78,14 @@ export class JobCreationComponent {
   fileCount:number=0;
   focus:number=0;
   blur:number=0;
+  gpus:any[]=[];
+  gpuorder:number;
+  dataFirst:number;
+  dataSecond:number;
+  dataThird:number;
+  cmemory:number;
+  gmemory:number;
+  auditing:number;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
@@ -182,7 +190,6 @@ export class JobCreationComponent {
 
     //this.judgeClick();
   }
-
   clickStatus(statu, id) {
     this.selected = statu;
     this.item = id;
@@ -217,9 +224,50 @@ export class JobCreationComponent {
             this.$scene_select_change(name);
           })
       });
+    this.jobService.getAllGpu()
+      .subscribe(result=>{
+          this.gpus = result;
+          // this.gpuorder = this.gpus[0].id;
+      })
     //console.log(this.student);
   }
-
+  onlyNum(e) {
+    let ev = event||e;
+    if(!(ev.keyCode==46)&&!(ev.keyCode==8)&&!(ev.keyCode==37)&&!(ev.keyCode==39))
+      if(!((ev.keyCode>=48&&ev.keyCode<=57)||(ev.keyCode>=96&&ev.keyCode<=105)))
+        ev.returnValue=false;
+  }
+  memory(){
+    if(Number(this.cmemory)>16||Number(this.gmemory)>16){
+      this.s_error_show = true;
+      this.s_error_message = '内存不能超过16GB';
+      this.s_error_level = "error";
+    }else{
+      this.s_error_show = false;
+    }
+  }
+  tips(){
+    this.s_error_show = true;
+    this.s_error_message = '训练/验证/测试集比例之和必须等于100%！';
+    this.s_error_level = "error";
+  }
+  dataset(){
+    console.log(this.dataFirst,this.dataSecond,this.dataThird);
+    if((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100){
+      this.tips();
+    }else{
+      this.s_error_show = false;
+      if(this.dataFirst>0&&this.dataSecond>0){
+        this.dataThird = 100-this.dataFirst-this.dataSecond;
+      };
+      if(this.dataFirst>0&&this.dataThird>0){
+        this.dataSecond = 100-this.dataFirst-this.dataThird;
+      };
+      if(this.dataSecond>0&&this.dataThird>0){
+        this.dataFirst = 100-this.dataSecond-this.dataThird;
+      };
+    }
+  }
   getPluginName(name) {
 
   }
@@ -310,7 +358,63 @@ export class JobCreationComponent {
       return false;
     }
     //this.createBtn = 1;
-    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId)
+    if(!this.auditing){
+      this.s_error_show = true;
+      this.s_error_message = '请输入CPU核数';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.cmemory){
+      this.s_error_show = true;
+      this.s_error_message = '请输入CPU内存';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.gpuorder||this.gpuorder==-1){
+      this.s_error_show = true;
+      this.s_error_message = '请选择GPU编号';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.gmemory){
+      this.s_error_show = true;
+      this.s_error_message = '请输入GPU内存';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.dataFirst){
+      this.s_error_show = true;
+      this.s_error_message = '请输入训练集比例';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.dataSecond){
+      this.s_error_show = true;
+      this.s_error_message = '请输入验证集比例';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.dataThird){
+      this.s_error_show = true;
+      this.s_error_message = '请输入测试集比例';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,this.gmemory,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
       .subscribe(createdJob => {
         //let job: any = createdJob;
         //this.createdJob = job;
@@ -414,18 +518,27 @@ export class JobCreationComponent {
     }
     if (name == '--请选择--') {
       document.getElementById('data').setAttribute('disabled', 'disabled');
+      document.getElementById('train').setAttribute('readonly', 'true');
+      document.getElementById('valid').setAttribute('readonly', 'true');
+      document.getElementById('test').setAttribute('readonly', 'true');
       this.firstChainId = '';
       this.plugin_validation = false;
       return false;
     }
     if(this.firstChainId) {
       document.getElementById('data').removeAttribute('disabled');
+      document.getElementById('train').removeAttribute('readonly');
+      document.getElementById('valid').removeAttribute('readonly');
+      document.getElementById('test').removeAttribute('readonly');
       this.plugin_validation = true;
     } else {
       this.plugin_validation = false;
     }
     if(this.student==15||this.student==11){
       document.getElementById('data').setAttribute('disabled', 'disabled');
+      document.getElementById('train').setAttribute('readonly', 'true');
+      document.getElementById('valid').setAttribute('readonly', 'true');
+      document.getElementById('test').setAttribute('readonly', 'true');
       return
     }
     this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {

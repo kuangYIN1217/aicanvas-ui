@@ -32,14 +32,14 @@
             <img [src]="focusTab!=4?'assets/navigation/icon_sjj_04_n.png':'assets/navigation/icon_sjj_04_h.png'">
             <a href="#" onclick="return false" >数据集管理</a>
         </div>
-<!--        <div class="nav_element" [class.focusTab] = "focusTab==5" routerLinkActive="active"  (click)="changeTab(5 , '/inferenceModel');focusCollapse='0'">
-            <img [src]="focusTab!=5?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'">
-            <a href="#" onclick="return false" >模型服务管理</a>
-        </div>-->
         <div class="nav_element" [class.focusTab] = "focusTab==6" routerLinkActive="active"  (click)="changeTab(6 , '/algplugins');focusCollapse='0'">
             <img [src]="focusTab!=6?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'">
             <a href="#" onclick="return false" >算法组件库</a>
         </div>
+      <div class="nav_element" [class.focusTab] = "focusTab==5" routerLinkActive="active"  (click)="changeTab(5 , '/inferenceModel');focusCollapse='0'">
+        <img [src]="focusTab!=5?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'">
+        <a href="#" onclick="return false" >模型服务管理</a>
+      </div>
         <!--<div class="nav_element" [class.focusTab] = "focusTab==8" routerLinkActive="active"  (click)="changeTab(8 , '/algchainAlone');focusCollapse='0'">-->
             <!--<img [src]="focusTab!=8?'assets/navigation/icon_5.png':'assets/navigation/icon_5_h.png'">-->
             <!--<a href="#" onclick="return false" >算法链</a>-->

@@ -26,7 +26,7 @@ export class HistoryDetailComponent {
   items: any[] = ['top1', 'top2', 'top3', 'All'];
   item: string;
   outputArr: any[] = [];
-  outputName: any[] = [];
+  outputName: string;
   id: number;
   result: inferenceResult[] = [];
   resultP: inferenceResult[] = [];
@@ -79,7 +79,7 @@ export class HistoryDetailComponent {
     this.interval = setInterval(() => this.getResult(this.model_id, this.page - 1, this.pageMaxItem), 500);
   }
   getResult(modelId: number, page, size) {
-    console.log(modelId);
+    //console.log(modelId);
     this.modelService.getResult(modelId, page, size).subscribe(result => {
       if (result.content.length != 0) {
         clearInterval(this.interval);
@@ -92,7 +92,7 @@ export class HistoryDetailComponent {
         this.inputType = this.result[0].inputType;
         if(this.inputType=='path'){
           this.type = result.content[0].inputPath.split('.').pop().toLowerCase();
-          console.log(this.type);
+          //console.log(this.type);
 /*          if(this.type == "txt"||this.type == "csv"){
             result.content[0].inputPath = "/home/ligang/dataset/1501128031530showTxt.png";
 
@@ -147,8 +147,15 @@ export class HistoryDetailComponent {
   outName(input) {
     if(input){
       let input_arr = input.split('/');
-      this.outputName = input_arr.pop();
-      return this.outputName.slice(13, this.outputName.length);
+      this.outputName = input_arr[input_arr.length-1];
+      console.log(this.outputName);
+      let temp = new RegExp(/^\d{13}_/);
+      console.log(temp.test(this.outputName));
+      if(temp.test(this.outputName)){
+        return this.outputName.substring(14);
+      }else{
+        return this.outputName;
+      }
     }
   }
 }

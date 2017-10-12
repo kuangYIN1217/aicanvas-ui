@@ -47,8 +47,16 @@ export class DatasetsService {
         }
       });
   }
-
-
+  getDataInfo(id){
+    let path = "/api/dataSet/" + id;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
   getDataSets(creator , dataSetType , name , sort, page , size ){
 
     let path = "/api/dataSets?";

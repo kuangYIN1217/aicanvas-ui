@@ -119,7 +119,7 @@ export class PopupComponent {
       $this.resumable.pause();
       $this.resumable.cancel();
       $this.s_error_level = "info";
-      $this.s_error_message = '文件解压失败或压缩包中缺少datasource.csv文件';
+      $this.s_error_message = '文件解压失败';
       file.abc[99];
     });
     this.resumable.on('fileProgress', function(file){

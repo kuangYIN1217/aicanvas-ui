@@ -550,15 +550,8 @@ input:focus{
    height: 36px;
    box-sizing: border-box;
    padding-left: 10px;
-   margin-right:22px;
-   margin-left: 192px;
+   background: url("../../../assets/jobcreation/percent.png") no-repeat right 10px center;;
  }
-.s2{
-  margin-left: 362px;
-}
-.s3{
-  margin-left: 532px;
-}
 .smallBtn{
   font-size: 14px;
   color: #666666;
@@ -571,8 +564,16 @@ input:focus{
   text-decoration: none;
   text-align: center;
 }
+.maohao{
+  padding:0 3px;
+}
+.height{
+  height: 20px !important;
+  line-height: 20px !important;
+}
 input{
   outline: none;
+  color: #666;
 }
 input:focus{
   border:1px solid #23a880;
@@ -916,13 +917,46 @@ select{
   color: #333333;
   height:36px;
   margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 36px;
 }
-
+.order{
+  width:150px;
+  height:36px;
+  box-sizing: border-box;
+  padding-left: 10px;
+  margin-left: 234px;
+}
+.auditing,.memory{
+  width:150px;
+  height:36px;
+  box-sizing: border-box;
+  margin-left: 12px;
+  padding-left: 10px;
+}
+.memoryText{
+  margin-left: 32px;
+}
+.gmemoryText{
+  margin-left: 194px;
+}
+.totalMemory{
+  margin-left:16px;
+}
+.textIntroduce{
+  margin-left: 193px;
+  color: #ff7c35;
+}
 select:focus{
   border:1px solid #23a880;
 }
 select{
   outline: none;
+  background: url('../../../assets/jobdetail/xia.png') no-repeat;
+  background-position: right center;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
 }
 
 

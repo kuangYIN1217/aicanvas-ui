@@ -29,10 +29,12 @@
       <td title="{{item.createTime}}">{{item.createTime}}</td>
       <td class="operation">
         <img (click)="$remove_dataSet(item.dataId , i)" class="icon" src="../../../assets/datasets/shanchu.png" alt="删除" title="删除">
+        <img (click)="look_dataSet(item)"class="icon" src="../../../../assets/taskStatus/chakan-.png" alt="查看详情" title="查看详情">
         <!--<img class="icon" src="../../../assets/datasets/shangchuan.png" alt="">-->
       </td>
     </tr>
   </table>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
   <ele-confirm [(show)] = "s_remove" [content]="'确定删除本条数据集？'" (sure)="$confirm_sure()" (cancel)="$confirm_cancel()"></ele-confirm>
+  <datasets-detail [(show)] = "look_detail" [dataList]="dataList"></datasets-detail>
 </div>

@@ -3,13 +3,13 @@
     <div class="nav">
       <div class="selectContainer">
         <span>场景选择</span>
-        <select name=""></select>
-        <!--<img src="../assets/taskStatus/select.png">-->
+        <select class="select" name="scene_select" [(ngModel)]="scene" (ngModelChange)="scene=$event;selectChange()">
+          <option  *ngFor=" let item of sceneInfo" value="{{item.id}}">{{item.translation}}</option>
+        </select>
       </div>
       <div class="selectContainer">
         <span>算法链选择</span>
         <select name=""></select>
-        <!--<img src="../assets/taskStatus/select.png">-->
       </div>
     </div>
     <div class="table_section">
@@ -21,18 +21,16 @@
         <th>任务名称</th>
         <th>算法链名称</th>
         <th>创建时间</th>
-        <th>模型路径</th>
-        <th>操作</th>
+        <th style="border-right: 1px solid #eeeeee;">操作</th>
         </tr>
         <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
-        <tr  [style.display]="dataIndex == 1?'':'none'">
-          <td>1</td>
-          <td>admin</td>
-          <td>字母识别</td>
-          <td>训练字母</td>
+        <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList">
+          <td>{{item.id}}</td>
+          <td>{{item.user.login}}</td>
+          <td>{{item.job.sencesName}}</td>
+          <td>{{item.job.jobName}}</td>
           <td>CNN</td>
-          <td>2017-05-18 12:23:00</td>
-          <td>./model/1</td>
+          <td>{{item.createTime}}</td>
           <td>
             <img src="assets/taskStatus/chakan-.png" alt="">
           </td>
@@ -41,5 +39,4 @@
       <!--<page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>-->
     </div>
   </div>
-
 </div>

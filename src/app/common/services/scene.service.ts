@@ -59,7 +59,16 @@ export class SceneService {
                 }
         });
     }
-
+  getModelScenes(id){
+    let path = "/api/senses/"+id;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
     getSceneById(id){
         let path = "/api/senses";
         let headers = this.getHeaders();

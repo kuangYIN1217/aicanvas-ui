@@ -30,6 +30,8 @@ export class MyDataComponent{
   s_remove_index;
   s_remove_id;
   s_remove: boolean = false;
+  look_detail:boolean = false;
+  dataList:any={};
   constructor (private datasetservice: DatasetsService,private jobService: JobService,private toastyService:ToastyService) {
     // 获取datasetType
     /*this.datasetservice.getDataSets(null , null , null , null, 1 , 10 ).subscribe(rep =>{
@@ -84,5 +86,9 @@ export class MyDataComponent{
   }
   $confirm_cancel() {
     this.s_remove = false;
+  }
+  look_dataSet(item){
+    this.look_detail = true;
+    this.dataList = item;
   }
 }

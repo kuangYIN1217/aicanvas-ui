@@ -1,0 +1,142 @@
+.dataset-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1500;
+}
+.dataset-content {
+  position: absolute;
+  box-sizing: border-box;
+  width: 990px;
+  height: 660px;
+  left:50%;
+  top:50%;
+  margin-left: -495px;
+  margin-top: -330px;
+  border: 1px solid #eeece8;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 2px rgba(255,255,255,0.5);
+  font-size: 16px;
+}
+.dataset-header{
+  margin: 20px 30px 0;
+}
+.dataset-name,.dataset-detailbox{
+  margin-bottom: 26px;
+  overflow: hidden;
+}
+.dataset-text{
+  float: left;
+}
+.first,.second,.third{
+  width:33%;
+}
+.close{
+  position: absolute;
+  top:10px;
+  right:10px;
+  cursor: pointer;
+}
+.dataset-body{
+  overflow: hidden;
+}
+.dataset-path{
+  height:40px;
+  line-height: 40px;
+  background: #eeeeee;
+}
+.dataset-sidebar{
+  width:130px;
+  float: left;
+  padding-left: 35px;
+  height:457px;
+  border-right: 1px solid #eeeeee;
+}
+.dataset-item:nth-child(1){
+  margin-top: 30px;
+}
+.dataset-item{
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.dataset-show{
+  overflow: auto;
+  height:457px;
+}
+.dataset-model{
+  width:136px;
+  height:136px;
+  display: inline-block;
+  display: flex;
+  display: -webkit-flex;
+  float: left;
+  justify-content: center;
+  align-items: center;
+}
+.dataset-center{
+  text-align: center;
+  width:90%;
+}
+.dataset-center img{
+  width:42px;
+  height:42px;
+  cursor: pointer;
+}
+.dataset-center img,.dataset-center span{
+  display: block;
+  margin:0 auto;
+}
+.dataset-center span{
+  word-wrap: break-word;
+}
+.middle{
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.leftArrow{
+  margin-left: 30px;
+}
+.rightArrow{
+  margin-right: 30px;
+}
+.dataset-pathText:after
+{
+  content:">";
+/*  background: url("../../../assets/datasetsDetail/xiaji.png") no-repeat center;
+  padding:0 8px;
+  width:14px;
+  height:14px;
+  display: inline-block;
+  vertical-align: middle;*/
+}
+.fangda{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(111, 111, 111, 0.3);
+  opacity: 1;
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fangda span{
+  position: absolute;
+}
+.fangda .jietu{
+  width:100%;
+}
+.fangda .close{
+  position: absolute;
+  top:0;
+  right:0;
+  cursor: pointer;
+}
+

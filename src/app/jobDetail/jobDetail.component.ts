@@ -17,13 +17,14 @@ declare var unescape: any;
 declare var window: any;
 import {calc_height} from '../common/ts/calc_height'
 import {nextTick} from "q";
+import {modelService} from "../common/services/model.service";
 @Component({
   moduleId: module.id,
   selector: 'jobDetail',
   styleUrls: ['./css/jobDetail.component.css'],
   templateUrl: './templates/jobDetail.html',
 
-  providers: [JobService, AlgChainService, PluginService, WebSocketService]
+  providers: [JobService, AlgChainService, PluginService, WebSocketService,modelService]
 })
 export class JobDetailComponent {
   jobResultParam = [];
@@ -84,6 +85,9 @@ export class JobDetailComponent {
   gpu_show:boolean = false;
   d_progress_logs = [];
   s_save_flag: boolean = true;
+  show:boolean = false;
+  train:string;
+  valid:string;
   d_progress_log: any = {
     percent: 0,
     step: '初始化'
@@ -119,7 +123,7 @@ export class JobDetailComponent {
     return dataProvider;
   }
 
-  constructor(private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
+  constructor(private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
       if (jobPath) {
@@ -131,7 +135,15 @@ export class JobDetailComponent {
       }
     }
   }
-
+  lookDataset(){
+    this.show = true;
+    this.valid = 'valid';
+    this.train = 'train';
+/*    this.modelService.getJobDataset(this.jobPath,['train','valid'],null)
+      .subscribe(result=>{
+        console.log(result);
+      })*/
+  }
   back() {
     if (sessionStorage['curPage']) {
       this.page = sessionStorage['curPage'];

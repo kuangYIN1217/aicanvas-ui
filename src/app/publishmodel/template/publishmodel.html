@@ -1,0 +1,15 @@
+<div class="model" *ngIf="showModel">
+  <div class="model-box">
+    <img src="assets/publishmodel/close.jpg" class="close" (click)="close()"/>
+    <div class="image">
+      <img src="assets/publishmodel/right.jpg"/>
+    </div>
+    <div class="content">
+      <div class="title">消息提示</div>
+      <div class="tip">
+        <span>模型发布成功！</span>
+        <a href="javascript:void(0)" routerLinkActive="active" routerLink="/api" target="_blank">点击查看详情!</a>
+      </div>
+    </div>
+  </div>
+</div>

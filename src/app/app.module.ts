@@ -52,6 +52,9 @@ import {GpuComponent} from "./jobDetail/gpu/gpu.component";
 import {SenceComponent} from "./algchains/sence/sence";
 import {ShowAllComponent} from "./showAll/showAll.component";
 import {DelConfirmComponent} from "./algchains/confirm/delConfirm.component";
+import {ApiComponent} from "./api/api.component";
+import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
+import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -89,7 +92,10 @@ import {DelConfirmComponent} from "./algchains/confirm/delConfirm.component";
     GpuComponent,
     SenceComponent,
     ShowAllComponent,
-    DelConfirmComponent
+    DelConfirmComponent,
+    ApiComponent,
+    DatasetsDetailComponent,
+    PublishModelComponent
     //InputReadonlyDirective
   ],
   imports: [

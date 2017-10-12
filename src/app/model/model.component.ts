@@ -9,7 +9,7 @@ import {SERVER_URL} from "../app.constants";
 import {JobService} from "../common/services/job.service";
 import {Headers} from "@angular/http";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
-import {addSuccessToast, addInfoToast, addErrorToast} from '../common/ts/toast';
+import {addSuccessToast, addInfoToast, addErrorToast,addWarningToast} from '../common/ts/toast';
 
 declare var $:any;
 @Component({
@@ -20,6 +20,7 @@ declare var $:any;
   providers: [ResourcesService, modelService,JobService]
 })
 export class ModelComponent {
+  SERVER_URL = SERVER_URL;
   ModelInfo: any[] = [];
   job_id: number = 0;
   modelName: string;
@@ -51,10 +52,14 @@ export class ModelComponent {
   perInterval:any;
   upload_click_flag: boolean = true;
   uploadName:any[]=[];
+  showModel:boolean = false;
+  show:boolean = false;
+  jobPath:string;
+  test:string;
+  dataSetPath:string;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
-
   Headers:Headers = this.modelService.getHeaders();
   public uploader:FileUploader = new FileUploader({
     url: SERVER_URL+"/api/model/upload",
@@ -93,11 +98,11 @@ export class ModelComponent {
     }
        let type = this.fileName[0].split('.').pop().toLowerCase();
         if(type == "zip"||type == "rar") {
-          this.container.push("assets/model/yasuo2.png");
+          this.container.push("/home/deepthinker/dataset/yasuo2.png");
         }else if(type == "txt"||type == "csv"){
-          this.container.push("assets/model/txt.png");
+          this.container.push("/home/deepthinker/dataset/txt.png");
         }
-        else{
+/*        else{
           let file = this.uploader.queue[this.times-1]._file;
           //console.log(file);
           let container1 = this.container;
@@ -108,7 +113,32 @@ export class ModelComponent {
           if (file) {
             reader.readAsDataURL(file);
           }
+    }*/
+    this.uploader.queue[this.times-1].onSuccess = (response: any, status: any, headers: any) => {
+      //this.uploader.queue[i].remove();
+      this.container.push(response);
+      console.log(this.container);
+      /*        if( this.responsePath.length==this.uploader.queue.length){
+       console.log( this.responsePath);
+       this.saveModelAndUpload( this.responsePath);
+       }*/
     }
+    this.uploader.queue[this.times-1].upload(); // 开始上传
+    //console.log(this.container);
+  }
+  getDataSetPath(event){
+    console.log(event);
+    let type = event.split('.').pop().toLowerCase();
+    if(type=='image'){
+      this.container.push(event);
+    }else if(type=='txt'){
+      this.container.push('/home/deepthinker/dataset/txt.png');
+    }
+
+    //console.log(this.container);
+  }
+  outputImg(item){
+    return item.slice(26);
   }
   // D: 定义事件，上传文件
     uploadFile() {
@@ -116,26 +146,23 @@ export class ModelComponent {
         return;
       }
       this.upload_click_flag = false;
-      console.log(this.uploader.queue);
-      for(let i in this.uploader.queue){
-        this.uploadName.push(this.uploader.queue[i].file.name);
-      }
-      console.log(this.uploadName);
-      this.responsePath=[];
-      for(var i=0;i<this.container.length;i++){
-        this.uploader.queue[i].onSuccess = (response: any, status: any, headers: any) => {
-          //this.uploader.queue[i].remove();
-          console.log(response);
-          this.responsePath.push(response);
-          if( this.responsePath.length==this.uploader.queue.length){
-            console.log( this.responsePath);
-            this.saveModelAndUpload( this.responsePath);
-
-          }
+      //console.log(this.uploader.queue);
+      if(this.container.length>0){
+        console.log(this.container);
+        this.saveModelAndUpload( this.container);
+        this.container = [];
+       /*for(let i in this.uploader.queue){
+          this.uploadName.push(this.uploader.queue[i].file.name);
         }
-        this.uploader.queue[i].upload(); // 开始上传
+        console.log(this.uploadName);
+        this.responsePath=[];
+      }else if(this.dataSetPath.length>0){
+        */
+      }else{
+        addErrorToast(this.toastyService , "请上传推演文件!" );
+        this.upload_click_flag = true;
+        return false;
       }
-   //this.tabIndex=this.scene;
    }
   saveModelAndUpload(filePath: any[]) {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result =>{
@@ -180,6 +207,14 @@ export class ModelComponent {
       this.job = jobDetail;
     });
   }
+  getDataset(){
+    this.show = true;
+    this.test = 'test';
+    this.jobPath = this.job.jobPath;
+  }
+  publish(){
+    this.showModel = true;
+  }
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -221,10 +256,14 @@ export class ModelComponent {
     this.job_path = job_path;
   }
   delPhoto(index){
+    // if(this.uploader.queue&&this.uploader.queue.length>0){
+    //   this.uploader.queue[index].remove();
+    // }else{
+    //   this.dataSetPath.splice(index,1);
+    // }
     this.container.splice(index,1);
-    this.uploader.queue[index].remove();
-    console.log(this.container);
-    console.log(this.uploader.queue);
+    // console.log(this.container);
+    // console.log(this.uploader.queue);
   }
   clickBtn() {
     //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});

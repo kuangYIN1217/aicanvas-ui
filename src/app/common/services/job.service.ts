@@ -29,16 +29,23 @@ export class JobService {
     return headers;
   }
 
-  createJob(chainId,dataId,jobName,senceId) {
+  createJob(chainId,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird) {
     let path = "/api/job";
     /*let number_senceId: number = Number(senceId);*/
-    console.log(chainId,dataId,jobName,senceId)
+    console.log(chainId,dataId,jobName,senceId);
     let senseId = {
       "chainId": chainId,
       "dataId": dataId,
       "jobName": jobName,
       "senceId": senceId,
-    };
+      "cpuCoreNum": auditing,
+      "cpuMemory": cmemory,
+      "gpuMemory":gmemory,
+      "gpuNum": gpuorder,
+      "practiceRate": dataFirst,
+      "alidateRate": dataSecond,
+      "testRate": dataThird
+  };
     console.log(senseId);
     let headers = this.getHeaders();
     return this.http.post(this.SERVER_URL + path, senseId, {headers: headers})
@@ -231,7 +238,16 @@ export class JobService {
         }
       });
   }
-
+  getDataId(jobPath){
+    let path = "/api/findDatasetId/" + jobPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
   getPluginInfoById(jobPath: string , pluginId: string) {
     let path = "/api/jobProcess/" + jobPath + "/" + pluginId;
     let headers = this.getHeaders();
@@ -242,5 +258,26 @@ export class JobService {
         }
       });
   }
-
+  getDataSetsDetail(dataPath){
+    let path = "/api/DataSetManage?path=" + encodeURI(dataPath);
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
+  }
+  getAllGpu(){
+    let path = "/api/gpus";
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          if (response.status == 200) {
+            return response.json();
+          }
+        }
+      });
+  }
 }

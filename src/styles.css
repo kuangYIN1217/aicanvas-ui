@@ -8,7 +8,9 @@ body{
   overflow-x:hidden ;
 
 }
-
+a{
+  text-decoration: none;
+}
 
 h1 {
   color: #369;

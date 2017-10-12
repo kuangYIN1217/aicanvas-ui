@@ -9,7 +9,7 @@
             </div>
               <!--<div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a>-->
                <!--</div>-->
-              <div class="tab_item sm_tab_item" (click)="createJob()" > <a href="#" onclick="return false;" class="back">新建任务</a></div>
+              <div class="tab_item sm_tab_item" (click)="createJob()"> <a href="#" onclick="return false;" class="back">新建任务</a></div>
             </div>
           </div>
         <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
@@ -46,6 +46,31 @@
               </select>
             </div>
           </div>
+          <div class="row">
+            <div class="row_tr">
+              <span class="span"><label class="mustColor">*</label>CPU分配：</span>
+              <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)"/>
+              <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)"/>
+              <label class="totalMemory">(共16GB)</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row_tr">
+              <span class="span"><label class="mustColor">*</label>GPU分配：</span>
+              <label>编号</label>
+              <select class="order" [(ngModel)]="gpuorder">
+                <option selected value="-1">--请选择--</option>
+                <option *ngFor="let item of gpus" value="{{item.id}}">{{item.id}}</option>
+              </select>
+              <label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)"/>
+              <label class="totalMemory">(共16GB)</label>
+            </div>
+          </div>
+          <div class="row" style="height: 20px; line-height: 20px">
+            <div class="row_tr">
+              <label class="textIntroduce">注：建议CPU核数不低于1核，内存不低于4GB，GPU内存不低于2GB</label>
+            </div>
+          </div>
 <!--          <div class="row">
             <div class="row_tr">
               <span class="span">我的数据集：</span>
@@ -73,23 +98,23 @@
               </select>
             </div>
           </div>
-<!--          <div class="row">
-            <div class="row_tr">
-              <span class="span"><label class="mustColor">*</label>训练 / 测试 /验证集比例：</span>
-              <select class="smallSel" name="scene_select">
-                <option>33%</option>
-              </select>
-              <select class="smallSel s2" name="scene_select">
-                <option>33%</option>
-              </select>
-              <select class="smallSel s3" name="scene_select">
-                <option>33%</option>
-              </select>
-            </div>
-          </div>-->
           <div class="row">
             <div class="row_tr">
-              <span class="span"><label class="mustColor">*</label>所选记录数：</span><span class="middle">{{fileCount}}</span>
+              <span class="span"><label class="mustColor">*</label>训练 / 验证 /测试集比例：</span>
+              <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
+              <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
+              <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>
+            </div>
+          </div>
+          <div class="row height">
+            <div class="row_tr">
+              <label class="textIntroduce height">注：训练/验证集用于训练任务，测试集用于推演服务；建议比例：70%：20%：10%
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row_tr">
+              <span class="span height"><label class="mustColor">*</label>所选记录数：</span><span class="middle height">{{fileCount}}</span>
             </div>
           </div>
 <!--          <div class="row">
@@ -116,7 +141,6 @@
                     </select>
                   </td>
                 </tr>
-
                 <tr>
                   <td class="th">标注1</td>
                   <td class="input">
@@ -141,8 +165,6 @@
                     <input type="text">
                   </td>
                 </tr>
-
-
                 <tr>
                   <td class="th">标注5</td>
                   <td class="input">
