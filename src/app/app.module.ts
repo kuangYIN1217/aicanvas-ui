@@ -55,6 +55,7 @@ import {DelConfirmComponent} from "./algchains/confirm/delConfirm.component";
 import {ApiComponent} from "./api/api.component";
 import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
+import {ShowTxtComponent} from "./showTxt/showTxt.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -95,7 +96,8 @@ import {PublishModelComponent} from "./publishmodel/publishmodel.component";
     DelConfirmComponent,
     ApiComponent,
     DatasetsDetailComponent,
-    PublishModelComponent
+    PublishModelComponent,
+    ShowTxtComponent
     //InputReadonlyDirective
   ],
   imports: [

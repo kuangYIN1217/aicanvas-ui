@@ -44,7 +44,7 @@
     <div class="dataset-body">
       <div class="dataset-path">
         <img [src]="arr.length>1?'assets/datasetsDetail/zuo-shen.png':'assets/datasetsDetail/zuo-qian.png'" class="middle leftArrow" (click)="left()"/>
-        <img [src]="arr.length==arr.length-1?'assets/datasetsDetail/you-shen.png':'assets/datasetsDetail/you-qian.png'" class="middle rightArrow"  (click)="right()"/>
+        <img [src]="arr.length==dataPath.length?'assets/datasetsDetail/you-qian.png':'assets/datasetsDetail/you-shen.png'" class="middle rightArrow"  (click)="right()"/>
         <span class="dataset-pathText" *ngFor="let path of arr">{{output(path)}}</span>
       </div>
       <div class="dataset-sidebar">
@@ -64,9 +64,10 @@
     </div>
     <div class="fangda" [style.display]="image?'':'none'">
         <span>
-          <img src="{{SERVER_URL}}/download/{{imageUrl}}" class="jietu"/>
+          <img src="{{SERVER_URL}}/download/{{imageUrl}}" class="jietu" *ngIf="imageUrl"/>
           <img src="../assets/datasetsDetail/delete.png" class="close" (click)="closeImage()"/>
         </span>
     </div>
   </div>
 </div>
+<app-text [(txtShow)]="txtShow" [txtContent]="txtContent"></app-text>

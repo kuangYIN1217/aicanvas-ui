@@ -268,6 +268,16 @@ export class JobService {
         }
       });
   }
+  getTxt(txtPath){
+    let path ="/download/" + txtPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
+  }
   getAllGpu(){
     let path = "/api/gpus";
     let headers = this.getHeaders();

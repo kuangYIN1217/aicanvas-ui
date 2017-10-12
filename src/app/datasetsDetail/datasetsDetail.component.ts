@@ -39,13 +39,15 @@ export class DatasetsDetailComponent{
   uploadPath:any[]=[];
   hasIt:boolean = false;
   dataInfo:any={};
+  txtShow:boolean = false;
+  txtContent:string;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
-    console.log(this.dataList);
+    //console.log(this.dataList);
     this.dataPath=[];
     this.arr=[];
-    console.log(this.jobPath);
+    //console.log(this.jobPath);
     if(JSON.stringify(this.dataList) != "{}"){
       this.getResult(this.dataList.dataPath);
       this.dataPath.push(this.dataList.dataPath);
@@ -53,11 +55,11 @@ export class DatasetsDetailComponent{
       this.index=1;
     }
     if(this.test == 'test'){
-      console.log(this.jobPath);
+      //console.log(this.jobPath);
       this.getTestResult(this.jobPath,[this.test],null);
     }
     if(this.train == 'train'){
-      console.log(this.jobPath);
+      //console.log(this.jobPath);
       this.getTestResult(this.jobPath,[this.train,this.valid],null);
     }
     if(this.jobPath){
@@ -66,7 +68,7 @@ export class DatasetsDetailComponent{
           this.datasetservice.getDataInfo(result)
             .subscribe(rep=>{
                 this.dataInfo = rep;
-                console.log(this.dataInfo);
+                //console.log(this.dataInfo);
             });
         })
     }
@@ -81,7 +83,7 @@ export class DatasetsDetailComponent{
     this.jobService.getDataSetsDetail(path)
       .subscribe(result=>{
         this.getDetail(result);
-        console.log(result);
+        //console.log(result);
 /*        for(let i=0;i<this.dataSet.length;i++){
           let tem = this.dataSet[i].split('/');
           if(tem[tem.length-1].substring(0,1)=='.'){
@@ -117,7 +119,18 @@ export class DatasetsDetailComponent{
       this.dataArr.push(obj);
     }
     this.filterArr = this.dataArr;
-    console.log(this.dataArr);
+    //console.log(this.dataArr);
+    for(let i=0;i<this.dataArr.length;i++){
+      for(var key in this.dataArr[i]) {
+        if (key.indexOf("file") != -1) {
+            let arr = this.dataArr[i][key].split('/');
+            let last = arr[arr.length-1];
+            if(last.match(/^_/)){
+              this.dataArr[i].flag = 1;
+            }
+        }
+      }
+    }
   }
   arrow(){
     if(this.hide==false){
@@ -145,7 +158,7 @@ export class DatasetsDetailComponent{
   }
   enterPath(item) {
     for(var key in item){
-      console.log(item[key]);
+      //console.log(item[key]);
       if(key.indexOf("file")!=-1){
         //console.log(this.index);
         this.dataPath = this.dataPath.slice(0,this.index);
@@ -177,9 +190,14 @@ export class DatasetsDetailComponent{
  /* if(this.hasIt == false){
           this.uploadPath.push(item[key]);
         }*/
-        console.log(this.uploadPath);
+        //console.log(this.uploadPath);
       }else if(key.indexOf("txt")!=-1&&this.test==undefined){
-        window.open(SERVER_URL+'/download/'+item[key].substring(26));
+        //window.open(SERVER_URL+'/download/'+item[key].substring(26));
+        this.jobService.getTxt(item[key].substring(26))
+          .subscribe(result=>{
+            this.txtContent = result.text();
+            this.txtShow = true;
+          })
       }else{
         return false;
       }
@@ -242,7 +260,7 @@ export class DatasetsDetailComponent{
       this.getTestResult(this.jobPath,[this.train,this.valid],this.dataPath[this.index-1]);
     }
     this.arr = this.dataPath.slice(0,this.index);
-    console.log(this.arr);
+    //console.log(this.arr);
   }
   right(){
     if(this.index==this.dataPath.length){
@@ -258,7 +276,6 @@ export class DatasetsDetailComponent{
       this.getTestResult(this.jobPath,[this.train,this.valid],this.dataPath[this.index-1]);
     }
     this.arr = this.dataPath.slice(0,this.index);
-    console.log(this.arr);
   }
   allfile(){
     this.filterArr = this.dataArr;
@@ -272,7 +289,7 @@ export class DatasetsDetailComponent{
       }
     }
  }
-     console.log(this.filterArr);
+     //console.log(this.filterArr);
   }
   alltext(){
     this.filterArr=[];
@@ -283,7 +300,7 @@ export class DatasetsDetailComponent{
         }
       }
     }
-    console.log(this.filterArr);
+    //console.log(this.filterArr);
   }
   allother(){
     this.filterArr=[];
@@ -294,7 +311,7 @@ export class DatasetsDetailComponent{
         }
       }
     }
-    console.log(this.filterArr);
+    //console.log(this.filterArr);
   }
   calc_size = calc_size;
   ngOnInit() {
