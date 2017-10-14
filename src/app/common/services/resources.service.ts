@@ -30,7 +30,7 @@ export class ResourcesService {
         return headers;
     }
 
-    getCpuInfo(): Observable<Cpu[]>{
+    getCpuInfo(){
         let path = "/api/cpuinfo";
         let headers = this.getHeaders();
         // TODO: what if it returns error?
@@ -38,7 +38,7 @@ export class ResourcesService {
         return this.http.get(this.SERVER_URL+path,{ headers: headers })
             .map((response: Response) => {
                 if (response && response.json()) {
-                    return (plainToClass(Cpu, response.json()));
+                    return response.json();
                 }
             });
     }

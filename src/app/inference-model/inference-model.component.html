@@ -1,15 +1,18 @@
 <div class="container">
   <div class="bg">
+
     <div class="nav">
       <div class="selectContainer">
         <span>场景选择</span>
-        <select class="select" name="scene_select" [(ngModel)]="scene" (ngModelChange)="scene=$event;selectChange()">
+        <select class="select" name="scene_select" [(ngModel)]="scene" (ngModelChange)="scene=$event;selectSceneChange()">
           <option  *ngFor=" let item of sceneInfo" value="{{item.id}}">{{item.translation}}</option>
         </select>
       </div>
       <div class="selectContainer">
         <span>算法链选择</span>
-        <select name=""></select>
+        <select class="select" name="scene_select" [(ngModel)]="chain" (ngModelChange)="chain=$event;selectChainChange()">
+          <option  *ngFor=" let item of chainInfo" value="{{item.chain_name}}">{{item.chain_name}}</option>
+        </select>
       </div>
     </div>
     <div class="table_section">
@@ -32,11 +35,12 @@
           <td>{{item.job.chainName}}</td>
           <td>{{item.createTime}}</td>
           <td>
-            <img src="assets/taskStatus/chakan-.png" alt="">
+            <img src="assets/taskStatus/chakan-.png" alt="" class="middle" (click)="lookapi()">
           </td>
         </tr>
       </table>
-      <!--<page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>-->
+      <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+      <publish-model [(showModel)]="showModel"></publish-model>
     </div>
   </div>
 </div>

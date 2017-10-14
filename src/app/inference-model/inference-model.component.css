@@ -54,3 +54,8 @@
   width:100%;
   margin:0;
 }
+.middle{
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}

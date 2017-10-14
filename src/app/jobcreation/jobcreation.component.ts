@@ -8,7 +8,7 @@ import {PluginService} from "../common/services/plugin.service";
 import {modelService} from "../common/services/model.service";
 import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param, Parameter} from "../common/defs/parameter";
-import {ChainInfo, JobInfo, PluginInfo, SceneInfo} from "../common/defs/resources";
+import {ChainInfo, Cpu, CpuInfo, JobInfo, PluginInfo, SceneInfo} from "../common/defs/resources";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addWarningToast, addSuccessToast} from '../common/ts/toast';
 import {DatasetsService} from "../common/services/datasets.service";
@@ -16,12 +16,13 @@ import {escape} from "querystring";
 declare var $: any;
 import {calc_height} from '../common/ts/calc_height'
 import {nextTick} from "q";
+import {ResourcesService} from "../common/services/resources.service";
 @Component({
   moduleId: module.id,
   selector: 'jobcreation',
   styleUrls: ['./css/jobcreation.component.css'],
   templateUrl: './templates/jobcreation.html',
-  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService, DatasetsService]
+  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService, DatasetsService,ResourcesService]
 })
 export class JobCreationComponent {
   creator: any;
@@ -79,19 +80,26 @@ export class JobCreationComponent {
   focus:number=0;
   blur:number=0;
   gpus:any[]=[];
-  gpuorder:number;
+  gpuorder:any='';
   dataFirst:number;
   dataSecond:number;
   dataThird:number;
   cmemory:number;
   gmemory:number;
   auditing:number;
-  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location) {
+  cpu:number;
+  gpu:number=0;
+  core:number;
+  constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
-
+    this.resourcesService.getCpuInfo()
+      .subscribe(result=>{
+        this.cpu = (Math.ceil(result.tot_memory/1024/1024/1024/8))*8;
+        this.core = result.cores;
+      })
     // if (location.path(false).indexOf('/jobcreation/') != -1) {
     //   this.pageNo = location.path(false).split('/jobcreation/')[1];
     //   if(this.pageNo){
@@ -99,7 +107,15 @@ export class JobCreationComponent {
     //   }
     // }
   }
-
+  getCore(){
+    if(Number(this.auditing)>this.core){
+      this.s_error_show = true;
+      this.s_error_message = '核数不能超过'+this.core;
+      this.s_error_level = "error";
+    }else{
+      this.s_error_show = false;
+    }
+  }
   ngOnInit() {
     calc_height(document.getElementsByClassName('tab_content')[0]);
     this.route.queryParams.subscribe(params => {
@@ -215,7 +231,7 @@ export class JobCreationComponent {
         //console.log(this.firstSceneId);
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {
-            console.log(result)
+            console.log(result);
             this.PluginInfo = result;
             // this.firstChainId = this.PluginInfo[0].id;
             // this.firstSceneId = this.PluginInfo[0].chain_name;
@@ -227,9 +243,19 @@ export class JobCreationComponent {
     this.jobService.getAllGpu()
       .subscribe(result=>{
           this.gpus = result;
-          // this.gpuorder = this.gpus[0].id;
-      })
+          console.log(this.gpus);
+          //this.gpuorder = this.gpus[0].id;
+      });
+
     //console.log(this.student);
+  }
+  gpuChange(){
+    console.log(this.gpuorder);
+    for(let i=0;i<this.gpus.length;i++){
+      if(this.gpuorder==this.gpus[i].id){
+        this.gpu = Math.ceil(this.gpus[i].totalGlobalMem/1024/1024/1024);
+      }
+    }
   }
   onlyNum(e) {
     let ev = event||e;
@@ -238,9 +264,18 @@ export class JobCreationComponent {
         ev.returnValue=false;
   }
   memory(){
-    if(Number(this.cmemory)>16||Number(this.gmemory)>16){
+    if(Number(this.cmemory)>this.cpu){
       this.s_error_show = true;
-      this.s_error_message = '内存不能超过16GB';
+      this.s_error_message = '内存不能超过'+this.cpu+'GB';
+      this.s_error_level = "error";
+    }else{
+      this.s_error_show = false;
+    }
+  }
+  memoryg(){
+    if(Number(this.gmemory)>this.gpu){
+      this.s_error_show = true;
+      this.s_error_message = '内存不能超过'+this.gpu+'GB';
       this.s_error_level = "error";
     }else{
       this.s_error_show = false;
@@ -255,16 +290,23 @@ export class JobCreationComponent {
     console.log(this.dataFirst,this.dataSecond,this.dataThird);
     if((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100){
       this.tips();
+    }else if((Number(this.dataFirst)+Number(this.dataSecond))>100){
+      this.tips();
+    }else if((Number(this.dataFirst)+Number(this.dataThird))>100){
+      this.tips();
+    }
+    else if((Number(this.dataSecond)+Number(this.dataThird))>100){
+      this.tips();
     }else{
       this.s_error_show = false;
-      if(this.dataFirst>0&&this.dataSecond>0){
-        this.dataThird = 100-this.dataFirst-this.dataSecond;
+      if(Number(this.dataFirst)>0&&Number(this.dataSecond)>0&&(Number(this.dataFirst)+Number(this.dataSecond)<100)){
+        this.dataThird = 100-Number(this.dataFirst)-Number(this.dataSecond);
       };
-      if(this.dataFirst>0&&this.dataThird>0){
-        this.dataSecond = 100-this.dataFirst-this.dataThird;
+      if(Number(this.dataFirst)>0&&Number(this.dataThird)>0&&(Number(this.dataFirst)+Number(this.dataThird)<100)){
+        this.dataSecond = 100-Number(this.dataFirst)-Number(this.dataThird);
       };
-      if(this.dataSecond>0&&this.dataThird>0){
-        this.dataFirst = 100-this.dataSecond-this.dataThird;
+      if(Number(this.dataSecond)>0&&Number(this.dataThird)>0&&(Number(this.dataSecond)+Number(this.dataThird)<100)){
+        this.dataFirst = 100-Number(this.dataSecond)-Number(this.dataThird);
       };
     }
   }

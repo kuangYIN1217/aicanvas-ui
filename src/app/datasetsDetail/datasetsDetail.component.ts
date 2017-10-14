@@ -41,6 +41,9 @@ export class DatasetsDetailComponent{
   dataInfo:any={};
   txtShow:boolean = false;
   txtContent:string;
+  headerPath:any[]=[];
+  arrow:string;
+  fileFlag:boolean = true;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
@@ -105,6 +108,7 @@ export class DatasetsDetailComponent{
       })
   }
   getDetail(result){
+    this.fileFlag = true;
     this.dataKey=[];
     this.dataSet=[];
     this.dataArr=[];
@@ -132,18 +136,18 @@ export class DatasetsDetailComponent{
       }
     }
   }
-  arrow(){
-    if(this.hide==false){
-      return {'content':' !important' };
-    }
-  }
+  // arrow(){
+  //   if(this.hide==false){
+  //     return {'content':' !important' };
+  //   }
+  // }
   getItem(item){
     for(var key in item){
       if(key.indexOf("file")!=-1){
         return 'assets/datasetsDetail/file.png';
       }else if(key.indexOf("image")!=-1){
-        let path = this.data[key].substring(26);
-        //console.log(path);
+        let temp = this.data[key].split('$');
+        let path = temp[0].substring(26);
         return `${SERVER_URL}/download/${path}`;
       }else if(key.indexOf("txt")!=-1){
         return 'assets/datasetsDetail/txt.png';
@@ -157,6 +161,10 @@ export class DatasetsDetailComponent{
     return path[path.length-1];
   }
   enterPath(item) {
+    if (!this.fileFlag) {
+      return;
+    }
+    this.fileFlag = false;
     for(var key in item){
       //console.log(item[key]);
       if(key.indexOf("file")!=-1){
@@ -192,8 +200,9 @@ export class DatasetsDetailComponent{
         }*/
         //console.log(this.uploadPath);
       }else if(key.indexOf("txt")!=-1&&this.test==undefined){
-        //window.open(SERVER_URL+'/download/'+item[key].substring(26));
-        this.jobService.getTxt(item[key].substring(26))
+        let temp = item[key].split('$');
+        console.log(temp);
+        this.jobService.getTxt(temp[0].substring(26))
           .subscribe(result=>{
             this.txtContent = result.text();
             this.txtShow = true;
@@ -203,6 +212,15 @@ export class DatasetsDetailComponent{
       }
     }
   }
+  // getPath(arr){
+  //   for(let i=0;i<arr.length;i++){
+  //     let obj:any={};
+  //     obj.path = arr[i];
+  //     obj.flag = 1;
+  //     this.headerPath.push(obj);
+  //     console.log(this.headerPath);
+  //   }
+  // }
   open(item){
     for(var key in item){
         if(key.indexOf("image")!=-1){
@@ -210,7 +228,8 @@ export class DatasetsDetailComponent{
 
           }else{
             this.image = true;
-            this.imageUrl = item[key].slice(26);
+            let temp = item[key].split('$');
+            this.imageUrl = temp[0].slice(26);
           }
         }else if(key.indexOf("file")!=-1){
           return false;
@@ -231,14 +250,21 @@ export class DatasetsDetailComponent{
   getSet(item){
     for(var key in item){
       let name:any[]=[];
-      name = item[key].split('/');
+      let temp = item[key].split('$');
+      let size = temp[1];
+        name = temp[0].split('/');
       //console.log(name[name.length-1]);
      // console.log(name[name.length-1].substring(0,1));
       this.name = '';
       // if(name[name.length-1].substring(0,1)=='.'||name[name.length-1].substring(0,1)=='_'){
       //   item.flag = 1;
       // }
-      return name[name.length-1];
+      if(size){
+        return name[name.length-1]+"("+size+")";
+      }else{
+        return name[name.length-1];
+      }
+
     }
   }
   left(){
@@ -260,6 +286,7 @@ export class DatasetsDetailComponent{
       this.getTestResult(this.jobPath,[this.train,this.valid],this.dataPath[this.index-1]);
     }
     this.arr = this.dataPath.slice(0,this.index);
+    //this.getPath(this.arr);
     //console.log(this.arr);
   }
   right(){
@@ -276,6 +303,7 @@ export class DatasetsDetailComponent{
       this.getTestResult(this.jobPath,[this.train,this.valid],this.dataPath[this.index-1]);
     }
     this.arr = this.dataPath.slice(0,this.index);
+    //this.getPath(this.arr);
   }
   allfile(){
     this.filterArr = this.dataArr;
@@ -284,7 +312,7 @@ export class DatasetsDetailComponent{
     this.filterArr=[];
     for(let i=0;i<this.dataArr.length;i++){
       for(var key in this.dataArr[i]){
-        if(this.dataArr[i][key].indexOf('image')!=-1){
+        if(key.indexOf('image')!=-1){
           this.filterArr.push(this.dataArr[i]);
       }
     }

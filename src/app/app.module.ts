@@ -56,6 +56,7 @@ import {ApiComponent} from "./api/api.component";
 import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
+import {HomeComponent} from "./home/home.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -97,7 +98,8 @@ import {ShowTxtComponent} from "./showTxt/showTxt.component";
     ApiComponent,
     DatasetsDetailComponent,
     PublishModelComponent,
-    ShowTxtComponent
+    ShowTxtComponent,
+    HomeComponent
     //InputReadonlyDirective
   ],
   imports: [

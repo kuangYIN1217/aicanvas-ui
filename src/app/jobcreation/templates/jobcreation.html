@@ -49,21 +49,21 @@
           <div class="row">
             <div class="row_tr">
               <span class="span"><label class="mustColor">*</label>CPU分配：</span>
-              <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)"/>
+              <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()"/>
               <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)"/>
-              <label class="totalMemory">(共16GB)</label>
+              <label class="totalMemory">(共{{cpu}}GB)</label>
             </div>
           </div>
           <div class="row">
             <div class="row_tr">
               <span class="span"><label class="mustColor">*</label>GPU分配：</span>
               <label>编号</label>
-              <select class="order" [(ngModel)]="gpuorder">
-                <option selected value="-1">--请选择--</option>
+              <select class="order" [(ngModel)]="gpuorder" (ngModelChange)="gpuorder=$event;gpuChange()">
+                <option value="">--请选择--</option>
                 <option *ngFor="let item of gpus" value="{{item.id}}">{{item.id}}</option>
               </select>
-              <label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)"/>
-              <label class="totalMemory">(共16GB)</label>
+              <label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memoryg()" (keydown)="onlyNum($event)"/>
+              <label class="totalMemory">(共{{gpu}}GB)</label>
             </div>
           </div>
           <div class="row" style="height: 20px; line-height: 20px">

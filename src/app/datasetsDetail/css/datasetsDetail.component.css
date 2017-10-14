@@ -104,15 +104,16 @@
 .rightArrow{
   margin-right: 30px;
 }
-.dataset-pathText:after
+/*.dataset-pathText:after
 {
   content:">";
-/*  background: url("../../../assets/datasetsDetail/xiaji.png") no-repeat center;
-  padding:0 8px;
-  width:14px;
-  height:14px;
+}*/
+.path{
   display: inline-block;
-  vertical-align: middle;*/
+  vertical-align: middle;
+}
+.dataset-pathText:last-child .path{
+  display: none;
 }
 .fangda{
   position: fixed;

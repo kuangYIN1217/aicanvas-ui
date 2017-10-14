@@ -50,6 +50,16 @@ export class modelService {
                 }
             });
     }
+    getAllChains(){
+      let path = "/api/getAllChains";
+      let headers = this.getHeaders();
+      return this.http.get(this.SERVER_URL+path, { headers : headers} )
+        .map((response: Response) => {
+          if (response && response.json()) {
+            return response.json();
+          }
+        });
+    }
     getJobDataset(jobPath,arr,path1){
       let path = "/api/scanDataSetFileDetail";
       let body = JSON.stringify({
