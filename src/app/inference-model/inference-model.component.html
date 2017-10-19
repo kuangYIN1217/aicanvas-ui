@@ -1,6 +1,5 @@
 <div class="container">
   <div class="bg">
-
     <div class="nav">
       <div class="selectContainer">
         <span>场景选择</span>
@@ -35,7 +34,8 @@
           <td>{{item.job.chainName}}</td>
           <td>{{item.createTime}}</td>
           <td>
-            <img src="assets/taskStatus/chakan-.png" alt="" class="middle" (click)="lookapi()">
+            <a href="javascript:void(0)" routerLinkActive="active" routerLink="/api" target="_blank" class="middle see"></a>
+            <!--<img src="assets/taskStatus/chakan-.png" alt="" class="middle" (click)="lookapi()">-->
           </td>
         </tr>
       </table>

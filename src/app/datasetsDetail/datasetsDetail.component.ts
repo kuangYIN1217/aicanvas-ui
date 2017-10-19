@@ -47,7 +47,7 @@ export class DatasetsDetailComponent{
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
-    //console.log(this.dataList);
+    console.log(this.dataList);
     this.dataPath=[];
     this.arr=[];
     //console.log(this.jobPath);
@@ -72,6 +72,7 @@ export class DatasetsDetailComponent{
             .subscribe(rep=>{
                 this.dataInfo = rep;
                 //console.log(this.dataInfo);
+                //console.log(this.dataList);
             });
         })
     }
@@ -85,8 +86,8 @@ export class DatasetsDetailComponent{
   getResult(path){
     this.jobService.getDataSetsDetail(path)
       .subscribe(result=>{
+        console.log(result);
         this.getDetail(result);
-        //console.log(result);
 /*        for(let i=0;i<this.dataSet.length;i++){
           let tem = this.dataSet[i].split('/');
           if(tem[tem.length-1].substring(0,1)=='.'){

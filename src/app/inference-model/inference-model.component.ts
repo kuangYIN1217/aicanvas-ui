@@ -105,6 +105,6 @@ export class InferenceModelComponent{
     }
   }
   lookapi(){
-    this.showModel = true;
+    //this.showModel = true;
   }
 }

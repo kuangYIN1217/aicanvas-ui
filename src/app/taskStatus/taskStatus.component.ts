@@ -137,16 +137,16 @@ export class TaskStatusComponent{
           addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
           return;
         } else {
-          this.gpuNum = null;
-          this.gpu_show = true;
+/*          this.gpuNum = null;
+          this.gpu_show = true;*/
           this.runPath = jobPath;
-         /* this.jobService.runJob(jobPath)
-            .subscribe(reply => this.start_reply(reply));*/
+          this.jobService.runJob(jobPath)
+            .subscribe(reply => this.start_reply(reply));
         }
       })
 
     }
-  sure(event){
+/*  sure(event){
     this.gpuNum = event;
     this.jobService.runJob(this.runPath,this.gpuNum)
       .then(result => {
@@ -157,7 +157,7 @@ export class TaskStatusComponent{
   }
   showChange(event){
     this.gpu_show = event;
-  }
+  }*/
     start_reply(reply){
         if(reply==200){
             console.log("Start Successfully!");

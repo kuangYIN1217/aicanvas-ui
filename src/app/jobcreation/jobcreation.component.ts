@@ -223,6 +223,12 @@ export class JobCreationComponent {
   // createJob
   createJob() {
     this.jobName = null;
+    this.auditing = null;
+    this.cmemory = null;
+    this.gmemory = null;
+    this.dataFirst = null;
+    this.dataSecond = null;
+    this.dataThird = null;
     this.sceneService.getAllScenes(-1)
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
@@ -285,17 +291,27 @@ export class JobCreationComponent {
     this.s_error_show = true;
     this.s_error_message = '训练/验证/测试集比例之和必须等于100%！';
     this.s_error_level = "error";
+    return false;
   }
   dataset(){
     console.log(this.dataFirst,this.dataSecond,this.dataThird);
-    if((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100){
+    if(Number(this.dataFirst)>=100){
       this.tips();
-    }else if((Number(this.dataFirst)+Number(this.dataSecond))>100){
+    };
+    if(Number(this.dataSecond)>=100){
       this.tips();
-    }else if((Number(this.dataFirst)+Number(this.dataThird))>100){
+    };
+    if(Number(this.dataThird)>=100){
+      this.tips();
+    };
+    if((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>=100){
+      this.tips();
+    }else if((Number(this.dataFirst)+Number(this.dataSecond))>=100){
+      this.tips();
+    }else if((Number(this.dataFirst)+Number(this.dataThird))>=100){
       this.tips();
     }
-    else if((Number(this.dataSecond)+Number(this.dataThird))>100){
+    else if((Number(this.dataSecond)+Number(this.dataThird))>=100){
       this.tips();
     }else{
       this.s_error_show = false;
@@ -456,6 +472,7 @@ export class JobCreationComponent {
       this.click_flag = true;
       return false;
     }
+    this.dataset();
     this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,this.gmemory,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
       .subscribe(createdJob => {
         //let job: any = createdJob;

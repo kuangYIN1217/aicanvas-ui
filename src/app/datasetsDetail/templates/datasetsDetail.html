@@ -27,12 +27,12 @@
             <span *ngIf="jobPath==undefined">{{dataList?.fileCount}}</span>
             <span *ngIf="jobPath!=undefined">{{dataInfo?.fileCount}}</span>
           </div>
-          <div class="dataset-text second" *ngIf="dataList?.creator!='system'">
+          <div class="dataset-text second" *ngIf="dataList?.creator=='admin'">
             <span>创建人：</span>
             <span *ngIf="jobPath==undefined">{{dataList?.creator}}</span>
             <span *ngIf="jobPath!=undefined">{{dataInfo?.creator}}</span>
           </div>
-          <div class="dataset-text third" *ngIf="dataList?.creator!='system'">
+          <div class="dataset-text third" *ngIf="dataList?.creator=='admin'">
             <span>创建时间：</span>
             <span *ngIf="jobPath==undefined">{{dataList?.createTime}}</span>
             <span *ngIf="jobPath!=undefined">{{dataInfo?.createTime}}</span>

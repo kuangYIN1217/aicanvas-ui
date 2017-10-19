@@ -164,11 +164,21 @@ export class JobService {
       });
   }
 
-  runJob(jobPath,num) {
+/*  runJob(jobPath,num) {
     let path = "/api/runJob/" + jobPath + "/" + num;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
       .toPromise();
+  }*/
+  runJob(jobPath) {
+    let path = "/api/runJob/" + jobPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
   }
   stopJob(jobPath: string) {
     let path = "/api/stopJob/" + jobPath;
