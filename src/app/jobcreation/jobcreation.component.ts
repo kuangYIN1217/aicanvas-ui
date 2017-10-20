@@ -304,7 +304,7 @@ export class JobCreationComponent {
     if(Number(this.dataThird)>=100){
       this.tips();
     };
-    if((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>=100){
+    if((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100){
       this.tips();
     }else if((Number(this.dataFirst)+Number(this.dataSecond))>=100){
       this.tips();
