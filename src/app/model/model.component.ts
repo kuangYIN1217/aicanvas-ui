@@ -127,14 +127,16 @@ export class ModelComponent {
     //console.log(this.container);
   }
   getDataSetPath(event){
-    console.log(event);
-    let type = event.split('.').pop().toLowerCase();
-    if(type=='image'){
-      this.container.push(event);
-    }else if(type=='txt'){
+    //console.log(event);
+    for(var key in event){
+      let temp = event[key].split('$');
+      let type = temp[0];
+    if(key.indexOf("image")!=-1){
+      this.container.push(type);
+    }else if(key.indexOf("txt")!=-1){
       this.container.push('/home/deepthinker/dataset/txt.png');
     }
-
+    }
     //console.log(this.container);
   }
   outputImg(item){

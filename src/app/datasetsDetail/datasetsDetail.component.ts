@@ -188,7 +188,7 @@ export class DatasetsDetailComponent{
       }else if((key.indexOf("image")!=-1||key.indexOf("txt")!=-1)&&this.test == 'test'){
         //for(let i=0;i<this.uploadPath.length;i++){
           //this.uploadPath.push(item[key]);
-          this.uploadPathChange.emit(item[key]);
+          this.uploadPathChange.emit(item);
           this.close();
 /*          if(this.uploadPath[i]==item[key]){
               this.hasIt = true;
