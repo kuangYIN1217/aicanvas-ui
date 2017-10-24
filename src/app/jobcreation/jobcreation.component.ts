@@ -249,7 +249,9 @@ export class JobCreationComponent {
     this.jobService.getAllGpu()
       .subscribe(result=>{
           this.gpus = result;
-          console.log(this.gpus);
+          let temp:any={'id':-1,'totalGlobalMem': 0};
+          this.gpus.unshift(temp);
+          //console.log(this.gpus);
           //this.gpuorder = this.gpus[0].id;
       });
 
@@ -258,8 +260,9 @@ export class JobCreationComponent {
   gpuChange(){
     console.log(this.gpuorder);
     for(let i=0;i<this.gpus.length;i++){
-      if(this.gpuorder==this.gpus[i].id){
+      if(this.gpuorder==this.gpus[i].id+1){
         this.gpu = Math.ceil(this.gpus[i].totalGlobalMem/1024/1024/1024);
+        //console.log(this.gpu);
       }
     }
   }
