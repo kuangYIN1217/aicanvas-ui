@@ -158,10 +158,17 @@ export class JobCreationComponent {
     }
     this.fileCount=0;
     let id = this.student;
-    console.log(id);
+    //console.log(id);
     this.chosenSceneId = id;
     this.firstChainId = null;
     this.dataId = null;
+    this.auditing=null;
+    this.gpuorder='';
+    this.gmemory=null;
+    this.cmemory=null;
+    this.dataFirst=null;
+    this.dataSecond=null;
+    this.dataThird=null;
     this.sceneService.getChainByScene(id)
       .subscribe(results => {
         this.PluginInfo = results;
@@ -452,28 +459,40 @@ export class JobCreationComponent {
       return false;
     }
     if(!this.dataFirst){
-      this.s_error_show = true;
-      this.s_error_message = '请输入训练集比例';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
+      if(this.student==15||this.student==11){
+
+      }else{
+        this.s_error_show = true;
+        this.s_error_message = '请输入训练集比例';
+        this.s_error_level = "error";
+        //addWarningToast(this.toastyService , "请选择数据集" );
+        this.click_flag = true;
+        return false;
+      }
     }
     if(!this.dataSecond){
-      this.s_error_show = true;
-      this.s_error_message = '请输入验证集比例';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
+      if(this.student==15||this.student==11){
+
+      }else {
+        this.s_error_show = true;
+        this.s_error_message = '请输入验证集比例';
+        this.s_error_level = "error";
+        //addWarningToast(this.toastyService , "请选择数据集" );
+        this.click_flag = true;
+        return false;
+      }
     }
     if(!this.dataThird){
-      this.s_error_show = true;
-      this.s_error_message = '请输入测试集比例';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
+      if(this.student==15||this.student==11){
+
+      }else {
+        this.s_error_show = true;
+        this.s_error_message = '请输入测试集比例';
+        this.s_error_level = "error";
+        //addWarningToast(this.toastyService , "请选择数据集" );
+        this.click_flag = true;
+        return false;
+      }
     }
     this.dataset();
     this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,this.gmemory,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
