@@ -54,15 +54,28 @@ export class DatasetsDetailComponent{
     if(JSON.stringify(this.dataList) != "{}"){
       this.getResult(this.dataList.dataPath);
       this.dataPath.push(this.dataList.dataPath);
+/*      if(this.dataList.creator=='admin'){
+        let arr:any[]=[];
+        arr.push(this.dataList.dataPath.split('-')[1]);
+        this.arr = arr;
+      }else{
+        this.arr = this.dataPath;
+      }*/
       this.arr = this.dataPath;
       this.index=1;
     }
     if(this.test == 'test'){
       //console.log(this.jobPath);
+      this.dataPath.push('全部文件');
+      this.arr = this.dataPath;
+      this.index=1;
       this.getTestResult(this.jobPath,[this.test],null);
     }
     if(this.train == 'train'){
       //console.log(this.jobPath);
+      this.dataPath.push('全部文件');
+      this.arr = this.dataPath;
+      this.index=1;
       this.getTestResult(this.jobPath,[this.train,this.valid],null);
     }
     if(this.jobPath){
@@ -86,26 +99,8 @@ export class DatasetsDetailComponent{
   getResult(path){
     this.jobService.getDataSetsDetail(path)
       .subscribe(result=>{
-        console.log(result);
+        //console.log(result);
         this.getDetail(result);
-/*        for(let i=0;i<this.dataSet.length;i++){
-          let tem = this.dataSet[i].split('/');
-          if(tem[tem.length-1].substring(0,1)=='.'){
-            if(tem[tem.length-1].substring(1).indexOf('.')==-1){
-                this.hide = true;
-            }else{
-              this.hide = false;
-              return
-            }
-          }else{
-            if(tem[tem.length-1].indexOf('.')==-1){
-              this.hide = true;
-            }else{
-              this.hide = false;
-              return
-            }
-          }
-        }*/
       })
   }
   getDetail(result){
@@ -158,8 +153,19 @@ export class DatasetsDetailComponent{
     }
   }
   output(item){
-    let path = item.split('/');
-    return path[path.length-1];
+/*    if(this.dataList.creator=='admin'&&this.index==1){
+      let path = item.split('/');
+      let data = path[path.length-1].split('-')[1];
+      return data;
+    }else{*/
+      let path = item.split('/');
+      let temp = new RegExp(/^\d{13}-/);
+      if(temp.test(path[path.length-1])){
+        return path[path.length-1].substring(14);
+      }else{
+        return path[path.length-1];
+      }
+    //}
   }
   enterPath(item) {
     if (!this.fileFlag) {
@@ -182,8 +188,10 @@ export class DatasetsDetailComponent{
         this.index++;
         if(this.dataArr.length==this.dataPath.length){
           this.arr = this.dataPath.slice(0,this.index);
+          console.log(this.arr);
         }else{
           this.arr = this.dataPath;
+          console.log(this.arr);
         }
       }else if((key.indexOf("image")!=-1||key.indexOf("txt")!=-1)&&this.test == 'test'){
         //for(let i=0;i<this.uploadPath.length;i++){
@@ -269,22 +277,24 @@ export class DatasetsDetailComponent{
     }
   }
   left(){
-    if(JSON.stringify(this.dataList) != "{}") {
       if (this.index == 1) {
         return false;
       }
-    }else{
-      if (this.index == 0) {
-        return false;
-      }
-    }
     this.index--;
     if(JSON.stringify(this.dataList) != "{}"){
       this.getResult(this.dataPath[this.index-1]);
     }else if(this.test=='test'){
-      this.getTestResult(this.jobPath,[this.test],this.dataPath[this.index-1]);
+      if(this.index==1){
+        this.getTestResult(this.jobPath,[this.test],null);
+      }else{
+        this.getTestResult(this.jobPath,[this.test],this.dataPath[this.index-1]);
+      }
     }else if(this.train=='train'){
-      this.getTestResult(this.jobPath,[this.train,this.valid],this.dataPath[this.index-1]);
+      if(this.index==1){
+        this.getTestResult(this.jobPath, [this.train, this.valid],null);
+      }else {
+        this.getTestResult(this.jobPath, [this.train, this.valid], this.dataPath[this.index - 1]);
+      }
     }
     this.arr = this.dataPath.slice(0,this.index);
     //this.getPath(this.arr);

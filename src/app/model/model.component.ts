@@ -48,6 +48,7 @@ export class ModelComponent {
   times:number;
   fileName:any[]=[];
   container:any[]=[];
+  container1:any[]=[];
   responsePath:any[] = [];
   perInterval:any;
   upload_click_flag: boolean = true;
@@ -96,18 +97,18 @@ export class ModelComponent {
         this.fileName.push(this.uploader.queue[i].file.name);
       }
     }
-       let type = this.fileName[0].split('.').pop().toLowerCase();
+/*       let type = this.fileName[0].split('.').pop().toLowerCase();
         if(type == "zip"||type == "rar") {
-          this.container.push("/home/deepthinker/dataset/yasuo2.png");
+          this.container.push("/home/deepthinker/dataset/typeImages/yasuo2.png");
         }else if(type == "txt"||type == "csv"){
-          this.container.push("/home/deepthinker/dataset/txt.png");
-        }
+          this.container.push("/home/deepthinker/dataset/typeImages/txt.png");
+        }*/
 /*        else{
           let file = this.uploader.queue[this.times-1]._file;
           //console.log(file);
           let container1 = this.container;
           let reader  = new FileReader();
-          reader.addEventListener("load", function () {
+          reader.addEventListener("load", function (){
             container1.push(reader.result);
           }, false);
           if (file) {
@@ -116,8 +117,17 @@ export class ModelComponent {
     }*/
     this.uploader.queue[this.times-1].onSuccess = (response: any, status: any, headers: any) => {
       //this.uploader.queue[i].remove();
+      let type = response.split('.').pop().toLowerCase();
+      if(type == "zip"||type == "rar") {
+        this.container1.push("/home/deepthinker/dataset/typeImages/yasuo2.png");
+      }else if(type == "txt"||type == "csv"){
+        this.container1.push("/home/deepthinker/dataset/typeImages/txt.png");
+      }else{
+        this.container1.push(response);
+      }
       this.container.push(response);
       console.log(this.container);
+      console.log(this.container1);
       /*        if( this.responsePath.length==this.uploader.queue.length){
        console.log( this.responsePath);
        this.saveModelAndUpload( this.responsePath);
@@ -133,8 +143,10 @@ export class ModelComponent {
       let type = temp[0];
     if(key.indexOf("image")!=-1){
       this.container.push(type);
+      this.container1.push(type);
     }else if(key.indexOf("txt")!=-1){
-      this.container.push('/home/deepthinker/dataset/txt.png');
+      this.container.push(type);
+      this.container1.push('/home/deepthinker/dataset/typeImages/txt.png');
     }
     }
     //console.log(this.container);
@@ -151,7 +163,7 @@ export class ModelComponent {
       //console.log(this.uploader.queue);
       if(this.container.length>0){
         console.log(this.container);
-        this.saveModelAndUpload( this.container);
+        this.saveModelAndUpload(this.container);
         this.container = [];
        /*for(let i in this.uploader.queue){
           this.uploadName.push(this.uploader.queue[i].file.name);
@@ -220,6 +232,7 @@ export class ModelComponent {
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
+    clearInterval(this.perInterval);
   }
   selChange(job_id){
     this.id = 1;
@@ -264,6 +277,7 @@ export class ModelComponent {
     //   this.dataSetPath.splice(index,1);
     // }
     this.container.splice(index,1);
+    this.container1.splice(index,1);
     // console.log(this.container);
     // console.log(this.uploader.queue);
   }

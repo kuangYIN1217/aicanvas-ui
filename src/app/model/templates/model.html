@@ -62,22 +62,22 @@
       <tr>
         <td class="first_column">上传文件</td>
         <td>
-          <div class="showPhoto" [style.display]="(job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11&&(job.sences<100))?'':'none'">
-             <span  *ngFor="let item of container;let i=index">
-               <!--<img src="{{item}}" alt="" class="photo" *ngIf="uploader.queue.length>0">-->
+<!--          <div class="showPhoto" [style.display]="job.sences<100?'':'none'">
+             <span  *ngFor="let item of container1;let i=index">
+               &lt;!&ndash;<img src="{{item}}" alt="" class="photo" *ngIf="uploader.queue.length>0">&ndash;&gt;
                <img src="{{SERVER_URL}}/download/{{outputImg(item)}}" alt="" class="photo">
                <img src="../assets/model/delete.png" class="del" (click)="delPhoto(i)"/>
              </span>
-          </div>
-          <div class="showPhoto" [style.display]="job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11?'none':''">
+          </div>-->
+<!--          <div class="showPhoto" [style.display]="job.sences!=5&&job.sences!=9&&job.sences!=15&&job.sences!=11&&(job.sences<100)?'none':''">
              <span  *ngFor="let item of container;let i=index">
-               <!--<img src="{{item}}" alt="" class="photo" *ngIf="uploader.queue.length>0">-->
+               &lt;!&ndash;<img src="{{item}}" alt="" class="photo" *ngIf="uploader.queue.length>0">&ndash;&gt;
                <img src="{{SERVER_URL}}/download/typeImages/{{outputImg(item)}}" alt="" class="photo">
                <img src="../assets/model/delete.png" class="del" (click)="delPhoto(i)"/>
              </span>
-          </div>
-          <div class="showPhoto" [style.display]="job.sences>=100?'':'none'">
-             <span  *ngFor="let item of container;let i=index">
+          </div>-->
+          <div class="showPhoto">
+             <span  *ngFor="let item of container1;let i=index">
                <!--<img src="{{item}}" alt="" class="photo" *ngIf="uploader.queue.length>0">-->
                <img src="{{SERVER_URL}}/download/{{outputImg(item)}}" alt="" class="photo">
                <img src="../assets/model/delete.png" class="del" (click)="delPhoto(i)"/>
