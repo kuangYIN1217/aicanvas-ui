@@ -44,6 +44,8 @@ export class DatasetsDetailComponent{
   headerPath:any[]=[];
   arrow:string;
   fileFlag:boolean = true;
+  label:any[]=[];
+  dataListShow:any={};
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
@@ -69,6 +71,8 @@ export class DatasetsDetailComponent{
       this.dataPath.push('全部文件');
       this.arr = this.dataPath;
       this.index=1;
+      this.label=["test"];
+      this.getFile(this.jobPath,this.label);
       this.getTestResult(this.jobPath,[this.test],null);
     }
     if(this.train == 'train'){
@@ -76,6 +80,8 @@ export class DatasetsDetailComponent{
       this.dataPath.push('全部文件');
       this.arr = this.dataPath;
       this.index=1;
+      this.label=["train","valid"];
+      this.getFile(this.jobPath,this.label);
       this.getTestResult(this.jobPath,[this.train,this.valid],null);
     }
     if(this.jobPath){
@@ -89,6 +95,12 @@ export class DatasetsDetailComponent{
             });
         })
     }
+  }
+  getFile(jobPath,label){
+    this.modelService.getFile(jobPath,label)
+      .subscribe(result=>{
+        this.dataListShow = result;
+      })
   }
   getTestResult(jobPath,arr,path){
     this.modelService.getJobDataset(jobPath,arr,path)

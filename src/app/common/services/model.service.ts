@@ -75,6 +75,20 @@ export class modelService {
           }
         });
     }
+  getFile(jobPath,label){
+    let path = "/api/getDatasetFileSizeAndCount";
+    let body = JSON.stringify({
+      "jobPath": jobPath,
+      "label": label
+    });
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path, body, { headers: headers })
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
   publishModel(jobId,modelPredictionIds){
     let path = "/api/saveModel";
     let body = JSON.stringify({
