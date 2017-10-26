@@ -164,7 +164,7 @@ export class JobCreationComponent {
     this.dataId = null;
     this.auditing=null;
     this.gpuorder='';
-    this.gmemory=null;
+    // this.gmemory=null;
     this.cmemory=null;
     this.dataFirst=null;
     this.dataSecond=null;
@@ -232,7 +232,7 @@ export class JobCreationComponent {
     this.jobName = null;
     this.auditing = null;
     this.cmemory = null;
-    this.gmemory = null;
+    // this.gmemory = null;
     this.dataFirst = null;
     this.dataSecond = null;
     this.dataThird = null;
@@ -450,14 +450,14 @@ export class JobCreationComponent {
       this.click_flag = true;
       return false;
     }
-    if(!this.gmemory){
+/*    if(!this.gmemory){
       this.s_error_show = true;
       this.s_error_message = '请输入GPU内存';
       this.s_error_level = "error";
       //addWarningToast(this.toastyService , "请选择数据集" );
       this.click_flag = true;
       return false;
-    }
+    }*/
     if(!this.dataFirst){
       if(this.student==15||this.student==11){
 
@@ -495,7 +495,7 @@ export class JobCreationComponent {
       }
     }
     this.dataset();
-    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,this.gmemory,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
+    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
       .subscribe(createdJob => {
         //let job: any = createdJob;
         //this.createdJob = job;

@@ -62,8 +62,8 @@
                 <option value="">--请选择--</option>
                 <option *ngFor="let item of gpus;let i=index" value="{{item.id+1}}">{{item.id+1}}</option>
               </select>
-              <label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memoryg()" (keydown)="onlyNum($event)"/>
-              <label class="totalMemory">(共{{gpu}}GB)</label>
+              <!--<label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memoryg()" (keydown)="onlyNum($event)"/>
+              <label class="totalMemory">(共{{gpu}}GB)</label>-->
             </div>
           </div>
           <div class="row" style="height: 20px; line-height: 20px">
