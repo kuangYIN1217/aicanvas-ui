@@ -313,6 +313,7 @@ export class ModelComponent {
     this.currentId=-1;
     this.modelName='';
     this.container=[];
+    this.container1=[];
     this.uploader.queue=[];
     console.log(this.uploader.queue);
   }
