@@ -58,6 +58,7 @@ export class ModelComponent {
   jobPath:string;
   test:string;
   dataSetPath:string;
+  modelPredictionIds:any[]=[];
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -228,6 +229,15 @@ export class ModelComponent {
   }
   publish(){
     this.showModel = true;
+    if(this.ModelInfo.length>0){
+      for(let i=0;i<this.ModelInfo.length;i++){
+        this.modelPredictionIds.push(this.ModelInfo[i].id);
+      }
+    }console.log(this.modelPredictionIds);
+    this.modelService.publishModel(this.job_id,this.modelPredictionIds)
+      .subscribe(result=>{
+        //console.log(result);
+      })
   }
   ngOnDestroy() {
     // 退出时停止更新
@@ -248,6 +258,7 @@ export class ModelComponent {
       .subscribe(model => {
         if(model.content.length>0){
           this.ModelInfo = model.content;
+          console.log(this.ModelInfo);
           if(this.ModelInfo[0].percent==1) {
             clearInterval(this.perInterval);
           }

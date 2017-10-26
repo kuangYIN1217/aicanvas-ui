@@ -75,6 +75,20 @@ export class modelService {
           }
         });
     }
+  publishModel(jobId,modelPredictionIds){
+    let path = "/api/saveModel";
+    let body = JSON.stringify({
+      "jobId": jobId,
+      "modelPredictionIds": modelPredictionIds
+    });
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL+path,body,{ headers : headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
     saveModelAndUpload(name, jobId, file) {
         let path = "/api/model";
         let body = JSON.stringify({
@@ -110,7 +124,7 @@ export class modelService {
     getResult(modelId:number,page=0,size=10){
         let path = "/api/predictionResult/"+modelId+"?page="+page+"&size="+size;
         let headers = this.getHeaders();
-        return this.http.get(this.SERVER_URL+path, { headers : headers} )
+        return this.http.get(this.SERVER_URL+path, { headers : headers})
             .map((response: Response) => {
                 if (response) {
                     return response.json();
@@ -138,11 +152,11 @@ export class modelService {
       });
   }
   getAllModel(sceneId,chainId, page=0,size=10){
-    let path = "/api/modelList/"+sceneId+"/"+chainId+"?page="+page+"&size="+size;
+    let path = "/api/modelList/"+sceneId+"/"+chainId+"?page="+page+"&size="+size+"&sort=createTime,desc";
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL+path, { headers : headers})
       .map((response: Response) => {
-        if (response && response.json()) {
+        if (response && response.json()){
           return response.json();
         }
       });

@@ -1,11 +1,32 @@
 <div class="container">
-  <div style="background-color: green;padding: 5px;margin: 2px;">
-    <ng-content select="header"></ng-content>
-  </div>
-  <div style="background-color: gray;padding: 5px;margin: 2px;">
-    <ng-content select=".class-select"></ng-content>
-  </div>
-  <div style="background-color: blue;padding: 5px;margin: 2px;">
-    <ng-content select="[name=footer]"></ng-content>
-  </div>
+<form>
+  <ul>
+    <li>
+      <label>姓名：</label>
+      <input type="text" name="name" [(ngModel)]="name"/>
+    </li>
+    <li>
+      <label>电话：</label>
+      <input type="text" name="tel" [(ngModel)]="tel"/>
+    </li>
+    <li>
+      <input type="radio" name="sex" [(ngModel)]="sexValue" value="female"/>男
+      <input type="radio" name="sex" [(ngModel)]="sexValue" value="male"/>女
+      {{sexValue}}
+    </li>
+    <li>
+      <input type="checkbox" name="lock" [(ngModel)]="checkValue"/>
+      {{checkValue}}
+    </li>
+    <li>
+      <button type="submit">添加</button>
+      <button type="button">取消</button>
+    </li>
+    <li>
+      <select name="interestValue" [(ngModel)]="interestValue">
+        <option *ngFor="let item of interests" [value]="item.value">{{item.display}}</option>
+      </select>
+    </li>
+  </ul>
+</form>
 </div>
