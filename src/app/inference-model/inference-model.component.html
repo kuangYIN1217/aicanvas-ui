@@ -26,8 +26,8 @@
         <th style="border-right: 1px solid #eeeeee;">操作</th>
         </tr>
         <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
-        <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList">
-          <td>{{item.id}}</td>
+        <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
+          <td>{{i+1}}</td>
           <td>{{item.user.login}}</td>
           <td>{{item.job.sencesName}}</td>
           <td>{{item.job.jobName}}</td>
