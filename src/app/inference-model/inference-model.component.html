@@ -7,12 +7,12 @@
           <option  *ngFor=" let item of sceneInfo" value="{{item.id}}">{{item.translation}}</option>
         </select>
       </div>
-      <div class="selectContainer">
+<!--      <div class="selectContainer">
         <span>算法链选择</span>
         <select class="select" name="scene_select" [(ngModel)]="chain" (ngModelChange)="chain=$event;selectChainChange()">
           <option  *ngFor=" let item of chainInfo" value="{{item.chain_name}}">{{item.chain_name}}</option>
         </select>
-      </div>
+      </div>-->
     </div>
     <div class="table_section">
       <table class="table">
