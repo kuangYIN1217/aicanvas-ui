@@ -31,7 +31,6 @@ import {ApiComponent} from "./api/api.component";
 import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
-import {HomeComponent} from "./home/home.component";
 
 
 const routes: Routes = [
@@ -72,7 +71,6 @@ const routes: Routes = [
   {path: 'datasetsdetail', component: DatasetsDetailComponent},
   {path: 'publishmodel', component: PublishModelComponent},
   {path: 'showtxt', component: ShowTxtComponent},
-  {path: 'home', component: HomeComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 

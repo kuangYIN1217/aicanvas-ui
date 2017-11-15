@@ -56,8 +56,6 @@ import {ApiComponent} from "./api/api.component";
 import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
-import {HomeComponent} from "./home/home.component";
-import {BeautifulBackgroundDirective} from "./home/beautifulBackground.directive";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -99,9 +97,7 @@ import {BeautifulBackgroundDirective} from "./home/beautifulBackground.directive
     ApiComponent,
     DatasetsDetailComponent,
     PublishModelComponent,
-    ShowTxtComponent,
-    HomeComponent,
-    BeautifulBackgroundDirective
+    ShowTxtComponent
     //InputReadonlyDirective
   ],
   imports: [

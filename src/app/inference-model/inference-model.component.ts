@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SceneService} from "../common/services/scene.service";
 import {modelService} from "../common/services/model.service";
 import {Page} from "../common/defs/resources";
+import {calc_height} from "app/common/ts/calc_height";
 
 @Component({
   selector: 'app-inference-model',
@@ -36,6 +37,9 @@ export class InferenceModelComponent{
         }
       });
     this.getAllModel(-1,-1,this.page-1,this.pageMaxItem);
+  }
+  ngOnInit() {
+    calc_height(document.getElementById('table_section'));
   }
   getAllChains(chainId){
     this.sceneService.getChainByScene(chainId)
