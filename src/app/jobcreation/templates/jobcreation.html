@@ -100,7 +100,7 @@
           </div>
           <div class="row">
             <div class="row_tr">
-              <span class="span"><label class="mustColor">*</label>训练 / 验证 /测试集比例：</span>
+              <span class="span">训练 / 验证 /测试集比例：</span>
               <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
               <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
               <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>

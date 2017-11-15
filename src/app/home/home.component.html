@@ -1,32 +1,13 @@
 <div class="container">
-<form>
-  <ul>
-    <li>
-      <label>姓名：</label>
-      <input type="text" name="name" [(ngModel)]="name"/>
-    </li>
-    <li>
-      <label>电话：</label>
-      <input type="text" name="tel" [(ngModel)]="tel"/>
-    </li>
-    <li>
-      <input type="radio" name="sex" [(ngModel)]="sexValue" value="female"/>男
-      <input type="radio" name="sex" [(ngModel)]="sexValue" value="male"/>女
-      {{sexValue}}
-    </li>
-    <li>
-      <input type="checkbox" name="lock" [(ngModel)]="checkValue"/>
-      {{checkValue}}
-    </li>
-    <li>
-      <button type="submit">添加</button>
-      <button type="button">取消</button>
-    </li>
-    <li>
-      <select name="interestValue" [(ngModel)]="interestValue">
-        <option *ngFor="let item of interests" [value]="item.value">{{item.display}}</option>
-      </select>
-    </li>
-  </ul>
-</form>
+<!--  <input type="text" [formControl]="loginControl">
+  <p>{{loginControl.value}}</p>-->
+  <form [formGroup]="loginForm">
+    <input type="text" formControlName="name"/>
+    <input type="text" formControlName="pass"/>
+  </form>
+  <p>{{loginForm.value|json}}</p>
+<!--  <input type="radio" (click)="color='green'" name="colors"/>
+  <input type="radio" (click)="color='yellow'" name="colors"/>
+  <input type="radio" (click)="color='blue'" name="colors"/>-->
+  <div MyBeautifulBackground [YourBeautifulBackground]="'yellow'">这是一个按钮</div>
 </div>

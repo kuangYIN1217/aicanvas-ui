@@ -1,6 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
 import {AppComponent} from "./app.component";
@@ -57,6 +57,7 @@ import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
 import {HomeComponent} from "./home/home.component";
+import {BeautifulBackgroundDirective} from "./home/beautifulBackground.directive";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -99,7 +100,8 @@ import {HomeComponent} from "./home/home.component";
     DatasetsDetailComponent,
     PublishModelComponent,
     ShowTxtComponent,
-    HomeComponent
+    HomeComponent,
+    BeautifulBackgroundDirective
     //InputReadonlyDirective
   ],
   imports: [
@@ -111,7 +113,8 @@ import {HomeComponent} from "./home/home.component";
     AmChartsModule,
     ToastyModule,
     BrowserAnimationsModule,
-    ResumableModule
+    ResumableModule,
+    ReactiveFormsModule
   ],
   providers: [StompService],
   bootstrap: [NavigationComponent]

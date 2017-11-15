@@ -144,7 +144,6 @@ export class TaskStatusComponent{
             .subscribe(reply => this.start_reply(reply));
         }
       })
-
     }
 /*  sure(event){
     this.gpuNum = event;

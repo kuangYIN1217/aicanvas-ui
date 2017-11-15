@@ -1,4 +1,6 @@
-import { Component, OnInit,Output,EventEmitter } from '@angular/core';
+import { Component} from '@angular/core';
+import{ FormControl,FormGroup }from '@angular/forms';
+import{BeautifulBackgroundDirective} from '../home/beautifulBackground.directive';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,24 +9,21 @@ import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 })
 export class HomeComponent{
   name:string;
-  tel:number;
-  sexValue:number;
-  checkValue:any;
-  interestValue:string;
-  interests:any[]=[
-    {'value':'reading', 'display':'阅读'},
-    {'value':'traveling', 'display':'旅游'},
-    {'value':'sport', 'display':'运动'}
-    ]
-  constructor(){
-    console.log(this.interestValue);
+  dateObj= new Date('2016-06-08 20:05:08');
+  dateStr= '2016-06-08 20:05:08';
+  loginControl:FormControl = new FormControl('');
+  loginForm:FormGroup;
+constructor(){
+
+}
+btn(){
+
+}
+  ngOnInit(){
+ this.loginForm=new FormGroup({
+ name:new FormControl(''),
+ pass:new FormControl('')
+ });
   }
-  changeClass(){
-    let classes={
-     /* red:true,
-      font:true,
-      title:false*/
-    };
-    return classes;
-  }
+
 }
