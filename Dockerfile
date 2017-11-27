@@ -1,5 +1,5 @@
 # FROM centos:centos7
-FROM daocloud.io/library/ubuntu:16.04
+FROM ubuntu:16.04
 USER root
 MAINTAINER hinesboy hines.zhu@gmail.com
 # 安装node环境
