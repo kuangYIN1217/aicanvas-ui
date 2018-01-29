@@ -15,7 +15,7 @@
       <div class="content" (mouseenter)="enter()" (mouseleave)="leave()" id="content" (mousemove)="move($event)" (mousedown)="down($event)" (mouseup)="up($event)">
         <!--<img [src]="getSrc(showPhoto)" [ngStyle]="getMaxHeight()" id="showImg"  style="display: none"/>-->
         <img [src]="getSrc(showPhoto)" (load)="getMaxHeight()" id="showImg"/>
-        <canvas id="canvas"  style="display: none"></canvas>
+        <canvas id="canvas" width="500" height="300" style="display: none"></canvas>
       </div>
       <add-mark *ngIf="show" [marktop]="marktop" [markleft]="markleft" [fileId]="fileId" [markImage]="markImage" [markName]="markName" [coordinateId]="coordinateId" [xMax]="xMax" [yMax]="yMax" [xMin]="xMin" [yMin]="yMin" [singleDiv]="singleDiv" (showChange)="showChange($event)" (markCoordinateSetChange)="markCoordinateSetChange($event)" (imagePathChange)="imagePathChange($event)"></add-mark>
     </div>

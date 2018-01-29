@@ -91,12 +91,7 @@ export class MarkComponent{
         this.showPhoto = this.markPhoto[0];
       }
       sessionStorage.setItem("showPhoto",JSON.stringify(this.showPhoto));
-      console.log(this.showPhoto);
-/*      let image = this.getSrc(this.showPhoto);
-      this.imgWidth = $(image).width();*/
-/*      this.imgHeight = $(image).height();
-      $("#content").width = this.imgWidth + "px";*/
-      //$("#content").height = this.imgHeight + "px";
+      //console.log(this.showPhoto);
       this.addPhotoPath();
       this.path = this.filePath[this.filePath.length-1].path1;
       this.getSize(this.path);
@@ -291,11 +286,17 @@ export class MarkComponent{
       let fileName = nameArr[nameArr.length-1];
       let imageArr:any[] = this.filePath[this.filePath.length-1].path1.split('/');
       let imageName = imageArr[imageArr.length-1];
+      let isGray:number;
+      if(this.isGray){
+        isGray = 1;
+      }else{
+        isGray = 3;
+      }
       this.markImage = {
         "createPerson": this.username,
         "dataBase": this.dataName,
         "fileName": fileName,
-        "imageDepth": 3,
+        "imageDepth": isGray,
         "imageHighth": this.endY,
         "imageName": imageName,
         "imagePath": this.filePath[this.filePath.length-1].path1,
@@ -353,33 +354,28 @@ export class MarkComponent{
     this.canvas=document.getElementById("canvas");
     this.img = document.getElementById("showImg");
     this.cxt = this.canvas.getContext("2d");
-    //let a = this.getWH();
-    this.canvas.width = parseInt($("#content").css("width"));
-    this.canvas.height = parseInt($("#content").css("height"));
-/*    console.log(this.canvas.width);
-    console.log(this.canvas.height);*/
-    this.cxt.drawImage(this.img,0,0,this.canvas.width,this.canvas.height);
-    //this.img.crossOrigin = 'anonymous';
-    //this.img.src = this.getSrc(this.showPhoto);
-    //this.img.src = "assets/canvas/ww.jpg";
-    this.imgData = this.cxt.getImageData(0,0,this.canvas.width,this.canvas.height);
-    this.isGray = true;
-    console.log(this.imgData);
-    for(let i=0;i<this.imgData.data.length;i+=4){
-      var R = this.imgData.data[i]; //R(0-255)
-      var G = this.imgData.data[i+1]; //G(0-255)
-      var B = this.imgData.data[i+2]; //G(0-255)
-      var differ=Math.abs(R-G)<=this.differVal&&Math.abs(R-B)<=this.differVal&&Math.abs(B-G)<=this.differVal;
-      if(R!=G||R!=B||G!=B){
-        if(!differ){
-          console.log(R,G,B,differ);
-          this.isGray = false;
+    let $this = this;
+    this.img.onload = function(e) {
+      $this.cxt.drawImage($this.img, 0, 0,500,300);
+      $this.imgData = $this.cxt.getImageData(0,0,500,300);
+      $this.isGray = true;
+      for(let i=0;i<$this.imgData.data.length;i+=4){
+        var R = $this.imgData.data[i]; //R(0-255)
+        var G = $this.imgData.data[i+1]; //G(0-255)
+        var B = $this.imgData.data[i+2]; //G(0-255)
+        var differ=Math.abs(R-G)<=$this.differVal&&Math.abs(R-B)<=$this.differVal&&Math.abs(B-G)<=$this.differVal;
+        if(R!=G||R!=B||G!=B){
+          if(!differ){
+            $this.isGray = false;
+          }
         }
       }
-    }
-    console.log(R,G,B);
-    console.log(this.isGray);
-    this.cxt.putImageData(this.imgData,0,0);
+      //console.log(R,G,B);
+      console.log($this.isGray);
+      $this.cxt.putImageData($this.imgData,0,0);
+    };
+    this.img.crossOrigin = 'anonymous';
+    this.img.src = `${SERVER_URL}/download/${this.showPhoto.path.slice(26)}`;
   }
   pre(){
     if(this.markPhoto.length==1||(this.showPhoto.fileId==this.markPhoto[0].fileId)){
@@ -397,8 +393,8 @@ export class MarkComponent{
     }
   }
   next(){
-    console.log(this.showPhoto.fileId);
-    console.log(this.markPhoto[this.markPhoto.length-1].fileId);
+    //console.log(this.showPhoto.fileId);
+    //console.log(this.markPhoto[this.markPhoto.length-1].fileId);
     if(this.markPhoto.length==1||(this.showPhoto.fileId==this.markPhoto[this.markPhoto.length-1].fileId)){
       return false
     }else{
