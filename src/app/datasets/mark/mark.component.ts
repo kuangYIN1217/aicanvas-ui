@@ -180,7 +180,9 @@ export class MarkComponent{
     sessionStorage.removeItem('showPhoto');
     sessionStorage.removeItem("showPhotoIndex")
   }
-  imagePathChange(event){
+  imagePathChange(event:any){
+    console.log(event);
+    $("#content").find("div").remove();
     this.getSize(event);
   }
   search(index){
@@ -212,13 +214,13 @@ export class MarkComponent{
     this.start = false;
     this.coordinateId = 0;
   }
-  markCoordinateSetChange(event){
+  markCoordinateSetChange(event:any){
+    console.log(event);
     this.markCoordinateSet = event;
   }
   startMark(){
     this.start = true;
-    this.getWH();
-    //this.load();
+    this.load();
   }
   enter(){
     if(this.start){
@@ -302,6 +304,8 @@ export class MarkComponent{
         "segmented": "0"
       }
       this.fileId = this.showPhoto.fileId;
+      this.markName = '';
+      this.singleDiv = '';
       console.log(this.fileId);
       console.log(this.markImage);
       console.log(this.xMax,this.yMax,this.xMin,this.yMin);
@@ -427,14 +431,9 @@ export class MarkComponent{
   getWH(){
     let imgWidth = $("#showImg").width();
     let height = $("#showImg").height();
-/*    if(imgWidth>=width){
-      $("#content").css("width",width-40+'px');
-      $("#content").css("height",height+'px');
-    }else{*/
     $("#content").css("width",imgWidth+'px');
     $("#content").css("height",height+'px');
     $("#showImg").css("left","0");
-    //}
   }
   getMaxHeight(){
     let top = $("#mark-content").offset().top;
@@ -446,20 +445,9 @@ export class MarkComponent{
       $("#showImg").css("width",width-40+'px');
       $("#showImg").css("left","20px");
       $("#showImg").css("max-height",win_height - top - 40 + 'px');
-      //console.log(width-40);
-/*      return {
-        "width":width-40+'px',
-        "left":"20px",
-        "max-height": win_height - top - 40 + 'px',
-      }*/
     }else{
-      //console.log((width-imgWidth)/2);
       $("#showImg").css("left",(width-imgWidth)/2);
       $("#showImg").css("max-height",win_height - top - 40 + 'px');
-/*      return {
-        "left":(width-imgWidth)/2,
-        "max-height": win_height - top - 40 + 'px',
-      }*/
     }
     let imageHeight = $("#showImg").height();
     $("#content").css("width",imgWidth+'px');

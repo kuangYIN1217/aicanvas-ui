@@ -81,14 +81,22 @@ export class AddMarkComponent{
   }
   choose(item){
     console.log(item.markName);
-    this.obj.markName = item.markName;
+    if(this.singleDiv&&this.singleDiv!=''){
+      this.singleDiv.markName = this.markName;
+    }else{
+      this.obj.markName = item.markName;
+    }
     this.setXML();
   }
   sure(){
     if(this.markName==''){
       return false;
     }else{
+      if(this.singleDiv&&this.singleDiv!=''){
+        this.singleDiv.markName = this.markName;
+      }else{
       this.obj.markName = this.markName;
+      }
       this.setXML();
     }
   }
@@ -107,18 +115,20 @@ export class AddMarkComponent{
       this.datasetservice.mark(this.markImage)
         .subscribe(result=>{
           this.setSign();
-          this.showChange.emit('true');
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
           this.imagePathChange.emit(this.markImage.imagePath);
+          this.showChange.emit('true');
           //console.log(result);
         })
     }else{
-      //console.log(this.singleDiv);
+      console.log(this.markImage);
+      this.markCoordinateSet1 = this.singleDiv;
       this.datasetservice.updateMark(this.singleDiv)
         .subscribe(result=>{
-          this.showChange.emit('true');
+          this.setSign();
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
           this.imagePathChange.emit(this.markImage.imagePath);
+          this.showChange.emit('true');
           console.log(result);
         })
     }
