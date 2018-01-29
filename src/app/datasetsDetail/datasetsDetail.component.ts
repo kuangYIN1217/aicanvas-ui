@@ -180,6 +180,7 @@ export class DatasetsDetailComponent{
     //}
   }
   enterPath(item) {
+    console.log(item);
     if (!this.fileFlag) {
       return;
     }

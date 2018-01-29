@@ -23,17 +23,28 @@ export class NavigationComponent {
   focusCollapse: string = "0";
   username: string = "";
   // location: Location;
-
+  show_menu:boolean=false;
   changeCollapse() {
     this.collapse = 1 - this.collapse;
   }
 
   changeTab(nextFocus: number , url?) {
     this.focusTab = nextFocus;
-    this.router.navigate(['/'], {skipLocationChange: true})
-      .then(() => { this.router.navigate([url]); });
-  }
+    console.log(url);
+    if(url){
+      this.router.navigate(['/'], {skipLocationChange: true})
+        .then(() => {
+          this.router.navigate([url]);
+        });
+    }else{
+      this.show_menu = !this.show_menu;
+    }
 
+  }
+  change_menu(index){
+    this.focusTab = index;
+    this.show_menu = !this.show_menu;
+  }
   constructor(private location: Location,private router:Router) {
     if (!localStorage['username']) {
       this.focusTab = 0;
@@ -77,7 +88,7 @@ export class NavigationComponent {
     } else if (this.location.isCurrentPathEqualTo('/jobcreation') || this.location.path(false).indexOf('/jobDetail/') != -1) {
       this.focusTab = 3;
       // this.needhide = 0;
-    } else if (this.location.isCurrentPathEqualTo('/datasets')) {
+    } else if (this.location.isCurrentPathEqualTo('/datasets')||this.location.isCurrentPathEqualTo('/enterdataset')) {
       this.focusTab = 4;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/inferenceModel')) {
@@ -85,6 +96,10 @@ export class NavigationComponent {
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/algplugins') || this.location.path(false).indexOf('/algpluginDetail/') != -1) {
       this.focusTab = 6;
+      // this.needhide = 0;
+    }
+    else if (this.location.isCurrentPathEqualTo('/datasetssave')) {
+      this.focusTab = 7;
       // this.needhide = 0;
     }
   }

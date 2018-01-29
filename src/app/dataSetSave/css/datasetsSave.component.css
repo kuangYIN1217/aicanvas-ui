@@ -1,0 +1,133 @@
+.datasetssave{
+  background: #ffffff;
+  margin:20px 30px 0;
+}
+.datasetssave_title{
+  overflow: hidden;
+  width:1048px;
+  padding:20px 0 20px 30px;
+}
+.title{
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+  margin:0;
+  float: left;
+}
+.count{
+  font-size: 16px;
+  color: #666666;
+  float: right;
+}
+.residual_capacity{
+  color: #ff7c35;
+}
+.dataset_count{
+  width:1048px;
+  margin-left: 30px;
+  background: #eeeeee;
+  border-radius: 5px;
+  height:46px;
+  clear: both;
+  position: relative;
+}
+.dataset_progress{
+  position: absolute;
+  height:46px;
+}
+.dataset{
+  background: #ff7c35;
+  left:0;
+}
+.sence{
+  background: #23a880;
+}
+.model{
+  background: #2f6caf;
+}
+.other{
+  background: #999999;
+}
+.show_model_content{
+  margin:18px 0 80px 30px;
+  overflow: hidden;
+}
+.show_model_content .show_model:nth-of-type(1){
+  margin-left: 0;
+}
+.show_model{
+  float: left;
+  margin-left: 70px;
+}
+.rect{
+  width:18px;
+  height:18px;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+.show_model_text{
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 16px;
+  color: #666666;
+  margin-left: 6px;
+}
+.data{
+  background: #ff7c35;
+}
+.sen{
+  background: #23a880;
+}
+.mod{
+  background: #2f6caf;
+}
+.oth{
+  background: #999999;
+}
+.dataset_distribution{
+  margin-left: 30px;
+}
+.dataset_distribution h3{
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom:20px;
+}
+.click{
+  color: #ff7c35;
+}
+.dataset_distribution_show{
+  overflow: hidden;
+}
+.dataset_distribution_show_model{
+  width:120px;
+  height:120px;
+  float: left;
+  border-radius: 2px;
+  margin-right: 56px;
+}
+.dataset_distribution_show_model span{
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+}
+.dataset_distribution_show_model span:nth-of-type(1){
+  padding:42px 0 13px;
+}
+.dataset_distribution_show_model:nth-of-type(4) span:nth-of-type(1){
+  padding:26px 0 0;
+}
+.dataset_distribution_show_model:nth-of-type(4) span:nth-of-type(2){
+  padding:10px 0;
+}
+@media (max-width: 1300px) {
+  .datasetssave_title{
+    width:868px;
+  }
+  .dataset_count{
+    width:868px;
+  }
+}
+

@@ -1,0 +1,53 @@
+.myfile-wrapper{
+  border-top: 1px solid #eee;
+  /*margin:20px 0;*/
+}
+.myfile-content{
+  margin-top: 30px;
+}
+.myfile-file{
+  display: block;
+  margin:18px auto 0;
+  clear: right;
+
+}
+.myfile-delete{
+  display: block;
+  float: right;
+}
+.myfile-model{
+  display: inline-block;
+  width:120px;
+  height:126px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  background: transparent;
+}
+.myfile-model span{
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: #333333;
+  padding-top: 24px;
+}
+.myfile-input{
+  width:78px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  height:30px;
+  border:1px solid #d3d3d3;
+  margin: 20px auto 0;
+  display: block;
+  text-align: center;
+  color: #333333;
+}
+.myfile-input:focus{
+  height:30px;
+}
+.filebg{
+  background: #f1f4f9;
+  cursor: pointer;
+}
+.marginTop{
+  margin-top: 0;
+}

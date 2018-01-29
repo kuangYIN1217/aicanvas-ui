@@ -5,16 +5,20 @@
   left: 0;
   bottom: 0;
   z-index: 1500;
-  background: rgba(0,0,0,0.7);
+  background: rgba(27,27,27,0.2);
 }
 .upload-wrapper {
-  width: 850px;
-  min-height: 360px;
-  box-shadow: 0 0 5px #333;
-  margin: 180px auto;
+  position: relative;
+  width: 466px;
+  height: 416px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
   background: #fff;
   border-radius: 5px;
   overflow: hidden;
+  left:50%;
+  top:50%;
+  margin-left: -233px;
+  margin-top: -208px;
 }
 .top {
   position: relative;
@@ -27,7 +31,7 @@
   line-height: 40px;
   font-size: 14px;
   color: #333;
-  margin-left: 34px;
+  margin-left: 20px;
 }
 .top img {
   position: absolute;
@@ -122,7 +126,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 .upload-dataset {
   position: relative;
   width: 130px;
-  margin-left: 155px;
+  margin-left: 124px;
   height: 30px;
   line-height: 30px;
   text-align: center;
@@ -280,4 +284,74 @@ select:focus{
 }
 select{
   outline: none;
+}
+
+
+.file_type{
+  height:30px;
+  line-height: 30px;
+  padding-left: 20px;
+  margin:25px 0 40px;
+}
+.file_type label,.file_list label{
+  display: inline-block;
+  font-size: 14px;
+  color: #333;
+}
+.classification{
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: top;
+}
+.classification img{
+  margin-right: 14px;
+  display: inline-block;
+  height:30px;
+  cursor: pointer;
+}
+.file_list{
+  margin:40px 20px 0;
+}
+.file_list label{
+  vertical-align: top;
+}
+.upload_zip{
+  width:325px;
+  display: inline-block;
+  margin-left: 12px;
+  font-size: 12px;
+  color: #666666;
+  vertical-align: middle;
+  margin-top: 3px;
+}
+.upload_zip div{
+  height:14px;
+  line-height: 14px;
+  vertical-align: middle;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.upload_zip span{
+  display: inline-block;
+  vertical-align: top;
+}
+.upload_name{
+  padding-left: 10px;
+  float: left;
+}
+.wjj_icon{
+  float: left;
+}
+.upload_status{
+  width:85px;
+  text-align: left;
+  padding-left: 8px;
+  float: right;
+}
+.status_icon{
+  float: right;
+}
+.upload_zip .wjj{
+  display: inline-block;
+  vertical-align: middle;
 }

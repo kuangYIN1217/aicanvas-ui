@@ -149,6 +149,12 @@ nav{
    background-color: #333333;
    border-left:solid 4px #ee8348;
 }
+.focusTab1{
+
+}
+.focusTab1 a{
+  color: #ffffff;
+}
 .focusTab a{
   color: #ffffff;
 }

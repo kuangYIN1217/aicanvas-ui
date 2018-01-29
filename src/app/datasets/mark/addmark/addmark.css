@@ -1,0 +1,91 @@
+.add_mark{
+  position: absolute;
+  width:300px;
+  background-color:#fff;
+  margin:0 auto 50px;
+  border-radius:5px;
+  z-index: 99999;
+}
+.add_mark_title{
+  background:#eee;
+  color:#333;
+  font-size:14px;
+  height:40px;
+  line-height:40px;
+  overflow: hidden;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.add_mark_title span{
+  display: inline-block;
+  float: left;
+  padding-left:20px;
+}
+.add_mark_title img{
+  display: inline-block;
+  float: right;
+  margin-right: 20px;
+  margin-top: 14px;
+}
+.add_mark_content input{
+  width:256px;
+  height:36px;
+  border:1px solid #d3d3d3;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #333;
+  padding-left: 6px;
+  display: block;
+  margin:20px;
+}
+.add_mark_label{
+  margin:0 20px;
+}
+.add_mark_label_title{
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #333;
+}
+.add_mark_label_title span{
+  color: #ff7c35;
+}
+.add_mark_label_content{
+  line-height: 30px;
+  height:30px;
+  cursor: pointer;
+}
+.add_mark_label_content span,.add_mark_label_content img{
+  display: inline-block;
+  vertical-align: middle;
+}
+.add_mark_label_content span{
+  padding-left: 8px;
+  color: #333;
+  font-size: 14px;
+}
+.add_mark_label_btn{
+  margin-top: 36px;
+  margin-bottom: 26px;
+}
+.add_mark_label_btn a{
+  height:30px;
+  line-height: 30px;
+  width:76px;
+  border:1px solid #d3d3d3;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+}
+.bgo{
+  background: #ff7c35;
+  color: #fff;
+}
+.bgg{
+  background: #eee;
+  color: #666;
+  margin-left: 12px;
+}
+
+

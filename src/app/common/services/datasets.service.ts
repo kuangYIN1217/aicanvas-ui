@@ -6,11 +6,12 @@ import {Injectable} from "@angular/core";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import {SERVER_URL_DATASETS} from "../../app.constants";
+import {SERVER_URL_DATASETS,SERVER_URL} from "../../app.constants";
 @Injectable()
 export class DatasetsService {
   // SERVER_URL: string = SERVER_URL;
   SERVER_URL: string = SERVER_URL_DATASETS;
+  SERVER_URL_TAC: string = SERVER_URL;
   constructor(private http: Http) { }
 
   getAuthorization(){
@@ -26,7 +27,7 @@ export class DatasetsService {
   }
 
   getDataSetType(){
-    let path = "/api/dataSetType"
+    let path = "/api/dataSetType";
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL+path, { headers : headers} )
       .map((response: Response) => {
@@ -35,8 +36,6 @@ export class DatasetsService {
         }
       });
   }
-
-
   deleteDataSet(id){
     let path = "/api/dataSet/" + id;
     let headers = this.getHeaders();
@@ -58,7 +57,6 @@ export class DatasetsService {
       });
   }
   getDataSets(creator , dataSetType , name , sort, page , size ){
-
     let path = "/api/dataSets?";
     if (creator) {
       path += "creator=" + creator;
@@ -86,5 +84,195 @@ export class DatasetsService {
         }
       });
   }
+  updateSetName(id,name){
+    let path = "/api/dataSetRename?dataId="+id+"&newName="+name;
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.text();
+          }
+          return response;
+        }
+      });
+  }
+  updateFileName(id,name){
+    let path = "/api/dataFileRename?fileId="+id+"&newName="+name;
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+          if (response.status == 200) {
+            return response.text();
+          }
+      });
+  }
 
+  createDataSet(creator,dataName,dataType,dataTypeName){
+    let path = "/api/createDataSet";
+    let dataSet = {
+      "creator": creator,
+      "dataName": dataName,
+      "dataId": 0,
+      "dataType": dataType,
+      "dataTypeName": dataTypeName,
+      "diskUsageAccount": "0",
+      "fileCount": 0,
+      "fileFailed": 0,
+      "fileVaild": 0
+    }
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path,dataSet, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.text();
+          }
+          return response;
+        }
+      });
+  }
+
+  createFile(dataId,parentPath){
+    let path = "/api/createNewDir/"+dataId+"?parentPath="+parentPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.text();
+          }
+          return response;
+        }
+      });
+  }
+
+  enterDataset(dataId,level,fileType,fileName){
+    let path = "/api/dynamicSelect/"+dataId+"/"+fileType+"/"+fileName+"?parentPath="+level;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+          if (response.status == 200) {
+            return response.json();
+          }
+      });
+  }
+  deleteFile(fileId,dataId,filePath){
+    let path = "/api/deleteDataSetFile/"+fileId+"/"+dataId+"?path="+filePath;
+    let headers = this.getHeaders();
+    return this.http.delete(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
+  }
+  getTxt(txtPath){
+    let path ="/download/" + txtPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL_TAC+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
+  }
+  getHistoryTag(name){
+    let path ="/api/getHistoryTag/"+name;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
+  mark(mark){
+    let path = "/api/addMarkCoordinate";
+    let markImage = mark;
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path,markImage, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.text();
+          }
+          return response;
+        }
+      });
+  }
+  getMarkInfo(image){
+    let path = "/api/getMarkXMLInfo?imagePath="+image;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
+  setSign(id){
+    let path = "/api/sign?fileId="+id;
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.text()) {
+          return response.text();
+        }
+      });
+  }
+  deleteMark(markCoordinate1){
+    let path = "/api/deleteMarkCoordinate";
+    let markCoordinate = markCoordinate1;
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path,markCoordinate,{headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
+  updateMark(markCoordinate1){
+    let path = "/api/updateMarkCoordinate";
+    let markCoordinate = markCoordinate1;
+    let headers = this.getHeaders();
+    return this.http.put(this.SERVER_URL + path,markCoordinate,{headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
+  getDatasets(type,creator){
+    let path = "/api/dataSets?type="+type+"&creator="+creator;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path,{headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
+  searchDatasets(type,name,creator){
+    let path = "/api/dataSets?type="+type+"&name="+name+"&creator="+creator;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path,{headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
 }

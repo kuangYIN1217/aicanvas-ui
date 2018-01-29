@@ -57,6 +57,14 @@ import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
 import {CanvasComponent} from "./canvas/canvas";
+import {DatasetsSaveComponent} from "./dataSetSave/datasetsSave.component";
+import {Ng2DragDropModule} from "ng2-drag-drop";
+import {CreateFileComponent} from "./datasets/createfile/createfile.component";
+import {MyFileComponent} from "./datasets/myfile/myfile.component";
+import {EnterDatasetComponent} from "./datasets/enterdataset/enterdataset.component";
+import {FileLevelComponent} from "./datasets/filelevel/filelevel.component";
+import {MarkComponent} from "app/datasets/mark/mark.component";
+import {AddMarkComponent} from "./datasets/mark/addmark/addmark";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -99,7 +107,14 @@ import {CanvasComponent} from "./canvas/canvas";
     DatasetsDetailComponent,
     PublishModelComponent,
     ShowTxtComponent,
-    CanvasComponent
+    CanvasComponent,
+    DatasetsSaveComponent,
+    CreateFileComponent,
+    AddMarkComponent,
+    MyFileComponent,
+    EnterDatasetComponent,
+    FileLevelComponent,
+    MarkComponent
     //InputReadonlyDirective
   ],
   imports: [
@@ -112,7 +127,8 @@ import {CanvasComponent} from "./canvas/canvas";
     ToastyModule,
     BrowserAnimationsModule,
     ResumableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2DragDropModule.forRoot()
   ],
   providers: [StompService],
   bootstrap: [NavigationComponent]

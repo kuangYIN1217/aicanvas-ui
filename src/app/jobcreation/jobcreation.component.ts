@@ -90,7 +90,11 @@ export class JobCreationComponent {
   cpu:number;
   gpu:number=0;
   core:number;
+  datasetsType:any[]=[];
+  dataKeyword:string='';
+  username:string;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
+    this.username = localStorage['username'];
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
@@ -100,12 +104,89 @@ export class JobCreationComponent {
         this.cpu = (Math.ceil(result.tot_memory/1024/1024/1024/8))*8;
         this.core = result.cores;
       })
+    this.getDataSets(1,this.username);
     // if (location.path(false).indexOf('/jobcreation/') != -1) {
     //   this.pageNo = location.path(false).split('/jobcreation/')[1];
     //   if(this.pageNo){
     //     console.log(this.pageNo);
     //   }
     // }
+    this.datasetsService.getDataSetType()
+      .subscribe(result=>{
+        this.datasetsType = result;
+        this.datasetsType[0].flag = 1;
+        console.log(this.datasetsType);
+      })
+  }
+  dataKeywordChange(){
+    let type:number;
+    for(let i=0;i<this.datasetsType.length;i++){
+      if(this.datasetsType[i].flag==1){
+        type = this.datasetsType[i].id;
+      }
+    }
+    this.searchDataSets(type,this.dataKeyword,this.username);
+  }
+  searchDataSets(type,name,creator){
+    this.datasetsService.searchDatasets(type,name,creator)
+      .subscribe(result=>{
+        this.d_dataSets = result.content;
+        if(this.d_dataSets.length>0){
+          this.dataId = this.d_dataSets[0].dataId;
+        }
+        //console.log(result);
+      });
+  }
+  getDataSets(type,creator){
+    this.datasetsService.getDatasets(type,creator)
+      .subscribe(result=>{
+        this.d_dataSets = result.content;
+        this.dataId = this.d_dataSets[0].dataId;
+        //console.log(result);
+      });
+  }
+  getImage(item){
+    if(item.id==1){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/tp_hui.png';
+      else
+        return 'assets/datasets/createfile/tp_lv.png';
+    }else if(item.id==2){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/yp_hui.png';
+      else
+        return 'assets/datasets/createfile/yp_lv.png';
+    }else if(item.id==3){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/wb_hui.png';
+      else
+        return 'assets/datasets/createfile/wb_lv.png';
+    }else if(item.id==4){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/sp_hui.png';
+      else
+        return 'assets/datasets/createfile/sp_lv.png';
+    }else if(item.id==5){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/qt_hui.png';
+      else
+        return 'assets/datasets/createfile/qt_lv.png';
+    }
+  }
+  chooseImg(item){
+    console.log(item);
+    if(item.flag != 1){
+      for(let i=0;i<this.datasetsType.length;i++){
+        this.datasetsType[i].flag = 2;
+      }
+      item.flag = 1;
+      this.getImage(item);
+      if(this.dataKeyword==''){
+        this.getDataSets(item.id,this.username);
+      }else{
+        this.searchDataSets(item.id,this.dataKeyword,this.username);
+      }
+    }
   }
   getCore(){
     if(Number(this.auditing)>this.core){
@@ -153,15 +234,15 @@ export class JobCreationComponent {
   }
 
   changeChosenSceneId() {
-    if(this.student==15||this.student==11){
+/*    if(this.student==15||this.student==11){
       document.getElementById('data').setAttribute('disabled', 'disabled');
-    }
+    }*/
     this.fileCount=0;
     let id = this.student;
     //console.log(id);
     this.chosenSceneId = id;
     this.firstChainId = null;
-    this.dataId = null;
+    //this.dataId = null;
     this.auditing=null;
     this.gpuorder='';
     // this.gmemory=null;
@@ -169,7 +250,7 @@ export class JobCreationComponent {
     this.dataFirst=null;
     this.dataSecond=null;
     this.dataThird=null;
-    this.sceneService.getChainByScene(id)
+/*    this.sceneService.getChainByScene(id)
       .subscribe(results => {
         this.PluginInfo = results;
         this.arr = results;
@@ -184,7 +265,7 @@ export class JobCreationComponent {
         } else if (this.length == 0) {
           this.result = 1;
         }
-      });
+      });*/
     //console.log(this.PluginInfo[0]);
     /*this.sceneService.getChainWithLoss(id)
      .subscribe(result=>this.ChainInfo=result);*/
@@ -250,7 +331,7 @@ export class JobCreationComponent {
             // this.firstSceneId = this.PluginInfo[0].chain_name;
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
-            this.$scene_select_change(name);
+            //this.$scene_select_change(name);
           })
       });
     this.jobService.getAllGpu()
@@ -598,7 +679,7 @@ export class JobCreationComponent {
       }
     }
     if (name == '--请选择--') {
-      document.getElementById('data').setAttribute('disabled', 'disabled');
+      //document.getElementById('data').setAttribute('disabled', 'disabled');
       document.getElementById('train').setAttribute('readonly', 'true');
       document.getElementById('valid').setAttribute('readonly', 'true');
       document.getElementById('test').setAttribute('readonly', 'true');
@@ -607,7 +688,7 @@ export class JobCreationComponent {
       return false;
     }
     if(this.firstChainId) {
-      document.getElementById('data').removeAttribute('disabled');
+      //document.getElementById('data').removeAttribute('disabled');
       document.getElementById('train').removeAttribute('readonly');
       document.getElementById('valid').removeAttribute('readonly');
       document.getElementById('test').removeAttribute('readonly');
@@ -616,21 +697,21 @@ export class JobCreationComponent {
       this.plugin_validation = false;
     }
     if(this.student==15||this.student==11){
-      document.getElementById('data').setAttribute('disabled', 'disabled');
+      //document.getElementById('data').setAttribute('disabled', 'disabled');
       document.getElementById('train').setAttribute('readonly', 'true');
       document.getElementById('valid').setAttribute('readonly', 'true');
       document.getElementById('test').setAttribute('readonly', 'true');
       return
     }
-    this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
+/*    this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
       this.datasetsService.getDataSets(null, rep.dataset_type, null, 'createTime,desc', null, null).subscribe(rep => {
         this.d_dataSets = rep.content;
         this.dataId = null;
-        /*if (this.d_dataSets) {
+        /!*if (this.d_dataSets) {
          this.dataId = this.d_dataSets[0].dataId
-         }*/
+         }*!/
       })
-    });
+    });*/
     if (this.firstSceneId) {
       this.s_error_show = false;
     }

@@ -1,0 +1,100 @@
+.createFile{
+  position: fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background: rgba(27,27,27,0.2);
+}
+.file{
+  width:420px;
+  height:250px;
+  position: relative;
+  top:50%;
+  left:50%;
+  margin-left: -210px;
+  margin-top: -125px;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+.file_title{
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  height:40px;
+  background: #eeeeee;
+  line-height: 40px;
+  overflow: hidden;
+}
+.file_title span{
+  display: inline-block;
+  float: left;
+  padding-left: 20px;
+}
+.file_title img{
+  display: inline-block;
+  float: right;
+  padding-right: 20px;
+  padding-top: 14px;
+  cursor: pointer;
+}
+.file_name{
+  height:36px;
+  line-height: 36px;
+  padding-left: 20px;
+  margin:20px 0 30px;
+}
+.file_name input{
+  width:280px;
+  height:36px;
+  box-sizing: border-box;
+  border:1px solid #d3d3d3;
+  border-radius: 5px;
+  margin-left: 14px;
+  padding-left: 6px;
+  color: #333333;
+}
+.file_type{
+  height:30px;
+  line-height: 30px;
+  padding-left: 20px;
+}
+.file_type label{
+  display: inline-block;
+}
+.classification{
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: top;
+}
+.classification img{
+  margin-right: 14px;
+  display: inline-block;
+  height:30px;
+  cursor: pointer;
+}
+.file_btn{
+  margin:40px 0 0 120px;
+}
+.btn{
+  margin-right: 20px;
+  height: 30px;
+  line-height: 30px;
+  width: 70px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  border:1px solid #d3d3d3;
+  display: inline-block;
+}
+.bgo{
+  color: #fff;
+  background: #ff7c35;
+}
+.bgg{
+  color: #666;
+  background: #eeeeee;
+}

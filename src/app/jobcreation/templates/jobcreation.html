@@ -89,13 +89,19 @@
               </select>
             </div>
           </div>-->
-          <div class="row">
+          <div class="row" style="height: auto;line-height: normal;">
             <div class="row_tr">
               <span class="span">数据集：</span>
-              <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" disabled="disabled" (ngModelChange)="dataChange()">
-                <option selected value="-1">--请选择--</option>
-                <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
-              </select>
+              <div>
+                <div class="classification">
+                  <img *ngFor="let item of datasetsType" [src]="getImage(item)" (click)="chooseImg(item)"/>
+                  <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
+                </div>
+                <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
+<!--                  <option selected value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+                  <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
+                </select>
+              </div>
             </div>
           </div>
           <div class="row">

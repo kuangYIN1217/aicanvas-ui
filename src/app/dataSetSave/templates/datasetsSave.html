@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="datasetssave" id="datasetssave">
+    <div class="datasetssave_title">
+      <div class="title">您的数据存储</div>
+      <div class="count">可用<span class="residual_capacity">{{dataSave.freeSpace}}</span>/总共<span class="total_capacity">{{dataSave.diskSpace}}</span></div>
+    </div>
+    <div class="dataset_count">
+      <span class="dataset_progress dataset"></span>
+      <span class="dataset_progress sence"></span>
+      <span class="dataset_progress model"></span>
+      <span class="dataset_progress other"></span>
+    </div>
+    <div class="show_model_content">
+      <div class="show_model">
+        <span class="rect data"></span>
+        <span class="show_model_text">数据集</span>
+      </div>
+      <div class="show_model">
+        <span class="rect sen"></span>
+        <span class="show_model_text">场景/算法链</span>
+      </div>
+      <div class="show_model">
+        <span class="rect mod"></span>
+        <span class="show_model_text">模型发布包</span>
+      </div>
+      <div class="show_model">
+        <span class="rect oth"></span>
+        <span class="show_model_text">其他文件</span>
+      </div>
+    </div>
+    <div class="dataset_distribution">
+      <h3>存储模块<span class="click">(可点击)</span>：</h3>
+      <div class="dataset_distribution_show">
+        <div class="dataset_distribution_show_model data">
+          <span>数据集</span>
+          <span>{{dataSave.datasetSpace}}</span>
+        </div>
+        <div class="dataset_distribution_show_model sen">
+          <span>场景/算法链</span>
+          <span>{{dataSave.chainSpace}}</span>
+        </div>
+        <div class="dataset_distribution_show_model mod">
+          <span>模型发布包</span>
+          <span>{{dataSave.modelSpace}}</span>
+        </div>
+        <div class="dataset_distribution_show_model oth">
+          <span>其他文件</span>
+          <span>(不可打开)</span>
+          <span>{{dataSave.otherSpace}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

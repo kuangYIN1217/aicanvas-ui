@@ -12,9 +12,9 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^4.0.1",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
-    "@angular/animations": "^4.0.1",
     "@angular/core": "^4.0.0",
     "@angular/forms": "^4.0.0",
     "@angular/http": "^4.0.0",
@@ -26,6 +26,7 @@
     "core-js": "^2.4.1",
     "d3": "^4.8.0",
     "es6-shim": "^0.35.3",
+    "ng2-drag-drop": "^3.0.2",
     "ng2-file-upload": "^1.2.1",
     "ng2-stomp-service-fixed": "^1.2.3",
     "rxjs": "^5.1.0",

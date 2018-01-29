@@ -24,6 +24,8 @@ export class DatasetsComponent{
   focus:number=0;
   blur:number=0;
   pageParams=new Page();
+  icon:string='file';
+  createfile:boolean=false;
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
     this.pageParams.curPage = this.s_page;
@@ -44,17 +46,22 @@ export class DatasetsComponent{
       //console.log(this.d_dataTypes);
     })
   }
+  getResult(event){
+    if(event=='success'){
+      this.initTable();
+    }
+  }
   initTable (init?) {
     if (init) {
       this.s_page = 1;
     }
     console.log('init table');
     let creator , dataSetType , name , sort, page , size;
-    creator = this.s_nav_selected ;
-    dataSetType = this.s_select_datasetType ;
-    name = this.s_select_name ;
+    creator = this.s_nav_selected;
+    dataSetType = this.s_select_datasetType;
+    name = this.s_select_name;
     sort = this.s_sort_type;
-    page = this.s_page ;
+    page = this.s_page;
     size = this.s_size;
     creator = creator === 1 ? 'system' : this.username;
     dataSetType = dataSetType === 'all' ? null : dataSetType;
@@ -64,11 +71,19 @@ export class DatasetsComponent{
     if (!sort) {
       sort = null;
     }
-    this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
-      this.d_tableData = rep.content;
-      console.log(this.d_tableData);
-      this.changePageParmas(rep);
-    })
+    if(this.icon=='file'){
+      this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , 10000000 ).subscribe(rep =>{
+        this.d_tableData = rep.content;
+        console.log(this.d_tableData);
+        //this.changePageParmas(rep);
+      })
+    }else if(this.icon=='list'){
+      this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
+        this.d_tableData = rep.content;
+        console.log(this.d_tableData);
+        this.changePageParmas(rep);
+      })
+    }
   }
   // -----初始化数据 end --------------------------------------------
 
@@ -77,12 +92,27 @@ export class DatasetsComponent{
     this.s_nav_selected = index;
     this.initTable();
   }
+  $nav_icon(icon){
+    if(icon=='file'){
+      this.icon = 'file';
+      this.initTable();
+    }else if(icon=='list'){
+      this.icon = 'list';
+      this.initTable();
+    }
+  }
   $upload_click () {
     if (!this.s_popup_show) {
       this.s_popup_show = true;
     }
   }
-
+  $create_click(){
+    this.createfile = true;
+  }
+  createMethod(event:any){
+    this.createfile = event;
+    this.initTable();
+  }
   $select_change() {
     //console.log(this.s_select_datasetType);
     this.initTable ();

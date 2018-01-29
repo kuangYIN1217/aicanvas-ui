@@ -1,0 +1,145 @@
+.myfile-wrapper{
+  border-top: 1px solid #eee;
+  /*margin:20px 0;*/
+  margin:0 20px;
+}
+.myfile-content{
+  margin-top: 30px;
+}
+.myfile-file{
+  display: block;
+  /*margin:18px auto 0;*/
+  clear: right;
+  position: absolute;
+  top:18px;
+  left:50%;
+  margin-left: -30px;
+
+}
+.myfile-delete{
+  display: block;
+  position: absolute;
+  top:0;
+  right:0;
+}
+.myfile-check{
+  position: absolute;
+  right:0;
+  top:20px;
+}
+.myfile-model{
+  position: relative;
+  display: inline-block;
+  width:130px;
+  height:130px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: transparent;
+}
+.myfile-model span{
+  display: block;
+  font-size: 14px;
+  color: #333333;
+  position: absolute;
+  left:50%;
+  margin-left: -50px;
+  bottom:18px;
+  text-align: center;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+  width:100px;
+}
+.myfile-input{
+  width:78px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  height:30px;
+  border:1px solid #d3d3d3;
+  margin: 20px auto 0;
+  display: block;
+  text-align: center;
+  color: #333333;
+}
+.myfile-input:focus{
+  height:30px;
+}
+.myfile-model:hover{
+  background: #f1f4f9;
+  cursor: pointer;
+}
+.parentBg{
+  background: #f1f4f9;
+  cursor: pointer;
+}
+/*.marginTop{
+  margin-top: 10px !important;
+}*/
+.show-text{
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  background: rgba(27,27,27,0.2);
+}
+.show-text-content{
+  position: relative;
+  width: 680px;
+  height: 680px;
+  left:50%;
+  top:50%;
+  margin-left: -340px;
+  margin-top: -340px;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+.show-text-title{
+  height:42px;
+  line-height: 42px;
+  background: #eeeeee;
+  overflow: hidden;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+.show-text-title span{
+  display: inline-block;
+  margin-left: 20px;
+}
+.show-text-title img{
+  display: inline-block;
+  float: right;
+  margin-right: 20px;
+  margin-top: 14px;
+  cursor: pointer;
+}
+.show-img{
+  width:100%;
+}
+video,audio{
+  display: block;
+  margin: auto;
+}
+.imageBorder{
+  border:2px solid transparent;
+}
+.show-image{
+  position: relative;
+  width:70%;
+  margin-left: -35%;
+  left:50%;
+  top:10%;
+}
+.guanbiPhoto{
+  position: absolute;
+  top:0;
+  right:0;
+  cursor: pointer;
+}
+.show-text-txt{
+  padding:20px;
+}
+

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="createFile">
+    <div class="file">
+      <div class="file_title">
+        <span>新建文件夹（数据集）</span>
+        <img src="assets/datasets/createfile/gb.png" (click)="cancel()"/>
+      </div>
+      <div class="file_content">
+        <div class="file_name">
+          <label>文件夹名称：</label>
+          <input type="text" name="filename" [(ngModel)]="filename"/>
+        </div>
+        <div class="file_type">
+          <label>文件夹类型：</label>
+          <div class="classification">
+            <img *ngFor="let item of datasetsType" [src]="getImage(item)" (click)="chooseImg(item)"/>
+          </div>
+        </div>
+        <div class="file_btn">
+          <a href="#" onclick="return false" class="btn bgo" (click)="create()">确认</a>
+          <a href="#" onclick="return false" class="btn bgg" (click)="cancel()">取消</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -958,5 +958,27 @@ select{
   -moz-appearance:none;
   -webkit-appearance:none;
 }
+.classification{
+  vertical-align: top;
+  height:46px;
+}
+.classification img{
+  margin-right: 14px;
+  display: inline-block;
+  height:30px;
+  cursor: pointer;
+}
+#data{
+  margin-left:0;
+  position: static;
+}
+.classification input{
+  height:28px;
+  line-height: 29px;
+  width:264px;
+  vertical-align: top;
+  padding-left: 6px;
+  color: #333;
+}
 
 

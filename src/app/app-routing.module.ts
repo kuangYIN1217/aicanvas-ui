@@ -32,6 +32,11 @@ import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
 import {CanvasComponent} from "./canvas/canvas";
+import {DatasetsSaveComponent} from "./dataSetSave/datasetsSave.component";
+import {CreateFileComponent} from "./datasets/createfile/createfile.component";
+import {EnterDatasetComponent} from "./datasets/enterdataset/enterdataset.component";
+import {FileLevelComponent} from "./datasets/filelevel/filelevel.component";
+import {MarkComponent} from "./datasets/mark/mark.component";
 
 
 const routes: Routes = [
@@ -73,6 +78,11 @@ const routes: Routes = [
   {path: 'publishmodel', component: PublishModelComponent},
   {path: 'showtxt', component: ShowTxtComponent},
   {path: 'canvas', component: CanvasComponent},
+  {path: 'datasetssave', component: DatasetsSaveComponent},
+  {path: 'createfile', component: CreateFileComponent},
+  {path: 'enterdataset', component: EnterDatasetComponent},
+  {path: 'filelevel', component: FileLevelComponent},
+  {path: 'mark', component: MarkComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 

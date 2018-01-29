@@ -1,0 +1,24 @@
+<div style="position: fixed; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.3); z-index: 88888">
+  <div class='add_mark' [ngStyle]="{left: markleft+'px',top: marktop+'px'}">
+    <div class='add_mark_title' (mousedown)="markdown($event)" (mousemove)="markmove($event)" (mouseup)="markup($event)">
+      <span>加标注</span>
+      <img src="assets/datasets/createfile/gb.png" (click)="close()" style="cursor: pointer"/>
+    </div>
+    <div class='add_mark_content'>
+      <input type="text" placeholder="请输入标注文本" name="markName" [(ngModel)]="markName"/>
+      <div class="add_mark_label">
+        <div class="add_mark_label_title">
+          历史标签<span>（双击选择）</span>
+        </div>
+        <div class="add_mark_label_content" *ngFor="let item of topTag" (dblclick)="choose(item)">
+          <img src="assets/datasets/file/bz_bq.png"/>
+          <span>{{item.markName}}</span>
+        </div>
+        <div class="add_mark_label_btn">
+          <a href="#" onclick="return false" class="bgo" (click)="sure()">确定</a>
+          <a href="#" onclick="return false" class="bgg" (click)="close()">取消</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
