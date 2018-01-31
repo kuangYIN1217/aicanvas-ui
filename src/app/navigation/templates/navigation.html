@@ -20,8 +20,7 @@
             <img [src]="focusTab!=1?'assets/navigation/icon_xxzl_01_n.png':'assets/navigation/icon_xxzl_01_h.png'">
             <a href="#" onclick="return false">信息总览</a>
         </div>
-
-      <div class="nav_element" [class.focusTab] = "focusTab==8" routerLinkActive="active"  (click)="changeTab(8);focusCollapse='0'">
+      <div class="nav_element" [class.focusTab] = "focusTab==7||focusTab==4||focusTab==2||focusTab==5" routerLinkActive="active"  (click)="changeTab(7);focusCollapse='0'">
         <img [src]="focusTab!=8?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'">
         <a href="#" onclick="return false" >数据存储</a>
         <img src="assets/navigation/xlk.png" class="selectDown"/>

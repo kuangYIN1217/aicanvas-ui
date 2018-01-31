@@ -37,7 +37,13 @@ export class NavigationComponent {
           this.router.navigate([url]);
         });
     }else{
+      //this.focusTab = 7;
+      this.focusTab = nextFocus;
       this.show_menu = !this.show_menu;
+      this.router.navigate(['/'], {skipLocationChange: true})
+        .then(() => {
+          this.router.navigate(['/datasetssave']);
+        });
     }
 
   }
@@ -100,6 +106,10 @@ export class NavigationComponent {
     }
     else if (this.location.isCurrentPathEqualTo('/datasetssave')) {
       this.focusTab = 7;
+      // this.needhide = 0;
+    }
+    else if (this.location.isCurrentPathEqualTo('/datasetssave')) {
+      this.focusTab = 8;
       // this.needhide = 0;
     }
   }
