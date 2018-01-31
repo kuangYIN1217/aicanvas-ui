@@ -78,16 +78,22 @@ export class DatasetsSaveComponent{
   }
   getSize(num){
     if(num){
-      let em = num.replace(/[0-9]./ig,"");
+      let em = num.replace(/[0-9]/ig,"");
+      let en:string;
+      if(em.length>=3){
+        en = em.substring(1);
+      }else{
+        en = em;
+      }
       let value = parseFloat(num);
       if(value>0){
-        if(em=='TB'){
+        if(en=='TB'){
           return value*1024*1024*1024;
-        }else if(em=='GB'){
+        }else if(en=='GB'){
           return value*1024*1024;
-        }else if(em=='MB'){
+        }else if(en=='MB'){
           return value*1024;
-        }else if(em=='KB'){
+        }else if(en=='KB'){
           return value;
         }
       }
