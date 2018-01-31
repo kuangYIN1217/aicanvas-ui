@@ -31,15 +31,15 @@
     <div class="dataset_distribution">
       <h3>存储模块<span class="click">(可点击)</span>：</h3>
       <div class="dataset_distribution_show">
-        <div class="dataset_distribution_show_model data">
+        <div class="dataset_distribution_show_model data" (click)="enterDatasets()">
           <span>数据集</span>
           <span>{{dataSave.datasetSpace}}</span>
         </div>
-        <div class="dataset_distribution_show_model sen">
+        <div class="dataset_distribution_show_model sen" (click)="enterSence()">
           <span>场景/算法链</span>
           <span>{{dataSave.chainSpace}}</span>
         </div>
-        <div class="dataset_distribution_show_model mod">
+        <div class="dataset_distribution_show_model mod"  (click)="enterModel()">
           <span>模型发布包</span>
           <span>{{dataSave.modelSpace}}</span>
         </div>

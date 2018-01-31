@@ -2,6 +2,7 @@ import {Component,Input,Output,EventEmitter} from "@angular/core";
 import {DatasetsService} from "../common/services/datasets.service";
 import {calc_height} from '../common/ts/calc_height'
 import {DatasaveService} from "../common/services/datasave.service";
+import {ActivatedRoute, Router} from "@angular/router";
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -21,7 +22,7 @@ export class DatasetsSaveComponent{
   s:number;
   m:number;
   o:number;
-  constructor(private datasaveService:DatasaveService){
+  constructor(private datasaveService:DatasaveService,private route: ActivatedRoute, private router: Router){
     this.datasaveService.getAllSave()
       .subscribe(result=>{
         console.log(result);
@@ -98,7 +99,15 @@ export class DatasetsSaveComponent{
         }
       }
     }
-
+  }
+  enterDatasets(){
+    this.router.navigate(['../datasets']);
+  }
+  enterSence(){
+    this.router.navigate(['../algchains']);
+  }
+  enterModel(){
+    //this.router.navigate(['../algchains']);
   }
   ngOnInit() {
     calc_height(document.getElementById('datasetssave'));

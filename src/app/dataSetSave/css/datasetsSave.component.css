@@ -106,6 +106,7 @@
   float: left;
   border-radius: 2px;
   margin-right: 56px;
+  cursor: pointer;
 }
 .dataset_distribution_show_model span{
   display: block;
