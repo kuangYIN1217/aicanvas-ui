@@ -338,6 +338,10 @@ select{
 .upload_name{
   padding-left: 10px;
   float: left;
+  width:160px;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
 }
 .wjj_icon{
   float: left;
@@ -354,4 +358,7 @@ select{
 .upload_zip .wjj{
   display: inline-block;
   vertical-align: middle;
+}
+#file{
+  display: none;
 }

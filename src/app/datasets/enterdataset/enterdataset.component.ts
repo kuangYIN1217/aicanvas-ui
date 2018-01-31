@@ -306,7 +306,15 @@ export class EnterDatasetComponent {
     this.uploadShow = false;
     this.uploader.queue=[];
     this.showUpload=[];
+    this.searchBool = true;
     this.dynamicSearch();
     this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
+  }
+  filterName(name){
+    if(name.match(/^\d{13}_/)){
+      return name.substring(14);
+    }else{
+      return name;
+    }
   }
 }

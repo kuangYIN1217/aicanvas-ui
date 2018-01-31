@@ -42,8 +42,22 @@
                 <img src="../assets/algchains/delete.png" class="detail" style="margin-top: 14px;margin-right: 16px" (click)="delete(SceneInfo?.id)"/>
               </div>
               <div class="privateDescript">
-                <p class="privateTitle">场景描述：</p>
-                <p class="privateContent">{{SceneInfo?.description}}</p>
+                <div>
+                  <span class="privateTitle">场景描述：</span>
+                  <span class="privateContent">{{SceneInfo?.description}}</span>
+                </div>
+                <div>
+                  <span class="privateTitle">存储空间：</span>
+                  <span class="privateContent">{{SceneInfo?.size}}</span>
+                </div>
+                <div>
+                  <span class="privateTitle">创建者：</span>
+                  <span class="privateContent">{{SceneInfo?.creator}}</span>
+                </div>
+                <div>
+                  <span class="privateTitle">创建时间：</span>
+                  <span class="privateContent">{{SceneInfo?.create_time}}</span>
+                </div>
               </div>
             </div>
           </div>

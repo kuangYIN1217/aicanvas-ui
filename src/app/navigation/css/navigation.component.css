@@ -158,18 +158,34 @@ nav{
 .focusTab a{
   color: #ffffff;
 }
+.nav_element .selectDown{
+  width: 8px;
+  height: 6px;
+  display: inline-block;
+  margin-left: 30px;
+  vertical-align: middle;
+}
 @media (min-width:1200px) and (max-width:1366px) {
   .logout{
     right: 25px;
+  }
+  .nav_element .selectDown{
+    margin-left: 4px;
   }
 }
 @media (min-width:1366px) and (max-width:1440px) {
   .logout{
     right: 35px;
   }
+  .nav_element .selectDown{
+    margin-left: 10px;
+  }
 }
 @media (min-width:1440px) and (max-width:1600px) {
   .logout{
     right: 32px;
+  }
+  .nav_element .selectDown{
+    margin-left: 20px;
   }
 }

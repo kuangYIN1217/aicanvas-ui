@@ -89,6 +89,7 @@
   cursor: pointer;
   border:1px solid #d3d3d3;
   display: inline-block;
+  box-sizing: border-box;
 }
 .bgo{
   color: #fff;

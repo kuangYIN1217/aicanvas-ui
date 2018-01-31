@@ -40,12 +40,15 @@
   font-size: 14px;
   color: #666666;
 }
+.privateDescript div{
+  margin-top: 16px;
+}
 .privateTitle,.privateContent{
   display: inline-block;
-  vertical-align: top;
+  /*vertical-align: top;*/
 }
 .privateContent{
-  width:82%;
+  /*width:82%;*/
 }
 #file{
   display: none;

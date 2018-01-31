@@ -4,7 +4,7 @@
       <img src="assets/datasets/file/lj.png"/>
       <span (click)="home()">数据列表</span>
       <span class="line">/</span>
-      <span *ngFor="let item of filePath let i = index;" (click)="search(i)" [ngClass]="{line:(filePath.length-1)==i}">{{item.showpath}}<span class="line" *ngIf="(filePath.length-1)!=i">/</span></span>
+      <span *ngFor="let item of filePath let i = index;" (click)="search(i)" [ngClass]="{line:(filePath.length-1)==i}">{{filterName(item.showpath)}}<span class="line" *ngIf="(filePath.length-1)!=i">/</span></span>
     </div>
     <div class="filecontent" id="filecontent">
       <div class="toolbar">
@@ -44,7 +44,7 @@
         <div *ngFor="let item of showUpload" class="upload-file">
           <img [src]="judgeIcon(item)" class="wjj wjj_icon"/>
           <span class="upload_name">{{getName(item)}}</span>
-          <span class="upload_status">{{item.status}}<span *ngIf="item.progress!=100&&item.status=='上传中'">{{item.progress}}</span></span>
+          <span class="upload_status">{{item.status}}<span *ngIf="item.progress!=100&&item.status=='上传中'" style="padding-left: 6px">({{item.progress}}%)</span></span>
           <img [src]="uploadStatus(item)" class="wjj status_icon"/>
         </div>
       </div>

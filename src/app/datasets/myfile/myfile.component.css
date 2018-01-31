@@ -29,6 +29,12 @@
   font-size: 14px;
   color: #333333;
   padding-top: 24px;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+  width:100px;
+  margin:0 auto;
+
 }
 .myfile-input{
   width:78px;

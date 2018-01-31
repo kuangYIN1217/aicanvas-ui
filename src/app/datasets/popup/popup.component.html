@@ -32,22 +32,25 @@
         </div>
       </div>
     </div>
-    <div class="upload-dataset resumable-browse" (click)="$upload_click($event)" *ngIf="s_form_show">
-<!--      <div *ngIf="once_click" class="lds-css ng-scope">
-        <div class="lds-rolling">
-          <div></div>
-        </div>
-      </div>-->
-      <span *ngIf="!once_click">选择文件(.zip)</span>
+    <!--    <div class="upload-dataset resumable-browse" (click)="$upload_click($event)" *ngIf="s_form_show">
+--      <div *ngIf="once_click" class="lds-css ng-scope">
+           <div class="lds-rolling">
+             <div></div>
+           </div>
+         </div>-->
+      <div class="upload-dataset resumable-browse">
+      <span onclick="document.getElementById('file').click()">选择文件(.zip)</span>
+      <input type="file" multiple id="file" name="file" accept=".zip" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
+      <!--<span *ngIf="!once_click">选择文件(.zip)</span>-->
     </div>
     <div class="file_list">
       <label>文件夹列表：</label>
       <div class="upload_zip">
-        <div *ngFor="let item of s_progress_file">
+        <div *ngFor="let item of showUpload">
           <img src="assets/datasets/upload/tc_wjj.png" class="wjj wjj_icon"/>
-          <span class="upload_name">{{item.fileName}}</span>
-          <span class="upload_status">上传成功</span>
-          <img src="assets/datasets/upload/tc_cg.png" class="wjj status_icon"/>
+          <span class="upload_name" title="{{item.name}}">{{item.name}}</span>
+          <span class="upload_status">{{item.status}}<span *ngIf="item.progress!=100&&item.status=='上传中'" style="padding-left: 6px">({{item.progress}}%)</span></span>
+          <img [src]="uploadStatus(item)" class="wjj status_icon"/>
         </div>
 <!--        <div>
           <img src="assets/datasets/upload/tc_wjj.png" class="wjj wjj_icon"/>

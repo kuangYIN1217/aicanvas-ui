@@ -249,11 +249,15 @@ select{
 }
 .upload_zip span{
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
 }
 .upload_name{
   padding-left: 10px;
   float: left;
+  width:160px;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
 }
 .wjj_icon{
   float: left;
@@ -263,6 +267,7 @@ select{
   text-align: left;
   padding-left: 8px;
   float: right;
+  padding-right: 20px;
 }
 .status_icon{
   float: right;

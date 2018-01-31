@@ -8,14 +8,12 @@ var __slice = [].slice,
       }
       return -1;
     };
-
 export default class Resumable {
   opt;
   support;
   files;
   defaults;
   events;
-
   constructor(opt) {
     this.opt = opt;
     this.support = (typeof File !== "undefined" && File !== null) && (typeof Blob !== "undefined" && Blob !== null) && (typeof FileList !== "undefined" && FileList !== null) && ((Blob.prototype.webkitSlice) || (Blob.prototype.mozSlice) || (Blob.prototype.slice != null));
@@ -241,7 +239,7 @@ export default class Resumable {
     return false;
   };
 
-  assignBrowse(domNodes, isDirectory?) {
+  assignBrowse(domNodes, isDirectory?){
     var changeHandler, dn, input, maxFiles, _i, _len,
       _this = this;
     if (domNodes.length == null) {
@@ -756,7 +754,6 @@ class ResumableFile {
         return this.resumableObj.fire('fileRetry', this);
     }
   };
-
   abort() {
     var c, _i, _len, _ref;
     _ref = this.chunks;
@@ -768,7 +765,6 @@ class ResumableFile {
     }
     return this.resumableObj.fire('fileProgress', this);
   };
-
   cancel() {
     var c, _chunks, _i, _len;
     _chunks = this.chunks;
