@@ -22,13 +22,13 @@ export class AddMarkComponent{
   @Input() coordinateId:number;
   @Input() singleDiv:any;
   @Input() dataId:number;
+  markCoordinateSet1:any[]=[];
   mx:number;
   my:number;
   dx:number;
   dy:number;
   isDraging:boolean = false;
   topTag:any[]=[];
-  markCoordinateSet1:any[]=[];
   obj:any={};
   username:string;
   @Output() showChange: EventEmitter<any> = new EventEmitter();
@@ -129,20 +129,20 @@ export class AddMarkComponent{
           console.log(result);
           this.setSign();
           this.xmlPath.push(result.xmlPath);
-          this.createXML(this.xmlPath,this.dataId);
+          //this.createXML(this.xmlPath,this.dataId);
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
           this.imagePathChange.emit(this.markImage.imagePath);
           this.showChange.emit('true');
           //console.log(result);
         })
     }else{
-      //console.log(this.markImage);
+      console.log(this.markImage);
       this.markCoordinateSet1 = this.singleDiv;
       this.datasetservice.updateMark(this.singleDiv)
         .subscribe(result=>{
           this.setSign();
           this.xmlPath.push(result.xmlPath);
-          this.createXML(this.xmlPath,this.dataId);
+          //this.createXML(this.xmlPath,this.dataId);
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
           this.imagePathChange.emit(this.markImage.imagePath);
           this.showChange.emit('true');

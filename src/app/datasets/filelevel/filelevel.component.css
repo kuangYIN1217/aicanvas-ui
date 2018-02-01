@@ -51,12 +51,16 @@
   width:100px;
 }
 .myfile-input{
+  position: absolute;
   width:78px;
+  left:50%;
+  margin-left: -39px;
+  bottom:18px;
   box-sizing: border-box;
   border-radius: 2px;
   height:30px;
   border:1px solid #d3d3d3;
-  margin: 20px auto 0;
+  margin-top:20px;
   display: block;
   text-align: center;
   color: #333333;

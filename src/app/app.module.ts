@@ -65,6 +65,7 @@ import {EnterDatasetComponent} from "./datasets/enterdataset/enterdataset.compon
 import {FileLevelComponent} from "./datasets/filelevel/filelevel.component";
 import {MarkComponent} from "app/datasets/mark/mark.component";
 import {AddMarkComponent} from "./datasets/mark/addmark/addmark";
+import {TipsComponent} from "app/tips/tips.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -114,7 +115,8 @@ import {AddMarkComponent} from "./datasets/mark/addmark/addmark";
     MyFileComponent,
     EnterDatasetComponent,
     FileLevelComponent,
-    MarkComponent
+    MarkComponent,
+    TipsComponent
     //InputReadonlyDirective
   ],
   imports: [

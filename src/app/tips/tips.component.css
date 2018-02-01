@@ -1,0 +1,140 @@
+.dialog{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(111, 111, 111, 0.3);
+  opacity: 1;
+}
+.dialogContainer{
+  position: absolute;
+  width: 800px;
+  height:auto;
+  top: 80px;
+  left: 50%;
+  margin-left: -400px;
+  background: #fff;
+  color: #FFF;
+  border-radius: 5px;
+  border:1px solid #ccc;
+  -webkit-box-shadow:0 0 10px #999999;
+  -moz-box-shadow:0 0 10px #999999;
+  box-shadow:0 0 10px #999999;
+}
+.addDialogContainer{
+  top:50%;
+  width:506px;
+  left:50%;
+  margin-left: -253px;
+  margin-top: -195px;
+  font-size: 14px;
+}
+.dialogHeader{
+  background: #eeeeee;
+  color: #333333;
+  border-top-left-radius :5px;
+  border-top-right-radius:5px;
+}
+.dialogHeader,.dialogContent{
+  position: relative;
+  color: #333333;
+  left:0;
+}
+.dialogHeader span{
+  display: block;
+  height:40px;
+  line-height: 40px;
+  padding-left: 34px;
+  margin-bottom: 42px;
+}
+.span{
+  display: block;
+  height:40px;
+  font-size: 18px;
+  padding-top: 20px;
+}
+.dialogContent{
+
+}
+.dialogContent .info{
+  margin-bottom: 24px;
+}
+.dialogContent .info input,.dialogContent .info select{
+  width:280px;
+  height:36px;
+  border:1px solid #d3d3d3;
+  border-radius: 5px;
+  margin-left: 32px;
+  text-indent: 6px;
+  color: #333333;
+  box-sizing: border-box;
+}
+.infoBtn{
+  padding-top: 26px;
+  padding-left: 80px;
+  padding-bottom: 28px;
+}
+.radio{
+  display: inline-block;
+  padding-left: 30px;
+}
+.radio img{
+  margin-right: 10px;
+}
+.middle{
+  display: inline-block;
+  vertical-align: middle;
+}
+.delSys{
+  text-align: center;
+  padding:50px 0 42px;
+}
+.carNum{
+  display: inline-block;
+  margin-left: 30px;
+}
+.car{
+  width:216px !important;
+  margin-left: 20px !important;
+}
+select:focus{
+  border:1px solid #23a880 !important;
+}
+select{
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-left: 8px;
+}
+select option{
+  padding-left: 8px;
+}
+input{
+  outline: none;
+  padding-left: 8px;
+}
+input:focus{
+  border:1px solid #23a880 !important;
+}
+.btn{
+  font-size: 14px;
+  text-align: center;
+  line-height: 30px;
+  width: 80px;
+  box-sizing: border-box;
+  height:30px;
+  border-radius: 5px;
+  border:1px solid #d3d3d3;
+  text-decoration: none;
+  display: inline-block;
+}
+.bgco{
+  color:#ffffff;
+  background: #ff7c35;
+}
+.bgcg{
+  color:#333333;
+  background: #eeeeee;
+}

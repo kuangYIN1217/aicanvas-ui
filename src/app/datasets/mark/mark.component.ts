@@ -396,6 +396,7 @@ export class MarkComponent{
       }else{
         this.showPhotoIndex--;
       }
+      this.markCoordinateSet = [];
       sessionStorage.setItem("showPhotoIndex",String(this.showPhotoIndex));
       this.initDiv();
       //this.getMaxHeight();
@@ -413,6 +414,7 @@ export class MarkComponent{
       }else{
         this.showPhotoIndex++;
       }
+      this.markCoordinateSet = [];
       sessionStorage.setItem("showPhotoIndex",String(this.showPhotoIndex));
 
       this.initDiv();

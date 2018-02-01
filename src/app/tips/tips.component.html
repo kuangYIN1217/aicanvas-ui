@@ -1,0 +1,14 @@
+<div class="dialog" *ngIf="show">
+  <div class="dialogContainer addDialogContainer">
+    <div class="dialogHeader">
+      <span>{{title}}</span>
+    </div>
+    <div class="dialogContent" style="text-align: center">
+      <span class="middle" style="padding-left: 10px">{{content}}</span>
+    </div>
+    <div class="delSys">
+      <a href="javascript:void(0)" class="btn bgcg" (click)="cancel()">确定</a>
+      <a href="javascript:void(0)" class="btn bgcg" (click)="cancel()" style="margin-left: 18px">取消</a>
+    </div>
+  </div>
+</div>

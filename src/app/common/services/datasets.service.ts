@@ -282,7 +282,7 @@ export class DatasetsService {
       .map((response: Response) => {
         if (response) {
           if (response.status == 200) {
-            return response.json();
+            return response.text();
           }
           return response;
         }

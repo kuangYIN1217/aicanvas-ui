@@ -40,6 +40,8 @@ export class EnterDatasetComponent {
   progress:number=0;
   public uploader:FileUploader;
   markPhoto:any[]=[];
+  show:boolean = false;
+  content:string='';
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -146,11 +148,15 @@ export class EnterDatasetComponent {
   $mark_click(){
     for(let i=0;i<this.d_tableData.length;i++){
       if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='文件夹'){
-          alert("您选择的内容中包含不可标注文件！");
+          //alert("您选择的内容中包含不可标注文件！");
+          this.show = true;
+          this.content = "您选择的内容中包含不可标注文件！";
           this.markPhoto=[];
           return false;
       }else if(this.d_tableData[i].checked&&this.d_tableData[i].fileType!='图片文件'&&this.d_tableData[i].fileType!='文件夹'){
-          alert("您选择的文件格式暂不支持数据标注！/请上传3个以内的文件！");
+          //alert("您选择的文件格式暂不支持数据标注！/请上传3个以内的文件！");
+        this.show = true;
+        this.content = "您选择的文件格式暂不支持数据标注！";
           this.markPhoto=[];
           return false;
       }else if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='图片文件'){
@@ -162,6 +168,11 @@ export class EnterDatasetComponent {
         if(this.d_tableData[i].fileType=='图片文件'){
           this.markPhoto.push(this.d_tableData[i]);
         }
+      }
+      if(this.markPhoto.length==0){
+        this.show = true;
+        this.content = "您选择的文件格式暂不支持数据标注！";
+        return false;
       }
       this.router.navigate(['../mark'],{queryParams:{"filePath":JSON.stringify(this.filePath),"markPhoto":JSON.stringify(this.markPhoto),"dataId":this.dataId}});
     }else{
