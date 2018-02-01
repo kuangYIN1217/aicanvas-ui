@@ -3,8 +3,8 @@
     <nav class="nav">
       <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">我的数据集</div>
       <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">公共数据集</div>
-      <div class="icon list"><img [src]="icon=='list'?'assets/datasets/lb_lv.png':'assets/datasets/lb_hui.png'" (click)="$nav_icon('list')"/></div>
-      <div class="icon file"><img [src]="icon=='file'?'assets/datasets/st_lv.png':'assets/datasets/st_hui.png'" (click)="$nav_icon('file')"/></div>
+      <div class="icon list"><img [src]="icon=='list'?'assets/datasets/lb_lv.png':'assets/datasets/lb_hui.png'" (click)="$nav_icon('list',s_nav_selected)"/></div>
+      <div class="icon file"><img [src]="icon=='file'?'assets/datasets/st_lv.png':'assets/datasets/st_hui.png'" (click)="$nav_icon('file',s_nav_selected)"/></div>
     </nav>
     <div class="content wrapper">
       <div class="toolbar">
@@ -26,7 +26,7 @@
       </div>
       <cpt-mydata [style.display]="icon=='list'?'':'none'" [s_select_datasetType] = "s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [s_totalNum] = "s_totalNum" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0" [(s_totalNum)]="s_totalNum" (s_totalNumChange)="changeNum($event)" (s_sizeChange)="changeSize($event)"></cpt-mydata>
       <cpt-myfile [style.display]="icon=='file'?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)"></cpt-myfile>
-      <cpt-publicdata [d_tableData] = "d_tableData" *ngIf="s_nav_selected === 1"></cpt-publicdata>
+      <cpt-publicdata [d_tableData] = "d_tableData" *ngIf="s_nav_selected === 1&&(icon=='list')"></cpt-publicdata>
       <page [style.display]="icon=='list'?'':'none'" [pageParams] = "pageParams" [s_totalNum] = "s_totalNum" (changeCurPage)="getPageData($event)" class="page"></page>
     </div>
   </div>

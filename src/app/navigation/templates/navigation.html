@@ -22,8 +22,8 @@
         </div>
       <div class="nav_element" [class.focusTab] = "focusTab==7||focusTab==4||focusTab==2||focusTab==5" routerLinkActive="active"  (click)="changeTab(7);focusCollapse='0'">
         <img [src]="focusTab!=8?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'">
-        <a href="#" onclick="return false" >数据存储</a>
-        <img src="assets/navigation/xlk.png" class="selectDown"/>
+        <a href="#" onclick="return false">数据存储</a>
+        <img [src]="show_menu?'assets/navigation/xlk.png':'assets/navigation/up.png'" class="selectDown"/>
       </div>
       <div [style.display]="show_menu?'':'none'">
         <div class="nav_element" [class.focusTab1] = "focusTab==7" routerLinkActive="active"  (click)="changeTab(7 , '/datasetssave');focusCollapse='0'">

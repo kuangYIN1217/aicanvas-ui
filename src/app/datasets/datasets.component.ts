@@ -26,6 +26,7 @@ export class DatasetsComponent{
   pageParams=new Page();
   icon:string='file';
   createfile:boolean=false;
+  index:number=0;
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
     this.pageParams.curPage = this.s_page;
@@ -55,7 +56,7 @@ export class DatasetsComponent{
     if (init) {
       this.s_page = 1;
     }
-    console.log('init table');
+    //console.log('init table');
     let creator , dataSetType , name , sort, page , size;
     creator = this.s_nav_selected;
     dataSetType = this.s_select_datasetType;
@@ -92,7 +93,8 @@ export class DatasetsComponent{
     this.s_nav_selected = index;
     this.initTable();
   }
-  $nav_icon(icon){
+  $nav_icon(icon,index){
+    this.index = index;
     if(icon=='file'){
       this.icon = 'file';
       this.initTable();

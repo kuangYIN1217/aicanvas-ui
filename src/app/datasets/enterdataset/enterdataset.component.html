@@ -39,7 +39,7 @@
     <div class="upload-dataset1" onclick="document.getElementById('file').click()">上传文件</div>
     <input type="file" multiple id="file" name="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
     <div class="file-list">
-      <div class="text">文件列表</div>
+<!--      <div class="text">文件列表</div>-->
       <div class="upload_zip">
         <div *ngFor="let item of showUpload" class="upload-file">
           <img [src]="judgeIcon(item)" class="wjj wjj_icon"/>

@@ -178,6 +178,12 @@ export class FileLevelComponent{
         this.deleteResult.emit('delete success');
       })
   }
+  enterchecked(item){
+    item.sb = true;
+  }
+  leavechecked(item){
+    item.sb = false;
+  }
   filterName(name){
     if(name.match(/^\d{13}_/)){
       return name.substring(14);

@@ -62,6 +62,8 @@ export class PopupComponent {
   url1:string;
   progress:number=0;
   dataType:number;
+  content:string='';
+  showTip:boolean = false;
   constructor (private toastyService:ToastyService, private toastyConfig: ToastyConfig,private datasetsService:DatasetsService) {
     this.datasetsService.getDataSetType()
       .subscribe(result=>{
@@ -300,6 +302,7 @@ export class PopupComponent {
     });
   }
   selectedFileOnChanged(event:any){
+    console.log(this.uploader.queue);
     for(let j=0;j<this.uploader.queue.length;j++){
       if(Number(j)>2){
         this.uploader.queue[3].remove();
@@ -332,7 +335,8 @@ export class PopupComponent {
             continue;
           }
         }else{
-
+          this.showTip = true;
+          this.content = "你上传的压缩文件格式不对，当前只支持ZIP格式！"
         }
       }
     }
