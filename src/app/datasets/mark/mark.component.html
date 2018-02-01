@@ -17,7 +17,7 @@
         <img [src]="getSrc(showPhoto)" (load)="getMaxHeight()" id="showImg"/>
         <canvas id="canvas" width="500" height="300" style="display: none"></canvas>
       </div>
-      <add-mark *ngIf="show" [marktop]="marktop" [markleft]="markleft" [fileId]="fileId" [markImage]="markImage" [markName]="markName" [coordinateId]="coordinateId" [xMax]="xMax" [yMax]="yMax" [xMin]="xMin" [yMin]="yMin" [singleDiv]="singleDiv" (showChange)="showChange($event)" (markCoordinateSetChange)="markCoordinateSetChange($event)" (imagePathChange)="imagePathChange($event)"></add-mark>
+      <add-mark *ngIf="show" [marktop]="marktop" [markleft]="markleft" [dataId]="dataId" [fileId]="fileId" [markImage]="markImage" [markName]="markName" [coordinateId]="coordinateId" [xMax]="xMax" [yMax]="yMax" [xMin]="xMin" [yMin]="yMin" [singleDiv]="singleDiv" (showChange)="showChange($event)" (markCoordinateSetChange)="markCoordinateSetChange($event)" (imagePathChange)="imagePathChange($event)"></add-mark>
     </div>
   </div>
 </div>

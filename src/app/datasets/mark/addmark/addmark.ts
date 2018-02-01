@@ -21,6 +21,7 @@ export class AddMarkComponent{
   @Input() fileId:number;
   @Input() coordinateId:number;
   @Input() singleDiv:any;
+  @Input() dataId:number;
   mx:number;
   my:number;
   dx:number;
@@ -33,6 +34,8 @@ export class AddMarkComponent{
   @Output() showChange: EventEmitter<any> = new EventEmitter();
   @Output() markCoordinateSetChange: EventEmitter<any> = new EventEmitter();
   @Output() imagePathChange: EventEmitter<any> = new EventEmitter();
+  xmlPath:any[]=[];
+
   constructor(private datasetservice: DatasetsService){
     this.username = localStorage['username'];
     this.datasetservice.getHistoryTag(this.username)
@@ -114,18 +117,23 @@ export class AddMarkComponent{
       //console.log(this.markImage);
       this.datasetservice.mark(this.markImage)
         .subscribe(result=>{
+          console.log(result);
           this.setSign();
+          this.xmlPath.push(result.xmlPath);
+          this.createXML(this.xmlPath,this.dataId);
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
           this.imagePathChange.emit(this.markImage.imagePath);
           this.showChange.emit('true');
           //console.log(result);
         })
     }else{
-      console.log(this.markImage);
+      //console.log(this.markImage);
       this.markCoordinateSet1 = this.singleDiv;
       this.datasetservice.updateMark(this.singleDiv)
         .subscribe(result=>{
           this.setSign();
+          this.xmlPath.push(result.xmlPath);
+          this.createXML(this.xmlPath,this.dataId);
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
           this.imagePathChange.emit(this.markImage.imagePath);
           this.showChange.emit('true');
@@ -133,6 +141,12 @@ export class AddMarkComponent{
         })
     }
 
+  }
+  createXML(arr,dataId){
+    this.datasetservice.createXML(arr,dataId)
+      .subscribe(result=>{
+        console.log(result);
+      })
   }
   setSign(){
     this.datasetservice.setSign(this.fileId)

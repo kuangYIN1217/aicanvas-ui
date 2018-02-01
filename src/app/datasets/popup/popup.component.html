@@ -50,7 +50,7 @@
           <img src="assets/datasets/upload/tc_wjj.png" class="wjj wjj_icon"/>
           <span class="upload_name" title="{{item.name}}">{{item.name}}</span>
           <span class="upload_status">{{item.status}}<span *ngIf="item.progress!=100&&item.status=='上传中'" style="padding-left: 6px">({{item.progress}}%)</span></span>
-          <img [src]="uploadStatus(item)" class="wjj status_icon"/>
+          <img [src]="uploadStatus(item)" class="wjj status_icon" *ngIf="item.status"/>
         </div>
 <!--        <div>
           <img src="assets/datasets/upload/tc_wjj.png" class="wjj wjj_icon"/>

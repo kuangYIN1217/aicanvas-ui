@@ -93,6 +93,9 @@ export class FileLevelComponent{
   leavedelete(item){
     item.img = 2;
   }
+  output1(item){
+    return item.substring(26,item.length);
+  }
 /*  entercheck(item){
     item.checked = true;
   }*/
@@ -181,5 +184,9 @@ export class FileLevelComponent{
     }else{
       return name;
     }
+  }
+  closeVideo(){
+    this.videoShow = false;
+    this.videoSrc = '';
   }
 }

@@ -82,6 +82,7 @@
   top:0;
   bottom:0;
   background: rgba(27,27,27,0.2);
+  z-index: 88888;
 }
 .show-text-content{
   position: relative;
@@ -141,5 +142,30 @@ video,audio{
 }
 .show-text-txt{
   padding:20px;
+  height:598px;
+  overflow-y: auto;
+}
+.videoClose{
+  position: absolute;
+  top:0;
+  right: 0;
+  margin-top: -13px;
+  margin-right: -13px;
+  cursor:pointer;
+  display: inline-block;
+  z-index: 6667;
+}
+.show-video{
+  width:970px;
+  height:545px;
+  position: relative;
+  left:50%;
+  top:50%;
+  margin-left: -485px;
+  margin-top: -272.5px;
+}
+video{
+  width:970px;
+  height:545px;
 }
 

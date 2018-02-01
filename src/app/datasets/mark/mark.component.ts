@@ -125,11 +125,11 @@ export class MarkComponent{
       let image:any;
       image = $("<img/>");
       $(image).attr("id","imageId"+i);
-      $(image).attr("src","assets/datasets/upload/tc_sb.png");
+      $(image).attr("src","assets/datasets/file/delete-mark.png");
       $(image).css("position","absolute");
       $(image).css("z-index",112);
-      $(image).css("right","-7px");
-      $(image).css("top","-7px");
+      $(image).css("right","-13px");
+      $(image).css("top","-13px");
       $(image).css("cursor","pointer");
       $(image).css("display","none");
       $(this.rected).append(image);

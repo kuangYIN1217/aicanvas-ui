@@ -4,7 +4,7 @@
       <!--<img *ngIf="item.enter==1&&item.img!=1" src="assets/datasets/file/sc_hui.png" class="myfile-delete" (mouseenter)="enterdelete(item)" />-->
       <img [style.display]="item.enter==1?'':'none'" [src]="item.img==1?'assets/datasets/file/sc_hong.png':'assets/datasets/file/sc_hui.png'" class="myfile-delete" (mouseleave)="leavedelete(item)" (mouseenter)="enterdelete(item)" (click)="deleteFile(item)"/>
       <img [style.display]="item.enter==1||item.parent==1?'':'none'" [src]="item.checked?'assets/datasets/file/xz_lv.png':'assets/datasets/file/xz_hui.png'" class="myfile-check" (click)="checkFile(item)"/>
-      <img [src]="getImage(item)" class="myfile-file" [ngClass]="{marginTop:item.enter==1,imageBorder:item.fileType=='图片文件'}" (dblclick)="enterDataset(item)" [ngStyle]="getTypeTop(item)"/>
+      <img [src]="getImage(item)" class="myfile-file" [ngClass]="{marginTop:item.enter==1,imageBorder:item.fileType=='图片文件'}" (click)="enterDataset(item)" [ngStyle]="getTypeTop(item)"/>
       <span *ngIf="item.flag==undefined||item.flag!=1" (dblclick)="updateName(item)" title="{{filterName(item.fileName)}}">{{filterName(item.fileName)}}</span>
       <input type="text" value={{item.fileName}} autofocus="autofocus" class="myfile-input" *ngIf="item.flag==1" (blur)="saveName(item)" name="fileName" [(ngModel)]="fileName"/>
     </div>
@@ -26,18 +26,23 @@
 <div class="show-text" *ngIf="photoShow">
   <div class="show-image">
     <img src="{{SERVER_URL}}/download/{{image}}" class="show-img"/>
-    <img src="assets/datasets/createfile/gb.png" (click)="closeImg()" class="guanbiPhoto"/>
+    <img src="assets/datasets/filelevel/close.png" (click)="closeImg()" class="guanbiPhoto"/>
   </div>
 </div>
 <div class="show-text" *ngIf="videoShow">
-  <video src="assets/datasets/file/video.mp4" controls="controls">
-    您的浏览器不支持 video 标签。
-  </video>
-
+  <div class="show-video">
+    <img src="assets/datasets/filelevel/close.png" class="videoClose" (click)="closeVideo()"/>
+    <video src="{{SERVER_URL}}/download/{{output1(videoSrc)}}" controls="controls">
+      您的浏览器不支持 video 标签。
+    </video>
+  </div>
 </div>
 <div class="show-text" *ngIf="audioShow">
-  <audio src="assets/datasets/file/audio.mp3">
-    您的浏览器不支持 audio 标签。
-  </audio>
+  <img src="assets/datasets/filelevel/close.png" class="videoClose" (click)="closeVideo()"/>
+  <div style="height:100%">
+    <audio src="{{SERVER_URL}}/download/{{output1(audioSrc)}}" controls="controls">
+      您的浏览器不支持 audio 标签。
+    </audio>
+  </div>
 </div>
 

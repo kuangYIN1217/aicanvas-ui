@@ -19,7 +19,7 @@
     <cpt-nodata *ngIf="d_tableData.length === 0" [colspan]="7"></cpt-nodata>
 
     <tr *ngFor="let item of d_tableData;let i = index">
-      <td title="{{item.dataName}}">{{item.dataName}}</td>
+      <td title="{{filterName(item.dataName)}}">{{filterName(item.dataName)}}</td>
       <td title="{{item.dataTypeName}}">{{item.dataTypeName}}</td>
       <td title="{{calc_size(item.diskUsageAccount)}}">{{calc_size(item.diskUsageAccount)}}</td>
       <td title="{{item.fileCount}}">{{item.fileCount}}</td>

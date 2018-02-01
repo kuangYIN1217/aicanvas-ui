@@ -195,7 +195,7 @@ export class DatasetsService {
       .map((response: Response) => {
         if (response) {
           if (response.status == 200) {
-            return response.text();
+            return response.json();
           }
           return response;
         }
@@ -275,4 +275,18 @@ export class DatasetsService {
         }
       });
   }
+  createXML(arr,dataId){
+    let path = "/api/saveXmlFile?xmlPathList="+arr+"&dataId="+dataId;
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path,{headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
+
 }

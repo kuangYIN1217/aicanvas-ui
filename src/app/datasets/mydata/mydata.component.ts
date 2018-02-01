@@ -7,6 +7,7 @@ import {calc_size} from '../calc-size'
 import {JobService} from "../../common/services/job.service";
 import {ToastyService} from "ng2-toasty";
 import {addErrorToast} from "../../common/ts/toast";
+import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'cpt-mydata',
   styleUrls: ['./mydata.component.css'],
@@ -32,7 +33,7 @@ export class MyDataComponent{
   s_remove: boolean = false;
   look_detail:boolean = false;
   dataList:any={};
-  constructor (private datasetservice: DatasetsService,private jobService: JobService,private toastyService:ToastyService) {
+  constructor (private datasetservice: DatasetsService,private jobService: JobService,private toastyService:ToastyService,private route: ActivatedRoute ,private router: Router) {
     // 获取datasetType
     /*this.datasetservice.getDataSets(null , null , null , null, 1 , 10 ).subscribe(rep =>{
       console.log(rep);
@@ -81,14 +82,25 @@ export class MyDataComponent{
         this.d_tableData.splice(this.s_remove_index , 1);
         this.d_tableDataChange.emit(this.d_tableData);
       }
-    })
+    });
     this.s_remove = false;
   }
   $confirm_cancel() {
     this.s_remove = false;
   }
   look_dataSet(item){
-    this.look_detail = true;
-    this.dataList = item;
+    sessionStorage.setItem("dataName",item.dataName);
+    //this.datasetsService.enterDataset(item.dataId,encodeURI(item.dataPath),null,null)
+    // .subscribe(result=>{
+    this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataPath}});
+/*    this.look_detail = true;
+    this.dataList = item;*/
+  }
+  filterName(name){
+    if(name.match(/^\d{13}_/)){
+      return name.substring(14);
+    }else{
+      return name;
+    }
   }
 }
