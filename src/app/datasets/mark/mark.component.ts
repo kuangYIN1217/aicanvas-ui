@@ -450,5 +450,12 @@ export class MarkComponent{
     $("#content").css("height",imageHeight+'px');
     $("#showImg").css("left","0");
   }
+  filterName(name){
+    if(name.match(/^\d{13}_/)){
+      return name.substring(14);
+    }else{
+      return name;
+    }
+  }
 }
 

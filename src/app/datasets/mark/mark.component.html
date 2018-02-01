@@ -4,7 +4,7 @@
       <img src="assets/datasets/file/lj.png"/>
       <span (click)="home()">数据列表</span>
       <span class="line">/</span>
-      <span *ngFor="let item of filePath let i = index;" (click)="search(i)" [ngClass]="{line:(filePath.length-1)==i}">{{item.showpath}}<span class="line" *ngIf="(filePath.length-1)!=i">/</span></span>
+      <span *ngFor="let item of filePath let i = index;" (click)="search(i)" [ngClass]="{line:(filePath.length-1)==i}">{{filterName(item.showpath)}}<span class="line" *ngIf="(filePath.length-1)!=i">/</span></span>
     </div>
     <div class="mark-button">
       <a href="#" onclick="return false" class="btn bgg" (click)="startMark()">创建标注框</a>

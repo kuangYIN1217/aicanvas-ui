@@ -35,7 +35,7 @@ export class AddMarkComponent{
   @Output() markCoordinateSetChange: EventEmitter<any> = new EventEmitter();
   @Output() imagePathChange: EventEmitter<any> = new EventEmitter();
   xmlPath:any[]=[];
-
+  tip:boolean = false;
   constructor(private datasetservice: DatasetsService){
     this.username = localStorage['username'];
     this.datasetservice.getHistoryTag(this.username)
@@ -91,10 +91,19 @@ export class AddMarkComponent{
     }
     this.setXML();
   }
+  isName(){
+    if(this.markName==''){
+      this.tip = true;
+    }else{
+      this.tip = false;
+    }
+  }
   sure(){
     if(this.markName==''){
+      this.tip = true;
       return false;
     }else{
+      this.tip = false;
       if(this.singleDiv&&this.singleDiv!=''){
         this.singleDiv.markName = this.markName;
       }else{
