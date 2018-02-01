@@ -6,6 +6,7 @@ import {DatasetsService} from "../../common/services/datasets.service";
 import {calc_size} from '../calc-size'
 import {SERVER_URL} from "../../app.constants";
 import {ActivatedRoute, Router} from "@angular/router";
+declare var $:any;
 @Component({
   selector: 'file-level',
   styleUrls: ['./filelevel.component.css'],
@@ -194,5 +195,42 @@ export class FileLevelComponent{
   closeVideo(){
     this.videoShow = false;
     this.videoSrc = '';
+  }
+  closeAudio(){
+    this.audioShow = false;
+    this.audioSrc = '';
+  }
+  getWH(){
+    let obj:any;
+    obj = document.getElementById("image");
+    obj.className = "";
+    let img:any;
+    img = document.getElementById("closeImage");
+    let width = obj.offsetWidth;
+    let height = obj.offsetHeight;
+    let x = (970-parseInt(width))/2;
+    let y = (545-parseInt(height))/2;
+    if(parseInt(width)>970){
+      obj.className = "show-imgW";
+      img.style.right = '-17px';
+      img.style.top = '-17px';
+      return
+    }else if(parseInt(height)>545){
+      obj.className = "show-imgW";
+      img.style.right = x-17+'px';
+      img.style.top = '-17px';
+      return
+    }else{
+      obj.className = "show-img";
+      obj.style.position = "relative";
+      obj.style.top = "50%";
+      obj.style.left = "50%";
+      obj.style.marginTop = -(height/2)+'px';
+      obj.style.marginLeft = -(width/2)+'px';
+      img.style.right = x-17+'px';
+      img.style.top = y-17+'px';
+    }
+    /*$("#image").width();
+    $("#image").height();*/
   }
 }

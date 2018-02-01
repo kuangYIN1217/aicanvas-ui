@@ -85,7 +85,7 @@
   right:0;
   top:0;
   bottom:0;
-  background: rgba(27,27,27,0.2);
+  background: rgba(27,27,27,0.3);
   z-index: 88888;
 }
 .show-text-content{
@@ -121,8 +121,15 @@
   margin-top: 14px;
   cursor: pointer;
 }
-.show-img{
+.show-imgW{
   width:100%;
+  display: block;
+  margin:0 auto;
+}
+.show-imgH{
+  height:100%;
+  display: block;
+  margin:0 auto;
 }
 video,audio{
   display: block;
@@ -133,15 +140,15 @@ video,audio{
 }
 .show-image{
   position: relative;
-  width:70%;
-  margin-left: -35%;
+  width:970px;
+  height:545px;
   left:50%;
-  top:10%;
+  margin-left: -485px;
+  top:50%;
+  margin-top: -272.5px;
 }
 .guanbiPhoto{
   position: absolute;
-  top:0;
-  right:0;
   cursor: pointer;
 }
 .show-text-txt{
@@ -171,5 +178,18 @@ video,audio{
 video{
   width:970px;
   height:545px;
+}
+.show-audio{
+  position: relative;
+  width:380px;
+  left: 50%;
+  margin-left: -190px;
+  top:50%;
+  height:32px;
+  margin-top: -16px;
+}
+.audioClose{
+  margin-top: 0 !important;
+  margin-right: 0 !important;
 }
 

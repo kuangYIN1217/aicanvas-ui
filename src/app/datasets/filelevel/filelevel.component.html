@@ -25,8 +25,8 @@
 </div>
 <div class="show-text" *ngIf="photoShow">
   <div class="show-image">
-    <img src="{{SERVER_URL}}/download/{{image}}" class="show-img"/>
-    <img src="assets/datasets/filelevel/close.png" (click)="closeImg()" class="guanbiPhoto"/>
+    <img src="{{SERVER_URL}}/download/{{image}}" (load)="getWH()" id="image"/>
+    <img src="assets/datasets/filelevel/close.png" (click)="closeImg()" class="guanbiPhoto" id="closeImage"/>
   </div>
 </div>
 <div class="show-text" *ngIf="videoShow">
@@ -38,8 +38,8 @@
   </div>
 </div>
 <div class="show-text" *ngIf="audioShow">
-  <img src="assets/datasets/filelevel/close.png" class="videoClose" (click)="closeVideo()"/>
-  <div style="height:100%">
+  <div class="show-audio">
+    <img src="assets/datasets/filelevel/close.png" class="videoClose audioClose" (click)="closeAudio()"/>
     <audio src="{{SERVER_URL}}/download/{{output1(audioSrc)}}" controls="controls">
       您的浏览器不支持 audio 标签。
     </audio>
