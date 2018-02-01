@@ -48,7 +48,7 @@ export class AddMarkComponent{
   }
   ngOnChanges(...args: any[]) {
     console.log(this.coordinateId);
-    console.log(this.fileId);
+    console.log(this.markName);
   }
   markdown(event:any){
     this.isDraging = true;
@@ -85,7 +85,7 @@ export class AddMarkComponent{
   choose(item){
     console.log(item.markName);
     if(this.singleDiv&&this.singleDiv!=''){
-      this.singleDiv.markName = this.markName;
+      this.singleDiv.markName = item.markName;
     }else{
       this.obj.markName = item.markName;
     }

@@ -94,13 +94,14 @@ export class MarkComponent{
       //console.log(this.showPhoto);
       this.addPhotoPath();
       this.path = this.filePath[this.filePath.length-1].path1;
+      this.fileId = this.showPhoto.fileId;
       this.getSize(this.path);
     });
   }
   getSize(path){
     this.datasetservice.getMarkInfo(path)
       .subscribe(result=>{
-        //console.log(result);
+        console.log(result);
         this.markImage = result;
         this.markCoordinateSet = result.markCoordinateSet;
         this.draw(result.markCoordinateSet);
@@ -165,11 +166,19 @@ export class MarkComponent{
             .subscribe(result=>{
               console.log(result);
               $("#rectedId"+index).remove();
-              //this.getSize(this.path);
+              $this.getSize($this.path);
+              console.log($this.fileId);
+              $this.setSign();
             })
         });
       })(i);
     }
+  }
+  setSign(){
+    this.datasetservice.setSign(this.fileId)
+      .subscribe(result=>{
+        console.log(result);
+      })
   }
   ngOnDestroy(){
     sessionStorage.removeItem('showPhoto');

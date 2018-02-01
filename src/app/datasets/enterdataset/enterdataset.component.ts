@@ -190,6 +190,7 @@ export class EnterDatasetComponent {
     this.datasetservice.createFile(this.dataId,encodeURI(this.parentPath))
       .subscribe(result=>{
         if(result=='文件夹创建成功'){
+          this.searchBool = true;
           this.dynamicSearch();
           this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
         }
