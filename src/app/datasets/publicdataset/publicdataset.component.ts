@@ -9,12 +9,12 @@ import {FileItem, FileUploader} from "ng2-file-upload";
 import {calc_height} from '../../common/ts/calc_height'
 declare var $: any;
 @Component({
-  selector: 'enter-dataset',
-  styleUrls: ['./enterdataset.component.css'],
-  templateUrl: './enterdataset.component.html',
+  selector: 'public-dataset',
+  styleUrls: ['./publicdataset.component.css'],
+  templateUrl: './publicdataset.component.html',
   providers:[DatasetsService]
 })
-export class EnterDatasetComponent {
+export class PublicDatasetComponent {
   s_select_name: any = '';
   focus:number=0;
   blur:number=0;
@@ -149,19 +149,19 @@ export class EnterDatasetComponent {
   $mark_click(){
     for(let i=0;i<this.d_tableData.length;i++){
       if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='文件夹'){
-          //alert("您选择的内容中包含不可标注文件！");
-          this.show = true;
-          this.content = "您选择的内容中包含不可标注文件！";
-          this.markPhoto=[];
-          return false;
+        //alert("您选择的内容中包含不可标注文件！");
+        this.show = true;
+        this.content = "您选择的内容中包含不可标注文件！";
+        this.markPhoto=[];
+        return false;
       }else if(this.d_tableData[i].checked&&this.d_tableData[i].fileType!='图片文件'&&this.d_tableData[i].fileType!='文件夹'){
-          //alert("您选择的文件格式暂不支持数据标注！/请上传3个以内的文件！");
+        //alert("您选择的文件格式暂不支持数据标注！/请上传3个以内的文件！");
         this.show = true;
         this.content = "您选择的文件格式暂不支持数据标注！";
-          this.markPhoto=[];
-          return false;
+        this.markPhoto=[];
+        return false;
       }else if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='图片文件'){
-          this.markPhoto.push(this.d_tableData[i]);
+        this.markPhoto.push(this.d_tableData[i]);
       }
     }
     if(this.markPhoto.length==0){
@@ -210,31 +210,31 @@ export class EnterDatasetComponent {
   }
 
   selectedFileOnChanged(event:any){
-        for(let j=0;j<this.uploader.queue.length;j++){
-          if(Number(j)>2){
-            this.uploader.queue[3].remove();
-            j-=1;
-            continue;
-          }else{
-            let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
-            console.log(bool);
-            if(bool==false){
-              let obj:any={};
-              obj.name = this.uploader.queue[j].file.name;
-              obj.type = this.uploader.queue[j].file.type;
-              this.showUpload.push(obj);
-              this.fileType = this.judgeType(this.showUpload[j]);
-              let element = this.uploader.queue[j];
-              // element.alias = "photo";
-              element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
-              //console.log(this.fileType);
-              //console.log(element.url);
-              this.getProgress(j);
-            }else{
-              continue;
-            }
-          }
+    for(let j=0;j<this.uploader.queue.length;j++){
+      if(Number(j)>2){
+        this.uploader.queue[3].remove();
+        j-=1;
+        continue;
+      }else{
+        let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
+        console.log(bool);
+        if(bool==false){
+          let obj:any={};
+          obj.name = this.uploader.queue[j].file.name;
+          obj.type = this.uploader.queue[j].file.type;
+          this.showUpload.push(obj);
+          this.fileType = this.judgeType(this.showUpload[j]);
+          let element = this.uploader.queue[j];
+          // element.alias = "photo";
+          element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
+          //console.log(this.fileType);
+          //console.log(element.url);
+          this.getProgress(j);
+        }else{
+          continue;
         }
+      }
+    }
     console.log(this.uploader.queue);
     console.log(this.showUpload);
   }

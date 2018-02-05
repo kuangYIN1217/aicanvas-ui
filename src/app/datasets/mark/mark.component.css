@@ -48,7 +48,7 @@
   box-sizing: border-box;
 }
 .content{
-  margin:20px auto;
+  margin:20px;
   background: #fff;
   position: relative;
   z-index: 22;
@@ -56,7 +56,7 @@
 .content img{
   display: block;
   position: absolute;
-  margin:0px auto;
+  margin:auto;
   z-index: 1;
 }
 .line{

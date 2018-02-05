@@ -123,10 +123,10 @@ export class AddMarkComponent{
       this.markCoordinateSet1.push(this.obj);
       this.markImage.markCoordinateSet = this.markCoordinateSet1;
       //console.log(this.markCoordinateSet1);
-      //console.log(this.markImage);
-      this.datasetservice.mark(this.markImage)
+      console.log(this.markImage);
+      this.datasetservice.mark(this.markImage,this.dataId)
         .subscribe(result=>{
-          console.log(result);
+          //console.log(result);
           this.setSign();
           this.xmlPath.push(result.xmlPath);
           //this.createXML(this.xmlPath,this.dataId);
@@ -136,11 +136,12 @@ export class AddMarkComponent{
           //console.log(result);
         })
     }else{
-      console.log(this.markImage);
+      //console.log(this.markImage);
       this.markCoordinateSet1 = this.singleDiv;
-      this.datasetservice.updateMark(this.singleDiv)
+      console.log(this.singleDiv);
+      this.datasetservice.updateMark(this.singleDiv,this.dataId)
         .subscribe(result=>{
-          this.setSign();
+          //this.setSign();
           this.xmlPath.push(result.xmlPath);
           //this.createXML(this.xmlPath,this.dataId);
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
@@ -149,7 +150,6 @@ export class AddMarkComponent{
           console.log(result);
         })
     }
-
   }
   createXML(arr,dataId){
     this.datasetservice.createXML(arr,dataId)

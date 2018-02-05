@@ -4,12 +4,12 @@ import {SERVER_URL} from "../../app.constants";
 import {ActivatedRoute, Router} from "@angular/router";
 declare var $:any;
 @Component({
-  selector: 'file-level',
-  styleUrls: ['./filelevel.component.css'],
-  templateUrl: './filelevel.component.html',
+  selector: 'public-level',
+  styleUrls: ['./publiclevel.component.css'],
+  templateUrl: './publiclevel.component.html',
   providers: [DatasetsService]
 })
-export class FileLevelComponent{
+export class PublicLevelComponent{
   SERVER_URL = SERVER_URL;
   @Input()  d_tableData:any;
   @Input()  dataName:string;
@@ -38,7 +38,7 @@ export class FileLevelComponent{
       return 'assets/datasets/file/wb.png';
     }else if(item.fileType=='图片文件'){
       let path = this.outputImg(item.path);
-      return `${SERVER_URL}/download/${path}`;
+      return `${SERVER_URL}/download/basedataset/${path}`;
     }else if(item.fileType=='视频文件'){
       return 'assets/datasets/file/sp.png';
     }else if(item.fileType=='音频文件'){
@@ -93,26 +93,26 @@ export class FileLevelComponent{
   output1(item){
     return item.substring(26,item.length);
   }
-/*  entercheck(item){
-    item.checked = true;
-  }*/
-/*  leavecheck(item){
-    item.enter = 1;
-    item.show = false;
-  }*/
-/*  getImg(item){
-    console.log(item);
-    if(item.show){
-      return 'assets/datasets/file/xz_hui.png';
-    }else if(!item.show){
-      return 'assets/datasets/file/xz_hui.png';
-    }else if(item.checked){
-      return 'assets/datasets/file/xz_lv.png';
-    }else if(!item.checked){
-      return 'assets/datasets/file/xz_hui.png';
-    }
-    //item.checked&&item.show?'assets/datasets/file/xz_lv.png':'assets/datasets/file/xz_hui.png'
-  }*/
+  /*  entercheck(item){
+   item.checked = true;
+   }*/
+  /*  leavecheck(item){
+   item.enter = 1;
+   item.show = false;
+   }*/
+  /*  getImg(item){
+   console.log(item);
+   if(item.show){
+   return 'assets/datasets/file/xz_hui.png';
+   }else if(!item.show){
+   return 'assets/datasets/file/xz_hui.png';
+   }else if(item.checked){
+   return 'assets/datasets/file/xz_lv.png';
+   }else if(!item.checked){
+   return 'assets/datasets/file/xz_hui.png';
+   }
+   //item.checked&&item.show?'assets/datasets/file/xz_lv.png':'assets/datasets/file/xz_hui.png'
+   }*/
   checkFile(item){
     item.checked = !item.checked;
     console.log(item.checked);
@@ -139,10 +139,10 @@ export class FileLevelComponent{
     console.log(item);
     if(item.fileType=='文件夹'){
       //this.datasetsService.enterDataset(item.dataId,encodeURI(item.path),null,null)
-       // .subscribe(result=>{
-          this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.path,"dataName":this.dataName}});
-         // console.log(result);
-       // })
+      // .subscribe(result=>{
+      this.router.navigate(['../publicdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.path,"dataName":this.dataName}});
+      // console.log(result);
+      // })
     }else if(item.fileType=='文本文件'){
       this.textShow = true;
       this.textName = item.fileName;

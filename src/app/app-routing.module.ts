@@ -37,6 +37,7 @@ import {CreateFileComponent} from "./datasets/createfile/createfile.component";
 import {EnterDatasetComponent} from "./datasets/enterdataset/enterdataset.component";
 import {FileLevelComponent} from "./datasets/filelevel/filelevel.component";
 import {MarkComponent} from "./datasets/mark/mark.component";
+import {PublicDatasetComponent} from "./datasets/publicdataset/publicdataset.component";
 
 
 const routes: Routes = [
@@ -81,11 +82,11 @@ const routes: Routes = [
   {path: 'datasetssave', component: DatasetsSaveComponent},
   {path: 'createfile', component: CreateFileComponent},
   {path: 'enterdataset', component: EnterDatasetComponent},
+  {path: 'publicdataset', component: PublicDatasetComponent},
   {path: 'filelevel', component: FileLevelComponent},
   {path: 'mark', component: MarkComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
-
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes,{useHash: true})],

@@ -25,10 +25,10 @@ export class DatasetsSaveComponent{
   constructor(private datasaveService:DatasaveService,private route: ActivatedRoute, private router: Router){
     this.datasaveService.getAllSave()
       .subscribe(result=>{
-        console.log(result);
+        //console.log(result);
         this.dataSave = result;
         this.total = this.getSize(this.dataSave.diskSpace);
-        console.log(this.total);
+        //console.log(this.total);
         this.getDataset();
         this.getScence();
         this.getModel();
@@ -59,6 +59,7 @@ export class DatasetsSaveComponent{
     this.model = this.getSize(this.dataSave.modelSpace);
     this.m = Math.floor((this.model/this.total)*868);
     //console.log(this.d+this.s);
+    //console.log(this.m);
     $(".model").css("width",Math.floor((this.scence/this.total)*868));
     $(".model").css("left",this.d+this.s);
     // return {
@@ -87,14 +88,16 @@ export class DatasetsSaveComponent{
         en = em;
       }
       let value = parseFloat(num);
-      if(value>0){
+      if(value>=0){
         if(en=='TB'){
-          return value*1024*1024*1024;
+          return value*1024*1024*1024*1024;
         }else if(en=='GB'){
-          return value*1024*1024;
+          return value*1024*1024*1024;
         }else if(en=='MB'){
-          return value*1024;
+          return value*1024*1024;
         }else if(en=='KB'){
+          return value*1024;
+        }else if(en=='BT'){
           return value;
         }
       }

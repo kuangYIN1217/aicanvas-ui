@@ -66,6 +66,9 @@ import {FileLevelComponent} from "./datasets/filelevel/filelevel.component";
 import {MarkComponent} from "app/datasets/mark/mark.component";
 import {AddMarkComponent} from "./datasets/mark/addmark/addmark";
 import {TipsComponent} from "app/tips/tips.component";
+import {PublicFileComponent} from "./datasets/publicFile/publicfile.component";
+import {PublicDatasetComponent} from "app/datasets/publicdataset/publicdataset.component";
+import {PublicLevelComponent} from "./datasets/publicLevel/publiclevel.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -116,7 +119,10 @@ import {TipsComponent} from "app/tips/tips.component";
     EnterDatasetComponent,
     FileLevelComponent,
     MarkComponent,
-    TipsComponent
+    TipsComponent,
+    PublicFileComponent,
+    PublicDatasetComponent,
+    PublicLevelComponent
     //InputReadonlyDirective
   ],
   imports: [

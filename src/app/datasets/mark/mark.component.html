@@ -12,9 +12,12 @@
       <a href="#" onclick="return false" class="btn bgo" (click)="next()" [ngClass]="{bggray:(markPhoto.length==1)||(showPhoto.fileId==markPhoto[markPhoto.length-1].fileId)}">下个文件</a>
     </div>
     <div class="mark-content" id="mark-content">
-      <div class="content" (mouseenter)="enter()" (mouseleave)="leave()" id="content" (mousemove)="move($event)" (mousedown)="down($event)" (mouseup)="up($event)">
+      <div class="content" id="content"  [ngStyle]="getMarkDiv()">
+        <!--(mouseenter)="enter()" (mouseleave)="leave()" (mousemove)="move($event)" (mousedown)="down($event)" (mouseup)="up($event)"-->
         <!--<img [src]="getSrc(showPhoto)" [ngStyle]="getMaxHeight()" id="showImg"  style="display: none"/>-->
-        <img [src]="getSrc(showPhoto)" (load)="getMaxHeight()" id="showImg"/>
+        <div>
+          <img [src]="getSrc(showPhoto)" (load)="getMaxHeight()" id="showImg"/>
+        </div>
         <canvas id="canvas" width="500" height="300" style="display: none"></canvas>
       </div>
       <add-mark *ngIf="show" [marktop]="marktop" [markleft]="markleft" [dataId]="dataId" [fileId]="fileId" [markImage]="markImage" [markName]="markName" [coordinateId]="coordinateId"  [xMax]="xMax" [yMax]="yMax" [xMin]="xMin" [yMin]="yMin" [singleDiv]="singleDiv" (showChange)="showChange($event)" (markCoordinateSetChange)="markCoordinateSetChange($event)" (imagePathChange)="imagePathChange($event)"></add-mark>

@@ -107,7 +107,6 @@ export class DatasetsService {
           }
       });
   }
-
   createDataSet(creator,dataName,dataType,dataTypeName){
     let path = "/api/createDataSet";
     let dataSet = {
@@ -132,7 +131,6 @@ export class DatasetsService {
         }
       });
   }
-
   createFile(dataId,parentPath){
     let path = "/api/createNewDir/"+dataId+"?parentPath="+parentPath;
     let headers = this.getHeaders();
@@ -146,7 +144,6 @@ export class DatasetsService {
         }
       });
   }
-
   enterDataset(dataId,level,fileType,fileName){
     let path = "/api/dynamicSelect/"+dataId+"/"+fileType+"/"+fileName+"?parentPath="+level;
     let headers = this.getHeaders();
@@ -187,8 +184,8 @@ export class DatasetsService {
         }
       });
   }
-  mark(mark){
-    let path = "/api/addMarkCoordinate";
+  mark(mark,id){
+    let path = "/api/addMarkCoordinate/"+id;
     let markImage = mark;
     let headers = this.getHeaders();
     return this.http.post(this.SERVER_URL + path,markImage, {headers: headers})
@@ -208,6 +205,8 @@ export class DatasetsService {
       .map((response: Response) => {
         if (response && response.json()) {
           return response.json();
+        }else if(response && response.text()){
+          return response.text();
         }
       });
   }
@@ -221,8 +220,8 @@ export class DatasetsService {
         }
       });
   }
-  deleteMark(markCoordinate1){
-    let path = "/api/deleteMarkCoordinate";
+  deleteMark(markCoordinate1,id,fileId){
+    let path = "/api/deleteMarkCoordinate/"+id+"/"+fileId;
     let markCoordinate = markCoordinate1;
     let headers = this.getHeaders();
     return this.http.post(this.SERVER_URL + path,markCoordinate,{headers: headers})
@@ -235,8 +234,8 @@ export class DatasetsService {
         }
       });
   }
-  updateMark(markCoordinate1){
-    let path = "/api/updateMarkCoordinate";
+  updateMark(markCoordinate1,id){
+    let path = "/api/updateMarkCoordinate/"+id;
     let markCoordinate = markCoordinate1;
     let headers = this.getHeaders();
     return this.http.put(this.SERVER_URL + path,markCoordinate,{headers: headers})
@@ -288,5 +287,4 @@ export class DatasetsService {
         }
       });
   }
-
 }

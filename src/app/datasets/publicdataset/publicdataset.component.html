@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="file">
+    <div class="filepath">
+      <img src="assets/datasets/file/lj.png"/>
+      <span (click)="home()">数据列表</span>
+      <span class="line">/</span>
+      <span *ngFor="let item of filePath let i = index;" (click)="search(i)" [ngClass]="{line:(filePath.length-1)==i}">{{filterName(item.showpath)}}<span class="line" *ngIf="(filePath.length-1)!=i">/</span></span>
+    </div>
+    <div class="filecontent" id="filecontent">
+      <div class="toolbar">
+        <div class="searchContainer">
+          <!-- if too slow for each search, should change to (change) according to the num of data -->
+          <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="s_select_name==null||s_select_name==''" [style.display]="blur==0?'':'none'">
+          <input [(ngModel)]="s_select_name" (ngModelChange)="$select_change()" class="search-input" type="text" [attr.placeholder]="blur==0?'请输入文件关键字':''" [ngClass]="{paddingLeft: focus==1}" (focus)="searchLeft()" (blur)="searchBlur()"/>
+        </div>
+        <div class="selectContainer">
+          <span>文件分类:</span>
+          <select [(ngModel)]="s_select_datasetType" (ngModelChange)="s_select_datasetType=$event;$select_change()">
+            <option value="all">全部</option>
+            <option *ngFor="let item of d_dataTypes" [value]="item.id">{{getType(item.id)}}</option>
+          </select>
+          <!--<img src="../assets/taskStatus/select.png">-->
+        </div>
+      </div>
+      <public-level [d_tableData]="d_tableData" [dataName]="dataName" (getResult)="getResult($event)" (deleteResult)="deleteResult($event)"></public-level>
+    </div>
+  </div>
+  <!--<create-file *ngIf="createfile" [file]="file" [dataId]="dataId" [parentPath]="parentPath" (createMethod)="createMethod($event)"></create-file>-->
+</div>
+<app-tips [content]="content" [(show)]="show"></app-tips>
