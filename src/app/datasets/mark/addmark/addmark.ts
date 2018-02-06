@@ -114,7 +114,7 @@ export class AddMarkComponent{
   }
   setXML(){
     if(this.coordinateId==0){
-      this.markCoordinateSet1 = this.markImage.markCoordinateSet;
+      //this.markCoordinateSet1 = this.markImage.markCoordinateSet;
       this.obj.createPerson = this.username;
       this.obj.xMax = this.xMax;
       this.obj.yMax = this.yMax;

@@ -250,7 +250,7 @@ export class JobCreationComponent {
     this.dataFirst=null;
     this.dataSecond=null;
     this.dataThird=null;
-/*    this.sceneService.getChainByScene(id)
+    this.sceneService.getChainByScene(id)
       .subscribe(results => {
         this.PluginInfo = results;
         this.arr = results;
@@ -265,7 +265,7 @@ export class JobCreationComponent {
         } else if (this.length == 0) {
           this.result = 1;
         }
-      });*/
+      });
     //console.log(this.PluginInfo[0]);
     /*this.sceneService.getChainWithLoss(id)
      .subscribe(result=>this.ChainInfo=result);*/

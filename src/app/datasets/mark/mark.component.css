@@ -46,6 +46,7 @@
   background: #fff;
   border:1px solid #fff;
   box-sizing: border-box;
+  height:100%;
 }
 .content{
   margin:20px;
@@ -61,5 +62,10 @@
 }
 .line{
   color: #000 !important;
+}
+#markDiv{
+  position: absolute;
+  z-index: 24;
+  margin: auto;
 }
 

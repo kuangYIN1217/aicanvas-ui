@@ -6,6 +6,7 @@ import {DatasetsService} from "../../common/services/datasets.service";
 import {calc_height} from '../../common/ts/calc_height'
 import {SERVER_URL} from "../../app.constants";
 import {ActivatedRoute, Router} from "@angular/router";
+import { Observable } from 'rxjs';
 declare var $:any;
 declare var jQuery:any;
 @Component({
@@ -74,12 +75,12 @@ export class MarkComponent{
   realWidth:number;
   realHeight:number;
   image:any;
-
+  proportion:number;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.username = localStorage['username'];
     this.dataName = sessionStorage.getItem("dataName");
-    console.log(this);
-    console.log(this.dataName);
+    //console.log(this);
+    //console.log(this.dataName);
   }
   home(){
     this.router.navigate(['../datasets']);
@@ -87,7 +88,7 @@ export class MarkComponent{
   ngOnInit(){
     calc_height(document.getElementById('mark-content'));
     this.route.queryParams.subscribe(params => {
-      $("#content").find("div").remove();
+      //$("#content").find("div").remove();
       this.dataId = params['dataId'];
       this.filePath = JSON.parse(params['filePath']);
       this.markPhoto = JSON.parse(params['markPhoto']);
@@ -103,6 +104,51 @@ export class MarkComponent{
       this.fileId = this.showPhoto.fileId;
       this.getSize(this.path);
     });
+    Observable.fromEvent(window, 'resize')
+      // .debounceTime(100) // 以免频繁处理
+      .subscribe((event) => {
+        // 这里处理页面变化时的操作
+        $("#mark-content").css("height",(window.innerHeight-240)+'px');
+        let width1 = parseInt($("#showImg").width());
+        let height1 = parseInt($("#showImg").height());
+        let proportion = width1/height1;
+        if(width1>height1){
+          $("#markDiv").css("width",$("#content").width());
+          $("#markDiv").css("height",parseInt($("#content").width())/proportion+'px');
+          $("#showImg").css("width",$("#content").width());
+          $("#showImg").css("height",parseInt($("#content").width())/proportion+'px');
+          $("#markDiv").css("top","0px");
+          $("#markDiv").css("bottom","0px");
+          $("#showImg").css("top","0px");
+          $("#showImg").css("bottom","0px");
+        }else{
+          $("#markDiv").css("height",$("#content").height());
+          $("#markDiv").css("width",parseInt($("#content").height())*proportion+'px');
+          $("#showImg").css("height",$("#content").height());
+          $("#showImg").css("width",parseInt($("#content").width())*proportion+'px');
+          $("#markDiv").css("left","0px");
+          $("#markDiv").css("right","0px");
+          $("#showImg").css("left","0px");
+          $("#showImg").css("right","0px");
+        }
+        let widthRadio = width1/parseInt($("#markDiv").width());
+        let heightRadio = height1/parseInt($("#markDiv").height());
+        for(let i=0;i<this.markImage.markCoordinateSet.length;i++){
+          let rectedId = $("#rectedId"+i);
+          if(rectedId.length>0){
+            let width = parseInt(rectedId.width());
+            let height = parseInt(rectedId.height());
+
+            let top = parseInt(rectedId.css("top"));
+            let left = parseInt(rectedId.css("left"));
+            console.log(top,left);
+            rectedId.css("width",width/widthRadio+'px');
+            rectedId.css("height",height/heightRadio+'px');
+            rectedId.css("top",top/heightRadio+'px');
+            rectedId.css("left",left/widthRadio+'px');
+          }
+        }
+      });
   }
 /*  ngAfterViewChecked(){
 
@@ -115,32 +161,34 @@ export class MarkComponent{
 
         }else{
           this.markImage = result;
-          let div:any;
-          div = $("<div></div>");
-          $(div).attr("id","markDiv");
-          $(div).css("width",result.imageWidth);
-          $(div).css("height",result.imageHighth);
-          $(div).css("position","absolute");
+/*          let div:any;
+          div = $("<div></div>");*/
+         // $("#markDiv").attr("id","markDiv");
+          $("#markDiv").css("width",result.imageWidth);
+          $("#markDiv").css("height",result.imageHighth);
+          this.proportion = result.imageWidth/result.imageHighth;
+/*          $(div).css("position","absolute");
           $(div).css("z-index","24");
-          $(div).css("margin","auto");
+          $(div).css("margin","auto");*/
           if(parseInt(result.imageWidth)>parseInt(result.imageHighth)){
-            $(div).css("top","0");
-            $(div).css("bottom","0");
+            $("#markDiv").css("top","0");
+            $("#markDiv").css("bottom","0");
           }else if(parseInt(result.imageWidth)<=parseInt(result.imageHighth)){
-            $(div).css("left","0");
-            $(div).css("right","0");
+            $("#markDiv").css("left","0");
+            $("#markDiv").css("right","0");
           }
-          $("#content").append($(div));
+          //$("#content").append($(div));
           this.markCoordinateSet = result.markCoordinateSet;
           this.draw(result.markCoordinateSet);
         }
       })
   }
   draw(arr){
-    $("#content").find("div").not("#markDiv").remove();
+    //$("#content").find("div").not("#markDiv").remove();
+    $("#markDiv").find("div").remove();
     let $this = this;
-    this.top = $("#showImg").offset().top;
-    this.left = $("#showImg").offset().left;
+    this.top = $("#markDiv").offset().top;
+    this.left = $("#markDiv").offset().left;
     this.imageLeft = $("#showImg").css("left");
     for(let i=0;i<arr.length;i++){
       this.rected = $("<div></div>");
@@ -164,29 +212,35 @@ export class MarkComponent{
       $(image).css("cursor","pointer");
       $(image).css("display","none");
       $(this.rected).append(image);
-      $("#content").append(this.rected);
+      $("#markDiv").append(this.rected);
       (function(index) {
         $("#rectedId"+index).click(function(){
-          //console.log(arr[index]);
-          $this.addMark = true;
-          $this.show = true;
-          $this.markName = arr[index].markName;
-          $this.xMin = arr[index].xMin;
-          $this.yMin = arr[index].yMin;
-          $this.xMax = arr[index].xMax;
-          $this.yMax = arr[index].yMax;
-          $this.coordinateId = arr[index].coordinateId;
-          $this.markleft = Number($this.xMax)+$this.left;
-          $this.marktop = Number($this.yMax)+$this.top;
-          $this.singleDiv = arr[index];
-          //console.log($this.markleft,$this.marktop);
-          $this.fileId = $this.showPhoto.fileId;
+          if(!$this.start){
+            //console.log(arr[index]);
+            $this.addMark = true;
+            $this.show = true;
+            $this.markName = arr[index].markName;
+            $this.xMin = arr[index].xMin;
+            $this.yMin = arr[index].yMin;
+            $this.xMax = arr[index].xMax;
+            $this.yMax = arr[index].yMax;
+            $this.coordinateId = arr[index].coordinateId;
+            $this.markleft = Number($this.xMax)+$this.left;
+            $this.marktop = Number($this.yMax)+$this.top;
+            $this.singleDiv = arr[index];
+            //console.log($this.markleft,$this.marktop);
+            $this.fileId = $this.showPhoto.fileId;
+          }
         });
         $("#rectedId"+index).mouseenter(function(){
-          $("#imageId"+index).css("display","block");
+          if(!$this.start){
+            $("#imageId"+index).css("display","block");
+          }
         });
         $("#rectedId"+index).mouseleave(function(){
-          $("#imageId"+index).css("display","none");
+          if(!$this.start){
+            $("#imageId"+index).css("display","none");
+          }
         });
         $("#imageId"+index).click(function(e:any){
           let oev = e || event;
@@ -197,18 +251,10 @@ export class MarkComponent{
               //console.log(result);
               $("#rectedId"+index).remove();
               $this.getSize($this.path);
-              //console.log($this.fileId);
-              //$this.setSign();
             })
         });
       })(i);
     }
-  }
-  setSign(){
-    this.datasetservice.setSign(this.fileId)
-      .subscribe(result=>{
-        console.log(result);
-      })
   }
   ngOnDestroy(){
     sessionStorage.removeItem('showPhoto');
@@ -216,7 +262,7 @@ export class MarkComponent{
   }
   imagePathChange(event:any){
     console.log(event);
-    $("#content").find("div").not("#markDiv").remove();
+    $("#markDiv").find("div").remove();
     this.getSize(event);
   }
   search(index){
@@ -255,10 +301,10 @@ export class MarkComponent{
   startMark(){
     this.start = true;
     this.load();
-    $("#markDiv").remove();
-    this.addDiv();
+    //$("#markDiv").remove();
+    //this.addDiv();
   }
-/*  enter(){
+  enter(){
     if(this.start){
       $("#content").css('cursor','crosshair');
       this.ox = $("<div id='ox'></div>");
@@ -268,14 +314,14 @@ export class MarkComponent{
       //console.log(this.top);
       //console.log(this.left);
     }
-  }*/
+  }
   leave(){
     if(this.start){
       $('#ox').remove();
       $('#oy').remove();
     }
   }
-/*  down(event:any){
+  down(event:any){
     if(this.start&&!this.addMark){
       var e = e || event;
       $('#ox').remove();
@@ -297,8 +343,8 @@ export class MarkComponent{
       this.endX = 0;
       this.endY = 0;
     }
-  }*/
-/*  up(event:any){
+  }
+  up(event:any){
     if(this.start&&!this.addMark){
       this.flag = 1;
       this.ox = $("<div id='ox'></div>");
@@ -310,8 +356,8 @@ export class MarkComponent{
       this.show = true;
       this.markleft = this.rectLeft+this.left+this.endX;
       this.marktop = this.rectTop+this.top+this.endY;
-/!*      console.log(this.startX,this.startY);
-      console.log(this.rectLeft+this.endX,this.rectTop+this.endY);*!/
+      console.log(this.startX,this.startY);
+      console.log(this.rectLeft+this.endX,this.rectTop+this.endY);
       if(this.diffX>0){
         this.xMax = this.startX;
         this.yMax = this.startY;
@@ -338,10 +384,10 @@ export class MarkComponent{
         "dataBase": this.dataName,
         "fileName": fileName,
         "imageDepth": isGray,
-        "imageHighth": this.endY,
+        "imageHighth": $("#markDiv").height(),
         "imageName": imageName,
         "imagePath": this.filePath[this.filePath.length-1].path1,
-        "imageWidth": this.endX,
+        "imageWidth": $("#markDiv").width(),
         "markCoordinateSet":this.markCoordinateSet,
         "segmented": "0"
       }
@@ -352,8 +398,8 @@ export class MarkComponent{
       console.log(this.markImage);
       console.log(this.xMax,this.yMax,this.xMin,this.yMin);
     }
-  }*/
-/*  move(event:any){
+  }
+  move(event:any){
     //console.log(this.flag);
     if(this.start&&!this.addMark){
       var e = e || event;
@@ -365,13 +411,13 @@ export class MarkComponent{
         $('#ox').css('z-index','100');
         $('#ox').css('left',0);
         $('#oy').css('width','2px');
-        $('#oy').css('height',$("#content img").height());
+        $('#oy').css('height',$("#markDiv img").height());
         $('#oy').css('backgroundColor','#fff');
         $('#oy').css('position','absolute');
         $('#oy').css('z-index','100');
         $('#oy').css('top',0);
-        $("#content").append(this.ox);
-        $("#content").append(this.oy);
+        $("#markDiv").append(this.ox);
+        $("#markDiv").append(this.oy);
         var x = e.pageX-this.left;
         var y = e.pageY-this.top;
         $("#ox").css("top",y + 'px');
@@ -387,10 +433,10 @@ export class MarkComponent{
         $(this.rect).css("top",this.rectTop+'px');
         $(this.rect).css("width",this.endX+'px');
         $(this.rect).css("height",this.endY+'px');
-        $("#content").append(this.rect);
+        $("#markDiv").append(this.rect);
       }
     }
-  }*/
+  }
   load(){
     this.canvas=document.getElementById("canvas");
     this.img = document.getElementById("showImg");
@@ -477,7 +523,7 @@ export class MarkComponent{
       "width":parseInt(width)-40+'px'
     }
   }
-  addDiv(){
+/*  addDiv(){
     let $this = this;
     let div:any;
     div = $("<div></div>");
@@ -587,8 +633,8 @@ export class MarkComponent{
           $this.show = true;
           $this.markleft = $this.rectLeft+$this.left+$this.endX;
           $this.marktop = $this.rectTop+$this.top+$this.endY;
-          /*      console.log(this.startX,this.startY);
-           console.log(this.rectLeft+this.endX,this.rectTop+this.endY);*/
+          /!*      console.log(this.startX,this.startY);
+           console.log(this.rectLeft+this.endX,this.rectTop+this.endY);*!/
           if($this.diffX>0){
             $this.xMax = $this.startX;
             $this.yMax = $this.startY;
@@ -631,44 +677,60 @@ export class MarkComponent{
         }
       });
     })(jQuery);
-  }
+  }*/
   loadImg(){
     let widthD = $("#content").width();
     let heightD = $("#content").height();
+    let proportion:number;
     let widthI:string;
     let heightI:string;
     console.log($("#img").width());
     console.log($("#img").height());
     widthI=$("#img").width();
     heightI=$("#img").height();
+    proportion = parseInt(widthI)/parseInt(heightI);
     if(parseInt(widthI)>parseInt(heightI)){
       $("#showImg").css("width",widthD);
-     // if(parseInt(heightI)>parseInt(heightD)){
-      //  $("#showImg").css("max-height",heightD);
-      //  $("#showImg").css("height",$("#showImg").height());
-      //}else{
-        $("#showImg").css("height","auto");
-        if(parseInt($("#showImg").height())>parseInt(heightD)){
-          $("#showImg").css("max-height",heightD);
-        }
-        $("#showImg").css("top","0");
-        $("#showImg").css("bottom","0");
-     // }
+      $("#showImg").css("height",parseInt(widthD)/proportion);
+      if(parseInt($("#showImg").height())>parseInt(heightD)){
+        $("#showImg").css("max-height",heightD);
+        $("#showImg").css("width",proportion*parseInt(heightD));
+        $("#markDiv").css("left","0");
+        $("#markDiv").css("right","0");
+        $("#markDiv").css("left","0");
+        $("#markDiv").css("right","0");
+      }else{
+        $("#markDiv").css("top","0");
+        $("#markDiv").css("bottom","0");
+        $("#markDiv").css("top","0");
+        $("#markDiv").css("bottom","0");
+      }
     }else if(parseInt(widthI)<=parseInt(heightI)){
       $("#showImg").css("height",heightD);
-      //if(parseInt(widthI)>parseInt(widthD)){
-        //$("#showImg").css("max-width",widthD);
-        //$("#showImg").css("width",$("#showImg").width());
-     // }else{
-        $("#showImg").css("width","auto");
+      $("#showImg").css("width",proportion*parseInt(heightD));
       if(parseInt($("#showImg").width())>parseInt(widthD)){
         $("#showImg").css("max-width",widthD);
+        $("#showImg").css("height",parseInt(widthD)/proportion);
+        $("#markDiv").css("top","0");
+        $("#markDiv").css("bottom","0");
+        $("#markDiv").css("top","0");
+        $("#markDiv").css("bottom","0");
+      }else{
+        $("#markDiv").css("left","0");
+        $("#markDiv").css("right","0");
+        $("#markDiv").css("left","0");
+        $("#markDiv").css("right","0");
       }
-        $("#showImg").css("left","0");
-        $("#showImg").css("right","0");
-     // }
     }
-
+    $("#markDiv").css("width",$("#showImg").width());
+    $("#markDiv").css("height",$("#showImg").height());
+/*    if(parseInt($("#img").width())>parseInt($("#img").height())){
+      $("#markDiv").css("top","0");
+      $("#markDiv").css("bottom","0");
+    }else if(parseInt($("#img").width())<=parseInt($("#img").height())){
+      $("#markDiv").css("left","0");
+      $("#markDiv").css("right","0");
+    }*/
   }
   getMaxHeight(){
     if($("#img").length>0){

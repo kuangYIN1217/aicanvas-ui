@@ -35,7 +35,7 @@ export class MyFileComponent{
   }
   updateName(item){
     if(item.flag==undefined||item.flag!=1) {
-      this.fileName = item.dataName;
+      this.fileName = this.filterName(item.dataName);
       item.flag = 1;
     }
 
