@@ -76,6 +76,9 @@ export class MarkComponent{
   realHeight:number;
   image:any;
   proportion:number;
+  bool:boolean = false;
+  widthRadio:number;
+  heightRadio:number;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.username = localStorage['username'];
     this.dataName = sessionStorage.getItem("dataName");
@@ -108,51 +111,69 @@ export class MarkComponent{
       // .debounceTime(100) // 以免频繁处理
       .subscribe((event) => {
         // 这里处理页面变化时的操作
-        $("#mark-content").css("height",(window.innerHeight-240)+'px');
-        let width1 = parseInt($("#showImg").width());
-        let height1 = parseInt($("#showImg").height());
-        let proportion = width1/height1;
-        if(width1>height1){
-          $("#markDiv").css("width",$("#content").width());
-          $("#markDiv").css("height",parseInt($("#content").width())/proportion+'px');
-          $("#showImg").css("width",$("#content").width());
-          $("#showImg").css("height",parseInt($("#content").width())/proportion+'px');
-          $("#markDiv").css("top","0px");
-          $("#markDiv").css("bottom","0px");
-          $("#showImg").css("top","0px");
-          $("#showImg").css("bottom","0px");
-        }else{
-          $("#markDiv").css("height",$("#content").height());
-          $("#markDiv").css("width",parseInt($("#content").height())*proportion+'px');
-          $("#showImg").css("height",$("#content").height());
-          $("#showImg").css("width",parseInt($("#content").width())*proportion+'px');
-          $("#markDiv").css("left","0px");
-          $("#markDiv").css("right","0px");
-          $("#showImg").css("left","0px");
-          $("#showImg").css("right","0px");
-        }
-        let widthRadio = width1/parseInt($("#markDiv").width());
-        let heightRadio = height1/parseInt($("#markDiv").height());
-        for(let i=0;i<this.markImage.markCoordinateSet.length;i++){
-          let rectedId = $("#rectedId"+i);
-          if(rectedId.length>0){
-            let width = parseInt(rectedId.width());
-            let height = parseInt(rectedId.height());
+        //let bool:boolean = false;
+        $("#mark-content").css("min-height","auto");
+        if(this.bool){
+          let divHeight = parseFloat($("#content").height());
+          let divWidth = parseFloat($("#content").width());
+          console.log(window.innerHeight-240);
+          $("#mark-content").css("height",(window.innerHeight-240)+'px');
+          let boxh = window.innerHeight-280;
+          let boxw = parseFloat($("#content").width());
+          let width1 = parseFloat($("#showImg").width());
+          let height1 = parseFloat($("#showImg").height());
+          let proportion = width1/height1;
 
-            let top = parseInt(rectedId.css("top"));
-            let left = parseInt(rectedId.css("left"));
-            console.log(top,left);
-            rectedId.css("width",width/widthRadio+'px');
-            rectedId.css("height",height/heightRadio+'px');
-            rectedId.css("top",top/heightRadio+'px');
-            rectedId.css("left",left/widthRadio+'px');
+          if(Math.abs(height1-divHeight)<4){
+            $("#markDiv").css("height",boxh+'px');
+            $("#markDiv").css("width",parseFloat($("#markDiv").height())*proportion+'px');
+            $("#showImg").css("height",boxh+'px');
+            $("#showImg").css("width",parseFloat($("#markDiv").height())*proportion+'px');
+            $("#markDiv").css("left","0px");
+            $("#markDiv").css("right","0px");
+            $("#showImg").css("left","0px");
+            $("#showImg").css("right","0px");
+            let widthRadio = width1/(parseFloat($("#markDiv").height())*proportion);
+            let heightRadio = height1/boxh;
+            this.drawDiv(width1,height1,widthRadio,heightRadio,boxh,proportion);
+          }else if(Math.abs(width1-divWidth)<4){
+            $("#markDiv").css("width",$("#content").width());
+            $("#markDiv").css("height",parseFloat($("#content").width())/proportion+'px');
+            $("#showImg").css("width",$("#content").width());
+            $("#showImg").css("height",parseFloat($("#content").width())/proportion+'px');
+            $("#markDiv").css("top","0px");
+            $("#markDiv").css("bottom","0px");
+            $("#showImg").css("top","0px");
+            $("#showImg").css("bottom","0px");
+            let widthRadio = width1/(parseFloat($("#content").width()));
+            let heightRadio = height1/(parseFloat($("#content").width())/proportion);
+            this.drawDiv(width1,height1,widthRadio,heightRadio,boxh,proportion);
           }
+          this.bool = false;
+        }else{
+          this.bool = true;
         }
       });
   }
-/*  ngAfterViewChecked(){
-
-  }*/
+  drawDiv(width1,height1,widthRadio,heightRadio,boxh,proportion){
+    if(typeof this.markImage.markCoordinateSet!="number"){
+      for(let i=0;i<this.markImage.markCoordinateSet.length;i++){
+        let rectedId = $("#rectedId"+i);
+        if(rectedId.length>0){
+          let width = parseFloat(rectedId.width());
+          let height = parseFloat(rectedId.height());
+          let top = parseFloat(rectedId.css("top"));
+          let left = parseFloat(rectedId.css("left"));
+          let topRadio = top/width1;
+          let leftRadio = left/height1;
+          rectedId.css("width",width/widthRadio+'px');
+          rectedId.css("height",height/heightRadio+'px');
+          rectedId.css("top",topRadio*boxh+'px');
+          rectedId.css("left",leftRadio*parseFloat($("#markDiv").height())*proportion+'px');
+        }
+      }
+    }
+  }
   getSize(path){
     this.datasetservice.getMarkInfo(path)
       .subscribe(result=>{
@@ -161,15 +182,9 @@ export class MarkComponent{
 
         }else{
           this.markImage = result;
-/*          let div:any;
-          div = $("<div></div>");*/
-         // $("#markDiv").attr("id","markDiv");
           $("#markDiv").css("width",result.imageWidth);
           $("#markDiv").css("height",result.imageHighth);
           this.proportion = result.imageWidth/result.imageHighth;
-/*          $(div).css("position","absolute");
-          $(div).css("z-index","24");
-          $(div).css("margin","auto");*/
           if(parseInt(result.imageWidth)>parseInt(result.imageHighth)){
             $("#markDiv").css("top","0");
             $("#markDiv").css("bottom","0");
@@ -177,7 +192,6 @@ export class MarkComponent{
             $("#markDiv").css("left","0");
             $("#markDiv").css("right","0");
           }
-          //$("#content").append($(div));
           this.markCoordinateSet = result.markCoordinateSet;
           this.draw(result.markCoordinateSet);
         }
@@ -301,8 +315,6 @@ export class MarkComponent{
   startMark(){
     this.start = true;
     this.load();
-    //$("#markDiv").remove();
-    //this.addDiv();
   }
   enter(){
     if(this.start){
@@ -482,8 +494,6 @@ export class MarkComponent{
     }
   }
   next(){
-    //console.log(this.showPhoto.fileId);
-    //console.log(this.markPhoto[this.markPhoto.length-1].fileId);
     if(this.markPhoto.length==1||(this.showPhoto.fileId==this.markPhoto[this.markPhoto.length-1].fileId)){
       return false
     }else{
@@ -497,8 +507,6 @@ export class MarkComponent{
       sessionStorage.setItem("showPhotoIndex",String(this.showPhotoIndex));
       $("#img").remove();
       this.initDiv();
-      //this.getNewImage();
-      //this.getMaxHeight();
     }
   }
   initDiv(){
@@ -693,7 +701,7 @@ export class MarkComponent{
       $("#showImg").css("width",widthD);
       $("#showImg").css("height",parseInt(widthD)/proportion);
       if(parseInt($("#showImg").height())>parseInt(heightD)){
-        $("#showImg").css("max-height",heightD);
+        $("#showImg").css("height",heightD);
         $("#showImg").css("width",proportion*parseInt(heightD));
         $("#markDiv").css("left","0");
         $("#markDiv").css("right","0");
@@ -709,7 +717,7 @@ export class MarkComponent{
       $("#showImg").css("height",heightD);
       $("#showImg").css("width",proportion*parseInt(heightD));
       if(parseInt($("#showImg").width())>parseInt(widthD)){
-        $("#showImg").css("max-width",widthD);
+        $("#showImg").css("width",widthD);
         $("#showImg").css("height",parseInt(widthD)/proportion);
         $("#markDiv").css("top","0");
         $("#markDiv").css("bottom","0");
@@ -724,13 +732,6 @@ export class MarkComponent{
     }
     $("#markDiv").css("width",$("#showImg").width());
     $("#markDiv").css("height",$("#showImg").height());
-/*    if(parseInt($("#img").width())>parseInt($("#img").height())){
-      $("#markDiv").css("top","0");
-      $("#markDiv").css("bottom","0");
-    }else if(parseInt($("#img").width())<=parseInt($("#img").height())){
-      $("#markDiv").css("left","0");
-      $("#markDiv").css("right","0");
-    }*/
   }
   getMaxHeight(){
     if($("#img").length>0){
@@ -743,23 +744,6 @@ export class MarkComponent{
       imgObj.addEventListener("load",this.loadImg);
       $("#img").css("display","none");
     }
-/*    let top = $("#mark-content").offset().top;
-    let win_height = $(window).height();
-    let width = $("#mark-content").width();
-    let imgWidth = $("#showImg").width();
-    console.log(imgWidth);
-    if(imgWidth>=width){
-      $("#showImg").css("width",width-40+'px');
-      $("#showImg").css("left","20px");
-      $("#showImg").css("max-height",win_height - top - 40 + 'px');
-    }else{
-      $("#showImg").css("left",(width-imgWidth)/2);
-      $("#showImg").css("max-height",win_height - top - 40 + 'px');
-    }
-    let imageHeight = $("#showImg").height();
-    $("#content").css("width",imgWidth+'px');
-    $("#content").css("height",imageHeight+'px');
-    $("#showImg").css("left","0");*/
   }
   filterName(name){
     if(name.match(/^\d{13}_/)){
