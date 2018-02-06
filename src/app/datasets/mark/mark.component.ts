@@ -77,8 +77,7 @@ export class MarkComponent{
   image:any;
   proportion:number;
   bool:boolean = false;
-  widthRadio:number;
-  heightRadio:number;
+  sign:boolean = false;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.username = localStorage['username'];
     this.dataName = sessionStorage.getItem("dataName");
@@ -177,10 +176,10 @@ export class MarkComponent{
   getSize(path){
     this.datasetservice.getMarkInfo(path)
       .subscribe(result=>{
-        //console.log(result);
         if(result==1){
-
+          this.sign = false;
         }else{
+          this.sign = true;
           this.markImage = result;
           $("#markDiv").css("width",result.imageWidth);
           $("#markDiv").css("height",result.imageHighth);
@@ -203,6 +202,8 @@ export class MarkComponent{
     let $this = this;
     this.top = $("#markDiv").offset().top;
     this.left = $("#markDiv").offset().left;
+    $("#showImg").css("height",$("#markDiv").height());
+    $("#showImg").css("width",$("#markDiv").width());
     this.imageLeft = $("#showImg").css("left");
     for(let i=0;i<arr.length;i++){
       this.rected = $("<div></div>");
@@ -687,51 +688,51 @@ export class MarkComponent{
     })(jQuery);
   }*/
   loadImg(){
-    let widthD = $("#content").width();
-    let heightD = $("#content").height();
-    let proportion:number;
-    let widthI:string;
-    let heightI:string;
-    console.log($("#img").width());
-    console.log($("#img").height());
-    widthI=$("#img").width();
-    heightI=$("#img").height();
-    proportion = parseInt(widthI)/parseInt(heightI);
-    if(parseInt(widthI)>parseInt(heightI)){
-      $("#showImg").css("width",widthD);
-      $("#showImg").css("height",parseInt(widthD)/proportion);
-      if(parseInt($("#showImg").height())>parseInt(heightD)){
-        $("#showImg").css("height",heightD);
-        $("#showImg").css("width",proportion*parseInt(heightD));
-        $("#markDiv").css("left","0");
-        $("#markDiv").css("right","0");
-        $("#markDiv").css("left","0");
-        $("#markDiv").css("right","0");
-      }else{
-        $("#markDiv").css("top","0");
-        $("#markDiv").css("bottom","0");
-        $("#markDiv").css("top","0");
-        $("#markDiv").css("bottom","0");
-      }
-    }else if(parseInt(widthI)<=parseInt(heightI)){
-      $("#showImg").css("height",heightD);
-      $("#showImg").css("width",proportion*parseInt(heightD));
-      if(parseInt($("#showImg").width())>parseInt(widthD)){
+    if(!this.sign){
+      let widthD = $("#content").width();
+      let heightD = $("#content").height();
+      let proportion:number;
+      let widthI:string;
+      let heightI:string;
+      widthI=$("#img").width();
+      heightI=$("#img").height();
+      proportion = parseInt(widthI)/parseInt(heightI);
+      if(parseInt(widthI)>parseInt(heightI)){
         $("#showImg").css("width",widthD);
         $("#showImg").css("height",parseInt(widthD)/proportion);
-        $("#markDiv").css("top","0");
-        $("#markDiv").css("bottom","0");
-        $("#markDiv").css("top","0");
-        $("#markDiv").css("bottom","0");
-      }else{
-        $("#markDiv").css("left","0");
-        $("#markDiv").css("right","0");
-        $("#markDiv").css("left","0");
-        $("#markDiv").css("right","0");
+        if(parseInt($("#showImg").height())>parseInt(heightD)){
+          $("#showImg").css("height",heightD);
+          $("#showImg").css("width",proportion*parseInt(heightD));
+          $("#markDiv").css("left","0");
+          $("#markDiv").css("right","0");
+          $("#markDiv").css("left","0");
+          $("#markDiv").css("right","0");
+        }else{
+          $("#markDiv").css("top","0");
+          $("#markDiv").css("bottom","0");
+          $("#markDiv").css("top","0");
+          $("#markDiv").css("bottom","0");
+        }
+      }else if(parseInt(widthI)<=parseInt(heightI)){
+        $("#showImg").css("height",heightD);
+        $("#showImg").css("width",proportion*parseInt(heightD));
+        if(parseInt($("#showImg").width())>parseInt(widthD)){
+          $("#showImg").css("width",widthD);
+          $("#showImg").css("height",parseInt(widthD)/proportion);
+          $("#markDiv").css("top","0");
+          $("#markDiv").css("bottom","0");
+          $("#markDiv").css("top","0");
+          $("#markDiv").css("bottom","0");
+        }else{
+          $("#markDiv").css("left","0");
+          $("#markDiv").css("right","0");
+          $("#markDiv").css("left","0");
+          $("#markDiv").css("right","0");
+        }
       }
+      $("#markDiv").css("width",$("#showImg").width());
+      $("#markDiv").css("height",$("#showImg").height());
     }
-    $("#markDiv").css("width",$("#showImg").width());
-    $("#markDiv").css("height",$("#showImg").height());
   }
   getMaxHeight(){
     if($("#img").length>0){
