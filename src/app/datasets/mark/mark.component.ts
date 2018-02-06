@@ -511,7 +511,7 @@ export class MarkComponent{
     }
   }
   initDiv(){
-    $("#content").find("div").remove();
+    $("#markDiv").find("div").remove();
     this.showPhoto = this.markPhoto[this.showPhotoIndex];
     sessionStorage.setItem("showPhoto",JSON.stringify(this.showPhoto));
     this.filePath[this.filePath.length-1].path1 = this.showPhoto.path;
@@ -522,6 +522,7 @@ export class MarkComponent{
   }
   getSrc(item){
     let path = item.path;
+    console.log(path);
     return `${SERVER_URL}/download/${path.slice(26)}`;
   }
   getMarkDiv(){
