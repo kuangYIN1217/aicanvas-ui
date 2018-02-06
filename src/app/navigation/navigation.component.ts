@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 
 
 
-
+declare var $:any;
 @Component({
   selector: 'navigation',
   styleUrls: ['./css/navigation.component.css'],
@@ -46,6 +46,25 @@ export class NavigationComponent {
         });
     }
 
+  }
+
+  changNav(index){
+    if(index==1){
+      $("#nav"+index).find("img").eq(0).attr("src","assets/navigation/icon_xxzl_01_h.png");
+    }else if(index==3){
+      $("#nav"+index).find("img").eq(0).attr("src","assets/navigation/icon_xlrw_03_h.png");
+    }else if(index==6){
+      $("#nav"+index).find("img").eq(0).attr("src","assets/navigation/icon_zj_06_h.png");
+    }
+  }
+  removeNav(index){
+    if(index==1) {
+      $("#nav" + index).find("img").eq(0).attr("src", "assets/navigation/icon_xxzl_01_n.png");
+    }else if(index==3){
+      $("#nav" + index).find("img").eq(0).attr("src", "assets/navigation/icon_xlrw_03_n.png");
+    }else if(index==6){
+      $("#nav" + index).find("img").eq(0).attr("src", "assets/navigation/icon_zj_06_n.png");
+    }
   }
   change_menu(index){
     this.focusTab = index;
