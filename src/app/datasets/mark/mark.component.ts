@@ -53,8 +53,6 @@ export class MarkComponent{
   isGray:boolean=true;//是否为灰度
   differVal:number=10;//允许的色差值
   imgData:any;
-  imgWidth:number;
-  imgHeight:number;
   diffX:number;
   diffY:number;
   markImage:any={};
@@ -94,15 +92,12 @@ export class MarkComponent{
       this.dataId = params['dataId'];
       this.filePath = JSON.parse(params['filePath']);
       this.markPhoto = JSON.parse(params['markPhoto']);
-      console.log(this.filePath);
-      console.log(this.markPhoto);
       if(sessionStorage.getItem("showPhoto")){
         this.showPhoto = JSON.parse(sessionStorage.getItem("showPhoto"));
       }else{
         this.showPhoto = this.markPhoto[0];
       }
       sessionStorage.setItem("showPhoto",JSON.stringify(this.showPhoto));
-      //console.log(this.showPhoto);
       this.addPhotoPath();
       this.path = this.filePath[this.filePath.length-1].path1;
       this.fileId = this.showPhoto.fileId;
@@ -399,10 +394,10 @@ export class MarkComponent{
         "dataBase": this.dataName,
         "fileName": fileName,
         "imageDepth": isGray,
-        "imageHighth": this.imgHeight,
+        "imageHighth": $("#img").width(),
         "imageName": imageName,
         "imagePath": this.filePath[this.filePath.length-1].path1,
-        "imageWidth": this.imgWidth,
+        "imageWidth": $("#img").width(),
         "markCoordinateSet":this.markCoordinateSet,
         "segmented": "0",
         "showHigth": $("#markDiv").height(),
@@ -700,8 +695,6 @@ export class MarkComponent{
       let proportion:number;
       let widthI:string;
       let heightI:string;
-      this.imgWidth = $("#img").width();
-      this.imgHeight = $("#img").height();
       widthI=$("#img").width();
       heightI=$("#img").height();
       proportion = parseInt(widthI)/parseInt(heightI);

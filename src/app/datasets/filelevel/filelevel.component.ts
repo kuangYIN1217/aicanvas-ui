@@ -72,8 +72,9 @@ export class FileLevelComponent{
       this.fileName = this.filterName(item.fileName);
       this.sameName = this.fileName;
       item.flag = 1;
+      $("#myfile-input").attr("autofocus","autofocus");
     }
-    $("#myfile-input").focus();
+    $("#myfile-input").attr("autofocus","autofocus");
   }
   changeName(){
 
