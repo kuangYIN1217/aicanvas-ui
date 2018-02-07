@@ -70,11 +70,11 @@ export class MyFileComponent{
       })
   }
   enterDataset(item){
-    //console.log(item);
+    console.log(item);
     sessionStorage.setItem("dataName",item.dataName);
     //this.datasetsService.enterDataset(item.dataId,encodeURI(item.dataPath),null,null)
      // .subscribe(result=>{
-    this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataPath}});
+    this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataPath,"dataset":true}});
         //console.log(result);
       //})
   }

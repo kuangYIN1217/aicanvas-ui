@@ -37,7 +37,7 @@ export class FileLevelComponent{
     }else if(item.fileType=='文本文件'){
       return 'assets/datasets/file/wb.png';
     }else if(item.fileType=='图片文件'){
-      let path = this.outputImg(item.path);
+      let path = this.outputImg(item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName);
       return `${SERVER_URL}/download/${path}`;
     }else if(item.fileType=='视频文件'){
       return 'assets/datasets/file/sp.png';
@@ -140,25 +140,25 @@ export class FileLevelComponent{
     if(item.fileType=='文件夹'){
       //this.datasetsService.enterDataset(item.dataId,encodeURI(item.path),null,null)
        // .subscribe(result=>{
-          this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.path,"dataName":this.dataName}});
+          this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataSetFileDirectoryPath.parentPath,"currentName":item.fileName,"dataset":false}});
          // console.log(result);
        // })
     }else if(item.fileType=='文本文件'){
       this.textShow = true;
       this.textName = item.fileName;
-      this.datasetsService.getTxt(item.path.substring(26))
+      this.datasetsService.getTxt((item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).substring(26))
         .subscribe(result=>{
           this.textContent = result.text();
-          console.log(this.textContent);
+          //console.log(this.textContent);
         })
     }else if(item.fileType=='视频文件'){
       this.videoShow = true;
-      this.videoSrc = item.path;
+      this.videoSrc = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
     }else if(item.fileType=='音频文件'){
       this.audioShow = true;
-      this.audioSrc = item.path;
+      this.audioSrc = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
     }else if(item.fileType=='图片文件'){
-      this.image = item.path.slice(26);
+      this.image = (item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).slice(26);
       this.photoShow = true;
     }
   }
@@ -170,7 +170,7 @@ export class FileLevelComponent{
   }
   deleteFile(item){
     console.log(item);
-    this.datasetsService.deleteFile(item.fileId,item.dataId,encodeURI(item.path))
+    this.datasetsService.deleteFile(item.fileId,item.dataId,encodeURI(item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName))
       .subscribe(result=>{
         this.deleteResult.emit('delete success');
       })

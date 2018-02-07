@@ -94,6 +94,8 @@ export class MarkComponent{
       this.dataId = params['dataId'];
       this.filePath = JSON.parse(params['filePath']);
       this.markPhoto = JSON.parse(params['markPhoto']);
+      console.log(this.filePath);
+      console.log(this.markPhoto);
       if(sessionStorage.getItem("showPhoto")){
         this.showPhoto = JSON.parse(sessionStorage.getItem("showPhoto"));
       }else{
@@ -181,13 +183,13 @@ export class MarkComponent{
         }else{
           this.sign = true;
           this.markImage = result;
-          $("#markDiv").css("width",result.imageWidth);
-          $("#markDiv").css("height",result.imageHighth);
-          this.proportion = result.imageWidth/result.imageHighth;
-          if(parseInt(result.imageWidth)>parseInt(result.imageHighth)){
+          $("#markDiv").css("width",result.showWidth);
+          $("#markDiv").css("height",result.showHigth);
+          this.proportion = result.showWidth/result.showHigth;
+          if(parseInt(result.showWidth)>parseInt(result.showHigth)){
             $("#markDiv").css("top","0");
             $("#markDiv").css("bottom","0");
-          }else if(parseInt(result.imageWidth)<=parseInt(result.imageHighth)){
+          }else if(parseInt(result.showWidth)<=parseInt(result.showHigth)){
             $("#markDiv").css("left","0");
             $("#markDiv").css("right","0");
           }
@@ -289,10 +291,10 @@ export class MarkComponent{
     }
   }
   addPhotoPath(){
-    let path = this.showPhoto.path.split('/');
+    // let path = this.showPhoto.path.split('/');
     let obj:any={};
-    obj.path1 = this.showPhoto.path;
-    obj.showpath = path[path.length-1];
+    obj.path1 = this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName;
+    obj.showpath = this.showPhoto.fileName;
     this.filePath.push(obj);
     console.log(this.filePath);
   }
@@ -397,12 +399,14 @@ export class MarkComponent{
         "dataBase": this.dataName,
         "fileName": fileName,
         "imageDepth": isGray,
-        "imageHighth": $("#markDiv").height(),
+        "imageHighth": this.imgHeight,
         "imageName": imageName,
         "imagePath": this.filePath[this.filePath.length-1].path1,
-        "imageWidth": $("#markDiv").width(),
+        "imageWidth": this.imgWidth,
         "markCoordinateSet":this.markCoordinateSet,
-        "segmented": "0"
+        "segmented": "0",
+        "showHigth": $("#markDiv").height(),
+        "showWidth": $("#markDiv").width()
       }
       this.fileId = this.showPhoto.fileId;
       this.markName = '';
@@ -514,14 +518,15 @@ export class MarkComponent{
     $("#markDiv").find("div").remove();
     this.showPhoto = this.markPhoto[this.showPhotoIndex];
     sessionStorage.setItem("showPhoto",JSON.stringify(this.showPhoto));
-    this.filePath[this.filePath.length-1].path1 = this.showPhoto.path;
-    let temp = this.showPhoto.path.split('/');
-    this.filePath[this.filePath.length-1].showpath = temp[temp.length-1];
+    //console.log(this.showPhoto);
+    this.filePath[this.filePath.length-1].path1 = this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName;
+    //let temp = this.showPhoto.path.split('/');
+    this.filePath[this.filePath.length-1].showpath = this.showPhoto.fileName;
     this.path = this.filePath[this.filePath.length-1].path1;
     this.getSize(this.path);
   }
   getSrc(item){
-    let path = item.path;
+    let path = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
     console.log(path);
     return `${SERVER_URL}/download/${path.slice(26)}`;
   }
@@ -695,6 +700,8 @@ export class MarkComponent{
       let proportion:number;
       let widthI:string;
       let heightI:string;
+      this.imgWidth = $("#img").width();
+      this.imgHeight = $("#img").height();
       widthI=$("#img").width();
       heightI=$("#img").height();
       proportion = parseInt(widthI)/parseInt(heightI);

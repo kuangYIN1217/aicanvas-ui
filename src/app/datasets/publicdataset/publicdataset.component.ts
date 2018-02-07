@@ -42,6 +42,7 @@ export class PublicDatasetComponent {
   markPhoto:any[]=[];
   show:boolean = false;
   content:string='';
+  currentName:string;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -51,6 +52,7 @@ export class PublicDatasetComponent {
     this.route.queryParams.subscribe(params => {
       this.dataId = params['dataId'];
       this.parentPath = params['parentPath'];
+      this.currentName = params['currentName'];
       if(params['filePath']==undefined){
 
       }else if(params['filePath']!="[]"){

@@ -145,7 +145,7 @@ export class DatasetsService {
       });
   }
   enterDataset(dataId,level,fileType,fileName){
-    let path = "/api/dynamicSelect/"+dataId+"/"+fileType+"/"+fileName+"?parentPath="+level;
+    let path = "/api/dynamicSelect/"+dataId+"/"+fileType+"/"+fileName+"?path="+level;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
       .map((response: Response) => {

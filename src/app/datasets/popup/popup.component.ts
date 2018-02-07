@@ -306,6 +306,7 @@ export class PopupComponent {
     for(let j=0;j<this.uploader.queue.length;j++){
       if(Number(j)>2){
         this.uploader.queue[3].remove();
+        alert("请上传3个以内的文件！");
         j-=1;
         continue;
       }else{
@@ -313,9 +314,6 @@ export class PopupComponent {
           let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
           console.log(bool);
           if(bool==false){
-            let obj:any={};
-            obj.name = this.uploader.queue[j].file.name;
-            obj.type = this.uploader.queue[j].file.type;
             for(let k=0;k<this.datasetsType.length;k++){
               if(this.datasetsType[k].flag==1){
                 this.dataType = this.datasetsType[k].id;
@@ -323,7 +321,8 @@ export class PopupComponent {
               }
             }
             //obj.type = this.uploader.queue[j].file.type;
-            this.showUpload.push(obj);
+            this.showUpload.push(this.uploader.queue[j]);
+            this.showUpload[j].status = "上传中";
             //this.fileType = this.judgeType(this.showUpload[j]);
             let element = this.uploader.queue[j];
             // element.alias = "photo";
@@ -345,38 +344,44 @@ export class PopupComponent {
   }
   isInArray(arr,value){
     for(var i = 0; i < arr.length; i++){
-      if(value.file.name == arr[i].name&&value.file.type==arr[i].type){
+      if(value.file.name == arr[i].file.name&&value.file.type==arr[i].file.type){
         return true;
       }
     }
     return false;
   }
   getProgress(j){
-    if(j>2){
-      this.showUpload.splice(3,1);
-      return
+      if(j>2){
+        this.showUpload.splice(3,1);
+        return
+      }else{
+        this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
+          this.progress=0;
+          if(progress==100){
+
+          }else if(progress<100){
+
+          }
+        };
+        this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
+          this.showUpload[j].status = "上传成功";
+        };
+        this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
+          this.showUpload[j].status = "上传失败";
+        };
+        this.uploader.onBuildItemForm = (item, form) => {
+          form.append("fileType", this.fileType);
+          //form.append(key2, value2);
+        };
+        //this.uploader.uploadAll();
+        this.uploader.queue[j].upload();
+      }
+  }
+  showStatus(item){
+    if(item.progress<100){
+      return "上传中"
     }else{
-      this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
-        this.progress=0;
-        if(progress==100){
-          //this.showUpload[j].status = "上传成功";
-        }else if(progress<100){
-          this.showUpload[j].status = "上传中";
-          this.showUpload[j].progress = progress;
-        }
-      };
-      this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
-        this.showUpload[j].status = "上传成功";
-      };
-      this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
-        this.showUpload[j].status = "上传失败";
-      };
-      this.uploader.onBuildItemForm = (item, form) => {
-        form.append("fileType", this.fileType);
-        //form.append(key2, value2);
-      };
-      //this.uploader.uploadAll();
-      this.uploader.queue[j].upload();
+      return "item.status";
     }
   }
   uploadStatus(item){

@@ -196,7 +196,7 @@ export class JobDetailComponent {
   downloadLog() {
     // this.jobService.downloadLog(this.job.jobPath).subscribe((data)=>{
     let path = "/api/log?jobPath=" + this.job.jobPath;
-    let url = SERVER_URL + path
+    let url = SERVER_URL + path;
     // window.open(url);
     location.href = url;
     // });
