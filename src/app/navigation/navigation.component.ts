@@ -48,7 +48,7 @@ export class NavigationComponent {
 
   }
 
-  changNav(index){
+/*  changNav(index){
     if(index==1){
       $("#nav"+index).find("img").eq(0).attr("src","assets/navigation/icon_xxzl_01_h.png");
     }else if(index==3){
@@ -65,7 +65,7 @@ export class NavigationComponent {
     }else if(index==6){
       $("#nav" + index).find("img").eq(0).attr("src", "assets/navigation/icon_zj_06_n.png");
     }
-  }
+  }*/
   change_menu(index){
     this.focusTab = index;
     this.show_menu = !this.show_menu;

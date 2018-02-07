@@ -16,7 +16,7 @@
       <div class="nav_element" style="height: 120px;">
         <img src="assets/navigation/logo1.png" class="logo">
       </div>
-        <div class="nav_element" id="nav1" [class.focusTab] = "focusTab==1" routerLinkActive="active"  (click)="changeTab(1 , '/overview');focusCollapse='0'" (mouseenter)="changNav(1)" (mouseleave)="removeNav(1)">
+        <div class="nav_element" id="nav1" [class.focusTab] = "focusTab==1" routerLinkActive="active"  (click)="changeTab(1 , '/overview');focusCollapse='0'">
             <img [src]="focusTab!=1?'assets/navigation/icon_xxzl_01_n.png':'assets/navigation/icon_xxzl_01_h.png'">
             <a href="#" onclick="return false">信息总览</a>
         </div>

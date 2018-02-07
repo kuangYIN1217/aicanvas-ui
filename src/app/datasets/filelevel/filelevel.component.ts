@@ -25,6 +25,7 @@ export class FileLevelComponent{
   videoSrc:string;
   audioSrc:string;
   image:string='';
+  sameName:string='';
   constructor(private datasetsService:DatasetsService,private route: ActivatedRoute ,private router: Router){
 
   }
@@ -69,9 +70,16 @@ export class FileLevelComponent{
   updateName(item){
     if(item.flag==undefined||item.flag!=1) {
       this.fileName = this.filterName(item.fileName);
+      this.sameName = this.fileName;
       item.flag = 1;
-      $("#myfile-input").focus();
     }
+    setTimeout(() => {
+      $("#myfile-input").focus();
+      $("#myfile-input").attr("autofocus");
+    },2000);
+  }
+  changeName(){
+
   }
   enterfile(item){
     item.enter = 1;
@@ -127,13 +135,24 @@ export class FileLevelComponent{
   }
   saveName(item){
     console.log(item);
-    this.datasetsService.updateFileName(item.fileId,this.fileName)
-      .subscribe(result=>{
-        if(result=='rename success'){
-          item.flag = 2;
-          this.getResult.emit('rename success');
-        }
-      })
+    this.fileName.replace(/(^\s*)|(\s*$)/g,"");
+    if(this.sameName==this.fileName){
+      item.flag = 2;
+      return
+    }else{
+      this.datasetsService.updateFileName(item.fileId,this.fileName)
+        .subscribe(
+          (result)=>{
+          if(result=='rename success'){
+            item.flag = 2;
+            this.getResult.emit('rename success');
+          }
+        },
+          (error) => {
+            this.fileName = this.sameName;
+            item.flag = 2;
+        })
+    }
   }
   enterDataset(item){
     console.log(item);

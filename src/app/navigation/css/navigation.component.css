@@ -165,12 +165,12 @@ nav{
   margin-left: 30px;
   vertical-align: middle;
 }
-.nav_element:hover{
+/*.nav_element:hover{
   background: #333333;
 }
 .nav_element a:hover{
   color: #ffffff;
-}
+}*/
 @media (min-width:1200px) and (max-width:1366px) {
   .logout{
     right: 25px;
