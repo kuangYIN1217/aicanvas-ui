@@ -14,6 +14,7 @@ export class MyFileComponent{
   @Input() d_tableData:string;
   @Output() getResult: EventEmitter<any> = new EventEmitter();
   fileName:string;
+  sameName:string='';
   constructor(private datasetsService:DatasetsService,private route: ActivatedRoute ,private router: Router){
 
   }
@@ -36,6 +37,7 @@ export class MyFileComponent{
   updateName(item){
     if(item.flag==undefined||item.flag!=1) {
       this.fileName = this.filterName(item.dataName);
+      this.sameName = this.fileName;
       item.flag = 1;
     }
 
@@ -55,13 +57,24 @@ export class MyFileComponent{
   }
   saveName(item){
     console.log(item);
-    this.datasetsService.updateSetName(item.dataId,this.fileName)
-      .subscribe(result=>{
-        if(result=='rename success'){
-          item.flag = 2;
-          this.getResult.emit('success');
-        }
-      })
+    this.fileName.replace(/(^\s*)|(\s*$)/g,"");
+    if(this.sameName==this.fileName){
+      item.flag = 2;
+      return
+    }else {
+      this.datasetsService.updateSetName(item.dataId, this.fileName)
+        .subscribe(
+          (result) => {
+            if (result == 'rename success') {
+              item.flag = 2;
+              this.getResult.emit('rename success');
+            }
+          },
+          (error) => {
+            this.fileName = this.sameName;
+            item.flag = 2;
+          })
+    }
   }
   deleteDateSet(id){
     this.datasetsService.deleteDataSet(id)
