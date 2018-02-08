@@ -186,7 +186,8 @@ export class EnterDatasetComponent {
       for(let i=4;i<pa.length-1;i++){
         let obj:any={};
         obj.path1 = pa.slice(0,i+1).join("/");
-        obj.showpath = this.filterName(pa[i]);
+        //obj.showpath = this.filterName(pa[i]);
+        obj.showpath = pa[i];
         this.filePath.push(obj);
       }
     }
@@ -226,7 +227,11 @@ export class EnterDatasetComponent {
   }
   $select_change(){
     this.searchFile = true;
-    this.dataset = "false";
+    if(this.currentName==''||this.currentName==undefined){
+      this.dataset = "true";
+    }else{
+      this.dataset = "false";
+    }
     this.dynamicSearch();
     this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
   }

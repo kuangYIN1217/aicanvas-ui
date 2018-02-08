@@ -31,14 +31,15 @@ export class PublicLevelComponent{
   ngOnChanges(...args: any[]) {
     console.log(this.d_tableData);
   }
+
   getImage(item){
     if(item.fileType=='文件夹'){
       return 'assets/datasets/file/sjxq_wjj.png';
     }else if(item.fileType=='文本文件'){
       return 'assets/datasets/file/wb.png';
     }else if(item.fileType=='图片文件'){
-      let path = this.outputImg(item.path);
-      return `${SERVER_URL}/download/basedataset/${path}`;
+      let path = this.outputImg(item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName);
+      return `${SERVER_URL}/download/${path}`;
     }else if(item.fileType=='视频文件'){
       return 'assets/datasets/file/sp.png';
     }else if(item.fileType=='音频文件'){
@@ -66,13 +67,7 @@ export class PublicLevelComponent{
   outputImg(item){
     return item.slice(26);
   }
-  updateName(item){
-    if(item.flag==undefined||item.flag!=1) {
-      this.fileName = this.filterName(item.fileName);
-      item.flag = 1;
-      $("#myfile-input").focus();
-    }
-  }
+
   enterfile(item){
     item.enter = 1;
     item.show = true;
@@ -93,26 +88,6 @@ export class PublicLevelComponent{
   output1(item){
     return item.substring(26,item.length);
   }
-  /*  entercheck(item){
-   item.checked = true;
-   }*/
-  /*  leavecheck(item){
-   item.enter = 1;
-   item.show = false;
-   }*/
-  /*  getImg(item){
-   console.log(item);
-   if(item.show){
-   return 'assets/datasets/file/xz_hui.png';
-   }else if(!item.show){
-   return 'assets/datasets/file/xz_hui.png';
-   }else if(item.checked){
-   return 'assets/datasets/file/xz_lv.png';
-   }else if(!item.checked){
-   return 'assets/datasets/file/xz_hui.png';
-   }
-   //item.checked&&item.show?'assets/datasets/file/xz_lv.png':'assets/datasets/file/xz_hui.png'
-   }*/
   checkFile(item){
     item.checked = !item.checked;
     console.log(item.checked);
@@ -125,40 +100,31 @@ export class PublicLevelComponent{
       item.parent = 2;
     }
   }
-  saveName(item){
-    console.log(item);
-    this.datasetsService.updateFileName(item.fileId,this.fileName)
-      .subscribe(result=>{
-        if(result=='rename success'){
-          item.flag = 2;
-          this.getResult.emit('rename success');
-        }
-      })
-  }
+
   enterDataset(item){
     console.log(item);
     if(item.fileType=='文件夹'){
       //this.datasetsService.enterDataset(item.dataId,encodeURI(item.path),null,null)
       // .subscribe(result=>{
-      this.router.navigate(['../publicdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.path,"dataName":this.dataName}});
+      this.router.navigate(['../publicdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataSetFileDirectoryPath.parentPath,"currentName":item.fileName,"dataset":false}});
       // console.log(result);
       // })
     }else if(item.fileType=='文本文件'){
       this.textShow = true;
       this.textName = item.fileName;
-      this.datasetsService.getTxt(item.path.substring(26))
+      this.datasetsService.getTxt((item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).substring(26))
         .subscribe(result=>{
           this.textContent = result.text();
-          console.log(this.textContent);
+          //console.log(this.textContent);
         })
     }else if(item.fileType=='视频文件'){
       this.videoShow = true;
-      this.videoSrc = item.path;
+      this.videoSrc = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
     }else if(item.fileType=='音频文件'){
       this.audioShow = true;
-      this.audioSrc = item.path;
+      this.audioSrc = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
     }else if(item.fileType=='图片文件'){
-      this.image = item.path.slice(26);
+      this.image = (item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).slice(26);
       this.photoShow = true;
     }
   }
@@ -170,7 +136,7 @@ export class PublicLevelComponent{
   }
   deleteFile(item){
     console.log(item);
-    this.datasetsService.deleteFile(item.fileId,item.dataId,encodeURI(item.path))
+    this.datasetsService.deleteFile(item.fileId,item.dataId,encodeURI(item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName))
       .subscribe(result=>{
         this.deleteResult.emit('delete success');
       })

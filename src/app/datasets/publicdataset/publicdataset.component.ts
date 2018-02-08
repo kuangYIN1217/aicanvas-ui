@@ -43,6 +43,7 @@ export class PublicDatasetComponent {
   show:boolean = false;
   content:string='';
   currentName:string;
+  dataset:string='';
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -52,6 +53,7 @@ export class PublicDatasetComponent {
     this.route.queryParams.subscribe(params => {
       this.dataId = params['dataId'];
       this.parentPath = params['parentPath'];
+      this.dataset = params['dataset'];
       this.currentName = params['currentName'];
       if(params['filePath']==undefined){
 
@@ -61,7 +63,7 @@ export class PublicDatasetComponent {
         this.searchFile = true;
       }
       this.dynamicSearch();
-      this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
+      this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
       //this.url =  SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
       this.uploader = new FileUploader({
         url:this.url,
@@ -78,13 +80,26 @@ export class PublicDatasetComponent {
   }
   getResult(event){
     this.searchBool = true;
+    if(this.currentName==''||this.currentName==undefined){
+      this.dataset = "true";
+    }else{
+      this.dataset = "false";
+    }
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
   }
   deleteResult(event){
+    if(this.filePath.length==1){
+      this.currentName='';
+    }
+    if(this.currentName==''||this.currentName==undefined){
+      this.dataset = "true";
+    }else{
+      this.dataset = "false";
+    }
     this.dynamicSearch();
     this.searchFile = true;
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
   }
   getType(id){
     if(id==1){
@@ -125,39 +140,65 @@ export class PublicDatasetComponent {
   }
   search(index){
     this.searchBool = true;
+    this.dataset = "true";
     this.filePath.splice(index+1,this.filePath.length-1);
     this.parentPath = this.filePath[this.filePath.length-1].path1;
     console.log(this.filePath);
+    this.currentName='';
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname);
+    this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName);
   }
-  getAllFile(dataId,parentPath,fileType,fileName){
-    this.datasetservice.enterDataset(dataId,encodeURI(parentPath),fileType,fileName)
+  getAllFile(dataId,parentPath,fileType,fileName,currentName){
+    let path:any;
+    if(this.dataset=='true'){
+      path = parentPath;
+    }else if(this.dataset=='false'){
+      path = parentPath+"/"+currentName;
+    }
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName)
       .subscribe(result=>{
         this.d_tableData = result;
         if(!this.searchBool&&!this.searchFile){
-          let path:any;
-          path = parentPath.split("/");
-          let obj:any={};
-          obj.path1 = parentPath;
-          obj.showpath = path[path.length-1];
-          this.filePath.push(obj);
+          if(currentName==''||currentName==undefined){
+            let path:any;
+            path = parentPath.split("/");
+            let obj:any={};
+            obj.path1 = parentPath;
+            obj.showpath = path[path.length-1];
+            this.getFilePath(obj.path1);
+            this.filePath.push(obj);
+          }else{
+            let obj:any={};
+            obj.path1 = parentPath+"/"+currentName;
+            obj.showpath = currentName;
+            this.getFilePath(obj.path1);
+            this.filePath.push(obj);
+          }
         }
         this.searchBool = false;
         this.searchFile = false;
         console.log(result);
       })
   }
+  getFilePath(path){
+    let pa = path.split("/");
+    if(pa.length>5&&this.filePath.length==0){
+      for(let i=4;i<pa.length-1;i++){
+        let obj:any={};
+        obj.path1 = pa.slice(0,i+1).join("/");
+        obj.showpath = pa[i];
+        this.filePath.push(obj);
+      }
+    }
+  }
   $mark_click(){
     for(let i=0;i<this.d_tableData.length;i++){
       if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='文件夹'){
-        //alert("您选择的内容中包含不可标注文件！");
         this.show = true;
         this.content = "您选择的内容中包含不可标注文件！";
         this.markPhoto=[];
         return false;
       }else if(this.d_tableData[i].checked&&this.d_tableData[i].fileType!='图片文件'&&this.d_tableData[i].fileType!='文件夹'){
-        //alert("您选择的文件格式暂不支持数据标注！/请上传3个以内的文件！");
         this.show = true;
         this.content = "您选择的文件格式暂不支持数据标注！";
         this.markPhoto=[];
@@ -185,8 +226,13 @@ export class PublicDatasetComponent {
   }
   $select_change(){
     this.searchFile = true;
+    if(this.currentName==''||this.currentName==undefined){
+      this.dataset = "true";
+    }else{
+      this.dataset = "false";
+    }
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
   }
   dynamicSearch(){
     if(this.s_select_name == ''){
@@ -200,131 +246,6 @@ export class PublicDatasetComponent {
       this.temptype = this.getType(this.s_select_datasetType);
     }
   }
-  $create_click(){
-    this.datasetservice.createFile(this.dataId,encodeURI(this.parentPath))
-      .subscribe(result=>{
-        if(result=='文件夹创建成功'){
-          this.searchBool = true;
-          this.dynamicSearch();
-          this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
-        }
-      })
-  }
-
-  selectedFileOnChanged(event:any){
-    for(let j=0;j<this.uploader.queue.length;j++){
-      if(Number(j)>2){
-        this.uploader.queue[3].remove();
-        j-=1;
-        continue;
-      }else{
-        let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
-        console.log(bool);
-        if(bool==false){
-          let obj:any={};
-          obj.name = this.uploader.queue[j].file.name;
-          obj.type = this.uploader.queue[j].file.type;
-          this.showUpload.push(obj);
-          this.fileType = this.judgeType(this.showUpload[j]);
-          let element = this.uploader.queue[j];
-          // element.alias = "photo";
-          element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
-          //console.log(this.fileType);
-          //console.log(element.url);
-          this.getProgress(j);
-        }else{
-          continue;
-        }
-      }
-    }
-    console.log(this.uploader.queue);
-    console.log(this.showUpload);
-  }
-  isInArray(arr,value){
-    for(var i = 0; i < arr.length; i++){
-      if(value.file.name == arr[i].name&&value.file.type==arr[i].type){
-        return true;
-      }
-    }
-    return false;
-  }
-  getProgress(j){
-    if(j>2){
-      this.showUpload.splice(3,1);
-      return
-    }else{
-      this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
-        this.progress=0;
-        if(progress==100){
-          //this.showUpload[j].status = "上传成功";
-        }else if(progress<100){
-          this.showUpload[j].status = "上传中";
-          this.showUpload[j].progress = progress;
-        }
-      };
-      this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
-        this.showUpload[j].status = "上传成功";
-      };
-      this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
-        this.showUpload[j].status = "上传失败";
-      };
-      this.uploader.onBuildItemForm = (item, form) => {
-        form.append("fileType", this.fileType);
-        //form.append(key2, value2);
-      };
-      //this.uploader.uploadAll();
-      this.searchFile = true;
-      this.uploader.queue[j].upload();
-    }
-  }
-  uploadStatus(item){
-    if(item.status=='上传成功'){
-      return 'assets/datasets/upload/tc_cg.png';
-    }else if(item.status=='上传失败'){
-      return 'assets/datasets/upload/tc_sb.png';
-    }else if(item.status=='上传中'){
-      return 'assets/datasets/upload/tc_sc.png';
-    }
-  }
-  getName(item){
-    return item.name;
-  }
-  judgeType(item){
-    let type = item.type.split('/')[0];
-    if(type=="video"){
-      return '视频文件';
-    }else if(type=="audio"){
-      return '音频文件';
-    }else if(type=="text"||item.type=="application/pdf"||item.type=="application/msword"){
-      return '文本文件';
-    }else if(type=="image"){
-      return '图片文件';
-    }else if(type=='application'){
-      return '文件夹';
-    }
-  }
-  judgeIcon(item){
-    let type = item.type.split('/')[0];
-    if(type=="video"){
-      return 'assets/datasets/file/sp-upload.png';
-    }else if(type=="audio"){
-      return 'assets/datasets/file/sy-upload.png';
-    }else if(type=="text"){
-      return 'assets/datasets/file/wb-upload.png';
-    }else if(type=="image"){
-      return 'assets/datasets/file/tp-upload.png';
-    }else if(type=='application'){
-      return 'assets/datasets/file/tc_wjj.png';
-    }
-  }
-  close(){
-    this.uploadShow = false;
-    this.uploader.queue=[];
-    this.showUpload=[];
-    this.searchBool = true;
-    this.dynamicSearch();
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname);
-  }
   filterName(name){
     if(name.match(/^\d{13}_/)){
       return name.substring(14);
@@ -333,3 +254,4 @@ export class PublicDatasetComponent {
     }
   }
 }
+
