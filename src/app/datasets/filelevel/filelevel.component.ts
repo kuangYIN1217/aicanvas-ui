@@ -71,7 +71,7 @@ export class FileLevelComponent{
   }
   updateName(item,i){
     if(item.flag==undefined||item.flag!=1) {
-      this.fileName = this.filterName(item.fileName);
+      this.fileName = item.fileName;
       this.sameName = this.fileName;
       item.flag = 1;
     }

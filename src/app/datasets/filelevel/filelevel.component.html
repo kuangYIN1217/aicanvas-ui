@@ -5,7 +5,7 @@
       <img [style.display]="item.enter==1?'':'none'" [src]="item.img==1?'assets/datasets/file/sc_hong.png':'assets/datasets/file/sc_hui.png'" class="myfile-delete" (mouseleave)="leavedelete(item)" (mouseenter)="enterdelete(item)" (click)="deleteFile(item)"/>
       <img [style.display]="item.enter==1||item.parent==1?'':'none'" [src]="item.checked||item.sb?'assets/datasets/file/xz_lv.png':'assets/datasets/file/xz_hui.png'" class="myfile-check" (click)="checkFile(item)" (mouseleave)="leavechecked(item)" (mouseenter)="enterchecked(item)"/>
       <img [src]="getImage(item)" class="myfile-file" [ngClass]="{marginTop:item.enter==1,imageBorder:item.fileType=='图片文件'}" (click)="enterDataset(item)" [ngStyle]="getTypeTop(item)"/>
-      <span *ngIf="item.flag==undefined||item.flag!=1" (dblclick)="updateName(item,i)" title="{{filterName(item.fileName)}}">{{filterName(item.fileName)}}</span>
+      <span *ngIf="item.flag==undefined||item.flag!=1" (dblclick)="updateName(item,i)" title="{{item.fileName}}">{{item.fileName}}</span>
       <input type="text" value={{item.fileName}} autofocus="autofocus" class="myfile-input" id={{i}} [style.display]="item.flag==1?'':'none'" (blur)="saveName(item)" name="fileName" [(ngModel)]="fileName"/>
     </div>
   </div>

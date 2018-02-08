@@ -43,11 +43,11 @@
           <a href="#" onclick="return false"  style="padding-left: 42px">模型服务管理</a>
         </div>
       </div>
-      <div class="nav_element"  id="nav3" [class.focusTab] = "focusTab==3" routerLinkActive="active"  (click)="changeTab(3 , '/jobcreation');focusCollapse='0'" (mouseenter)="changNav(3)" (mouseleave)="removeNav(3)">
+      <div class="nav_element"  id="nav3" [class.focusTab] = "focusTab==3" routerLinkActive="active"  (click)="changeTab(3 , '/jobcreation');focusCollapse='0'">
         <img [src]="focusTab!=3?'assets/navigation/icon_xlrw_03_n.png':'assets/navigation/icon_xlrw_03_h.png'">
         <a href="#" onclick="return false" >训练任务管理</a>
       </div>
-      <div class="nav_element"  id="nav6" [class.focusTab] = "focusTab==6" routerLinkActive="active"  (click)="changeTab(6 , '/algplugins');focusCollapse='0'" (mouseenter)="changNav(6)" (mouseleave)="removeNav(6)">
+      <div class="nav_element"  id="nav6" [class.focusTab] = "focusTab==6" routerLinkActive="active"  (click)="changeTab(6 , '/algplugins');focusCollapse='0'">
         <img [src]="focusTab!=6?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'">
         <a href="#" onclick="return false" >算法组件库</a>
       </div>

@@ -40,7 +40,7 @@ export class MyFileComponent{
   }
   updateName(item,i){
     if(item.flag==undefined||item.flag!=1) {
-      this.fileName = this.filterName(item.dataName);
+      this.fileName = item.dataName;
       this.sameName = this.fileName;
       item.flag = 1;
     }

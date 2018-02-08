@@ -265,7 +265,8 @@ export class EnterDatasetComponent {
         for(let j=0;j<this.uploader.queue.length;j++){
           if(Number(j)>2){
             this.uploader.queue[3].remove();
-            alert("请上传3个以内的文件！");
+            this.show = true;
+            this.content = "请上传3个以内的文件！";
             j-=1;
             continue;
           }else{
