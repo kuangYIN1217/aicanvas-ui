@@ -26,6 +26,8 @@ export class FileLevelComponent{
   audioSrc:string;
   image:string='';
   sameName:string='';
+  show:boolean = false;
+  content:string='';
   constructor(private datasetsService:DatasetsService,private route: ActivatedRoute ,private router: Router){
 
   }
@@ -67,16 +69,15 @@ export class FileLevelComponent{
   outputImg(item){
     return item.slice(26);
   }
-  updateName(item){
+  updateName(item,i){
     if(item.flag==undefined||item.flag!=1) {
       this.fileName = this.filterName(item.fileName);
       this.sameName = this.fileName;
       item.flag = 1;
-      $("#myfile-input").attr("autofocus","autofocus");
     }
-    $("#myfile-input").attr("autofocus","autofocus");
-  }
-  changeName(){
+    setTimeout(()=>{
+      $(`#${i}`).attr("id",i).focus();
+    },300);
 
   }
   enterfile(item){
@@ -149,6 +150,8 @@ export class FileLevelComponent{
           (error) => {
             this.fileName = this.sameName;
             item.flag = 2;
+            this.show = true;
+            this.content = "您修改的名称已存在！";
         })
     }
   }

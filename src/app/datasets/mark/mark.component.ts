@@ -280,7 +280,7 @@ export class MarkComponent{
   search(index){
     if(index!=this.filePath.length-1){
       let filePath = this.filePath.slice(0,index+1);
-      this.router.navigate(['../enterdataset'],{queryParams:{"parentPath":this.filePath[index].path1,"dataId":this.dataId,"filePath":JSON.stringify(filePath)}});
+      this.router.navigate(['../enterdataset'],{queryParams:{"parentPath":this.filePath[index].path1,"dataId":this.dataId,"filePath":JSON.stringify(filePath),"dataset":true}});
     }else{
       return false;
     }
@@ -474,7 +474,7 @@ export class MarkComponent{
       $this.cxt.putImageData($this.imgData,0,0);
     };
     this.img.crossOrigin = 'anonymous';
-    this.img.src = `${SERVER_URL}/download/${this.showPhoto.path.slice(26)}`;
+    this.img.src = `${SERVER_URL}/download/${(this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName).slice(26)}`;
   }
   pre(){
     if(this.markPhoto.length==1||(this.showPhoto.fileId==this.markPhoto[0].fileId)){

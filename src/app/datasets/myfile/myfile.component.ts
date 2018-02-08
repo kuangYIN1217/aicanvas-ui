@@ -4,6 +4,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DatasetsService} from "../../common/services/datasets.service";
 import {ActivatedRoute, Router} from "@angular/router";
+
+declare var $:any;
 @Component({
   selector: 'cpt-myfile',
   styleUrls: ['./myfile.component.css'],
@@ -15,6 +17,8 @@ export class MyFileComponent{
   @Output() getResult: EventEmitter<any> = new EventEmitter();
   fileName:string;
   sameName:string='';
+  show:boolean = false;
+  content:string='';
   constructor(private datasetsService:DatasetsService,private route: ActivatedRoute ,private router: Router){
 
   }
@@ -34,13 +38,15 @@ export class MyFileComponent{
       return 'assets/datasets/file/sjjgl_qt.png';
     }
   }
-  updateName(item){
+  updateName(item,i){
     if(item.flag==undefined||item.flag!=1) {
       this.fileName = this.filterName(item.dataName);
       this.sameName = this.fileName;
       item.flag = 1;
     }
-
+    setTimeout(()=>{
+      $(`#${i}`).attr("id",i).focus();
+    },300);
   }
   enterfile(item){
     item.enter = 1;
@@ -73,6 +79,8 @@ export class MyFileComponent{
           (error) => {
             this.fileName = this.sameName;
             item.flag = 2;
+            this.show = true;
+            this.content = "您修改的名称已存在！";
           })
     }
   }
