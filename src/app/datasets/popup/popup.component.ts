@@ -64,6 +64,7 @@ export class PopupComponent {
   dataType:number;
   content:string='';
   showTip:boolean = false;
+  saveLoad:any[]=[];
   constructor (private toastyService:ToastyService, private toastyConfig: ToastyConfig,private datasetsService:DatasetsService) {
     this.datasetsService.getDataSetType()
       .subscribe(result=>{
@@ -221,6 +222,7 @@ export class PopupComponent {
     });
   }
   $hide_click () {
+    this.saveLoad=[];
     this.show = false;
     this.clickOne = true;
     // this.once_click = false;
@@ -303,45 +305,54 @@ export class PopupComponent {
   }
   selectedFileOnChanged(event:any){
     console.log(this.uploader.queue);
-    for(let j=0;j<this.uploader.queue.length;j++){
-      if(Number(j)>2){
-        this.uploader.queue[3].remove();
-        this.showTip = true;
-        this.content = "请上传3个以内的文件！";
-        j-=1;
-        continue;
-      }else{
-        if (this.uploader.queue[j].file.name.match(/^.*(\.zip|\.ZIP)$/)){
-          let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
-          console.log(bool);
-          if(bool==false){
-            for(let k=0;k<this.datasetsType.length;k++){
-              if(this.datasetsType[k].flag==1){
-                this.dataType = this.datasetsType[k].id;
-                break;
-              }
-            }
-            //obj.type = this.uploader.queue[j].file.type;
-            this.showUpload.push(this.uploader.queue[j]);
-            this.showUpload[j].status = "上传中";
-            //this.fileType = this.judgeType(this.showUpload[j]);
-            let element = this.uploader.queue[j];
-            // element.alias = "photo";
-            element.url = SERVER_URL_DATASETS+"/api/uploadDataSetZip?creator="+localStorage['username']+"&typeId="+this.dataType;
-            //console.log(this.fileType);
-            //console.log(element.url);
-            this.getProgress(j);
-          }else{
-            continue;
-          }
-        }else{
+    if((this.uploader.queue.length-this.saveLoad.length)>3){
+      this.showTip = true;
+      this.content = "请上传3个以内的文件！";
+      let a = this.uploader.queue.length;
+      for(let k=this.saveLoad.length;k<a;k++){
+        this.uploader.queue[this.saveLoad.length].remove();
+      }
+      return false;
+    }else{
+      for(let j=0;j<this.uploader.queue.length;j++){
+        if(Number(j)>2){
+          this.uploader.queue[3].remove();
           this.showTip = true;
-          this.content = "你上传的压缩文件格式不对，当前只支持ZIP格式！"
+          this.content = "请上传3个以内的文件！";
+          j-=1;
+          continue;
+        }else{
+          if (this.uploader.queue[j].file.name.match(/^.*(\.zip|\.ZIP)$/)){
+            let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
+            if(bool==false){
+              for(let k=0;k<this.datasetsType.length;k++){
+                if(this.datasetsType[k].flag==1){
+                  this.dataType = this.datasetsType[k].id;
+                  break;
+                }
+              }
+              //obj.type = this.uploader.queue[j].file.type;
+              this.saveLoad.push(this.uploader.queue[j]);
+              this.showUpload.push(this.uploader.queue[j]);
+              this.showUpload[j].status = "上传中";
+              //this.fileType = this.judgeType(this.showUpload[j]);
+              let element = this.uploader.queue[j];
+              // element.alias = "photo";
+              element.url = SERVER_URL_DATASETS+"/api/uploadDataSetZip?creator="+localStorage['username']+"&typeId="+this.dataType;
+              //console.log(this.fileType);
+              //console.log(element.url);
+              this.getProgress(j);
+            }else{
+              //this.uploader.queue[j].remove();
+              continue;
+            }
+          }else{
+            this.showTip = true;
+            this.content = "你上传的压缩文件格式不对，当前只支持ZIP格式！"
+          }
         }
       }
     }
-    console.log(this.uploader.queue);
-    console.log(this.showUpload);
   }
   isInArray(arr,value){
     for(var i = 0; i < arr.length; i++){

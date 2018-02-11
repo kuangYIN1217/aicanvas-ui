@@ -37,13 +37,13 @@ export class NavigationComponent {
           this.router.navigate([url]);
         });
     }else{
-      //this.focusTab = 7;
       this.focusTab = nextFocus;
       this.show_menu = !this.show_menu;
       this.router.navigate(['/'], {skipLocationChange: true})
         .then(() => {
           this.router.navigate(['/datasetssave']);
         });
+      $("#nav8").find('.selectDown').attr("src","assets/navigation/kong_bai.png");
     }
 
   }
@@ -69,6 +69,19 @@ export class NavigationComponent {
   change_menu(index){
     this.focusTab = index;
     this.show_menu = !this.show_menu;
+  }
+  getArrow(){
+    if(this.show_menu){
+      return{
+        "width":"11px",
+        "height":"6px"
+      }
+    }else{
+      return{
+        "width":"7px",
+        "height":"11px"
+      }
+    }
   }
   constructor(private location: Location,private router:Router) {
     if (!localStorage['username']) {

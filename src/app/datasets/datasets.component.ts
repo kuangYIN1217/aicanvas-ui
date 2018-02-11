@@ -48,7 +48,7 @@ export class DatasetsComponent{
     })
   }
   getResult(event){
-    if(event=='success'){
+    if(event=='rename success'){
       this.initTable();
     }
   }

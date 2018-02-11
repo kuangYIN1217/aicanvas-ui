@@ -23,8 +23,7 @@
 .selectContainer select{
   border-radius: 5px;
   border: 1px solid #d3d3d3;
-  background: url("../../assets/taskStatus/select.png") no-repeat;
-  background-position: right;
+  background: url("../../assets/navigation/xlk.png") no-repeat right 10px center;
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;
