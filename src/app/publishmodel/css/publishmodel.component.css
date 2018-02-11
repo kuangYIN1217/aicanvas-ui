@@ -1,14 +1,82 @@
-.model{
+.dialog{
   position: fixed;
-  top:50px;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(111, 111, 111, 0.3);
+  opacity: 1;
+  z-index: 8888;
+}
+.model{
+  position: absolute;
+  top:50%;
   left:50%;
-  margin-left: -143px;
-  width:286px;
-  height:66px;
-  background: #44c46e;
-  color: #fff;
+  margin-left: -255px;
+  margin-top: -110px;
+  width:510px;
+  height:220px;
+  background: #fff;
+  color: #333333;
+  border-radius: 6px;
+  border:1px solid #ccc;
+  -webkit-box-shadow:0 0 10px #999999;
+  -moz-box-shadow:0 0 10px #999999;
+  box-shadow:0 0 10px #999999;
   font-size: 14px;
-  z-index: 9999;
+}
+.dialogHeader{
+  background: #eeeeee;
+  border-top-left-radius :6px;
+  border-top-right-radius:6px;
+  height:40px;
+  overflow: hidden;
+}
+.dialogHeader span{
+  float: left;
+  display: inline-block;
+  margin-left:30px;
+  line-height: 40px;
+}
+.dialogHeader img{
+  float: right;
+  display: inline-block;
+  margin:14px 30px 0 0;
+  cursor: pointer;
+}
+.success-margin{
+  margin-top: 66px;
+}
+.fail-margin{
+  margin:40px 0 50px;
+}
+.dialogContent span,.dialogContent img,.dialogContent a{
+  display: inline-block;
+  vertical-align: top;
+}
+.dialogContent img{
+  margin-right: 3px;
+}
+.dialogContent a{
+  color: #ff7c35;
+  text-decoration:underline
+}
+.dialogBtn{
+
+}
+.btn{
+  font-size: 14px;
+  text-align: center;
+  line-height: 30px;
+  width: 76px;
+  box-sizing: border-box;
+  height:30px;
+  border-radius: 5px;
+  border:1px solid #d3d3d3;
+  text-decoration: none;
+  display: inline-block;
+  background: #eee;
+  color: #333;
 }
 .model-box{
   overflow: hidden;

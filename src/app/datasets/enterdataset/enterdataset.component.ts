@@ -307,7 +307,12 @@ export class EnterDatasetComponent {
             }else{
               let element = this.uploader.queue[j];
               // element.alias = "photo";
-              element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
+              if(this.currentName==''||this.currentName==undefined){
+                element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
+              }else{
+                let parent = this.parentPath+"/"+this.currentName;
+                element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+parent+"&dataId="+this.dataId+"&fileType="+this.fileType;
+              }
               //console.log(this.fileType);
               //console.log(element.url);
               this.getProgress(j);
