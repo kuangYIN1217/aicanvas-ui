@@ -23,7 +23,7 @@
       <div class="nav_element" id="nav8" [class.focusTab] = "focusTab==7||focusTab==4||focusTab==2||focusTab==5" routerLinkActive="active"  (click)="changeTab(7);focusCollapse='0'" >
         <img [src]="focusTab==7||focusTab==4||focusTab==2||focusTab==5?'assets/navigation/sjj_bai.png':'assets/navigation/sjj_hui.png'">
         <a href="#" onclick="return false">数据存储</a>
-        <img [src]="show_menu?'assets/navigation/shang_bai.png':'assets/navigation/kong_hui.png'" class="selectDown" [ngStyle]="getArrow()"/>
+        <img [src]="loadArrow()" class="selectDown" [ngStyle]="getArrow()"/>
       </div>
       <div [style.display]="show_menu?'':'none'">
         <div class="nav_element" [class.focusTab1] = "focusTab==7" routerLinkActive="active"  (click)="changeTab(7 , '/datasetssave');focusCollapse='0'">

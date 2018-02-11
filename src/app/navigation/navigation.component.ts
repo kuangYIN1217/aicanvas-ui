@@ -36,6 +36,11 @@ export class NavigationComponent {
         .then(() => {
           this.router.navigate([url]);
         });
+      if(this.focusTab==2||this.focusTab==4||this.focusTab==5||this.focusTab==7){
+        $("#nav8").find('.selectDown').attr("src","assets/navigation/shang_bai.png");
+      }else{
+        $("#nav8").find('.selectDown').attr("src","assets/navigation/kong_hui.png");
+      }
     }else{
       this.focusTab = nextFocus;
       this.show_menu = !this.show_menu;
@@ -43,7 +48,11 @@ export class NavigationComponent {
         .then(() => {
           this.router.navigate(['/datasetssave']);
         });
-      $("#nav8").find('.selectDown').attr("src","assets/navigation/kong_bai.png");
+      if(this.show_menu){
+        $("#nav8").find('.selectDown').attr("src","assets/navigation/shang_bai.png");
+      }else{
+        $("#nav8").find('.selectDown').attr("src","assets/navigation/kong_bai.png");
+      }
     }
 
   }
@@ -70,8 +79,19 @@ export class NavigationComponent {
     this.focusTab = index;
     this.show_menu = !this.show_menu;
   }
+  loadArrow(){
+    if(this.focusTab==2||this.focusTab==4||this.focusTab==5||this.focusTab==7){
+      if(this.show_menu){
+        return "assets/navigation/shang_bai.png"
+      }else{
+        return "assets/navigation/kong_bai.png"
+      }
+    }else{
+      return "assets/navigation/kong_hui.png"
+    }
+  }
   getArrow(){
-    if(this.show_menu){
+    if($("#nav8").find('.selectDown').attr("src")=="assets/navigation/shang_bai.png"){
       return{
         "width":"11px",
         "height":"6px"
