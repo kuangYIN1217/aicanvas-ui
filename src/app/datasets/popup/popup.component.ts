@@ -304,7 +304,7 @@ export class PopupComponent {
     });
   }
   selectedFileOnChanged(event:any){
-    console.log(this.uploader.queue);
+    //console.log(this.uploader.queue);
     if((this.uploader.queue.length-this.saveLoad.length)>3){
       this.showTip = true;
       this.content = "请上传3个以内的文件！";

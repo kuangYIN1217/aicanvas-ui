@@ -198,8 +198,8 @@ export class DatasetsService {
         }
       });
   }
-  getMarkInfo(image){
-    let path = "/api/getMarkXMLInfo?imagePath="+image;
+  getMarkInfo(fileId){
+    let path = "/api/getMarkXMLInfo?imageFileId="+fileId;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
       .map((response: Response) => {

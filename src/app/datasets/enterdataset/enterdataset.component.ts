@@ -43,7 +43,8 @@ export class EnterDatasetComponent {
   show:boolean = false;
   content:string='';
   dataset:string = "";
-  currentName:string='';
+  currentName:string="";
+  saveLoad:any[]=[];
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -54,7 +55,7 @@ export class EnterDatasetComponent {
       this.dataId = params['dataId'];
       this.parentPath = params['parentPath'];
       this.dataset = params['dataset'];
-      this.currentName = params['currentName'];
+      //this.currentName = params['currentName'];
       if(params['filePath']==undefined){
 
       }else if(params['filePath']!="[]"){
@@ -72,10 +73,18 @@ export class EnterDatasetComponent {
       });
     });
   }
+  enterChange(event){
+    console.log(event);
+    this.dynamicSearch();
+    this.dataset = event.dataset;
+    this.currentName = event.currentName;
+    this.dataId = event.dataId;
+    this.parentPath = event.parentPath;
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+  }
   $upload_click(){
     this.uploadShow = true;
     //this.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
-
     //console.log(this.url);
   }
   getResult(event){
@@ -143,7 +152,6 @@ export class EnterDatasetComponent {
     this.dataset = "true";
     this.filePath.splice(index+1,this.filePath.length-1);
     this.parentPath = this.filePath[this.filePath.length-1].path1;
-    console.log(this.filePath);
     this.currentName='';
     this.dynamicSearch();
     this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName);
@@ -267,31 +275,49 @@ export class EnterDatasetComponent {
   }
 
   selectedFileOnChanged(event:any){
-        for(let j=0;j<this.uploader.queue.length;j++){
-          if(Number(j)>2){
-            this.uploader.queue[3].remove();
-            this.show = true;
-            this.content = "请上传3个以内的文件！";
-            j-=1;
-            continue;
-          }else{
-            let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
-            console.log(bool);
-            if(bool==false){
-              this.showUpload.push(this.uploader.queue[j]);
-              this.showUpload[j].status = "上传中";
-              this.fileType = this.judgeType(this.showUpload[j]);
+    if((this.uploader.queue.length-this.saveLoad.length)>3){
+      this.show = true;
+      this.content = "请上传3个以内的文件！";
+      let a = this.uploader.queue.length;
+      for(let k=this.saveLoad.length;k<a;k++){
+        this.uploader.queue[this.saveLoad.length].remove();
+      }
+      return false;
+    }else{
+      for(let j=0;j<this.uploader.queue.length;j++){
+        if(Number(j)>2){
+          this.uploader.queue[3].remove();
+          this.show = true;
+          this.content = "请上传3个以内的文件！";
+          j-=1;
+          continue;
+        }else{
+          let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
+          console.log(bool);
+          if(bool==false){
+            this.showUpload.push(this.uploader.queue[j]);
+            this.showUpload[j].status = "上传中";
+            this.fileType = this.judgeType(this.showUpload[j]);
+            if(this.fileType=="no support"){
+              this.show = true;
+              this.content = "您上传的文件格式暂不支持！";
+              this.showUpload.splice(j,1);
+              this.uploader.queue[j].remove();
+              return
+            }else{
               let element = this.uploader.queue[j];
               // element.alias = "photo";
               element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
               //console.log(this.fileType);
               //console.log(element.url);
               this.getProgress(j);
-            }else{
-              continue;
             }
+          }else{
+            continue;
           }
         }
+      }
+    }
   }
   isInArray(arr,value){
     for(var i = 0; i < arr.length; i++){
@@ -345,12 +371,14 @@ export class EnterDatasetComponent {
       return '视频文件';
     }else if(type=="audio"){
       return '音频文件';
-    }else if(type=="text"||item.type=="application/pdf"||item.type=="application/msword"){
+    }else if(type=="text"||item.file.type=="application/pdf"||item.file.type=="application/msword"||item.file.type=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
       return '文本文件';
     }else if(type=="image"){
       return '图片文件';
-    }else if(type=='application'){
+    }else if(item.file.type=='application/x-zip-compressed'){
       return '文件夹';
+    }else{
+      return 'no support'
     }
   }
   judgeIcon(item){
@@ -359,7 +387,7 @@ export class EnterDatasetComponent {
       return 'assets/datasets/file/sp-upload.png';
     }else if(type=="audio"){
       return 'assets/datasets/file/sy-upload.png';
-    }else if(type=="text"){
+    }else if(type=="text"||item.file.type=="application/pdf"||item.file.type=="application/msword"||item.file.type=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
       return 'assets/datasets/file/wb-upload.png';
     }else if(type=="image"){
       return 'assets/datasets/file/tp-upload.png';

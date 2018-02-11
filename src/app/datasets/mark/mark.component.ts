@@ -76,6 +76,7 @@ export class MarkComponent{
   proportion:number;
   bool:boolean = false;
   sign:boolean = false;
+  parentPath:string;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.username = localStorage['username'];
     this.dataName = sessionStorage.getItem("dataName");
@@ -92,16 +93,19 @@ export class MarkComponent{
       this.dataId = params['dataId'];
       this.filePath = JSON.parse(params['filePath']);
       this.markPhoto = JSON.parse(params['markPhoto']);
+      console.log(this.markPhoto);
       if(sessionStorage.getItem("showPhoto")){
         this.showPhoto = JSON.parse(sessionStorage.getItem("showPhoto"));
       }else{
         this.showPhoto = this.markPhoto[0];
       }
+      this.fileId = this.showPhoto.fileId;
+      this.parentPath = this.showPhoto.dataSetFileDirectoryPath.parentPath;
       sessionStorage.setItem("showPhoto",JSON.stringify(this.showPhoto));
       this.addPhotoPath();
       this.path = this.filePath[this.filePath.length-1].path1;
       this.fileId = this.showPhoto.fileId;
-      this.getSize(this.path);
+      this.getSize(this.fileId);
     });
     Observable.fromEvent(window, 'resize')
       // .debounceTime(100) // 以免频繁处理
@@ -112,7 +116,7 @@ export class MarkComponent{
         if(this.bool){
           let divHeight = parseFloat($("#content").height());
           let divWidth = parseFloat($("#content").width());
-          console.log(window.innerHeight-240);
+          //console.log(window.innerHeight-240);
           $("#mark-content").css("height",(window.innerHeight-240)+'px');
           let boxh = window.innerHeight-280;
           let boxw = parseFloat($("#content").width());
@@ -170,8 +174,8 @@ export class MarkComponent{
       }
     }
   }
-  getSize(path){
-    this.datasetservice.getMarkInfo(path)
+  getSize(fileId){
+    this.datasetservice.getMarkInfo(fileId)
       .subscribe(result=>{
         if(result==1){
           this.sign = false;
@@ -262,7 +266,7 @@ export class MarkComponent{
             .subscribe(result=>{
               //console.log(result);
               $("#rectedId"+index).remove();
-              $this.getSize($this.path);
+              $this.getSize($this.fileId);
             })
         });
       })(i);
@@ -366,8 +370,6 @@ export class MarkComponent{
       this.show = true;
       this.markleft = this.rectLeft+this.left+this.endX;
       this.marktop = this.rectTop+this.top+this.endY;
-      console.log(this.startX,this.startY);
-      console.log(this.rectLeft+this.endX,this.rectTop+this.endY);
       if(this.diffX>0){
         this.xMax = this.startX;
         this.yMax = this.startY;
@@ -394,6 +396,13 @@ export class MarkComponent{
         "dataBase": this.dataName,
         "fileName": fileName,
         "imageDepth": isGray,
+        "imageFile": {
+          "dataSetFileDirectoryPath": {
+            "parentPath": this.parentPath,
+          },
+          "fileId": this.fileId,
+          "fileName": fileName
+        },
         "imageHighth": $("#img").width(),
         "imageName": imageName,
         "imagePath": this.filePath[this.filePath.length-1].path1,
@@ -512,13 +521,15 @@ export class MarkComponent{
   initDiv(){
     $("#markDiv").find("div").remove();
     this.showPhoto = this.markPhoto[this.showPhotoIndex];
+    this.fileId = this.showPhoto.fileId;
+    this.parentPath = this.showPhoto.dataSetFileDirectoryPath.parentPath;
     sessionStorage.setItem("showPhoto",JSON.stringify(this.showPhoto));
     //console.log(this.showPhoto);
     this.filePath[this.filePath.length-1].path1 = this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName;
     //let temp = this.showPhoto.path.split('/');
     this.filePath[this.filePath.length-1].showpath = this.showPhoto.fileName;
     this.path = this.filePath[this.filePath.length-1].path1;
-    this.getSize(this.path);
+    this.getSize(this.fileId);
   }
   getSrc(item){
     let path = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;

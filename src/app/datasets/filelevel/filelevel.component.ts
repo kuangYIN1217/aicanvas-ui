@@ -15,6 +15,7 @@ export class FileLevelComponent{
   @Input()  dataName:string;
   @Output() getResult: EventEmitter<any> = new EventEmitter();
   @Output() deleteResult: EventEmitter<any> = new EventEmitter();
+  @Output() enterChange: EventEmitter<any> = new EventEmitter();
   fileName:string;
   textName:string;
   textShow:boolean = false;
@@ -158,11 +159,13 @@ export class FileLevelComponent{
   enterDataset(item){
     console.log(item);
     if(item.fileType=='文件夹'){
-      //this.datasetsService.enterDataset(item.dataId,encodeURI(item.path),null,null)
-       // .subscribe(result=>{
-          this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataSetFileDirectoryPath.parentPath,"currentName":item.fileName,"dataset":false}});
-         // console.log(result);
-       // })
+      //this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataSetFileDirectoryPath.parentPath,"dataset":false,"currentName":item.fileName}});
+      let obj:any={};
+      obj.dataId = item.dataId;
+      obj.parentPath = item.dataSetFileDirectoryPath.parentPath;
+      obj.dataset = "false";
+      obj.currentName = item.fileName;
+      this.enterChange.emit(obj);
     }else if(item.fileType=='文本文件'){
       this.textShow = true;
       this.textName = item.fileName;
