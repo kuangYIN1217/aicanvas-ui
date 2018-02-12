@@ -17,25 +17,25 @@ export class MyModelComponent{
 
   }
   getWidth(){
-    if(this.dataIndex==0){
-      return{
-        "width":"100%"
-      }
-    }else{
+    //if(this.dataIndex==0){
+     // return{
+      //  "width":"100%"
+     // }
+    //}else{
       return{
         "width":"2200px"
       }
-    }
+    //}
   }
   getScroll(){
-    if(this.dataIndex==0){
+/*    if(this.dataIndex==0){
       return{
         "overflow-x":"none"
       }
-    }else{
+    }else{*/
       return{
         "overflow-x":"scroll"
       }
-    }
+    //}
   }
 }

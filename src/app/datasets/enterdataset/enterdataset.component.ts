@@ -351,6 +351,8 @@ export class EnterDatasetComponent {
       };
       this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
         this.showUpload[j].status = "上传失败";
+        this.show = true;
+        this.content = response.split("_")[0]+"已存在！";
       };
       this.uploader.onBuildItemForm = (item, form) => {
         form.append("fileType", this.fileType);

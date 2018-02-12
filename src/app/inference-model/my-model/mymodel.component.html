@@ -1,16 +1,16 @@
 <div class="mymodel-table" id="style-1" [ngStyle]="getScroll()">
   <table class="table" [ngStyle]="getWidth()">
     <tr>
-      <th>序号</th>
-      <th>任务名称</th>
-      <th>场景名称</th>
-      <th>服务版本号</th>
-      <th>发布状态</th>
-      <th>gRPC地址</th>
-      <th>存储空间</th>
-      <th>创建者</th>
-      <th>创建时间</th>
-      <th style="border-right: 1px solid #eeeeee;">操作</th>
+      <th style="width: 90px;padding-left: 22px">序号</th>
+      <th style="width: 145px;padding-left: 45px">任务名称</th>
+      <th style="width: 160px;padding-left: 40px">场景名称</th>
+      <th style="width: 137px;padding-left: 40px">服务版本号</th>
+      <th style="width: 132px;padding-left: 34px">发布状态</th>
+      <th style="width: 232px;padding-left: 36px">gRPC地址</th>
+      <th style="width: 165px;padding-left: 70px">存储空间</th>
+      <th style="width: 113px;padding-left: 26px">创建者</th>
+      <th style="width: 200px;padding-left: 36px">创建时间</th>
+      <th style="border-right: 1px solid #eeeeee;width: 256px;padding-left: 20px">操作</th>
     </tr>
     <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
     <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
