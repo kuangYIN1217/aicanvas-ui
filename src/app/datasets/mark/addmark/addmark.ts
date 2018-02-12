@@ -43,12 +43,12 @@ export class AddMarkComponent{
         if(result.length>0){
           this.topTag = result;
         }
-        console.log(this.topTag);
+        //console.log(this.topTag);
       })
   }
   ngOnChanges(...args: any[]) {
-    console.log(this.coordinateId);
-    console.log(this.markName);
+    //console.log(this.coordinateId);
+    //console.log(this.markName);
   }
   markdown(event:any){
     this.isDraging = true;
@@ -59,7 +59,7 @@ export class AddMarkComponent{
     this.dy = $(".add_mark").offset().top;
   }
   markmove(event:any) {
-    var e = e || window.event;
+    var e = e || event;
     let x = e.pageX;      //移动时鼠标X坐标
     let y = e.pageY;      //移动时鼠标Y坐标
     if (this.isDraging) {        //判断对话框能否拖动

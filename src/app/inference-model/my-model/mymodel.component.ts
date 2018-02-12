@@ -16,4 +16,26 @@ export class MyModelComponent{
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
+  getWidth(){
+    if(this.dataIndex==0){
+      return{
+        "width":"100%"
+      }
+    }else{
+      return{
+        "width":"2200px"
+      }
+    }
+  }
+  getScroll(){
+    if(this.dataIndex==0){
+      return{
+        "overflow-x":"none"
+      }
+    }else{
+      return{
+        "overflow-x":"scroll"
+      }
+    }
+  }
 }

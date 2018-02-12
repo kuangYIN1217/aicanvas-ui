@@ -28,7 +28,7 @@
           <input type="text" name="senseName" [(ngModel)]="senseName" class="search-input" placeholder="请输入场景关键字"/>
         </div>
       </div>
-      <my-model [modelList]="modelList" [dataIndex]="dataIndex"></my-model>
+      <my-model [modelList]="modelList" [dataIndex]="dataIndex" *ngIf="s_nav_selected===0"></my-model>
       <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
       <!--<publish-model [(showModel)]="showModel"></publish-model>-->
     </div>
