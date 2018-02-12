@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="mymodel-table">
+  <table class="table">
+    <tr>
+      <th>序号</th>
+      <th>任务名称</th>
+      <th>场景名称</th>
+      <th>服务版本号</th>
+      <th>发布状态</th>
+      <th>gRPC地址</th>
+      <th>存储空间</th>
+      <th>创建者</th>
+      <th>创建时间</th>
+      <th style="border-right: 1px solid #eeeeee;">操作</th>
+    </tr>
+    <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
+    <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
+      <td>{{i+1}}</td>
+      <td>{{item.job.jobName}}</td>
+      <td>{{item.job.sencesName}}</td>
+      <td>{{item.job.jobName}}</td>
+      <td>{{item.job.chainName}}</td>
+      <td>{{item.createTime}}</td>
+      <td>{{item.createTime}}</td>
+      <td>{{item.user.login}}</td>
+      <td>{{item.createTime}}</td>
+      <td>
+        <a href="javascript:void(0)" routerLinkActive="active" routerLink="/api" target="_blank" class="middle see"></a>
+        <!--<img src="assets/taskStatus/chakan-.png" alt="" class="middle" (click)="lookapi()">-->
+      </td>
+    </tr>
+  </table>
+</div>

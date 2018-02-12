@@ -69,6 +69,7 @@ import {TipsComponent} from "app/tips/tips.component";
 import {PublicFileComponent} from "./datasets/publicFile/publicfile.component";
 import {PublicDatasetComponent} from "app/datasets/publicdataset/publicdataset.component";
 import {PublicLevelComponent} from "./datasets/publicLevel/publiclevel.component";
+import {MyModelComponent} from "./inference-model/my-model/mymodel.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -122,7 +123,8 @@ import {PublicLevelComponent} from "./datasets/publicLevel/publiclevel.component
     TipsComponent,
     PublicFileComponent,
     PublicDatasetComponent,
-    PublicLevelComponent
+    PublicLevelComponent,
+    MyModelComponent
     //InputReadonlyDirective
   ],
   imports: [

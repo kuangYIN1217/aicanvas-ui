@@ -380,7 +380,7 @@ export class EnterDatasetComponent {
       return '文本文件';
     }else if(type=="image"){
       return '图片文件';
-    }else if(item.file.type=='application/x-zip-compressed'){
+    }else if(item.file.type=='application/x-zip-compressed'||item.file.type=='application/zip'){
       return '文件夹';
     }else{
       return 'no support'

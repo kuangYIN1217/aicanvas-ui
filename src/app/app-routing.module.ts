@@ -38,6 +38,7 @@ import {EnterDatasetComponent} from "./datasets/enterdataset/enterdataset.compon
 import {FileLevelComponent} from "./datasets/filelevel/filelevel.component";
 import {MarkComponent} from "./datasets/mark/mark.component";
 import {PublicDatasetComponent} from "./datasets/publicdataset/publicdataset.component";
+import {MyModelComponent} from "./inference-model/my-model/mymodel.component";
 
 
 const routes: Routes = [
@@ -85,6 +86,7 @@ const routes: Routes = [
   {path: 'publicdataset', component: PublicDatasetComponent},
   {path: 'filelevel', component: FileLevelComponent},
   {path: 'mark', component: MarkComponent},
+  {path: 'mymodel', component: MyModelComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 ];
