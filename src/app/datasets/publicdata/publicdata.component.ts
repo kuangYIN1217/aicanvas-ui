@@ -3,7 +3,8 @@
  */
 import {Component, Input} from '@angular/core';
 import {DatasetsService} from "../../common/services/datasets.service";
-import {calc_size} from '../calc-size'
+import {calc_size} from '../calc-size';
+import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'cpt-publicdata',
   styleUrls: ['./publicdata.component.css'],
@@ -14,12 +15,13 @@ export class PublicDataComponent{
   @Input() d_tableData: any = [];
   look_detail:boolean = false;
   dataList:any={};
-  constructor (private datasetservice: DatasetsService) {
+  constructor (private datasetservice: DatasetsService,private route: ActivatedRoute ,private router: Router) {
     // 获取datasetType
   }
   look_dataSet(item){
-    this.look_detail = true;
-    this.dataList = item;
+    this.router.navigate(['../publicdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataPath,"dataset":true}});
+/*    this.look_detail = true;
+    this.dataList = item;*/
   }
   calc_size = calc_size;
 }
