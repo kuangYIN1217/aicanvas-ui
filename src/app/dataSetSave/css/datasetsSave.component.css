@@ -115,10 +115,10 @@
   color: #ffffff;
 }
 .dataset_distribution_show_model span:nth-of-type(1){
-  padding:42px 0 13px;
+  padding:32px 0 13px;
 }
 .dataset_distribution_show_model:nth-of-type(4) span:nth-of-type(1){
-  padding:26px 0 0;
+  padding:22px 0 0;
 }
 .dataset_distribution_show_model:nth-of-type(4) span:nth-of-type(2){
   padding:10px 0;

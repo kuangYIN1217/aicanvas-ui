@@ -21,12 +21,12 @@ export class SenceComponent {
 
   }
   public uploader:FileUploader = new FileUploader({
-    url: SERVER_URL+"/api/sence/upload",
+    url: SERVER_URL+"/api/sence/upload?user=admin",
     method: "POST",
     itemAlias: "file",
   });
   selectedFileOnChanged(event:any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.upload(event);
   }
   upload(event){

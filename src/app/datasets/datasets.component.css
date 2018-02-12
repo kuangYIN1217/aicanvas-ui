@@ -1,14 +1,12 @@
 .datasets-wrapper {
   padding: 20px 30px 0 30px;
 }
-
 .nav {
   overflow: hidden;
   width: 100%;
   height: 42px;
   background: #fff;
 }
-
 .nav .item {
   float: left;
   height: 39px;
@@ -59,8 +57,8 @@
 .selectContainer select{
   border-radius: 5px;
   border: 1px solid #d3d3d3;
-  background: url("../../assets/taskStatus/select.png") no-repeat;
-  background-position: right;
+  background: url("../../assets/navigation/xlk.png") no-repeat;
+  background-position: right 6px center;
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;

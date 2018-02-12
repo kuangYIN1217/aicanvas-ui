@@ -89,10 +89,11 @@ export class MyDataComponent{
     this.s_remove = false;
   }
   look_dataSet(item){
+    console.log(item);
     sessionStorage.setItem("dataName",item.dataName);
     //this.datasetsService.enterDataset(item.dataId,encodeURI(item.dataPath),null,null)
     // .subscribe(result=>{
-    this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataPath}});
+    this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataPath,"dataset":true}});
 /*    this.look_detail = true;
     this.dataList = item;*/
   }

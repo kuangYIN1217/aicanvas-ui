@@ -25,6 +25,9 @@ export class InferenceModelComponent{
   modelList:any[]=[];
   showModel:boolean = false;
   chainId:number;
+  s_nav_selected:number=0;
+  searchName:string='';
+  senseName:string='';
   constructor(private sceneService: SceneService,private modelService: modelService) {
     this.sceneService.getModelScenes(-1)
       .subscribe(sceneArray => {
@@ -67,6 +70,9 @@ export class InferenceModelComponent{
           this.dataIndex=0;
         }
       })
+  }
+  $nav_click(index) {
+    this.s_nav_selected = index;
   }
   getPageData(paraParam){
     this.getScene();
