@@ -219,6 +219,16 @@ export class FileLevelComponent{
     this.audioShow = false;
     this.audioSrc = '';
   }
+  getImageStyle(obj,width,height,img,x,y){
+    obj.className = "show-img";
+    obj.style.position = "relative";
+    obj.style.top = "50%";
+    obj.style.left = "50%";
+    obj.style.marginTop = -(height/2)+'px';
+    obj.style.marginLeft = -(width/2)+'px';
+    img.style.right = x-17+'px';
+    img.style.top = y-17+'px';
+  }
   getWH(){
     let obj:any;
     obj = document.getElementById("image");
@@ -229,25 +239,38 @@ export class FileLevelComponent{
     let height = obj.offsetHeight;
     let x = (970-parseInt(width))/2;
     let y = (545-parseInt(height))/2;
-    if(parseInt(width)>970){
-      obj.className = "show-imgW";
-      img.style.right = '-17px';
-      img.style.top = '-17px';
-      return
-    }else if(parseInt(height)>545){
-      obj.className = "show-imgW";
-      img.style.right = x-17+'px';
-      img.style.top = '-17px';
-      return
-    }else{
-      obj.className = "show-img";
-      obj.style.position = "relative";
-      obj.style.top = "50%";
-      obj.style.left = "50%";
-      obj.style.marginTop = -(height/2)+'px';
-      obj.style.marginLeft = -(width/2)+'px';
-      img.style.right = x-17+'px';
-      img.style.top = y-17+'px';
+    if(parseInt(width)>parseInt(height)){
+      if(parseInt(width)>=970){
+        obj.style.width = "970px";
+        obj.style.position = "relative";
+        obj.style.left = "0";
+        obj.style.right = "0";
+        obj.style.top = "50%";
+        obj.style.marginTop = -(obj.offsetHeight/2)+'px';
+        let y1 = (545-parseInt(obj.offsetHeight))/2;
+        img.style.right = '-17px';
+        img.style.top = y1-17+'px';
+        return
+      }else{
+        this.getImageStyle(obj,width,height,img,x,y);
+        return
+      }
+    }else if(parseInt(width)<=parseInt(height)){
+      if(parseInt(height)>=545){
+        obj.style.height = "545px";
+        obj.style.position = "relative";
+        obj.style.top = "0";
+        obj.style.bottom = "0";
+        obj.style.left = "50%";
+        obj.style.marginLeft = -(obj.offsetWidth/2)+'px';
+        let x1 = (970-parseInt(obj.offsetWidth))/2;
+        img.style.right = x1-17+'px';
+        img.style.top = '-17px';
+        return
+      }else{
+        this.getImageStyle(obj,width,height,img,x,y);
+        return
+      }
     }
   }
 }
