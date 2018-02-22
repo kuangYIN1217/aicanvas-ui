@@ -14,6 +14,8 @@ export class CreateFileComponent {
   username:string;
   createfile:boolean = false;
   createsucess:boolean = true;
+  show:boolean = false;
+  content:string='';
   @Output() createMethod: EventEmitter<any> = new EventEmitter();
   constructor(private datasetsService:DatasetsService){
     this.username = localStorage['username'];
@@ -40,10 +42,17 @@ export class CreateFileComponent {
       }
     }
     this.datasetsService.createDataSet(this.username,this.filename,dataType,dataTypeName)
-      .subscribe(result=>{
+      .subscribe(
+        (result)=>{
         this.createsucess = true;
         this.cancel();
-      })
+      },
+        (error)=>{
+          this.show = true;
+          this.content = "文件夹已存在！";
+          this.createsucess = true;
+        }
+      )
   }
   cancel(){
     this.createMethod.emit(this.createfile);
