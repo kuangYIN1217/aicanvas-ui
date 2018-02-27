@@ -131,7 +131,7 @@ export class AddMarkComponent{
           this.xmlPath.push(result.xmlPath);
           //this.createXML(this.xmlPath,this.dataId);
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
-          this.imagePathChange.emit(this.markImage.imageFile.fileId);
+          this.imagePathChange.emit(this.markImage.imageFileId);
           this.showChange.emit('true');
           //console.log(result);
         })

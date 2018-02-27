@@ -396,13 +396,7 @@ export class MarkComponent{
         "dataBase": this.dataName,
         "fileName": fileName,
         "imageDepth": isGray,
-        "imageFile": {
-          "dataSetFileDirectoryPath": {
-            "parentPath": this.parentPath,
-          },
-          "fileId": this.fileId,
-          "fileName": fileName
-        },
+        "imageFileId":this.fileId,
         "imageHighth": $("#img").width(),
         "imageName": imageName,
         "imagePath": this.filePath[this.filePath.length-1].path1,
