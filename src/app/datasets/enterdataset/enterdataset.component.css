@@ -263,11 +263,11 @@ select{
   float: left;
 }
 .upload_status{
-  width:90px;
+  width:104px;
   text-align: left;
   padding-left: 8px;
   float: right;
-  padding-right: 20px;
+  padding-right: 10px;
 }
 .status_icon{
   float: right;
