@@ -263,7 +263,7 @@ select{
   float: left;
 }
 .upload_status{
-  width:104px;
+  width:90px;
   text-align: left;
   padding-left: 8px;
   float: right;
@@ -275,6 +275,11 @@ select{
 .upload_zip .wjj{
   display: inline-block;
   vertical-align: middle;
+}
+@media (max-width:1600px) {
+  .upload_status{
+    width:120px;
+  }
 }
 
 
