@@ -351,7 +351,6 @@ select{
   text-align: left;
   padding-left: 8px;
   float: right;
-  padding-right: 10px;
 }
 .status_icon{
   float: right;
@@ -365,6 +364,9 @@ select{
 }
 @media (max-width:1600px) {
   .upload_status{
-    width:120px;
+    width:108px;
+  }
+  .upload_zip{
+    margin-left: 6px;
   }
 }
