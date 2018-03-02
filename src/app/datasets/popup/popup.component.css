@@ -362,7 +362,7 @@ select{
 #file{
   display: none;
 }
-@media (max-width:1600px) {
+@media (max-width:1500px) {
   .upload_status{
     width:108px;
   }
