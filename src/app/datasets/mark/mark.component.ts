@@ -375,11 +375,13 @@ export class MarkComponent{
         this.yMax = this.startY;
         this.xMin = this.startX-this.endX;
         this.yMin = this.startY-this.endY;
+        console.log("反向",this.xMax,this.startX,this.endX,"2-3");
       }else{
         this.xMin = this.startX;
         this.yMin = this.startY;
         this.xMax = this.rectLeft+this.endX;
         this.yMax = this.rectTop+this.endY;
+        console.log("正常",this.xMin,this.rectLeft,this.endX,"2+3");
       }
       let nameArr:any[] = this.filePath[this.filePath.length-2].path1.split('/');
       let fileName = nameArr[nameArr.length-1];
@@ -409,9 +411,9 @@ export class MarkComponent{
       this.fileId = this.showPhoto.fileId;
       this.markName = '';
       this.singleDiv = '';
-      console.log(this.fileId);
+     /* console.log(this.fileId);
       console.log(this.markImage);
-      console.log(this.xMax,this.yMax,this.xMin,this.yMin);
+      console.log(this.xMax,this.yMax,this.xMin,this.yMin);*/
     }
   }
   move(event:any){

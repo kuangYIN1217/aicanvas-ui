@@ -49,7 +49,7 @@
         <div *ngFor="let item of showUpload">
           <img src="assets/datasets/upload/tc_wjj.png" class="wjj wjj_icon"/>
           <span class="upload_name" title="{{item.file.name}}">{{item.file.name}}</span>
-          <span class="upload_status">{{item.status}}<span style="padding-left: 6px" *ngIf="item.status!='上传失败'">({{item.progress}}%)</span></span>
+          <span class="upload_status">{{item.status}}<span style="padding-left: 6px" *ngIf="item.status!='上传失败'&&item.status!='上传成功'">({{item.progress}}%)</span></span>
           <img [src]="uploadStatus(item)" class="wjj status_icon"/>
         </div>
 <!--        <div>
