@@ -59,7 +59,8 @@
 }
 .dialogContent a{
   color: #ff7c35;
-  text-decoration:underline
+  text-decoration:underline;
+  cursor: pointer;
 }
 .dialogBtn{
 

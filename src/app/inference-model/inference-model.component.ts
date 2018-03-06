@@ -28,18 +28,21 @@ export class InferenceModelComponent{
   s_nav_selected:number=0;
   searchName:string='';
   senseName:string='';
+  jobId:number=0;
+  senceName:any=-1;
   constructor(private sceneService: SceneService,private modelService: modelService) {
     this.sceneService.getModelScenes(-1)
       .subscribe(sceneArray => {
         this.sceneInfo = sceneArray;
-        this.sceneInfo.unshift({"id":-1,"translation": "全部"});
+        //this.sceneInfo.unshift({"id":-1,"translation": "全部"});
+        console.log(this.sceneInfo);
         if(this.sceneInfo.length>0){
           this.scene = this.sceneInfo[0].id;
           //console.log(this.scene);
           this.getAllChains(100000);
         }
       });
-    this.getAllModel(-1,-1,this.page-1,this.pageMaxItem);
+    this.getAllModel(0,-1,this.page-1,this.pageMaxItem);
   }
   ngOnInit() {
     calc_height(document.getElementById('table_section'));
@@ -54,8 +57,8 @@ export class InferenceModelComponent{
         }
       });
   }
-  getAllModel(sceneId,chainId,page,size){
-    this.modelService.getAllModel(sceneId,chainId,page,size)
+  getAllModel(jobId,senceName,page,size){
+    this.modelService.getAllModel(jobId,senceName,page,size)
       .subscribe(result=>{
         if(result&&result.content.length>0){
             this.dataIndex=1;
@@ -77,7 +80,7 @@ export class InferenceModelComponent{
   getPageData(paraParam){
     this.getScene();
     this.getId();
-    this.getAllModel(this.scene,this.chainId,paraParam.curPage-1,paraParam.pageMaxItem);
+    this.getAllModel(this.jobId,this.senceName,paraParam.curPage-1,paraParam.pageMaxItem);
     this.pageNow=paraParam.curPage;
   }
   getChainId(sceneId){
@@ -97,11 +100,11 @@ export class InferenceModelComponent{
   }
   selectSceneChange(){
     this.getScene();
-    this.getAllModel(this.scene,-1,this.page-1,this.pageMaxItem);
+    this.getAllModel(this.jobId,this.getAllModel,this.page-1,this.pageMaxItem);
   }
   selectChainChange(){
     this.getId();
-    this.getAllModel(this.scene,this.chainId,this.page-1,this.pageMaxItem);
+    this.getAllModel(this.jobId,this.getAllModel,this.page-1,this.pageMaxItem);
 }
   getId(){
     for(let i=0;i<this.chainInfo.length;i++){

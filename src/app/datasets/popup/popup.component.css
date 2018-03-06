@@ -310,7 +310,7 @@ select{
   cursor: pointer;
 }
 .file_list{
-  margin:40px 20px 0;
+  margin:20px 20px 0;
 }
 .file_list label{
   vertical-align: top;
@@ -361,6 +361,18 @@ select{
 }
 #file{
   display: none;
+}
+.example{
+  font-size: 14px;
+  margin:30px 20px;
+  color: #333333;
+}
+.example span,.example a{
+  display: inline-block;
+}
+.example a{
+  cursor: pointer;
+  color: #2c66a6;
 }
 @media (max-width:1600px) {
   .upload_status{

@@ -10,6 +10,8 @@ import {calc_height} from "../common/ts/calc_height";
 })
 export class PublishModelComponent{
   @Input() showModel:boolean;
+  @Input() publishStatus:string;
+  @Input() errorInfo:string;
   @Output() showModelChange: EventEmitter<any> = new EventEmitter();
   constructor(private route: ActivatedRoute, private router: Router) {
 

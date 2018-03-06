@@ -15,7 +15,7 @@
             <span *ngIf="jobPath==undefined">{{dataList?.creator=='system'?'公共数据集':'个人数据集'}}</span>
             <span *ngIf="jobPath!=undefined">{{dataInfo?.creator=='system'?'公共数据集':'个人数据集'}}</span>
           </div>
-          <div class="dataset-text third">
+          <div class="dataset-text first">
             <span>存储空间：</span>
             <span *ngIf="jobPath==undefined">{{calc_size(dataList?.diskUsageAccount)}}</span>
             <span *ngIf="jobPath!=undefined">{{dataListShow?.size}}</span>
@@ -27,12 +27,17 @@
             <span *ngIf="jobPath==undefined">{{dataList?.fileCount}}</span>
             <span *ngIf="jobPath!=undefined">{{dataListShow?.count}}</span>
           </div>
-          <div class="dataset-text second" *ngIf="dataList?.creator=='admin'">
+          <div class="dataset-text second">
+            <span>数据集名称：</span>
+            <span *ngIf="jobPath==undefined">{{dataList?.fileCount}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataListShow?.count}}</span>
+          </div>
+          <div class="dataset-text first" *ngIf="dataList?.creator=='admin'">
             <span>创建人：</span>
             <span *ngIf="jobPath==undefined">{{dataList?.creator}}</span>
             <span *ngIf="jobPath!=undefined">{{dataInfo?.creator}}</span>
           </div>
-          <div class="dataset-text third" *ngIf="dataList?.creator=='admin'">
+          <div class="dataset-text first" *ngIf="dataList?.creator=='admin'">
             <span>创建时间：</span>
             <span *ngIf="jobPath==undefined">{{dataList?.createTime}}</span>
             <span *ngIf="jobPath!=undefined">{{dataInfo?.createTime}}</span>

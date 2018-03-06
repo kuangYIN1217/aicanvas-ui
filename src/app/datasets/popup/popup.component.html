@@ -43,6 +43,10 @@
       <input type="file" multiple id="file" name="file" accept=".zip" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
       <!--<span *ngIf="!once_click">选择文件(.zip)</span>-->
     </div>
+    <div class="example">
+      <span>请参考上传数据集范例：</span>
+      <a href="{{SERVER_URL1}}/数据集.zip">数据集.zip</a>
+    </div>
     <div class="file_list">
       <label>文件夹列表：</label>
       <div class="upload_zip">
@@ -66,6 +70,7 @@
         </div>-->
       </div>
     </div>
+
 <!--    <div class="progress item" *ngIf="s_progress_show">
       <div class="head">
         <img class="upload" src="../../../assets/datasets/upload_shangchuan.png" alt="">

@@ -275,9 +275,9 @@ export class EnterDatasetComponent {
   }
 
   selectedFileOnChanged(event:any){
-    if((this.uploader.queue.length-this.saveLoad.length)>3){
+    if((this.uploader.queue.length-this.saveLoad.length)>5){
       this.show = true;
-      this.content = "请上传3个以内的文件！";
+      this.content = "请上传5个以内的文件！";
       let a = this.uploader.queue.length;
       for(let k=this.saveLoad.length;k<a;k++){
         this.uploader.queue[this.saveLoad.length].remove();
@@ -285,10 +285,10 @@ export class EnterDatasetComponent {
       return false;
     }else{
       for(let j=0;j<this.uploader.queue.length;j++){
-        if(Number(j)>2){
-          this.uploader.queue[3].remove();
+        if(Number(j)>4){
+          this.uploader.queue[5].remove();
           this.show = true;
-          this.content = "请上传3个以内的文件！";
+          this.content = "请上传5个以内的文件！";
           j-=1;
           continue;
         }else{
@@ -333,8 +333,8 @@ export class EnterDatasetComponent {
     return false;
   }
   getProgress(j){
-    if(j>2){
-      this.showUpload.splice(3,1);
+    if(j>4){
+      this.showUpload.splice(5,1);
       return
     }else{
       this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{

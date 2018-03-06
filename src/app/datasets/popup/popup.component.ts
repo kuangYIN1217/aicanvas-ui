@@ -7,7 +7,7 @@ import {calc_size} from '../calc-size'
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addSuccessToast , addWarningToast} from '../../common/ts/toast';
 declare var $: any;
-import {SERVER_URL_DATASETS} from "../../app.constants";
+import {SERVER_URL_DATASETS,SERVER_URL} from "../../app.constants";
 import {DatasetsService} from "app/common/services/datasets.service";
 
 import {FileItem, FileUploader} from "ng2-file-upload";
@@ -21,6 +21,7 @@ import {FileItem, FileUploader} from "ng2-file-upload";
 export class PopupComponent {
   @Output() reflashPage = new EventEmitter();
   SERVER_URL = SERVER_URL_DATASETS;
+  SERVER_URL1 = SERVER_URL;
   @Input() d_dataTypes: any;
   s_select_datasetType: any; // type
   s_name: any;

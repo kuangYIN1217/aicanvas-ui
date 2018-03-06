@@ -32,8 +32,14 @@
 .dataset-text{
   float: left;
 }
-.first,.second,.third{
-  width:33%;
+.first{
+  width:25%;
+}
+.second{
+  width:30%;
+}
+.third{
+  width:45%;
 }
 .close{
   position: absolute;

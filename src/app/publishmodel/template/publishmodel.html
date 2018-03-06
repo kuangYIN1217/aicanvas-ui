@@ -4,14 +4,11 @@
       <span>消息提示</span>
       <img src="assets/model/close.png" (click)="close()"/>
     </div>
-<!--    <div class="dialogContent success-margin" style="text-align: center">
-      <img src="assets/model/cg.png"/>
-      <span>模型已开始发布！详情可查看：</span>
-      <a href="javascript:void(0)" routerLinkActive="active" routerLink="/inferenceModel">模型服务管理</a>
-    </div>-->
     <div class="dialogContent fail-margin" style="text-align: center">
-      <img src="assets/model/sb.png"/>
-      <span>模型发布失败！失败原因：网络中断</span>
+      <img src="assets/model/sb.png" *ngIf="publishStatus==''"/>
+      <img src="assets/model/cg.png" *ngIf="publishStatus=='模型发布成功'"/>
+      <span *ngIf="publishStatus=='模型发布成功'">模型已开始发布！详情可查看：<a href="javascript:void(0)" routerLinkActive="active" routerLink="/inferenceModel">模型服务管理</a></span>
+      <span *ngIf="publishStatus==''">模型发布失败！失败原因：{{errorInfo}}</span>
     </div>
     <div class="dialogBtn">
       <a href="javascript:void(0)" class="btn" (click)="close()" style="margin-left: 166px">确定</a>

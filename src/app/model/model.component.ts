@@ -10,7 +10,7 @@ import {JobService} from "../common/services/job.service";
 import {Headers} from "@angular/http";
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
 import {addSuccessToast, addInfoToast, addErrorToast,addWarningToast} from '../common/ts/toast';
-
+import {calc_height} from '../common/ts/calc_height';
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -59,6 +59,8 @@ export class ModelComponent {
   test:string;
   dataSetPath:string;
   modelPredictionIds:any[]=[];
+  publishStatus:string='';
+  errorInfo:string='';
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -136,6 +138,18 @@ export class ModelComponent {
     }
     this.uploader.queue[this.times-1].upload(); // 开始上传
     //console.log(this.container);
+  }
+  getHeight(){
+    let height = window.innerHeight;
+    if(this.showAdd){
+      return{
+        "height":"auto"
+      }
+    }else{
+      return {
+        "height":height-302+'px'
+      }
+    }
   }
   getDataSetPath(event){
     //console.log(event);
@@ -228,16 +242,24 @@ export class ModelComponent {
     this.jobPath = this.job.jobPath;
   }
   publish(){
-    this.showModel = true;
     if(this.ModelInfo.length>0){
       for(let i=0;i<this.ModelInfo.length;i++){
         this.modelPredictionIds.push(this.ModelInfo[i].id);
       }
-    }console.log(this.modelPredictionIds);
+    }
+    console.log(this.modelPredictionIds);
     this.modelService.publishModel(this.job_id,this.modelPredictionIds)
-      .subscribe(result=>{
-        //console.log(result);
-      })
+      .subscribe(
+        (result)=>{
+          this.publishStatus = result;
+          this.showModel = true;
+        },
+        (error)=>{
+          this.publishStatus = '';
+          this.errorInfo = error;
+          this.showModel = true;
+        }
+      )
   }
   ngOnDestroy() {
     // 退出时停止更新
@@ -315,7 +337,14 @@ export class ModelComponent {
     this.container=[];
     this.container1=[];
     this.uploader.queue=[];
-    console.log(this.uploader.queue);
+
+  }
+  getModelHeight(){
+    let height = window.innerHeight;
+    let tableH = Number($(".tableContainer").height());
+    return{
+      "height":height-322-tableH+'px'
+    }
   }
   showDetail(id){
     this.showAdd=false;

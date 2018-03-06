@@ -4,7 +4,7 @@
     <a href="#" class="btn green" onclick="return false" (click)="deduction()">新增推演</a>
     <a class="btn green" href="javascript:void(0)" (click)="publish()">模型发布</a>
   </div>
-  <publish-model [(showModel)]="showModel"></publish-model>
+  <publish-model [(showModel)]="showModel" [publishStatus]="publishStatus" [errorInfo]="errorInfo"></publish-model>
   <div class="nav">
     <div class="row">
       <h1>推演服务</h1>
@@ -28,7 +28,7 @@
       </div>
     </div>
   </div>
-  <div class="tableContainer">
+  <div class="tableContainer" id="tableContainer" [ngStyle]="getHeight()">
     <table class="table">
       <th>推演名称</th>
       <th>创建时间</th>
@@ -47,7 +47,7 @@
     </table>
     <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)"  class="page"></page>
   </div>
-  <div class="new_model" [style.display]="showAdd?'':'none'">
+  <div class="new_model" [style.display]="showAdd?'':'none'" id="new_model" [ngStyle]="getModelHeight()">
     <table>
       <tr>
         <td class="first_column">推演文件格式</td>

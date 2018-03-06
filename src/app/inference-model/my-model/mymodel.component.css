@@ -14,3 +14,20 @@
   border-radius:10px;
   background-color:#999;
 }
+.see{
+  background:url("../../../assets/api/chakan.png") no-repeat;
+}
+.delete{
+  background:url("../../../assets/api/shanchu.png") no-repeat;
+}
+.opearate{
+  width:20px;
+  height:20px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.fail{
+  background:url("../../../assets/api/cksb.png") no-repeat;
+}

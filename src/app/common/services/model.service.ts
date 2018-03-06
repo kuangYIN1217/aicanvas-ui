@@ -90,16 +90,16 @@ export class modelService {
       });
   }
   publishModel(jobId,modelPredictionIds){
-    let path = "/api/saveModel";
-    let body = JSON.stringify({
+    let path = "/api/modelPublish";
+    let modelVo = JSON.stringify({
       "jobId": jobId,
       "modelPredictionIds": modelPredictionIds
     });
     let headers = this.getHeaders();
-    return this.http.post(this.SERVER_URL+path,body,{ headers : headers})
+    return this.http.post(this.SERVER_URL+path,modelVo,{ headers : headers})
       .map((response: Response) => {
-        if (response && response.json()) {
-          return response.json();
+        if (response) {
+          return response.text();
         }
       });
   }
@@ -165,8 +165,8 @@ export class modelService {
         }
       });
   }
-  getAllModel(sceneId,chainId, page=0,size=10){
-    let path = "/api/modelList/"+sceneId+"/"+chainId+"?page="+page+"&size="+size+"&sort=createTime,desc";
+  getAllModel(jobId,senceName, page=0,size=10){
+    let path = "/api/getModelList/"+jobId+"/"+senceName+"?page="+page+"&size="+size+"&sort=createTime,desc";
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL+path, { headers : headers})
       .map((response: Response) => {
