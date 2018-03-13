@@ -175,6 +175,16 @@ export class modelService {
         }
       });
   }
+  deleteModel(id){
+    let path = "/api/deleteModel/"+id;
+    let headers = this.getHeaders();
+    return this.http.delete(this.SERVER_URL+path, { headers : headers})
+      .map((response: Response) => {
+        if (response){
+          return response;
+        }
+      });
+  }
     getHistory(page=0,size=10){
         let path = "/api/modelPredictions?page="+page+"&size="+size;
         let headers = this.getHeaders();

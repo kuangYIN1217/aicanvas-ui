@@ -46,14 +46,18 @@
       </div>
       <img src="../../../assets/datasets/guanbi.png" (click)="close()" class="close"/>
     </div>
+    <div class="dataset-path">
+      <!-- <img [src]="arr.length>1?'assets/datasetsDetail/zuo-shen.png':'assets/datasetsDetail/zuo-qian.png'" class="middle leftArrow" (click)="left()"/>
+       <img [src]="arr.length==dataPath.length?'assets/datasetsDetail/you-qian.png':'assets/datasetsDetail/you-shen.png'" class="middle rightArrow"  (click)="right()"/>
+       <span class="dataset-pathText" *ngFor="let path of arr;let i=index">{{output(path)}}<img src="assets/datasetsDetail/xiaji.png" class="path"/></span>-->
+    </div>
     <div class="dataset-body">
-      <div class="dataset-path">
-       <!-- <img [src]="arr.length>1?'assets/datasetsDetail/zuo-shen.png':'assets/datasetsDetail/zuo-qian.png'" class="middle leftArrow" (click)="left()"/>
-        <img [src]="arr.length==dataPath.length?'assets/datasetsDetail/you-qian.png':'assets/datasetsDetail/you-shen.png'" class="middle rightArrow"  (click)="right()"/>
-        <span class="dataset-pathText" *ngFor="let path of arr;let i=index">{{output(path)}}<img src="assets/datasetsDetail/xiaji.png" class="path"/></span>-->
-      </div>
-      <div>
-        <input type="text"/>
+      <div class="dataset-search">
+        <div class="search">
+          <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="icon">
+          <input type="text" class="searchInput" [attr.placeholder]="placeholder==true?'请输入文件关键字':''" [ngClass]="{paddingLeft: icon==false}" [(ngModel)]="searchName" (focus)="hideIcon()" (blur)="showIcon()"/>
+        </div>
+        <img [src]="icon?'assets/datasetsDetail/back_shen.png':'assets/datasetsDetail/back_qian.png'" class="previous" (click)="previous()"/>
       </div>
       <!--<div class="dataset-sidebar">
         <div class="dataset-item" (click)="allfile()">全部文件</div>

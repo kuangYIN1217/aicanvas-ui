@@ -121,6 +121,46 @@
 .dataset-pathText:last-child .path{
   display: none;
 }
+.dataset-search{
+  padding:0 20px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+.search{
+  position: relative;
+  width:260px;
+  display: inline-block;
+}
+.searchicon{
+  position: absolute;
+  top:9px;
+  left:14px;
+}
+.searchInput{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height:36px;
+  width:260px;
+  border-radius: 5px;
+  border: solid 1px #d3d3d3;
+  padding-left: 40px;
+  font-family: "MicrosoftYaHei";
+  font-size: 12px;
+  color: #999999 !important;
+  outline: none;
+}
+input:focus {
+  border: 1px solid #23a880;
+}
+.paddingLeft{
+  padding-left: 20px !important;
+}
+.previous{
+  display: inline-block;
+  float: right;
+  margin:8px 20px 0 0;
+}
 .fangda{
   position: fixed;
   left: 0;

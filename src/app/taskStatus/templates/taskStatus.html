@@ -29,6 +29,7 @@
         <a *ngIf="jobInfo.trainable == 0" class="operationBtn model" (click)="goModel(jobInfo.id)" title="推演"></a>
         <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0" class="operationBtn stop" (click)="stop(jobInfo.jobPath)" title="停止"></a>
         <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0" class="operationBtn start" (click)="start(jobInfo.jobPath)" title="运行"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')!=-1 && jobInfo.trainable != 0" routerLinkActive="active" routerLink="/inferenceModel" class="operationBtn see-model" title="查看已发布模型"></a>
         <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
       </td>
     </tr>

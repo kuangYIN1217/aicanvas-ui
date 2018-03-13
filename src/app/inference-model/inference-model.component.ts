@@ -48,6 +48,14 @@ export class InferenceModelComponent{
   ngOnInit() {
     calc_height(document.getElementById('table_section'));
   }
+  showIdChange(event){
+    console.log(event);
+    this.modelService.deleteModel(event)
+      .subscribe(result=>{
+          console.log(result);
+        this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
+      })
+  }
   getAllChains(chainId){
     this.sceneService.getChainByScene(chainId)
       .subscribe(result=>{

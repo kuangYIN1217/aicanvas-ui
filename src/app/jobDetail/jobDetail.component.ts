@@ -699,7 +699,7 @@ export class JobDetailComponent {
       if (rep.epoch) {
         return rep;
       }
-    });
+    })
     this.AmCharts.updateChart(this.lossChart, () => {
       if (temp_data.length == 0) {
         this.lossChart.dataProvider = this.lossChartInitData();

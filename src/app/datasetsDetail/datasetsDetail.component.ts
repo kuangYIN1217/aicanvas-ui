@@ -46,6 +46,9 @@ export class DatasetsDetailComponent{
   fileFlag:boolean = true;
   label:any[]=[];
   dataListShow:any={};
+  icon:boolean = true;
+  placeholder:boolean = true;
+  searchName:string;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
@@ -143,6 +146,18 @@ export class DatasetsDetailComponent{
         }
       }
     }
+  }
+  hideIcon(){
+    this.icon = false;
+    this.placeholder = false;
+  }
+  showIcon(){
+    if(this.searchName){
+      this.icon = false;
+    }else{
+      this.icon = true;
+    }
+    this.placeholder = true;
   }
   // arrow(){
   //   if(this.hide==false){

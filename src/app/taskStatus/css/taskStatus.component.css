@@ -144,6 +144,10 @@ select:focus{
 .start {
   background: url('../../../assets/taskStatus/qidong.png') no-repeat center;
 }
+.see-model{
+  background: url('../../../assets/taskStatus/chakanfabu.png') no-repeat center;
+  margin-top: 8px;
+}
 .name{
   width:19%;
 }
