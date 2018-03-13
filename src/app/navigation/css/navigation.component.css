@@ -187,7 +187,7 @@ nav{
     margin-left: 10px;
   }
 }
-@media (min-width:1440px) and (max-width:1600px) {
+@media (min-width:1440px) and (max-width:1680px) {
   .logout{
     right: 32px;
   }

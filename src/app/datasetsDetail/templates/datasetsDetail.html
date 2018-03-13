@@ -52,20 +52,23 @@
         <img [src]="arr.length==dataPath.length?'assets/datasetsDetail/you-qian.png':'assets/datasetsDetail/you-shen.png'" class="middle rightArrow"  (click)="right()"/>
         <span class="dataset-pathText" *ngFor="let path of arr;let i=index">{{output(path)}}<img src="assets/datasetsDetail/xiaji.png" class="path"/></span>-->
       </div>
+      <div>
+        <input type="text"/>
+      </div>
       <!--<div class="dataset-sidebar">
         <div class="dataset-item" (click)="allfile()">全部文件</div>
         <div class="dataset-item" (click)="allimage()">图片</div>
         <div class="dataset-item" (click)="alltext()">文本</div>
         <div class="dataset-item" (click)="allother()">其他</div>
       </div>-->
-      <div class="dataset-show">
+<!--      <div class="dataset-show">
         <div class="dataset-model" *ngFor="let item of filterArr;let i=index" [style.display]="item.flag==1?'none':''">
           <div class="dataset-center">
             <img [src]="getItem(item)" (dblclick)="enterPath(item)" (click)="open(item)"/>
             <span>{{getSet(item)}}</span>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
     <div class="fangda" [style.display]="image?'':'none'">
         <span>
