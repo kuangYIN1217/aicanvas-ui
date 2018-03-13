@@ -66,7 +66,7 @@ export class JobCreationComponent {
   firstSceneId:string='-1'
   @Input() statuss: string = '';
   jobName: string;
-  pageNumber: number;
+  pageNumber: number=0;
   d_dataSets: any = [];
   dataId: any;
   s_error_show: boolean = false;
@@ -199,7 +199,10 @@ export class JobCreationComponent {
   }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.pageNumber = params['page'];
+      console.log(typeof params['page']);
+      if(params['page']!=undefined){
+        this.pageNumber = params['page'];
+      }
       //console.log(this.pageNumber);
     });
     //this.router.navigate(['../taskStatus'],{queryParams: { pageNumber: this.pageNumber}});

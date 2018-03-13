@@ -56,19 +56,19 @@ export class DatasetsDetailComponent{
     this.dataPath=[];
     this.arr=[];
     //console.log(this.jobPath);
-    if(JSON.stringify(this.dataList) != "{}"){
+/*    if(JSON.stringify(this.dataList) != "{}"){
       this.getResult(this.dataList.dataPath);
       this.dataPath.push(this.dataList.dataPath);
-/*      if(this.dataList.creator=='admin'){
+/!*      if(this.dataList.creator=='admin'){
         let arr:any[]=[];
         arr.push(this.dataList.dataPath.split('-')[1]);
         this.arr = arr;
       }else{
         this.arr = this.dataPath;
-      }*/
+      }*!/
       this.arr = this.dataPath;
       this.index=1;
-    }
+    }*/
     if(this.test == 'test'){
       //console.log(this.jobPath);
       this.dataPath.push('全部文件');
@@ -134,7 +134,7 @@ export class DatasetsDetailComponent{
       this.dataArr.push(obj);
     }
     this.filterArr = this.dataArr;
-    //console.log(this.dataArr);
+    console.log(this.dataArr);
     for(let i=0;i<this.dataArr.length;i++){
       for(var key in this.dataArr[i]) {
         if (key.indexOf("file") != -1) {
@@ -167,15 +167,15 @@ export class DatasetsDetailComponent{
   getItem(item){
     for(var key in item){
       if(key.indexOf("file")!=-1){
-        return 'assets/datasetsDetail/file.png';
+        return 'assets/datasets/file/sjxq_wjj.png';
       }else if(key.indexOf("image")!=-1){
         let temp = this.data[key].split('$');
         let path = temp[0].substring(26);
         return `${SERVER_URL}/download/${path}`;
       }else if(key.indexOf("txt")!=-1){
-        return 'assets/datasetsDetail/txt.png';
+        return 'assets/datasets/file/wb.png';
       }else{
-        return 'assets/datasetsDetail/other.png';
+        return 'assets/datasets/file/qt.png';
       }
     }
   }
@@ -304,7 +304,7 @@ export class DatasetsDetailComponent{
 
     }
   }
-  left(){
+  previous(){
       if (this.index == 1) {
         return false;
       }

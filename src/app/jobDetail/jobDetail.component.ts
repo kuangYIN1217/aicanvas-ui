@@ -74,7 +74,7 @@ export class JobDetailComponent {
   jobPath: string;
   runPath:string;
   step: number = 2;
-  page: string;
+  page: number=0;
   gpuNum:any;
   paramjson: any = PARAM;
   input_content:string;

@@ -41,12 +41,12 @@ export class TaskStatusComponent{
     pageSize:number = 20;// 每页数据条数
     totalPage:number = 0;// 总页数
     curPage:number = 1;// 当前页码
-    pageNow:number;
+    pageNow:number=0;
     pageChange:number;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
-    @Input() pageNumber:number=1;
+    @Input() pageNumber:number;
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig){
 
     }
@@ -57,8 +57,10 @@ export class TaskStatusComponent{
       //this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
       this.pageNow=paraParam.curPage;
       //console.log('触发', paraParam);
+      this.getPage();
     }
   getPage(){
+      console.log(this.pageNow);
       sessionStorage['curPage'] = this.pageNow;
       console.log(sessionStorage['curPage']);
   }
@@ -69,8 +71,8 @@ export class TaskStatusComponent{
        this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,null);
        console.log(this.pageNumber);
      });*/
-         if(this.pageNumber!=undefined){
-           this.getAlljobs(this.statuss,this.pageNumber-1,this.pageMaxItem,this.sceneId);
+         if(this.pageNumber!=0){
+           this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,this.sceneId);
          }else{
            // this.interval = setInterval(() =>this.updatePage(), 3000);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
@@ -80,7 +82,7 @@ export class TaskStatusComponent{
   ngOnChanges(...args: any[]){
      this.getSceneId();
        this.pageChange = this.pageNumber;
-       this.getAlljobs(this.statuss,this.pageNumber-1,this.pageMaxItem,this.sceneId);
+       this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,this.sceneId);
    }
    getSceneId(){
      if(this.sceneId==0){

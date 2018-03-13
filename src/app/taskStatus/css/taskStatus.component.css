@@ -148,6 +148,9 @@ select:focus{
   background: url('../../../assets/taskStatus/chakanfabu.png') no-repeat center;
   margin-top: 8px;
 }
+.unstart{
+  background: url('../../../assets/taskStatus/yunxing_hui.png') no-repeat center;
+}
 .name{
   width:19%;
 }
