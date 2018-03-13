@@ -97,6 +97,16 @@ export class DatasetsService {
         }
       });
   }
+  backupDataset(files){
+    let path = "/api/backup?files="+files;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+            return response.text();
+        }
+      });
+  }
   updateFileName(id,name){
     let path = "/api/dataFileRename?fileId="+id+"&newName="+name;
     let headers = this.getHeaders();
@@ -149,8 +159,8 @@ export class DatasetsService {
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
       .map((response: Response) => {
-          if (response.status == 200) {
-            return response.json();
+          if (response) {
+            return response;
           }
       });
   }

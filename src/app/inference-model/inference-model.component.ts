@@ -29,7 +29,8 @@ export class InferenceModelComponent{
   searchName:string='';
   senseName:string='';
   jobId:number=0;
-  senceName:any=-1;
+  senceName:any='';
+  jobName:any='';
   constructor(private sceneService: SceneService,private modelService: modelService) {
     this.sceneService.getModelScenes(-1)
       .subscribe(sceneArray => {
@@ -42,7 +43,7 @@ export class InferenceModelComponent{
           this.getAllChains(100000);
         }
       });
-    this.getAllModel(0,-1,this.page-1,this.pageMaxItem);
+    this.getAllModel(-1,-1,this.page-1,this.pageMaxItem);
   }
   ngOnInit() {
     calc_height(document.getElementById('table_section'));
@@ -57,8 +58,8 @@ export class InferenceModelComponent{
         }
       });
   }
-  getAllModel(jobId,senceName,page,size){
-    this.modelService.getAllModel(jobId,senceName,page,size)
+  getAllModel(jobName,senceName,page,size){
+    this.modelService.getAllModel(jobName,senceName,page,size)
       .subscribe(result=>{
         if(result&&result.content.length>0){
             this.dataIndex=1;
@@ -78,10 +79,27 @@ export class InferenceModelComponent{
     this.s_nav_selected = index;
   }
   getPageData(paraParam){
-    this.getScene();
-    this.getId();
-    this.getAllModel(this.jobId,this.senceName,paraParam.curPage-1,paraParam.pageMaxItem);
+    //this.getScene();
+    //this.getId();
+    this.getAllModel(this.judgeJob(),this.judgeSence(),paraParam.curPage-1,paraParam.pageMaxItem);
     this.pageNow=paraParam.curPage;
+  }
+  $search_change(){
+    this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
+  }
+  judgeJob(){
+    if(this.jobName==''){
+      return -1;
+    }else{
+      return this.jobName;
+    }
+  }
+  judgeSence(){
+    if(this.senceName==''){
+      return -1;
+    }else{
+      return this.senceName;
+    }
   }
   getChainId(sceneId){
     this.sceneService.getChainByScene(sceneId)
@@ -99,12 +117,12 @@ export class InferenceModelComponent{
     }
   }
   selectSceneChange(){
-    this.getScene();
-    this.getAllModel(this.jobId,this.getAllModel,this.page-1,this.pageMaxItem);
+    //this.getScene();
+    this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
   }
   selectChainChange(){
-    this.getId();
-    this.getAllModel(this.jobId,this.getAllModel,this.page-1,this.pageMaxItem);
+    //this.getId();
+    this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
 }
   getId(){
     for(let i=0;i<this.chainInfo.length;i++){

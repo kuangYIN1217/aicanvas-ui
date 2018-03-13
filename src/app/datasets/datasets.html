@@ -19,7 +19,6 @@
             <option value="all">全部</option>
             <option *ngFor="let item of d_dataTypes" [value]="item.id">{{item.typeName}}</option>
           </select>
-          <!--<img src="../assets/taskStatus/select.png">-->
         </div>
         <div class="upload-dataset" (click)="$data_backup()" style="margin-right: 20px;background: #23a880;">数据备份</div>
         <div *ngIf="s_nav_selected === 0" class="upload-dataset" (click)="$create_click()" style="margin-right: 20px">新建文件夹</div>

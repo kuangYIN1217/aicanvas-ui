@@ -157,27 +157,32 @@ export class PublicDatasetComponent {
     }
     this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName)
       .subscribe(result=>{
-        this.d_tableData = result;
-        if(!this.searchBool&&!this.searchFile){
-          if(currentName==''||currentName==undefined){
-            let path:any;
-            path = parentPath.split("/");
-            let obj:any={};
-            obj.path1 = parentPath;
-            obj.showpath = path[path.length-1];
-            this.getFilePath(obj.path1);
-            this.filePath.push(obj);
-          }else{
-            let obj:any={};
-            obj.path1 = parentPath+"/"+currentName;
-            obj.showpath = currentName;
-            this.getFilePath(obj.path1);
-            this.filePath.push(obj);
+        if(result.text()!=''){
+          this.d_tableData = result.json();
+          if(!this.searchBool&&!this.searchFile){
+            if(currentName==''||currentName==undefined){
+              let path:any;
+              path = parentPath.split("/");
+              let obj:any={};
+              obj.path1 = parentPath;
+              obj.showpath = path[path.length-1];
+              this.getFilePath(obj.path1);
+              this.filePath.push(obj);
+            }else{
+              let obj:any={};
+              obj.path1 = parentPath+"/"+currentName;
+              obj.showpath = currentName;
+              this.getFilePath(obj.path1);
+              this.filePath.push(obj);
+            }
           }
+          this.searchBool = false;
+          this.searchFile = false;
+          console.log(result);
+        }else{
+          this.d_tableData=[];
         }
-        this.searchBool = false;
-        this.searchFile = false;
-        console.log(result);
+
       })
   }
   getFilePath(path){

@@ -3,9 +3,8 @@ import {DatasetsService} from "../../common/services/datasets.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 
-import {SERVER_URL_DATASETS} from "app/app.constants";
+import {SERVER_URL_DATASETS,SERVER_URL} from "app/app.constants";
 import {FileItem, FileUploader} from "ng2-file-upload";
-
 import {calc_height} from '../../common/ts/calc_height'
 declare var $: any;
 @Component({
@@ -15,6 +14,7 @@ declare var $: any;
   providers:[DatasetsService]
 })
 export class EnterDatasetComponent {
+  SERVER_URL = SERVER_URL;
   s_select_name: any = '';
   focus:number=0;
   blur:number=0;
@@ -41,10 +41,15 @@ export class EnterDatasetComponent {
   public uploader:FileUploader;
   markPhoto:any[]=[];
   show:boolean = false;
-  content:string='';
   dataset:string = "";
   currentName:string="";
   saveLoad:any[]=[];
+  tipWidth:string='';
+  tipContent:string='';
+  tipType:string='';
+  showTip:boolean = false;
+  backup:any[]=[];
+  downloadPath:string='';
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -86,6 +91,10 @@ export class EnterDatasetComponent {
     this.uploadShow = true;
     //this.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
     //console.log(this.url);
+  }
+  showTipChange(event){
+    this.show = false;
+    this.showTip = false;
   }
   getResult(event){
     this.searchBool = true;
@@ -165,27 +174,32 @@ export class EnterDatasetComponent {
     }
     this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName)
       .subscribe(result=>{
-        this.d_tableData = result;
-        if(!this.searchBool&&!this.searchFile){
-          if(currentName==''||currentName==undefined){
-            let path:any;
-            path = parentPath.split("/");
-            let obj:any={};
-            obj.path1 = parentPath;
-            obj.showpath = path[path.length-1];
-            this.getFilePath(obj.path1);
-            this.filePath.push(obj);
-          }else{
-            let obj:any={};
-            obj.path1 = parentPath+"/"+currentName;
-            obj.showpath = currentName;
-            this.getFilePath(obj.path1);
-            this.filePath.push(obj);
-          }
-        }
-        this.searchBool = false;
-        this.searchFile = false;
         console.log(result);
+        if(result.text()!=''){
+          this.d_tableData = result.json();
+          if(!this.searchBool&&!this.searchFile){
+            if(currentName==''||currentName==undefined){
+              let path:any;
+              path = parentPath.split("/");
+              let obj:any={};
+              obj.path1 = parentPath;
+              obj.showpath = path[path.length-1];
+              this.getFilePath(obj.path1);
+              this.filePath.push(obj);
+            }else{
+              let obj:any={};
+              obj.path1 = parentPath+"/"+currentName;
+              obj.showpath = currentName;
+              this.getFilePath(obj.path1);
+              this.filePath.push(obj);
+            }
+          }
+          this.searchBool = false;
+          this.searchFile = false;
+          console.log(result);
+        }else{
+          this.d_tableData=[];
+        }
       })
   }
   getFilePath(path){
@@ -194,22 +208,38 @@ export class EnterDatasetComponent {
       for(let i=4;i<pa.length-1;i++){
         let obj:any={};
         obj.path1 = pa.slice(0,i+1).join("/");
-        //obj.showpath = this.filterName(pa[i]);
         obj.showpath = pa[i];
         this.filePath.push(obj);
       }
     }
   }
+  $data_backup(){
+    this.backup=[];
+    for(let i=0;i<this.d_tableData.length;i++){
+      if(this.d_tableData[i].checked){
+        this.backup.push(this.d_tableData[i].dataSetFileDirectoryPath.parentPath+"/"+this.d_tableData[i].fileName);
+      }
+    }
+    if(this.backup.length>0){
+      this.datasetservice.backupDataset(this.backup)
+        .subscribe(result=>{
+          this.downloadPath = result.substring(26);
+          this.downloadBackup(this.downloadPath);
+        })
+    }
+  }
+  downloadBackup(path) {
+    let url = SERVER_URL+"/download/"+path;
+    location.href = url;
+  }
   $mark_click(){
     for(let i=0;i<this.d_tableData.length;i++){
       if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='文件夹'){
-          this.show = true;
-          this.content = "您选择的内容中包含不可标注文件！";
+          this.judgeMark();
           this.markPhoto=[];
           return false;
       }else if(this.d_tableData[i].checked&&this.d_tableData[i].fileType!='图片文件'&&this.d_tableData[i].fileType!='文件夹'){
-        this.show = true;
-        this.content = "您选择的文件格式暂不支持数据标注！";
+          this.judgeMark();
           this.markPhoto=[];
           return false;
       }else if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='图片文件'){
@@ -223,8 +253,7 @@ export class EnterDatasetComponent {
         }
       }
       if(this.markPhoto.length==0){
-        this.show = true;
-        this.content = "您选择的文件格式暂不支持数据标注！";
+        this.judgeMark();
         return false;
       }
       this.router.navigate(['../mark'],{queryParams:{"filePath":JSON.stringify(this.filePath),"markPhoto":JSON.stringify(this.markPhoto),"dataId":this.dataId}});
@@ -232,6 +261,12 @@ export class EnterDatasetComponent {
       this.router.navigate(['../mark'],{queryParams:{"filePath":JSON.stringify(this.filePath),"markPhoto":JSON.stringify(this.markPhoto),"dataId":this.dataId}});
     }
     console.log(this.markPhoto);
+  }
+  judgeMark(){
+    this.showTip = true;
+    this.tipType = "warnning";
+    this.tipWidth = "100%";
+    this.tipContent = "您选择的文件格式暂不支持数据标注！";
   }
   $select_change(){
     this.searchFile = true;
@@ -273,11 +308,14 @@ export class EnterDatasetComponent {
         }
       })
   }
-
   selectedFileOnChanged(event:any){
+    let datasetType = this.d_tableData[0].fileType;
+    console.log(datasetType);
     if((this.uploader.queue.length-this.saveLoad.length)>5){
       this.show = true;
-      this.content = "请上传5个以内的文件！";
+      this.tipType = "warnning";
+      this.tipWidth = "426px";
+      this.tipContent = "请上传5个以内的文件！";
       let a = this.uploader.queue.length;
       for(let k=this.saveLoad.length;k<a;k++){
         this.uploader.queue[this.saveLoad.length].remove();
@@ -288,7 +326,9 @@ export class EnterDatasetComponent {
         if(Number(j)>4){
           this.uploader.queue[5].remove();
           this.show = true;
-          this.content = "请上传5个以内的文件！";
+          this.tipWidth = "426px";
+          this.tipType = "warnning";
+          this.tipContent = "请上传5个以内的文件！";
           j-=1;
           continue;
         }else{
@@ -297,10 +337,12 @@ export class EnterDatasetComponent {
           if(bool==false){
             this.showUpload.push(this.uploader.queue[j]);
             this.showUpload[j].status = "上传中";
-            this.fileType = this.judgeType(this.showUpload[j]);
+            this.fileType = this.judgeType(this.showUpload[j],datasetType);
             if(this.fileType=="no support"){
               this.show = true;
-              this.content = "您上传的文件格式暂不支持！";
+              this.tipWidth = "426px";
+              this.tipType = "warnning";
+              this.tipContent = "您上传的文件格式暂不支持！";
               this.showUpload.splice(j,1);
               this.uploader.queue[j].remove();
               return
@@ -313,8 +355,6 @@ export class EnterDatasetComponent {
                 let parent = this.parentPath+"/"+this.currentName;
                 element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+parent+"&dataId="+this.dataId+"&fileType="+this.fileType;
               }
-              //console.log(this.fileType);
-              //console.log(element.url);
               this.getProgress(j);
             }
           }else{
@@ -340,10 +380,7 @@ export class EnterDatasetComponent {
       this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
         this.progress=0;
         if(progress==100){
-          //this.showUpload[j].status = "上传成功";
         }else if(progress<100){
-          /*this.showUpload[j].status = "上传中";
-          this.showUpload[j].progress = progress;*/
         }
       };
       this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
@@ -352,7 +389,8 @@ export class EnterDatasetComponent {
       this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
         this.showUpload[j].status = "上传失败";
         this.show = true;
-        this.content = response.split("$%")[0]+"已存在！";
+        this.tipType = "warnning";
+        this.tipContent = response.split("$%")[0]+"已存在！";
       };
       this.uploader.onBuildItemForm = (item, form) => {
         form.append("fileType", this.fileType);
@@ -372,20 +410,26 @@ export class EnterDatasetComponent {
       return 'assets/datasets/upload/tc_sc.png';
     }
   }
-  judgeType(item){
-    let type = item.file.type.split('/')[0];
-    if(type=="video"){
-      return '视频文件';
-    }else if(type=="audio"){
-      return '音频文件';
-    }else if(type=="text"||item.file.type=="application/pdf"||item.file.type=="application/msword"||item.file.type=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
-      return '文本文件';
-    }else if(type=="image"){
-      return '图片文件';
-    }else if(item.file.name.match(/^.*(\.zip|\.ZIP)$/)){
-      return '文件夹';
-    }else{
-      return 'no support'
+  judgeType(item,type){
+    let name = item.file.name;
+    if(this.filePath.length==1){
+      if(name.match(/^.*(\.zip|\.ZIP)$/)){
+        return '文件夹';
+      }else{
+        return 'no support'
+      }
+    }else if(this.filePath.length==2){
+      if(type=='视频文件'&&(name.match(/^.*(\.flv|\.FLV)$/)||name.match(/^.*(\.avi|\.AVI)$/)||name.match(/^.*(\.mp4|\.MP4)$/))){
+        return '视频文件';
+      }else if(type=='音频文件'&&(name.match(/^.*(\.wav|\.WAV)$/)||name.match(/^.*(\.mp3|\.MP3)$/))){
+        return '音频文件';
+      }else if(type=='文本文件'&&(name.match(/^.*(\.txt|\.TXT)$/)||name.match(/^.*(\.csv|\.CSV)$/))){
+        return '文本文件';
+      }else if(type=='图片文件'&&(name.match(/^.*(\.jpg|\.JPG)$/)||name.match(/^.*(\.png|\.PNG)$/)||name.match(/^.*(\.bmg|\.BMG)$/)||name.match(/^.*(\.gif|\.GIF)$/)||name.match(/^.*(\.jpeg|\.JPEG)$/))){
+        return '图片文件';
+      }else{
+        return 'no support'
+      }
     }
   }
   judgeIcon(item){

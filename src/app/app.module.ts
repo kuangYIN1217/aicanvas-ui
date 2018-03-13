@@ -70,6 +70,7 @@ import {PublicFileComponent} from "./datasets/publicFile/publicfile.component";
 import {PublicDatasetComponent} from "app/datasets/publicdataset/publicdataset.component";
 import {PublicLevelComponent} from "./datasets/publicLevel/publiclevel.component";
 import {MyModelComponent} from "./inference-model/my-model/mymodel.component";
+import { UniformTipsComponent } from './uniform-tips/uniform-tips.component';
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -124,7 +125,8 @@ import {MyModelComponent} from "./inference-model/my-model/mymodel.component";
     PublicFileComponent,
     PublicDatasetComponent,
     PublicLevelComponent,
-    MyModelComponent
+    MyModelComponent,
+    UniformTipsComponent
     //InputReadonlyDirective
   ],
   imports: [

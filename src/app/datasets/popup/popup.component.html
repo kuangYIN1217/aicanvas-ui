@@ -4,7 +4,8 @@
       <label>选择文件夹（数据集）</label>
       <img src="../../../assets/datasets/guanbi.png" (click)="$hide_click()">
     </div>
-    <cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
+    <!--<cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>-->
    <!-- <div class="error item" *ngIf="s_error_show">
       <img [src]="'../../../assets/datasets/' + (s_error_level === 'error' ? 'cuowu.png' : 'tishi.png')" alt="">
       <label>{{s_error_level === 'error' ? '错误！' : '提示！'}}</label>
@@ -45,7 +46,7 @@
     </div>
     <div class="example">
       <span>请参考上传数据集范例：</span>
-      <a href="{{SERVER_URL1}}/数据集.zip">数据集.zip</a>
+      <a href="../assets/数据集.zip">数据集.zip</a>
     </div>
     <div class="file_list">
       <label>文件夹列表：</label>
@@ -82,6 +83,6 @@
       <img src="../../../assets/datasets/upload_remove.png" alt="" class="remove" (click)="$remove_click()">
     </div>-->
   </div>
-  <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
+  <!--<ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>-->
 </div>
-<app-tips [(show)]="showTip" [content]="content"></app-tips>
+<!--<app-tips [(show)]="showTip" [content]="content"></app-tips>-->

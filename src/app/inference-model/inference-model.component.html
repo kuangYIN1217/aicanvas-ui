@@ -21,11 +21,11 @@
     <div class="table_section" id="table_section">
       <div class="search">
         <div class="searchContainer">
-          <input type="text" name="searchName" [(ngModel)]="searchName" class="search-input" placeholder="输入训练任务关键字"/>
+          <input type="text" name="jobName" [(ngModel)]="jobName" class="search-input" placeholder="输入训练任务关键字" (ngModelChange)="jobName=$event;$search_change()"/>
           <img src="assets/jobcreation/sousuo.png" class="searchicon"/>
         </div>
         <div class="searchContainer">
-          <input type="text" name="senseName" [(ngModel)]="senseName" class="search-input" placeholder="请输入场景关键字"/>
+          <input type="text" name="senceName" [(ngModel)]="senceName" class="search-input" placeholder="请输入场景关键字" (ngModelChange)="senceName=$event;$search_change()"/>
         </div>
       </div>
       <my-model [modelList]="modelList" [dataIndex]="dataIndex" *ngIf="s_nav_selected===0"></my-model>

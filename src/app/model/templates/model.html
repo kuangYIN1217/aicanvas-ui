@@ -1,10 +1,13 @@
 <div class="container">
+  <div style="padding: 0 30px;">
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
+  </div>
   <div class="button_location">
     <a href="#" class="btn gray" onclick="return false" (click)="back()">返回</a>
     <a href="#" class="btn green" onclick="return false" (click)="deduction()">新增推演</a>
     <a class="btn green" href="javascript:void(0)" (click)="publish()">模型发布</a>
   </div>
-  <publish-model [(showModel)]="showModel" [publishStatus]="publishStatus" [errorInfo]="errorInfo"></publish-model>
+  <!--<publish-model [(showModel)]="showModel" [publishStatus]="publishStatus" [errorInfo]="errorInfo"></publish-model>-->
   <div class="nav">
     <div class="row">
       <h1>推演服务</h1>

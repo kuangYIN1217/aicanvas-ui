@@ -198,7 +198,6 @@ export class JobCreationComponent {
     }
   }
   ngOnInit() {
-    calc_height(document.getElementsByClassName('tab_content')[0]);
     this.route.queryParams.subscribe(params => {
       this.pageNumber = params['page'];
       //console.log(this.pageNumber);

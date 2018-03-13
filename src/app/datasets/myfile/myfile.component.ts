@@ -13,7 +13,7 @@ declare var $:any;
   providers: [DatasetsService]
 })
 export class MyFileComponent{
-  @Input() d_tableData:string;
+  @Input() d_tableData:any;
   @Output() getResult: EventEmitter<any> = new EventEmitter();
   fileName:string;
   sameName:string='';
@@ -60,6 +60,24 @@ export class MyFileComponent{
   leavedelete(item){
     item.enter = 1;
     item.img = 2;
+  }
+  enterchecked(item){
+    item.sb = true;
+  }
+  leavechecked(item){
+    item.sb = false;
+  }
+  checkFile(item){
+    for(let i=0;i<this.d_tableData.length;i++){
+      this.d_tableData[i].checked = false;
+      this.d_tableData[i].enter = 2;
+      this.d_tableData[i].parent = 2;
+    }
+    item.checked = true;
+    if(item.checked){
+      item.enter = 2;
+      item.parent = 1;
+    }
   }
   saveName(item){
     console.log(item);

@@ -12,7 +12,7 @@
               <div class="tab_item sm_tab_item" (click)="createJob()"> <a href="#" onclick="return false;" class="back">新建任务</a></div>
             </div>
           </div>
-        <div [style.display]="jobPageStatus=='createJob'?'none':''" class="tab_content">
+        <div class="tab_content" [style.display]="jobPageStatus!='createJob'?'':'none'">
             <taskStatus [statuss]="statuss" [jobName]="jobName" [pageNumber]="pageNumber"></taskStatus>
         </div>
     </div>
@@ -71,24 +71,6 @@
               <label class="textIntroduce">注：建议CPU核数不低于1核，内存不低于4GB，GPU内存不低于2GB</label>
             </div>
           </div>
-<!--          <div class="row">
-            <div class="row_tr">
-              <span class="span">我的数据集：</span>
-              <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)">
-                <option selected>&#45;&#45;请选择&#45;&#45;</option>
-                <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="row_tr">
-              <span class="span">公用数据集：</span>
-              <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)">
-                <option selected>&#45;&#45;请选择&#45;&#45;</option>
-                <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
-              </select>
-            </div>
-          </div>-->
           <div class="row" style="height: auto;line-height: normal;">
             <div class="row_tr">
               <span class="span">数据集：</span>
@@ -123,65 +105,6 @@
               <span class="span height"><label class="mustColor">*</label>所选记录数：</span><span class="middle height">{{fileCount}}</span>
             </div>
           </div>
-<!--          <div class="row">
-            <div class="row_tr">
-              <span class="span"><label class="mustColor">*</label>载入内存方式：</span>
-              <select class="select" name="scene_select">
-                <option >分批加载</option>
-                <option >一次性加载</option>
-              </select>
-            </div>
-          </div>-->
-            <!--<i><a href="#" onclick="return false" class="button upload">上传数据集</a></i>-->
-
-          <!--<div class="dataset">
-            <h1>数据标注</h1>
-            <section>
-              <table>
-                <tr>
-                  <td class="th">数据类型</td>
-                  <td class="input">
-                    <select class="select" name="scene_select" >
-                      <option>图片</option>
-                      <option>视频</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="th">标注1</td>
-                  <td class="input">
-                    <input type="text">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="th">标注2</td>
-                  <td class="input">
-                    <input type="text">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="th">标注3</td>
-                  <td class="input">
-                    <input type="text">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="th">标注4</td>
-                  <td class="input">
-                    <input type="text">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="th">标注5</td>
-                  <td class="input">
-                    <input type="text">
-                  </td>
-                </tr>
-
-
-              </table>
-            </section>
-        </div>-->
           <div class="row btnRow">
             <div class="row_tr">
               <span class="span">&nbsp;</span>
@@ -190,181 +113,6 @@
                 <a href="#" onclick="return false" (click)="goHistory()" class="smallBtn">返回</a>
             </div>
           </div>
-
-
-            <!-- step 1 -->
-            <!--<div id="step1_content">-->
-              <!--<div class="data">-->
-                <!--<div class="choice">-->
-                  <!--<div  class="scene_title">-->
-                    <!--<span>场景选择:</span>-->
-                    <!--<select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">-->
-                      <!--<option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>-->
-                    <!--</select>-->
-                  <!--</div>-->
-                  <!--<div class="scene_title">-->
-                    <!--<span class="">算法链选择:</span>-->
-                    <!--<select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">-->
-                      <!--<option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>-->
-                    <!--</select>-->
-                  <!--</div>-->
-                <!--</div>-->
-                    <!--<table class="table">-->
-                        <!--<th class="id">序号</th>-->
-                        <!--<th class="name">名称</th>-->
-                        <!--<th class="publish">发布</th>-->
-                        <!--<th class="domain">问题域</th>-->
-                        <!--<th class="creator">创建者</th>-->
-                        <!--<th class="description1">描述</th>-->
-                        <!--<th class="detail1">详情</th>-->
-                        <!--<tbody>-->
-
-                        <!--<tr *ngFor="let item of arr let num =  index" (click)="clickStatus(num,item.id)" [ngClass]="{selected:num==selected }">-->
-                            <!--<td>{{item.id}}</td>-->
-                            <!--<td>{{item.chain_name}}</td>-->
-                            <!--<td>{{output(item.publish)}}</td>-->
-                            <!--<td>{{item.prob_domain}}</td>-->
-                            <!--<td>{{item.creator}}</td>-->
-                            <!--<td>{{item.description}}</td>-->
-                            <!--<td>-->
-                                <!--<a class="showDetailBtn" routerLinkActive="active" (click)="viewDetail(item.id,item.creator)">查看详情</a>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                    <!--</table>-->
-
-                  <!--<div class="secondLine">-->
-                    <!--<div id="dataset">-->
-                      <!--<div class="data_title">数据集:</div>-->
-                      <!--<select class="select" name="data_select">-->
-                        <!--<option value="航拍图片识别" selected="selected">航拍图片识别</option>-->
-                        <!--<option value="saab">Saab</option>-->
-                        <!--<option value="fiat">Fiat</option>-->
-                        <!--<option value="audi">Audi</option>-->
-                      <!--</select>-->
-                    <!--</div>-->
-                    <!--<div id="rate">-->
-                      <!--<div class="rate_title">训练/测试/验证集比例:</div>-->
-                      <!--<select class="select" name="rate_select">-->
-                        <!--<option value="航拍图片识别" selected="selected">航拍图片识别</option>-->
-                        <!--<option value="saab">Saab</option>-->
-                        <!--<option value="fiat">Fiat</option>-->
-                        <!--<option value="audi">Audi</option>-->
-                      <!--</select>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="thirdLine">-->
-                    <!--<div id="record_num">所选记录数:&nbsp;{{chosenSceneId}}</div>-->
-                    <!--<div id="store_type">-->
-                      <!--<div class="store_title">载入内存方式:</div>-->
-                      <!--<select class="select" name="store_select">-->
-                        <!--<option value="航拍图片识别" selected="selected">分批加载</option>-->
-                        <!--<option value="saab">Saab</option>-->
-                        <!--<option value="fiat">Fiat</option>-->
-                        <!--<option value="audi">Audi</option>-->
-                      <!--</select>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="label">-->
-                  <!--<div class="label_title">数据标注</div>-->
-                  <!--<div class="label_type">数据类型:</div>-->
-                  <!--<select class="select" name="label_select">-->
-                    <!--<option value="图片" selected="selected">图片</option>-->
-                    <!--<option value="saab">Saab</option>-->
-                    <!--<option value="fiat">Fiat</option>-->
-                    <!--<option value="audi">Audi</option>-->
-                  <!--</select>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!-- step 2 -->
-            <!--<div [style.display]="stepNumber==2 ? '' : 'none'" id="step2_content">-->
-                <!--<input hidden id="plugin_storage" />-->
-                <!--<input hidden id="layer_dictionary" />-->
-                <!--<input hidden id="param_dictionary" />-->
-                <!--<button hidden id="node_click_btn" (click)="nodeClicked();"></button>-->
-                <!--<button hidden onclick="init()" id="hideBtn" >Init</button>-->
-                <!--<button hidden onclick="load()" id="loadBtn" >Hide</button>-->
-                <!--<button hidden onclick="saveParam()" id="saveBtn" >Hide</button>-->
-                <!--<div class="leftBox">-->
-                    <!--<div class="condition" [style.display]="type==scene?'':'none'">-->
-                        <!--<div id="scene_name" class="name">{{chosen_scene.translation}}</div>-->
-                        <!--<div id="scene_description" class="description">{{chosen_scene.description}}</div>-->
-                    <!--</div>-->
-                    <!--<div class="alg_choose">-->
-                        <!--<div class="alg_name"></div>-->
-                        <!--<div class="alg_choose_descrip">可选算法层:(支持拖拽)</div>-->
-                        <!--<div class="alg_choose_list" id="myPaletteDiv"></div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="chains">-->
-                    <!--<div class="pluginArr_item" *ngFor="let plugin of pluginArr;" [class.focus]="plugin.id==chosenPluginId" (click)="changeChosenPlugin(plugin.id)">{{plugin.alg_name}}</div>-->
-                <!--</div>-->
-                <!--<div [style.display]="haveModel==1?'':'none'" class="content" id="myDiagramDiv"></div>-->
-                <!--<div [style.display]="haveModel==0?'':'none'" class="content" id="nocontent"><h1 style="{color:white;}">该插件无网络层</h1></div>-->
-                <!--<div class="rightBox" id="rightBox_plugin" [style.display]="rightBox_node===0?'':'none'">-->
-                    <!--<div *ngFor="let editable_parameter of editable_parameters" class="layer_box">-->
-                        <!--<div class="layer_name">{{editable_parameter.editable_param.name}}</div>-->
-                        <!--<div class="layer_params" id="property_plugin">-->
-                            <!--<input *ngIf="editable_parameter.editable_param.type!='enums'&&editable_parameter.editable_param.type!='list'&&editable_parameter.editable_param.type!='boolean'" [placeholder]="'From '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.type=='int'||editable_parameter.editable_param.type=='float')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"-->
-                                <!--class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(editable_parameter.editable_param,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value;" />-->
-
-                            <!--<select *ngIf="editable_parameter.editable_param.type=='enums'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">-->
-                                <!--<option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>-->
-                            <!--</select>-->
-
-                            <!--<select *ngIf="editable_parameter.editable_param.type=='boolean'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;">-->
-                                <!--<option value="true">true</option>-->
-                                <!--<option value="false">false</option>-->
-                            <!--</select>-->
-
-                            <!--<div *ngIf="editable_parameter.editable_param.type=='list'"class="select" name="data_select">-->
-                                <!--<div>-->
-                                     <!--<table *ngIf="editable_parameter.editable_param.shape.length==2">-->
-                                         <!--<tr *ngFor="let array1 of editable_parameter.editable_param.default_value;let i1 = index;">-->
-                                             <!--<td *ngFor="let value1 of array1;let j1 = index;">-->
-                                                 <!--&lt;!&ndash; <input *ngIf="editable_parameter.editable_param.d_type!='ENUM'&&editable_parameter.editable_param.d_type!='LIST'&&editable_parameter.editable_param.d_type!='BOOL'" [placeholder]="'From '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_min?editable_parameter.editable_param.min_value:'-&infin;')+' to '+((editable_parameter.editable_param.d_type=='INT'||editable_parameter.editable_param.d_type=='FLOAT')&&editable_parameter.editable_param.has_max?editable_parameter.editable_param.max_value:'+&infin;')"-->
-                                                     <!--class="param_input" [value]="editable_parameter.editable_param.set_value" (change)="setValue(parameter,$event.target.value);test(param_num);$event.target.value=editable_parameter.editable_param.set_value;" />-->
-
-                                                 <!--<select *ngIf="editable_parameter.editable_param.type=='ENUM'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">-->
-                                                     <!--<option  *ngFor="let value of editable_parameter.editable_param.allowed_values" value="{{ value }}">{{ value }}</option>-->
-                                                 <!--</select>-->
-
-                                                 <!--<select *ngIf="editable_parameter.editable_param.type=='BOOL'" class="select" name="data_select" (change)="editable_parameter.editable_param.set_value=$event.target.value;test(param_num);">-->
-                                                     <!--<option value="true">true</option>-->
-                                                     <!--<option value="false">false</option>-->
-                                                 <!--</select> &ndash;&gt;-->
-                                                 <!--<input type="text" name="" value="{{ value1 }}" (change)="set2dArray(parameter,i1,j1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1];">-->
-                                             <!--</td>-->
-                                         <!--</tr>-->
-                                     <!--</table>-->
-                                     <!--<div *ngIf="editable_parameter.editable_param.shape.length==3">-->
-                                         <!--<select>-->
-                                             <!--<option *ngFor="let array_2d of editable_parameter.editable_param.default_value;let i2 = index;" value="{{ i2+1 }}">{{ i2+1 }}</option>-->
-                                         <!--</select>-->
-                                         <!--<table>-->
-                                             <!--<tr *ngFor="let array2 of array_2d;let j2 = index;">-->
-                                                 <!--<td *ngFor="let value2 of array2;let z2 = index;">-->
-                                                     <!--<input type="text" name="" value="{{ value2 }}"  (change)="set2dArray(parameter,i1,j1,z1,$event.target.value);$event.target.value=editable_parameter.editable_param.set_value[i1][j1][z1];"/>-->
-                                                 <!--</td>-->
-                                             <!--</tr>-->
-                                         <!--</table>-->
-                                     <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="rightBox" id="rightBox_node" [style.display]="rightBox_node===0?'none':''">-->
-                    <!--<div class="layer_name"></div>-->
-                    <!--<div class="layer_params" id="property"></div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; step 4 &ndash;&gt;-->
-            <!--<div [style.display]="stepNumber==3 ? '' : 'none'" id="step3_content">-->
-              <!--<div id="createBtn" class="createBtn" (click)="create()">创建训练任务</div>-->
-              <!--<div class="detail"></div>-->
-            <!--</div>-->
         </div>
 </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>

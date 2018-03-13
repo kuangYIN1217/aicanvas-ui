@@ -143,7 +143,6 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
   margin:0 30px;
   border-radius: 0 0 5px 5px;
   background: #fff;
-  padding-bottom: 50px;
 }
 /*.step_pane .href{
     background: #a0a0a0;
@@ -895,6 +894,7 @@ select{
 }
 .btnRow{
   margin-top: 186px;
+  margin-bottom: 0 !important;
 }
 .mustColor{
   color: #fe1c1c;

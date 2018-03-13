@@ -66,12 +66,22 @@ export class PopupComponent {
   content:string='';
   showTip:boolean = false;
   saveLoad:any[]=[];
+  tipWidth:string='';
+  tipContent:string='';
+  tipType:string='';
   constructor (private toastyService:ToastyService, private toastyConfig: ToastyConfig,private datasetsService:DatasetsService) {
     this.datasetsService.getDataSetType()
       .subscribe(result=>{
         this.datasetsType = result;
-        this.datasetsType[0].flag = 1;
       });
+  }
+  ngOnChanges(...args: any[]) {
+    if(this.datasetsType.length>0){
+      for(let i=0;i<this.datasetsType.length;i++){
+        this.datasetsType[i].flag = 2;
+      }
+      this.datasetsType[0].flag = 1;
+    }
   }
   getImage(item){
     if(item.id==1){
@@ -308,7 +318,9 @@ export class PopupComponent {
     //console.log(this.uploader.queue);
     if((this.uploader.queue.length-this.saveLoad.length)>3){
       this.showTip = true;
-      this.content = "请上传3个以内的文件！";
+      this.tipWidth = "426px";
+      this.tipType = "warnning";
+      this.tipContent = "请上传3个以内的文件！";
       let a = this.uploader.queue.length;
       for(let k=this.saveLoad.length;k<a;k++){
         this.uploader.queue[this.saveLoad.length].remove();
@@ -319,7 +331,9 @@ export class PopupComponent {
         if(Number(j)>2){
           this.uploader.queue[3].remove();
           this.showTip = true;
-          this.content = "请上传3个以内的文件！";
+          this.tipWidth = "426px";
+          this.tipType = "warnning";
+          this.tipContent = "请上传3个以内的文件！";
           j-=1;
           continue;
         }else{
@@ -349,11 +363,16 @@ export class PopupComponent {
             }
           }else{
             this.showTip = true;
-            this.content = "你上传的压缩文件格式不对，当前只支持ZIP格式！"
+            this.tipWidth = "426px";
+            this.tipType = "warnning";
+            this.tipContent = "你上传的压缩文件格式不对，当前只支持ZIP格式！";
           }
         }
       }
     }
+  }
+  showTipChange(event){
+    this.showTip = false;
   }
   isInArray(arr,value){
     for(var i = 0; i < arr.length; i++){
@@ -382,7 +401,9 @@ export class PopupComponent {
         this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
           this.showUpload[j].status = "上传失败";
           this.showTip = true;
-          this.content = response.split("$%")[0]+"已存在！";
+          this.tipWidth = "426px";
+          this.tipType = "error";
+          this.tipContent = response.split("$%")[0]+"已存在！";
         };
         this.uploader.onBuildItemForm = (item, form) => {
           form.append("fileType", this.fileType);

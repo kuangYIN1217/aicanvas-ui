@@ -53,14 +53,16 @@ export class ModelComponent {
   perInterval:any;
   upload_click_flag: boolean = true;
   uploadName:any[]=[];
-  showModel:boolean = false;
+  showTip:boolean = false;
   show:boolean = false;
   jobPath:string;
   test:string;
   dataSetPath:string;
   modelPredictionIds:any[]=[];
   publishStatus:string='';
-  errorInfo:string='';
+  tipContent:string='';
+  tipType:string='';
+  tipWidth:string='';
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -242,6 +244,7 @@ export class ModelComponent {
     this.jobPath = this.job.jobPath;
   }
   publish(){
+    this.modelPredictionIds=[];
     if(this.ModelInfo.length>0){
       for(let i=0;i<this.ModelInfo.length;i++){
         this.modelPredictionIds.push(this.ModelInfo[i].id);
@@ -251,15 +254,21 @@ export class ModelComponent {
     this.modelService.publishModel(this.job_id,this.modelPredictionIds)
       .subscribe(
         (result)=>{
-          this.publishStatus = result;
-          this.showModel = true;
+         this.showTip = true;
+         this.tipType = 'success';
+         this.tipWidth = "100%";
+         this.tipContent = "模型已开始发布！详情可查看：";
         },
         (error)=>{
-          this.publishStatus = '';
-          this.errorInfo = error;
-          this.showModel = true;
+          this.showTip = true;
+          this.tipType = 'error';
+          this.tipWidth = "100%";
+          this.tipContent = "模型发布失败！失败原因："+error.text();
         }
       )
+  }
+  showTipChange(event){
+    this.showTip = event;
   }
   ngOnDestroy() {
     // 退出时停止更新

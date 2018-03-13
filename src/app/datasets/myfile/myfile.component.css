@@ -9,13 +9,20 @@
   display: block;
   margin:18px auto 0;
   clear: right;
-
 }
 .myfile-delete{
   display: block;
-  float: right;
+  position: absolute;
+  top:0;
+  right:0;
+}
+.myfile-check{
+  position: absolute;
+  right:0;
+  top:20px;
 }
 .myfile-model{
+  position: relative;
   display: inline-block;
   width:120px;
   height:126px;
@@ -54,6 +61,6 @@
   background: #f1f4f9;
   cursor: pointer;
 }
-.marginTop{
+/*.marginTop{
   margin-top: 0;
-}
+}*/

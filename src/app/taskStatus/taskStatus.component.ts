@@ -9,7 +9,7 @@ import {JobService} from "../common/services/job.service";
 import {SceneService} from "../common/services/scene.service";
 import {addErrorToast, addSuccessToast, addWarningToast} from '../common/ts/toast';
 import {ToastyService, ToastyConfig} from 'ng2-toasty';
-
+import {calc_height} from '../common/ts/calc_height'
 @Component({
     moduleId: module.id,
     selector: 'taskStatus',
@@ -63,6 +63,7 @@ export class TaskStatusComponent{
       console.log(sessionStorage['curPage']);
   }
    ngOnInit(){
+     calc_height(document.getElementsByClassName('taskStatusContainer')[0]);
 /*     this.route.queryParams.subscribe(params =>{
        this.pageNumber = params['pageNumber'];
        this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,null);

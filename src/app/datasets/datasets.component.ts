@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {DatasetsService} from "../common/services/datasets.service";
 import {Page} from "../common/defs/resources";
-import {calc_height} from '../common/ts/calc_height'
+import {calc_height} from '../common/ts/calc_height';
+import {SERVER_URL} from "../app.constants";
 @Component({
   selector: 'datasets',
   styleUrls: ['./datasets.component.css'],
@@ -9,6 +10,7 @@ import {calc_height} from '../common/ts/calc_height'
   providers: [DatasetsService]
 })
 export class DatasetsComponent{
+  SERVER_URL = SERVER_URL;
   username: string = '';
   s_popup_show: boolean = false;
   d_dataTypes: any = [];
@@ -27,6 +29,8 @@ export class DatasetsComponent{
   icon:string='file';
   createfile:boolean=false;
   index:number=0;
+  backup:any[]=[];
+  downloadPath:string='';
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
     this.pageParams.curPage = this.s_page;
@@ -56,7 +60,6 @@ export class DatasetsComponent{
     if (init) {
       this.s_page = 1;
     }
-    //console.log('init table');
     let creator , dataSetType , name , sort, page , size;
     creator = this.s_nav_selected;
     dataSetType = this.s_select_datasetType;
@@ -112,7 +115,23 @@ export class DatasetsComponent{
     this.createfile = true;
   }
   $data_backup(){
-
+    this.backup=[];
+    for(let i=0;i<this.d_tableData.length;i++){
+      if(this.d_tableData[i].checked){
+        this.backup.push(this.d_tableData[i].dataPath);
+      }
+    }
+    if(this.backup.length>0){
+      this.datasetservice.backupDataset(this.backup)
+        .subscribe(result=>{
+          this.downloadPath = result.substring(26);
+          this.downloadBackup(this.downloadPath);
+        })
+    }
+  }
+  downloadBackup(path) {
+    let url = SERVER_URL+"/download/"+path;
+    location.href = url;
   }
   createMethod(event:any){
     this.createfile = event;
