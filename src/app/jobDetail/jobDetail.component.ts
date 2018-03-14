@@ -123,6 +123,11 @@ export class JobDetailComponent {
     return dataProvider;
   }
 
+  showTip:boolean = false;
+  tipWidth:string='';
+  tipContent:string='';
+  tipType:string='';
+  tipMargin:string='';
   constructor(private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1];
@@ -843,7 +848,12 @@ export class JobDetailComponent {
     // todo 判断当前运行job数量 > 3 不允许
     this.jobService.getAllJobs('运行', null , null , null , null ).subscribe(rep => {
       if (rep.totalElements >= 3) {
-        addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
+        this.showTip = true;
+        this.tipMargin = "20px auto 0";
+        this.tipWidth = "100%";
+        this.tipType = "warnning%";
+        this.tipContent = "测试版本下最多同时运行三个任务！";
+        /*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*/
         return;
       }else {
 /*        this.gpuNum = null;

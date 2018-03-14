@@ -32,17 +32,6 @@ export class InferenceModelComponent{
   senceName:any='';
   jobName:any='';
   constructor(private sceneService: SceneService,private modelService: modelService) {
-    this.sceneService.getModelScenes(-1)
-      .subscribe(sceneArray => {
-        this.sceneInfo = sceneArray;
-        //this.sceneInfo.unshift({"id":-1,"translation": "全部"});
-        console.log(this.sceneInfo);
-        if(this.sceneInfo.length>0){
-          this.scene = this.sceneInfo[0].id;
-          //console.log(this.scene);
-          this.getAllChains(100000);
-        }
-      });
     this.getAllModel(-1,-1,this.page-1,this.pageMaxItem);
   }
   ngOnInit() {
@@ -55,16 +44,6 @@ export class InferenceModelComponent{
           console.log(result);
         this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
       })
-  }
-  getAllChains(chainId){
-    this.sceneService.getChainByScene(chainId)
-      .subscribe(result=>{
-        this.chainInfo = result;
-        this.chainInfo.unshift({'chain_name':'全部'});
-        if(this.chainInfo.length>0){
-          this.chain = this.chainInfo[0].chain_name;
-        }
-      });
   }
   getAllModel(jobName,senceName,page,size){
     this.modelService.getAllModel(jobName,senceName,page,size)
@@ -117,13 +96,6 @@ export class InferenceModelComponent{
         //console.log(this.chainInfo);
       });
   }
-  getScene(){
-    if(this.scene==-1){
-      this.getAllChains(100000);
-    }else{
-      this.getChainId(this.scene);
-    }
-  }
   selectSceneChange(){
     //this.getScene();
     this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
@@ -132,18 +104,5 @@ export class InferenceModelComponent{
     //this.getId();
     this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
 }
-  getId(){
-    for(let i=0;i<this.chainInfo.length;i++){
-      if(this.chain == this.chainInfo[i].chain_name){
-        this.chainId = this.chainInfo[i].id;
-      }else{
-        if(this.chain == '全部'){
-          this.chainId = -1;
-        }
-      }
-    }
-  }
-  lookapi(){
-    //this.showModel = true;
-  }
+
 }

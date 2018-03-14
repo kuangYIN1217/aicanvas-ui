@@ -12,7 +12,7 @@
               <div class="tab_item sm_tab_item" (click)="createJob()"> <a href="#" onclick="return false;" class="back">新建任务</a></div>
             </div>
           </div>
-        <div class="tab_content" [style.display]="jobPageStatus!='createJob'?'':'none'">
+        <div class="tab_content"  *ngIf="jobPageStatus!='createJob'">
             <taskStatus [statuss]="statuss" [jobName]="jobName" [pageNumber]="pageNumber"></taskStatus>
         </div>
     </div>
