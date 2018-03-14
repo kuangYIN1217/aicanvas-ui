@@ -1,4 +1,4 @@
-<div class="tips-content" [ngStyle]="ngStyle()" [ngClass]="{margin: content!=''}">
+<div class="tips-content" [ngStyle]="ngStyle()">
   <img [src]="getTipType()" class="icon"/>
   <span>{{tipContent}}</span>
   <a *ngIf="tipContent=='模型已开始发布！详情可查看：'" href='javascript:void(0)' routerLinkActive='active' routerLink='/inferenceModel'>模型服务管理</a>

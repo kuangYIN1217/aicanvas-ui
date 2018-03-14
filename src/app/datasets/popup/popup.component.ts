@@ -235,6 +235,7 @@ export class PopupComponent {
   $hide_click () {
     this.saveLoad=[];
     this.show = false;
+    this.showTip = false;
     this.clickOne = true;
     // this.once_click = false;
     this.uploader.queue=[];

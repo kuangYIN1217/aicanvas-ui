@@ -63,6 +63,7 @@ export class ModelComponent {
   tipContent:string='';
   tipType:string='';
   tipWidth:string='';
+  tipMargin:string='';
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -257,12 +258,14 @@ export class ModelComponent {
          this.showTip = true;
          this.tipType = 'success';
          this.tipWidth = "100%";
+         this.tipMargin = "20px auto 0";
          this.tipContent = "模型已开始发布！详情可查看：";
         },
         (error)=>{
           this.showTip = true;
           this.tipType = 'error';
           this.tipWidth = "100%";
+          this.tipMargin = "20px auto 0";
           this.tipContent = "模型发布失败！失败原因："+error.text();
         }
       )

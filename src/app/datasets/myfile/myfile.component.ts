@@ -5,7 +5,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DatasetsService} from "../../common/services/datasets.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JobService} from "../../common/services/job.service";
-
 declare var $:any;
 @Component({
   selector: 'cpt-myfile',
@@ -19,8 +18,6 @@ export class MyFileComponent{
   @Output() noopearte: EventEmitter<any> = new EventEmitter();
   fileName:string;
   sameName:string='';
-  show:boolean = false;
-  content:string='';
   constructor(private datasetsService:DatasetsService,private jobService:JobService,private route: ActivatedRoute ,private router: Router){
 
   }
@@ -100,8 +97,6 @@ export class MyFileComponent{
             this.fileName = this.sameName;
             item.flag = 2;
             this.noopearte.emit('editname');
-            /*this.show = true;
-            this.content = "您修改的名称已存在！";*/
           })
     }
   }

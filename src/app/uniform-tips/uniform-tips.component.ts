@@ -10,6 +10,7 @@ export class UniformTipsComponent{
 @Input() tipContent:any;
 @Input() tipWidth:string='';
 @Input() content:string='';
+@Input() tipMargin:string='';
 @Output() showTipChange: EventEmitter<any> = new EventEmitter();
   constructor() { }
   ngOnChanges(...args: any[]) {
@@ -22,18 +23,21 @@ export class UniformTipsComponent{
   ngStyle() {
     if (this.tipType == 'success') {
       return {
+        margin:this.tipMargin,
         width:this.tipWidth,
         background: '#c3eee0',
         border: '1px solid #52a683'
       }
     } else if (this.tipType == 'warnning'){
       return {
+        margin:this.tipMargin,
         width:this.tipWidth,
         background: '#fbf0e5',
         border: '1px solid #f3ad5f'
       }
     }else if (this.tipType == 'error'){
       return {
+        margin:this.tipMargin,
         width:this.tipWidth,
         background: '#f9e8e4',
         border: '1px solid #ee8059'

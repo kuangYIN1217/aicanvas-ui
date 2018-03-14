@@ -1,6 +1,6 @@
 <div class="container">
   <div class="datasets-wrapper">
-    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [content]="content" (showTipChange)="showTipChange(event)"></uniform-tips>
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
     <nav class="nav">
       <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">我的数据集</div>
       <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">公共数据集</div>
@@ -21,9 +21,9 @@
             <option *ngFor="let item of d_dataTypes" [value]="item.id">{{item.typeName}}</option>
           </select>
         </div>
-        <div *ngIf="s_nav_selected === 0" class="upload-dataset" (click)="$data_backup()" style="margin-right: 20px;background: #23a880;">数据备份</div>
-        <div *ngIf="s_nav_selected === 0" class="upload-dataset" (click)="$create_click()" style="margin-right: 20px">新建文件夹</div>
-        <div *ngIf="s_nav_selected === 0" class="upload-dataset" (click)="$upload_click()">上传文件</div>
+        <div *ngIf="s_nav_selected === 0&&icon=='file'" class="upload-dataset" (click)="$data_backup()" style="margin-right: 20px;background: #23a880;">数据备份</div>
+        <div *ngIf="s_nav_selected === 0&&icon=='file'" class="upload-dataset" (click)="$create_click()" style="margin-right: 20px">新建文件夹</div>
+        <div *ngIf="s_nav_selected === 0&&icon=='file'" class="upload-dataset" (click)="$upload_click()">上传文件</div>
       </div>
       <cpt-mydata [style.display]="s_nav_selected === 0&&(icon=='list')?'':'none'" [s_select_datasetType] = "s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [s_totalNum] = "s_totalNum" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0" [(s_totalNum)]="s_totalNum" (s_totalNumChange)="changeNum($event)" (s_sizeChange)="changeSize($event)"></cpt-mydata>
       <cpt-myfile [style.display]="s_nav_selected === 0&&(icon=='file')?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)" (noopearte)="noopearte($event)"></cpt-myfile>

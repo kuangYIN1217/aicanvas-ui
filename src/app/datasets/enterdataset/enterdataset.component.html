@@ -1,5 +1,6 @@
 <div class="container">
   <div class="file">
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
     <div class="filepath">
       <img src="assets/datasets/file/lj.png"/>
       <span (click)="home()">数据列表</span>
@@ -26,8 +27,7 @@
         <div class="upload-dataset" (click)="$create_click()" *ngIf="filePath.length!=2">新建文件夹</div>
         <div class="upload-dataset" (click)="$upload_click()">上传文件</div>
       </div>
-      <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
-      <file-level [d_tableData]="d_tableData" [dataName]="dataName" (getResult)="getResult($event)" (deleteResult)="deleteResult($event)" (enterChange)="enterChange($event)"></file-level>
+      <file-level [d_tableData]="d_tableData" [dataName]="dataName" (getResult)="getResult($event)" (deleteResult)="deleteResult($event)" (enterChange)="enterChange($event)" (noopearte)="noopearte($event)"></file-level>
     </div>
   </div>
   <!--<create-file *ngIf="createfile" [file]="file" [dataId]="dataId" [parentPath]="parentPath" (createMethod)="createMethod($event)"></create-file>-->

@@ -16,6 +16,7 @@ export class FileLevelComponent{
   @Output() getResult: EventEmitter<any> = new EventEmitter();
   @Output() deleteResult: EventEmitter<any> = new EventEmitter();
   @Output() enterChange: EventEmitter<any> = new EventEmitter();
+  @Output() noopearte: EventEmitter<any> = new EventEmitter();
   fileName:string;
   textName:string;
   textShow:boolean = false;
@@ -151,8 +152,7 @@ export class FileLevelComponent{
           (error) => {
             this.fileName = this.sameName;
             item.flag = 2;
-            this.show = true;
-            this.content = "您修改的名称已存在！";
+            this.noopearte.emit('editname');
         })
     }
   }

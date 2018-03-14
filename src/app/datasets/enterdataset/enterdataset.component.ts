@@ -48,6 +48,7 @@ export class EnterDatasetComponent {
   tipContent:string='';
   tipType:string='';
   showTip:boolean = false;
+  tipMargin:string='';
   backup:any[]=[];
   downloadPath:string='';
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
@@ -95,6 +96,15 @@ export class EnterDatasetComponent {
   showTipChange(event){
     this.show = false;
     this.showTip = false;
+  }
+  noopearte(event){
+    this.showTip = true;
+    this.tipWidth = "100%";
+    this.tipType = "warnning";
+    this.tipMargin = "0 auto";
+    if(event=='editname'){
+      this.tipContent = "您修改的名称已存在！";
+    }
   }
   getResult(event){
     this.searchBool = true;
@@ -448,6 +458,7 @@ export class EnterDatasetComponent {
   }
   close(){
     this.uploadShow = false;
+    this.show = false;
     this.uploader.queue=[];
     this.showUpload=[];
     this.searchBool = true;
