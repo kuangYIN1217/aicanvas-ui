@@ -28,6 +28,7 @@ export class MyDataComponent{
   @Input() s_totalNum: any;
   @Output() s_totalNumChange: EventEmitter<any> = new EventEmitter();
   @Output() s_sizeChange: EventEmitter<any> = new EventEmitter();
+  @Output() noopearte: EventEmitter<any> = new EventEmitter();
   s_remove_index;
   s_remove_id;
   s_remove: boolean = false;
@@ -48,7 +49,8 @@ export class MyDataComponent{
         this.s_remove_id = id;
         this.s_remove_index = index;
       }else{
-        addErrorToast(this.toastyService, '该数据集下有挂载任务，不能删除！');
+        this.noopearte.emit('deletedataset');
+        /*addErrorToast(this.toastyService, '该数据集下有挂载任务，不能删除！');*/
       }
     });
   }

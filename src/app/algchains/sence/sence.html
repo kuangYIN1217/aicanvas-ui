@@ -11,6 +11,7 @@
       {{s_error_message}}
     </div>
 -->
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
     <div class="form item" *ngIf="uploader.queue.length==0">
       <div class="upload" onclick="document.getElementById('file').click()">上传场景（算法链）</div>
       <input type="file" id="file" name="file" ng2FileSelect [uploader]="uploader" accept="aplication/zip" (change)="selectedFileOnChanged($event)"/>

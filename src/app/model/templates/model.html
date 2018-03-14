@@ -1,6 +1,6 @@
 <div class="container">
   <div style="padding: 0 30px;">
-    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin"  (showTipChange)="showTipChange(event)"></uniform-tips>
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
   </div>
   <div class="button_location">
     <a href="#" class="btn gray" onclick="return false" (click)="back()">返回</a>
@@ -51,6 +51,7 @@
     <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)"  class="page"></page>
   </div>
   <div class="new_model" [style.display]="showAdd?'':'none'" id="new_model" [ngStyle]="getModelHeight()">
+    <uniform-tips *ngIf="showShort" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
     <table>
       <tr>
         <td class="first_column">推演文件格式</td>

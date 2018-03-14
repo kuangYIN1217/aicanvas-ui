@@ -804,7 +804,6 @@ export class JobDetailComponent {
       }
     }
   }
-
   updateChart(data) {
     this.getRunningPlugin(data);
     let temp: JobParameter = data;

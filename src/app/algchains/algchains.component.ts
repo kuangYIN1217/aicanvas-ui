@@ -134,13 +134,15 @@ export class AlgChainsComponent{
         }
     }
   delete(item){
-    this.s_remove = true;
-    this.deleteId = item;
+    this.s_remove = true;    this.deleteId = item;
   }
   $confirm_sure(){
+    this.sceneService.deleteScene(this.deleteId)
+      .subscribe(result=>{
+        this.sceneService.getAllScenes(1)
+          .subscribe(sceneArray => this.getSceneArray(sceneArray));
+      });
     this.s_remove = false;
-    this.sceneService.getAllScenes(1)
-      .subscribe(sceneArray => this.getSceneArray(sceneArray));
   }
   $confirm_cancel() {
     this.s_remove = false;

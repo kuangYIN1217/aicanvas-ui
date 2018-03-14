@@ -4,7 +4,7 @@
       <label>选择文件夹（数据集）</label>
       <img src="../../../assets/datasets/guanbi.png" (click)="$hide_click()">
     </div>
-    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
     <!--<cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>-->
    <!-- <div class="error item" *ngIf="s_error_show">
       <img [src]="'../../../assets/datasets/' + (s_error_level === 'error' ? 'cuowu.png' : 'tishi.png')" alt="">

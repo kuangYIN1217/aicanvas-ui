@@ -16,6 +16,11 @@ export class SenceComponent {
   uploadShow:number;
   progress:number=0;
   importPath:string;
+  showTip:boolean = false;
+  tipWidth:string='';
+  tipContent:string='';
+  tipType:string='';
+  tipMargin:string='';
   @Output() uploadShowChange: EventEmitter<any> = new EventEmitter();
   constructor (private toastyService:ToastyService) {
 
@@ -34,7 +39,12 @@ export class SenceComponent {
     this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
       this.progress=0;
       if(progress==100){
-        addSuccessToast(this.toastyService , "算法链上传成功");
+        this.showTip = true;
+        this.tipMargin = "20px auto -20px";
+        this.tipWidth = "754px";
+        this.tipType = "success";
+        this.tipContent = "算法链上传成功！";
+        /*addSuccessToast(this.toastyService , "算法链上传成功");*/
         setTimeout(()=>{
           this.uploadShow = 0;
           this.uploader.queue=[];
@@ -48,6 +58,7 @@ export class SenceComponent {
     }
   }
   hide_click(){
+    this.showTip = false;
     this.uploadShow = 0;
     this.uploadShowChange.emit(this.uploadShow);
   }

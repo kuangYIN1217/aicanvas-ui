@@ -64,6 +64,7 @@ export class ModelComponent {
   tipType:string='';
   tipWidth:string='';
   tipMargin:string='';
+  showShort:boolean = false;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -191,7 +192,12 @@ export class ModelComponent {
       }else if(this.dataSetPath.length>0){
         */
       }else{
-        addErrorToast(this.toastyService , "请上传推演文件!" );
+        this.showShort = true;
+        this.tipType = 'warnning';
+        this.tipWidth = "50%";
+        this.tipMargin = "20px 0 -20px 30px";
+        this.tipContent = "请上传推演文件!";
+        /*addErrorToast(this.toastyService , "请上传推演文件!" );*/
         this.upload_click_flag = true;
         return false;
       }
@@ -205,7 +211,12 @@ export class ModelComponent {
         // alert("创建成功,可以在推演成功后查看!");
         this.type=null;
         //console.log(data);
-        addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );
+        this.showTip = true;
+        this.tipType = 'success';
+        this.tipWidth = "100%";
+        this.tipMargin = "20px auto 0";
+        this.tipContent = "创建成功,可以在推演成功后查看!";
+        /*addSuccessToast(this.toastyService , "创建成功,可以在推演成功后查看!" );*/
         this.selChange(this.job_id);
         this.showAdd =false;
         this.upload_click_flag = true;
@@ -218,7 +229,12 @@ export class ModelComponent {
       .subscribe(result=>{
       if(result.content.length!=0) {
         if (result.content[0].success!=true) {
-          addErrorToast(this.toastyService, '推演结果异常！');
+          this.showTip = true;
+          this.tipType = 'error';
+          this.tipWidth = "100%";
+          this.tipMargin = "20px auto 0";
+          this.tipContent = "推演结果异常!";
+          //addErrorToast(this.toastyService, '推演结果异常！');
           //console.log(result.content[0].percent);
          // clearInterval(this.interval);
         }
@@ -272,6 +288,7 @@ export class ModelComponent {
   }
   showTipChange(event){
     this.showTip = event;
+    this.showShort = event;
   }
   ngOnDestroy() {
     // 退出时停止更新

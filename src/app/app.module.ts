@@ -51,7 +51,6 @@ import {NodataComponent} from './nodata/nodata.component'
 import {GpuComponent} from "./jobDetail/gpu/gpu.component";
 import {SenceComponent} from "./algchains/sence/sence";
 import {ShowAllComponent} from "./showAll/showAll.component";
-import {DelConfirmComponent} from "./algchains/confirm/delConfirm.component";
 import {ApiComponent} from "./api/api.component";
 import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
@@ -107,7 +106,6 @@ import { UniformTipsComponent } from './uniform-tips/uniform-tips.component';
     GpuComponent,
     SenceComponent,
     ShowAllComponent,
-    DelConfirmComponent,
     ApiComponent,
     DatasetsDetailComponent,
     PublishModelComponent,

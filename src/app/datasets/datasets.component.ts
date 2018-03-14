@@ -70,6 +70,8 @@ export class DatasetsComponent{
       this.tipContent = "您修改的名称已存在！";
     }else if(event=='false'){
       this.tipContent = "该数据集已绑定训练任务！";
+    }else if(event=='deletedataset'){
+      this.tipContent = "该数据集下有挂载任务，不能删除！";
     }
   }
   showTipChange(event){

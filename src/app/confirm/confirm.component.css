@@ -4,14 +4,18 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.3);
   z-index: 1500;
 }
 .confirm-content {
   box-sizing: border-box;
-  width: 350px;
+  width: 380px;
   min-height: 150px;
-  margin: 250px auto;
+  position: relative;
+  left:50%;
+  top:50%;
+  margin-left: -190px;
+  margin-top: -102.5px;
   border: 1px solid #eeece8;
   border-radius: 3px;
   background: #fff;
@@ -25,7 +29,7 @@
   position: relative;
   width: 100%;
   height: 35px;
-  border-bottom: 1px solid #eeece8;
+  background: #eee;
 }
 .top label {
   height: 35px;
@@ -43,25 +47,29 @@
   height: 15px;
 }
 .content {
+  text-align: center;
   box-sizing: border-box;
-  min-height: 80px;
+  height:110px;
   font-size: 14px;
-  line-height: 30px;
-  padding: 8px 15px;
+  line-height: 110px;
   color: #333;
 }
 .op {
   box-sizing: border-box;
   overflow: hidden;
+  margin:0px auto 30px;
 }
 .op div {
-  float: right;
+  float: left;
 }
 .sure {
   background: #23a880;
+  margin-left: 105px;
 }
 .cancel {
-  background: #ff7c35;
+  background: #eee;
+  color: #333 !important;
+  margin-left: 20px;
 }
 .sure:hover , .cancel:hover{
   opacity: 0.9;
@@ -69,8 +77,8 @@
 .btn {
   margin-right: 10px;
   color: #fff;
-  height: 25px;
-  line-height: 25px;
+  height: 28px;
+  line-height: 28px;
   width: 70px;
   text-align: center;
   border-radius: 3px;
