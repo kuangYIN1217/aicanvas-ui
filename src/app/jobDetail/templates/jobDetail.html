@@ -10,7 +10,7 @@
       <a href="#" class="button" onclick="return false" *ngIf="job?.status!='模型发布中'" (click)="start(job?.jobPath)">{{job?.status=='完成'||job?.status=='模型发布成功'||job?.status=='模型发布失败' ? '重新运行' : '运行'}}</a>
       <a href="#" class="back" onclick="return false" *ngIf="job?.status=='模型发布中'">运行</a>
       <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)">查看训练算法</a>
-      <a href="#" class="button" onclick="return false" (click)="lookDataset()" *ngIf="job?.status=='完成'||(job?.status.indexOf('模型')!=-1)">查看训练数据集</a>
+      <a href="#" class="button" onclick="return false" (click)="lookDataset()" *ngIf="job?.status=='完成'||job?.status=='模型发布成功'||job?.status=='模型发布失败'||job?.status=='模型发布中'">查看训练数据集</a>
       <a href="#" class="button" onclick="return false" (click)="downloadLog()" *ngIf="job?.status!='未启动'" >下载训练日志</a>
     </div>
     <div class="btn-item" *ngIf="job?.status=='运行'" [style.display]="lookIt==1?'none':''">
@@ -21,7 +21,7 @@
       <a href="#" class="button" onclick="return false" (click)="downloadLog()">下载训练日志</a>
     </div>
 
-    <div *ngIf="job?.status=='完成'||(job?.status.indexOf('模型')!=-1)" class="publish btn-item" [style.display]="lookIt==1?'none':''">
+    <div *ngIf="job?.status=='完成'||job?.status=='模型发布成功'||job?.status=='模型发布失败'||job?.status=='模型发布中'" class="publish btn-item" [style.display]="lookIt==1?'none':''">
       <!--<a href="#" class="button" onclick="return false" >模型发布</a>-->
       <a href="#" class="button" onclick="return false" (click)="goModel()">推演服务</a>
     </div>
