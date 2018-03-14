@@ -13,6 +13,9 @@
   margin:20px auto 0;
   box-sizing: border-box;
 }
+.margin{
+  margin:0 auto 20px !important;
+}
 .tips-content span{
   color: #333;
 }

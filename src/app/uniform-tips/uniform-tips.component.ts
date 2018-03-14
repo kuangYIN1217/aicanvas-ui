@@ -9,13 +9,14 @@ export class UniformTipsComponent{
 @Input() tipType:string='';
 @Input() tipContent:any;
 @Input() tipWidth:string='';
+@Input() content:string='';
 @Output() showTipChange: EventEmitter<any> = new EventEmitter();
   constructor() { }
   ngOnChanges(...args: any[]) {
     if(this.tipType=='warnning'){
-     /* setTimeout(()=>{
+      setTimeout(()=>{
         this.showTipChange.emit(false);
-      },3000)*/
+      },3000)
     }
   }
   ngStyle() {

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="datasets-wrapper">
-    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [content]="content" (showTipChange)="showTipChange(event)"></uniform-tips>
     <nav class="nav">
       <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">我的数据集</div>
       <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">公共数据集</div>

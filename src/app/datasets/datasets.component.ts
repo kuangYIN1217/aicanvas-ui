@@ -35,6 +35,7 @@ export class DatasetsComponent{
   tipWidth:string='';
   tipContent:string='';
   tipType:string='';
+  content:string;
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
     this.pageParams.curPage = this.s_page;
@@ -64,6 +65,7 @@ export class DatasetsComponent{
     this.showTip = true;
     this.tipWidth = "100%";
     this.tipType = "warnning";
+    this.content = "editContent";
     if(event=='editname'){
       this.tipContent = "您修改的名称已存在！";
     }else if(event=='false'){
