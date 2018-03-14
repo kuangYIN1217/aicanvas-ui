@@ -57,14 +57,9 @@
           <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="icon">
           <input type="text" class="searchInput" [attr.placeholder]="placeholder==true?'请输入文件关键字':''" [ngClass]="{paddingLeft: icon==false}" [(ngModel)]="searchName" (focus)="hideIcon()" (blur)="showIcon()"/>
         </div>
+        <span class="dbclick" *ngIf="test=='test'">双击选择文件</span>
         <img [src]="arr.length>1?'assets/datasetsDetail/back_shen.png':'assets/datasetsDetail/back_qian.png'" class="previous" (click)="previous()"/>
       </div>
-      <!--<div class="dataset-sidebar">
-        <div class="dataset-item" (click)="allfile()">全部文件</div>
-        <div class="dataset-item" (click)="allimage()">图片</div>
-        <div class="dataset-item" (click)="alltext()">文本</div>
-        <div class="dataset-item" (click)="allother()">其他</div>
-      </div>-->
       <div class="dataset-show">
         <div class="dataset-model" *ngFor="let item of filterArr;let i=index" [style.display]="item.flag==1?'none':''">
           <div class="dataset-center">

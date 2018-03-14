@@ -56,7 +56,6 @@ import {ApiComponent} from "./api/api.component";
 import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
-import {CanvasComponent} from "./canvas/canvas";
 import {DatasetsSaveComponent} from "./dataSetSave/datasetsSave.component";
 import {Ng2DragDropModule} from "ng2-drag-drop";
 import {CreateFileComponent} from "./datasets/createfile/createfile.component";
@@ -113,7 +112,6 @@ import { UniformTipsComponent } from './uniform-tips/uniform-tips.component';
     DatasetsDetailComponent,
     PublishModelComponent,
     ShowTxtComponent,
-    CanvasComponent,
     DatasetsSaveComponent,
     CreateFileComponent,
     AddMarkComponent,

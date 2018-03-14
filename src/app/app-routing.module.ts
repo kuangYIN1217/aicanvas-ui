@@ -31,7 +31,6 @@ import {ApiComponent} from "./api/api.component";
 import {DatasetsDetailComponent} from "./datasetsDetail/datasetsDetail.component";
 import {PublishModelComponent} from "./publishmodel/publishmodel.component";
 import {ShowTxtComponent} from "./showTxt/showTxt.component";
-import {CanvasComponent} from "./canvas/canvas";
 import {DatasetsSaveComponent} from "./dataSetSave/datasetsSave.component";
 import {CreateFileComponent} from "./datasets/createfile/createfile.component";
 import {EnterDatasetComponent} from "./datasets/enterdataset/enterdataset.component";
@@ -79,7 +78,6 @@ const routes: Routes = [
   {path: 'datasetsdetail', component: DatasetsDetailComponent},
   {path: 'publishmodel', component: PublishModelComponent},
   {path: 'showtxt', component: ShowTxtComponent},
-  {path: 'canvas', component: CanvasComponent},
   {path: 'datasetssave', component: DatasetsSaveComponent},
   {path: 'createfile', component: CreateFileComponent},
   {path: 'enterdataset', component: EnterDatasetComponent},

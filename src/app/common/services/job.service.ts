@@ -58,6 +58,16 @@ export class JobService {
         }
       });
   }
+  deleteDatasets(id){
+    let path = "/api/findJobByDatasetId?DatasetId="+id;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response)=> {
+        if (response) {
+          return response.text();
+        }
+      });
+  }
   deletaDate(data_set){
     let path = "/api/getJobByDataSet/" + data_set;
     let headers = this.getHeaders();

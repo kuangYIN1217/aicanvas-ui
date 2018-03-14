@@ -4,22 +4,24 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DatasetsService} from "../../common/services/datasets.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {JobService} from "../../common/services/job.service";
 
 declare var $:any;
 @Component({
   selector: 'cpt-myfile',
   styleUrls: ['./myfile.component.css'],
   templateUrl: './myfile.component.html',
-  providers: [DatasetsService]
+  providers: [DatasetsService,JobService]
 })
 export class MyFileComponent{
   @Input() d_tableData:any;
   @Output() getResult: EventEmitter<any> = new EventEmitter();
+  @Output() noopearte: EventEmitter<any> = new EventEmitter();
   fileName:string;
   sameName:string='';
   show:boolean = false;
   content:string='';
-  constructor(private datasetsService:DatasetsService,private route: ActivatedRoute ,private router: Router){
+  constructor(private datasetsService:DatasetsService,private jobService:JobService,private route: ActivatedRoute ,private router: Router){
 
   }
   ngOnChanges(...args: any[]) {
@@ -97,12 +99,23 @@ export class MyFileComponent{
           (error) => {
             this.fileName = this.sameName;
             item.flag = 2;
-            this.show = true;
-            this.content = "您修改的名称已存在！";
+            this.noopearte.emit('editname');
+            /*this.show = true;
+            this.content = "您修改的名称已存在！";*/
           })
     }
   }
   deleteDateSet(id){
+    this.jobService.deleteDatasets(id)
+      .subscribe(result=>{
+        if(result=='true'){
+          this.delete(id);
+        }else if(result=='false'){
+        this.noopearte.emit(result);
+        }
+      })
+  }
+  delete(id){
     this.datasetsService.deleteDataSet(id)
       .subscribe(result=>{
         this.getResult.emit('success');

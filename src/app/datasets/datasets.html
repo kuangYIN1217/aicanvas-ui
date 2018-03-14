@@ -1,5 +1,6 @@
 <div class="container">
   <div class="datasets-wrapper">
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
     <nav class="nav">
       <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">我的数据集</div>
       <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">公共数据集</div>
@@ -25,7 +26,7 @@
         <div *ngIf="s_nav_selected === 0" class="upload-dataset" (click)="$upload_click()">上传文件</div>
       </div>
       <cpt-mydata [style.display]="s_nav_selected === 0&&(icon=='list')?'':'none'" [s_select_datasetType] = "s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [s_totalNum] = "s_totalNum" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0" [(s_totalNum)]="s_totalNum" (s_totalNumChange)="changeNum($event)" (s_sizeChange)="changeSize($event)"></cpt-mydata>
-      <cpt-myfile [style.display]="s_nav_selected === 0&&(icon=='file')?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)"></cpt-myfile>
+      <cpt-myfile [style.display]="s_nav_selected === 0&&(icon=='file')?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)" (noopearte)="noopearte($event)"></cpt-myfile>
       <cpt-publicfile [style.display]="s_nav_selected === 1&&(icon=='file')?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)"></cpt-publicfile>
       <cpt-publicdata [d_tableData] = "d_tableData" *ngIf="s_nav_selected === 1&&(icon=='list')"></cpt-publicdata>
       <page [style.display]="icon=='list'?'':'none'" [pageParams] = "pageParams" [s_totalNum] = "s_totalNum" (changeCurPage)="getPageData($event)" class="page"></page>

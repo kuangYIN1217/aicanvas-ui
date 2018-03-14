@@ -13,9 +13,9 @@ export class UniformTipsComponent{
   constructor() { }
   ngOnChanges(...args: any[]) {
     if(this.tipType=='warnning'){
-      setTimeout(()=>{
+     /* setTimeout(()=>{
         this.showTipChange.emit(false);
-      },3000)
+      },3000)*/
     }
   }
   ngStyle() {
