@@ -849,9 +849,9 @@ export class JobDetailComponent {
     this.jobService.getAllJobs('运行', null , null , null , null ).subscribe(rep => {
       if (rep.totalElements >= 3) {
         this.showTip = true;
-        this.tipMargin = "20px auto 0";
+        this.tipMargin = "0 auto 20px";
         this.tipWidth = "100%";
-        this.tipType = "warnning%";
+        this.tipType = "warnning";
         this.tipContent = "测试版本下最多同时运行三个任务！";
         /*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*/
         return;
@@ -865,6 +865,9 @@ export class JobDetailComponent {
           })
       }
     })
+  }
+  showTipChange(event){
+    this.showTip = event;
   }
 /*  sure(event){
     this.gpuNum = event;
@@ -889,7 +892,12 @@ export class JobDetailComponent {
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {
     if ((parameter.d_type == 'int' || parameter.d_type == 'float') && Number(value) + "" == NaN + "") {
       // alert('输入必须为数值!');
-      addWarningToast(this.toastyService, "输入必须为数值");
+      this.showTip = true;
+      this.tipMargin = "0 auto 20px";
+      this.tipWidth = "100%";
+      this.tipType = "warnning";
+      this.tipContent = "输入必须为数值！";
+      //addWarningToast(this.toastyService, "输入必须为数值");
     } else {
       parameter.set_value[i1][j1] = Number(value);
     }
@@ -904,21 +912,36 @@ export class JobDetailComponent {
     } else if (parameter.type == 'int' || parameter.type == 'float') {
       if (Number(value) + "" == NaN + "") {
         // alert('输入必须为数值!');
-        addWarningToast(this.toastyService, "输入必须为数值");
+        this.showTip = true;
+        this.tipMargin = "0 auto 20px";
+        this.tipWidth = "100%";
+        this.tipType = "warnning";
+        this.tipContent = "输入必须为数值！";
+        //addWarningToast(this.toastyService, "输入必须为数值");
       } else {
         let condition: number = 1;
         if (parameter.has_min) {
           if (+value < parameter.min_value) {
             condition = -1;
             // alert("Can't lower than min_value:"+parameter.min_value+"!  Back to default...");
-            addWarningToast(this.toastyService, "Can't lower than min_value:" + parameter.min_value + "!  Back to default...");
+            this.showTip = true;
+            this.tipMargin = "0 auto 20px";
+            this.tipWidth = "100%";
+            this.tipType = "warnning";
+            this.tipContent = `Can't higher than max_value:${parameter.min_value}!  Back to default...`;
+            //addWarningToast(this.toastyService, "Can't lower than min_value:" + parameter.min_value + "!  Back to default...");
           }
         }
         if (parameter.has_max) {
           if (+value > parameter.max_value) {
             condition = -2;
+            this.showTip = true;
+            this.tipMargin = "0 auto 20px";
+            this.tipWidth = "100%";
+            this.tipType = "warnning";
+            this.tipContent = `Can't higher than max_value:${parameter.max_value}!  Back to default...`;
             // alert("Can't higher than max_value:"+parameter.max_value+"!  Back to default...");
-            addWarningToast(this.toastyService, "Can't higher than max_value:" + parameter.max_value + "!  Back to default...");
+            //addWarningToast(this.toastyService, "Can't higher than max_value:" + parameter.max_value + "!  Back to default...");
           }
         }
         if (condition == 1) {

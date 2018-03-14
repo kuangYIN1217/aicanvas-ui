@@ -148,6 +148,12 @@ export class DatasetsComponent{
           this.downloadPath = result.substring(26);
           this.downloadBackup(this.downloadPath);
         })
+    }else{
+      this.showTip = true;
+      this.tipWidth = "100%";
+      this.tipType = "warnning";
+      this.tipMargin = "0 auto 20px";
+      this.tipContent = "请选择数据集！";
     }
   }
   downloadBackup(path) {
