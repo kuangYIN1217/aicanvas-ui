@@ -448,8 +448,18 @@ export class EnterDatasetComponent {
         return '文本文件';
       }else if((type=='图片文件'||type=='图片分类')&&(name.match(/^.*(\.jpg|\.JPG)$/)||name.match(/^.*(\.png|\.PNG)$/)||name.match(/^.*(\.bmg|\.BMG)$/)||name.match(/^.*(\.gif|\.GIF)$/)||name.match(/^.*(\.jpeg|\.JPEG)$/))){
         return '图片文件';
-      }else if(type=='自定义分类'){
-        return '配置文件'
+      }else if(type=='自定义分类'||type=='配置文件'){
+        if(name.match(/^.*(\.flv|\.FLV)$/)||name.match(/^.*(\.avi|\.AVI)$/)||name.match(/^.*(\.mp4|\.MP4)$/)){
+          return '视频文件';
+        }else if(name.match(/^.*(\.wav|\.WAV)$/)||name.match(/^.*(\.mp3|\.MP3)$/)){
+          return '音频文件';
+        }else if(name.match(/^.*(\.txt|\.TXT)$/)||name.match(/^.*(\.csv|\.CSV)$/)){
+          return '文本文件';
+        }else if(name.match(/^.*(\.jpg|\.JPG)$/)||name.match(/^.*(\.png|\.PNG)$/)||name.match(/^.*(\.bmg|\.BMG)$/)||name.match(/^.*(\.gif|\.GIF)$/)||name.match(/^.*(\.jpeg|\.JPEG)$/)){
+          return '图片文件';
+        }else{
+          return '配置文件';
+        }
       }else{
         return 'no support'
       }
