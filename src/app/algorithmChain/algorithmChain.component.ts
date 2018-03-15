@@ -195,7 +195,7 @@ export class AlgorithmChainComponent{
                 this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
             }else{
                // alert('已经是最后一页');
-              addInfoToast(this.toastyService , "已经是最后一页");
+              //addInfoToast(this.toastyService , "已经是最后一页");
             }
         }else if(this.showSystemPlugin==0){
             if(this.page<result){
@@ -203,7 +203,7 @@ export class AlgorithmChainComponent{
                 this.arr2 = this.selfTab.slice(num*this.page-num,num*this.page);
             }else{
                // alert('已经是最后一页');
-              addInfoToast(this.toastyService, "已经是最后一页" );
+              //addInfoToast(this.toastyService, "已经是最后一页" );
 
             }
         }
@@ -218,7 +218,7 @@ export class AlgorithmChainComponent{
                 console.log(this.arr);
             }else{
                // alert('已经是首页');
-              addInfoToast(this.toastyService, "已经是首页" );
+              //addInfoToast(this.toastyService, "已经是首页" );
             }
         }else if(this.showSystemPlugin==0){
             if (this.page>1){
@@ -227,7 +227,7 @@ export class AlgorithmChainComponent{
                 console.log(this.arr);
             }else{
                // alert('已经是首页');
-              addInfoToast(this.toastyService, "已经是首页" );
+              //addInfoToast(this.toastyService, "已经是首页" );
             }
         }
 

@@ -93,6 +93,12 @@ export class JobCreationComponent {
   datasetsType:any[]=[];
   dataKeyword:string='';
   username:string;
+
+  tipWidth:string='';
+  tipContent:string='';
+  tipType:string='';
+  showTip:boolean = false;
+  tipMargin:string='';
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
     this.username = localStorage['username'];
     pluginService.getLayerDict()
@@ -593,8 +599,16 @@ export class JobCreationComponent {
         this.jobName = null;
       });
   }
-
-
+  showTipChange(event){
+    this.showTip = false;
+  }
+  nooperate(event){
+    this.showTip = true;
+    this.tipWidth = "100%";
+    this.tipType = "warnning";
+    this.tipContent = "测试版本下最多同时运行三个任务！";
+    this.tipMargin = "0 auto";
+  }
   nodeClicked() {
     // 改变右侧显示的内容--显示node
     this.rightBox_node = 1;

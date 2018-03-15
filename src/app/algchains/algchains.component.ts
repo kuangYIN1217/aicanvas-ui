@@ -375,7 +375,6 @@ export class AlgChainsComponent{
             }
         }
     }
-
     set2dArray(parameter: Parameter,i1: number,j1: number,value: string){
         if ((parameter.d_type=='int'||parameter.d_type=='float')&&Number(value)+""==NaN+""){
             // alert('输入必须为数值!');

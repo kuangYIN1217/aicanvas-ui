@@ -78,3 +78,39 @@
   </div>
 </div>
 <app-text [(txtShow)]="txtShow" [txtContent]="txtContent"></app-text>
+
+<div class="show-text" *ngIf="textShow">
+  <div class="show-text-content">
+    <div class="show-text-title">
+      <span>{{textName}}</span>
+      <img src="assets/datasets/createfile/gb.png" (click)="close()"/>
+    </div>
+    <div>
+      <div class="show-text-txt">
+        {{textContent}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="show-text" *ngIf="photoShow">
+  <div class="show-image">
+    <img src="{{SERVER_URL}}/download/{{image}}" (load)="getWH()" id="image"/>
+    <img src="assets/datasets/filelevel/close.png" (click)="closeImg()" class="guanbiPhoto" id="closeImage"/>
+  </div>
+</div>
+<div class="show-text" *ngIf="videoShow">
+  <div class="show-video">
+    <img src="assets/datasets/filelevel/close.png" class="videoClose" (click)="closeVideo()"/>
+    <video src="{{SERVER_URL}}/download/{{output1(videoSrc)}}" controls="controls">
+      您的浏览器不支持 video 标签。
+    </video>
+  </div>
+</div>
+<div class="show-text" *ngIf="audioShow">
+  <div class="show-audio">
+    <img src="assets/datasets/filelevel/close.png" class="videoClose audioClose" (click)="closeAudio()"/>
+    <audio src="{{SERVER_URL}}/download/{{output1(audioSrc)}}" controls="controls">
+      您的浏览器不支持 audio 标签。
+    </audio>
+  </div>
+</div>

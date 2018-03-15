@@ -1,5 +1,6 @@
 <div class="container">
     <div class="manager wrapper" [style.display]="jobPageStatus=='manage'?'':'none'">
+      <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
         <div class="tabs">
             <div class="tabs_cont">
             <div class="tab_search">
@@ -13,7 +14,7 @@
             </div>
           </div>
         <div class="tab_content"  *ngIf="jobPageStatus!='createJob'">
-            <taskStatus [statuss]="statuss" [jobName]="jobName" [pageNumber]="pageNumber"></taskStatus>
+            <taskStatus [statuss]="statuss" [jobName]="jobName" [pageNumber]="pageNumber" (nooperate)="nooperate($event)"></taskStatus>
         </div>
     </div>
     <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">

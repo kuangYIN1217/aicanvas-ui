@@ -325,7 +325,12 @@ export class EnterDatasetComponent {
       })
   }
   selectedFileOnChanged(event:any){
-    let datasetType = this.d_tableData[0].fileType;
+    let datasetType:string='';
+    if(this.d_tableData.length>0){
+      datasetType = this.d_tableData[0].fileType;
+    }else{
+      datasetType = sessionStorage.getItem("dataTypeName");
+    }
     console.log(datasetType);
     if((this.uploader.queue.length-this.saveLoad.length)>5){
       this.show = true;
@@ -435,14 +440,16 @@ export class EnterDatasetComponent {
         return 'no support'
       }
     }else if(this.filePath.length==2){
-      if(type=='视频文件'&&(name.match(/^.*(\.flv|\.FLV)$/)||name.match(/^.*(\.avi|\.AVI)$/)||name.match(/^.*(\.mp4|\.MP4)$/))){
+      if((type=='视频文件'||type=='视频分类')&&(name.match(/^.*(\.flv|\.FLV)$/)||name.match(/^.*(\.avi|\.AVI)$/)||name.match(/^.*(\.mp4|\.MP4)$/))){
         return '视频文件';
-      }else if(type=='音频文件'&&(name.match(/^.*(\.wav|\.WAV)$/)||name.match(/^.*(\.mp3|\.MP3)$/))){
+      }else if((type=='音频文件'||type=='音频分类')&&(name.match(/^.*(\.wav|\.WAV)$/)||name.match(/^.*(\.mp3|\.MP3)$/))){
         return '音频文件';
-      }else if(type=='文本文件'&&(name.match(/^.*(\.txt|\.TXT)$/)||name.match(/^.*(\.csv|\.CSV)$/))){
+      }else if((type=='文本文件'||type=='文本分类')&&(name.match(/^.*(\.txt|\.TXT)$/)||name.match(/^.*(\.csv|\.CSV)$/))){
         return '文本文件';
-      }else if(type=='图片文件'&&(name.match(/^.*(\.jpg|\.JPG)$/)||name.match(/^.*(\.png|\.PNG)$/)||name.match(/^.*(\.bmg|\.BMG)$/)||name.match(/^.*(\.gif|\.GIF)$/)||name.match(/^.*(\.jpeg|\.JPEG)$/))){
+      }else if((type=='图片文件'||type=='图片分类')&&(name.match(/^.*(\.jpg|\.JPG)$/)||name.match(/^.*(\.png|\.PNG)$/)||name.match(/^.*(\.bmg|\.BMG)$/)||name.match(/^.*(\.gif|\.GIF)$/)||name.match(/^.*(\.jpeg|\.JPEG)$/))){
         return '图片文件';
+      }else if(type=='自定义分类'){
+        return '配置文件'
       }else{
         return 'no support'
       }
