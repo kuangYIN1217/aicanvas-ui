@@ -28,19 +28,19 @@
       <div [style.display]="show_menu?'':'none'">
         <div class="nav_element" [class.focusTab1] = "focusTab==7" routerLinkActive="active"  (click)="changeTab(7 , '/datasetssave');focusCollapse='0'">
           <img [src]="focusTab!=7?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'" style="display: none">
-          <a href="#" onclick="return false" style="padding-left: 42px">存储总览</a>
+          <a href="#" onclick="return false" class="two-menu">存储总览</a>
         </div>
         <div class="nav_element"  [class.focusTab1] = "focusTab==4" routerLinkActive="active"  (click)="changeTab(4 , '/datasets');focusCollapse='0'">
           <img [src]="focusTab!=4?'assets/navigation/icon_sjj_04_n.png':'assets/navigation/icon_sjj_04_h.png'" style="display: none">
-          <a href="#" onclick="return false" style="padding-left: 42px">数据集管理</a>
+          <a href="#" onclick="return false"  class="two-menu">数据集管理</a>
         </div>
         <div class="nav_element"  [class.focusTab1] = "focusTab==2" routerLinkActive="active"  (click)="changeTab(2 , '/algchains');focusCollapse='0'">
           <img [src]="focusTab!=2?'assets/navigation/icon_cj_02_n.png':'assets/navigation/icon_cj_02_h.png'" style="display: none">
-          <a href="#" onclick="return false" style="padding-left: 42px">场景管理</a>
+          <a href="#" onclick="return false"  class="two-menu">场景管理</a>
         </div>
         <div class="nav_element"  [class.focusTab1] = "focusTab==5" routerLinkActive="active"  (click)="changeTab(5 , '/inferenceModel');focusCollapse='0'">
           <img [src]="focusTab!=5?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'" style="display: none">
-          <a href="#" onclick="return false"  style="padding-left: 42px">模型服务管理</a>
+          <a href="#" onclick="return false"  class="two-menu">模型服务管理</a>
         </div>
       </div>
       <div class="nav_element"  id="nav3" [class.focusTab] = "focusTab==3" routerLinkActive="active"  (click)="changeTab(3 , '/jobcreation');focusCollapse='0'">

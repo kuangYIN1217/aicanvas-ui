@@ -16,8 +16,8 @@ export class ErrorComponent {
   ngStyle() {
     if (this.level == 'error') {
       return {
-        background: '#ffcbc3',
-        border: '1px solid #fe644b'
+        background: '#f9e8e4',
+        border: '1px solid #ee8059'
       }
     } else {
       return {

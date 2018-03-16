@@ -162,8 +162,11 @@ nav{
   width: 8px;
   height: 6px;
   display: inline-block;
-  margin-left: 40px;
+  margin: 0 0 0 48px;
   vertical-align: middle;
+}
+.two-menu{
+  padding-left: 42px;
 }
 /*.nav_element:hover{
   background: #333333;
@@ -171,12 +174,30 @@ nav{
 .nav_element a:hover{
   color: #ffffff;
 }*/
+@media (min-width:1024px) and (max-width:1200px) {
+  .logout{
+    right: 25px;
+  }
+  .nav_element .selectDown{
+    margin: 0 6px;
+  }
+  .nav_element img{
+    margin:22px 10px;
+  }
+  .two-menu{
+    padding-left: 38px;
+
+  }
+}
 @media (min-width:1200px) and (max-width:1366px) {
   .logout{
     right: 25px;
   }
   .nav_element .selectDown{
-    margin-left: 0px;
+    margin: 0 0 0 4px;
+  }
+  .nav_element img{
+    margin:22px 6px;
   }
 }
 @media (min-width:1366px) and (max-width:1440px) {
@@ -184,14 +205,22 @@ nav{
     right: 35px;
   }
   .nav_element .selectDown{
-    margin-left: 10px;
+    margin: 0 0 0 8px;
   }
 }
-@media (min-width:1440px) and (max-width:1600px) {
+@media (min-width:1440px) and (max-width:1680px) {
   .logout{
     right: 32px;
   }
   .nav_element .selectDown{
-    margin-left: 0px;
+    margin: 0 0 0 22px;
+  }
+}
+@media (min-width:1680px) and (max-width:1800px) {
+  .logout{
+    right: 32px;
+  }
+  .nav_element .selectDown{
+    margin: 0 0 0 34px;
   }
 }
