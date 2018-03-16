@@ -50,9 +50,9 @@
           <div class="row">
             <div class="row_tr">
               <span class="span"><label class="mustColor">*</label>CPU分配：</span>
-              <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()"/>
-              <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)"/>
-              <label class="totalMemory">(共{{cpu}}GB)</label>
+              <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()" id="cpu"/>
+              <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)" id="memory"/>
+              <!--<label class="totalMemory">(共{{cpu}}GB)</label>-->
             </div>
           </div>
           <div class="row">

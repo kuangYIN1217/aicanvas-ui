@@ -86,7 +86,7 @@ export class JobCreationComponent {
   dataThird:number;
   cmemory:number;
   gmemory:number;
-  auditing:number;
+  auditing:any;
   cpu:number;
   gpu:number=0;
   core:number;
@@ -109,6 +109,8 @@ export class JobCreationComponent {
       .subscribe(result=>{
         this.cpu = (Math.ceil(result.tot_memory/1024/1024/1024/8))*8;
         this.core = result.cores;
+        $("#cpu").attr('placeholder',`1-${this.core}`);
+        $("#memory").attr('placeholder',`1-${this.cpu}`);
       })
     this.getDataSets(1,this.username);
     // if (location.path(false).indexOf('/jobcreation/') != -1) {
@@ -195,9 +197,14 @@ export class JobCreationComponent {
     }
   }
   getCore(){
+    let reg=new RegExp(/^[1-9]\d*$|^0$/);
     if(Number(this.auditing)>this.core){
       this.s_error_show = true;
       this.s_error_message = '核数不能超过'+this.core;
+      this.s_error_level = "error";
+    }else if(!reg.test(this.auditing)){
+      this.s_error_show = true;
+      this.s_error_message = '核数格式错误';
       this.s_error_level = "error";
     }else{
       this.s_error_show = false;
@@ -365,15 +372,21 @@ export class JobCreationComponent {
   onlyNum(e) {
     let ev = event||e;
     if(!(ev.keyCode==46)&&!(ev.keyCode==8)&&!(ev.keyCode==37)&&!(ev.keyCode==39))
-      if(!((ev.keyCode>=48&&ev.keyCode<=57)||(ev.keyCode>=96&&ev.keyCode<=105)))
+      if(!((ev.keyCode>=48&&ev.keyCode<=57)||(ev.keyCode>96&&ev.keyCode<=105)))
         ev.returnValue=false;
   }
   memory(){
+    let reg=new RegExp(/^[1-9]\d*$|^0$/);
     if(Number(this.cmemory)>this.cpu){
       this.s_error_show = true;
       this.s_error_message = '内存不能超过'+this.cpu+'GB';
       this.s_error_level = "error";
-    }else{
+    }else if(!reg.test(this.auditing)){
+      this.s_error_show = true;
+      this.s_error_message = '内存格式错误';
+      this.s_error_level = "error";
+    }
+    else{
       this.s_error_show = false;
     }
   }
@@ -424,6 +437,12 @@ export class JobCreationComponent {
         this.dataFirst = 100-Number(this.dataSecond)-Number(this.dataThird);
       };
     }
+    let reg=new RegExp(/^[1-9]\d*$|^0$/);
+    if(!reg.test(this.auditing)){
+        this.s_error_show = true;
+        this.s_error_message = '数据集格式错误';
+        this.s_error_level = "error";
+      }
   }
   getPluginName(name) {
 

@@ -176,7 +176,7 @@ nav{
     right: 25px;
   }
   .nav_element .selectDown{
-    margin-left: 4px;
+    margin-left: 0px;
   }
 }
 @media (min-width:1366px) and (max-width:1440px) {
@@ -187,11 +187,11 @@ nav{
     margin-left: 10px;
   }
 }
-@media (min-width:1440px) and (max-width:1680px) {
+@media (min-width:1440px) and (max-width:1600px) {
   .logout{
     right: 32px;
   }
   .nav_element .selectDown{
-    margin-left: 25px;
+    margin-left: 0px;
   }
 }
