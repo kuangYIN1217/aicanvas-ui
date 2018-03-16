@@ -171,7 +171,7 @@ export class ModelComponent {
     //console.log(this.container);
   }
   outputImg(item){
-    return item.slice(26);
+    return item.slice(24);
   }
   // D: 定义事件，上传文件
     uploadFile() {
@@ -371,8 +371,14 @@ export class ModelComponent {
   getModelHeight(){
     let height = window.innerHeight;
     let tableH = Number($(".tableContainer").height());
-    return{
-      "height":height-322-tableH+'px'
+    if((height-322-tableH)<410){
+      return{
+        "min-height":'41px'
+      }
+    }else{
+      return{
+        "height":height-322-tableH+'px'
+      }
     }
   }
   showDetail(id){
