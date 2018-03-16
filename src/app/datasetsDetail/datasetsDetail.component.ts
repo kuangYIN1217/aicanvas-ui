@@ -49,6 +49,7 @@ export class DatasetsDetailComponent{
   icon:boolean = true;
   placeholder:boolean = true;
   searchName:string;
+  indexLevel:number=0;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
@@ -123,6 +124,11 @@ export class DatasetsDetailComponent{
     this.dataKey=[];
     this.dataSet=[];
     this.dataArr=[];
+    if(this.arr.length>1){
+      this.indexLevel = 1;
+    }else{
+      this.indexLevel = 0;
+    }
     this.data = JSON.parse(result.text());
     for(var key in this.data){
       this.dataKey.push(key);
@@ -224,6 +230,7 @@ export class DatasetsDetailComponent{
       }else if((key.indexOf("image")!=-1||key.indexOf("txt")!=-1)&&this.test == 'test'){
         //for(let i=0;i<this.uploadPath.length;i++){
           //this.uploadPath.push(item[key]);
+        this.indexLevel = 0;
           this.uploadPathChange.emit(item);
           this.close();
 /*          if(this.uploadPath[i]==item[key]){
@@ -258,6 +265,60 @@ export class DatasetsDetailComponent{
   //     console.log(this.headerPath);
   //   }
   // }
+  getImageStyle(obj,width,height,img,x,y){
+    obj.className = "show-img";
+    obj.style.position = "relative";
+    obj.style.top = "50%";
+    obj.style.left = "50%";
+    obj.style.marginTop = -(height/2)+'px';
+    obj.style.marginLeft = -(width/2)+'px';
+    img.style.right = x-17+'px';
+    img.style.top = y-17+'px';
+  }
+  getWH(){
+    let obj:any;
+    obj = document.getElementById("image1");
+    obj.className = "";
+    let img:any;
+    img = document.getElementById("closeImage1");
+    let width = obj.offsetWidth;
+    let height = obj.offsetHeight;
+    let x = (970-parseInt(width))/2;
+    let y = (545-parseInt(height))/2;
+    if(parseInt(width)>parseInt(height)){
+      if(parseInt(width)>=970){
+        obj.style.width = "970px";
+        obj.style.position = "relative";
+        obj.style.left = "0";
+        obj.style.right = "0";
+        obj.style.top = "50%";
+        obj.style.marginTop = -(obj.offsetHeight/2)+'px';
+        let y1 = (545-parseInt(obj.offsetHeight))/2;
+        img.style.right = '-17px';
+        img.style.top = y1-17+'px';
+        return
+      }else{
+        this.getImageStyle(obj,width,height,img,x,y);
+        return
+      }
+    }else if(parseInt(width)<=parseInt(height)){
+      if(parseInt(height)>=545){
+        obj.style.height = "545px";
+        obj.style.position = "relative";
+        obj.style.top = "0";
+        obj.style.bottom = "0";
+        obj.style.left = "50%";
+        obj.style.marginLeft = -(obj.offsetWidth/2)+'px';
+        let x1 = (970-parseInt(obj.offsetWidth))/2;
+        img.style.right = x1-17+'px';
+        img.style.top = '-17px';
+        return
+      }else{
+        this.getImageStyle(obj,width,height,img,x,y);
+        return
+      }
+    }
+  }
   open(item){
     for(var key in item){
         if(key.indexOf("image")!=-1){
@@ -267,6 +328,7 @@ export class DatasetsDetailComponent{
             this.image = true;
             let temp = item[key].split('$');
             this.imageUrl = temp[0].slice(26);
+
           }
         }else if(key.indexOf("file")!=-1){
           return false;

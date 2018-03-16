@@ -84,7 +84,7 @@ export class JobCreationComponent {
   dataFirst:number;
   dataSecond:number;
   dataThird:number;
-  cmemory:number;
+  cmemory:any;
   gmemory:number;
   auditing:any;
   cpu:number;
@@ -205,6 +205,10 @@ export class JobCreationComponent {
     }else if(!reg.test(this.auditing)){
       this.s_error_show = true;
       this.s_error_message = '核数格式错误';
+      this.s_error_level = "error";
+    }else if(this.auditing==0){
+      this.s_error_show = true;
+      this.s_error_message = '核数必须大于0';
       this.s_error_level = "error";
     }else{
       this.s_error_show = false;
@@ -372,7 +376,7 @@ export class JobCreationComponent {
   onlyNum(e) {
     let ev = event||e;
     if(!(ev.keyCode==46)&&!(ev.keyCode==8)&&!(ev.keyCode==37)&&!(ev.keyCode==39))
-      if(!((ev.keyCode>=48&&ev.keyCode<=57)||(ev.keyCode>96&&ev.keyCode<=105)))
+      if(!((ev.keyCode>=48&&ev.keyCode<=57)||(ev.keyCode>=96&&ev.keyCode<=105)))
         ev.returnValue=false;
   }
   memory(){
@@ -381,12 +385,15 @@ export class JobCreationComponent {
       this.s_error_show = true;
       this.s_error_message = '内存不能超过'+this.cpu+'GB';
       this.s_error_level = "error";
-    }else if(!reg.test(this.auditing)){
+    }else if(!reg.test(this.cmemory)){
       this.s_error_show = true;
       this.s_error_message = '内存格式错误';
       this.s_error_level = "error";
-    }
-    else{
+    }else if(this.cmemory==0){
+      this.s_error_show = true;
+      this.s_error_message = '内存必须大于0';
+      this.s_error_level = "error";
+    }else{
       this.s_error_show = false;
     }
   }
@@ -609,7 +616,7 @@ export class JobCreationComponent {
         //this.createdJob = job;
         this.createdJob = createdJob;
         // alert("任务创建成功");
-        addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 800);
+        //addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 800);
         location.reload();
         // this.jobPageStatus='jobPageStatus';
         console.log(this.createdJob.chainId);

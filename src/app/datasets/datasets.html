@@ -25,7 +25,7 @@
         <div *ngIf="s_nav_selected === 0&&icon=='file'" class="upload-dataset" (click)="$create_click()" style="margin-right: 20px">新建文件夹</div>
         <div *ngIf="s_nav_selected === 0&&icon=='file'" class="upload-dataset" (click)="$upload_click()">上传文件</div>
       </div>
-      <cpt-mydata [style.display]="s_nav_selected === 0&&(icon=='list')?'':'none'" [s_select_datasetType] = "s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [s_totalNum] = "s_totalNum" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0" [(s_totalNum)]="s_totalNum" (s_totalNumChange)="changeNum($event)" (s_sizeChange)="changeSize($event)" (noopearte)="noopearte($event)"></cpt-mydata>
+      <cpt-mydata [style.display]="s_nav_selected === 0&&(icon=='list')?'':'none'"  [s_select_datasetType]="s_select_datasetType" [s_select_name] = "s_select_name" [s_page] = "s_page" [s_size] = "s_size" [s_totalNum] = "s_totalNum" [(s_sort_type)] = "s_sort_type" [(d_tableData)] = "d_tableData" *ngIf="s_nav_selected === 0" [(s_totalNum)]="s_totalNum" (s_totalNumChange)="changeNum($event)" (s_sizeChange)="changeSize($event)" (noopearte)="noopearte($event)"></cpt-mydata>
       <cpt-myfile [style.display]="s_nav_selected === 0&&(icon=='file')?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)" (noopearte)="noopearte($event)"></cpt-myfile>
       <cpt-publicfile [style.display]="s_nav_selected === 1&&(icon=='file')?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)"></cpt-publicfile>
       <cpt-publicdata [d_tableData] = "d_tableData" *ngIf="s_nav_selected === 1&&(icon=='list')"></cpt-publicdata>

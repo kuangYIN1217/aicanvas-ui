@@ -57,23 +57,23 @@
           <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="icon">
           <input type="text" class="searchInput" [attr.placeholder]="placeholder==true?'请输入文件关键字':''" [ngClass]="{paddingLeft: icon==false}" [(ngModel)]="searchName" (focus)="hideIcon()" (blur)="showIcon()"/>
         </div>
-        <span class="dbclick" *ngIf="test=='test'">双击选择文件</span>
+        <span class="dbclick" *ngIf="test=='test'&&arr.length>1">双击选择文件</span>
         <img [src]="arr.length>1?'assets/datasetsDetail/back_shen.png':'assets/datasetsDetail/back_qian.png'" class="previous" (click)="previous()"/>
       </div>
       <div class="dataset-show">
         <div class="dataset-model" *ngFor="let item of filterArr;let i=index" [style.display]="item.flag==1?'none':''">
           <div class="dataset-center">
-            <img [src]="getItem(item)" (click)="enterPath(item)" (click)="open(item)"/>
+            <img [src]="getItem(item)" (click)="enterPath(item)" (click)="open(item)" [ngClass]="{changeWidth: indexLevel==1}"/>
             <span title="{{getSet(item)}}">{{getSet(item)}}</span>
           </div>
         </div>
       </div>
     </div>
     <div class="fangda" [style.display]="image?'':'none'">
-        <span>
-          <img src="{{SERVER_URL}}/download/{{imageUrl}}" class="jietu" *ngIf="imageUrl"/>
-          <img src="../assets/datasetsDetail/delete.png" class="close" (click)="closeImage()"/>
-        </span>
+        <div class="show-image">
+          <img src="{{SERVER_URL}}/download/{{imageUrl}}" *ngIf="imageUrl" (load)="getWH()" id="image1"/>
+          <img src="../assets/datasetsDetail/delete.png" class="guanbiPhoto" (click)="closeImage()" id="closeImage1"/>
+        </div>
     </div>
   </div>
 </div>
@@ -92,12 +92,12 @@
     </div>
   </div>
 </div>
-<div class="show-text" *ngIf="photoShow">
+<!--<div class="show-text" *ngIf="photoShow">
   <div class="show-image">
     <img src="{{SERVER_URL}}/download/{{image}}" (load)="getWH()" id="image"/>
     <img src="assets/datasets/filelevel/close.png" (click)="closeImg()" class="guanbiPhoto" id="closeImage"/>
   </div>
-</div>
+</div>-->
 <div class="show-text" *ngIf="videoShow">
   <div class="show-video">
     <img src="assets/datasets/filelevel/close.png" class="videoClose" (click)="closeVideo()"/>

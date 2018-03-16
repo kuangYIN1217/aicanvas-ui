@@ -156,7 +156,7 @@ export class ModelComponent {
     }
   }
   getDataSetPath(event){
-    //console.log(event);
+    console.log(event);
     for(var key in event){
       let temp = event[key].split('$');
       let type = temp[0];
@@ -171,7 +171,10 @@ export class ModelComponent {
     //console.log(this.container);
   }
   outputImg(item){
-    return item.slice(24);
+    let arr = item.split('/');
+    let path = arr.slice(4).join('/');
+    console.log(path);
+    return path;
   }
   // D: 定义事件，上传文件
     uploadFile() {

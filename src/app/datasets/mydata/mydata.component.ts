@@ -64,7 +64,7 @@ export class MyDataComponent{
     }
     this.s_sort_typeChange.emit(this.s_sort_type);
     // 重新获取数据
-    this.datasetservice.getDataSets(localStorage['username'] , this.dataSetType , this.s_select_name , this.s_sort_type, this.s_page , this.s_size ).subscribe(rep =>{
+    this.datasetservice.getDataSets(localStorage['username'] , this.s_select_datasetType , this.s_select_name , this.s_sort_type, this.s_page , this.s_size ).subscribe(rep =>{
       this.d_tableData = rep.content;
       //console.log(this.d_tableData)
       this.d_tableDataChange.emit(this.d_tableData);
