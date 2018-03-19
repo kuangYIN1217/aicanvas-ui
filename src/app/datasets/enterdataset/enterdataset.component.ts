@@ -409,9 +409,12 @@ export class EnterDatasetComponent {
       };
       this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
         this.showUpload[j].status = "上传失败";
-        this.show = true;
-        this.tipType = "warnning";
-        this.tipContent = response.split("$%")[0]+"已存在！";
+        console.log(status);
+        if(status=="400"){
+          this.show = true;
+          this.tipType = "warnning";
+          this.tipContent = response.split("$%")[0]+"已存在！";
+        }
       };
       this.uploader.onBuildItemForm = (item, form) => {
         form.append("fileType", this.fileType);
@@ -466,7 +469,19 @@ export class EnterDatasetComponent {
     }
   }
   judgeIcon(item){
-    let type = item.file.type.split('/')[0];
+    let name = item.file.name;
+    if(name.match(/^.*(\.zip|\.ZIP)$/)){
+      return 'assets/datasets/file/tc_wjj.png';
+    }else if(name.match(/^.*(\.flv|\.FLV)$/)||name.match(/^.*(\.avi|\.AVI)$/)||name.match(/^.*(\.mp4|\.MP4)$/)){
+      return 'assets/datasets/file/sp-upload.png';
+    }else if(name.match(/^.*(\.wav|\.WAV)$/)||name.match(/^.*(\.mp3|\.MP3)$/)){
+      return 'assets/datasets/file/sy-upload.png';
+    }else if(name.match(/^.*(\.txt|\.TXT)$/)||name.match(/^.*(\.csv|\.CSV)$/)){
+      return 'assets/datasets/file/wb-upload.png';
+    }else if(name.match(/^.*(\.jpg|\.JPG)$/)||name.match(/^.*(\.png|\.PNG)$/)||name.match(/^.*(\.bmg|\.BMG)$/)||name.match(/^.*(\.gif|\.GIF)$/)||name.match(/^.*(\.jpeg|\.JPEG)$/)){
+      return 'assets/datasets/file/tp-upload.png';
+    }
+/*    let type = item.file.type.split('/')[0];
     if(type=="video"){
       return 'assets/datasets/file/sp-upload.png';
     }else if(type=="audio"){
@@ -477,7 +492,7 @@ export class EnterDatasetComponent {
       return 'assets/datasets/file/tp-upload.png';
     }else if(type=='application'){
       return 'assets/datasets/file/tc_wjj.png';
-    }
+    }*/
   }
   close(){
     this.uploadShow = false;

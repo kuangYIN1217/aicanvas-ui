@@ -170,13 +170,17 @@ select:focus{
 select{
   outline: none;
 }
-/*@media (max-width: 1250px) and (max-width: 1400px) {
+@media (max-width: 1200px) {
   .searchContainer {
-    margin-right: 65px;
+    margin-right: 3vw;
+  }
+  .selectContainer span{
+    margin-right: 10px;
+  }
+  .upload-dataset{
+    flex:0 0 100px;
+    -webkit-flex: 0 0 100px;
+    -ms-flex: 0 0 100px;
   }
 }
-@media (max-width: 1250px) {
-  .searchContainer {
-    margin-right: 15px;
-  }
-}*/
+
