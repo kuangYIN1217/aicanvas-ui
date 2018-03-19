@@ -56,7 +56,7 @@ export class TaskStatusComponent{
       clearInterval(this.interval1);*/
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
       //this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
-      this.pageNow=paraParam.curPage;
+      this.pageNow=paraParam.curPage-1;
       //console.log('触发', paraParam);
       this.getPage();
     }
