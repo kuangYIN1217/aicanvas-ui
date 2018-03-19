@@ -90,9 +90,9 @@ nav{
 */
 
 .nav_element{
-    width: 100%;
-    height: 50px;
-    position: relative;
+  width: 100%;
+  height: 50px;
+  position: relative;
   display: flex;
   /*justify-content: center;*/
   align-items: center;
@@ -101,10 +101,10 @@ nav{
   outline: none;
 
 }
-.nav_element img{
+.nav_element .nav-icon{
     width: 18px;
     height:18px;
-  margin:22px 12px 22px 12px;
+    margin:16px 12px;
     float: left;
 }
 .collapseImgDiv{
@@ -124,7 +124,7 @@ nav{
     margin: 0px auto;
 }
 .nav_element a{
-    display: block;
+    display: inline-block;
     float: left;
     text-decoration: none;
     font-family: "MicrosoftYaHei";
@@ -149,18 +149,12 @@ nav{
    background-color: #333333;
    border-left:solid 4px #ee8348;
 }
-.focusTab1{
-
-}
-.focusTab1 a{
-  color: #ffffff;
-}
-.focusTab a{
+.focusTab1 a,.focusTab a{
   color: #ffffff;
 }
 .nav_element .selectDown{
-  width: 8px;
-  height: 6px;
+  width: 6px;
+  height: 11px;
   display: inline-block;
   margin: 0 0 0 48px;
   vertical-align: middle;
@@ -181,12 +175,17 @@ nav{
   .nav_element .selectDown{
     margin: 0 6px;
   }
-  .nav_element img{
-    margin:22px 10px;
+  .nav_element .nav-icon{
+    margin:16px 9px;
+  }
+  .nav_element a{
+    width:60%;
+  }
+  .nav_element .data-save{
+    width:36%;
   }
   .two-menu{
     padding-left: 38px;
-
   }
 }
 @media (min-width:1200px) and (max-width:1366px) {
@@ -196,8 +195,8 @@ nav{
   .nav_element .selectDown{
     margin: 0 0 0 4px;
   }
-  .nav_element img{
-    margin:22px 6px;
+  .nav_element .nav-icon{
+    margin:16px 6px;
   }
 }
 @media (min-width:1366px) and (max-width:1440px) {

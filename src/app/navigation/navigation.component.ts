@@ -30,7 +30,6 @@ export class NavigationComponent {
 
   changeTab(nextFocus: number , url?) {
     this.focusTab = nextFocus;
-    console.log(url);
     if(url){
       this.router.navigate(['/'], {skipLocationChange: true})
         .then(() => {
@@ -38,6 +37,7 @@ export class NavigationComponent {
         });
       if(this.focusTab==2||this.focusTab==4||this.focusTab==5||this.focusTab==7){
         $("#nav8").find('.selectDown').attr("src","assets/navigation/shang_bai.png");
+        this.getArrow();
       }else{
         $("#nav8").find('.selectDown').attr("src","assets/navigation/kong_hui.png");
       }
@@ -98,7 +98,7 @@ export class NavigationComponent {
       }
     }else{
       return{
-        "width":"7px",
+        "width":"6px",
         "height":"11px"
       }
     }

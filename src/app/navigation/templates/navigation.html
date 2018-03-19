@@ -17,12 +17,12 @@
         <img src="assets/navigation/logo1.png" class="logo">
       </div>
         <div class="nav_element" id="nav1" [class.focusTab] = "focusTab==1" routerLinkActive="active"  (click)="changeTab(1 , '/overview');focusCollapse='0'">
-            <img [src]="focusTab!=1?'assets/navigation/icon_xxzl_01_n.png':'assets/navigation/icon_xxzl_01_h.png'">
+            <img [src]="focusTab!=1?'assets/navigation/icon_xxzl_01_n.png':'assets/navigation/icon_xxzl_01_h.png'" class="nav-icon">
             <a href="#" onclick="return false">信息总览</a>
         </div>
       <div class="nav_element" id="nav8" [class.focusTab] = "focusTab==7||focusTab==4||focusTab==2||focusTab==5" routerLinkActive="active"  (click)="changeTab(7);focusCollapse='0'" >
-        <img [src]="focusTab==7||focusTab==4||focusTab==2||focusTab==5?'assets/navigation/sjj_bai.png':'assets/navigation/sjj_hui.png'">
-        <a href="#" onclick="return false">数据存储</a>
+        <img [src]="focusTab==7||focusTab==4||focusTab==2||focusTab==5?'assets/navigation/sjj_bai.png':'assets/navigation/sjj_hui.png'"  class="nav-icon">
+        <a href="#" onclick="return false" class="data-save">数据存储</a>
         <img [src]="loadArrow()" class="selectDown" [ngStyle]="getArrow()"/>
       </div>
       <div [style.display]="show_menu?'':'none'">
@@ -44,11 +44,11 @@
         </div>
       </div>
       <div class="nav_element"  id="nav3" [class.focusTab] = "focusTab==3" routerLinkActive="active"  (click)="changeTab(3 , '/jobcreation');focusCollapse='0'">
-        <img [src]="focusTab!=3?'assets/navigation/icon_xlrw_03_n.png':'assets/navigation/icon_xlrw_03_h.png'">
+        <img [src]="focusTab!=3?'assets/navigation/icon_xlrw_03_n.png':'assets/navigation/icon_xlrw_03_h.png'"  class="nav-icon">
         <a href="#" onclick="return false" >训练任务管理</a>
       </div>
       <div class="nav_element"  id="nav6" [class.focusTab] = "focusTab==6" routerLinkActive="active"  (click)="changeTab(6 , '/algplugins');focusCollapse='0'">
-        <img [src]="focusTab!=6?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'">
+        <img [src]="focusTab!=6?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'"  class="nav-icon">
         <a href="#" onclick="return false" >算法组件库</a>
       </div>
         <!--<div class="nav_element" [class.focusTab] = "focusTab==8" routerLinkActive="active"  (click)="changeTab(8 , '/algchainAlone');focusCollapse='0'">-->
