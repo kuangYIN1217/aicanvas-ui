@@ -3,6 +3,7 @@ import {DatasetsService} from "../common/services/datasets.service";
 import {calc_height} from '../common/ts/calc_height'
 import {DatasaveService} from "../common/services/datasave.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import { Observable } from 'rxjs';
 declare var $:any;
 @Component({
   moduleId: module.id,
@@ -22,59 +23,62 @@ export class DatasetsSaveComponent{
   s:number;
   m:number;
   o:number;
+  allWidth:number;
   constructor(private datasaveService:DatasaveService,private route: ActivatedRoute, private router: Router){
     this.datasaveService.getAllSave()
       .subscribe(result=>{
-        //console.log(result);
         this.dataSave = result;
-        this.total = this.getSize(this.dataSave.diskSpace);
-        //console.log(this.total);
-        this.getDataset();
-        this.getScence();
-        this.getModel();
-        this.getOther();
+        this.getData();
       })
+  }
+  getData(){
+    this.allWidth = document.getElementById("dataset_count").offsetWidth;
+    this.total = this.getSize(this.dataSave.diskSpace);
+    this.getDataset();
+    this.getScence();
+    this.getModel();
+    this.getOther();
   }
   getDataset(){
     this.dataset = this.getSize(this.dataSave.datasetSpace);
     //console.log(this.dataset,this.total);
-    this.d = Math.floor((this.dataset/this.total)*868);
-    $(".dataset").css("width",Math.floor((this.dataset/this.total)*868));
+    this.d = Math.floor((this.dataset/this.total)*this.allWidth);
+    $(".dataset").css("width",Math.floor((this.dataset/this.total)*this.allWidth));
 /*    return {
-      "width":Math.floor((this.dataset/this.total)*868)
+      "width":Math.floor((this.dataset/this.total)*this.allWidth)
     }*/
   }
   getScence(){
     this.scence = this.getSize(this.dataSave.chainSpace);
     //console.log(this.d);
-    this.s = Math.floor((this.scence/this.total)*868);
-    $(".sence").css("width",Math.floor((this.scence/this.total)*868));
+    this.s = Math.floor((this.scence/this.total)*this.allWidth);
+    $(".sence").css("width",Math.floor((this.scence/this.total)*this.allWidth));
     $(".sence").css("left",this.d);
 /*      return {
-        "width":Math.floor((this.scence/this.total)*868),
+        "width":Math.floor((this.scence/this.total)*this.allWidth),
         "left":this.d
     }*/
   }
   getModel(){
     this.model = this.getSize(this.dataSave.modelSpace);
-    this.m = Math.floor((this.model/this.total)*868);
+    this.m = Math.floor((this.model/this.total)*this.allWidth);
     //console.log(this.d+this.s);
     //console.log(this.m);
-    $(".model").css("width",Math.floor((this.scence/this.total)*868));
+    $(".model").css("width",Math.floor((this.scence/this.total)*this.allWidth));
     $(".model").css("left",this.d+this.s);
     // return {
-    //   "width":Math.floor((this.scence/this.total)*868),
+    //   "width":Math.floor((this.scence/this.total)*this.allWidth),
     //   "left":this.d+this.s
     // }
   }
   getOther(){
     this.other = this.getSize(this.dataSave.otherSpace);
-    this.o = Math.floor((this.other/this.total)*868);
+    this.o = Math.floor((this.other/this.total)*this.allWidth);
     //console.log(this.d+this.s+this.m);
-    $(".other").css("width",Math.floor((this.other/this.total)*868));
+    $(".other").css("width",Math.floor((this.other/this.total)*this.allWidth));
     $(".other").css("left",this.d+this.s+this.m);
 /*    return {
-      "width":Math.floor((this.other/this.total)*868),
+      "width":Math.floor((this.other/this.total)*this.allWidth),
       "left":this.d+this.s+this.m
     }*/
   }
@@ -114,5 +118,10 @@ export class DatasetsSaveComponent{
   }
   ngOnInit() {
     calc_height(document.getElementById('datasetssave'));
+    Observable.fromEvent(window, 'resize')
+    // .debounceTime(100) // 以免频繁处理
+      .subscribe((event) => {
+        this.getData();
+      })
   }
 }

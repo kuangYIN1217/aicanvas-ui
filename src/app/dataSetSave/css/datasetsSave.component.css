@@ -131,4 +131,12 @@
     width:868px;
   }
 }
+@media (max-width: 1200px) {
+  .datasetssave_title{
+    width:818px;
+  }
+  .dataset_count{
+    width:818px;
+  }
+}
 
