@@ -255,7 +255,7 @@ export class DatasetsDetailComponent{
           this.uploadPath.push(item[key]);
         }*/
         //console.log(this.uploadPath);
-      }else if(key.indexOf("txt")!=-1&&this.test==undefined){
+      }/*else if(key.indexOf("txt")!=-1&&this.test==undefined){
         let temp = item[key].split('$');
         console.log(temp);
         this.jobService.getTxt(temp[0].substring(26))
@@ -263,7 +263,7 @@ export class DatasetsDetailComponent{
             this.txtContent = result.text();
             this.txtShow = true;
           })
-      }else{
+      }*/else{
         return false;
       }
     }
@@ -338,7 +338,7 @@ export class DatasetsDetailComponent{
       }
     }
   }
-  open(item){
+/*  open(item){
     for(var key in item){
         if(key.indexOf("image")!=-1){
           if(this.test == 'test'){
@@ -361,7 +361,7 @@ export class DatasetsDetailComponent{
           return false;
         }
     }
-  }
+  }*/
   closeImage(){
     this.image = false;
   }
