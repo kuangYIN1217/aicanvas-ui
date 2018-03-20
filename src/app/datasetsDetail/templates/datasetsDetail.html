@@ -30,7 +30,7 @@
           <div class="dataset-text second">
             <span>数据集名称：</span>
             <span *ngIf="jobPath==undefined">{{dataList?.fileCount}}</span>
-            <span *ngIf="jobPath!=undefined">{{dataListShow?.count}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.dataName}}</span>
           </div>
           <div class="dataset-text first" *ngIf="dataList?.creator=='admin'">
             <span>创建人：</span>
@@ -55,7 +55,7 @@
       <div class="dataset-search">
         <div class="search">
           <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="icon">
-          <input type="text" class="searchInput" [attr.placeholder]="placeholder==true?'请输入文件关键字':''" [ngClass]="{paddingLeft: icon==false}" [(ngModel)]="searchName" (focus)="hideIcon()" (blur)="showIcon()"/>
+          <input type="text" class="searchInput" [attr.placeholder]="placeholder==true?'请输入文件关键字':''" [ngClass]="{paddingLeft: icon==false}" [(ngModel)]="searchName" (focus)="hideIcon()" (blur)="showIcon()" (ngModelChange)="select_name()"/>
         </div>
         <span class="dbclick" *ngIf="test=='test'&&arr.length>1">双击选择文件</span>
         <img [src]="arr.length>1?'assets/datasetsDetail/back_shen.png':'assets/datasetsDetail/back_qian.png'" class="previous" (click)="previous()"/>

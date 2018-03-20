@@ -60,11 +60,12 @@ export class modelService {
           }
         });
     }
-    getJobDataset(jobPath,arr,path1){
+    getJobDataset(jobPath,arr,path1,namePart){
       let path = "/api/scanDataSetFileDetail";
       let body = JSON.stringify({
         "jobPath": jobPath,
         "label": arr,
+        "namePart": namePart,
         "path":path1
       });
       let headers = this.getHeaders();
