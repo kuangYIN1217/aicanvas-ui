@@ -32,7 +32,7 @@ export class DatasetsSaveComponent{
       })
   }
   getData(){
-    this.allWidth = document.getElementById("dataset_count").offsetWidth;
+    this.allWidth = parseFloat($("#dataset_count").width());
     this.total = this.getSize(this.dataSave.diskSpace);
     this.getDataset();
     this.getScence();

@@ -821,8 +821,6 @@ export class JobDetailComponent {
       this.jobResult = temp;
     }
   }
-
-
   stop(jobPath: string) {
     if (!this.s_start_stop_click) {
       return;
