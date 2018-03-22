@@ -18,7 +18,7 @@
       <td *ngIf="jobInfo.trainable == 0"></td>
       <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.status}}">{{jobInfo.status}}</td>
       <td *ngIf="jobInfo.trainable == 0"></td>
-      <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.percent|percent:'.2'}}">{{jobInfo.percent==null?'0.00':jobInfo.percent|percent:'.2'}}</td>
+      <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.percent|percent:'.2'}}">{{jobInfo.percent==null?'-':jobInfo.percent|percent:'.2'}}</td>
       <!-- <td>{{jobInfo.job_progress}}%</td> -->
       <!--        <td class="operationTd">
                   <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
