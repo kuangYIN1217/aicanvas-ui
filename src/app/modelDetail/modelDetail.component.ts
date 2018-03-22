@@ -56,7 +56,7 @@ export class ModelDetailComponent{
             var responsePath = response;
             console.log(response);
             this.saveModelAndUpload(responsePath);
-        }
+        };
         this.uploader.queue[0].upload(); // 开始上传
         //this.tabIndex=this.scene;
     }

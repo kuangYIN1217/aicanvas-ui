@@ -581,3 +581,8 @@ input:focus {
   top: 200px;
   left: 30%;
 }
+@media (max-width: 1200px){
+  .detailLine span{
+    width:33%;
+  }
+}

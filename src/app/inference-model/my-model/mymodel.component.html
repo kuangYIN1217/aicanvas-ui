@@ -16,12 +16,12 @@
     <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
     <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
       <td style="width: 90px;padding-left: 22px">{{i+1}}</td>
-      <td style="width: 145px;padding-left: 45px">{{item.jobName}}</td>
-      <td style="width: 160px;padding-left: 40px">{{item.senceName}}</td>
+      <td style="width: 145px;padding-left: 45px" title="{{item.jobName}}">{{item.jobName}}</td>
+      <td style="width: 160px;padding-left: 40px" title="{{item.senceName}}">{{item.senceName}}</td>
       <td style="width: 137px;padding-left: 40px">{{item.version}}</td>
       <td style="width: 132px;padding-left: 34px">{{item.status}}</td>
 <!--      <td style="width: 232px;padding-left: 36px">{{item.gRPC}}</td>-->
-      <td style="width: 252px;padding-left: 30px">{{item.restfulUrl}}</td>
+      <td style="width: 252px;padding-left: 30px" title="{{item.restfulUrl}}">{{item.restfulUrl}}</td>
       <td style="width: 165px;padding-left: 70px">{{item.size}}</td>
       <td style="width: 113px;padding-left: 26px">{{item.user.login}}</td>
       <td style="width: 200px;padding-left: 36px">{{item.createTime}}</td>

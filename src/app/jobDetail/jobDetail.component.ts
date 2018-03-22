@@ -773,6 +773,7 @@ export class JobDetailComponent {
             this.log_list = this.log_list.concat(data);
           });
           this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
+            //console.log(123);
             if (this.s_process_flag) {
               this.d_progress_log = {
                 percent: 0,
