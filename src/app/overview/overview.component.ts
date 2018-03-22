@@ -71,22 +71,25 @@ export class OverviewComponent {
   gpuBollean:boolean=true;
   constructor(private sceneService: SceneService, private AmCharts: AmChartsService, private resourcesService: ResourcesService, private jobService: JobService, private route: ActivatedRoute, private router: Router) {
     window.scrollTo(0,0);
-    this.resourcesService.getCpuInfo()
-      .subscribe(cpu => this.getCpu(cpu));
+    this.getCpuValue();
 /*    $.get(SERVER_URL+"/api/gpus", function(result){
       console.log(result);
     });*/
+    this.getAllGpusValue();
 
-      this.resourcesService.getAllGpus()
-        .subscribe(gpuArray => {
-      //this.gpuArray = gpuArray;
-      this.getGpus(gpuArray);
-    });
 
     //this.getAlljobs(this.page-1,this.pageMaxItem);
     // loading show
     this.sceneService.getAllScenes(-1)
-      .subscribe(scenes => this.SceneInfo = scenes);
+      .subscribe(
+        (scenes) => {
+          this.SceneInfo = scenes
+        },
+      (error)=>{
+        if(error.status==401){
+          this.router.navigate(['/login']);
+        }
+      });
 
     this.loading();
     this.interval = setInterval(() => {
@@ -98,6 +101,35 @@ export class OverviewComponent {
      sessionStorage['overviewTab'] = 0;
      this.tabIndex = 0;
      }*/
+  }
+  getAllGpusValue(){
+    this.resourcesService.getAllGpus()
+      .subscribe(
+        (gpuArray) => {
+          //this.gpuArray = gpuArray;
+          this.getGpus(gpuArray);
+        },
+        (error)=>{
+          if(error.status==401){
+            clearInterval(this.interval);
+            localStorage['authenticationToken'] = '';
+              this.router.navigate(['/login']);
+          }
+        });
+  }
+  getCpuValue(){
+    this.resourcesService.getCpuInfo()
+      .subscribe(
+        (cpu) => {
+          this.getCpu(cpu)
+        },
+        (error)=>{
+          if(error.status==401){
+            clearInterval(this.interval);
+            localStorage['authenticationToken'] = '';
+              this.router.navigate(['/login']);
+          }
+        });
   }
   makeRandomDataProvider0() {
     var dataProvider = [{
@@ -949,6 +981,7 @@ export class OverviewComponent {
     }
 
     loading() {
+
     }
 
     selectChange() {
@@ -1284,10 +1317,8 @@ export class OverviewComponent {
     }
 
     update() {
-      this.resourcesService.getCpuInfo()
-        .subscribe(cpu => this.getCpu(cpu));
-      this.resourcesService.getAllGpus()
-        .subscribe(gpuArray => this.getGpus(gpuArray));
+      this.getCpuValue();
+      this.getAllGpusValue()
       // this.getGpus(this.gpuArray);
     }
 

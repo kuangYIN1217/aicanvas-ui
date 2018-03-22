@@ -155,8 +155,9 @@ export class JobCreationComponent {
   }
   getImage(item){
     if(item.id==1){
-      if(item.flag==undefined||item.flag==2)
+      if(item.flag==undefined||item.flag==2){
         return 'assets/datasets/createfile/tp_hui.png';
+      }
       else
         return 'assets/datasets/createfile/tp_lv.png';
     }else if(item.id==2){

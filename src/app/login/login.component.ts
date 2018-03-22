@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit{
             // console.log(userService.getAccount());
             console.log("already logined : ");
             console.log(token);
-          this.router.navigate(['/overview'])
+          this.router.navigate(['/overview']);
             // window.location.href = "/#/overview";
         }
     }

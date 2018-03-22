@@ -27,9 +27,9 @@ export class ResourcesService {
         headers.append('Content-Type','application/json');
         headers.append('Accept','application/json');
         headers.append('Authorization',this.getAuthorization());
+        /*headers.append('Access-Control-Allow-Origin','*');*/
         return headers;
     }
-
     getCpuInfo(){
         let path = "/api/cpuinfo";
         let headers = this.getHeaders();
@@ -40,7 +40,7 @@ export class ResourcesService {
                 if (response && response.json()) {
                     return response.json();
                 }
-            });
+            })
     }
 
     getCpuStatus(): Observable<CpuInfo[]> {
