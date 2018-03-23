@@ -55,6 +55,7 @@
               <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()" id="cpu"/>
               <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)" id="memory"/>
               <!--<label class="totalMemory">(共{{cpu}}GB)</label>-->
+              <label class="totalMemory">GB</label>
             </div>
           </div>
           <div class="row">
