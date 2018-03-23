@@ -61,9 +61,11 @@ export class TaskStatusComponent{
       this.getPage();
     }
   getPage(){
-      console.log(this.pageNow);
-      sessionStorage['curPage'] = this.pageNow;
-      console.log(sessionStorage['curPage']);
+      if(this.pageNow==0){
+        this.pageNow = sessionStorage['curPage'];
+      }else{
+        sessionStorage['curPage'] = this.pageNow;
+      }
   }
    ngOnInit(){
      calc_height(document.getElementsByClassName('taskStatusContainer')[0]);
@@ -83,6 +85,7 @@ export class TaskStatusComponent{
   ngOnChanges(...args: any[]){
      this.getSceneId();
        this.pageChange = this.pageNumber;
+       sessionStorage['curPage'] = this.pageNumber;
        this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,this.sceneId);
    }
    getSceneId(){
@@ -168,7 +171,7 @@ export class TaskStatusComponent{
         }else{
             console.log("Start Failed!");
         }
-      this.getAlljobs(this.statuss,this.pageNow-1,this.pageMaxItem,this.sceneId);
+      this.getAlljobs(this.statuss,sessionStorage['curPage'],this.pageMaxItem,this.sceneId);
     }
     stop(jobPath: string){
         this.jobService.stopJob(jobPath)
@@ -180,7 +183,7 @@ export class TaskStatusComponent{
         }else{
             console.log("Stop Failed!");
         }
-      this.getAlljobs(this.statuss,this.pageNow-1,this.pageMaxItem,this.sceneId);
+      this.getAlljobs(this.statuss,sessionStorage['curPage'],this.pageMaxItem,this.sceneId);
     }
 
     output(percent){

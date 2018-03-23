@@ -632,7 +632,7 @@ export class JobCreationComponent {
   nooperate(event){
     this.showTip = true;
     this.tipWidth = "100%";
-    this.tipType = "warnning";
+    this.tipType = "error";
     this.tipContent = "测试版本下最多同时运行三个任务！";
     this.tipMargin = "0 auto";
   }
