@@ -260,7 +260,7 @@ export class JobDetailComponent {
       this.interval = setInterval(() => {
         this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
           this.job = jobDetail;
-          if (this.job.status == '完成'){
+          if (this.job.status == '完成'||this.job.status == '异常'){
             // 任务完成
             this.websocket.stopWebsocket();
             if (this.interval) {
@@ -773,7 +773,7 @@ export class JobDetailComponent {
             this.log_list = this.log_list.concat(data);
           });
           this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
-            //console.log(123);
+            console.log
             if (this.s_process_flag) {
               this.d_progress_log = {
                 percent: 0,
