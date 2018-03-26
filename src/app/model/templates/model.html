@@ -83,7 +83,8 @@
           <div class="showPhoto">
              <span  *ngFor="let item of container1;let i=index">
                <!--<img src="{{item}}" alt="" class="photo" *ngIf="uploader.queue.length>0">-->
-               <img src="{{SERVER_URL}}/download/{{outputImg(item)}}" alt="" class="photo">
+               <img src="{{SERVER_URL}}/download/{{outputImg(item)}}" alt="" class="photo" *ngIf="showType=='png'||showType=='jpg'">
+               <img src="{{item}}" alt="" class="photo" *ngIf="showType=='zip'||showType=='rar'||showType=='txt'||showType=='csv'">
                <img src="../assets/model/delete.png" class="del" (click)="delPhoto(i)"/>
              </span>
           </div>

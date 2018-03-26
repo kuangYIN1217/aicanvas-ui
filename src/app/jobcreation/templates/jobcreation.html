@@ -1,6 +1,8 @@
 <div class="container">
     <div class="manager wrapper" [style.display]="jobPageStatus=='manage'?'':'none'">
-      <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
+      <div style="padding: 0 30px;margin-top: 20px" *ngIf="showTip">
+        <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
+      </div>
         <div class="tabs">
             <div class="tabs_cont">
             <div class="tab_search">
@@ -53,6 +55,7 @@
               <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()" id="cpu"/>
               <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)" id="memory"/>
               <!--<label class="totalMemory">(共{{cpu}}GB)</label>-->
+              <label class="totalMemory">GB</label>
             </div>
           </div>
           <div class="row">

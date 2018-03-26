@@ -192,6 +192,10 @@ export class DatasetsDetailComponent{
         return `${SERVER_URL}/download/${path}`;
       }else if(key.indexOf("txt")!=-1){
         return 'assets/datasets/file/wb.png';
+      }else if(key.indexOf("video")!=-1){
+        return 'assets/datasets/file/sp.png';
+      }else if(key.indexOf("audio")!=-1){
+        return 'assets/datasets/file/yp.png';
       }else{
         return 'assets/datasets/file/qt.png';
       }

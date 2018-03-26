@@ -65,6 +65,7 @@ export class ModelComponent {
   tipWidth:string='';
   tipMargin:string='';
   showShort:boolean = false;
+  showType:string='';
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -123,12 +124,11 @@ export class ModelComponent {
           }
     }*/
     this.uploader.queue[this.times-1].onSuccess = (response: any, status: any, headers: any) => {
-      //this.uploader.queue[i].remove();
-      let type = response.split('.').pop().toLowerCase();
-      if(type == "zip"||type == "rar") {
-        this.container1.push("/home/deepthinker/dataset/typeImages/yasuo2.png");
-      }else if(type == "txt"||type == "csv"){
-        this.container1.push("/home/deepthinker/dataset/typeImages/txt.png");
+      this.showType = response.split('.').pop().toLowerCase();
+      if(this.showType == "zip"||this.showType == "rar") {
+        this.container1.push("../assets/model/yasuo2.png");
+      }else if(this.showType == "txt"||this.showType == "csv"){
+        this.container1.push("../assets/model/txt.png");
       }else{
         this.container1.push(response);
       }
@@ -139,6 +139,15 @@ export class ModelComponent {
        console.log( this.responsePath);
        this.saveModelAndUpload( this.responsePath);
        }*/
+    };
+    this.uploader.queue[this.times-1].onError = (response: any, status: any, headers: any) => {
+      if(status==417){
+        this.showTip = true;
+        this.tipType = 'warnning';
+        this.tipWidth = "100%";
+        this.tipMargin = "20px auto 0";
+        this.tipContent = "上传的文件中内容为空!";
+      }
     }
     this.uploader.queue[this.times-1].upload(); // 开始上传
     //console.log(this.container);

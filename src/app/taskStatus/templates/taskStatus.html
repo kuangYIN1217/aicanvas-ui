@@ -15,22 +15,23 @@
       <td title="{{jobInfo.jobName}}">{{jobInfo.jobName}}</td>
       <td title="{{jobInfo.sencesName}}">{{jobInfo.sencesName}}</td>
       <td title="{{jobInfo.createTime}}">{{jobInfo.createTime==null?'无设置':jobInfo.createTime}}</td>
-      <td *ngIf="jobInfo.trainable == 0"></td>
+      <td *ngIf="jobInfo.trainable == 0" title="{{jobInfo.status}}">{{(jobInfo.status=='模型发布成功'||jobInfo.status=='模型发布中'||jobInfo.status=='模型发布失败')?jobInfo.status:''}}</td>
       <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.status}}">{{jobInfo.status}}</td>
       <td *ngIf="jobInfo.trainable == 0"></td>
-      <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.percent|percent:'.2'}}">{{jobInfo.percent==null?'0.00':jobInfo.percent|percent:'.2'}}</td>
+      <td *ngIf="jobInfo.trainable != 0" title="{{jobInfo.percent|percent:'.2'}}">{{jobInfo.percent==null?'-':jobInfo.percent|percent:'.2'}}</td>
       <!-- <td>{{jobInfo.job_progress}}%</td> -->
       <!--        <td class="operationTd">
                   <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
                   <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
               </td>-->
       <td class="operation" style="position: relative">
-        <a *ngIf="jobInfo.trainable != 0" class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}" (click)="getPage()" title="查看详情"></a>&nbsp;&nbsp;
+        <a *ngIf="jobInfo.trainable != 0" class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}" (click)="getPage()" title="查看详情"></a>
         <a *ngIf="jobInfo.trainable == 0" class="operationBtn model" (click)="goModel(jobInfo.id)" title="推演"></a>
         <a *ngIf="jobInfo.status=='模型发布中' && jobInfo.trainable != 0" class="operationBtn unstart"></a>
         <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0" class="operationBtn stop" (click)="stop(jobInfo.jobPath)" title="停止"></a>
         <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0" class="operationBtn start" (click)="start(jobInfo.jobPath)" title="运行"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')!=-1 && jobInfo.trainable != 0" routerLinkActive="active" routerLink="/inferenceModel" class="operationBtn see-model" title="查看已发布模型"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable != 0" routerLinkActive="active" routerLink="/inferenceModel" class="see-model xunlian-model" title="查看已发布模型"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable == 0" routerLinkActive="active" routerLink="/inferenceModel" class="see-model tuiyan-model" title="查看已发布模型"></a>
         <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
       </td>
     </tr>

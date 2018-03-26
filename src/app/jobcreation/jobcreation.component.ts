@@ -155,8 +155,9 @@ export class JobCreationComponent {
   }
   getImage(item){
     if(item.id==1){
-      if(item.flag==undefined||item.flag==2)
+      if(item.flag==undefined||item.flag==2){
         return 'assets/datasets/createfile/tp_hui.png';
+      }
       else
         return 'assets/datasets/createfile/tp_lv.png';
     }else if(item.id==2){
@@ -202,7 +203,7 @@ export class JobCreationComponent {
       this.s_error_show = true;
       this.s_error_message = '核数不能超过'+this.core;
       this.s_error_level = "error";
-    }else if(!reg.test(this.auditing)){
+    }else if(!reg.test(this.auditing)&&this.auditing!=''&&this.auditing!=null){
       this.s_error_show = true;
       this.s_error_message = '核数格式错误';
       this.s_error_level = "error";
@@ -385,7 +386,7 @@ export class JobCreationComponent {
       this.s_error_show = true;
       this.s_error_message = '内存不能超过'+this.cpu+'GB';
       this.s_error_level = "error";
-    }else if(!reg.test(this.cmemory)){
+    }else if(!reg.test(this.cmemory)&&this.cmemory!=''&&this.cmemory!=null){
       this.s_error_show = true;
       this.s_error_message = '内存格式错误';
       this.s_error_level = "error";
@@ -551,7 +552,7 @@ export class JobCreationComponent {
     }
     if(!this.cmemory){
       this.s_error_show = true;
-      this.s_error_message = '请输入CPU内存';
+      this.s_error_message = '请输入内存';
       this.s_error_level = "error";
       //addWarningToast(this.toastyService , "请选择数据集" );
       this.click_flag = true;
@@ -631,7 +632,7 @@ export class JobCreationComponent {
   nooperate(event){
     this.showTip = true;
     this.tipWidth = "100%";
-    this.tipType = "warnning";
+    this.tipType = "error";
     this.tipContent = "测试版本下最多同时运行三个任务！";
     this.tipMargin = "0 auto";
   }

@@ -928,7 +928,7 @@ select{
   margin-left: 234px;
 }
 .auditing,.memory{
-  width:189px;
+  width:176px;
   height:36px;
   box-sizing: border-box;
   margin-left: 12px;
@@ -941,7 +941,7 @@ select{
   margin-left: 194px;
 }
 .totalMemory{
-  margin-left:16px;
+  margin-left:6px;
 }
 .textIntroduce{
   margin-left: 193px;

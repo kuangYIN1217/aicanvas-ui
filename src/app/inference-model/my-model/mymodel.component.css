@@ -31,3 +31,11 @@
 .fail{
   background:url("../../../assets/api/cksb.png") no-repeat;
 }
+.table{
+  table-layout:fixed;
+}
+.table tr td{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
