@@ -171,6 +171,7 @@ export class FileLevelComponent{
       this.textName = item.fileName;
       this.datasetsService.getTxt((item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).substring(26))
         .subscribe(result=>{
+          console.log('txtresult:',result);
           this.textContent = result.text();
           //console.log(this.textContent);
         })

@@ -180,6 +180,7 @@ export class DatasetsService {
     return this.http.get(this.SERVER_URL_TAC+path, { headers : headers} )
       .map((response: Response) => {
         if (response) {
+          console.log('txtresponse:',response);
           return response;
         }
       });
