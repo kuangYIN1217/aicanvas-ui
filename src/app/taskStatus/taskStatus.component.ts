@@ -61,11 +61,7 @@ export class TaskStatusComponent{
       this.getPage();
     }
   getPage(){
-      if(this.pageNow==0){
-        this.pageNow = sessionStorage['curPage'];
-      }else{
-        sessionStorage['curPage'] = this.pageNow;
-      }
+      sessionStorage['curPage'] = this.pageNow;
   }
    ngOnInit(){
      calc_height(document.getElementsByClassName('taskStatusContainer')[0]);

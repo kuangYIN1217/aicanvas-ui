@@ -128,9 +128,11 @@ export class JobDetailComponent {
   tipContent:string='';
   tipType:string='';
   tipMargin:string='';
+  pageNumber:string='';
   constructor(private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     if (location.path(false).indexOf('/jobDetail/') != -1) {
-      let jobPath = location.path(false).split('/jobDetail/')[1];
+      let jobPath = location.path(false).split('/jobDetail/')[1].split('/')[0];
+      this.pageNumber = location.path(false).split('/jobDetail/')[1].split('/')[1];
       if (jobPath) {
         jobPath = unescape(jobPath);
         this.jobPath = jobPath;
@@ -146,8 +148,8 @@ export class JobDetailComponent {
     this.train = 'train';
   }
   back() {
-    if (sessionStorage['curPage']) {
-      this.page = sessionStorage['curPage'];
+    if (this.pageNumber!='') {
+      this.page = Number(this.pageNumber);
       //console.log(this.page);
       this.router.navigate(['/jobcreation'], {queryParams: {page: this.page}});
     }

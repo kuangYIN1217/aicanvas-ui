@@ -25,7 +25,7 @@
                   <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
               </td>-->
       <td class="operation" style="position: relative">
-        <a *ngIf="jobInfo.trainable != 0" class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}" (click)="getPage()" title="查看详情"></a>
+        <a *ngIf="jobInfo.trainable != 0" class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}/{{pageNow==0?pageNumber:pageNow}}"  title="查看详情"></a>
         <a *ngIf="jobInfo.trainable == 0" class="operationBtn model" (click)="goModel(jobInfo.id)" title="推演"></a>
         <a *ngIf="jobInfo.status=='模型发布中' && jobInfo.trainable != 0" class="operationBtn unstart"></a>
         <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0" class="operationBtn stop" (click)="stop(jobInfo.jobPath)" title="停止"></a>
