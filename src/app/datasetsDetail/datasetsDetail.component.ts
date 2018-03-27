@@ -53,7 +53,6 @@ export class DatasetsDetailComponent{
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
-    console.log(this.dataList);
     this.dataPath=[];
     this.arr=[];
     //console.log(this.jobPath);
@@ -142,9 +141,10 @@ export class DatasetsDetailComponent{
       this.indexLevel = 0;
     }
     this.data = JSON.parse(result.text());
-    for(var key in this.data){
+    console.log(this.data);
+    for(var key in this.data.content){
       this.dataKey.push(key);
-      this.dataSet.push(this.data[key]);
+      this.dataSet.push(this.data.content[key]);
     }
     for(let i=0;i<this.dataKey.length;i++){
       let obj = {};
@@ -370,8 +370,10 @@ export class DatasetsDetailComponent{
     this.image = false;
   }
   getSet(item){
+    console.log(item);
     for(var key in item){
       let name:any[]=[];
+      console.log(item[key]);
       let temp = item[key].split('$');
       let size = temp[1];
         name = temp[0].split('/');
@@ -428,42 +430,6 @@ export class DatasetsDetailComponent{
     }
     this.arr = this.dataPath.slice(0,this.index);
     //this.getPath(this.arr);
-  }
-  allfile(){
-    this.filterArr = this.dataArr;
-  }
-  allimage(){
-    this.filterArr=[];
-    for(let i=0;i<this.dataArr.length;i++){
-      for(var key in this.dataArr[i]){
-        if(key.indexOf('image')!=-1){
-          this.filterArr.push(this.dataArr[i]);
-      }
-    }
- }
-     //console.log(this.filterArr);
-  }
-  alltext(){
-    this.filterArr=[];
-    for(let i=0;i<this.dataArr.length;i++){
-      for(var key in this.dataArr[i]){
-        if(key.indexOf('txt')!=-1){
-          this.filterArr.push(this.dataArr[i]);
-        }
-      }
-    }
-    //console.log(this.filterArr);
-  }
-  allother(){
-    this.filterArr=[];
-    for(let i=0;i<this.dataArr.length;i++){
-      for(var key in this.dataArr[i]){
-        if(key.indexOf('other')!=-1){
-          this.filterArr.push(this.dataArr[i]);
-        }
-      }
-    }
-    //console.log(this.filterArr);
   }
   calc_size = calc_size;
   ngOnInit() {

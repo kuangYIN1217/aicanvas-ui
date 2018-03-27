@@ -301,10 +301,10 @@ export class JobCreationComponent {
   dataChange(event?:any) {
     for(let i in this.d_dataSets){
       if(this.dataId==this.d_dataSets[i].dataId){
-        this.fileCount = this.d_dataSets[i].fileCount;
+        this.fileCount = this.d_dataSets[i].selfTypeFileCount;
       }
     }
-    console.log(this.fileCount);
+    //console.log(this.fileCount);
     if (this.dataId) {
       this.s_error_show = false;
       this.data_validation = true;
