@@ -612,19 +612,25 @@ export class JobCreationComponent {
     }
     this.dataset();
     this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
-      .subscribe(createdJob => {
-        //let job: any = createdJob;
-        //this.createdJob = job;
-        this.createdJob = createdJob;
-        // alert("任务创建成功");
-        //addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 800);
-        location.reload();
-        // this.jobPageStatus='jobPageStatus';
-        console.log(this.createdJob.chainId);
-        // this.createJobBySenceId2(this.createdJob.chainId);
-        this.click_flag = true;
-        this.jobName = null;
-      });
+      .subscribe(
+        (createdJob) => {
+          //let job: any = createdJob;
+          //this.createdJob = job;
+          this.createdJob = createdJob;
+          // alert("任务创建成功");
+          //addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 800);
+          location.reload();
+          // this.jobPageStatus='jobPageStatus';
+          console.log(this.createdJob.chainId);
+          // this.createJobBySenceId2(this.createdJob.chainId);
+          this.click_flag = true;
+          this.jobName = null;
+        },
+        (error) =>{
+          this.s_error_show = true;
+          this.s_error_message = "选择数据集不可用于当前场景的训练，请重新选择！";
+          this.s_error_level = "error";
+        });
   }
   showTipChange(event){
     this.showTip = false;

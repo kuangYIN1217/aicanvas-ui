@@ -7,17 +7,17 @@
 <!--  <button class="btn" [routerLink]="['./']" [disabled]="pageParams.curPage<=5"
           (click)="changePage(pageParams.curPage-5)" [queryParams]="{pageNo:pageParams.curPage-5}"><<</button>-->
   <button class="btn" [routerLink]="['./']" (click)="changePage(pageParams.curPage-1)"
-          [queryParams]="{pageNo:pageParams.curPage-1,job_id:pageParams.job_id,model_id:pageParams.model_id}" [disabled]="pageParams.curPage==1">上一页</button>
+          [queryParams]="{pageNo:pageParams.curPage-1}" [disabled]="pageParams.curPage==1">上一页</button>
   <button  [routerLink]="['./']" [class.disabled]="pageParams.curPage==page.pageNo"
-          (click)="changePage(page.pageNo)" [queryParams]="{pageNo:page,job_id:pageParams.job_id,model_id:pageParams.model_id}" *ngFor="let page of getPageList(pageParams)">
+          (click)="changePage(page.pageNo)" [queryParams]="{pageNo:page}" *ngFor="let page of getPageList(pageParams)">
     {{page.pageNo}}
   </button>
   <button class="btn" [routerLink]="['./']" (click)="changePage(pageParams.curPage-(-1))"
-          [queryParams]="{pageNo:pageParams.curPage-(-1),job_id:pageParams.job_id,model_id:pageParams.model_id}" [disabled]="pageParams.curPage==pageParams.totalPage">下一页</button>
+          [queryParams]="{pageNo:pageParams.curPage-(-1)}" [disabled]="pageParams.curPage==pageParams.totalPage">下一页</button>
 <!--  <button class="btn" [routerLink]="['./']" [disabled]="pageParams.totalPage-pageParams.curPage<=5"
           (click)="changePage(pageParams.curPage-(-5))" [queryParams]="{pageNo:pageParams.curPage-(-5)}">>></button>-->
   </div>
-  <div class="selectDiv" >
+<!--  <div class="selectDiv" >
     <span>每页</span>
     <select [(ngModel)]="pageMaxItem" (ngModelChange)="maxItemChange();" onchange="this.blur()">
       <option value="10" selected="{{pageMaxItem==10?'selected':''}}">10</option>
@@ -25,7 +25,7 @@
       <option value="50" selected="{{pageMaxItem==50?'selected':''}}">50</option>
     </select>
     <span>条记录</span>
-  </div>
+  </div>-->
 </div>
 <!--<div class="col-md-12 text-center text-sm text-dark-gray" *ngIf="!pageParams.totalNum">
   空空如也

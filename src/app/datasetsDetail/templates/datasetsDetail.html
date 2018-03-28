@@ -68,6 +68,7 @@
           </div>
         </div>
       </div>
+      <data-page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></data-page>
     </div>
     <!--<div class="fangda" [style.display]="image?'':'none'">
         <div class="show-image">

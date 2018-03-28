@@ -6,6 +6,7 @@ import {calc_size} from '../datasets/calc-size';
 import {SERVER_URL} from "../app.constants";
 import {modelService} from "../common/services/model.service";
 import {DatasetsService} from "../common/services/datasets.service";
+import {Page} from "../common/defs/resources";
 @Component({
   moduleId: module.id,
   selector: 'datasets-detail',
@@ -50,25 +51,14 @@ export class DatasetsDetailComponent{
   placeholder:boolean = true;
   searchName:any;
   indexLevel:number=0;
+  pageParams=new Page();
+  page: number = 0;
+  pageMaxItem: number = 14;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router,private jobService: JobService,private modelService: modelService) {
   }
   ngOnChanges(...args: any[]){
     this.dataPath=[];
     this.arr=[];
-    //console.log(this.jobPath);
-/*    if(JSON.stringify(this.dataList) != "{}"){
-      this.getResult(this.dataList.dataPath);
-      this.dataPath.push(this.dataList.dataPath);
-/!*      if(this.dataList.creator=='admin'){
-        let arr:any[]=[];
-        arr.push(this.dataList.dataPath.split('-')[1]);
-        this.arr = arr;
-      }else{
-        this.arr = this.dataPath;
-      }*!/
-      this.arr = this.dataPath;
-      this.index=1;
-    }*/
     if(this.test == 'test'){
       //console.log(this.jobPath);
       this.dataPath.push('全部文件');
@@ -76,7 +66,7 @@ export class DatasetsDetailComponent{
       this.index=1;
       this.label=["test"];
       this.getFile(this.jobPath,this.label);
-      this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch(),this.page,this.pageMaxItem);
     }
     if(this.train == 'train'){
       //console.log(this.jobPath);
@@ -86,7 +76,7 @@ export class DatasetsDetailComponent{
       this.index=1;
       this.label=["train","valid"];
       this.getFile(this.jobPath,this.label);
-      this.getTestResult(this.jobPath,[this.train,this.valid],null,this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.train,this.valid],null,this.judgeSearch(),this.page,this.pageMaxItem);
     }
     if(this.jobPath){
       this.jobService.getDataId(this.jobPath)
@@ -102,13 +92,13 @@ export class DatasetsDetailComponent{
   }
   select_name(event){
     if(this.test=='test'&&this.arr.length==1){
-      this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch(),this.page,this.pageMaxItem);
     }else if(this.train=='train'&&this.arr.length==1){
-      this.getTestResult(this.jobPath,[this.train,this.valid],null,this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.train,this.valid],null,this.judgeSearch(),this.page,this.pageMaxItem);
     }else if(this.test=='test'&&this.arr.length>1){
-      this.getTestResult(this.jobPath,[this.test],this.arr[1],this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.test],this.arr[1],this.judgeSearch(),this.page,this.pageMaxItem);
     }else if(this.train=='train'&&this.arr.length>1){
-      this.getTestResult(this.jobPath,[this.train,this.valid],this.arr[1],this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.train,this.valid],this.arr[1],this.judgeSearch(),this.page,this.pageMaxItem);
     }
   }
   getFile(jobPath,label){
@@ -117,8 +107,8 @@ export class DatasetsDetailComponent{
         this.dataListShow = result;
       })
   }
-  getTestResult(jobPath,arr,path,name){
-    this.modelService.getJobDataset(jobPath,arr,path,name)
+  getTestResult(jobPath,arr,path,name,page,size){
+    this.modelService.getJobDataset(jobPath,arr,path,name,page,size)
       .subscribe(result=>{
         this.getDetail(result);
       })
@@ -142,7 +132,7 @@ export class DatasetsDetailComponent{
     }
     this.data = JSON.parse(result.text());
     console.log(this.data);
-    for(var key in this.data.content){
+/*    for(var key in this.data.content){
       this.dataKey.push(key);
       this.dataSet.push(this.data.content[key]);
     }
@@ -151,9 +141,17 @@ export class DatasetsDetailComponent{
       obj[this.dataKey[i]] = this.dataSet[i];
       this.dataArr.push(obj);
     }
-    this.filterArr = this.dataArr;
-    console.log(this.dataArr);
-    for(let i=0;i<this.dataArr.length;i++){
+    this.filterArr = this.dataArr;*/
+    this.filterArr = this.data.content;
+    console.log(this.filterArr);
+    let page = new Page();
+    page.pageMaxItem = this.data.size;
+    page.curPage = this.data.number+1;
+    page.totalPage = this.data.totalPages;
+    page.totalNum = this.data.totalElements;
+    this.pageParams = page;
+    console.log(this.pageParams);
+/*    for(let i=0;i<this.dataArr.length;i++){
       for(var key in this.dataArr[i]) {
         if (key.indexOf("file") != -1) {
             let arr = this.dataArr[i][key].split('/');
@@ -163,6 +161,17 @@ export class DatasetsDetailComponent{
             }
         }
       }
+    }*/
+  }
+  getPageData(paraParam) {
+    if(this.test=='test'&&this.arr.length==1){
+      this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch(),paraParam.curPage-1,paraParam.pageMaxItem);
+    }else if(this.train=='train'&&this.arr.length==1){
+      this.getTestResult(this.jobPath,[this.train,this.valid],null,this.judgeSearch(),paraParam.curPage-1,paraParam.pageMaxItem);
+    }else if(this.test=='test'&&this.arr.length>1){
+      this.getTestResult(this.jobPath,[this.test],this.arr[1],this.judgeSearch(),paraParam.curPage-1,paraParam.pageMaxItem);
+    }else if(this.train=='train'&&this.arr.length>1){
+      this.getTestResult(this.jobPath,[this.train,this.valid],this.arr[1],this.judgeSearch(),paraParam.curPage-1,paraParam.pageMaxItem);
     }
   }
   hideIcon(){
@@ -187,8 +196,9 @@ export class DatasetsDetailComponent{
       if(key.indexOf("file")!=-1){
         return 'assets/datasets/file/sjxq_wjj.png';
       }else if(key.indexOf("image")!=-1){
-        let temp = this.data[key].split('$');
+        let temp = item[key].split('$');
         let path = temp[0].substring(26);
+        //let path = item[key].substring(26);
         return `${SERVER_URL}/download/${path}`;
       }else if(key.indexOf("txt")!=-1){
         return 'assets/datasets/file/wb.png';
@@ -217,7 +227,6 @@ export class DatasetsDetailComponent{
     //}
   }
   enterPath(item) {
-    console.log(item);
     if (!this.fileFlag) {
       return;
     }
@@ -231,9 +240,9 @@ export class DatasetsDetailComponent{
         if(JSON.stringify(this.dataList) != "{}"){
           this.getResult(item[key]);
         }else if(this.test=='test'){
-          this.getTestResult(this.jobPath,[this.test],item[key],this.judgeSearch());
+          this.getTestResult(this.jobPath,[this.test],item[key],this.judgeSearch(),this.page,this.pageMaxItem);
         }else if(this.train=='train'){
-          this.getTestResult(this.jobPath,[this.train,this.valid],item[key],this.judgeSearch());
+          this.getTestResult(this.jobPath,[this.train,this.valid],item[key],this.judgeSearch(),this.page,this.pageMaxItem);
         }
         this.index++;
         if(this.dataArr.length==this.dataPath.length){
@@ -370,26 +379,24 @@ export class DatasetsDetailComponent{
     this.image = false;
   }
   getSet(item){
-    console.log(item);
-    for(var key in item){
-      let name:any[]=[];
-      console.log(item[key]);
-      let temp = item[key].split('$');
-      let size = temp[1];
+      for(var key in item){
+        let name:any[]=[];
+        let temp = item[key].split('$');
+        let size = temp[1];
         name = temp[0].split('/');
-      //console.log(name[name.length-1]);
-     // console.log(name[name.length-1].substring(0,1));
-      this.name = '';
-      // if(name[name.length-1].substring(0,1)=='.'||name[name.length-1].substring(0,1)=='_'){
-      //   item.flag = 1;
-      // }
-      if(size){
-        return name[name.length-1]+"("+size+")";
-      }else{
-        return name[name.length-1];
-      }
+        //console.log(name[name.length-1]);
+        // console.log(name[name.length-1].substring(0,1));
+        this.name = '';
+        // if(name[name.length-1].substring(0,1)=='.'||name[name.length-1].substring(0,1)=='_'){
+        //   item.flag = 1;
+        // }
+        if(size){
+          return name[name.length-1]+"("+size+")";
+        }else{
+          return name[name.length-1];
+        }
 
-    }
+      }
   }
   previous(){
       if (this.index == 1) {
@@ -400,15 +407,15 @@ export class DatasetsDetailComponent{
       this.getResult(this.dataPath[this.index-1]);
     }else if(this.test=='test'){
       if(this.index==1){
-        this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch());
+        this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch(),this.page,this.pageMaxItem);
       }else{
-        this.getTestResult(this.jobPath,[this.test],this.dataPath[this.index-1],this.judgeSearch());
+        this.getTestResult(this.jobPath,[this.test],this.dataPath[this.index-1],this.judgeSearch(),this.page,this.pageMaxItem);
       }
     }else if(this.train=='train'){
       if(this.index==1){
-        this.getTestResult(this.jobPath, [this.train, this.valid],null,this.judgeSearch());
+        this.getTestResult(this.jobPath, [this.train, this.valid],null,this.judgeSearch(),this.page,this.pageMaxItem);
       }else {
-        this.getTestResult(this.jobPath, [this.train, this.valid], this.dataPath[this.index - 1],this.judgeSearch());
+        this.getTestResult(this.jobPath, [this.train, this.valid], this.dataPath[this.index - 1],this.judgeSearch(),this.page,this.pageMaxItem);
       }
     }
     this.arr = this.dataPath.slice(0,this.index);
@@ -424,9 +431,9 @@ export class DatasetsDetailComponent{
     if(JSON.stringify(this.dataList) != "{}"){
       this.getResult(this.dataPath[this.index-1]);
     }else if(this.test=='test'){
-      this.getTestResult(this.jobPath,[this.test],this.dataPath[this.index-1],this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.test],this.dataPath[this.index-1],this.judgeSearch(),this.page,this.pageMaxItem);
     }else if(this.train=='train'){
-      this.getTestResult(this.jobPath,[this.train,this.valid],this.dataPath[this.index-1],this.judgeSearch());
+      this.getTestResult(this.jobPath,[this.train,this.valid],this.dataPath[this.index-1],this.judgeSearch(),this.page,this.pageMaxItem);
     }
     this.arr = this.dataPath.slice(0,this.index);
     //this.getPath(this.arr);

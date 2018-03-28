@@ -165,14 +165,15 @@ export class ModelComponent {
     }
   }
   getDataSetPath(event){
-    console.log(event);
     for(var key in event){
       let temp = event[key].split('$');
       let type = temp[0];
     if(key.indexOf("image")!=-1){
+      this.showType = 'png';
       this.container.push(type);
       this.container1.push(type);
     }else if(key.indexOf("txt")!=-1){
+      this.showType = 'txt';
       this.container.push(type);
       this.container1.push('/home/deepthinker/dataset/typeImages/txt.png');
     }

@@ -38,6 +38,7 @@ import {FileLevelComponent} from "./datasets/filelevel/filelevel.component";
 import {MarkComponent} from "./datasets/mark/mark.component";
 import {PublicDatasetComponent} from "./datasets/publicdataset/publicdataset.component";
 import {MyModelComponent} from "./inference-model/my-model/mymodel.component";
+import {DataPageComponent} from "./datasetsDetail/page/data-page.component";
 
 
 const routes: Routes = [
@@ -67,6 +68,7 @@ const routes: Routes = [
   {path: 'algorithmChain', component: AlgorithmChainComponent},
   {path: 'taskStatus', component: TaskStatusComponent},
   {path: 'page', component: PageComponent},
+  {path: 'data-page', component: DataPageComponent},
   {path: 'test', component: TestComponent},
   {path: 'algchainAlone', component: AlgchainAloneComponent},
   {path: 'showResult', component: ShowResultComponent},

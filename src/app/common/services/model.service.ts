@@ -60,8 +60,8 @@ export class modelService {
           }
         });
     }
-    getJobDataset(jobPath,arr,path1,namePart){
-      let path = "/api/scanDataSetFileDetail";
+    getJobDataset(jobPath,arr,path1,namePart,page=0,size=14){
+      let path = "/api/scanDataSetFileDetail?page="+page+"&size="+size;
       let body = JSON.stringify({
         "jobPath": jobPath,
         "label": arr,

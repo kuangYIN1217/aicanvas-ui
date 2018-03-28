@@ -49,6 +49,7 @@
 }
 .dataset-body{
   overflow: hidden;
+  padding:0 20px;
 }
 .dataset-path{
   height:20px;
@@ -71,8 +72,7 @@
 }
 .dataset-show{
   overflow: auto;
-  height:400px;
-  padding:0 20px;
+  height:320px;
 }
 .dataset-model{
   width:130px;
@@ -127,7 +127,6 @@
   display: none;
 }
 .dataset-search{
-  padding:0 20px;
   margin:20px 0;
   overflow: hidden;
 }
