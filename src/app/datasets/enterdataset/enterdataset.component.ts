@@ -331,7 +331,7 @@ export class EnterDatasetComponent {
     }else{
       datasetType = sessionStorage.getItem("dataTypeName");
     }
-    console.log(datasetType);
+    //console.log(datasetType);
     if((this.uploader.queue.length-this.saveLoad.length)>5){
       this.show = true;
       this.tipType = "warnning";
