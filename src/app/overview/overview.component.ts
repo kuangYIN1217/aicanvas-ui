@@ -76,8 +76,6 @@ export class OverviewComponent {
       console.log(result);
     });*/
     this.getAllGpusValue();
-
-
     //this.getAlljobs(this.page-1,this.pageMaxItem);
     // loading show
     this.sceneService.getAllScenes(-1)
@@ -90,8 +88,6 @@ export class OverviewComponent {
           this.router.navigate(['/login']);
         }
       });
-
-    this.loading();
     this.interval = setInterval(() => {
       this.update();
     }, 2000);
@@ -979,11 +975,6 @@ export class OverviewComponent {
       clearInterval(this.interval);
       //this.AmCharts.destroyChart(this.chart);
     }
-
-    loading() {
-
-    }
-
     selectChange() {
       this.id = this.student;
     }
@@ -1324,6 +1315,16 @@ export class OverviewComponent {
 
     changeTab(tabIndex: number) {
       this.tabIndex = tabIndex;
+      if(this.tabIndex==1){
+        clearInterval(this.interval);
+      }else if(this.tabIndex==0){
+        window.scrollTo(0,0);
+        this.getCpuValue();
+        this.getAllGpusValue();
+        this.interval = setInterval(() => {
+          this.update();
+        }, 2000);
+      }
       sessionStorage['overviewTab'] = tabIndex;
       nextTick(() => {
         calc_height(document.getElementById('taskDiv'));
