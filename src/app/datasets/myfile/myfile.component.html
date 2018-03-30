@@ -8,4 +8,5 @@
       <input type="text" value={{item.dataName}} autofocus="autofocus" class="myfile-input" id={{i}} *ngIf="item.flag==1" (blur)="saveName(item)" name="fileName" [(ngModel)]="fileName"/>
     </div>
   </div>
+  <page [pageParams] = "pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
 </div>
