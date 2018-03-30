@@ -388,8 +388,8 @@ export class PopupComponent {
     return false;
   }
   getProgress(j){
-      if(j>2){
-        this.showUpload.splice(3,1);
+      if(j>4){
+        this.showUpload.splice(5,1);
         return
       }else{
         this.uploader.onProgressItem=(fileItem: FileItem, progress: any)=>{
