@@ -323,7 +323,7 @@ export class PopupComponent {
       this.tipMargin = "20px auto 0";
       this.tipWidth = "426px";
       this.tipType = "warnning";
-      this.tipContent = "请上传5个以内的文件！";
+      this.tipContent = "请上传3个以内的文件！";
       let a = this.uploader.queue.length;
       for(let k=this.saveLoad.length;k<a;k++){
         this.uploader.queue[this.saveLoad.length].remove();
@@ -331,13 +331,13 @@ export class PopupComponent {
       return false;
     }else{
       for(let j=0;j<this.uploader.queue.length;j++){
-        if(Number(j)>4){
-          this.uploader.queue[5].remove();
+        if(Number(j)>2){
+          this.uploader.queue[3].remove();
           this.showTip = true;
           this.tipMargin = "20px auto 0";
           this.tipWidth = "426px";
           this.tipType = "warnning";
-          this.tipContent = "请上传5个以内的文件！";
+          this.tipContent = "请上传3个以内的文件！";
           j-=1;
           continue;
         }else{

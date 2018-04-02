@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit{
             // modal for going to overview
             // userService.getAccount().subscribe(account => console.log(account));
             // console.log(userService.getAccount());
-            console.log("already logined : ");
-            console.log(token);
+            //console.log("already logined : ");
+            //console.log(token);
           this.router.navigate(['/overview']);
             // window.location.href = "/#/overview";
         }
