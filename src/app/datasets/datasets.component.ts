@@ -97,10 +97,10 @@ export class DatasetsComponent{
       sort = null;
     }
     if(this.icon=='file'){
-      this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , 10000000 ).subscribe(rep =>{
+      this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , 30 ).subscribe(rep =>{
         this.d_tableData = rep.content;
         console.log(this.d_tableData);
-        //this.changePageParmas(rep);
+        this.changePageParmas(rep);
       })
     }else if(this.icon=='list'){
       this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{

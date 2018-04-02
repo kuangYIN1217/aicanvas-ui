@@ -156,9 +156,8 @@ export class SceneInfo{
     description: string;
     tag:string;
     arrName:any;
+    selected:boolean;
 }
-
-
 export  class ModelInfo{
     model_id: number;
     creator:string;

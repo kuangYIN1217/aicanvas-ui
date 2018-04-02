@@ -30,6 +30,7 @@
       <cpt-publicfile [style.display]="s_nav_selected === 1&&(icon=='file')?'':'none'" [d_tableData]="d_tableData" (getResult)="getResult($event)"></cpt-publicfile>
       <cpt-publicdata [d_tableData] = "d_tableData" *ngIf="s_nav_selected === 1&&(icon=='list')"></cpt-publicdata>
       <page [style.display]="icon=='list'?'':'none'" [pageParams] = "pageParams" [s_totalNum] = "s_totalNum" (changeCurPage)="getPageData($event)" class="page"></page>
+      <page [style.display]="icon=='list'?'none':''" [pageParams] = "pageParams" [s_totalNum] = "s_totalNum" (changeCurPage)="getPageData($event)" class="page"></page>
     </div>
   </div>
   <cpt-popup (reflashPage) = "initTable()" [d_dataTypes] = "d_dataTypes"   [(show)]="s_popup_show"></cpt-popup>

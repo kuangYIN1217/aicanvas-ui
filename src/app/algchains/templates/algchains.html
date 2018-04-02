@@ -11,7 +11,7 @@
                 <div class="scene" *ngFor="let SceneInfo of sceneArrays">
                   <div class="sceneTitle">
                     <span class="title">{{SceneInfo?.translation}}</span>
-                    <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active"><span>算法链详情</span></a>
+                    <a class="detail" (click)="showNetwork(SceneInfo?.id)" routerLinkActive="active" *ngIf="SceneInfo.selected"><span>算法链详情</span></a>
                   </div>
                     <div class="sceneContent">
                     <div class="modelPreview">
