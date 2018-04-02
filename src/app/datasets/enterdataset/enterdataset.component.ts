@@ -356,6 +356,7 @@ export class EnterDatasetComponent {
           let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
           console.log(bool);
           if(bool==false){
+            this.saveLoad.push(this.uploader.queue[j]);
             this.showUpload.push(this.uploader.queue[j]);
             this.showUpload[j].status = "上传中";
             this.fileType = this.judgeType(this.showUpload[j],datasetType);
