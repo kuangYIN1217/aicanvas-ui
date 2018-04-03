@@ -31,6 +31,11 @@ export class InferenceModelComponent{
   jobId:number=0;
   senceName:any='';
   jobName:any='';
+  tipWidth:string='';
+  tipContent:string='';
+  tipType:string='';
+  showTip:boolean = false;
+  tipMargin:string='';
   constructor(private sceneService: SceneService,private modelService: modelService) {
     this.getAllModel(-1,-1,this.page-1,this.pageMaxItem);
   }
@@ -38,12 +43,20 @@ export class InferenceModelComponent{
     calc_height(document.getElementById('table_section'));
   }
   showIdChange(event){
-    console.log(event);
     this.modelService.deleteModel(event)
       .subscribe(result=>{
           console.log(result);
         this.getAllModel(this.judgeJob(),this.judgeSence(),this.page-1,this.pageMaxItem);
       })
+  }
+  failChange(event){
+    if(event!=""){
+      this.showTip = true;
+      this.tipWidth = "100%";
+      this.tipType = "error";
+      this.tipMargin = "0 auto";
+      this.tipContent = "失败原因："+event;
+    }
   }
   getAllModel(jobName,senceName,page,size){
     this.modelService.getAllModel(jobName,senceName,page,size)

@@ -14,6 +14,7 @@ export class MyModelComponent{
   @Input() modelList:any[]=[];
   @Input() dataIndex:number;
   @Output() showIdChange: EventEmitter<any> = new EventEmitter();
+  @Output() failChange: EventEmitter<any> = new EventEmitter();
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
@@ -41,5 +42,8 @@ export class MyModelComponent{
   }
   delete(modelId){
     this.showIdChange.emit(modelId);
+  }
+  publishFail(failReason){
+    this.failChange.emit(failReason);
   }
 }
