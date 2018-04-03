@@ -143,14 +143,14 @@ export class DatasetsDetailComponent{
     }
     this.filterArr = this.dataArr;*/
     this.filterArr = this.data.content;
-    console.log(this.filterArr);
+    //console.log(this.filterArr);
     let page = new Page();
     page.pageMaxItem = this.data.size;
     page.curPage = this.data.number+1;
     page.totalPage = this.data.totalPages;
     page.totalNum = this.data.totalElements;
     this.pageParams = page;
-    console.log(this.pageParams);
+    //console.log(this.pageParams);
 /*    for(let i=0;i<this.dataArr.length;i++){
       for(var key in this.dataArr[i]) {
         if (key.indexOf("file") != -1) {

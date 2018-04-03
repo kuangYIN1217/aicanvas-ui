@@ -154,8 +154,8 @@ export class DatasetsService {
         }
       });
   }
-  enterDataset(dataId,level,fileType,fileName){
-    let path = "/api/dynamicSelect/"+dataId+"/"+fileType+"/"+fileName+"?path="+level;
+  enterDataset(dataId,level,fileType,fileName,page=0,size=10){
+    let path = "/api/dynamicSelect/"+dataId+"/"+fileType+"/"+fileName+"?path="+level+"&page="+page+"&size="+size;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path, {headers: headers})
       .map((response: Response) => {

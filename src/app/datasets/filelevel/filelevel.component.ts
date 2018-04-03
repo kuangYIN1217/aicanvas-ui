@@ -13,6 +13,7 @@ export class FileLevelComponent{
   SERVER_URL = SERVER_URL;
   @Input()  d_tableData:any;
   @Input()  dataName:string;
+  @Input()  page:string;
   @Output() getResult: EventEmitter<any> = new EventEmitter();
   @Output() deleteResult: EventEmitter<any> = new EventEmitter();
   @Output() enterChange: EventEmitter<any> = new EventEmitter();

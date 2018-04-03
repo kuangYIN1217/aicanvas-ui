@@ -5,7 +5,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 import {SERVER_URL_DATASETS,SERVER_URL} from "app/app.constants";
 import {FileItem, FileUploader} from "ng2-file-upload";
-import {calc_height} from '../../common/ts/calc_height'
+import {calc_height} from '../../common/ts/calc_height';
+import {Page} from "../../common/defs/resources";
 declare var $: any;
 @Component({
   selector: 'enter-dataset',
@@ -25,6 +26,7 @@ export class EnterDatasetComponent {
   dataId:string;
   parentPath:string;
   d_tableData:any[]=[];
+  d_tableData_page:any={};
   filePath:any[]=[];
   tempname:any;
   temptype:any;
@@ -51,6 +53,9 @@ export class EnterDatasetComponent {
   tipMargin:string='';
   backup:any[]=[];
   downloadPath:string='';
+  pageParams=new Page();
+  page: number = 0;
+  pageMaxItem: number = 30;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -70,7 +75,7 @@ export class EnterDatasetComponent {
         this.searchFile = true;
       }
       this.dynamicSearch();
-      this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+      this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
       //this.url =  SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
       this.uploader = new FileUploader({
         url:this.url,
@@ -79,14 +84,20 @@ export class EnterDatasetComponent {
       });
     });
   }
+  getPageData(paraParam) {
+    this.dynamicSearch();
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,paraParam.curPage-1,paraParam.pageMaxItem);
+    this.page = paraParam.curPage-1;
+    this.pageMaxItem = paraParam.pageMaxItem;
+  }
   enterChange(event){
-    console.log(event);
+    //console.log(event);
     this.dynamicSearch();
     this.dataset = event.dataset;
     this.currentName = event.currentName;
     this.dataId = event.dataId;
     this.parentPath = event.parentPath;
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
   $upload_click(){
     this.uploadShow = true;
@@ -114,7 +125,7 @@ export class EnterDatasetComponent {
       this.dataset = "false";
     }
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
   deleteResult(event){
     if(this.filePath.length==1){
@@ -127,7 +138,7 @@ export class EnterDatasetComponent {
     }
     this.dynamicSearch();
     this.searchFile = true;
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
   getType(id){
     if(id==1){
@@ -173,19 +184,20 @@ export class EnterDatasetComponent {
     this.parentPath = this.filePath[this.filePath.length-1].path1;
     this.currentName='';
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName);
+    this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
-  getAllFile(dataId,parentPath,fileType,fileName,currentName){
+  getAllFile(dataId,parentPath,fileType,fileName,currentName,page,size){
     let path:any;
     if(this.dataset=='true'){
       path = parentPath;
     }else if(this.dataset=='false'){
       path = parentPath+"/"+currentName;
     }
-    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName)
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,30)
       .subscribe(result=>{
         console.log(result);
         if(result.text()!=''){
+          this.d_tableData_page = result.json();
           this.d_tableData = result.json().content;
           if(!this.searchBool&&!this.searchFile){
             if(currentName==''||currentName==undefined){
@@ -206,7 +218,13 @@ export class EnterDatasetComponent {
           }
           this.searchBool = false;
           this.searchFile = false;
-          console.log(result);
+          let page = new Page();
+          page.pageMaxItem = this.d_tableData_page.size;
+          page.curPage = this.d_tableData_page.number+1;
+          page.totalPage = this.d_tableData_page.totalPages;
+          page.totalNum = this.d_tableData_page.totalElements;
+          this.pageParams = page;
+          //console.log(result);
         }else{
           this.d_tableData=[];
         }
@@ -292,7 +310,7 @@ export class EnterDatasetComponent {
       this.dataset = "false";
     }
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
   dynamicSearch(){
     if(this.s_select_name == ''){
@@ -320,7 +338,7 @@ export class EnterDatasetComponent {
         if(result=='文件夹创建成功'){
           this.searchBool = true;
           this.dynamicSearch();
-          this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+          this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
         }
       })
   }
@@ -510,7 +528,7 @@ export class EnterDatasetComponent {
       this.dataset = "false";
     }
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
   filterName(name){
     if(name.match(/^\d{13}_/)){
