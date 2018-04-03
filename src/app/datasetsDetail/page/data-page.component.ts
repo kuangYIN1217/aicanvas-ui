@@ -81,9 +81,9 @@ export class DataPageComponent {
     //console.log('修改页码', pageNo);
     vm.pageParams.curPage = pageNo;
     //sessionStorage['curPage']=pageNo;
-    let totalPage = vm.pageParams.totalNum/this.pageMaxItem;
-    vm.pageParams.totalPage=vm.pageParams.totalNum%this.pageMaxItem==0?totalPage:Math.floor(totalPage)+1;
-    vm.pageParams.pageMaxItem = this.pageMaxItem;
+    let totalPage = vm.pageParams.totalNum/vm.pageParams.pageMaxItem;
+    vm.pageParams.totalPage=vm.pageParams.totalNum%vm.pageParams.pageMaxItem==0?totalPage:Math.floor(totalPage)+1;
+    // vm.pageParams.pageMaxItem = this.pageMaxItem;
     //console.log(vm.pageParams.totalNum);
     vm.changeCurPage.emit(vm.pageParams);
   }

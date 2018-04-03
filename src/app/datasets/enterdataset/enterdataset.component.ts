@@ -63,9 +63,11 @@ export class EnterDatasetComponent {
   ngOnInit() {
     calc_height(document.getElementById("filecontent"));
     this.route.queryParams.subscribe(params => {
-      this.dataId = params['dataId'];
-      this.parentPath = params['parentPath'];
-      this.dataset = params['dataset'];
+      if(this.dataId===null||this.dataId===undefined) {
+        this.dataId = params['dataId'];
+        this.parentPath = params['parentPath'];
+        this.dataset = params['dataset'];
+      }
       //this.currentName = params['currentName'];
       if(params['filePath']==undefined){
 
@@ -86,9 +88,10 @@ export class EnterDatasetComponent {
   }
   getPageData(paraParam) {
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,paraParam.curPage-1,paraParam.pageMaxItem);
+    this.searchBool = true;
     this.page = paraParam.curPage-1;
-    this.pageMaxItem = paraParam.pageMaxItem;
+    // let path = this.parentPath
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,paraParam.curPage-1,paraParam.pageMaxItem);
   }
   enterChange(event){
     //console.log(event);
@@ -186,14 +189,14 @@ export class EnterDatasetComponent {
     this.dynamicSearch();
     this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
-  getAllFile(dataId,parentPath,fileType,fileName,currentName,page,size){
+  getAllFile(dataId,parentPath,fileType,fileName,currentName,page,size = 30){
     let path:any;
     if(this.dataset=='true'){
       path = parentPath;
     }else if(this.dataset=='false'){
       path = parentPath+"/"+currentName;
     }
-    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,30)
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,size)
       .subscribe(result=>{
         console.log(result);
         if(result.text()!=''){
@@ -214,6 +217,12 @@ export class EnterDatasetComponent {
               obj.showpath = currentName;
               this.getFilePath(obj.path1);
               this.filePath.push(obj);
+            }
+          }
+          for(let i=0;i<this.filePath.length-1;i++){
+            for(let j=i+1;j<this.filePath.length;j++){
+              if(this.filePath[i].path1===this.filePath[j].path1&&this.filePath[i].showpath===this.filePath[j].showpath)
+                this.filePath.splice(j,1);
             }
           }
           this.searchBool = false;
