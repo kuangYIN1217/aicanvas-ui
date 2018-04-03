@@ -19,7 +19,7 @@
         </div>
       </div>-->
     <div class="table_section" id="table_section">
-      <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
+      <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin"(showTipChange)="showTipChange(event)"></uniform-tips>
       <div class="search">
         <div class="searchContainer">
           <input type="text" name="jobName" [(ngModel)]="jobName" class="search-input" placeholder="输入训练任务关键字" (ngModelChange)="jobName=$event;$search_change()"/>

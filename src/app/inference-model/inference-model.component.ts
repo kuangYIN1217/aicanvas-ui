@@ -50,12 +50,13 @@ export class InferenceModelComponent{
       })
   }
   failChange(event){
+    console.log(event);
     if(event!=""){
       this.showTip = true;
       this.tipWidth = "100%";
       this.tipType = "error";
-      this.tipMargin = "0 auto";
-      this.tipContent = "失败原因："+event;
+      this.tipMargin = "0 auto 20px";
+      this.tipContent = "失败原因："+event+"！";
     }
   }
   getAllModel(jobName,senceName,page,size){

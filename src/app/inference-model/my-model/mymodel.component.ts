@@ -44,6 +44,7 @@ export class MyModelComponent{
     this.showIdChange.emit(modelId);
   }
   publishFail(failReason){
+    console.log(failReason);
     this.failChange.emit(failReason);
   }
 }

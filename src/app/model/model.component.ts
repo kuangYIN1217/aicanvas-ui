@@ -390,7 +390,7 @@ export class ModelComponent {
       }
     }else{
       return{
-        "height":height-322-tableH+'px'
+        "min-height":height-322-tableH+'px'
       }
     }
   }
