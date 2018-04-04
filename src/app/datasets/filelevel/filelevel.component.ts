@@ -14,6 +14,7 @@ export class FileLevelComponent{
   @Input()  d_tableData:any;
   @Input()  dataName:string;
   @Input()  page:string;
+  @Input()  pageNow:string;
   @Output() getResult: EventEmitter<any> = new EventEmitter();
   @Output() deleteResult: EventEmitter<any> = new EventEmitter();
   @Output() enterChange: EventEmitter<any> = new EventEmitter();
@@ -166,6 +167,7 @@ export class FileLevelComponent{
       obj.parentPath = item.dataSetFileDirectoryPath.parentPath;
       obj.dataset = "false";
       obj.currentName = item.fileName;
+      obj.pageNow = this.pageNow;
       this.enterChange.emit(obj);
     }else if(item.fileType=='文本文件'){
       this.textShow = true;

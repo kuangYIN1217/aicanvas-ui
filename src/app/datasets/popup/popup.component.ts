@@ -70,7 +70,7 @@ export class PopupComponent {
   tipContent:string='';
   tipType:string='';
   tipMargin:string='';
-  constructor (private toastyService:ToastyService, private toastyConfig: ToastyConfig,private datasetsService:DatasetsService) {
+  constructor (private datasetservice:DatasetsService,private toastyService:ToastyService, private toastyConfig: ToastyConfig,private datasetsService:DatasetsService) {
     this.datasetsService.getDataSetType()
       .subscribe(result=>{
         this.datasetsType = result;
@@ -418,7 +418,22 @@ export class PopupComponent {
           //form.append(key2, value2);
         };
         //this.uploader.uploadAll();
-        this.uploader.queue[j].upload();
+        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,"/home/dataset")
+          .subscribe(result=>{
+            //console.log(result);
+            for(var key in result[0]){
+              if(result[0][key]=="exist"){
+                this.show = true;
+                this.tipType = "warnning";
+                this.tipContent = key.split("/")[5]+"已存在！";
+                this.showUpload[j].status = "上传失败";
+                return false
+              }else{
+                this.uploader.queue[j].upload();
+              }
+            }
+          })
+        //this.uploader.queue[j].upload();
       }
   }
   showStatus(item){

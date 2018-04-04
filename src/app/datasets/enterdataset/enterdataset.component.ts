@@ -56,6 +56,7 @@ export class EnterDatasetComponent {
   pageParams=new Page();
   page: number = 0;
   pageMaxItem: number = 30;
+  pageNow:number = 0;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -100,7 +101,7 @@ export class EnterDatasetComponent {
     this.currentName = event.currentName;
     this.dataId = event.dataId;
     this.parentPath = event.parentPath;
-    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
+    this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,0,this.pageMaxItem);
   }
   $upload_click(){
     this.uploadShow = true;
@@ -187,7 +188,11 @@ export class EnterDatasetComponent {
     this.parentPath = this.filePath[this.filePath.length-1].path1;
     this.currentName='';
     this.dynamicSearch();
-    this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
+    if(this.pageNow>0){
+      this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName,this.pageNow,this.pageMaxItem);
+    }else{
+      this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
+    }
   }
   getAllFile(dataId,parentPath,fileType,fileName,currentName,page,size = 30){
     let path:any;
@@ -379,7 +384,7 @@ export class EnterDatasetComponent {
           j-=1;
           continue;
         }else{
-          this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,this.parentPath)
+/*        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,this.parentPath)
             .subscribe(result=>{
               console.log(result);
               for(var key in result[0]){
@@ -387,9 +392,12 @@ export class EnterDatasetComponent {
                   this.show = true;
                   this.tipType = "warnning";
                   this.tipContent = key.split("/")[5]+"已存在！";
-                  this.uploader.queue[j].remove();
-                  return false
-                }else{
+                  this.uploader.queue[j].cancel();
+                  continue
+                }
+              }
+            })*/
+ /*          }else{*/
                   let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
                   if(bool==false){
                     this.saveLoad.push(this.uploader.queue[j]);
@@ -418,9 +426,9 @@ export class EnterDatasetComponent {
                   }else{
                     continue;
                   }
-                }
-              }
-            })
+                //}
+              //}
+
 
         }
       }
@@ -445,6 +453,9 @@ export class EnterDatasetComponent {
         }else if(progress<100){
         }
       };
+/*      this.uploader.queue[j].onBeforeUpload = () => {
+        this.uploader.queue[j].cancel();
+      };*/
       this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
         this.showUpload[j].status = "上传成功";
       };
@@ -463,7 +474,22 @@ export class EnterDatasetComponent {
       };
       //this.uploader.uploadAll();
       this.searchFile = true;
-      this.uploader.queue[j].upload();
+
+      this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,this.parentPath)
+        .subscribe(result=>{
+          //console.log(result);
+          for(var key in result[0]){
+            if(result[0][key]=="exist"){
+              this.show = true;
+              this.tipType = "warnning";
+              this.tipContent = key.split("/")[5]+"已存在！";
+              this.showUpload[j].status = "上传失败";
+              return false
+            }else{
+              this.uploader.queue[j].upload();
+            }
+          }
+        })
     }
   }
   uploadStatus(item){

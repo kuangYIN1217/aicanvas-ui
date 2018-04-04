@@ -27,8 +27,10 @@
         <div class="upload-dataset" (click)="$create_click()" *ngIf="filePath.length!=2">新建文件夹</div>
         <div class="upload-dataset" (click)="$upload_click()">上传文件</div>
       </div>
-      <file-level [d_tableData]="d_tableData" [dataName]="dataName" [page]="page" (getResult)="getResult($event)" (deleteResult)="deleteResult($event)" (enterChange)="enterChange($event)" (noopearte)="noopearte($event)"></file-level>
-      <data-page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></data-page>
+      <file-level [d_tableData]="d_tableData" [dataName]="dataName" [page]="page" [pageNow]="pageNow" (getResult)="getResult($event)" (deleteResult)="deleteResult($event)" (enterChange)="enterChange($event)" (noopearte)="noopearte($event)"></file-level>
+      <div style="padding: 0 20px;">
+        <data-page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></data-page>
+      </div>
     </div>
   </div>
   <!--<create-file *ngIf="createfile" [file]="file" [dataId]="dataId" [parentPath]="parentPath" (createMethod)="createMethod($event)"></create-file>-->
