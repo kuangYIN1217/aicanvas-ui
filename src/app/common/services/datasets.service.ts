@@ -298,4 +298,14 @@ export class DatasetsService {
         }
       });
   }
+  deleteRepeatName(filename,fatherPath){
+    let path = "/api/checkDataSetExisting?filenames="+filename+"&fatherPath="+fatherPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path,{headers: headers})
+      .map((response: Response) => {
+          if (response.status == 200) {
+            return response.json();
+          }
+      });
+  }
 }

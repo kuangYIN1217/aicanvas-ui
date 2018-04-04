@@ -349,7 +349,6 @@ export class EnterDatasetComponent {
     }else{
       datasetType = sessionStorage.getItem("dataTypeName");
     }
-    //console.log(datasetType);
     if((this.uploader.queue.length-this.saveLoad.length)>5){
       this.show = true;
       this.tipType = "warnning";
@@ -371,35 +370,49 @@ export class EnterDatasetComponent {
           j-=1;
           continue;
         }else{
-          let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
-          console.log(bool);
-          if(bool==false){
-            this.saveLoad.push(this.uploader.queue[j]);
-            this.showUpload.push(this.uploader.queue[j]);
-            this.showUpload[j].status = "上传中";
-            this.fileType = this.judgeType(this.showUpload[j],datasetType);
-            if(this.fileType=="no support"){
-              this.show = true;
-              this.tipWidth = "426px";
-              this.tipType = "warnning";
-              this.tipContent = "您上传的文件格式暂不支持！";
-              this.showUpload.splice(j,1);
-              this.uploader.queue[j].remove();
-              return
-            }else{
-              let element = this.uploader.queue[j];
-              // element.alias = "photo";
-              if(this.currentName==''||this.currentName==undefined){
-                element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
-              }else{
-                let parent = this.parentPath+"/"+this.currentName;
-                element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+parent+"&dataId="+this.dataId+"&fileType="+this.fileType;
+          this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,this.parentPath)
+            .subscribe(result=>{
+              console.log(result);
+              for(var key in result[0]){
+                if(result[0][key]=="exist"){
+                  this.show = true;
+                  this.tipType = "warnning";
+                  this.tipContent = key.split("/")[5]+"已存在！";
+                  this.uploader.queue[j].remove();
+                  return false
+                }else{
+                  let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
+                  if(bool==false){
+                    this.saveLoad.push(this.uploader.queue[j]);
+                    this.showUpload.push(this.uploader.queue[j]);
+                    this.showUpload[j].status = "上传中";
+                    this.fileType = this.judgeType(this.showUpload[j],datasetType);
+                    if(this.fileType=="no support"){
+                      this.show = true;
+                      this.tipWidth = "426px";
+                      this.tipType = "warnning";
+                      this.tipContent = "您上传的文件格式暂不支持！";
+                      this.showUpload.splice(j,1);
+                      this.uploader.queue[j].remove();
+                      return
+                    }else{
+                      let element = this.uploader.queue[j];
+                      // element.alias = "photo";
+                      if(this.currentName==''||this.currentName==undefined){
+                        element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
+                      }else{
+                        let parent = this.parentPath+"/"+this.currentName;
+                        element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+parent+"&dataId="+this.dataId+"&fileType="+this.fileType;
+                      }
+                      this.getProgress(j);
+                    }
+                  }else{
+                    continue;
+                  }
+                }
               }
-              this.getProgress(j);
-            }
-          }else{
-            continue;
-          }
+            })
+
         }
       }
     }
