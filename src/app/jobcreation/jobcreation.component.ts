@@ -627,10 +627,12 @@ export class JobCreationComponent {
           this.jobName = null;
         },
         (error) =>{
-          this.s_error_show = true;
-          this.s_error_message = "选择数据集不可用于当前场景的训练，请重新选择！";
-          this.s_error_level = "error";
-          this.click_flag = true;
+          if(error.status==417){
+            this.s_error_show = true;
+            this.s_error_message = error.text();
+            this.s_error_level = "error";
+            this.click_flag = true;
+          }
         });
   }
   showTipChange(event){

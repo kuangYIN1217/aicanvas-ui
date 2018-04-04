@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { ResourcesService } from '../common/services/resources.service'
 import { UserService } from '../common/services/user.service'
 import {Router} from "@angular/router";
@@ -41,6 +41,12 @@ export class LoginComponent implements OnInit{
         });
         // this.changeValidCode();
     }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+      if(event.key=="Enter"){
+        this.login();
+      }
+  };
     clickBtn(){
         if(this.tabIndex==0){
             this.tabIndex=1;
