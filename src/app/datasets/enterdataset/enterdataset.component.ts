@@ -101,6 +101,9 @@ export class EnterDatasetComponent {
     this.currentName = event.currentName;
     this.dataId = event.dataId;
     this.parentPath = event.parentPath;
+    if(event.fileType=="文件夹"){
+      this.pageNow = event.page;
+    }
     this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,0,this.pageMaxItem);
   }
   $upload_click(){
