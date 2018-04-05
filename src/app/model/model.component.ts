@@ -175,7 +175,7 @@ export class ModelComponent {
     }else if(key.indexOf("txt")!=-1){
       this.showType = 'txt';
       this.container.push(type);
-      this.container1.push('/home/deepthinker/dataset/typeImages/txt.png');
+      this.container1.push('assets/model/txt.png');
     }
     }
     //console.log(this.container);
