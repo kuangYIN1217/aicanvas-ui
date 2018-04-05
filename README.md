@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.2.
 
+# Praparation
+to start an anguler project ,make sure node.js and npm have been installed. 
+
+if node and npm have been installed
+
+Run `npm install -g @angular/cli@latest` to install Angular CLI .if you are gonging to install Angular CLI in a macOS or linux,you may run `sudo npm install -g @angular/cli@latest` instead of `npm install -g @angular/cli@latest`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
