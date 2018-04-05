@@ -10,10 +10,17 @@
         <tr *ngFor="let re of result">
             <td><img src="{{SERVER_URL}}/api/file?filePath={{re.inputPath}}" class="img" style="width:200px;"><label class="text">{{outName(re.inputPath)}}</label>
             </td>
-            <td><img src="{{SERVER_URL}}/api/file?filePath={{outputImg(re.output)}}" (click)="enlarge(outputImg(re.output))" class="result" style="width: 200px"/><label class="text">{{outputLabel(re.output)}}</label></td>
+            <td *ngIf="resultType=='multiple_labeled_images'"><img src="{{SERVER_URL}}/api/file?filePath={{outputImg(re.output)}}" (click)="enlarge(outputImg(re.output))" class="result" style="width: 200px"/><label class="text">{{outputLabel(re.output)}}</label></td>
+            <td *ngIf="resultType=='object_detection'"><img src="{{SERVER_URL}}/api/file?filePath={{re.outputFile}}" (click)="enlarge(re.outputFile)" class="result" style="width: 200px"/><label class="text">{{outputLabel1(re.outputFile)}}</label></td>
         </tr>
         </tbody>
     </table>
+    <div class="fangda showImage" *ngIf="tabIndex==1">
+        <span>
+          <img src="{{SERVER_URL}}/api/file?filePath={{show}}" *ngIf="show" id="image" (load)="getMaxHeight()"/>
+          <img src="../assets/model/delete.png" class="close closeImage" (click)="close()"/>
+        </span>
+    </div>
     <!--<div class="large" [style.display]="tabIndex==1?'':'none'"><img src="{{SERVER_URL}}/api/file?filePath={{show}}" /><span (click)="closeWindow()">╳</span></div>-->
     <!--<div class="cover" [style.display]="tabIndex==1?'':'none'"></div>-->
   <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>

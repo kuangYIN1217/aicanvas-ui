@@ -101,6 +101,7 @@ export class FileLevelComponent{
     item.img = 2;
   }
   output1(item){
+    console.log(item.substring(26,item.length));
     return item.substring(26,item.length);
   }
 /*  entercheck(item){

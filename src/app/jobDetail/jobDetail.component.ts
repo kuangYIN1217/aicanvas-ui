@@ -583,7 +583,7 @@ export class JobDetailComponent {
     }
     // 更新变量
     this.editable_parameters = editable_parameters;
-    console.log( this.editable_parameters);
+    //console.log( this.editable_parameters);
 
     // 改变右侧显示的内容--显示plugin
     this.rightBox_node = 0;

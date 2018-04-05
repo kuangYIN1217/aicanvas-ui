@@ -101,7 +101,7 @@ export class DatasetsSaveComponent{
           return value*1024*1024;
         }else if(en=='KB'){
           return value*1024;
-        }else if(en=='BT'){
+        }else if(en=='B'){
           return value;
         }
       }
