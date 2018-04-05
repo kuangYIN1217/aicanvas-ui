@@ -418,7 +418,7 @@ export class PopupComponent {
           //form.append(key2, value2);
         };
         //this.uploader.uploadAll();
-        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,"/home/dataset")
+        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,"/home/deepthinker/dataset")
           .subscribe(result=>{
             //console.log(result);
             for(var key in result[0]){
