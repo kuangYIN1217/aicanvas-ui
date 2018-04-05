@@ -423,9 +423,9 @@ export class PopupComponent {
             //console.log(result);
             for(var key in result[0]){
               if(result[0][key]=="exist"){
-                this.show = true;
+                this.showTip = true;
                 this.tipType = "warnning";
-                this.tipContent = key.split("/")[5]+"已存在！";
+                this.tipContent = key.split("/")[4]+"已存在！";
                 this.showUpload[j].status = "上传失败";
                 return false
               }else{
