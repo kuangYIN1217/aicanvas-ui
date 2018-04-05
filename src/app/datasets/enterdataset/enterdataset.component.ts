@@ -360,12 +360,8 @@ export class EnterDatasetComponent {
       })
   }
   selectedFileOnChanged(event:any){
-    let datasetType:string='';
-    if(this.d_tableData.length>0){
-      datasetType = this.d_tableData[0].fileType;
-    }else{
-      datasetType = sessionStorage.getItem("dataTypeName");
-    }
+    let datasetType = sessionStorage.getItem("dataTypeName");
+
     if((this.uploader.queue.length-this.saveLoad.length)>5){
       this.show = true;
       this.tipType = "warnning";
