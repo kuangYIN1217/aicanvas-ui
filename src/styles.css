@@ -33,13 +33,13 @@ h2, h3 {
   background-color: #eeeeee;
 }
 /* words cannot be select */
-html,body{
+/*html,body{
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
- /* height: 100%;*/
-  /*overflow: hidden;*/
-}
+ !* height: 100%;*!
+  !*overflow: hidden;*!
+}*/
 
 /*login*/
 .dots {
@@ -88,15 +88,6 @@ html,body{
   stop-opacity: 0.6;
 }*/
 
-/*.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}*/
-
-
-/*charts*/
 .linecircle{
   fill: black;
   stroke: #6bb7c7;
@@ -107,9 +98,9 @@ html,body{
   stroke: yellow;
   stroke-width: 3;
 }
-.lineChart--area {
-  fill: url(#lineChart--gradientBackgroundArea);
-}
+/*.lineChart--area {
+  fill: url(''#lineChart--gradientBackgroundArea);
+}*/
 
 .lineChart--areaLine {
   fill: none;
