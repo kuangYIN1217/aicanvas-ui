@@ -21,12 +21,43 @@
   padding:20px;
 }
 .large{
-  margin: auto;
-  position: absolute;
+  position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
+  z-index: 99999;
+  background: rgba(255,255,255,0.4);
+}
+.large img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .text{
   display: block;
   width:200px;
   text-align: center;
+}
+.fangda{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(111, 111, 111, 0.3);
+  opacity: 1;
+  z-index: 999999;
+}
+.fangda span{
+  position: absolute;
+  width:970px;
+  height:545px;
+  margin-top: -272.5px;
+  margin-left: -485px;
+  left:50%;
+  top:50%;
+}
+
+.fangda .close{
+  position: absolute;
+
+  cursor: pointer;
 }

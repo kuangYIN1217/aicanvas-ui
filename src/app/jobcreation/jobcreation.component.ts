@@ -217,7 +217,6 @@ export class JobCreationComponent {
   }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.log(typeof params['page']);
       if(params['page']!=undefined){
         this.pageNumber = params['page'];
       }

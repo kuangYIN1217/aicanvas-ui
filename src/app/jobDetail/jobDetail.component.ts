@@ -498,12 +498,9 @@ export class JobDetailComponent {
     } else {
       this.statusIndex = 1;
     }
-    //console.log(chainId);
     this.algchainService.getChainById(chainId)
       .subscribe(plugin => {
         this.pluginArr = plugin;
-        //console.log(this.pluginArr[0]);
-        //console.log(this.pluginArr[0].id);
         this.changeChosenPlugin(this.pluginArr[0].id , 0);
       });
 
@@ -569,8 +566,6 @@ export class JobDetailComponent {
     }
     this.pluginClicked();
   }
-
-
   pluginClicked() {
     let editable_parameters: Editable_param[] = [];
     let params: any = this.findPluginById(this.chosenPluginId).train_params;
