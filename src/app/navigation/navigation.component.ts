@@ -5,8 +5,6 @@ import {SceneService} from "../common/services/scene.service";
 import {SceneInfo} from "../common/defs/resources";
 import {Router} from "@angular/router";
 
-
-
 declare var $:any;
 @Component({
   selector: 'navigation',

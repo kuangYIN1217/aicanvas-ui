@@ -152,18 +152,6 @@ export class ModelComponent {
     this.uploader.queue[this.times-1].upload(); // 开始上传
     //console.log(this.container);
   }
-  getHeight(){
-    let height = window.innerHeight;
-    if(this.showAdd){
-      return{
-        "height":"auto"
-      }
-    }else{
-      return {
-        "height":height-302+'px'
-      }
-    }
-  }
   getDataSetPath(event){
     for(var key in event){
       let temp = event[key].split('$');
