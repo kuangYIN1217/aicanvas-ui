@@ -36,3 +36,7 @@
   <cpt-popup (reflashPage) = "initTable()" [d_dataTypes] = "d_dataTypes"   [(show)]="s_popup_show"></cpt-popup>
   <create-file *ngIf="createfile" (createMethod)="createMethod($event)"></create-file>
 </div>
+<div *ngIf="loading" class="loading">
+  <img src="assets/datasets/loading.gif"/>
+</div>
+
