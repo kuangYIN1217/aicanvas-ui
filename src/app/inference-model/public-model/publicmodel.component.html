@@ -1,0 +1,36 @@
+<div class="mymodel-table" id="style-1" [ngStyle]="getScroll()">
+  <table class="table" [ngStyle]="getWidth()">
+    <tr>
+      <th style="width: 40px;padding-left: 22px">序号</th>
+      <th style="width: 145px;padding-left: 45px">任务名称</th>
+      <th style="width: 160px;padding-left: 40px">场景名称</th>
+      <th style="width: 70px;padding-left: 40px">服务版本号</th>
+      <th style="width: 70px;padding-left: 34px">发布状态</th>
+      <!--      <th style="width: 232px;padding-left: 36px">gRPC地址</th>-->
+      <th style="width: 352px;padding-left: 30px">RESTful API地址</th>
+      <th style="width: 165px;padding-left: 70px">存储空间</th>
+      <th style="width: 113px;padding-left: 26px">创建者</th>
+      <th style="width: 200px;padding-left: 36px">创建时间</th>
+      <th style="border-right: 1px solid #eeeeee;width: 156px;padding-left: 20px">操作</th>
+    </tr>
+    <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
+    <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
+      <td style="width: 40px;padding-left: 22px">{{i+1}}</td>
+      <td style="width: 145px;padding-left: 45px" title="{{item.jobName}}">{{item.jobName}}</td>
+      <td style="width: 160px;padding-left: 40px" title="{{item.senceName}}">{{item.senceName}}</td>
+      <td style="width: 70px;padding-left: 40px">{{item.version}}</td>
+      <td style="width: 70px;padding-left: 34px">{{item.status}}</td>
+      <!--      <td style="width: 232px;padding-left: 36px">{{item.gRPC}}</td>-->
+      <td style="width: 352px;padding-left: 30px" title="{{item.restfulUrl}}">{{item.restfulUrl}}</td>
+      <td style="width: 165px;padding-left: 70px">{{item.size}}</td>
+      <td style="width: 113px;padding-left: 26px">{{item.user.login}}</td>
+      <td style="width: 200px;padding-left: 36px">{{item.createTime}}</td>
+      <td style="border-right: 1px solid #eeeeee;width: 156px;padding-left: 20px">
+        <a href="javascript:void(0)" class="opearate delete" (click)="delete(item.id)" title="删除模型"></a>
+        <a href="{{item.apiUrl}}" target="_blank" class="opearate see" *ngIf="item.status=='发布成功'" title="查看模型"></a>
+        <a href="javascript:void(0)" class="opearate fail" *ngIf="item.status=='发布失败'" (click)="publishFail(item.failReason)" title="查看失败原因"></a>
+        <!--<img src="assets/taskStatus/chakan-.png" alt="" class="middle" (click)="lookapi()">-->
+      </td>
+    </tr>
+  </table>
+</div>

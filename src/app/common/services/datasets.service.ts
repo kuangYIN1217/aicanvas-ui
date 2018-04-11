@@ -259,6 +259,19 @@ export class DatasetsService {
         }
       });
   }
+  createJobGetDatasets(type,creator){
+    let path = "/api/dataSets?type="+type+"&creator="+creator+"&page=0&size=100000";
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path,{headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
   getDatasets(type,creator){
     let path = "/api/dataSets?type="+type+"&creator="+creator;
     let headers = this.getHeaders();

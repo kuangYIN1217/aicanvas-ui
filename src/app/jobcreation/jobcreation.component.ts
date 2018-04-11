@@ -146,7 +146,7 @@ export class JobCreationComponent {
       });
   }
   getDataSets(type,creator){
-    this.datasetsService.getDatasets(type,creator)
+    this.datasetsService.createJobGetDatasets(type,creator)
       .subscribe(result=>{
         this.d_dataSets = result.content;
         this.dataId = this.d_dataSets[0].dataId;
