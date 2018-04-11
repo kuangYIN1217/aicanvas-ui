@@ -13,7 +13,7 @@
       <th style="width: 200px;padding-left: 36px">创建时间</th>
       <th style="border-right: 1px solid #eeeeee;width: 156px;padding-left: 20px">操作</th>
     </tr>
-    <cpt-nodata *ngIf="dataIndex == 0" [colspan]="8"></cpt-nodata>
+    <cpt-nodata [style.display]="dataIndex == 0?'':'none'" [colspan]="10"></cpt-nodata>
     <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
       <td style="width: 40px;padding-left: 22px">{{i+1}}</td>
       <td style="width: 145px;padding-left: 45px" title="{{item.jobName}}">{{item.jobName}}</td>
@@ -33,4 +33,5 @@
       </td>
     </tr>
   </table>
+  <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
 </div>

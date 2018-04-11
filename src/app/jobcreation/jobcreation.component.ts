@@ -610,10 +610,14 @@ export class JobCreationComponent {
       }
     }
     this.dataset();
-    if(((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100)||Number(this.dataFirst)<=0||Number(this.dataSecond)<=0||Number(this.dataThird)<=0){
-      this.tips();
-      this.click_flag = true;
-      return false
+    if(this.student==15||this.student==11){
+
+    }else{
+      if(((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100)||Number(this.dataFirst)<=0||Number(this.dataSecond)<=0||Number(this.dataThird)<=0){
+        this.tips();
+        this.click_flag = true;
+        return false
+      }
     }
     this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
       .subscribe(

@@ -1,23 +1,9 @@
 <div class="container">
   <div class="bg">
     <div class="nav">
-      <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">我的模型服务</div>
-      <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">公共模型服务</div>
+      <div class="item" (click)="$nav_click(1)" [ngClass] = "{'selected': s_nav_selected === 1}">我的模型服务</div>
+      <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">公共模型服务</div>
     </div>
-    <!--  <div class="nav">
-        <div class="selectContainer">
-          <span>场景选择</span>
-          <select class="select" name="scene_select" [(ngModel)]="scene" (ngModelChange)="scene=$event;selectSceneChange()">
-            <option  *ngFor=" let item of sceneInfo" value="{{item.id}}">{{item.translation}}</option>
-          </select>
-    </div>
-  <!--      <div class="selectContainer">
-          <span>算法链选择</span>
-          <select class="select" name="scene_select" [(ngModel)]="chain" (ngModelChange)="chain=$event;selectChainChange()">
-            <option  *ngFor=" let item of chainInfo" value="{{item.chain_name}}">{{item.chain_name}}</option>
-          </select>
-        </div>
-      </div>-->
     <div class="table_section" id="table_section">
       <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin"(showTipChange)="showTipChange(event)"></uniform-tips>
       <div class="search">
@@ -29,9 +15,8 @@
           <input type="text" name="senceName" [(ngModel)]="senceName" class="search-input" placeholder="请输入场景关键字" (ngModelChange)="senceName=$event;$search_change()"/>
         </div>
       </div>
-      <my-model [modelList]="modelList" [dataIndex]="dataIndex" *ngIf="s_nav_selected===0" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></my-model>
-      <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
-      <!--<publish-model [(showModel)]="showModel"></publish-model>-->
+      <my-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" *ngIf="s_nav_selected===1" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></my-model>
+      <public-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" *ngIf="s_nav_selected===0" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></public-model>
     </div>
   </div>
 </div>
