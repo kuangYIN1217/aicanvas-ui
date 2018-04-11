@@ -158,7 +158,7 @@ export class PublicDatasetComponent {
     this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName)
       .subscribe(result=>{
         if(result.text()!=''){
-          this.d_tableData = result.json();
+          this.d_tableData = result.json().content;
           if(!this.searchBool&&!this.searchFile){
             if(currentName==''||currentName==undefined){
               let path:any;
