@@ -146,7 +146,7 @@ export class JobCreationComponent {
       });
   }
   getDataSets(type,creator){
-    this.datasetsService.createJobGetDatasets(type,creator)
+    this.datasetsService.createJobGetDatasets(type,'')
       .subscribe(result=>{
         this.d_dataSets = result.content;
         for(let i=0;i<this.d_dataSets.length;i++){
