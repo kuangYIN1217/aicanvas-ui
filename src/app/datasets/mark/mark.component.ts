@@ -164,8 +164,8 @@ export class MarkComponent{
           let height = parseFloat(rectedId.height());
           let top = parseFloat(rectedId.css("top"));
           let left = parseFloat(rectedId.css("left"));
-          let topRadio = top/width1;
-          let leftRadio = left/height1;
+          let topRadio = top/height1;
+          let leftRadio = left/width1;
           rectedId.css("width",width/widthRadio+'px');
           rectedId.css("height",height/heightRadio+'px');
           rectedId.css("top",topRadio*boxh+'px');
