@@ -62,12 +62,6 @@ export class PublicModelComponent{
       "overflow-x":"scroll"
     }
   }
-  delete(modelId){
-    this.modelService.deleteModel(modelId)
-      .subscribe(result=>{
-        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.pageNow,this.pageMaxItem);
-      })
-  }
   publishFail(failReason){
     this.failChange.emit(failReason);
   }

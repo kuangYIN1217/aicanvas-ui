@@ -26,7 +26,6 @@
       <td style="width: 113px;padding-left: 26px">{{item.user.login}}</td>
       <td style="width: 200px;padding-left: 36px">{{item.createTime}}</td>
       <td style="border-right: 1px solid #eeeeee;width: 156px;padding-left: 20px">
-        <a href="javascript:void(0)" class="opearate delete" (click)="delete(item.id)" title="删除模型"></a>
         <a href="{{item.apiUrl}}" target="_blank" class="opearate see" *ngIf="item.status=='发布成功'" title="查看模型"></a>
         <a href="javascript:void(0)" class="opearate fail" *ngIf="item.status=='发布失败'" (click)="publishFail(item.failReason)" title="查看失败原因"></a>
       </td>
