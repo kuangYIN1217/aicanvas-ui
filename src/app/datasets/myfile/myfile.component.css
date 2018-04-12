@@ -30,6 +30,16 @@
   margin-bottom: 30px;
   background: transparent;
 }
+.myfile-model-unloading{
+  background: #f1f1f1;
+  margin: -5px 12px;
+  padding: 10px 10px;
+  height: 85px;
+}
+.myfile-model-loaded{
+  padding: 2px;
+  height: 120px;
+}
 .myfile-model span{
   display: block;
   text-align: center;

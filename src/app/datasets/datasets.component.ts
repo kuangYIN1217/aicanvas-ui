@@ -3,6 +3,7 @@ import {DatasetsService} from "../common/services/datasets.service";
 import {Page} from "../common/defs/resources";
 import {calc_height} from '../common/ts/calc_height';
 import {SERVER_URL} from "../app.constants";
+import {Observable} from "rxjs/Observable";
 @Component({
   selector: 'datasets',
   styleUrls: ['./datasets.component.css'],
@@ -37,6 +38,9 @@ export class DatasetsComponent{
   tipType:string='';
   tipMargin:string='';
   loading:boolean = false;
+  dataLineNum: number =0;
+  windowWidth:number =0;
+  rollFlag: number =0;
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
     this.pageParams.curPage = this.s_page;
@@ -48,6 +52,13 @@ export class DatasetsComponent{
 
   ngOnInit() {
     calc_height(document.getElementsByClassName('content wrapper')[0]);
+    this.windowWidth=document.body.clientWidth;
+    Observable.fromEvent(window, 'scroll').subscribe((event) => {
+      this.loadLazyData();
+    });
+    Observable.fromEvent(window, 'resize').subscribe((event) => {
+      this.loadResizeData();
+    });
   }
 
   // -----初始化数据 ------------------------------------------------
@@ -98,10 +109,17 @@ export class DatasetsComponent{
       sort = null;
     }
     if(this.icon=='file'){
-      this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , 30 ).subscribe(rep =>{
-        this.d_tableData = rep.content;
-        console.log(this.d_tableData);
-        this.changePageParmas(rep);
+      let headWidth = document.getElementsByClassName('header')[0].scrollWidth;
+      let navWidth = document.getElementsByTagName('nav')[0].scrollWidth;
+      let devWidth = headWidth-navWidth-120;
+      size = Math.floor(devWidth/120)*7;
+      this.dataLineNum=7;
+      this.datasetservice.getDataSets(creator , dataSetType , name , sort, 0 , size ).subscribe(rep =>{
+        let aviliableData = rep.content;
+        let unloadingData = new Array(rep.totalElements-rep.content.length);
+        this.d_tableData = aviliableData.concat(unloadingData);
+        document.documentElement.scrollTop=0;
+        this.rollFlag =1;
       })
     }else if(this.icon=='list'){
       this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
@@ -218,6 +236,38 @@ export class DatasetsComponent{
     this.s_totalNum = paraParam.totalNum;
     this.initTable();
     //console.log('触发', paraParam);
+  }
+
+  loadLazyData(){
+    if(this.icon=='list') return;
+    if(this.rollFlag==0) return;
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    let t= document.documentElement.scrollTop;
+    let d = Math.ceil(t/156);
+    if(d+7<=this.dataLineNum)return;
+    this.dataLineNum=d+7;
+    this.getScrollLazyFile(0,(d+7)*Math.floor(devWidth/120));
+  }
+  loadResizeData(){
+    if(this.icon=='list') return;
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    let t= document.documentElement.scrollTop;
+    let d = Math.ceil(t/156);
+    this.dataLineNum=d+7;
+    this.getScrollLazyFile(0,(d+7)*Math.floor(devWidth/120));
+  }
+  getScrollLazyFile(page , size ){
+    let dataSetType = this.s_select_datasetType;
+    let name = this.s_select_name;
+    let sort = this.s_sort_type;
+    let creator = this.s_nav_selected === 1 ? 'system' : this.username;
+    dataSetType = dataSetType === 'all' ? null : dataSetType;
+    this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
+      let aviliableData = rep.content;
+      if(this.d_tableData.length>aviliableData.length)return;
+      let unloadingData = new Array(rep.totalElements-rep.content.length);
+      this.d_tableData = aviliableData.concat(unloadingData);
+    })
   }
 }
 
