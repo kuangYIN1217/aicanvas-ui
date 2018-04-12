@@ -149,11 +149,6 @@ export class JobCreationComponent {
     this.datasetsService.createJobGetDatasets(type,'')
       .subscribe(result=>{
         this.d_dataSets = result.content;
-        for(let i=0;i<this.d_dataSets.length;i++){
-          if(this.d_dataSets[i].creator === 'system'){
-            this.d_dataSets[i].dataName = this.d_dataSets[i].dataName + '（公共数据集）';
-          }
-        }
         this.dataId = this.d_dataSets[0].dataId;
         this.fileCount = this.d_dataSets[0].fileCount;
       });
