@@ -1,12 +1,12 @@
-import {Component,Input,Output,EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, HostListener} from '@angular/core';
 import {DatasetsService} from "../../common/services/datasets.service";
 import {ActivatedRoute, Router} from "@angular/router";
-
 
 import {SERVER_URL_DATASETS,SERVER_URL} from "app/app.constants";
 import {FileItem, FileUploader} from "ng2-file-upload";
 import {calc_height} from '../../common/ts/calc_height';
 import {Page} from "../../common/defs/resources";
+import {Observable} from "rxjs/Observable";
 declare var $: any;
 @Component({
   selector: 'enter-dataset',
@@ -57,12 +57,21 @@ export class EnterDatasetComponent {
   page: number = 0;
   pageMaxItem: number = 30;
   pageNow:number = 0;
+  dataLineNum: number =0;
+  windowWidth: number;
   loading:boolean = false;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
 
   ngOnInit() {
+    this.windowWidth=document.body.clientWidth;
+    Observable.fromEvent(window, 'scroll').subscribe((event) => {
+      this.loadLazyData();
+    });
+    Observable.fromEvent(window, 'resize').subscribe((event) => {
+      this.resize(event);
+    });
     calc_height(document.getElementById("filecontent"));
     this.route.queryParams.subscribe(params => {
       if(this.dataId===null||this.dataId===undefined) {
@@ -198,19 +207,26 @@ export class EnterDatasetComponent {
       this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
     }
   }
-  getAllFile(dataId,parentPath,fileType,fileName,currentName,page,size = 30){
+  getAllFile(dataId,parentPath,fileType,fileName,currentName,page,size){
     let path:any;
     if(this.dataset=='true'){
       path = parentPath;
     }else if(this.dataset=='false'){
       path = parentPath+"/"+currentName;
     }
-    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,size)
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    size = Math.floor(devWidth/130)*7;
+    this.dataLineNum=7;
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,0,size)
       .subscribe(result=>{
-        //console.log(result);
+        console.log(result);
         if(result.text()!=''){
+          let aviliableData = result.json().content;
+          let unloadingData = new Array(result.json().totalElements-result.json().content.length);
+          this.d_tableData = aviliableData.concat(unloadingData);
           this.d_tableData_page = result.json();
-          this.d_tableData = result.json().content;
+          document.documentElement.scrollTop=0;
+          // this.d_tableData = result.json().content;
           if(!this.searchBool&&!this.searchFile){
             if(currentName==''||currentName==undefined){
               let path:any;
@@ -236,12 +252,12 @@ export class EnterDatasetComponent {
           }
           this.searchBool = false;
           this.searchFile = false;
-          let page = new Page();
-          page.pageMaxItem = this.d_tableData_page.size;
-          page.curPage = this.d_tableData_page.number+1;
-          page.totalPage = this.d_tableData_page.totalPages;
-          page.totalNum = this.d_tableData_page.totalElements;
-          this.pageParams = page;
+          // let page = new Page();
+          // page.pageMaxItem = this.d_tableData_page.size;
+          // page.curPage = this.d_tableData_page.number+1;
+          // page.totalPage = this.d_tableData_page.totalPages;
+          // page.totalNum = this.d_tableData_page.totalElements;
+          // this.pageParams = page;
           //console.log(result);
         }else{
           this.d_tableData=[];
@@ -394,52 +410,34 @@ export class EnterDatasetComponent {
           j-=1;
           continue;
         }else{
-/*        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,this.parentPath)
-            .subscribe(result=>{
-              console.log(result);
-              for(var key in result[0]){
-                if(result[0][key]=="exist"){
-                  this.show = true;
-                  this.tipType = "warnning";
-                  this.tipContent = key.split("/")[5]+"已存在！";
-                  this.uploader.queue[j].cancel();
-                  continue
-                }
+          let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
+          if(bool==false){
+            this.saveLoad.push(this.uploader.queue[j]);
+            this.showUpload.push(this.uploader.queue[j]);
+            this.showUpload[j].status = "上传中";
+            this.fileType = this.judgeType(this.showUpload[j],datasetType);
+            if(this.fileType=="no support"){
+              this.show = true;
+              this.tipWidth = "426px";
+              this.tipType = "warnning";
+              this.tipContent = "您上传的文件格式暂不支持！";
+              this.showUpload.splice(j,1);
+              this.uploader.queue[j].remove();
+              return
+            }else{
+              let element = this.uploader.queue[j];
+              // element.alias = "photo";
+              if(this.currentName==''||this.currentName==undefined){
+                element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
+              }else{
+                let parent = this.parentPath+"/"+this.currentName;
+                element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+parent+"&dataId="+this.dataId+"&fileType="+this.fileType;
               }
-            })*/
- /*          }else{*/
-                  let bool = this.isInArray(this.showUpload,this.uploader.queue[j]);
-                  if(bool==false){
-                    this.saveLoad.push(this.uploader.queue[j]);
-                    this.showUpload.push(this.uploader.queue[j]);
-                    this.showUpload[j].status = "上传中";
-                    this.fileType = this.judgeType(this.showUpload[j],datasetType);
-                    if(this.fileType=="no support"){
-                      this.show = true;
-                      this.tipWidth = "426px";
-                      this.tipType = "warnning";
-                      this.tipContent = "您上传的文件格式暂不支持！";
-                      this.showUpload.splice(j,1);
-                      this.uploader.queue[j].remove();
-                      return
-                    }else{
-                      let element = this.uploader.queue[j];
-                      // element.alias = "photo";
-                      if(this.currentName==''||this.currentName==undefined){
-                        element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+this.parentPath+"&dataId="+this.dataId+"&fileType="+this.fileType;
-                      }else{
-                        let parent = this.parentPath+"/"+this.currentName;
-                        element.url = SERVER_URL_DATASETS+"/api/uploadInDataSet?path="+parent+"&dataId="+this.dataId+"&fileType="+this.fileType;
-                      }
-                      this.getProgress(j);
-                    }
-                  }else{
-                    continue;
-                  }
-                //}
-              //}
-
-
+              this.getProgress(j);
+            }
+          }else{
+            continue;
+          }
         }
       }
     }
@@ -595,4 +593,101 @@ export class EnterDatasetComponent {
       return name;
     }
   }
+  loadLazyData(){
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+
+    let t= document.documentElement.scrollTop;
+
+    let d = Math.ceil(t/150);
+    if(d+7<=this.dataLineNum)return;
+    let x = Math.ceil(d/3)*3;
+    this.dataLineNum +=7;
+    this.getScrollLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.dataLineNum/7-1,Math.floor(devWidth/130)*7);
+    let size = Math.ceil(devWidth/130);
+  }
+  getScrollLazyFile(dataId,parentPath,fileType,fileName,currentName,page,size){
+    let path:any;
+    if(this.dataset=='true'){
+      path = parentPath;
+    }else if(this.dataset=='false'){
+      path = parentPath+"/"+currentName;
+    }
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,size)
+      .subscribe(result=>{
+        if(result.text()!=''){
+          let aviliableData = result.json().content;
+          let data = new Array();
+          for (let i = 0;i<this.d_tableData.length;i++){
+            if(i>=(size/7)*(this.dataLineNum-7))break;
+            data.push(this.d_tableData[i]);
+          }
+          let datab= data.concat(aviliableData);
+          let unloadingData = new Array(result.json().totalElements-datab.length);
+          this.d_tableData = datab.concat(unloadingData);
+        }else{
+          this.d_tableData=[];
+        }
+      })
+  }
+  getResizeLazyFile(dataId,parentPath,fileType,fileName,currentName,page,size){
+    let path:any;
+    if(this.dataset=='true'){
+      path = parentPath;
+    }else if(this.dataset=='false'){
+      path = parentPath+"/"+currentName;
+    }
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,size)
+      .subscribe(result=>{
+        if(result.text()!=''){
+          let aviliableData = result.json().content;
+          let data = new Array();
+          for (let i = 0;i<this.d_tableData.length;i++){
+            if(this.d_tableData[i]===undefined)break;
+            data.push(this.d_tableData[i]);
+          }
+          let datab= data.concat(aviliableData);
+          let unloadingData = new Array(result.json().totalElements-datab.length);
+          this.d_tableData = datab.concat(unloadingData);
+        }else{
+          this.d_tableData=[];
+        }
+      })
+  }
+  resize(event){
+    let newWidth = document.body.clientWidth;
+    if(this.windowWidth>newWidth){
+      this.windowWidth=newWidth;
+      return;
+    }
+    let t= document.documentElement.scrollTop;
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    let d =Math.ceil(t/150)+7;
+    let lineNum =Math.floor(devWidth/130);
+    let aviliableDataNum =0;
+    for(let i=0;i<this.d_tableData.length;i++){
+      if(this.d_tableData[i]===undefined)break;
+      aviliableDataNum++;
+    }
+    let newPageSize=d*lineNum-aviliableDataNum;
+    let newPageNum=0;
+    if(newPageSize>aviliableDataNum){
+      for(let j=1;newPageSize>aviliableDataNum*j;j++){
+        this.getResizeLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,j,aviliableDataNum);
+        aviliableDataNum+=aviliableDataNum;
+      }
+    }
+    for(;newPageSize<=aviliableDataNum;newPageSize++){
+      if(aviliableDataNum%newPageSize==0){
+        newPageNum=aviliableDataNum/newPageSize;
+        break
+      }
+    }
+    this.getResizeLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,newPageNum,newPageSize);
+    this.dataLineNum=d;
+
+    // this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
+  }
 }
+
+
+
