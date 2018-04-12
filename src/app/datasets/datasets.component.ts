@@ -146,10 +146,13 @@ export class DatasetsComponent{
     if(this.backup.length>0){
       this.loading = true;
       this.datasetservice.backupDataset(this.backup)
-        .subscribe(result=>{
+        .subscribe((result)=>{
           this.loading = false;
           this.downloadPath = result.substring(26);
           this.downloadBackup(this.downloadPath);
+        },
+          (error)=>{
+          this.loading = false;
         })
     }else{
       this.showTip = true;
