@@ -207,7 +207,7 @@ export class EnterDatasetComponent {
     }
     this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,size)
       .subscribe(result=>{
-        console.log(result);
+        //console.log(result);
         if(result.text()!=''){
           this.d_tableData_page = result.json();
           this.d_tableData = result.json().content;
@@ -322,7 +322,7 @@ export class EnterDatasetComponent {
     }else{
       this.router.navigate(['../mark'],{queryParams:{"filePath":JSON.stringify(this.filePath),"markPhoto":JSON.stringify(this.markPhoto),"dataId":this.dataId}});
     }
-    console.log(this.markPhoto);
+    //console.log(this.markPhoto);
   }
   judgeMark(){
     this.showTip = true;
@@ -471,7 +471,7 @@ export class EnterDatasetComponent {
       };
       this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
         this.showUpload[j].status = "上传失败";
-        console.log(status);
+        //console.log(status);
         if(status=="400"){
           this.show = true;
           this.tipType = "warnning";

@@ -167,7 +167,7 @@ export class PopupComponent {
     let $this = this;
     //console.log(this.resumable);
     this.resumable.on('fileAdded', function(file){
-      console.log('into');
+      //console.log('into');
       if (file.length && file.length > 0) {
         $this.s_progress_file = file;
 /*        if($this.s_progress_file.length>3){
@@ -207,7 +207,7 @@ export class PopupComponent {
     this.resumable.on('complete', function(file,message){
       // 上传成功
       // $this.s_form_show = true;
-      console.log(this.resumable);
+      //console.log(this.resumable);
       $this.s_uploading = false;
       $this.s_progress_success = true;
       let $$this = $this;
@@ -228,7 +228,7 @@ export class PopupComponent {
     });
     this.resumable.on('fileProgress', function(file){
       let ratio =  Math.floor($this.resumable.progress()*100);
-      console.log(ratio);
+      //console.log(ratio);
       $this.singleRadio = Math.floor(file.progress()*100);
       $this.s_progress_ratio = ( ratio > 100 ? 100 : ratio )+ '%';
     });

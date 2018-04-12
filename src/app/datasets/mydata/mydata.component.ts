@@ -44,7 +44,7 @@ export class MyDataComponent{
     //console.log(this.s_totalNum);
     this.jobService.deletaDate(id).subscribe(data=>{
       if(data.length==0){
-        console.log('delete');
+        //console.log('delete');
         this.s_remove = true;
         this.s_remove_id = id;
         this.s_remove_index = index;
@@ -56,7 +56,7 @@ export class MyDataComponent{
   }
 
   $sort_click () {
-    console.log('click sort')
+    //console.log('click sort')
     if (this.s_sort_type === 'createTime,asc') {
       this.s_sort_type = 'createTime,desc'
     } else {
@@ -91,7 +91,7 @@ export class MyDataComponent{
     this.s_remove = false;
   }
   look_dataSet(item){
-    console.log(item);
+    //console.log(item);
     sessionStorage.setItem("dataName",item.dataName);
     //this.datasetsService.enterDataset(item.dataId,encodeURI(item.dataPath),null,null)
     // .subscribe(result=>{

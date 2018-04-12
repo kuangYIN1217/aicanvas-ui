@@ -93,7 +93,7 @@ export class MarkComponent{
       this.dataId = params['dataId'];
       this.filePath = JSON.parse(params['filePath']);
       this.markPhoto = JSON.parse(params['markPhoto']);
-      console.log(this.markPhoto);
+      //console.log(this.markPhoto);
       if(sessionStorage.getItem("showPhoto")){
         this.showPhoto = JSON.parse(sessionStorage.getItem("showPhoto"));
       }else{
@@ -277,7 +277,7 @@ export class MarkComponent{
     sessionStorage.removeItem("showPhotoIndex");
   }
   imagePathChange(event:any){
-    console.log(event);
+    //console.log(event);
     $("#markDiv").find("div").remove();
     this.getSize(event);
   }
@@ -295,7 +295,7 @@ export class MarkComponent{
     obj.path1 = this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName;
     obj.showpath = this.showPhoto.fileName;
     this.filePath.push(obj);
-    console.log(this.filePath);
+    //console.log(this.filePath);
   }
   showChange(event){
     if(event=='false'){
@@ -311,7 +311,7 @@ export class MarkComponent{
     this.coordinateId = 0;
   }
   markCoordinateSetChange(event:any){
-    console.log(event);
+    //console.log(event);
     this.markCoordinateSet = event;
   }
   startMark(){
@@ -375,13 +375,13 @@ export class MarkComponent{
         this.yMax = this.startY;
         this.xMin = this.startX-this.endX;
         this.yMin = this.startY-this.endY;
-        console.log("反向",this.xMax,this.startX,this.endX,"2-3");
+        //console.log("反向",this.xMax,this.startX,this.endX,"2-3");
       }else{
         this.xMin = this.startX;
         this.yMin = this.startY;
         this.xMax = this.rectLeft+this.endX;
         this.yMax = this.rectTop+this.endY;
-        console.log("正常",this.xMin,this.rectLeft,this.endX,"2+3");
+        //console.log("正常",this.xMin,this.rectLeft,this.endX,"2+3");
       }
       let nameArr:any[] = this.filePath[this.filePath.length-2].path1.split('/');
       let fileName = nameArr[nameArr.length-1];
@@ -475,7 +475,7 @@ export class MarkComponent{
         }
       }
       //console.log(R,G,B);
-      console.log($this.isGray);
+      //console.log($this.isGray);
       $this.cxt.putImageData($this.imgData,0,0);
     };
     this.img.crossOrigin = 'anonymous';
@@ -529,7 +529,7 @@ export class MarkComponent{
   }
   getSrc(item){
     let path = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
-    console.log(path);
+    //console.log(path);
     return `${SERVER_URL}/download/${path.slice(26)}`;
   }
   getMarkDiv(){
