@@ -67,7 +67,7 @@ export class MyFileComponent{
     item.sb = false;
   }
   checkFile(item){
-    for(let i=0;i<this.d_tableData.length;i++){
+    for(let i=0;this.d_tableData[i]!=undefined;i++){
       this.d_tableData[i].checked = false;
       this.d_tableData[i].enter = 2;
       this.d_tableData[i].parent = 2;
