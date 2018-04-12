@@ -1,0 +1,41 @@
+.mymodel-table{
+  width:100%;
+  margin:0;
+}
+.mymodel-table .table{
+  margin-left: 0;
+}
+#style-1::-webkit-scrollbar{
+  height:10px;
+  background-color: #eee;
+  border: 1px solid #d3d3d3;
+}
+#style-1::-webkit-scrollbar-thumb{
+  border-radius:10px;
+  background-color:#999;
+}
+.see{
+  background:url("../../../assets/api/chakan.png") no-repeat;
+}
+.delete{
+  background:url("../../../assets/api/shanchu.png") no-repeat;
+}
+.opearate{
+  width:20px;
+  height:20px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.fail{
+  background:url("../../../assets/api/cksb.png") no-repeat;
+}
+.table{
+  table-layout:fixed;
+}
+.table tr td{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}

@@ -166,8 +166,8 @@ export class modelService {
         }
       });
   }
-  getAllModel(jobName,senceName, page=0,size=10){
-    let path = "/api/getModelList/"+jobName+"/"+senceName+"?page="+page+"&size="+size+"&sort=createTime,desc";
+  getAllModel(jobName,senceName,number, page=0,size=10){
+    let path = "/api/getModelList/"+jobName+"/"+senceName+"/"+number+"?page="+page+"&size="+size+"&sort=createTime,desc";
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL+path, { headers : headers})
       .map((response: Response) => {

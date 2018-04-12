@@ -146,7 +146,7 @@ export class JobCreationComponent {
       });
   }
   getDataSets(type,creator){
-    this.datasetsService.getDatasets(type,creator)
+    this.datasetsService.createJobGetDatasets(type,creator)
       .subscribe(result=>{
         this.d_dataSets = result.content;
         for(let i=0;i<this.d_dataSets.length;i++){
@@ -155,7 +155,7 @@ export class JobCreationComponent {
           }
         }
         this.dataId = this.d_dataSets[0].dataId;
-        //console.log(result);
+        this.fileCount = this.d_dataSets[0].fileCount;
       });
   }
   getImage(item){
@@ -188,7 +188,7 @@ export class JobCreationComponent {
     }
   }
   chooseImg(item){
-    console.log(item);
+    //console.log(item);
     if(item.flag != 1){
       for(let i=0;i<this.datasetsType.length;i++){
         this.datasetsType[i].flag = 2;
@@ -615,6 +615,15 @@ export class JobCreationComponent {
       }
     }
     this.dataset();
+    if(this.student==15||this.student==11){
+
+    }else{
+      if(((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100)||Number(this.dataFirst)<=0||Number(this.dataSecond)<=0||Number(this.dataThird)<=0){
+        this.tips();
+        this.click_flag = true;
+        return false
+      }
+    }
     this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
       .subscribe(
         (createdJob) => {

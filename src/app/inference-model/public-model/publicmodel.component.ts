@@ -6,15 +6,16 @@ import {modelService} from "../../common/services/model.service";
 import {Page} from "../../common/defs/resources";
 
 @Component({
-  selector: 'my-model',
-  templateUrl: './mymodel.component.html',
-  styleUrls: ['./mymodel.component.css'],
+  selector: 'public-model',
+  templateUrl: './publicmodel.component.html',
+  styleUrls: ['./publicmodel.component.css'],
   providers: [SceneService,modelService]
 })
-export class MyModelComponent{
+export class PublicModelComponent{
   @Input() s_nav_selected:number;
-  @Input() jobName:any;
-  @Input() senceName:any;
+  @Input() jobName:any='';
+  @Input() senceName:any='';
+  @Output() showIdChange: EventEmitter<any> = new EventEmitter();
   @Output() failChange: EventEmitter<any> = new EventEmitter();
   dataIndex:number=0;
   modelList:any[]=[];
@@ -52,20 +53,14 @@ export class MyModelComponent{
       })
   }
   getWidth(){
-      return{
-        "width":"2200px"
-      }
+    return{
+      "width":"2200px"
+    }
   }
   getScroll(){
-      return{
-        "overflow-x":"scroll"
-      }
-  }
-  delete(modelId){
-    this.modelService.deleteModel(modelId)
-      .subscribe(result=>{
-        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.pageNow,this.pageMaxItem);
-      })
+    return{
+      "overflow-x":"scroll"
+    }
   }
   publishFail(failReason){
     this.failChange.emit(failReason);

@@ -7,6 +7,7 @@ import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import {SERVER_URL_DATASETS,SERVER_URL} from "../../app.constants";
+import {Observable} from "rxjs";
 @Injectable()
 export class DatasetsService {
   // SERVER_URL: string = SERVER_URL;
@@ -105,7 +106,8 @@ export class DatasetsService {
         if (response) {
             return response.text();
         }
-      });
+      })
+      .timeoutWith(5000, Observable.throw(new Error("Error message")))
   }
   updateFileName(id,name){
     let path = "/api/dataFileRename?fileId="+id+"&newName="+name;
@@ -250,6 +252,19 @@ export class DatasetsService {
     let markCoordinate = markCoordinate1;
     let headers = this.getHeaders();
     return this.http.put(this.SERVER_URL + path,markCoordinate,{headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
+  createJobGetDatasets(type,creator){
+    let path = "/api/dataSets?type="+type+"&creator="+creator+"&page=0&size=100000";
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path,{headers: headers})
       .map((response: Response) => {
         if (response) {
           if (response.status == 200) {

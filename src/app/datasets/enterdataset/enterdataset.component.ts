@@ -57,6 +57,7 @@ export class EnterDatasetComponent {
   page: number = 0;
   pageMaxItem: number = 30;
   pageNow:number = 0;
+  loading:boolean = false;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
@@ -266,11 +267,21 @@ export class EnterDatasetComponent {
       }
     }
     if(this.backup.length>0){
+      this.loading = true;
+      setTimeout(() => {
+        if(this.downloadPath==""){
+          this.loading = false;
+        }
+      }, 5000);
       this.datasetservice.backupDataset(this.backup)
-        .subscribe(result=>{
+        .subscribe((result)=>{
+          this.loading = false;
           this.downloadPath = result.substring(26);
           this.downloadBackup(this.downloadPath);
-        })
+        },
+          (error)=>{
+            this.loading = false;
+          })
     }else{
       this.showTip = true;
       this.tipWidth = "100%";

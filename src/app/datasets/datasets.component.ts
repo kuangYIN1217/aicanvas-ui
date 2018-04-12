@@ -36,6 +36,7 @@ export class DatasetsComponent{
   tipContent:string='';
   tipType:string='';
   tipMargin:string='';
+  loading:boolean = false;
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
     this.pageParams.curPage = this.s_page;
@@ -143,10 +144,15 @@ export class DatasetsComponent{
       }
     }
     if(this.backup.length>0){
+      this.loading = true;
       this.datasetservice.backupDataset(this.backup)
-        .subscribe(result=>{
+        .subscribe((result)=>{
+          this.loading = false;
           this.downloadPath = result.substring(26);
           this.downloadBackup(this.downloadPath);
+        },
+          (error)=>{
+          this.loading = false;
         })
     }else{
       this.showTip = true;
