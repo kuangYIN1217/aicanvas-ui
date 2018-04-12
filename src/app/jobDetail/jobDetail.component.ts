@@ -159,9 +159,13 @@ export class JobDetailComponent {
    * 获取jobDetail
    */
   initJobDetailByPath(flag?) {
+    this.s_progress_show = true;
     this.jobService.getJobDetail(this.jobPath).subscribe(jobDetail => {
       if (jobDetail) {
         this.job = jobDetail;
+        if(this.job.percent>0){
+          this.s_progress_show = false;
+        }
         if (flag) {
           this.initData();
         }

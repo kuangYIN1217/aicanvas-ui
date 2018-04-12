@@ -256,7 +256,8 @@ export class JobCreationComponent {
 /*    if(this.student==15||this.student==11){
       document.getElementById('data').setAttribute('disabled', 'disabled');
     }*/
-    this.fileCount=0;
+    //this.fileCount=0;
+    this.sceneReadOnly();
     let id = this.student;
     //console.log(id);
     this.chosenSceneId = id;
@@ -342,6 +343,7 @@ export class JobCreationComponent {
         this.student = scenes[0].id;
         //this.firstSceneId = this.student;
         //console.log(this.firstSceneId);
+        this.sceneReadOnly();
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {
             //console.log(result);
@@ -363,6 +365,17 @@ export class JobCreationComponent {
       });
 
     //console.log(this.student);
+  }
+  sceneReadOnly(){
+    if(this.student==11||this.student==15){
+      document.getElementById('train').setAttribute('readonly', 'true');
+      document.getElementById('valid').setAttribute('readonly', 'true');
+      document.getElementById('test').setAttribute('readonly', 'true');
+    }else{
+      document.getElementById('train').removeAttribute('readonly');
+      document.getElementById('valid').removeAttribute('readonly');
+      document.getElementById('test').removeAttribute('readonly');
+    }
   }
   gpuChange(){
     //console.log(this.gpuorder);
@@ -445,11 +458,15 @@ export class JobCreationComponent {
       };
     }
     let reg=new RegExp(/^[1-9]\d*$|^0$/);
-    if(!reg.test(this.auditing)){
+    if(this.student==11||this.student==15){
+
+    }else{
+      if(!reg.test(this.auditing)){
         this.s_error_show = true;
         this.s_error_message = '数据集格式错误';
         this.s_error_level = "error";
       }
+    }
   }
   getPluginName(name) {
 
