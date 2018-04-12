@@ -616,14 +616,9 @@ export class EnterDatasetComponent {
       .subscribe(result=>{
         if(result.text()!=''){
           let aviliableData = result.json().content;
-          let data = new Array();
-          for (let i = 0;i<this.d_tableData.length;i++){
-            if(i>=(size/7)*(this.dataLineNum-7))break;
-            data.push(this.d_tableData[i]);
+          for(let i=page*(size);(i<(page+1)*size)&&(i<this.d_tableData.length);i++){
+            this.d_tableData[i]=aviliableData[i-size*page];
           }
-          let datab= data.concat(aviliableData);
-          let unloadingData = new Array(result.json().totalElements-datab.length);
-          this.d_tableData = datab.concat(unloadingData);
         }else{
           this.d_tableData=[];
         }
@@ -684,9 +679,8 @@ export class EnterDatasetComponent {
     }
     this.getResizeLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,newPageNum,newPageSize);
     this.dataLineNum=d;
-
-    // this.getAllFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.page,this.pageMaxItem);
   }
+
 }
 
 
