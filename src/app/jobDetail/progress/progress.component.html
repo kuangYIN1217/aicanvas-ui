@@ -2,19 +2,20 @@
   <div class="progress-content">
     <div class="animate"></div>
     <!--<img class="close-icon" src="../../../assets/jobdetail/close.png" (click)="$hide_click()">-->
-    <div class="title">{{log.step}}...</div>
+    <!--<div class="title">{{log.step}}...</div>-->
     <div class="logs">
-      <p class="one" *ngIf="logs.length > 5">{{logs[logs.length - 6].log}}</p>
+      正在加载算法组件中......
+<!--      <p class="one" *ngIf="logs.length > 5">{{logs[logs.length - 6].log}}</p>
       <p class="two" *ngIf="logs.length > 4">{{logs[logs.length - 5].log}}</p>
       <p class="three" *ngIf="logs.length > 3">{{logs[logs.length - 4].log}}</p>
       <p class="four" *ngIf="logs.length > 2">{{logs[logs.length - 3].log}}</p>
       <p class="five" *ngIf="logs.length > 1">{{logs[logs.length - 2].log}}</p>
-      <p class="six" *ngIf="logs.length > 0">{{logs[logs.length - 1].log}}</p>
+      <p class="six" *ngIf="logs.length > 0">{{logs[logs.length - 1].log}}</p>-->
     </div>
-    <div class="progress">
+<!--    <div class="progress">
       {{getPercent()}} <span class="suffix">%</span>
     </div>
     <div class="finish" [ngStyle]="{'width': log.percent * 100 + '%'}">
-    </div>
+    </div>-->
   </div>
 </div>

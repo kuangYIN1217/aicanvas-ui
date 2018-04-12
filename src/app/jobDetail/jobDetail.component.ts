@@ -262,6 +262,9 @@ export class JobDetailComponent {
       this.interval = setInterval(() => {
         this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
           this.job = jobDetail;
+          if(this.job.percent>0){
+            this.s_progress_show = false;
+          }
           if (this.job.status == '完成'||this.job.status == '异常'){
             // 任务完成
             this.websocket.stopWebsocket();
@@ -762,6 +765,7 @@ export class JobDetailComponent {
         /* this.jobResult = jobParam[jobParam.length - 1];*/
         this.websocket.connect().then(() => {
           this.websocket.subscribe('/job/' + jobPath, (data) => {
+            this.s_progress_show = false;
              //console.log(data);
             this.updateChart(data);
           });
@@ -769,7 +773,7 @@ export class JobDetailComponent {
           this.websocket.subscribe('/logs/' + jobPath, (data) => {
             this.log_list = this.log_list.concat(data);
           });
-          this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
+/*          this.websocket.subscribe('/preLog/' + this.jobPath, (data) => {
             if (this.s_process_flag) {
               this.d_progress_log = {
                 percent: 0,
@@ -780,7 +784,7 @@ export class JobDetailComponent {
             }
             this.d_progress_logs.push(data);
             this.d_progress_log = data;
-          });
+          });*/
         })
         // this.jobResult =jobParam.jobResult;
 
@@ -854,6 +858,7 @@ export class JobDetailComponent {
 /*        this.gpuNum = null;
         this.gpu_show = true;*/
         this.runPath = jobPath;
+        this.s_progress_show = true;
         this.jobService.runJob(this.runPath)
           .subscribe(result =>{
             this.initJobDetailByPath(true);

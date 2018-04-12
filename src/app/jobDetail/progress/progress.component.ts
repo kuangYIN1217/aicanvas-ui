@@ -9,16 +9,16 @@ declare var $: any;
 export class ProgressComponent {
   @Input() show: boolean = false;
   @Output() close: EventEmitter<any> = new EventEmitter();
-  @Input() log: any = {
+/*  @Input() log: any = {
     percent: 0,
     step: '正在初始化'
   };
-  @Input() logs: any = [];
+  @Input() logs: any = [];*/
 
   $hide_click() {
     this.close.emit();
   }
-  getPercent() {
+/*  getPercent() {
     if (this.log.percent == 1) {
       let $this = this;
       setTimeout(function () {
@@ -26,5 +26,5 @@ export class ProgressComponent {
       } , 800)
     }
     return Math.floor(this.log.percent * 100);
-  }
+  }*/
 }

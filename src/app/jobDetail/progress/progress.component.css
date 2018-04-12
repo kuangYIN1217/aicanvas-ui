@@ -11,9 +11,11 @@
 
 .progress-content {
   position: relative;
-  width: 1000px;
-  margin: 200px auto;
-  height: 260px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 100px;
   transition: 0.3s all linear 0s;
   background: -moz-linear-gradient(top, #ffffff -120%, #24a881 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(-120%,#ffffff), color-stop(100%,#24a881));
@@ -56,13 +58,15 @@
 }
 .logs {
   position: absolute;
-  left: 60px;
-  bottom: 15px;
-  height: 150px;
+/*  left: 60px;
+  bottom: 15px;*/
+  height: 100px;
+  line-height: 100px;
+  padding-left: 30px;
   width: 600px;
   overflow: hidden;
   color: #fff;
-  font-size: 12px;
+  font-size: 16px;
 }
 .logs p {
   font-family: Microsoft Yahei;
