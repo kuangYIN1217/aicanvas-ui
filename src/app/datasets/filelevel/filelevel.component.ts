@@ -35,7 +35,7 @@ export class FileLevelComponent{
 
   }
   ngOnChanges(...args: any[]) {
-    console.log(this.d_tableData);
+    //console.log(this.d_tableData);
   }
   getImage(item){
     if(item.fileType=='文件夹'){
@@ -101,7 +101,7 @@ export class FileLevelComponent{
     item.img = 2;
   }
   output1(item){
-    console.log(item.substring(26,item.length));
+    //console.log(item.substring(26,item.length));
     return item.substring(26,item.length);
   }
 /*  entercheck(item){
@@ -126,7 +126,7 @@ export class FileLevelComponent{
   }*/
   checkFile(item){
     item.checked = !item.checked;
-    console.log(item.checked);
+    //console.log(item.checked);
     //this.getImg(item);
     if(item.checked){
       item.enter = 2;
@@ -137,7 +137,7 @@ export class FileLevelComponent{
     }
   }
   saveName(item){
-    console.log(item);
+    //console.log(item);
     this.fileName.replace(/(^\s*)|(\s*$)/g,"");
     if(this.sameName==this.fileName){
       item.flag = 2;
@@ -159,7 +159,7 @@ export class FileLevelComponent{
     }
   }
   enterDataset(item){
-    console.log(item);
+    //console.log(item);
     if(item.fileType=='文件夹'){
       //this.router.navigate(['../enterdataset'],{queryParams:{"dataId":item.dataId,"parentPath":item.dataSetFileDirectoryPath.parentPath,"dataset":false,"currentName":item.fileName}});
       let obj:any={};
@@ -175,7 +175,7 @@ export class FileLevelComponent{
       this.textName = item.fileName;
       this.datasetsService.getTxt((item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).substring(26))
         .subscribe(result=>{
-          console.log('txtresult:',result);
+          //console.log('txtresult:',result);
           this.textContent = result.text();
           //console.log(this.textContent);
         })
@@ -197,7 +197,7 @@ export class FileLevelComponent{
     this.photoShow = false;
   }
   deleteFile(item){
-    console.log(item);
+    //console.log(item);
     this.datasetsService.deleteFile(item.fileId,item.dataId,encodeURI(item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName))
       .subscribe(result=>{
         this.deleteResult.emit('delete success');

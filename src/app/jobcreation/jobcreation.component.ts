@@ -123,7 +123,7 @@ export class JobCreationComponent {
       .subscribe(result=>{
         this.datasetsType = result;
         this.datasetsType[0].flag = 1;
-        console.log(this.datasetsType);
+        //console.log(this.datasetsType);
       })
   }
   dataKeywordChange(){
@@ -344,7 +344,7 @@ export class JobCreationComponent {
         //console.log(this.firstSceneId);
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {
-            console.log(result);
+            //console.log(result);
             this.PluginInfo = result;
             // this.firstChainId = this.PluginInfo[0].id;
             // this.firstSceneId = this.PluginInfo[0].chain_name;
@@ -365,7 +365,7 @@ export class JobCreationComponent {
     //console.log(this.student);
   }
   gpuChange(){
-    console.log(this.gpuorder);
+    //console.log(this.gpuorder);
     for(let i=0;i<this.gpus.length;i++){
       if(this.gpuorder==this.gpus[i].id+1){
         this.gpu = Math.ceil(this.gpus[i].totalGlobalMem/1024/1024/1024);
@@ -413,7 +413,7 @@ export class JobCreationComponent {
     return false;
   }
   dataset(){
-    console.log(this.dataFirst,this.dataSecond,this.dataThird);
+    //console.log(this.dataFirst,this.dataSecond,this.dataThird);
     if(Number(this.dataFirst)>=100){
       this.tips();
     };
@@ -629,7 +629,7 @@ export class JobCreationComponent {
           //addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 800);
           location.reload();
           // this.jobPageStatus='jobPageStatus';
-          console.log(this.createdJob.chainId);
+          //console.log(this.createdJob.chainId);
           // this.createJobBySenceId2(this.createdJob.chainId);
           this.click_flag = true;
           this.jobName = null;
@@ -661,9 +661,9 @@ export class JobCreationComponent {
 
   saveJobNormalPlugin(response, plugin_id) {
     if (response.status == 200) {
-      console.info("plugins -- " + plugin_id + "save ok");
+      //console.info("plugins -- " + plugin_id + "save ok");
     } else {
-      console.warn("save failed");
+      //console.warn("save failed");
     }
   }
 
@@ -732,7 +732,7 @@ export class JobCreationComponent {
   }
 
   $scene_select_change(name) {
-    console.log(this.firstSceneId);
+    //console.log(this.firstSceneId);
     for (let i in this.PluginInfo) {
       if (name == this.PluginInfo[i].chain_name) {
         this.firstChainId = this.PluginInfo[i].id;

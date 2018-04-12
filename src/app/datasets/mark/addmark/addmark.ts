@@ -83,7 +83,7 @@ export class AddMarkComponent{
     }
   }
   choose(item){
-    console.log(item.markName);
+    //console.log(item.markName);
     if(this.singleDiv&&this.singleDiv!=''){
       this.singleDiv.markName = item.markName;
     }else{
@@ -123,7 +123,7 @@ export class AddMarkComponent{
       this.markCoordinateSet1.push(this.obj);
       this.markImage.markCoordinateSet = this.markCoordinateSet1;
       //console.log(this.markCoordinateSet1);
-      console.log(this.markImage);
+      //console.log(this.markImage);
       this.datasetservice.mark(this.markImage,this.dataId)
         .subscribe(result=>{
           //console.log(result);
@@ -138,7 +138,7 @@ export class AddMarkComponent{
     }else{
       //console.log(this.markImage);
       this.markCoordinateSet1 = this.singleDiv;
-      console.log(this.singleDiv);
+      //console.log(this.singleDiv);
       this.datasetservice.updateMark(this.singleDiv,this.dataId)
         .subscribe(result=>{
           //this.setSign();
@@ -147,20 +147,20 @@ export class AddMarkComponent{
           this.markCoordinateSetChange.emit(this.markCoordinateSet1);
           this.imagePathChange.emit(this.markImage.imageFileId);
           this.showChange.emit('true');
-          console.log(result);
+          //console.log(result);
         })
     }
   }
   createXML(arr,dataId){
     this.datasetservice.createXML(arr,dataId)
       .subscribe(result=>{
-        console.log(result);
+        //console.log(result);
       })
   }
   setSign(){
     this.datasetservice.setSign(this.fileId)
       .subscribe(result=>{
-        console.log(result);
+        //console.log(result);
       })
   }
 }

@@ -143,7 +143,7 @@ export class PublicDatasetComponent {
     this.dataset = "true";
     this.filePath.splice(index+1,this.filePath.length-1);
     this.parentPath = this.filePath[this.filePath.length-1].path1;
-    console.log(this.filePath);
+    //console.log(this.filePath);
     this.currentName='';
     this.dynamicSearch();
     this.getAllFile(this.dataId,this.filePath[this.filePath.length-1].path1,this.temptype,this.tempname,this.currentName);
@@ -178,7 +178,7 @@ export class PublicDatasetComponent {
           }
           this.searchBool = false;
           this.searchFile = false;
-          console.log(result);
+          //console.log(result);
         }else{
           this.d_tableData=[];
         }
@@ -227,7 +227,7 @@ export class PublicDatasetComponent {
     }else{
       this.router.navigate(['../mark'],{queryParams:{"filePath":JSON.stringify(this.filePath),"markPhoto":JSON.stringify(this.markPhoto),"dataId":this.dataId}});
     }
-    console.log(this.markPhoto);
+    //console.log(this.markPhoto);
   }
   $select_change(){
     this.searchFile = true;

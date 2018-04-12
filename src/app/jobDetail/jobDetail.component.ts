@@ -212,7 +212,7 @@ export class JobDetailComponent {
    * 解析jobDetail
    */
   resolveJobDetail(jobDetail, jobPath) {
-    console.log(jobDetail.chainId);
+    //console.log(jobDetail.chainId);
     this.algchainService.getChainById(jobDetail.chainId).subscribe(chainInfo => {
       // console.log('init');
       this.chainInfo = chainInfo;
@@ -249,7 +249,7 @@ export class JobDetailComponent {
     this.runningPluginIndex = runningPluginIndex;
     this.currentPluginId = currentPluginId;
     this.runningPluginId = runningPluginId;
-    console.log(this.runningPluginIndex,this.currentPluginId,this.runningPluginId);
+    //console.log(this.runningPluginIndex,this.currentPluginId,this.runningPluginId);
   }
 
   /**
@@ -280,7 +280,7 @@ export class JobDetailComponent {
    * plugin点击切换事件
    */
   pluginClick(plugin, index) {
-    console.log(plugin.id);
+    //console.log(plugin.id);
     if (plugin.id == this.currentPluginId) {
       // 当前选中plugin点击无效
       // console.log('click own -> return')
@@ -306,9 +306,9 @@ export class JobDetailComponent {
    * @param pluginId
    */
   getPluginData(pluginId) {
-    console.log(pluginId);
+    //console.log(pluginId);
     this.jobService.getPluginInfoById(this.jobPath, pluginId).subscribe(data => {
-      console.log(data);
+      //console.log(data);
       // 过滤器
       let temp_data = [];
       temp_data = data.filter(rep => {
@@ -316,7 +316,7 @@ export class JobDetailComponent {
           return rep;
         }
       });
-      console.log(temp_data);
+      //console.log(temp_data);
       this.AmCharts.updateChart(this.lossChart, () => {
         if (temp_data && temp_data.length > 0) {
           this.lossChart.dataProvider = temp_data;
@@ -659,7 +659,7 @@ export class JobDetailComponent {
 // 不再running状态时一次性展示数据
 
   not_running_show(jobPath: string, status?: string) {
-    console.log(jobPath);
+    //console.log(jobPath);
     this.jobService.getUnrunningJob(jobPath)
       .subscribe(jobParam => {
         this.resolveJobParam(jobParam, status);

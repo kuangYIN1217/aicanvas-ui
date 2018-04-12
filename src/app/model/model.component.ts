@@ -79,7 +79,7 @@ export class ModelComponent {
     let init_flag = true;
     this.route.queryParams.subscribe(params => {
       if(init_flag) {
-        console.log(init_flag);
+        //console.log(init_flag);
         this.job_id = params['job_id'];
         this.selectChange(this.job_id);
         this.getJobDetail(this.job_id);
@@ -133,8 +133,8 @@ export class ModelComponent {
         this.container1.push(response);
       }
       this.container.push(response);
-      console.log(this.container);
-      console.log(this.container1);
+      //console.log(this.container);
+      //console.log(this.container1);
       /*        if( this.responsePath.length==this.uploader.queue.length){
        console.log( this.responsePath);
        this.saveModelAndUpload( this.responsePath);
@@ -171,7 +171,7 @@ export class ModelComponent {
   outputImg(item){
     let arr = item.split('/');
     let path = arr.slice(4).join('/');
-    console.log(path);
+    //console.log(path);
     return path;
   }
   // D: 定义事件，上传文件
@@ -182,7 +182,7 @@ export class ModelComponent {
       this.upload_click_flag = false;
       //console.log(this.uploader.queue);
       if(this.container.length>0){
-        console.log(this.container);
+        //console.log(this.container);
         this.saveModelAndUpload(this.container);
         this.container = [];
        /*for(let i in this.uploader.queue){
@@ -207,7 +207,7 @@ export class ModelComponent {
     this.modelService.saveModelAndUpload(this.modelName, this.job_id, filePath).subscribe(result =>{
       // this.runId = result.id;
       // this.interval = setInterval(() => this.getResult(this.runId), 500);
-      console.log(result.id, this.job.jobPath);
+      //console.log(result.id, this.job.jobPath);
       this.modelService.runInference(result.id, this.job.jobPath).subscribe(data => {
         // alert("创建成功,可以在推演成功后查看!");
         this.type=null;
@@ -242,7 +242,7 @@ export class ModelComponent {
         clearInterval(this.interval);
         this.result = result.content;
         this.type = this.result[0].resultType;
-        console.log(this.type);
+        //console.log(this.type);
         this.runId=modelId;
         //console.log(this.type);
         //console.log(this.result);
@@ -268,7 +268,7 @@ export class ModelComponent {
         this.modelPredictionIds.push(this.ModelInfo[i].id);
       }
     }
-    console.log(this.modelPredictionIds);
+    //console.log(this.modelPredictionIds);
     this.modelService.publishModel(this.job_id,this.modelPredictionIds)
       .subscribe(
         (result)=>{
@@ -305,12 +305,12 @@ export class ModelComponent {
     this.getData(job_id,this.page-1,this.pageMaxItem);
   }
   getData(job_id,page,size){
-    console.log(job_id);
+    //console.log(job_id);
     this.modelService.getModelPredictionByJob(job_id,page,size)
       .subscribe(model => {
         if(model.content.length>0){
           this.ModelInfo = model.content;
-          console.log(this.ModelInfo);
+          //console.log(this.ModelInfo);
           if(this.ModelInfo[0].percent==1) {
             clearInterval(this.perInterval);
           }

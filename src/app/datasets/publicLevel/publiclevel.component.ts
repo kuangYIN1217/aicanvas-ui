@@ -29,7 +29,7 @@ export class PublicLevelComponent{
 
   }
   ngOnChanges(...args: any[]) {
-    console.log(this.d_tableData);
+    //console.log(this.d_tableData);
   }
 
   getImage(item){
@@ -90,7 +90,7 @@ export class PublicLevelComponent{
   }
   checkFile(item){
     item.checked = !item.checked;
-    console.log(item.checked);
+    //console.log(item.checked);
     //this.getImg(item);
     if(item.checked){
       item.enter = 2;
@@ -102,7 +102,7 @@ export class PublicLevelComponent{
   }
 
   enterDataset(item){
-    console.log(item);
+    //console.log(item);
     if(item.fileType=='文件夹'){
       //this.datasetsService.enterDataset(item.dataId,encodeURI(item.path),null,null)
       // .subscribe(result=>{
@@ -135,7 +135,7 @@ export class PublicLevelComponent{
     this.photoShow = false;
   }
   deleteFile(item){
-    console.log(item);
+    //console.log(item);
     this.datasetsService.deleteFile(item.fileId,item.dataId,encodeURI(item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName))
       .subscribe(result=>{
         this.deleteResult.emit('delete success');

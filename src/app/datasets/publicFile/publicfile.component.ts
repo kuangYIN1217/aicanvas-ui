@@ -18,7 +18,7 @@ export class PublicFileComponent{
 
   }
   ngOnChanges(...args: any[]) {
-    console.log(this.d_tableData);
+    //console.log(this.d_tableData);
   }
   getImage(num){
     if(num=='1'){

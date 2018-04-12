@@ -22,7 +22,7 @@ export class MyFileComponent{
 
   }
   ngOnChanges(...args: any[]) {
-    console.log(this.d_tableData);
+    //console.log(this.d_tableData);
   }
   getImage(num){
     if(num=='1'){
@@ -79,7 +79,7 @@ export class MyFileComponent{
     }
   }
   saveName(item){
-    console.log(item);
+    //console.log(item);
     this.fileName.replace(/(^\s*)|(\s*$)/g,"");
     if(this.sameName==this.fileName){
       item.flag = 2;
