@@ -222,6 +222,7 @@ export class EnterDatasetComponent {
         console.log(result);
         if(result.text()!=''){
           let aviliableData = result.json().content;
+          if(result.json().totalElements-result.json().content.length<0)return;
           let unloadingData = new Array(result.json().totalElements-result.json().content.length);
           this.d_tableData = aviliableData.concat(unloadingData);
           this.d_tableData_page = result.json();
@@ -277,7 +278,7 @@ export class EnterDatasetComponent {
   }
   $data_backup(){
     this.backup=[];
-    for(let i=0;i<this.d_tableData.length;i++){
+    for(let i=0;this.d_tableData[i]!=undefined;i++){
       if(this.d_tableData[i].checked){
         this.backup.push(this.d_tableData[i].dataSetFileDirectoryPath.parentPath+"/"+this.d_tableData[i].fileName);
       }
@@ -311,7 +312,7 @@ export class EnterDatasetComponent {
     location.href = url;
   }
   $mark_click(){
-    for(let i=0;i<this.d_tableData.length;i++){
+    for(let i=0;this.d_tableData[i]!=undefined;i++){
       if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='文件夹'){
           this.judgeMark();
           this.markPhoto=[];
@@ -641,6 +642,7 @@ export class EnterDatasetComponent {
             data.push(this.d_tableData[i]);
           }
           let datab= data.concat(aviliableData);
+          if(result.json().totalElements-datab.length<=0)return;
           let unloadingData = new Array(result.json().totalElements-datab.length);
           this.d_tableData = datab.concat(unloadingData);
         }else{

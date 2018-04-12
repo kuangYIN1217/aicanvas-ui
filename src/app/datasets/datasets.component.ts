@@ -156,7 +156,7 @@ export class DatasetsComponent{
   }
   $data_backup(){
     this.backup=[];
-    for(let i=0;i<this.d_tableData.length;i++){
+    for(let i=0;this.d_tableData[i]!=undefined;i++){
       if(this.d_tableData[i].checked){
         this.backup.push(this.d_tableData[i].dataPath);
       }
@@ -264,7 +264,7 @@ export class DatasetsComponent{
     dataSetType = dataSetType === 'all' ? null : dataSetType;
     this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
       let aviliableData = rep.content;
-      if(this.d_tableData.length>aviliableData.length)return;
+      if(this.d_tableData.length>=aviliableData.length)return;
       let unloadingData = new Array(rep.totalElements-rep.content.length);
       this.d_tableData = aviliableData.concat(unloadingData);
     })
