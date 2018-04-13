@@ -114,7 +114,7 @@ export class DatasetsComponent{
       let devWidth = headWidth-navWidth-120;
       size = Math.floor(devWidth/120)*7;
       this.dataLineNum=7;
-      this.datasetservice.getDataSets(creator , dataSetType , name , sort, 0 , size ).subscribe(rep =>{
+      this.datasetservice.getDataSets(creator , dataSetType , name , sort, 1 , size ).subscribe(rep =>{
         let aviliableData = rep.content;
         let unloadingData = new Array(rep.totalElements-rep.content.length);
         this.d_tableData = aviliableData.concat(unloadingData);
@@ -255,7 +255,7 @@ export class DatasetsComponent{
     let d = Math.ceil(t/156);
     if(d+7<=this.dataLineNum)return;
     this.dataLineNum +=7;
-    this.getScrollLazyFile(this.dataLineNum/7-1,Math.floor(devWidth/120)*7)
+    this.getScrollLazyFile(this.dataLineNum/7,Math.floor(devWidth/120)*7)
   }
   loadResizeData(){
     if(this.icon=='list') return;
@@ -278,7 +278,7 @@ export class DatasetsComponent{
     for(let i=0;i<d;i++){
       if(i>=Math.floor(aviliableDataNum/(lineNum*7))&&i<=Math.ceil(d/7)){
         this.dataLineNum=(i+1)*7;
-        this.getScrollLazyFile(i,lineNum*7);
+        this.getScrollLazyFile(i+1,lineNum*7);
       }
     }
   }
