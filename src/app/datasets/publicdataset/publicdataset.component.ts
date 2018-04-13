@@ -7,6 +7,7 @@ import {SERVER_URL_DATASETS} from "app/app.constants";
 import {FileItem, FileUploader} from "ng2-file-upload";
 
 import {calc_height} from '../../common/ts/calc_height'
+import {Observable} from "rxjs/Observable";
 declare var $: any;
 @Component({
   selector: 'public-dataset',
@@ -44,11 +45,20 @@ export class PublicDatasetComponent {
   content:string='';
   currentName:string;
   dataset:string='';
+  windowWidth: number;
+  dataLineNum: number =0;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.getDataSetsTypes();
   }
 
   ngOnInit() {
+    this.windowWidth=document.body.clientWidth;
+    Observable.fromEvent(window, 'scroll').subscribe((event) => {
+      this.loadLazyData();
+    });
+    Observable.fromEvent(window, 'resize').subscribe((event) => {
+      this.resize(event);
+    });
     calc_height(document.getElementById("filecontent"));
     this.route.queryParams.subscribe(params => {
       this.dataId = params['dataId'];
@@ -155,10 +165,17 @@ export class PublicDatasetComponent {
     }else if(this.dataset=='false'){
       path = parentPath+"/"+currentName;
     }
-    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName)
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    let size = Math.floor(devWidth/130)*7;
+    this.dataLineNum=7;
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,0,size)
       .subscribe(result=>{
         if(result.text()!=''){
-          this.d_tableData = result.json().content;
+          let aviliableData = result.json().content;
+          if(result.json().totalElements-result.json().content.length<0)return;
+          let unloadingData = new Array(result.json().totalElements-result.json().content.length);
+          this.d_tableData = aviliableData.concat(unloadingData);
+          document.documentElement.scrollTop=0;
           if(!this.searchBool&&!this.searchFile){
             if(currentName==''||currentName==undefined){
               let path:any;
@@ -197,7 +214,7 @@ export class PublicDatasetComponent {
     }
   }
   $mark_click(){
-    for(let i=0;i<this.d_tableData.length;i++){
+    for(let i=0;this.d_tableData[1]!=undefined;i++){
       if(this.d_tableData[i].checked&&this.d_tableData[i].fileType=='文件夹'){
         this.show = true;
         this.content = "您选择的内容中包含不可标注文件！";
@@ -213,7 +230,7 @@ export class PublicDatasetComponent {
       }
     }
     if(this.markPhoto.length==0){
-      for(let i=0;i<this.d_tableData.length;i++){
+      for(let i=0;this.d_tableData[1]!=undefined;i++){
         if(this.d_tableData[i].fileType=='图片文件'){
           this.markPhoto.push(this.d_tableData[i]);
         }
@@ -256,6 +273,60 @@ export class PublicDatasetComponent {
       return name.substring(14);
     }else{
       return name;
+    }
+  }
+
+  loadLazyData(){
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+
+    let t= document.documentElement.scrollTop;
+
+    let d = Math.ceil(t/150);
+    if(d+7<=this.dataLineNum)return;
+    let x = Math.ceil(d/3)*3;
+    this.dataLineNum +=7;
+    this.getScrollLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.dataLineNum/7-1,Math.floor(devWidth/130)*7);
+  }
+  getScrollLazyFile(dataId,parentPath,fileType,fileName,currentName,page,size){
+    let path:any;
+    if(this.dataset=='true'){
+      path = parentPath;
+    }else if(this.dataset=='false'){
+      path = parentPath+"/"+currentName;
+    }
+    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,size)
+      .subscribe(result=>{
+        if(result.text()!=''){
+          let aviliableData = result.json().content;
+          for(let i=page*(size);(i<(page+1)*size)&&(i<this.d_tableData.length);i++){
+            this.d_tableData[i]=aviliableData[i-size*page];
+          }
+        }else{
+          this.d_tableData=[];
+        }
+      })
+  }
+  resize(event){
+    let newWidth = document.body.clientWidth;
+    if(this.windowWidth>newWidth){
+      this.windowWidth=newWidth;
+      return;
+    }
+    let t= document.documentElement.scrollTop;
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    let d =Math.ceil(t/150)+7;
+    let lineNum =Math.floor(devWidth/130);
+    let aviliableDataNum =0;
+    for(let i=0;i<this.d_tableData.length;i++){
+      if(this.d_tableData[i]===undefined)break;
+      aviliableDataNum++;
+    }
+
+    for(let i=0;i<d;i++){
+      if(i>=Math.floor(aviliableDataNum/(lineNum*7))&&i<=Math.ceil(d/7)){
+        this.dataLineNum=(i+1)*7;
+        this.getScrollLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,i,lineNum*7);
+      }
     }
   }
 }

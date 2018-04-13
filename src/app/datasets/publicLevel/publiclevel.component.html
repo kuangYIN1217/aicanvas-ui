@@ -1,14 +1,18 @@
 <div class="myfile-wrapper">
   <div class="myfile-content">
-    <div *ngFor="let item of d_tableData" class="myfile-model" (mouseenter)="enterfile(item)" (mouseleave)="leavefile(item)" [ngClass]="{parentBg:item.parent==1}">
-<!--      <img [style.display]="item.enter==1?'':'none'" [src]="item.img==1?'assets/datasets/file/sc_hong.png':'assets/datasets/file/sc_hui.png'" class="myfile-delete" (mouseleave)="leavedelete(item)" (mouseenter)="enterdelete(item)"/>
-      <img [style.display]="item.enter==1||item.parent==1?'':'none'" [src]="item.checked||item.sb?'assets/datasets/file/xz_lv.png':'assets/datasets/file/xz_hui.png'" class="myfile-check" (click)="checkFile(item)" (mouseleave)="leavechecked(item)" (mouseenter)="enterchecked(item)"/>-->
-      <img [src]="getImage(item)" class="myfile-file" [ngClass]="{marginTop:item.enter==1,imageBorder:item.fileType=='图片文件'}" (click)="enterDataset(item)" [ngStyle]="getTypeTop(item)"/>
-      <span *ngIf="item.flag==undefined||item.flag!=1" title="{{filterName(item.fileName)}}">{{filterName(item.fileName)}}</span>
-      <!--<input type="text" value={{item.fileName}} autofocus="autofocus" class="myfile-input" id="myfile-input" *ngIf="item.flag==1" (blur)="saveName(item)" name="fileName" [(ngModel)]="fileName"/>-->
+    <div *ngFor="let item of d_tableData let i=index;" class="myfile-model">
+      <div *ngIf="item!=undefined" (mouseenter)="enterfile(item)" (mouseleave)="leavefile(item)" [ngClass]="{parentBg:item.parent==1}" class="filelevel-model-loaded">
+        <img [style.display]="item.enter==1?'':'none'" [src]="item.img==1?'assets/datasets/file/sc_hong.png':'assets/datasets/file/sc_hui.png'" class="myfile-delete" (mouseleave)="leavedelete(item)" (mouseenter)="enterdelete(item)" (click)="deleteFile(item)"/>
+        <img [style.display]="item.enter==1||item.parent==1?'':'none'" [src]="item.checked||item.sb?'assets/datasets/file/xz_lv.png':'assets/datasets/file/xz_hui.png'" class="myfile-check" (click)="checkFile(item)" (mouseleave)="leavechecked(item)" (mouseenter)="enterchecked(item)"/>
+        <img [src]="getImage(item)" class="myfile-file" [ngClass]="{marginTop:item.enter==1,imageBorder:item.fileType=='图片文件'}" (click)="enterDataset(item)" [ngStyle]="getTypeTop(item)"/>
+        <span *ngIf="item.flag==undefined||item.flag!=1" (dblclick)="updateName(item,i)" title="{{item.fileName}}">{{item.fileName}}</span>
+        <input type="text" value={{item.fileName}} autofocus="autofocus" class="myfile-input" id={{i}} [style.display]="item.flag==1?'':'none'" (blur)="saveName(item)" name="fileName" [(ngModel)]="fileName"/>
+      </div>
+      <div *ngIf="item==undefined" class="filelevel-model-unloading"></div>
     </div>
   </div>
 </div>
+<!--<app-tips [content]="content" [(show)]="show"></app-tips>-->
 <div class="show-text" *ngIf="textShow">
   <div class="show-text-content">
     <div class="show-text-title">

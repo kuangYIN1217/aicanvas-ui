@@ -241,20 +241,46 @@ export class DatasetsComponent{
   loadLazyData(){
     if(this.icon=='list') return;
     if(this.rollFlag==0) return;
+    // let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    // let t= document.documentElement.scrollTop;
+    // let d = Math.ceil(t/156);
+    // if(d+7<=this.dataLineNum)return;
+    // this.dataLineNum=d+7;
+    // this.getScrollLazyFile(0,(d+7)*Math.floor(devWidth/120));
+
     let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+
     let t= document.documentElement.scrollTop;
+
     let d = Math.ceil(t/156);
     if(d+7<=this.dataLineNum)return;
-    this.dataLineNum=d+7;
-    this.getScrollLazyFile(0,(d+7)*Math.floor(devWidth/120));
+    this.dataLineNum +=7;
+    this.getScrollLazyFile(this.dataLineNum/7-1,Math.floor(devWidth/120)*7)
   }
   loadResizeData(){
     if(this.icon=='list') return;
-    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    if(this.rollFlag==0) return;
+    let newWidth = document.body.clientWidth;
+    if(this.windowWidth>newWidth){
+      this.windowWidth=newWidth;
+      return;
+    }
     let t= document.documentElement.scrollTop;
-    let d = Math.ceil(t/156);
-    this.dataLineNum=d+7;
-    this.getScrollLazyFile(0,(d+7)*Math.floor(devWidth/120));
+    let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
+    let d =Math.ceil(t/150)+7;
+    let lineNum =Math.floor(devWidth/130);
+    let aviliableDataNum =0;
+    for(let i=0;i<this.d_tableData.length;i++){
+      if(this.d_tableData[i]===undefined)break;
+      aviliableDataNum++;
+    }
+
+    for(let i=0;i<d;i++){
+      if(i>=Math.floor(aviliableDataNum/(lineNum*7))&&i<=Math.ceil(d/7)){
+        this.dataLineNum=(i+1)*7;
+        this.getScrollLazyFile(i,lineNum*7);
+      }
+    }
   }
   getScrollLazyFile(page , size ){
     let dataSetType = this.s_select_datasetType;
@@ -264,9 +290,9 @@ export class DatasetsComponent{
     dataSetType = dataSetType === 'all' ? null : dataSetType;
     this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
       let aviliableData = rep.content;
-      if(this.d_tableData.length>=aviliableData.length)return;
-      let unloadingData = new Array(rep.totalElements-rep.content.length);
-      this.d_tableData = aviliableData.concat(unloadingData);
+      for(let i=page*(size);(i<(page+1)*size)&&(i<this.d_tableData.length);i++){
+        this.d_tableData[i]=aviliableData[i-size*page];
+      }
     })
   }
 }

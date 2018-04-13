@@ -195,3 +195,7 @@ video{
   margin-right: 0 !important;
 }
 
+.filelevel-model-loaded{
+  padding: 2px;
+  height: 120px;
+}
