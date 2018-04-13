@@ -255,7 +255,7 @@ export class DatasetsComponent{
     let d = Math.ceil(t/156);
     if(d+7<=this.dataLineNum)return;
     this.dataLineNum +=7;
-    this.getScrollLazyFile(this.dataLineNum/7,Math.floor(devWidth/120)*7)
+    this.getScrollLazyFile(this.dataLineNum/7-1,Math.floor(devWidth/120)*7)
   }
   loadResizeData(){
     if(this.icon=='list') return;
@@ -278,7 +278,7 @@ export class DatasetsComponent{
     for(let i=0;i<d;i++){
       if(i>=Math.floor(aviliableDataNum/(lineNum*7))&&i<=Math.ceil(d/7)){
         this.dataLineNum=(i+1)*7;
-        this.getScrollLazyFile(i+1,lineNum*7);
+        this.getScrollLazyFile(i,lineNum*7);
       }
     }
   }
@@ -288,7 +288,7 @@ export class DatasetsComponent{
     let sort = this.s_sort_type;
     let creator = this.s_nav_selected === 1 ? 'system' : this.username;
     dataSetType = dataSetType === 'all' ? null : dataSetType;
-    this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
+    this.datasetservice.getDataSets(creator , dataSetType , name , sort, page+1 , size ).subscribe(rep =>{
       let aviliableData = rep.content;
       for(let i=page*(size);(i<(page+1)*size)&&(i<this.d_tableData.length);i++){
         this.d_tableData[i]=aviliableData[i-size*page];
