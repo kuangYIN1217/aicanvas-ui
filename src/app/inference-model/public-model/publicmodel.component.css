@@ -1,8 +1,8 @@
 .mymodel-table{
-  width:100%;
   margin:0;
 }
 .mymodel-table .table{
+  width:100%;
   margin-left: 0;
 }
 #style-1::-webkit-scrollbar{
@@ -31,11 +31,11 @@
 .fail{
   background:url("../../../assets/api/cksb.png") no-repeat;
 }
-.table{
+/*.table{
   table-layout:fixed;
 }
 .table tr td{
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-}
+}*/

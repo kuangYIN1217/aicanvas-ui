@@ -159,10 +159,12 @@ export class JobDetailComponent {
    * 获取jobDetail
    */
   initJobDetailByPath(flag?) {
-    this.s_progress_show = true;
     this.jobService.getJobDetail(this.jobPath).subscribe(jobDetail => {
       if (jobDetail) {
         this.job = jobDetail;
+        if(this.job.status=="运行"&&this.job.percent==0){
+          this.s_progress_show = true;
+        }
         if(this.job.percent>0){
           this.s_progress_show = false;
         }
@@ -270,6 +272,7 @@ export class JobDetailComponent {
             this.s_progress_show = false;
           }
           if (this.job.status == '完成'||this.job.status == '异常'){
+            this.s_progress_show = false;
             // 任务完成
             this.websocket.stopWebsocket();
             if (this.interval) {

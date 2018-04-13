@@ -1,8 +1,8 @@
 .mymodel-table{
-  width:100%;
   margin:0;
 }
 .mymodel-table .table{
+  width:100%;
   margin-left: 0;
 }
 #style-1::-webkit-scrollbar{

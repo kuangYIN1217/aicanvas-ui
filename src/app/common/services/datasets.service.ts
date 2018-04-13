@@ -107,7 +107,7 @@ export class DatasetsService {
             return response.text();
         }
       })
-      .timeoutWith(5000, Observable.throw(new Error("Error message")))
+      /*.timeoutWith(10000, Observable.throw(new Error("Error message")))*/
   }
   updateFileName(id,name){
     let path = "/api/dataFileRename?fileId="+id+"&newName="+name;
