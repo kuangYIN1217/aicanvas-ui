@@ -111,7 +111,7 @@ export class DatasetsComponent{
     }
     if(this.icon=='file'){
       let headWidth = document.getElementsByClassName('header')[0].scrollWidth;
-      let navWidth = document.getElementsByTagName('nav')[0].scrollWidth;
+      let navWidth = document.getElementsByClassName('nav-content')[0].clientWidth;
       let devWidth = headWidth-navWidth-120;
       size = Math.floor(devWidth/120)*7;
       this.dataLineNum=7;
@@ -248,7 +248,7 @@ export class DatasetsComponent{
     // if(d+7<=this.dataLineNum)return;
     // this.dataLineNum=d+7;
     // this.getScrollLazyFile(0,(d+7)*Math.floor(devWidth/120));
-
+    if(document.getElementsByClassName('myfile-content').length<=0)return;
     let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
 
     let t= document.documentElement.scrollTop;
