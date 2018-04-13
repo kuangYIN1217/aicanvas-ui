@@ -604,7 +604,6 @@ export class EnterDatasetComponent {
     let x = Math.ceil(d/3)*3;
     this.dataLineNum +=7;
     this.getScrollLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,this.dataLineNum/7-1,Math.floor(devWidth/130)*7);
-    let size = Math.ceil(devWidth/130);
   }
   getScrollLazyFile(dataId,parentPath,fileType,fileName,currentName,page,size){
     let path:any;
@@ -625,31 +624,6 @@ export class EnterDatasetComponent {
         }
       })
   }
-  getResizeLazyFile(dataId,parentPath,fileType,fileName,currentName,page,size){
-    let path:any;
-    if(this.dataset=='true'){
-      path = parentPath;
-    }else if(this.dataset=='false'){
-      path = parentPath+"/"+currentName;
-    }
-    this.datasetservice.enterDataset(dataId,encodeURI(path),fileType,fileName,page,size)
-      .subscribe(result=>{
-        if(result.text()!=''){
-          let aviliableData = result.json().content;
-          let data = new Array();
-          for (let i = 0;i<this.d_tableData.length;i++){
-            if(this.d_tableData[i]===undefined)break;
-            data.push(this.d_tableData[i]);
-          }
-          let datab= data.concat(aviliableData);
-          if(result.json().totalElements-datab.length<=0)return;
-          let unloadingData = new Array(result.json().totalElements-datab.length);
-          this.d_tableData = datab.concat(unloadingData);
-        }else{
-          this.d_tableData=[];
-        }
-      })
-  }
   resize(event){
     let newWidth = document.body.clientWidth;
     if(this.windowWidth>newWidth){
@@ -665,22 +639,13 @@ export class EnterDatasetComponent {
       if(this.d_tableData[i]===undefined)break;
       aviliableDataNum++;
     }
-    let newPageSize=d*lineNum-aviliableDataNum;
-    let newPageNum=0;
-    if(newPageSize>aviliableDataNum){
-      for(let j=1;newPageSize>aviliableDataNum*j;j++){
-        this.getResizeLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,j,aviliableDataNum);
-        aviliableDataNum+=aviliableDataNum;
+
+    for(let i=0;i<d;i++){
+      if(i>=Math.floor(aviliableDataNum/(lineNum*7))&&i<=Math.ceil(d/7)){
+        this.dataLineNum=(i+1)*7;
+        this.getScrollLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,i,lineNum*7);
       }
     }
-    for(;newPageSize<=aviliableDataNum;newPageSize++){
-      if(aviliableDataNum%newPageSize==0){
-        newPageNum=aviliableDataNum/newPageSize;
-        break
-      }
-    }
-    this.getResizeLazyFile(this.dataId,this.parentPath,this.temptype,this.tempname,this.currentName,newPageNum,newPageSize);
-    this.dataLineNum=d;
   }
 
 }
