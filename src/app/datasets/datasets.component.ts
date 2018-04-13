@@ -125,7 +125,7 @@ export class DatasetsComponent{
     }else if(this.icon=='list'){
       this.datasetservice.getDataSets(creator , dataSetType , name , sort, page , size ).subscribe(rep =>{
         this.d_tableData = rep.content;
-        console.log(this.d_tableData);
+        //console.log(this.d_tableData);
         this.changePageParmas(rep);
       })
     }
@@ -195,7 +195,8 @@ export class DatasetsComponent{
   }
 
   $name_change () {
-    console.log(this.s_select_name);
+    //console.log(this.s_select_name);
+    this.s_page = 0;
     this.initTable();
   }
   searchLeft(){
@@ -212,7 +213,7 @@ export class DatasetsComponent{
   }
   changePageParmas(result) {
     this.s_totalNum = result.totalElements;
-    console.log(result);
+    //console.log(result);
     let page = new Page();
     page.pageMaxItem = result.size;
     page.curPage = result.number+1;
