@@ -1,9 +1,11 @@
 <div class="myfile-wrapper">
   <div class="myfile-content">
-    <div *ngFor="let item of d_tableData" class="myfile-model" (mouseenter)="enterfile(item)" (mouseleave)="leavefile(item)" [ngClass]="{filebg: item.enter==1}">
+    <div *ngFor="let item of d_tableData" class="myfile-model">
+      <div *ngIf="item!=undefined" (mouseenter)="enterfile(item)" (mouseleave)="leavefile(item)" [ngClass]="{filebg: item.enter==1}" class="myfile-model-loaded">
+        <img [src]="getImage(item.dataType)" class="myfile-file" (click)="enterDataset(item)"/>
+        <span title="{{filterName(item.dataName)}}">{{filterName(item.dataName)}}</span>
+      </div>
       <!--<img *ngIf="item.enter==1&&item.img!=1" src="assets/datasets/file/sc_hui.png" class="myfile-delete" (mouseenter)="enterdelete(item)" />-->
-      <img [src]="getImage(item.dataType)" class="myfile-file" (click)="enterDataset(item)"/>
-      <span title="{{filterName(item.dataName)}}">{{filterName(item.dataName)}}</span>
     </div>
   </div>
 </div>
