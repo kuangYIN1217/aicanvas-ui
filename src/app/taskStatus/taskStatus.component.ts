@@ -43,6 +43,7 @@ export class TaskStatusComponent{
     curPage:number = 1;// 当前页码
     pageNow:number=0;
     pageChange:number;
+    pageMax:number=10;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
@@ -57,11 +58,13 @@ export class TaskStatusComponent{
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
       //this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
       this.pageNow=paraParam.curPage-1;
+      this.pageMax=paraParam.pageMaxItem;
       //console.log('触发', paraParam);
       this.getPage();
     }
   getPage(){
       sessionStorage['curPage'] = this.pageNow;
+      sessionStorage['curMax'] = this.pageMax;
   }
    ngOnInit(){
      calc_height(document.getElementsByClassName('taskStatusContainer')[0]);
@@ -70,8 +73,8 @@ export class TaskStatusComponent{
        this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,null);
        console.log(this.pageNumber);
      });*/
-         if(this.pageNumber!=0){
-           this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,this.sceneId);
+         if(this.pageNumber!=0||this.pageMax!=10){
+           this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
          }else{
            // this.interval = setInterval(() =>this.updatePage(), 3000);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
@@ -82,7 +85,8 @@ export class TaskStatusComponent{
      this.getSceneId();
        this.pageChange = this.pageNumber;
        sessionStorage['curPage'] = this.pageNumber;
-       this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,this.sceneId);
+       sessionStorage['curMax'] = this.pageMax;
+       this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
    }
    getSceneId(){
      if(this.sceneId==0){
