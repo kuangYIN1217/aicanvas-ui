@@ -136,7 +136,7 @@ export class JobCreationComponent {
     this.searchDataSets(type,this.dataKeyword,this.username);
   }
   searchDataSets(type,name,creator){
-    this.datasetsService.searchDatasets(type,name,creator)
+    this.datasetsService.searchDatasets(type,name,'')
       .subscribe(result=>{
         this.d_dataSets = result.content;
         if(this.d_dataSets.length>0){
