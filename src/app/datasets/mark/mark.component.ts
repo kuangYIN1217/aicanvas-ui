@@ -77,6 +77,11 @@ export class MarkComponent{
   bool:boolean = false;
   sign:boolean = false;
   parentPath:string;
+  newWidth:number;
+  newHeight:number;
+  oldWidth:number;
+  oldHeight:number;
+  oldNewRadio:number;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.username = localStorage['username'];
     this.dataName = sessionStorage.getItem("dataName");
@@ -105,7 +110,6 @@ export class MarkComponent{
       this.addPhotoPath();
       this.path = this.filePath[this.filePath.length-1].path1;
       this.fileId = this.showPhoto.fileId;
-      this.getSize(this.fileId);
     });
     Observable.fromEvent(window, 'resize')
       // .debounceTime(100) // 以免频繁处理
@@ -178,11 +182,14 @@ export class MarkComponent{
     this.datasetservice.getMarkInfo(fileId)
       .subscribe(result=>{
         if(result==1){
-          this.sign = false;
+          //this.sign = false;
         }else{
-          this.sign = true;
+          //this.sign = true;
           this.markImage = result;
-          $("#markDiv").css("width",result.showWidth);
+          this.oldWidth = result.showWidth;
+          this.oldHeight = result.showHigth;
+          this.oldNewRadio = this.oldWidth/this.newWidth;
+/*          $("#markDiv").css("width",result.showWidth);
           $("#markDiv").css("height",result.showHigth);
           this.proportion = result.showWidth/result.showHigth;
           if(parseInt(result.showWidth)>parseInt(result.showHigth)){
@@ -191,7 +198,7 @@ export class MarkComponent{
           }else if(parseInt(result.showWidth)<=parseInt(result.showHigth)){
             $("#markDiv").css("left","0");
             $("#markDiv").css("right","0");
-          }
+          }*/
           this.markCoordinateSet = result.markCoordinateSet;
           this.draw(result.markCoordinateSet);
         }
@@ -208,15 +215,17 @@ export class MarkComponent{
     this.imageLeft = $("#showImg").css("left");
     for(let i=0;i<arr.length;i++){
       this.rected = $("<div></div>");
+      let divOldWidth = arr[i].xMax-arr[i].xMin;
+      let divOldHeight = arr[i].yMax-arr[i].yMin
       $(this.rected).attr("id","rectedId"+i);
       $(this.rected).css("position","absolute");
       $(this.rected).css("border","2px solid #fff");
       $(this.rected).css("z-index",111);
       $(this.rected).css("position","absolute");
-      $(this.rected).css("left",(arr[i].xMin)+'px');
-      $(this.rected).css("top",(arr[i].yMin)+'px');
-      $(this.rected).css("width",(arr[i].xMax-arr[i].xMin)+'px');
-      $(this.rected).css("height",(arr[i].yMax-arr[i].yMin)+'px');
+      $(this.rected).css("left",(arr[i].xMin/$this.oldNewRadio)+'px');
+      $(this.rected).css("top",(arr[i].yMin/$this.oldNewRadio)+'px');
+      $(this.rected).css("width",(divOldWidth/$this.oldNewRadio)+'px');
+      $(this.rected).css("height",(divOldHeight/$this.oldNewRadio)+'px');
       let image:any;
       image = $("<img/>");
       $(image).attr("id","imageId"+i);
@@ -375,13 +384,11 @@ export class MarkComponent{
         this.yMax = this.startY;
         this.xMin = this.startX-this.endX;
         this.yMin = this.startY-this.endY;
-        //console.log("反向",this.xMax,this.startX,this.endX,"2-3");
       }else{
         this.xMin = this.startX;
         this.yMin = this.startY;
         this.xMax = this.rectLeft+this.endX;
         this.yMax = this.rectTop+this.endY;
-        //console.log("正常",this.xMin,this.rectLeft,this.endX,"2+3");
       }
       let nameArr:any[] = this.filePath[this.filePath.length-2].path1.split('/');
       let fileName = nameArr[nameArr.length-1];
@@ -541,7 +548,7 @@ export class MarkComponent{
     }
   }
   loadImg(){
-    if(!this.sign){
+    //if(!this.sign){
       let widthD = $("#content").width();
       let heightD = $("#content").height();
       let proportion:number;
@@ -585,7 +592,10 @@ export class MarkComponent{
       }
       $("#markDiv").css("width",$("#showImg").width());
       $("#markDiv").css("height",$("#showImg").height());
-    }
+      this.newWidth = $("#showImg").width();
+      this.newHeight = $("#showImg").height();
+      this.getSize(this.fileId);
+   // }
   }
   getMaxHeight(){
     if($("#img").length>0){
