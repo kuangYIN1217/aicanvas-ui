@@ -595,7 +595,7 @@ export class MarkComponent{
       imgObj.src = $("#showImg").attr("src");
       imgObj.id = "img";
       $("#content").append(imgObj);
-      imgObj.addEventListener("load",this.loadImg);
+      imgObj.addEventListener("load",this.loadImg.bind(this));
       $("#img").css("display","none");
     }
   }

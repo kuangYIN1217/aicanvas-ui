@@ -162,6 +162,9 @@ export class NavigationComponent {
       this.focusTab = 8;
       // this.needhide = 0;
     }
+/*    else if (this.location.isCurrentPathEqualTo('/boostedtree')) {
+      this.focusTab = 9;
+    }*/
   }
 
   logout() {

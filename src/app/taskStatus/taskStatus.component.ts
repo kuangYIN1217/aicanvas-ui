@@ -22,7 +22,7 @@ export class TaskStatusComponent{
     pageMaxItem: number = 10;
     student:number=0;
     id:number;
-   /* interval: any;*/
+    interval: any;
     interval1: any;
     dataIndex:number=1;
     Jobs: JobInfo[] = [];
@@ -43,6 +43,7 @@ export class TaskStatusComponent{
     curPage:number = 1;// 当前页码
     pageNow:number=0;
     pageChange:number;
+    pageMax:number=10;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
@@ -52,16 +53,18 @@ export class TaskStatusComponent{
 
     }
     getPageData(paraParam) {
-      /*clearInterval(this.interval);
-      clearInterval(this.interval1);*/
+      clearInterval(this.interval);
+      /*clearInterval(this.interval1);*/
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
-      //this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 3000);
+      this.interval = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 10000);
       this.pageNow=paraParam.curPage-1;
+      this.pageMax=paraParam.pageMaxItem;
       //console.log('触发', paraParam);
       this.getPage();
     }
   getPage(){
       sessionStorage['curPage'] = this.pageNow;
+      sessionStorage['curMax'] = this.pageMax;
   }
    ngOnInit(){
      calc_height(document.getElementsByClassName('taskStatusContainer')[0]);
@@ -70,19 +73,27 @@ export class TaskStatusComponent{
        this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,null);
        console.log(this.pageNumber);
      });*/
-         if(this.pageNumber!=0){
-           this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,this.sceneId);
+         if(this.pageNumber!=0||this.pageMax!=10){
+           this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
+           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 10000);
          }else{
            // this.interval = setInterval(() =>this.updatePage(), 3000);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
+           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null), 10000);
          }
+
     //this.getSceneId();
    }
   ngOnChanges(...args: any[]){
      this.getSceneId();
        this.pageChange = this.pageNumber;
        sessionStorage['curPage'] = this.pageNumber;
-       this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,this.sceneId);
+       sessionStorage['curMax'] = this.pageMax;
+       if(this.jobName!=null||this.jobName!=''||this.jobName!=undefined){
+         this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
+       }else{
+         this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId);
+       }
    }
    getSceneId(){
      if(this.sceneId==0){
@@ -121,6 +132,9 @@ export class TaskStatusComponent{
         // 退出时停止更新
        /* clearInterval(this.interval);
         clearInterval(this.interval1);*/
+      clearInterval(this.interval);
+      sessionStorage.removeItem('curPage');
+      sessionStorage.removeItem('curMax');
     }
     checkStatus(status,sence , jobPath){
         if(status=='Finished'){
@@ -167,7 +181,7 @@ export class TaskStatusComponent{
         }else{
             console.log("Start Failed!");
         }
-      this.getAlljobs(this.statuss,sessionStorage['curPage'],this.pageMaxItem,this.sceneId);
+      this.getAlljobs(this.statuss,sessionStorage['curPage'],sessionStorage['curMax'],this.sceneId);
     }
     stop(jobPath: string){
         this.jobService.stopJob(jobPath)
@@ -179,7 +193,7 @@ export class TaskStatusComponent{
         }else{
             console.log("Stop Failed!");
         }
-      this.getAlljobs(this.statuss,sessionStorage['curPage'],this.pageMaxItem,this.sceneId);
+      this.getAlljobs(this.statuss,sessionStorage['curPage'],sessionStorage['curMax'],this.sceneId);
     }
 
     output(percent){
