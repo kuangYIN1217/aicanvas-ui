@@ -40,6 +40,7 @@ import {PublicDatasetComponent} from "./datasets/publicdataset/publicdataset.com
 import {MyModelComponent} from "./inference-model/my-model/mymodel.component";
 import {DataPageComponent} from "./datasetsDetail/page/data-page.component";
 import {PublicModelComponent} from "./inference-model/public-model/publicmodel.component";
+import {BoostedTreeComponent} from "./boostedTree/boostedTree.component";
 
 
 const routes: Routes = [
@@ -90,6 +91,8 @@ const routes: Routes = [
   {path: 'mark', component: MarkComponent},
   {path: 'mymodel', component: MyModelComponent},
   {path: 'pubclimodel', component: PublicModelComponent},
+  {path: 'boostedtree', component: BoostedTreeComponent},
+
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 ];
