@@ -286,7 +286,7 @@ export class MarkComponent{
     var endHeight = this.initImage["height"]*1.1; //每次点击后的高度
     this.maxTimer = setInterval(()=> {
       if((Math.ceil(this.initImage["width"])+1) < endWidth) {
-        if(this.initImage["width"] < this.maxWidth) {
+        if((this.initImage["width"]+5) < this.maxWidth) {
           document.getElementById("min").style.background = "#ff7c35";
           document.getElementById("min").style.color = "#fff";
           this.initImage["width"] = this.initImage["width"]*1.1;
