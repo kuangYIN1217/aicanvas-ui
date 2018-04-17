@@ -83,7 +83,15 @@ export class MarkComponent{
   oldHeight:number;
   oldNewRadio:number;
   heightRadio:number;
-  widthRadio:number
+  widthRadio:number;
+  maxTimer:any;
+  minTimer:any;
+  zoom:number=100;
+  initImage:any;
+  minWidth:number=0;
+  minHeight:number=0;
+  maxWidth:number=0;
+  maxHeight:number=0;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.username = localStorage['username'];
     this.dataName = sessionStorage.getItem("dataName");
@@ -180,7 +188,7 @@ export class MarkComponent{
       }
     }
   }
-  getSize(fileId){
+  getSize(fileId,newWidth){
     this.datasetservice.getMarkInfo(fileId)
       .subscribe(result=>{
         if(result==1){
@@ -190,17 +198,7 @@ export class MarkComponent{
           this.markImage = result;
           this.oldWidth = result.imageWidth;
           this.oldHeight = result.imageHighth;
-          this.oldNewRadio = this.oldWidth/this.newWidth;
-/*          $("#markDiv").css("width",result.showWidth);
-          $("#markDiv").css("height",result.showHigth);
-          this.proportion = result.showWidth/result.showHigth;
-          if(parseInt(result.showWidth)>parseInt(result.showHigth)){
-            $("#markDiv").css("top","0");
-            $("#markDiv").css("bottom","0");
-          }else if(parseInt(result.showWidth)<=parseInt(result.showHigth)){
-            $("#markDiv").css("left","0");
-            $("#markDiv").css("right","0");
-          }*/
+          this.oldNewRadio = this.oldWidth/newWidth;
           this.markCoordinateSet = result.markCoordinateSet;
           this.draw(result.markCoordinateSet);
         }
@@ -218,7 +216,7 @@ export class MarkComponent{
     for(let i=0;i<arr.length;i++){
       this.rected = $("<div></div>");
       let divOldWidth = arr[i].xMax-arr[i].xMin;
-      let divOldHeight = arr[i].yMax-arr[i].yMin
+      let divOldHeight = arr[i].yMax-arr[i].yMin;
       $(this.rected).attr("id","rectedId"+i);
       $(this.rected).css("position","absolute");
       $(this.rected).css("border","2px solid #fff");
@@ -277,11 +275,59 @@ export class MarkComponent{
             .subscribe(result=>{
               //console.log(result);
               $("#rectedId"+index).remove();
-              $this.getSize($this.fileId);
+              $this.getSize($this.fileId,parseInt($this.initImage.style.width));
             })
         });
       })(i);
     }
+  }
+  maxFun(){
+    var div = document.getElementById("markDiv");
+    var endWidth = this.initImage["width"]*1.1; //每次点击后的宽度
+    var endHeight = this.initImage["height"]*1.1; //每次点击后的高度
+    this.maxTimer = setInterval(()=> {
+      if((Math.ceil(this.initImage["width"])+1) < endWidth) {
+        if(this.initImage["width"] < this.maxWidth) {
+          this.initImage["width"] = this.initImage["width"]*1.1;
+          this.initImage["height"] = this.initImage["height"]*1.1;
+          this.initImage.style.width = (this.initImage["width"]*1.1)+"px";
+          this.initImage.style.height = (this.initImage["height"]*1.1)+"px";
+          div.style.width = this.initImage.style.width;
+          div.style.height = this.initImage.style.height;
+          this.zoom = this.zoom+10;
+          this.getSize(this.fileId,parseInt(this.initImage.style.width));
+        } else {
+          alert("已经放大到最大值了");
+          clearInterval(this.maxTimer);
+        }
+      } else {
+        clearInterval(this.maxTimer);
+      }
+    }, 20);
+  }
+  minFun(){
+    var div = document.getElementById("markDiv");
+    var endWidth = this.initImage["width"]/1.1; //每次点击后的宽度
+    var endHeight = this.initImage["height"]/1.1; //每次点击后的高度
+    this.minTimer = setInterval(()=> {
+      if(this.initImage["width"] > Math.ceil(endWidth)) {
+        if(this.initImage["width"] > this.minWidth) {
+          this.initImage["width"] = this.initImage["width"]/1.1;
+          this.initImage["height"] = this.initImage["height"]/1.1;
+          this.initImage.style.width = (this.initImage["width"]/1.1)+"px";
+          this.initImage.style.height = (this.initImage["height"]/1.1)+"px";
+          div.style.width = this.initImage.style.width;
+          div.style.height = this.initImage.style.height;
+          this.zoom = this.zoom-10;
+          this.getSize(this.fileId,parseInt(this.initImage.style.width));
+        } else {
+          alert("已经缩小到最小值了");
+          clearInterval(this.minTimer);
+        }
+      } else {
+        clearInterval(this.minTimer);
+      }
+    }, 20);
   }
   ngOnDestroy(){
     sessionStorage.removeItem('showPhoto');
@@ -290,7 +336,7 @@ export class MarkComponent{
   imagePathChange(event:any){
     //console.log(event);
     $("#markDiv").find("div").remove();
-    this.getSize(event);
+    this.getSize(event,parseInt(this.initImage.style.width));
   }
   search(index){
     if(index!=this.filePath.length-1){
@@ -493,6 +539,7 @@ export class MarkComponent{
     this.img.src = `${SERVER_URL}/download/${(this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName).slice(26)}`;
   }
   pre(){
+    this.zoom = 100;
     if(this.markPhoto.length==1||(this.showPhoto.fileId==this.markPhoto[0].fileId)){
       return false
     }else{
@@ -510,6 +557,7 @@ export class MarkComponent{
     }
   }
   next(){
+    this.zoom = 100;
     if(this.markPhoto.length==1||(this.showPhoto.fileId==this.markPhoto[this.markPhoto.length-1].fileId)){
       return false
     }else{
@@ -536,7 +584,7 @@ export class MarkComponent{
     //let temp = this.showPhoto.path.split('/');
     this.filePath[this.filePath.length-1].showpath = this.showPhoto.fileName;
     this.path = this.filePath[this.filePath.length-1].path1;
-    this.getSize(this.fileId);
+    this.getSize(this.fileId,parseInt(this.initImage.style.width));
   }
   getSrc(item){
     let path = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
@@ -598,7 +646,12 @@ export class MarkComponent{
       $("#markDiv").css("height",$("#showImg").height());
       this.newWidth = $("#showImg").width();
       this.newHeight = $("#showImg").height();
-      this.getSize(this.fileId);
+      this.initImage = document.getElementById("showImg");
+      this.minWidth = this.initImage["width"]*0.3; //缩小宽度的极限值
+      this.minHeight = this.initImage["height"]*0.3; //缩小高度的极限值
+      this.maxWidth = this.initImage["width"]*3; //放大的极限值
+      this.maxHeight = this.initImage["height"]*3; //放大的高度的极限值
+      this.getSize(this.fileId,this.newWidth);
    // }
   }
   getMaxHeight(){

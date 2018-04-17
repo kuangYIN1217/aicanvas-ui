@@ -53,6 +53,7 @@
   background: #fff;
   position: relative;
   z-index: 22;
+  overflow: auto;
 }
 .content img{
   display: block;
@@ -67,5 +68,24 @@
   position: absolute;
   z-index: 24;
   margin: auto;
+}
+.zoom input{
+  width:40px;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  height:30px;
+  box-sizing: border-box;
+  outline: none;
+  border:1px solid #d3d3d3;
+}
+.zoom{
+  display: inline-block;
+  margin-left: 20px;
+}
+.zoom span{
+  display: inline-block;
+  color: #333;
+  padding-left: 6px;
 }
 
