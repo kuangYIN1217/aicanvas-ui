@@ -82,6 +82,8 @@ export class MarkComponent{
   oldWidth:number;
   oldHeight:number;
   oldNewRadio:number;
+  heightRadio:number;
+  widthRadio:number
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.username = localStorage['username'];
     this.dataName = sessionStorage.getItem("dataName");
@@ -186,8 +188,8 @@ export class MarkComponent{
         }else{
           //this.sign = true;
           this.markImage = result;
-          this.oldWidth = result.showWidth;
-          this.oldHeight = result.showHigth;
+          this.oldWidth = result.imageWidth;
+          this.oldHeight = result.imageHighth;
           this.oldNewRadio = this.oldWidth/this.newWidth;
 /*          $("#markDiv").css("width",result.showWidth);
           $("#markDiv").css("height",result.showHigth);
@@ -250,8 +252,8 @@ export class MarkComponent{
             $this.xMax = arr[index].xMax;
             $this.yMax = arr[index].yMax;
             $this.coordinateId = arr[index].coordinateId;
-            $this.markleft = Number($this.xMax)+$this.left;
-            $this.marktop = Number($this.yMax)+$this.top;
+            $this.markleft = (Number($this.xMax)/$this.oldNewRadio)+$this.left;
+            $this.marktop = (Number($this.yMax)/$this.oldNewRadio)+$this.top;
             $this.singleDiv = arr[index];
             //console.log($this.markleft,$this.marktop);
             $this.fileId = $this.showPhoto.fileId;
@@ -400,13 +402,15 @@ export class MarkComponent{
       }else{
         isGray = 3;
       }
+      this.heightRadio = $("#img").height()/$("#markDiv").height();
+      this.widthRadio = $("#img").width()/$("#markDiv").width();
       this.markImage = {
         "createPerson": this.username,
         "dataBase": this.dataName,
         "fileName": fileName,
         "imageDepth": isGray,
         "imageFileId":this.fileId,
-        "imageHighth": $("#img").width(),
+        "imageHighth": $("#img").height(),
         "imageName": imageName,
         "imagePath": this.filePath[this.filePath.length-1].path1,
         "imageWidth": $("#img").width(),

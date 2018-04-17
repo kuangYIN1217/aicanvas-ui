@@ -10,6 +10,7 @@
       <a href="#" onclick="return false" class="btn bgg" (click)="startMark()">创建标注框</a>
       <a href="#" onclick="return false" class="btn bgo" (click)="pre()" [ngClass]="{bggray:(markPhoto.length==1)||(showPhoto.fileId==markPhoto[0].fileId)}">上个文件</a>
       <a href="#" onclick="return false" class="btn bgo" (click)="next()" [ngClass]="{bggray:(markPhoto.length==1)||(showPhoto.fileId==markPhoto[markPhoto.length-1].fileId)}">下个文件</a>
+
     </div>
     <div class="mark-content" id="mark-content">
       <div class="content" id="content"  [ngStyle]="getMarkDiv()">
@@ -20,7 +21,7 @@
           <canvas id="canvas" width="500" height="300" style="display: none"></canvas>
         </div>
       </div>
-      <add-mark *ngIf="show" [marktop]="marktop" [markleft]="markleft" [dataId]="dataId" [fileId]="fileId" [markImage]="markImage" [markName]="markName" [coordinateId]="coordinateId"  [xMax]="xMax" [yMax]="yMax" [xMin]="xMin" [yMin]="yMin" [singleDiv]="singleDiv" (showChange)="showChange($event)" (markCoordinateSetChange)="markCoordinateSetChange($event)" (imagePathChange)="imagePathChange($event)"></add-mark>
+      <add-mark *ngIf="show" [marktop]="marktop" [markleft]="markleft" [dataId]="dataId" [fileId]="fileId" [markImage]="markImage" [markName]="markName" [coordinateId]="coordinateId"  [xMax]="xMax" [yMax]="yMax" [xMin]="xMin" [yMin]="yMin" [singleDiv]="singleDiv" [widthRadio]="widthRadio" [heightRadio]="heightRadio" (showChange)="showChange($event)" (markCoordinateSetChange)="markCoordinateSetChange($event)" (imagePathChange)="imagePathChange($event)"></add-mark>
     </div>
   </div>
 </div>

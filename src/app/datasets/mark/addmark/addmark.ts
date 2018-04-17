@@ -22,6 +22,8 @@ export class AddMarkComponent{
   @Input() coordinateId:number;
   @Input() singleDiv:any;
   @Input() dataId:number;
+  @Input() heightRadio:number;
+  @Input() widthRadio:number;
   markCoordinateSet1:any[]=[];
   mx:number;
   my:number;
@@ -116,10 +118,10 @@ export class AddMarkComponent{
     if(this.coordinateId==0){
       //this.markCoordinateSet1 = this.markImage.markCoordinateSet;
       this.obj.createPerson = this.username;
-      this.obj.xMax = this.xMax;
-      this.obj.yMax = this.yMax;
-      this.obj.xMin = this.xMin;
-      this.obj.yMin = this.yMin;
+      this.obj.xMax = this.xMax*this.widthRadio;
+      this.obj.yMax = this.yMax*this.heightRadio;
+      this.obj.xMin = this.xMin*this.widthRadio;
+      this.obj.yMin = this.yMin*this.heightRadio;
       this.markCoordinateSet1.push(this.obj);
       this.markImage.markCoordinateSet = this.markCoordinateSet1;
       //console.log(this.markCoordinateSet1);
