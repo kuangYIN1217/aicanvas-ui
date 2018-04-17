@@ -124,7 +124,6 @@ export class NavigationComponent {
     } else {
       this.username = "Loading";
     }
-
     if (this.location.isCurrentPathEqualTo('/login') || this.location.isCurrentPathEqualTo('')) {
       this.focusTab = 0;
       // this.needhide = 0;
@@ -147,7 +146,7 @@ export class NavigationComponent {
     } else if (this.location.isCurrentPathEqualTo('/datasets')||this.location.isCurrentPathEqualTo('/enterdataset')) {
       this.focusTab = 4;
       // this.needhide = 0;
-    } else if (this.location.isCurrentPathEqualTo('/inferenceModel')) {
+    } else if (this.location.isCurrentPathEqualTo('/inferenceModel')||this.location.path().match(/\/inferenceModel/)) {
       this.focusTab = 5;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/algplugins') || this.location.path(false).indexOf('/algpluginDetail/') != -1) {

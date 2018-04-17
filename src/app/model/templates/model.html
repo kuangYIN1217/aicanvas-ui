@@ -1,6 +1,6 @@
 <div class="container">
   <div style="padding: 0 30px;">
-    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" (showTipChange)="showTipChange(event)"></uniform-tips>
   </div>
   <div class="button_location">
     <a href="#" class="btn gray" onclick="return false" (click)="back()">返回</a>

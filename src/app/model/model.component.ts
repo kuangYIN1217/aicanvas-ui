@@ -66,6 +66,8 @@ export class ModelComponent {
   tipMargin:string='';
   showShort:boolean = false;
   showType:string='';
+  jobId:number=0;
+  isPublic:boolean = false;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
 
   }
@@ -253,7 +255,8 @@ export class ModelComponent {
   getJobDetail(job_id){
     this.jobService.getJobDetailById(job_id)
       .subscribe(jobDetail => {
-      this.job = jobDetail;
+        this.isPublic = jobDetail.ifPublicSence;
+        this.job = jobDetail;
     });
   }
   getDataset(){

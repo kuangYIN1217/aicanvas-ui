@@ -30,8 +30,8 @@
         <a *ngIf="jobInfo.status=='模型发布中' && jobInfo.trainable != 0" class="operationBtn unstart"></a>
         <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0" class="operationBtn stop" (click)="stop(jobInfo.jobPath)" title="停止"></a>
         <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0" class="operationBtn start" (click)="start(jobInfo.jobPath)" title="运行"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable != 0" routerLinkActive="active" routerLink="/inferenceModel" class="see-model xunlian-model" title="查看已发布模型"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable == 0" routerLinkActive="active" routerLink="/inferenceModel" class="see-model tuiyan-model" title="查看已发布模型"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable != 0" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.ifPublicSence}}/{{jobInfo.id}}" class="see-model xunlian-model" title="查看已发布模型"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable == 0" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.jobPath}}/{{jobInfo.id}}" class="see-model tuiyan-model" title="查看已发布模型"></a>
         <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
       </td>
     </tr>
