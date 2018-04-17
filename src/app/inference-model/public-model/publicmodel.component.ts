@@ -15,6 +15,7 @@ export class PublicModelComponent{
   @Input() s_nav_selected:number;
   @Input() jobName:any='';
   @Input() senceName:any='';
+  @Input() jobId:any=0;
   @Output() showIdChange: EventEmitter<any> = new EventEmitter();
   @Output() failChange: EventEmitter<any> = new EventEmitter();
   dataIndex:number=0;
@@ -29,14 +30,14 @@ export class PublicModelComponent{
 
   }
   ngOnChanges(...args: any[]) {
-    this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.page-1,this.pageMaxItem);
+    this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page-1,this.pageMaxItem);
   }
   getPageData(paraParam){
-    this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,paraParam.curPage-1,paraParam.pageMaxItem);
+    this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,paraParam.curPage-1,paraParam.pageMaxItem);
     this.pageNow=paraParam.curPage;
   }
-  getAllModel(jobName,senceName,number,page,size){
-    this.modelService.getAllModel(jobName,senceName,number,page,size)
+  getAllModel(jobName,senceName,number,jobId,page,size){
+    this.modelService.getAllModel(jobName,senceName,number,jobId,page,size)
       .subscribe(result=>{
         if(result&&result.content.length>0){
           this.dataIndex=1;

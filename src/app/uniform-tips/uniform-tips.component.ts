@@ -1,4 +1,5 @@
 import { Component, OnInit,Input,Output,EventEmitter} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'uniform-tips',
@@ -11,8 +12,10 @@ export class UniformTipsComponent{
 @Input() tipWidth:string='';
 @Input() content:string='';
 @Input() tipMargin:string='';
+@Input() jobId:number=0;
+@Input() isPublic:boolean = false;
 @Output() showTipChange: EventEmitter<any> = new EventEmitter();
-  constructor() { }
+  constructor(private route: ActivatedRoute , private router: Router) { }
   ngOnChanges(...args: any[]) {
     if(this.tipType=='warnning'){
       setTimeout(()=>{
@@ -20,6 +23,9 @@ export class UniformTipsComponent{
       },3000)
     }
   }
+/*  findModel(){
+    this.router.navigate(['../inferenceModel'],{queryParams: {'isPublic':this.isPublic,"jobId":this.jobId}});
+  }*/
   ngStyle() {
     if (this.tipType == 'success') {
       return {

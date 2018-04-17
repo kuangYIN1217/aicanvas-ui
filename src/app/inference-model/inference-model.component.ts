@@ -3,6 +3,7 @@ import {SceneService} from "../common/services/scene.service";
 import {modelService} from "../common/services/model.service";
 import {Page} from "../common/defs/resources";
 import {calc_height} from "app/common/ts/calc_height";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-inference-model',
@@ -38,11 +39,25 @@ export class InferenceModelComponent{
   tipType:string='';
   showTip:boolean = false;
   tipMargin:string='';
-  constructor(private sceneService: SceneService,private modelService: modelService) {
+  isPublic:boolean;
+  constructor(private sceneService: SceneService,private modelService: modelService,private route: ActivatedRoute , private router: Router) {
       //this.getAllModel(-1,-1,this.s_nav_selected,this.page-1,this.pageMaxItem);
+    console.log(this.s_nav_selected);
   }
   ngOnInit() {
     calc_height(document.getElementById('table_section'));
+    this.route.params.subscribe(params => {
+      if(JSON.stringify(params) != "{}"){
+        this.isPublic = Boolean(params["isPublic"]);
+        //console.log(this.isPublic,this.jobId);
+        if(this.isPublic==true){
+          this.s_nav_selected = 0;
+        }else{
+          this.s_nav_selected = 1;
+        }
+        this.jobId = params["jobId"];
+      }
+    });
   }
   failChange(event){
     if(event!=""){

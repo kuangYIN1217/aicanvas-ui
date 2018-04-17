@@ -128,6 +128,9 @@ export class TaskStatusComponent{
                // console.log(this.pageParams);
             });
     }
+/*    findModel(item){
+      this.router.navigate(['../inferenceModel'],{queryParams: {'isPublic':item.ifPublicSence,"jobId":item.id}});
+    }*/
     ngOnDestroy(){
         // 退出时停止更新
        /* clearInterval(this.interval);

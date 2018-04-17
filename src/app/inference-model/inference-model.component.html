@@ -15,8 +15,8 @@
           <input type="text" name="senceName" [(ngModel)]="senceName" class="search-input" placeholder="请输入场景关键字" (ngModelChange)="senceName=$event;$search_change()"/>
         </div>
       </div>
-      <my-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" *ngIf="s_nav_selected===1" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></my-model>
-      <public-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" *ngIf="s_nav_selected===0" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></public-model>
+      <my-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===1" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></my-model>
+      <public-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===0" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></public-model>
     </div>
   </div>
 </div>
