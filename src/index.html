@@ -16,6 +16,43 @@
   <script src="assets/amcharts/serial.js"></script>
   <script src="assets/amcharts/themes/light.js"></script>
   <script src="assets/scripts/drag.js"></script>
+  <script language="javascript">
+    $(document).keydown(function(event){
+        if(navigator.userAgent.indexOf("Firefox") > -1){
+          if((event.keyCode == 173&&event.ctrlKey)||(event.keyCode == 61&&event.ctrlKey)||
+            (event.keyCode == 173&&event.metaKey)||(event.keyCode == 61&&event.metaKey)){
+            event.preventDefault();
+            document.onkeydown=function keydown(){return false;}
+          }else{
+            document.onkeydown=function keydown(){return true;}
+          }
+        }
+        else if(navigator.userAgent.indexOf("Chrome") > -1){
+          if((event.keyCode == 187&&event.ctrlKey)||(event.keyCode == 189&&event.ctrlKey)||
+            (event.keyCode == 187&&event.metaKey)||(event.keyCode == 189&&event.metaKey)){
+            event.preventDefault();
+            document.onkeydown=function keydown(){return false;}
+          }else{
+            document.onkeydown=function keydown(){return true;}
+          }
+        }
+      }
+    );
+    if(document.addEventListener){
+      document.addEventListener('DOMMouseScroll',function(e){
+        if(e.metaKey||e.ctrlKey){
+          e.preventDefault();
+          e.returnValue=false;
+        }
+      });
+    }
+    window.onmousewheel=document.onmousewheel=function(e){
+      if(e.metaKey||e.ctrlKey){//IE/Opera/Chrome
+        e.preventDefault();
+        return false;
+      }
+    }
+  </script>
 </head>
 <body>
 <navigation></navigation>
