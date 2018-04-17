@@ -81,11 +81,14 @@
 }
 .zoom{
   display: inline-block;
-  margin-left: 20px;
+  margin:20px 0 20px 20px;
 }
 .zoom span{
   display: inline-block;
   color: #333;
   padding-left: 6px;
+}
+.fr{
+  float: right;
 }
 

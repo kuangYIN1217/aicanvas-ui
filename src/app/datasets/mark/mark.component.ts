@@ -661,8 +661,8 @@ export class MarkComponent{
       this.initImage = document.getElementById("showImg");
       this.minWidth = this.initImage["width"]/Math.pow(1.1,7); //缩小宽度的极限值
       this.minHeight = this.initImage["height"]/Math.pow(1.1,7); //缩小高度的极限值
-      this.maxWidth = this.initImage["width"]*Math.pow(1.1,19); //放大的极限值
-      this.maxHeight = this.initImage["height"]*Math.pow(1.1,19); //放大的高度的极限值
+      this.maxWidth = this.initImage["width"]*Math.pow(1.1,20); //放大的极限值
+      this.maxHeight = this.initImage["height"]*Math.pow(1.1,20); //放大的高度的极限值
       this.getSize(this.fileId,this.newWidth);
    // }
   }
