@@ -78,6 +78,10 @@ export class NavigationComponent {
     this.show_menu = !this.show_menu;
   }
   loadArrow(){
+    let displayStyle = document.getElementById('dataStorage').getAttribute('style');
+    if(displayStyle!=null&&displayStyle.toString()=='display: inline;'){
+      this.show_menu = true;
+    }
     if(this.focusTab==2||this.focusTab==4||this.focusTab==5||this.focusTab==7){
       if(this.show_menu){
         return "assets/navigation/shang_bai.png"

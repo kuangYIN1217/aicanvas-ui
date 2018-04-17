@@ -207,4 +207,7 @@ export class TaskStatusComponent{
   goModel(id){
     this.router.navigate(['/model'],{queryParams: {'job_id': id }})
   }
+  deployNav(){
+    document.getElementById('dataStorage').setAttribute('style','display: inline;');
+  }
 }

@@ -631,6 +631,7 @@ export class EnterDatasetComponent {
       return;
     }
     let t= document.documentElement.scrollTop;
+    if(document.getElementsByClassName('myfile-content').length<=0)return;
     let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
     let d =Math.ceil(t/150)+7;
     let lineNum =Math.floor(devWidth/130);

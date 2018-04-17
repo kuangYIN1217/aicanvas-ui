@@ -25,7 +25,7 @@
         <a href="#" onclick="return false" class="data-save">数据存储</a>
         <img [src]="loadArrow()" class="selectDown" [ngStyle]="getArrow()"/>
       </div>
-      <div [style.display]="show_menu?'':'none'">
+      <div [style.display]="show_menu?'':'none'" id="dataStorage">
         <div class="nav_element" [class.focusTab1] = "focusTab==7" routerLinkActive="active"  (click)="changeTab(7 , '/datasetssave');focusCollapse='0'">
           <img [src]="focusTab!=7?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'" style="display: none">
           <a href="#" onclick="return false" class="two-menu">存储总览</a>
@@ -51,7 +51,7 @@
         <img [src]="focusTab!=6?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'"  class="nav-icon">
         <a href="#" onclick="return false" >算法组件库</a>
       </div>
-<!--      <div class="nav_element"   [class.focusTab] = "focusTab==9" routerLinkActive="active"  (click)="changeTab(9 , '/boostedtree');focusCollapse='0'">
+     <!--<div class="nav_element"   [class.focusTab] = "focusTab==9" routerLinkActive="active"  (click)="changeTab(9 , '/boostedtree');focusCollapse='0'">
         <img [src]="focusTab!=9?'assets/navigation/szt_hui.png':'assets/navigation/szt_bai.png'"  class="nav-icon">
         <a href="#" onclick="return false" >Boosted Tree</a>
       </div>-->
