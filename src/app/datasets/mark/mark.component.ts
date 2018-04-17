@@ -273,7 +273,6 @@ export class MarkComponent{
           oev.stopPropagation();
           $this.datasetservice.deleteMark(arr[index],$this.dataId,$this.fileId)
             .subscribe(result=>{
-              //console.log(result);
               $("#rectedId"+index).remove();
               $this.getSize($this.fileId,parseInt($this.initImage.style.width));
             })
@@ -288,6 +287,8 @@ export class MarkComponent{
     this.maxTimer = setInterval(()=> {
       if((Math.ceil(this.initImage["width"])+1) < endWidth) {
         if(this.initImage["width"] < this.maxWidth) {
+          document.getElementById("min").style.background = "#ff7c35";
+          document.getElementById("min").style.color = "#fff";
           this.initImage["width"] = this.initImage["width"]*1.1;
           this.initImage["height"] = this.initImage["height"]*1.1;
           this.initImage.style.width = (this.initImage["width"]*1.1)+"px";
@@ -295,10 +296,14 @@ export class MarkComponent{
           div.style.width = this.initImage.style.width;
           div.style.height = this.initImage.style.height;
           this.zoom = this.zoom+10;
+          if(this.zoom==300){
+            document.getElementById("max").style.background = "#eee";
+            document.getElementById("max").style.color = "#999";
+          }
           this.getSize(this.fileId,parseInt(this.initImage.style.width));
         } else {
-          alert("已经放大到最大值了");
           clearInterval(this.maxTimer);
+          return false
         }
       } else {
         clearInterval(this.maxTimer);
@@ -312,6 +317,8 @@ export class MarkComponent{
     this.minTimer = setInterval(()=> {
       if(this.initImage["width"] > Math.ceil(endWidth)) {
         if(this.initImage["width"] > this.minWidth) {
+          document.getElementById("max").style.background = "#ff7c35";
+          document.getElementById("max").style.color = "#fff";
           this.initImage["width"] = this.initImage["width"]/1.1;
           this.initImage["height"] = this.initImage["height"]/1.1;
           this.initImage.style.width = (this.initImage["width"]/1.1)+"px";
@@ -319,10 +326,15 @@ export class MarkComponent{
           div.style.width = this.initImage.style.width;
           div.style.height = this.initImage.style.height;
           this.zoom = this.zoom-10;
+          if(this.zoom==30){
+            document.getElementById("min").style.background = "#eee";
+            document.getElementById("min").style.color = "#999";
+          }
           this.getSize(this.fileId,parseInt(this.initImage.style.width));
         } else {
-          alert("已经缩小到最小值了");
+
           clearInterval(this.minTimer);
+          return false
         }
       } else {
         clearInterval(this.minTimer);
@@ -647,10 +659,10 @@ export class MarkComponent{
       this.newWidth = $("#showImg").width();
       this.newHeight = $("#showImg").height();
       this.initImage = document.getElementById("showImg");
-      this.minWidth = this.initImage["width"]*0.3; //缩小宽度的极限值
-      this.minHeight = this.initImage["height"]*0.3; //缩小高度的极限值
-      this.maxWidth = this.initImage["width"]*3; //放大的极限值
-      this.maxHeight = this.initImage["height"]*3; //放大的高度的极限值
+      this.minWidth = this.initImage["width"]/Math.pow(1.1,7); //缩小宽度的极限值
+      this.minHeight = this.initImage["height"]/Math.pow(1.1,7); //缩小高度的极限值
+      this.maxWidth = this.initImage["width"]*Math.pow(1.1,19); //放大的极限值
+      this.maxHeight = this.initImage["height"]*Math.pow(1.1,19); //放大的高度的极限值
       this.getSize(this.fileId,this.newWidth);
    // }
   }
