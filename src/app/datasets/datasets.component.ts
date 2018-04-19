@@ -251,7 +251,6 @@ export class DatasetsComponent{
     // this.getScrollLazyFile(0,(d+7)*Math.floor(devWidth/120));
     if(document.getElementsByClassName('myfile-content').length<=0)return;
     let devWidth = document.getElementsByClassName('myfile-content')[0].scrollWidth;
-
     let t= document.documentElement.scrollTop;
 
     let d = Math.ceil(t/156);

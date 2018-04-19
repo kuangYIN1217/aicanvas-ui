@@ -153,17 +153,15 @@ export class TaskStatusComponent{
     start(jobPath: string){
       // todo 判断当前运行job数量 > 3 不允许
       this.jobService.getAllJobs('运行', null , null , null , null ).subscribe(rep => {
-        if (rep.totalElements >= 3) {
-          this.nooperate.emit(false);
+        //if (rep.totalElements >= 3) {
+          //this.nooperate.emit(false);
           //addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
-          return;
-        } else {
-/*          this.gpuNum = null;
-          this.gpu_show = true;*/
+          //return;
+        //} else {
           this.runPath = jobPath;
           this.jobService.runJob(jobPath)
             .subscribe(reply => this.start_reply(reply));
-        }
+       // }
       })
     }
 /*  sure(event){
