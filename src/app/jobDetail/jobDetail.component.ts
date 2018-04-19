@@ -853,15 +853,15 @@ export class JobDetailComponent {
     this.s_start_stop_click = false;
     // todo 判断当前运行job数量 > 3 不允许
     this.jobService.getAllJobs('运行', null , null , null , null ).subscribe(rep => {
-      if (rep.totalElements >= 3) {
+/*      if (rep.totalElements >= 3) {
         this.showTip = true;
         this.tipMargin = "0 auto 20px";
         this.tipWidth = "100%";
         this.tipType = "warnning";
         this.tipContent = "测试版本下最多同时运行三个任务！";
-        /*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*/
+        /!*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*!/
         return;
-      }else {
+      }else {*/
 /*        this.gpuNum = null;
         this.gpu_show = true;*/
         this.runPath = jobPath;
@@ -870,7 +870,7 @@ export class JobDetailComponent {
           .subscribe(result =>{
             this.initJobDetailByPath(true);
           })
-      }
+      //}
     })
   }
   showTipChange(event){
