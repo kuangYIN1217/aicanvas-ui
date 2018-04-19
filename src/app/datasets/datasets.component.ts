@@ -182,7 +182,7 @@ export class DatasetsComponent{
     }
   }
   downloadBackup(path) {
-    let url = SERVER_URL+"/download/"+path;
+    let url = SERVER_URL+"/download"+path;
     location.href = url;
   }
   createMethod(event:any){
