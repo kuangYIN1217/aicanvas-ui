@@ -234,7 +234,82 @@ export class FileLevelComponent{
     img.style.right = x-17+'px';
     img.style.top = y-17+'px';
   }
+  getMaxHeight(){
+    if($("#img").length>0){
+      return
+    }else{
+      let imgObj = new Image();
+      imgObj.src = $("#image").attr("src");
+      imgObj.id = "img";
+      $(".showImage").append(imgObj);
+      //console.log($("#img").width());
+      imgObj.addEventListener("load",this.getWH);
+      $("#img").css("display","none");
+    }
+  }
   getWH(){
+    let obj:any;
+    obj = document.getElementById("image");
+    obj.className = "";
+    let width = $("#img").width();
+    let height = $("#img").height();
+    let x = (970-parseInt(width))/2;
+    let y = (545-parseInt(height))/2;
+    if(parseInt(width)>parseInt(height)){
+      if(parseInt(width)>=970){
+        obj.style.width = "970px";
+        obj.style.position = "absolute";
+        obj.style.height = parseInt(height)*970/parseInt(width)+"px";
+        obj.style.left = "0";
+        obj.style.right = "0";
+        obj.style.top = "50%";
+        obj.style.marginTop = -(obj.offsetHeight/2)+'px';
+        let y1 = (545-parseInt(obj.offsetHeight))/2;
+        $(".closeImage").css("right","-17px");
+        $(".closeImage").css("top",y1-17+'px');
+        return
+      }else{
+        obj.className = "show-img";
+        obj.style.position = "absolute";
+        obj.style.width = width+"px";
+        obj.style.height = height+"px";
+        obj.style.top = "50%";
+        obj.style.left = "50%";
+        obj.style.marginTop = -(height/2)+'px';
+        obj.style.marginLeft = -(width/2)+'px';
+        $(".closeImage").css("right",x-17+'px');
+        $(".closeImage").css("top",y-17+'px');
+        return
+      }
+    }else if(parseInt(width)<=parseInt(height)){
+      if(parseInt(height)>=545){
+        obj.style.width = parseInt(width)*545/parseInt(height)+"px";
+        obj.style.height = "545px";
+        obj.style.position = "relative";
+        obj.style.top = "0";
+        obj.style.bottom = "0";
+        obj.style.left = "50%";
+        obj.style.marginLeft = -(obj.offsetWidth/2)+'px';
+        let x1 = (970-parseInt(obj.offsetWidth))/2;
+        $(".closeImage").css("right",x1-17+'px');
+        $(".closeImage").css("top","-17px");
+        return
+      }else{
+        obj.className = "show-img";
+        obj.style.position = "absolute";
+        obj.style.width = width+"px";
+        obj.style.height = height+"px";
+        obj.style.top = "50%";
+        obj.style.left = "50%";
+        obj.style.marginTop = -(height/2)+'px';
+        obj.style.marginLeft = -(width/2)+'px';
+        $(".closeImage").css("right",x-17+'px');
+        $(".closeImage").css("top",y-17+'px');
+        return
+      }
+    }
+  }
+/*  getWH(){
     let obj:any;
     obj = document.getElementById("image");
     obj.className = "";
@@ -277,5 +352,5 @@ export class FileLevelComponent{
         return
       }
     }
-  }
+  }*/
 }

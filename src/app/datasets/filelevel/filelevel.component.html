@@ -26,10 +26,10 @@
     </div>
   </div>
 </div>
-<div class="show-text" *ngIf="photoShow">
+<div class="show-text showImage" *ngIf="photoShow">
   <div class="show-image">
-    <img src="{{SERVER_URL}}/download/{{image}}" (load)="getWH()" id="image"/>
-    <img src="assets/datasets/filelevel/close.png" (click)="closeImg()" class="guanbiPhoto" id="closeImage"/>
+    <img src="{{SERVER_URL}}/download/{{image}}" (load)="getMaxHeight()" id="image"/>
+    <img src="assets/datasets/filelevel/close.png" (click)="closeImg()" class="close closeImage" id="closeImage"/>
   </div>
 </div>
 <div class="show-text" *ngIf="videoShow">
