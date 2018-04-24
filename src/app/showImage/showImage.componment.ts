@@ -137,7 +137,7 @@ export class ShowImageComponent {
       imgObj.src = $("#image").attr("src");
       imgObj.id = "img";
       $(".showImage").append(imgObj);
-      console.log($("#img").width());
+      //console.log($("#img").width());
       imgObj.addEventListener("load",this.getWH);
       $("#img").css("display","none");
     }
@@ -151,7 +151,7 @@ export class ShowImageComponent {
     let x = (970-parseInt(width))/2;
     let y = (545-parseInt(height))/2;
     if(parseInt(width)>parseInt(height)){
-      if(parseInt(width)>=970){
+      if(parseInt(width)>=970&&parseInt(height)<=545){
         obj.style.width = "970px";
         obj.style.position = "absolute";
         obj.style.height = parseInt(height)*970/parseInt(width)+"px";
@@ -162,6 +162,18 @@ export class ShowImageComponent {
         let y1 = (545-parseInt(obj.offsetHeight))/2;
         $(".closeImage").css("right","-17px");
         $(".closeImage").css("top",y1-17+'px');
+        return
+      }else if(parseInt(width)>=970&&parseInt(height)>545){
+        obj.style.width = parseInt(width)*545/parseInt(height)+"px";
+        obj.style.height = "545px";
+        obj.style.position = "relative";
+        obj.style.top = "0";
+        obj.style.bottom = "0";
+        obj.style.left = "50%";
+        obj.style.marginLeft = -(obj.offsetWidth/2)+'px';
+        let x1 = (970-parseInt(obj.offsetWidth))/2;
+        $(".closeImage").css("right",x1-17+'px');
+        $(".closeImage").css("top","-17px");
         return
       }else{
         obj.className = "show-img";
