@@ -96,5 +96,23 @@
 .marginBottom{
   margin:20px 20px 2px 20px !important;
 }
+#style-1{
+  position: relative;
+  height: 90px;
+  overflow: auto;
+  -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+}
+/*#style-1::-webkit-scrollbar{
+  width:6px;
+  background-color: #eee;
+  border: 1px solid #d3d3d3;
+}
+#style-1::-webkit-scrollbar-thumb{
+  border-radius:10px;
+  background-color:#999;
+}
+#style-1::-webkit-scrollbar-track{
+  background-color: #F5F5F5;
+}*/
 
 

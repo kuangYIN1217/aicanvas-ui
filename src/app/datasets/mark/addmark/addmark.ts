@@ -49,6 +49,12 @@ export class AddMarkComponent{
       })
   }
   ngOnChanges(...args: any[]) {
+    $("#style-1").mCustomScrollbar({
+      axis:"yx",
+      scrollButtons:{enable:true},
+      theme:"3d",
+      scrollbarPosition:"outside"
+    });
     //console.log(this.coordinateId);
     //console.log(this.markName);
   }

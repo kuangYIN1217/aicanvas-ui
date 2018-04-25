@@ -11,9 +11,11 @@
         <div class="add_mark_label_title">
           历史标签<span>（双击选择）</span>
         </div>
-        <div class="add_mark_label_content" *ngFor="let item of topTag" (dblclick)="choose(item)">
-          <img src="assets/datasets/file/bz_bq.png"/>
-          <span>{{item.markName}}</span>
+        <div id="style-1">
+          <div class="add_mark_label_content" *ngFor="let item of topTag" (dblclick)="choose(item)">
+            <img src="assets/datasets/file/bz_bq.png"/>
+            <span>{{item.markName}}</span>
+          </div>
         </div>
         <div class="add_mark_label_btn">
           <a href="#" onclick="return false" class="bgo" (click)="sure()">确定</a>
