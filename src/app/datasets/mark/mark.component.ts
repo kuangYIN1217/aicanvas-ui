@@ -251,7 +251,7 @@ export class MarkComponent{
             $this.yMax = arr[index].yMax;
             $this.coordinateId = arr[index].coordinateId;
             $this.markleft = (Number($this.xMax)/$this.oldNewRadio)+$this.left;
-            $this.marktop = (Number($this.yMax)/$this.oldNewRadio)+$this.top;
+            $this.marktop = (Number($this.yMin)/$this.oldNewRadio)+$this.top;
             $this.singleDiv = arr[index];
             //console.log($this.markleft,$this.marktop);
             $this.fileId = $this.showPhoto.fileId;
@@ -438,7 +438,7 @@ export class MarkComponent{
       $(this.rect).css("height",this.endY+'px');
       this.show = true;
       this.markleft = this.rectLeft+this.left+this.endX;
-      this.marktop = this.rectTop+this.top+this.endY;
+      this.marktop = this.rectTop+this.top;
       if(this.diffX>0){
         this.xMax = this.startX;
         this.yMax = this.startY;
