@@ -72,6 +72,7 @@ import { UniformTipsComponent } from './uniform-tips/uniform-tips.component';
 import {DataPageComponent} from "./datasetsDetail/page/data-page.component";
 import {PublicModelComponent} from "./inference-model/public-model/publicmodel.component";
 import {BoostedTreeComponent} from "./boostedTree/boostedTree.component";
+import { RunningTaskComponent } from './running-task/running-task.component';
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -128,7 +129,8 @@ import {BoostedTreeComponent} from "./boostedTree/boostedTree.component";
     UniformTipsComponent,
     DataPageComponent,
     PublicModelComponent,
-    BoostedTreeComponent
+    BoostedTreeComponent,
+    RunningTaskComponent
     //InputReadonlyDirective
   ],
   imports: [

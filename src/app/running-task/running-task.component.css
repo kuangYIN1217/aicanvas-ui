@@ -1,0 +1,64 @@
+@charset "UTF-8";
+/*framework*/
+.tabs{
+  position: relative;
+  height: 42px;
+  background-color: #ffffff;
+  margin:20px 30px 0 30px;
+  border: 0px;
+}
+.tab_item{
+  position: relative;
+  border: 0px;
+  float: left;
+  text-align: center;
+  font-size: 14px;
+  font-weight: normal;
+  width:124px;
+  font-family: "MicrosoftYaHei";
+  color: #333333;
+  height:39px;
+  line-height: 39px;
+  cursor: pointer;
+  outline: none
+}
+.focus{
+  color: #ff7c35;
+  font-weight: normal;
+  border-bottom:3px solid #ff7c35;
+}
+.status{
+  /*background-color: #ffffff;*/
+  margin:20px 30px 0 30px;
+  border-radius: 5px;
+  min-height: 500px;
+}
+.taskStatus{
+  background-color: #ffffff;
+}
+.selectContainer{
+  padding:20px;
+}
+#tab_item1{
+  margin-left: 10px;
+  margin-right: 14px;
+}
+.select{
+  box-sizing: border-box;
+  height:36px;
+  border-radius: 5px;
+  width:275px;
+  border: 1px solid #d3d3d3;
+  font-size:14px;
+  text-indent: 10px;
+  color: #999;
+  background: url("../../assets/navigation/xlk.png") no-repeat right 10px center;
+  -webkit-appearance:none;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  outline: none;
+}
+select:focus{
+  border:1px solid #23a880;
+}

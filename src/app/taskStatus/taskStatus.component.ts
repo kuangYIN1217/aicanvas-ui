@@ -47,7 +47,7 @@ export class TaskStatusComponent{
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
-    @Input() pageNumber:number;
+    @Input() pageNumber:number=0;
     @Output() nooperate: EventEmitter<any> = new EventEmitter();
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig){
 
@@ -55,6 +55,7 @@ export class TaskStatusComponent{
     getPageData(paraParam) {
       clearInterval(this.interval);
       /*clearInterval(this.interval1);*/
+      clearInterval(this.interval1)
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
       this.interval = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 10000);
       this.pageNow=paraParam.curPage-1;
@@ -75,9 +76,11 @@ export class TaskStatusComponent{
      });*/
          if(this.pageNumber!=0||this.pageMax!=10){
            this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
+           clearInterval(this.interval1)
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 10000);
          }else{
            // this.interval = setInterval(() =>this.updatePage(), 3000);
+           clearInterval(this.interval1)
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null), 10000);
          }
@@ -89,10 +92,13 @@ export class TaskStatusComponent{
        this.pageChange = this.pageNumber;
        sessionStorage['curPage'] = this.pageNumber;
        sessionStorage['curMax'] = this.pageMax;
-       if(this.jobName!=null||this.jobName!=''||this.jobName!=undefined){
+       if((this.jobName!=null||this.jobName!=''||this.jobName!=undefined)&&this.pageNumber){
          this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
+         //this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 10000);
        }else{
          this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId);
+         clearInterval(this.interval);
+         this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId), 10000);
        }
    }
    getSceneId(){
@@ -133,9 +139,8 @@ export class TaskStatusComponent{
     }*/
     ngOnDestroy(){
         // 退出时停止更新
-       /* clearInterval(this.interval);
-        clearInterval(this.interval1);*/
       clearInterval(this.interval);
+      clearInterval(this.interval1);
       sessionStorage.removeItem('curPage');
       sessionStorage.removeItem('curMax');
     }

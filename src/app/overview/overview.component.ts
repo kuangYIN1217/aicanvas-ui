@@ -78,16 +78,6 @@ export class OverviewComponent {
     this.getAllGpusValue();
     //this.getAlljobs(this.page-1,this.pageMaxItem);
     // loading show
-    this.sceneService.getAllScenes(-1)
-      .subscribe(
-        (scenes) => {
-          this.SceneInfo = scenes
-        },
-      (error)=>{
-        if(error.status==401){
-          this.router.navigate(['/login']);
-        }
-      });
     this.interval = setInterval(() => {
       this.update();
     }, 2000);
@@ -839,9 +829,6 @@ export class OverviewComponent {
         "enabled": true
       }
     });
-
-
-
         this.chart0 = this.AmCharts.makeChart("chartdiv0", {
           "type": "serial",
           "theme": "light",
@@ -974,9 +961,6 @@ export class OverviewComponent {
       // 退出时停止更新
       clearInterval(this.interval);
       //this.AmCharts.destroyChart(this.chart);
-    }
-    selectChange() {
-      this.id = this.student;
     }
     getCpu(cpu) {
       // console.log(cpu);
@@ -1325,12 +1309,11 @@ export class OverviewComponent {
           this.update();
         }, 2000);
       }
-      sessionStorage['overviewTab'] = tabIndex;
+      //sessionStorage['overviewTab'] = tabIndex;
       nextTick(() => {
         calc_height(document.getElementById('taskDiv'));
       })
     }
-
     gpuToggle(index) {
 /*      if(index!=1){
         this.focusImg = 0;

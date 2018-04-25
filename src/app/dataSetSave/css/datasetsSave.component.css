@@ -1,3 +1,30 @@
+.tabs{
+  position: relative;
+  height: 42px;
+  background-color: #ffffff;
+  margin:20px 30px 0 30px;
+  border: 0px;
+}
+.tab_item{
+  position: relative;
+  border: 0px;
+  float: left;
+  text-align: center;
+  font-size: 14px;
+  font-weight: normal;
+  width:124px;
+  font-family: "MicrosoftYaHei";
+  color: #333333;
+  height:39px;
+  line-height: 39px;
+  cursor: pointer;
+  outline: none
+}
+.focus{
+  color: #ff7c35;
+  font-weight: normal;
+  border-bottom:3px solid #ff7c35;
+}
 .datasetssave{
   background: #ffffff;
   margin:20px 30px 0;

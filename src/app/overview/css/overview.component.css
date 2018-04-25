@@ -14,13 +14,13 @@
   text-align: center;
   font-size: 14px;
   font-weight: normal;
-  width:104px;
+  width:124px;
   font-family: "MicrosoftYaHei";
   color: #333333;
   height:39px;
   line-height: 39px;
   cursor: pointer;
-
+  outline: none
 }
 .focus{
   color: #ff7c35;
