@@ -61,7 +61,7 @@ export class NavigationComponent {
     if (this.location.isCurrentPathEqualTo('/login') || this.location.isCurrentPathEqualTo('')) {
       this.focusTab = 0;
       // this.needhide = 0;
-    } else if (this.location.isCurrentPathEqualTo('/datasetssave')) {
+    } else if (this.location.isCurrentPathEqualTo('/datasetssave')||this.location.isCurrentPathEqualTo('/overview')||this.location.isCurrentPathEqualTo('/runningtask')) {
       this.focusTab = 1;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/algchains') || this.location.path(false).indexOf('/algchainDetail/') != -1) {

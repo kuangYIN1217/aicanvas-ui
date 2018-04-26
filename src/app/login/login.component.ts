@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit{
             // console.log(userService.getAccount());
             //console.log("already logined : ");
             //console.log(token);
-          this.router.navigate(['/overview']);
+          this.router.navigate(['/datasetssave']);
             // window.location.href = "/#/overview";
         }
     }
@@ -123,7 +123,7 @@ export class LoginComponent implements OnInit{
            // console.log(sessionStorage['authenticationToken']);
             console.log("登陆成功");
             // this.showMessage("登陆成功");
-          this.router.navigate(['/overview'])
+          this.router.navigate(['/datasetssave'])
 
           // window.location.href = "/overview";
         }
