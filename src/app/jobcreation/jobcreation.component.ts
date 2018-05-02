@@ -64,7 +64,7 @@ export class JobCreationComponent {
   haveModel: number = 0;
   firstChainId: string;
   firstSceneId:string='-1'
-  @Input() statuss: string = '';
+ /* @Input() statuss: string = '';*/
   jobName: string;
   pageNumber: number=0;
   d_dataSets: any = [];
@@ -99,8 +99,13 @@ export class JobCreationComponent {
   tipType:string='';
   showTip:boolean = false;
   tipMargin:string='';
+  isTrain:boolean = false;
+  notTrain:boolean = false;
+  taskStatusArr:any[]=["全部","未启动","运行","停止","完成","异常","模型发布中","模型发布成功","模型发布失败"];
+  taskStatus:string='';
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
     this.username = localStorage['username'];
+    this.taskStatus = this.taskStatusArr[0];
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
@@ -125,6 +130,9 @@ export class JobCreationComponent {
         this.datasetsType[0].flag = 1;
         //console.log(this.datasetsType);
       })
+  }
+  selectStatus(){
+
   }
   dataKeywordChange(){
     let type:number;
@@ -794,5 +802,10 @@ export class JobCreationComponent {
     }
     //this.judgeClick();
   }
-
+  chooseTrain(){
+    this.isTrain = !this.isTrain;
+  }
+  chooseTuiyan(){
+    this.notTrain = !this.notTrain;
+  }
 }

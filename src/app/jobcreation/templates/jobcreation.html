@@ -10,13 +10,26 @@
               <input id="search_input" type="text" [(ngModel)]="jobName" name="" value=""  [attr.placeholder]="blur==0?'搜索':''" [ngClass]="{paddingLeft: focus==1}" (focus)="searchLeft()" (blur)="searchBlur()"/>
               <img class="searchicon" src="assets/jobcreation/sousuo.png" alt="searchicon" *ngIf="jobName==null||jobName==''" [style.display]="blur==0?'':'none'">
             </div>
+            <select class="tab_select" [(ngModel)]="taskStatus" (ngModelChange)="student=$event;selectStatus()">
+              <option *ngFor="let status of taskStatusArr" value="{{status}}">{{status}}</option>
+            </select>
+            <div class="tab_choose">
+              <div>
+                <img [src]="isTrain?'assets/jobcreation/checked.png':'assets/jobcreation/unchecked.png'" (click)="chooseTrain()"/>
+                <span>需要训练</span>
+              </div>
+              <div>
+                <img [src]="notTrain?'assets/jobcreation/checked.png':'assets/jobcreation/unchecked.png'" (click)="chooseTuiyan()"/>
+                <span>直接推演</span>
+              </div>
+            </div>
               <!--<div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a>-->
                <!--</div>-->
               <div class="tab_item sm_tab_item" (click)="createJob()"> <a href="#" onclick="return false;" class="back">新建任务</a></div>
             </div>
           </div>
         <div class="tab_content"  *ngIf="jobPageStatus!='createJob'">
-            <taskStatus [statuss]="statuss" [jobName]="jobName" [pageNumber]="pageNumber" (nooperate)="nooperate($event)"></taskStatus>
+            <taskStatus [statuss]="taskStatus" [jobName]="jobName" [pageNumber]="pageNumber" [isTrain]="isTrain" [notTrain]="notTrain" (nooperate)="nooperate($event)"></taskStatus>
         </div>
     </div>
     <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">

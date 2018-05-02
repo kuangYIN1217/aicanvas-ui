@@ -125,13 +125,19 @@ export class JobService {
       });
   }
 
-  getAllJobs(status, page, size, sencesId, jobName) {
+  getAllJobs(status, page, size, sencesId, jobName,trainable) {
+    if(status=="全部"){
+      status = '';
+    }
     let condition = "page=" + page + "&size=" + size + "&status=" + status + "&sort=id,desc"
     if (sencesId) {
       condition += "&sencesId=" + sencesId
     }
     if (jobName) {
       condition += "&search=" + jobName
+    }
+    if(trainable||trainable==0||trainable==1){
+      condition += "&trainable=" + trainable
     }
     let path = "/api/jobs?" + condition;
     let headers = this.getHeaders();

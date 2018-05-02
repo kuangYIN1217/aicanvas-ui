@@ -44,10 +44,13 @@ export class TaskStatusComponent{
     pageNow:number=0;
     pageChange:number;
     pageMax:number=10;
+    trainable:number;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
     @Input() pageNumber:number=0;
+    @Input() isTrain:boolean = false;
+    @Input() notTrain:boolean = false;
     @Output() nooperate: EventEmitter<any> = new EventEmitter();
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig){
 
@@ -88,7 +91,8 @@ export class TaskStatusComponent{
     //this.getSceneId();
    }
   ngOnChanges(...args: any[]){
-     this.getSceneId();
+       this.getSceneId();
+       this.chooseTrainMethod();
        this.pageChange = this.pageNumber;
        sessionStorage['curPage'] = this.pageNumber;
        sessionStorage['curMax'] = this.pageMax;
@@ -101,6 +105,15 @@ export class TaskStatusComponent{
          this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId), 10000);
        }
    }
+  chooseTrainMethod(){
+    if(!this.isTrain&&this.notTrain){
+        this.trainable = 0;
+    }else if(this.isTrain&&!this.notTrain){
+       this.trainable = 1;
+    }else{
+      this.trainable = null;
+    }
+  }
    getSceneId(){
      if(this.sceneId==0){
        //this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,' '),3000);
@@ -114,7 +127,7 @@ export class TaskStatusComponent{
 
     }
     getAlljobs(status,page,size,sceneId){
-        this.jobService.getAllJobs(status,page,size,sceneId,this.jobName)
+        this.jobService.getAllJobs(status,page,size,sceneId,this.jobName,this.trainable)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
@@ -157,7 +170,7 @@ export class TaskStatusComponent{
     }
     start(jobPath: string){
       // todo 判断当前运行job数量 > 3 不允许
-      this.jobService.getAllJobs('运行', null , null , null , null ).subscribe(rep => {
+      this.jobService.getAllJobs('运行', null , null , null , null,null ).subscribe(rep => {
         //if (rep.totalElements >= 3) {
           //this.nooperate.emit(false);
           //addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
