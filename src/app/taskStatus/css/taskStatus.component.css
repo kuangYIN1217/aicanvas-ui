@@ -133,7 +133,6 @@ select:focus{
 }
 .stop {
   background: url('../../../assets/taskStatus/zanting.png') no-repeat center;
-
 }
 .model {
   background: url('../../../assets/taskStatus/tuiyan.png') no-repeat center;
@@ -141,20 +140,14 @@ select:focus{
 .start {
   background: url('../../../assets/taskStatus/qidong.png') no-repeat center;
 }
+.edit {
+  background: url('../../../assets/taskStatus/xiugai.png') no-repeat center;
+}
+.delete {
+  background: url('../../../assets/taskStatus/shanchu.png') no-repeat center;
+}
 .see-model{
   background: url('../../../assets/taskStatus/chakanfabu.png') no-repeat center;
-  width: 21px;
-  height: 20px;
-  cursor: pointer;
-  display: inline-block;
-  position: absolute;
-  top:12px;
-}
-.tuiyan-model{
-  left:51px;
-}
-.xunlian-model{
-  left:82px;
 }
 .unstart{
   background: url('../../../assets/taskStatus/yunxing_hui.png') no-repeat center;
@@ -169,13 +162,16 @@ select:focus{
   width:18%;
 }
 .condition {
-  width:14%;
+  width:12%;
 }
 .progress{
-  width:16%;
+  width:8%;
+}
+.priority{
+  width:8%;
 }
 .formore{
-  width:16%;
+  width:18%;
 }
 .operation{
   display: flex;    align-items: center;

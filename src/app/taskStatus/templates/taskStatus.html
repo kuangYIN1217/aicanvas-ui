@@ -6,6 +6,7 @@
       <th class="time">创建时间</th>
       <th class="condition">状态</th>
       <th class="progress">进度</th>
+      <th class="priority">优先级</th>
       <!--<th class="operation">操作</th>-->
       <th class="formore">操作</th>
     </tr>
@@ -24,19 +25,22 @@
                   <div *ngIf="jobInfo.status=='Running'" class="operationBtn stop" (click)="stop(jobInfo.jobPath)"></div>
                   <div *ngIf="jobInfo.status!='Running'" class="operationBtn start" (click)="start(jobInfo.jobPath)"></div>
               </td>-->
+      <td title="{{jobInfo.jobPriority}}">{{jobInfo.jobPriority}}</td>
       <td class="operation" style="position: relative">
         <a *ngIf="jobInfo.trainable != 0" class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}/{{pageNow==0?pageNumber:pageNow}}"  title="查看详情"></a>
         <a *ngIf="jobInfo.trainable == 0" class="operationBtn model" (click)="goModel(jobInfo.id)" title="推演"></a>
         <a *ngIf="jobInfo.status=='模型发布中' && jobInfo.trainable != 0" class="operationBtn unstart"></a>
         <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0" class="operationBtn stop" (click)="stop(jobInfo.jobPath)" title="停止"></a>
         <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0" class="operationBtn start" (click)="start(jobInfo.jobPath)" title="运行"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable != 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.ifPublicSence}}/{{jobInfo.id}}" class="see-model xunlian-model" title="查看已发布模型"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable == 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.jobPath}}/{{jobInfo.id}}" class="see-model tuiyan-model" title="查看已发布模型"></a>
-        <!--<a class="showDetailBtn"  routerLinkActive="active" (click)="checkStatus(jobInfo.status,jobInfo.sences,jobInfo.jobPath)">发布</a>-->
+        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable != 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.ifPublicSence}}/{{jobInfo.id}}" class="see-model operationBtn" title="查看已发布模型"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable == 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.jobPath}}/{{jobInfo.id}}" class="see-model operationBtn" title="查看已发布模型"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'"  class="operationBtn edit" title="修改任务"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'"  (click)="deleteJob(jobInfo.id,jobInfo.jobName)" class="operationBtn delete" title="删除任务"></a>
       </td>
     </tr>
   </table>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
   <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+  <app-tips [(show)]="showDelete" [content]="content" (deleteChange)="deleteChange($event)"></app-tips>
   <!--<app-gpu [gpuNum]="gpuNum" [show] = "gpu_show"  (sure)="sure($event)" (showChange)="showChange($event)"></app-gpu>-->
 </div>

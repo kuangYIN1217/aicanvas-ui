@@ -101,7 +101,7 @@ export class JobCreationComponent {
   tipMargin:string='';
   isTrain:boolean = false;
   notTrain:boolean = false;
-  taskStatusArr:any[]=["全部","未启动","运行","停止","完成","异常","模型发布中","模型发布成功","模型发布失败"];
+  taskStatusArr:any[]=["请选择任务状态","未启动","运行","停止","完成","异常","模型发布中","模型发布成功","模型发布失败"];
   taskStatus:string='';
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
     this.username = localStorage['username'];

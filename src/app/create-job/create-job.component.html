@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="createJob">
+    <div id="step_content" class="step_content">
+      <div class="error">
+        <cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>
+      </div>
+      <h3>新建任务</h3>
+      <div class="allContent">
+        <div class="row">
+          <div class="row_tr">
+            <span class="span"><label class="mustColor">*</label>任务名称：</span>
+            <input type="text" [(ngModel)]="jobName" name="" value=""class="input" (ngModelChange)="nameChange()">
+          </div>
+        </div>
+        <div class="row">
+          <div class="row_tr">
+            <span class="span"><label class="mustColor">*</label>场景选择：</span>
+            <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">
+              <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row_tr">
+            <span class="span"><label class="mustColor">*</label>算法链选择：</span>
+            <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)">
+              <option selected value="-1">--请选择--</option>
+              <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row_tr">
+            <span class="span"><label class="mustColor">*</label>CPU分配：</span>
+            <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()" id="cpu"/>
+            <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)" id="memory"/>
+            <!--<label class="totalMemory">(共{{cpu}}GB)</label>-->
+            <label class="totalMemory">GB</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row_tr">
+            <span class="span"><label class="mustColor">*</label>GPU分配：</span>
+            <label>个数</label>
+            <select class="order" [(ngModel)]="gpuorder" (ngModelChange)="gpuorder=$event;gpuChange()">
+              <option value="">--请选择--</option>
+              <option *ngFor="let item of gpus;let i=index" value="{{item.id+1}}">{{item.id+1}}</option>
+            </select>
+            <!--<label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memoryg()" (keydown)="onlyNum($event)"/>
+            <label class="totalMemory">(共{{gpu}}GB)</label>-->
+          </div>
+        </div>
+        <div class="row" style="height: 20px; line-height: 20px">
+          <div class="row_tr">
+            <label class="textIntroduce">注：建议CPU核数不低于1核，内存不低于4GB，GPU内存不低于2GB</label>
+          </div>
+        </div>
+        <div class="row" style="height: auto;line-height: normal;">
+          <div class="row_tr">
+            <span class="span">数据集：</span>
+            <div>
+              <div class="classification">
+                <img *ngFor="let item of datasetsType" [src]="getImage(item)" (click)="chooseImg(item)"/>
+                <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
+              </div>
+              <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
+                <!--                  <option selected value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+                <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row_tr">
+            <span class="span">训练 / 验证 /测试集比例：</span>
+            <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
+            <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
+            <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>
+          </div>
+        </div>
+        <div class="row height">
+          <div class="row_tr">
+            <label class="textIntroduce height">注：训练/验证集用于训练任务，测试集用于推演服务；建议比例：70%：20%：10%
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row_tr">
+            <span class="span height"><label class="mustColor">*</label>所选记录数：</span><span class="middle height">{{fileCount}}</span>
+          </div>
+        </div>
+        <div class="row btnRow">
+          <div class="row_tr">
+            <span class="span">&nbsp;</span>
+            <a href="#" onclick="return false" (click)="nextStep()" class="smallBtn createBtn" style="color:#fff; background: #ff7c35; border: 1px solid #ff7c35;">创建</a>
+            <!--<a href="#" onclick="return false"  (click)="nextStep()" class="smallBtn createBtn" *ngIf="createBtn==0">创建</a>-->
+            <a href="#" onclick="return false" (click)="goHistory()" class="smallBtn">返回</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
+  </div>
+</div>

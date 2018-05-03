@@ -45,6 +45,9 @@ export class TaskStatusComponent{
     pageChange:number;
     pageMax:number=10;
     trainable:number;
+    showDelete:boolean = false;
+    content:string='';
+    deleteId:number=0;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
@@ -125,6 +128,19 @@ export class TaskStatusComponent{
     updatePage(){
       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
 
+    }
+    deleteJob(id,name){
+        this.deleteId = id;
+        this.showDelete = true;
+        this.content = "是否确定删除该训练任务"+name+"?"
+    }
+    deleteChange(event){
+      this.jobService.deleteJob(this.deleteId)
+        .subscribe(result=>{
+          if(result=="true"){
+            this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId);
+          }
+        })
     }
     getAlljobs(status,page,size,sceneId){
         this.jobService.getAllJobs(status,page,size,sceneId,this.jobName,this.trainable)

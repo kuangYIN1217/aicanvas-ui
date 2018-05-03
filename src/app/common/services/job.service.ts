@@ -126,7 +126,7 @@ export class JobService {
   }
 
   getAllJobs(status, page, size, sencesId, jobName,trainable) {
-    if(status=="全部"){
+    if(status=="请选择任务状态"){
       status = '';
     }
     let condition = "page=" + page + "&size=" + size + "&status=" + status + "&sort=id,desc"
@@ -313,6 +313,16 @@ export class JobService {
           if (response.status == 200) {
             return response.json();
           }
+        }
+      });
+  }
+  deleteJob(id){
+    let path = "/api/deleteJob/"+id;
+    let headers = this.getHeaders();
+    return this.http.delete(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.text()) {
+            return response.text();
         }
       });
   }

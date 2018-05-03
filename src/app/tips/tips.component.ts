@@ -10,9 +10,15 @@ export class TipsComponent{
   @Input() content:string;
   @Input() show:boolean;
   @Output() showChange: EventEmitter<any> = new EventEmitter();
-  deleted:number=0;
+  @Output() deleteChange: EventEmitter<any> = new EventEmitter();
+  delete:boolean = false;
   constructor() {
 
+  }
+  sure(){
+    this.show = false;
+    this.deleteChange.emit(true);
+    this.showChange.emit(this.show);
   }
   cancel(){
     this.show = false;
