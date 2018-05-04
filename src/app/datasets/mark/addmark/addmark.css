@@ -39,20 +39,27 @@
   margin:20px 20px 20px 20px;
 }
 .add_mark_label{
-  margin:0 20px;
+  height:178px;
+  border:1px solid #d3d3d3;
+  box-sizing: border-box;
+  margin: 0 20px 30px 20px;
 }
 .add_mark_label_title{
-  margin-bottom: 14px;
+  width:233px;
   font-size: 14px;
   color: #333;
+  margin-left: 12px;
+  line-height: 33px;
+  border-bottom: 1px solid #d3d3d3;
 }
 .add_mark_label_title span{
   color: #ff7c35;
 }
 .add_mark_label_content{
-  line-height: 30px;
-  height:30px;
+  line-height: 26px;
+  height:26px;
   cursor: pointer;
+  padding-left: 12px;
 }
 .add_mark_label_content span,.add_mark_label_content img{
   display: inline-block;
@@ -66,6 +73,7 @@
 .add_mark_label_btn{
   margin-top: 36px;
   margin-bottom: 26px;
+  padding-left: 20px;
 }
 .add_mark_label_btn a{
   height:30px;
@@ -98,7 +106,7 @@
 }
 #style-1{
   position: relative;
-  height: 90px;
+  height:138px;
   overflow: auto;
   -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
 }

@@ -410,7 +410,7 @@ export class PopupComponent {
             this.tipMargin = "20px auto 0";
             this.tipWidth = "426px";
             this.tipType = "error";
-            this.tipContent = response.split("$%")[0]+"已存在！";
+            this.tipContent = "已有同名文件或文件夹，请重新上传！";
           }
         };
         this.uploader.onBuildItemForm = (item, form) => {
@@ -425,7 +425,7 @@ export class PopupComponent {
               if(result[0][key]=="exist"){
                 this.showTip = true;
                 this.tipType = "warnning";
-                this.tipContent = key.split("/")[4]+"已存在！";
+                this.tipContent = "已有同名文件或文件夹，请重新上传！";
                 this.showUpload[j].status = "上传失败";
                 return false
               }else{
