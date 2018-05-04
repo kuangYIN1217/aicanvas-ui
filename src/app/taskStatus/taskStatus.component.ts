@@ -48,6 +48,7 @@ export class TaskStatusComponent{
     showDelete:boolean = false;
     content:string='';
     deleteId:number=0;
+    s_sort_type:string="createTime,desc";
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
@@ -93,6 +94,17 @@ export class TaskStatusComponent{
 
     //this.getSceneId();
    }
+  sortTime(){
+    if (this.s_sort_type == 'createTime,desc') {
+      this.s_sort_type = 'createTime,asc';
+    } else {
+      this.s_sort_type = 'createTime,desc';
+    }
+    this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
+  }
+  sortPriority(){
+
+  }
   ngOnChanges(...args: any[]){
        this.getSceneId();
        this.chooseTrainMethod();
@@ -143,7 +155,7 @@ export class TaskStatusComponent{
         })
     }
     getAlljobs(status,page,size,sceneId){
-        this.jobService.getAllJobs(status,page,size,sceneId,this.jobName,this.trainable)
+        this.jobService.getAllJobs(status,page,size,sceneId,this.jobName,this.trainable,this.s_sort_type)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
                 this.Jobs_current = Jobs.content;
@@ -186,7 +198,7 @@ export class TaskStatusComponent{
     }
     start(jobPath: string){
       // todo 判断当前运行job数量 > 3 不允许
-      this.jobService.getAllJobs('运行', null , null , null , null,null ).subscribe(rep => {
+      this.jobService.getAllJobs('运行', null , null , null , null,null,this.s_sort_type ).subscribe(rep => {
         //if (rep.totalElements >= 3) {
           //this.nooperate.emit(false);
           //addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
@@ -212,9 +224,9 @@ export class TaskStatusComponent{
   }*/
     start_reply(reply){
         if(reply==200){
-            console.log("Start Successfully!");
+
         }else{
-            console.log("Start Failed!");
+
         }
       this.getAlljobs(this.statuss,sessionStorage['curPage'],sessionStorage['curMax'],this.sceneId);
     }

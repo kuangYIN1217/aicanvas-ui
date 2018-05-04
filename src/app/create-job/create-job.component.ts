@@ -4,7 +4,8 @@ import {SceneService} from "../common/services/scene.service";
 import {PluginInfo, SceneInfo} from "../common/defs/resources";
 import {DatasetsService} from "../common/services/datasets.service";
 import {JobService} from "../common/services/job.service";
-
+import {Router} from "@angular/router";
+declare var $:any
 @Component({
   selector: 'app-create-job',
   templateUrl: './create-job.component.html',
@@ -14,8 +15,6 @@ import {JobService} from "../common/services/job.service";
 export class CreateJobComponent{
   jobName: string="";
   name_validation: boolean = false;
-  plugin_validation: boolean = false;
-  data_validation: boolean = false;
   s_error_show: boolean = false;
   s_error_message: string = '';
   s_error_level: string = 'error';
@@ -28,7 +27,7 @@ export class CreateJobComponent{
   arr: any[] = [];
   username:string='';
   d_dataSets: any = [];
-  dataId: any="-1";
+  dataId: number=-1;
   fileCount:number=0;
   jobPriority:string='-1';
   firstSceneId:string='-1';
@@ -39,7 +38,13 @@ export class CreateJobComponent{
   dataSecond:number=null;
   dataThird:number=null;
   student: number;
-  constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService) {
+  dataKeyword:string='';
+  click_flag: boolean = true;
+  firstChainId: string="";
+  datasetBackupName:string="";
+  scenes_match_dataset:any[]=[{"scenesId":"3","dataSetId":1},{"scenesId":"20","dataSetId":1},{"scenesId":"4","dataSetId":1},{"scenesId":"1","dataSetId":1},{"scenesId":"2","dataSetId":1},{"scenesId":"12","dataSetId":1},{"scenesId":"5","dataSetId":3},{"scenesId":"9","dataSetId":3},{"scenesId":"6","dataSetId":3},{"scenesId":"7","dataSetId":3},{"scenesId":"10","dataSetId":3},{"scenesId":"8","dataSetId":3}]
+  datasetType:number;
+  constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private router:Router) {
     this.username = localStorage['username'];
     this.sceneService.getAllScenes(-1)
       .subscribe(scenes => {
@@ -85,6 +90,7 @@ export class CreateJobComponent{
       if(this.dataId==this.d_dataSets[i].dataId){
         this.fileCount = this.d_dataSets[i].selfTypeFileCount;
         document.getElementById("backup_dataset").innerHTML = this.d_dataSets[i].dataName+"_"+this.getDateFormat();
+        this.datasetBackupName = this.d_dataSets[i].dataName+"_"+this.getDateFormat();
       }
     }
   }
@@ -138,8 +144,31 @@ export class CreateJobComponent{
      .subscribe(results => {
      this.PluginInfo = results;
      this.arr = results;
-     })
-    this.getDataSets(1,this.username);
+     });
+    for(let i=0;i<this.scenes_match_dataset.length;i++){
+      if(this.scenes_match_dataset[i].scenesId==scene.id){
+        this.datasetType = this.scenes_match_dataset[i].dataSetId;
+        $(".classification img").eq(this.datasetType-1).click();
+        break;
+      }
+    }
+    this.getDataSets(this.datasetType,this.username);
+    document.getElementById("dataKeyword").removeAttribute("readonly");
+    this.sceneReadOnly();
+  }
+  chooseImg(item){
+    if(item.flag != 1){
+      for(let i=0;i<this.datasetsType.length;i++){
+        this.datasetsType[i].flag = 2;
+      }
+      item.flag = 1;
+      this.getImage(item);
+      if(this.dataKeyword==''){
+        this.getDataSets(item.id,this.username);
+      }else{
+        this.searchDataSets(item.id,this.dataKeyword,this.username);
+      }
+    }
   }
   getImage(item){
     if(item.id==1){
@@ -224,5 +253,160 @@ export class CreateJobComponent{
     this.s_error_message = '训练/验证/测试集比例之和必须等于100%！';
     this.s_error_level = "error";
     return false;
+  }
+  dataKeywordChange(){
+    let type:number;
+    for(let i=0;i<this.datasetsType.length;i++){
+      if(this.datasetsType[i].flag==1){
+        type = this.datasetsType[i].id;
+      }
+    }
+    this.searchDataSets(type,this.dataKeyword,this.username);
+  }
+  searchDataSets(type,name,creator){
+    this.datasetsService.searchDatasets(type,name,'')
+      .subscribe(result=>{
+        this.d_dataSets = result.content;
+      });
+  }
+  sceneReadOnly(){
+    if(this.student==11||this.student==15){
+      this.dataFirst=null;
+      this.dataSecond=null;
+      this.dataThird=null;
+      document.getElementById('train').setAttribute('readonly', 'true');
+      document.getElementById('valid').setAttribute('readonly', 'true');
+      document.getElementById('test').setAttribute('readonly', 'true');
+    }else{
+      document.getElementById('train').removeAttribute('readonly');
+      document.getElementById('valid').removeAttribute('readonly');
+      document.getElementById('test').removeAttribute('readonly');
+    }
+  }
+  $scene_select_change(name) {
+    for (let i in this.PluginInfo) {
+      if (name == this.PluginInfo[i].chain_name) {
+        this.firstChainId = this.PluginInfo[i].id;
+      }
+    }
+  }
+  nextStep() {
+    this.createJobBySenceId(this.student, this.firstChainId, this.dataId);
+  }
+  // 第一次点击下一步时，创建job，存储下来
+  createJobBySenceId(chosenSceneId, chainId, dataId) {
+    if (!this.click_flag) {
+      return;
+    }
+    this.click_flag = false;
+    if (!this.jobName) {
+      // alert("请输入任务名称")
+      this.s_error_show = true;
+      this.s_error_message = '请输入任务名称';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请输入任务名称" );
+      this.click_flag = true;
+      return false;
+    }
+    if (!chainId || this.firstSceneId == '-1') {
+      // alert("请选择算法链");
+      this.s_error_show = true;
+      this.s_error_message = '请选择算法链';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择算法链" );
+      this.click_flag = true;
+      return false;
+    }
+    if (!dataId || dataId == -1) {
+      // alert("请选择算法链");
+      this.s_error_show = true;
+      this.s_error_message = '请选择数据集';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.gpuorder||this.gpuorder==-1){
+      this.s_error_show = true;
+      this.s_error_message = '请选择GPU编号';
+      this.s_error_level = "error";
+      //addWarningToast(this.toastyService , "请选择数据集" );
+      this.click_flag = true;
+      return false;
+    }
+    if(!this.dataFirst){
+      if(this.student==15||this.student==11){
+
+      }else{
+        this.s_error_show = true;
+        this.s_error_message = '请输入训练集比例';
+        this.s_error_level = "error";
+        //addWarningToast(this.toastyService , "请选择数据集" );
+        this.click_flag = true;
+        return false;
+      }
+    }
+    if(!this.dataSecond){
+      if(this.student==15||this.student==11){
+
+      }else {
+        this.s_error_show = true;
+        this.s_error_message = '请输入验证集比例';
+        this.s_error_level = "error";
+        //addWarningToast(this.toastyService , "请选择数据集" );
+        this.click_flag = true;
+        return false;
+      }
+    }
+    if(!this.dataThird){
+      if(this.student==15||this.student==11){
+
+      }else {
+        this.s_error_show = true;
+        this.s_error_message = '请输入测试集比例';
+        this.s_error_level = "error";
+        //addWarningToast(this.toastyService , "请选择数据集" );
+        this.click_flag = true;
+        return false;
+      }
+    }
+    this.dataset();
+    if(this.student==15||this.student==11){
+
+    }else{
+      if(((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100)||Number(this.dataFirst)<=0||Number(this.dataSecond)<=0||Number(this.dataThird)<=0){
+        this.tips();
+        this.click_flag = true;
+        return false
+      }
+    }
+    if (!this.jobPriority || this.jobPriority == "-1") {
+      // alert("请选择算法链");
+      this.s_error_show = true;
+      this.s_error_message = '请设置优先级';
+      this.s_error_level = "error";
+      this.click_flag = true;
+      return false;
+    }
+    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
+      .subscribe(
+        (createdJob) => {
+          this.router.navigate(['/login'])
+          //addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 800);
+          location.reload();
+          // this.jobPageStatus='jobPageStatus';
+          //console.log(this.createdJob.chainId);
+          // this.createJobBySenceId2(this.createdJob.chainId);
+          this.click_flag = true;
+          this.jobName = null;
+        },
+        (error) =>{
+          if(error.status==417){
+            this.s_error_show = true;
+            this.s_error_message = error.text();
+            this.s_error_level = "error";
+            this.click_flag = true;
+          }
+        });
   }
 }

@@ -852,7 +852,7 @@ export class JobDetailComponent {
     }
     this.s_start_stop_click = false;
     // todo 判断当前运行job数量 > 3 不允许
-    this.jobService.getAllJobs('运行', null , null , null , null,null ).subscribe(rep => {
+    this.jobService.getAllJobs('运行', null , null , null , null,null,"id,asc" ).subscribe(rep => {
 /*      if (rep.totalElements >= 3) {
         this.showTip = true;
         this.tipMargin = "0 auto 20px";

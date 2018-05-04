@@ -150,7 +150,6 @@ export class JobCreationComponent {
         if(this.d_dataSets.length>0){
           this.dataId = this.d_dataSets[0].dataId;
         }
-        //console.log(result);
       });
   }
   getDataSets(type,creator){
@@ -640,7 +639,7 @@ export class JobCreationComponent {
         return false
       }
     }
-    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird)
+    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,0,0)
       .subscribe(
         (createdJob) => {
           //let job: any = createdJob;
@@ -784,19 +783,9 @@ export class JobCreationComponent {
       document.getElementById('test').setAttribute('readonly', 'true');
       return
     }
-/*    this.algChainService.getChainDetailById(this.firstChainId).subscribe(rep => {
-      this.datasetsService.getDataSets(null, rep.dataset_type, null, 'createTime,desc', null, null).subscribe(rep => {
-        this.d_dataSets = rep.content;
-        this.dataId = null;
-        /!*if (this.d_dataSets) {
-         this.dataId = this.d_dataSets[0].dataId
-         }*!/
-      })
-    });*/
     if (this.firstSceneId) {
       this.s_error_show = false;
     }
-    //this.judgeClick();
   }
   chooseTrain(){
     this.isTrain = !this.isTrain;

@@ -29,9 +29,8 @@ export class JobService {
     return headers;
   }
 
-  createJob(chainId,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird) {
+  createJob(chainId,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird,datasetBackupName,jobPriority) {
     let path = "/api/job";
-    /*let number_senceId: number = Number(senceId);*/
     console.log(chainId,dataId,jobName,senceId);
     let senseId = {
       "chainId": chainId,
@@ -44,7 +43,9 @@ export class JobService {
       "gpuNum": gpuorder,
       "practiceRate": dataFirst,
       "alidateRate": dataSecond,
-      "testRate": dataThird
+      "testRate": dataThird,
+       "datasetBackupName":datasetBackupName,
+       "jobPriority":jobPriority
   };
     console.log(senseId);
     let headers = this.getHeaders();
@@ -125,11 +126,11 @@ export class JobService {
       });
   }
 
-  getAllJobs(status, page, size, sencesId, jobName,trainable) {
+  getAllJobs(status, page, size, sencesId, jobName,trainable,sort) {
     if(status=="请选择任务状态"){
       status = '';
     }
-    let condition = "page=" + page + "&size=" + size + "&status=" + status + "&sort=id,desc"
+    let condition = "page=" + page + "&size=" + size + "&status=" + status + "&sort="+sort;
     if (sencesId) {
       condition += "&sencesId=" + sencesId
     }

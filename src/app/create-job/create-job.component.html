@@ -67,11 +67,11 @@
             <span class="span">数据集：</span>
             <div>
               <div class="classification">
-                <img *ngFor="let item of datasetsType" [src]="getImage(item)"/>
-                <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
+                <img *ngFor="let item of datasetsType" [src]="getImage(item)" (click)="chooseImg(item)"/>
+                <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" id="dataKeyword" readonly (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
               </div>
               <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
-                <option selected value="-1">--请选择数据集--</option>
+                <option selected value=-1>--请选择数据集--</option>
                 <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
               </select>
               <div id="backup_dataset"></div>
@@ -100,7 +100,7 @@
         <div class="row" style="margin-bottom: 10px">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>设置优先级：</span>
-            <select class="select" name="scene_select" [(ngModel)]="jobPriority" (ngModelChange)="$priority_select_change($event)">
+            <select class="select" name="scene_select" [(ngModel)]="jobPriority">
               <option selected value="-1">--请选择优先级(依次从高到低)--</option>
               <option *ngFor="let item of priorityArr" value={{item}}>{{item}}</option>
             </select>
@@ -116,7 +116,7 @@
             <span class="span">&nbsp;</span>
             <a href="#" onclick="return false" (click)="nextStep()" class="smallBtn createBtn" style="color:#fff; background: #ff7c35; border: 1px solid #ff7c35;">创建</a>
             <!--<a href="#" onclick="return false"  (click)="nextStep()" class="smallBtn createBtn" *ngIf="createBtn==0">创建</a>-->
-            <a href="#" onclick="return false" (click)="goHistory()" class="smallBtn">返回</a>
+            <a href="#" onclick="return false" class="smallBtn" routerLinkActive="active" routerLink="/jobcreation">返回</a>
           </div>
         </div>
       </div>
