@@ -101,16 +101,6 @@ export class MyFileComponent{
     }
   }
   deleteDateSet(id){
-    this.jobService.deleteDatasets(id)
-      .subscribe(result=>{
-        if(result=='true'){
-          this.delete(id);
-        }else if(result=='false'){
-        this.noopearte.emit(result);
-        }
-      })
-  }
-  delete(id){
     this.datasetsService.deleteDataSet(id)
       .subscribe(result=>{
         this.getResult.emit('success');
