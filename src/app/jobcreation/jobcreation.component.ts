@@ -294,9 +294,6 @@ export class JobCreationComponent {
           this.result = 1;
         }
       });
-    //console.log(this.PluginInfo[0]);
-    /*this.sceneService.getChainWithLoss(id)
-     .subscribe(result=>this.ChainInfo=result);*/
     this.pageMaxItem = 10;
     for (let scene of this.scenes) {
       if (scene.id == id) {
@@ -434,7 +431,6 @@ export class JobCreationComponent {
     return false;
   }
   dataset(){
-    //console.log(this.dataFirst,this.dataSecond,this.dataThird);
     if(Number(this.dataFirst)>=100){
       this.tips();
     };

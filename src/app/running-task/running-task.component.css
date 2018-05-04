@@ -22,6 +22,9 @@
   cursor: pointer;
   outline: none
 }
+.tab_item3{
+  width:164px;
+}
 .focus{
   color: #ff7c35;
   font-weight: normal;

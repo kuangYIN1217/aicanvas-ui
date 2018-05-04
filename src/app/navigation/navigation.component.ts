@@ -74,7 +74,7 @@ export class NavigationComponent {
       this.focusCollapse = scene_id_str;
       this.focusTab = 2;
       // this.needhide = 0;
-    } else if (this.location.isCurrentPathEqualTo('/jobcreation') || this.location.path(false).indexOf('/jobDetail/') != -1) {
+    } else if (this.location.isCurrentPathEqualTo('/jobcreation')||this.location.isCurrentPathEqualTo('/createjob') || this.location.path(false).indexOf('/jobDetail/') != -1) {
       this.focusTab = 3;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/datasets')||this.location.isCurrentPathEqualTo('/enterdataset')) {

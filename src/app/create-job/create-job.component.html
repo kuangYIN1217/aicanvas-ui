@@ -14,11 +14,11 @@
         </div>
         <div class="scene_row">
           <div class="row_tr">
-            <span class="span"><label class="mustColor">*</label>场景选择：</span>
+            <span class="span" style="height:76px;line-height: 76px;"><label class="mustColor">*</label>场景选择：</span>
             <div class="scene_select">
               <img src="assets/jobcreation/scene_zuo.png" class="scene_arrow" style="margin-right: 6px" (click)="preScene()"/>
               <ul class="scene_select_content">
-                <li *ngFor="let scene of showScene[sceneIndex]" (click)="chooseScene(scene,sceneIndex)">{{scene.translation}}</li>
+                <li *ngFor="let scene of showScene[sceneIndex];let i = index" (click)="chooseScene(i,sceneIndex,scene)" [ngClass]="{addBorder: scene.selected}"><img src="assets/jobcreation/private.png" *ngIf="scene.id>=100"/>{{scene.translation}}</li>
               </ul>
               <img src="assets/jobcreation/scene_you.png" class="scene_arrow" style="margin-left: 6px" (click)="nextScene()"/>
             </div>
@@ -31,26 +31,26 @@
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>算法链选择：</span>
             <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)">
-              <option selected value="-1">--请选择--</option>
+              <option selected value="-1">--请选择算法链--</option>
               <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
             </select>
           </div>
         </div>
-        <div class="row">
+<!--        <div class="row">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>CPU分配：</span>
             <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()" id="cpu"/>
             <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)" id="memory"/>
-            <!--<label class="totalMemory">(共{{cpu}}GB)</label>-->
+            &lt;!&ndash;<label class="totalMemory">(共{{cpu}}GB)</label>&ndash;&gt;
             <label class="totalMemory">GB</label>
           </div>
-        </div>
-        <div class="row">
+        </div>-->
+        <div class="row" style="margin-bottom: 10px">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>GPU分配：</span>
             <label>个数</label>
             <select class="order" [(ngModel)]="gpuorder" (ngModelChange)="gpuorder=$event;gpuChange()">
-              <option value="">--请选择--</option>
+              <option value="-1">--请选择--</option>
               <option *ngFor="let item of gpus;let i=index" value="{{item.id+1}}">{{item.id+1}}</option>
             </select>
             <!--<label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memoryg()" (keydown)="onlyNum($event)"/>
@@ -59,7 +59,7 @@
         </div>
         <div class="row" style="height: 20px; line-height: 20px">
           <div class="row_tr">
-            <label class="textIntroduce">注：建议CPU核数不低于1核，内存不低于4GB，GPU内存不低于2GB</label>
+            <label class="textIntroduce">注：图像类算法建议选择GPU分配</label>
           </div>
         </div>
         <div class="row" style="height: auto;line-height: normal;">
@@ -67,17 +67,18 @@
             <span class="span">数据集：</span>
             <div>
               <div class="classification">
-                <img *ngFor="let item of datasetsType" [src]="getImage(item)" (click)="chooseImg(item)"/>
+                <img *ngFor="let item of datasetsType" [src]="getImage(item)"/>
                 <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
               </div>
               <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
-                <!--                  <option selected value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+                <option selected value="-1">--请选择数据集--</option>
                 <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
               </select>
+              <div id="backup_dataset"></div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-bottom: 10px">
           <div class="row_tr">
             <span class="span">训练 / 验证 /测试集比例：</span>
             <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
@@ -94,6 +95,20 @@
         <div class="row">
           <div class="row_tr">
             <span class="span height"><label class="mustColor">*</label>所选记录数：</span><span class="middle height">{{fileCount}}</span>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 10px">
+          <div class="row_tr">
+            <span class="span"><label class="mustColor">*</label>设置优先级：</span>
+            <select class="select" name="scene_select" [(ngModel)]="jobPriority" (ngModelChange)="$priority_select_change($event)">
+              <option selected value="-1">--请选择优先级(依次从高到低)--</option>
+              <option *ngFor="let item of priorityArr" value={{item}}>{{item}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="height: 20px; line-height: 20px">
+          <div class="row_tr">
+            <label class="textIntroduce">注：该机器环境下，最高支持并发运行10个训练任务</label>
           </div>
         </div>
         <div class="row btnRow">
