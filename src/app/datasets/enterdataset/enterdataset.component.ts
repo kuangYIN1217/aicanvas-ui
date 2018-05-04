@@ -131,7 +131,7 @@ export class EnterDatasetComponent {
     this.tipType = "warnning";
     this.tipMargin = "0 auto";
     if(event=='editname'){
-      this.tipContent = "您修改的名称已存在！";
+      this.tipContent = "已有同名文件或文件夹，请重新操作！";
     }
   }
   getResult(event){
@@ -474,7 +474,7 @@ export class EnterDatasetComponent {
         if(status=="400"){
           this.show = true;
           this.tipType = "warnning";
-          this.tipContent = response.split("$%")[0]+"已存在！";
+          this.tipContent = "已有同名文件或文件夹，请重新上传！";
         }
       };
       this.uploader.onBuildItemForm = (item, form) => {
@@ -491,7 +491,7 @@ export class EnterDatasetComponent {
             if(result[0][key]=="exist"){
               this.show = true;
               this.tipType = "warnning";
-              this.tipContent = key.split("/")[5]+"已存在！";
+              this.tipContent = "已有同名文件或文件夹，请重新上传！";
               this.showUpload[j].status = "上传失败";
               return false
             }else{

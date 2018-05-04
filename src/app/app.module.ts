@@ -73,6 +73,7 @@ import {DataPageComponent} from "./datasetsDetail/page/data-page.component";
 import {PublicModelComponent} from "./inference-model/public-model/publicmodel.component";
 import {BoostedTreeComponent} from "./boostedTree/boostedTree.component";
 import { RunningTaskComponent } from './running-task/running-task.component';
+import { CreateJobComponent } from './create-job/create-job.component';
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -130,7 +131,8 @@ import { RunningTaskComponent } from './running-task/running-task.component';
     DataPageComponent,
     PublicModelComponent,
     BoostedTreeComponent,
-    RunningTaskComponent
+    RunningTaskComponent,
+    CreateJobComponent
     //InputReadonlyDirective
   ],
   imports: [

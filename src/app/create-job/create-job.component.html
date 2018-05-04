@@ -12,12 +12,19 @@
             <input type="text" [(ngModel)]="jobName" name="" value=""class="input" (ngModelChange)="nameChange()">
           </div>
         </div>
-        <div class="row">
+        <div class="scene_row">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>场景选择：</span>
-            <select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">
+            <div class="scene_select">
+              <img src="assets/jobcreation/scene_zuo.png" class="scene_arrow" style="margin-right: 6px" (click)="preScene()"/>
+              <ul class="scene_select_content">
+                <li *ngFor="let scene of showScene[sceneIndex]" (click)="chooseScene(scene,sceneIndex)">{{scene.translation}}</li>
+              </ul>
+              <img src="assets/jobcreation/scene_you.png" class="scene_arrow" style="margin-left: 6px" (click)="nextScene()"/>
+            </div>
+            <!--<select class="select" name="scene_select" [(ngModel)]="student" (ngModelChange)="student=$event;changeChosenSceneId()">
               <option *ngFor="let scene of scenes" value={{scene.id}}>{{scene.translation}}</option>
-            </select>
+            </select>-->
           </div>
         </div>
         <div class="row">
@@ -101,4 +108,5 @@
     </div>
     <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
   </div>
+
 </div>

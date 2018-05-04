@@ -79,7 +79,7 @@ export class DatasetsComponent{
     this.tipType = "warnning";
     this.tipMargin = "0 auto 20px";
     if(event=='editname'){
-      this.tipContent = "您修改的名称已存在！";
+      this.tipContent = "已有同名文件或文件夹，请重新操作！";
     }else if(event=='false'){
       this.tipContent = "该数据集已绑定训练任务！";
     }else if(event=='deletedataset'){
