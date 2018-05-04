@@ -42,17 +42,9 @@ export class MyDataComponent{
   }
   $remove_dataSet(id , index) {
     //console.log(this.s_totalNum);
-    this.jobService.deletaDate(id).subscribe(data=>{
-      if(data.length==0){
-        //console.log('delete');
-        this.s_remove = true;
-        this.s_remove_id = id;
-        this.s_remove_index = index;
-      }else{
-        this.noopearte.emit('deletedataset');
-        /*addErrorToast(this.toastyService, '该数据集下有挂载任务，不能删除！');*/
-      }
-    });
+    this.s_remove = true;
+    this.s_remove_id = id;
+    this.s_remove_index = index;
   }
 
   $sort_click () {
