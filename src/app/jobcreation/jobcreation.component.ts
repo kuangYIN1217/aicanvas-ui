@@ -334,8 +334,8 @@ export class JobCreationComponent {
 
   // createJob
   createJob() {
-    this.router.navigate(['../createjob']);
-/*    this.jobName = null;
+    //this.router.navigate(['../createjob']);
+    this.jobName = null;
     this.auditing = null;
     this.cmemory = null;
     // this.gmemory = null;
@@ -359,7 +359,7 @@ export class JobCreationComponent {
           this.gpus = result;
           let temp:any={'id':-1,'totalGlobalMem': 0};
           this.gpus.unshift(temp);
-      });*/
+      });
   }
   sceneReadOnly(){
     if(this.student==11||this.student==15){
