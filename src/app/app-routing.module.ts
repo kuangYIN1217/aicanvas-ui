@@ -43,6 +43,7 @@ import {PublicModelComponent} from "./inference-model/public-model/publicmodel.c
 import {BoostedTreeComponent} from "./boostedTree/boostedTree.component";
 import {RunningTaskComponent} from "./running-task/running-task.component";
 import {CreateJobComponent} from "./create-job/create-job.component";
+import {UserComponent} from "./user/user.component";
 
 
 const routes: Routes = [
@@ -97,6 +98,7 @@ const routes: Routes = [
   {path: 'boostedtree', component: BoostedTreeComponent},
   {path: 'runningtask', component: RunningTaskComponent},
   {path: 'createjob', component: CreateJobComponent},
+  {path: 'user', component: UserComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 ];

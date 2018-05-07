@@ -74,6 +74,7 @@ import {PublicModelComponent} from "./inference-model/public-model/publicmodel.c
 import {BoostedTreeComponent} from "./boostedTree/boostedTree.component";
 import { RunningTaskComponent } from './running-task/running-task.component';
 import { CreateJobComponent } from './create-job/create-job.component';
+import { UserComponent } from './user/user.component';
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -132,7 +133,8 @@ import { CreateJobComponent } from './create-job/create-job.component';
     PublicModelComponent,
     BoostedTreeComponent,
     RunningTaskComponent,
-    CreateJobComponent
+    CreateJobComponent,
+    UserComponent
     //InputReadonlyDirective
   ],
   imports: [

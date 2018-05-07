@@ -141,6 +141,10 @@ export class TaskStatusComponent{
       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
 
     }
+    editJob(job){
+      job.edit = true;
+      this.router.navigate(['../createjob'], {queryParams: {"job": JSON.stringify(job),"page": this.pageNow}});
+    }
     deleteJob(id,name){
         this.deleteId = id;
         this.showDelete = true;

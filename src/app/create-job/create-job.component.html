@@ -32,7 +32,7 @@
             <span class="span"><label class="mustColor">*</label>算法链选择：</span>
             <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)">
               <option selected value="-1">--请选择算法链--</option>
-              <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
+              <option *ngFor="let chain of arr" value={{chain.id}}>{{chain.chain_name}}</option>
             </select>
           </div>
         </div>
@@ -67,7 +67,7 @@
             <span class="span">数据集：</span>
             <div>
               <div class="classification">
-                <img *ngFor="let item of datasetsType" [src]="getImage(item)" (click)="chooseImg(item)"/>
+                <img *ngFor="let item of datasetsType" [src]="getImage(item)"/>
                 <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" id="dataKeyword" readonly (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
               </div>
               <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
@@ -114,9 +114,9 @@
         <div class="row btnRow">
           <div class="row_tr">
             <span class="span">&nbsp;</span>
-            <a href="#" onclick="return false" (click)="nextStep()" class="smallBtn createBtn" style="color:#fff; background: #ff7c35; border: 1px solid #ff7c35;">创建</a>
+            <a href="#" onclick="return false" (click)="nextStep()" class="smallBtn createBtn" style="color:#fff; background: #ff7c35; border: 1px solid #ff7c35;">{{markEdit?'保存':'创建'}}</a>
             <!--<a href="#" onclick="return false"  (click)="nextStep()" class="smallBtn createBtn" *ngIf="createBtn==0">创建</a>-->
-            <a href="#" onclick="return false" class="smallBtn" routerLinkActive="active" routerLink="/jobcreation">返回</a>
+            <a href="#" onclick="return false" class="smallBtn" (click)="backJob()">返回</a>
           </div>
         </div>
       </div>

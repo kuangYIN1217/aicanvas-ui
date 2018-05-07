@@ -1,0 +1,224 @@
+@charset "UTF-8";
+.header{
+  width: 100%;
+  height: 70px;
+  background-color: #232323;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 1111;
+  /*font-family: 'MicrosoftYaHei';
+  font-size: 14px;
+  color: #ffffff;*/
+}
+.nav_logo{
+
+}
+/*.logo{
+    position: relative;
+    width: 128px;
+    height: 50px;
+    !*top: 25px;*!
+    left: 37px;
+    float: left;
+  z-index: 100;
+}*/
+.logo{
+  width: 80% !important;
+  height:auto !important;
+  margin:30px auto 0 !important;
+  display: block;
+}
+.header p{
+  position: absolute;
+  text-align: center;
+  width: 50%;
+  left: 25%;
+  /*top: 30px;*/
+  margin: 0px;
+  float: left;
+  font-size: 18px;
+  color: #fff;
+  font-family: "MicrosoftYaHei";
+}
+.entry{
+  position: absolute;
+  cursor: pointer;
+  /*top: 30px;*/
+}
+.entry img{
+  width: 18px;
+  height: 18px;
+}
+.entry span{
+  font-family: "MicrosoftYaHei";
+  font-size: 12px;
+  color: #ffffff;
+}
+.user{
+
+  right: 120px;
+}
+.user span{
+  left: 81%;
+}
+.logout{
+  right: 44px;
+}
+.logout span{
+  left: 89%;
+
+}
+/*nav*/
+nav{
+  width: 9%;
+  float: left;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  bottom:0;
+  z-index: 1112;
+}
+
+/*
+.nav_element:first-child{
+  margin-top: 6.29vh;
+}
+*/
+
+.nav_element{
+  width: 100%;
+  height: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-left:4px solid #232323;
+  outline: none;
+
+}
+.nav_element .nav-icon{
+  width: 18px;
+  height:18px;
+  margin:16px 12px;
+  float: left;
+}
+.collapseImgDiv{
+  position: relative;
+  top: 0px;
+  width: 25px;
+  height: 25px;
+  float: right;
+  cursor: pointer;
+}
+#collapseImg{
+  top: 10px;
+  left: 5px;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  margin: 0px auto;
+}
+.nav_element a{
+  display: inline-block;
+  float: left;
+  text-decoration: none;
+  font-family: "MicrosoftYaHei";
+  font-size: 14px;
+  color: #999999;
+}
+.sceneCollapse_item{
+  margin-left: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.sceneCollapse_item a{
+  font-family: "MicrosoftYaHei";
+  color: #f4f4f4;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: normal;
+}
+.focusCollapse a{
+}
+.focusTab{
+  background-color: #333333;
+  border-left:solid 4px #ee8348;
+}
+.focusTab1 a,.focusTab a{
+  color: #ffffff;
+}
+.nav_element .selectDown{
+  width: 6px;
+  height: 11px;
+  display: inline-block;
+  margin: 0 0 0 48px;
+  vertical-align: middle;
+}
+.two-menu{
+  padding-left: 42px;
+}
+/*.nav_element:hover{
+  background: #333333;
+}
+.nav_element a:hover{
+  color: #ffffff;
+}*/
+@media (min-width:1024px) and (max-width:1200px) {
+  .logout{
+    right: 25px;
+  }
+  .nav_element .selectDown{
+    margin: 0 6px;
+  }
+  .nav_element .nav-icon{
+    margin:16px 9px;
+  }
+  .nav_element a{
+    width:60%;
+  }
+  .nav_element .data-save{
+    width:36%;
+  }
+  .two-menu{
+    padding-left: 38px;
+  }
+}
+@media (min-width:1200px) and (max-width:1366px) {
+  .logout{
+    right: 25px;
+  }
+  .nav_element .selectDown{
+    margin: 0 0 0 4px;
+  }
+  .nav_element .nav-icon{
+    margin:16px 6px;
+  }
+}
+@media (min-width:1366px) and (max-width:1440px) {
+  .logout{
+    right: 35px;
+  }
+  .nav_element .selectDown{
+    margin: 0 0 0 8px;
+  }
+}
+@media (min-width:1440px) and (max-width:1680px) {
+  .logout{
+    right: 32px;
+  }
+  .nav_element .selectDown{
+    margin: 0 0 0 22px;
+  }
+}
+@media (min-width:1680px) and (max-width:1800px) {
+  .logout{
+    right: 32px;
+  }
+  .nav_element .selectDown{
+    margin: 0 0 0 34px;
+  }
+}

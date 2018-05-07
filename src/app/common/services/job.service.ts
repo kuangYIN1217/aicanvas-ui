@@ -31,7 +31,6 @@ export class JobService {
 
   createJob(chainId,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird,datasetBackupName,jobPriority) {
     let path = "/api/job";
-    console.log(chainId,dataId,jobName,senceId);
     let senseId = {
       "chainId": chainId,
       "dataId": dataId,
@@ -44,12 +43,40 @@ export class JobService {
       "practiceRate": dataFirst,
       "alidateRate": dataSecond,
       "testRate": dataThird,
-       "datasetBackupName":datasetBackupName,
-       "jobPriority":jobPriority
+      "datasetBackupName":datasetBackupName,
+      "jobPriority":jobPriority
   };
-    console.log(senseId);
     let headers = this.getHeaders();
     return this.http.post(this.SERVER_URL + path, senseId, {headers: headers})
+      .map((response: Response) => {
+        if (response) {
+          if (response.status == 200 && response.json()) {
+            return response.json();
+          }
+          return response;
+        }
+      });
+  }
+  saveJob(jobId,chainId,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird,datasetBackupName,jobPriority) {
+    let path = "/api/updateJobInfo";
+    let createJobDTO = {
+      "jobId":jobId,
+      "chainId": chainId,
+      "dataId": dataId,
+      "jobName": jobName,
+      "senceId": senceId,
+      "cpuCoreNum": auditing,
+      "cpuMemory": cmemory,
+      "gpuMemory":gmemory,
+      "gpuNum": gpuorder,
+      "practiceRate": dataFirst,
+      "alidateRate": dataSecond,
+      "testRate": dataThird,
+      "datasetBackupName":datasetBackupName,
+      "jobPriority":jobPriority
+    };
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path, createJobDTO, {headers: headers})
       .map((response: Response) => {
         if (response) {
           if (response.status == 200 && response.json()) {

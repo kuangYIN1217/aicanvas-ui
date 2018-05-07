@@ -334,7 +334,8 @@ export class JobCreationComponent {
 
   // createJob
   createJob() {
-    this.jobName = null;
+    this.router.navigate(['../createjob']);
+/*    this.jobName = null;
     this.auditing = null;
     this.cmemory = null;
     // this.gmemory = null;
@@ -345,18 +346,12 @@ export class JobCreationComponent {
       .subscribe(scenes => {
         this.createJob_getScene(scenes);
         this.student = scenes[0].id;
-        //this.firstSceneId = this.student;
-        //console.log(this.firstSceneId);
         this.sceneReadOnly();
         this.sceneService.getChainByScene(this.student)
           .subscribe(result => {
-            //console.log(result);
             this.PluginInfo = result;
-            // this.firstChainId = this.PluginInfo[0].id;
-            // this.firstSceneId = this.PluginInfo[0].chain_name;
             this.arr = result;
             this.arr = this.PluginInfo.slice(0, 10);
-            //this.$scene_select_change(name);
           })
       });
     this.jobService.getAllGpu()
@@ -364,11 +359,7 @@ export class JobCreationComponent {
           this.gpus = result;
           let temp:any={'id':-1,'totalGlobalMem': 0};
           this.gpus.unshift(temp);
-          //console.log(this.gpus);
-          //this.gpuorder = this.gpus[0].id;
-      });
-
-    //console.log(this.student);
+      });*/
   }
   sceneReadOnly(){
     if(this.student==11||this.student==15){
