@@ -78,6 +78,7 @@ export class CreateJobComponent{
               for(let j=0;j<this.showScene[i].length;j++){
                 if(this.showScene[i][j].id==this.job.sences){
                   this.showScene[i][j].selected = true;
+                  this.student = this.showScene[i][j].id;
                   breakFor = true;
                   break;
                 }
@@ -480,7 +481,7 @@ export class CreateJobComponent{
         });
   }
   saveJob(chainId, dataId,chosenSceneId){
-    this.jobService.saveJob(this.job.id,chainId, dataId, this.jobName, chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
+    this.jobService.saveJob(this.job.id,chainId, dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
       .subscribe(
         (editJob) => {
           this.router.navigate(['/jobcreation']);

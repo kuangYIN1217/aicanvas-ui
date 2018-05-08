@@ -1,0 +1,29 @@
+.userBody{
+  background: #fff !important;
+}
+.userTitle{
+  font-size: 16px;
+  color: #333333;
+  display: block;
+  border-left:3px solid #0768ab;
+  padding-left:7px;
+  margin:30px 0 42px 22px;
+}
+.row{
+  font-size: 14px;
+  color: #333333;
+  margin-bottom: 44px;
+  padding-left: 55px;
+}
+.key{
+  width: 70px;
+  text-align: right;
+  display: inline-block;
+}
+.value{
+  padding-left: 14px;
+}
+#userTree{
+  display: inline-block;
+  padding-left: 9px;
+}

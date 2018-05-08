@@ -2,6 +2,7 @@
 /* Master Styles */
 @import "app/common/css/toasty.css";
 @import "app/common/css/jquery.mCustomScrollbar.css";
+@import "app/common/css/zTreeStyle.css";
 body{
   margin: 0px;
   background-color: #eeeeee;
@@ -322,26 +323,6 @@ canvas{
   cursor: pointer;
 }
 
-
-.button{
-  box-sizing: content-box !important;
-  text-decoration:none;
-  padding: 1px 22px;
-  float: right;
-  height: 26px;
-  border-radius: 4px;
-  background-color: #23a880;
-  text-align: center;
-  color: #fff;
-  line-height: 26px;
-  font-size: 14px;
-  margin-left: 18px;
-  font-family: 'MicrosoftYaHei';
-  font-style: normal;
-}
-.button:hover {
-  opacity: 0.9;
-}
 select:focus{
   border:1px solid #23a880;
 }
