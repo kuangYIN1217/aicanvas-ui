@@ -1,0 +1,30 @@
+<div class=" container userBody">
+  <uniform-tips *ngIf="showTip" [tipMargin]="tipMargin" [tipWidth]="tipWidth" [tipContent]="tipContent"  [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
+  <span class="userTitle">{{editIndex?'修改用户':'新建用户'}}</span>
+  <div class="userContent">
+      <div class="info">
+        <label><span>*</span>用户名：</label>
+        <input type="text" [(ngModel)]="username" placeholder="请填写用户名（字母、数字组合）" (blur)="judgeUserName()"/>
+      </div>
+      <div class="info">
+        <label><span>*</span>密码：</label>
+        <input type="text" [(ngModel)]="password" placeholder="请填写用户密码（字母、数字组合）"/>
+      </div>
+      <div class="info">
+        <label><span>*</span>用户角色：</label>
+        <select [(ngModel)]="role" (ngModelChange)="selectRole()" *ngIf="!editIndex">
+          <option value="">请选择用户角色</option>
+          <option value="{{item.roleName}}" *ngFor="let item of roleList">{{item.roleName}}</option>
+        </select>
+        <select [(ngModel)]="role" (ngModelChange)="selectRole()" disabled="disabled" *ngIf="editIndex">
+          <option value="">请选择用户角色</option>
+          <option value="{{item.roleName}}" *ngFor="let item of roleList">{{item.roleName}}</option>
+        </select>
+      </div>
+    <ul id="userTree" class="ztree" style="margin-left: 142px"></ul>
+    <div class="createBtn">
+      <a class="btn bgo" (click)="create()">保存</a>
+      <a class="btn bgg" (click)="back()">取消</a>
+    </div>
+  </div>
+</div>

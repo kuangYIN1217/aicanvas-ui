@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit{
             // console.log(userService.getAccount());
             //console.log("already logined : ");
             //console.log(token);
-          this.router.navigate(['/datasetssave']);
+          this.router.navigate(['/userinfo']);
             // window.location.href = "/#/overview";
         }
     }
@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit{
         //     this.changeValidCode();
         // }else{
             // let token: string = "";
-            let result = this.userService.authorize(username, pwd)
+         this.userService.authorize(username, pwd)
             .subscribe(returnToken => this.validToken(returnToken,username));
         // }
     }
@@ -117,14 +117,12 @@ export class LoginComponent implements OnInit{
         //console.log(returnToken);
         if(returnToken=="fail"){
             this.showMessage("登陆失败");
-        }else if(returnToken&&returnToken.id_token){
-          localStorage['authenticationToken'] = returnToken.id_token;
+        }else if(returnToken&&returnToken.Jwt.id_token){
+          localStorage['authenticationToken'] = returnToken.Jwt.id_token;
           localStorage['username']= username;
-           // console.log(sessionStorage['authenticationToken']);
-            console.log("登陆成功");
-            // this.showMessage("登陆成功");
-          this.router.navigate(['/datasetssave'])
-
+          localStorage['userAuthority']= returnToken.Authority.basRole.type;
+          localStorage['allAuthority']= JSON.stringify(returnToken.Authority.authorityTreeList);
+          this.router.navigate(['/userinfo'])
           // window.location.href = "/overview";
         }
     }
@@ -137,7 +135,7 @@ export class LoginComponent implements OnInit{
     hideMessageBox(){
         this.msg_show = false;
         if (this.msg_content=="登陆成功"){
-          this.router.navigate(['/overview'])
+          this.router.navigate(['/userinfo'])
 
           // window.location.href = "/overview";
         }

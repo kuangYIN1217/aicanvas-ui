@@ -84,8 +84,6 @@ export class DatasetsDetailComponent{
           this.datasetservice.getDataInfo(result)
             .subscribe(rep=>{
                 this.dataInfo = rep;
-                //console.log(this.dataInfo);
-                //console.log(this.dataList);
             });
         })
     }
@@ -227,6 +225,7 @@ export class DatasetsDetailComponent{
     //}
   }
   enterPath(item) {
+    console.log(item);
     if (!this.fileFlag) {
       return;
     }

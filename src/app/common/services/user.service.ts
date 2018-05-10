@@ -27,6 +27,195 @@ export class UserService {
         headers.append('Authorization',this.getAuthorization());
         return headers;
     }
+    getUserDetail(username){
+      let path = "/api/userManager/userDetail/"+username;
+      let headers = this.getHeaders();
+      return this.http.get(this.SERVER_URL+path,{ headers: headers })
+        .map((response: Response)=> {
+          if (response && response.json()) {
+            return response.json()
+          }
+        });
+    }
+    getAllUser(name,page=0,size=10){
+      let path = "/api/userManager/userPageList?page="+page+"&size="+size+"&userNameLike="+name;
+      let headers = this.getHeaders();
+      return this.http.get(this.SERVER_URL+path,{ headers: headers })
+        .map((response: Response)=> {
+          if (response && response.json()) {
+            return response.json()
+          }
+        });
+    }
+  getRoleList(role){
+    let path = "/api/userManager/roleList?roleNameLike="+role;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.json()) {
+          return response.json()
+        }
+      });
+  }
+    getAllRole(role,page=0,size=10){
+      let path = "/api/userManager/rolePageList?page="+page+"&size="+size+"&roleNameLike="+role;
+      let headers = this.getHeaders();
+      return this.http.get(this.SERVER_URL+path,{ headers: headers })
+        .map((response: Response)=> {
+          if (response && response.json()) {
+            return response.json()
+          }
+        });
+    }
+  createUser(creator,name,password,role,tree){
+    let path = "/api/userManager/user";
+    let userDTO = {
+      "basUser": {
+        "creator":creator,
+        "login": name,
+        "password": password,
+      },
+      "roleList": [
+        {
+          "authorityTreeList": tree,
+          "basRole": {
+            "id":role
+          }
+        }
+      ]
+    }
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL+path,userDTO,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.text()) {
+          return response.text()
+        }
+      });
+  }
+  createRole(creator,role,tree){
+    let path = "/api/userManager/role";
+    let roleDTO = {
+      "authorityTreeList": tree,
+      "basRole": {
+        "roleName": role,
+        "creator": creator
+      }
+    }
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL+path,roleDTO,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.text()) {
+          return response.text()
+        }
+      });
+  }
+  editRole(name,id,tree){
+    let path = "/api/userManager/role";
+    let roleDTO = {
+      "authorityTreeList": tree,
+      "basRole": {
+        "id": id,
+        "roleName": name
+      }
+    }
+    let headers = this.getHeaders();
+    return this.http.put(this.SERVER_URL+path,roleDTO,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.text()) {
+          return response.text()
+        }
+      });
+  }
+  editUser(id,name,password){
+    let path = "/api/userManager/user";
+    let basUser = {
+      "id":id,
+      "login": name,
+      "password": password,
+    }
+    let headers = this.getHeaders();
+    return this.http.put(this.SERVER_URL+path,basUser,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.json()) {
+          return response.json()
+        }
+      });
+  }
+
+  deleteUser(id){
+    let path = "/api/userManager/user/"+id;
+    let headers = this.getHeaders();
+    return this.http.delete(this.SERVER_URL+path,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.text()) {
+          return response.text()
+        }
+      });
+  }
+  deleteRole(id){
+    let path = "/api/userManager/role/"+id;
+    let headers = this.getHeaders();
+    return this.http.delete(this.SERVER_URL+path,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.text()) {
+          return response.text()
+        }
+      });
+  }
+  checkRoleHasUser(roleId){
+    let path = "/api/userManager/checkRoleHasUsers/"+roleId;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.text()) {
+          return response.text()
+        }
+      });
+  }
+  getUserAuthorityById(id){
+    let path = "/api/userManager/roleDetail/"+id;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.json()) {
+          return response.json()
+        }
+      });
+  }
+    getAuthorityList(){
+      let path = "/api/userManager/AuthorityList";
+      let headers = this.getHeaders();
+      return this.http.get(this.SERVER_URL+path,{ headers: headers })
+        .map((response: Response)=> {
+          if (response && response.json()) {
+            return response.json()
+          }
+        });
+    }
+    judgeRoleName(name){
+      let path = "/api/userManager/checkRoleName/"+name;
+      let headers = this.getHeaders();
+      return this.http.get(this.SERVER_URL+path,{ headers: headers })
+        .map((response: Response)=> {
+          if (response && response.text()) {
+            return response.text()
+          }
+        });
+    }
+  judgeUserName(name){
+    let path = "/api/userManager/checkLogin/"+name;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.text()) {
+          return response.text()
+        }
+      });
+  }
+
+
+
+
     // account resource
     // 获取账户信息 返回UserInfo对象
     getAccount() {
@@ -106,7 +295,7 @@ export class UserService {
         });
     }
     // user-resource
-    createUser(user: UserInfo){
+/*    createUser(user: UserInfo){
         let path = "/api/users";
         let headers = this.getHeaders();
         return this.http.post(this.SERVER_URL+path,{ headers: headers })
@@ -117,7 +306,7 @@ export class UserService {
                 }
             }
         });
-    }
+    }*/
 
     updateUser(user: UserInfo){
         let path = "/api/users";
@@ -132,7 +321,7 @@ export class UserService {
         });
     }
 
-    deleteUser(login: string){
+/*    deleteUser(login: string){
         let path = "/api/users/"+login;
         let headers = this.getHeaders();
         return this.http.delete(this.SERVER_URL+path,{ headers: headers})
@@ -143,7 +332,7 @@ export class UserService {
                 }
             }
         });
-    }
+    }*/
 
     getUser(login:string): Observable<UserInfo[]> {
         let path = "/api/users/"+login;

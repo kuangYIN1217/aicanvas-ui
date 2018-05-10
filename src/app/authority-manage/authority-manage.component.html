@@ -1,3 +1,28 @@
-<p>
-  authority-manage works!
-</p>
+<div class=" container userBody">
+  <span class="userTitle">角色权限管理</span>
+  <div class="userContent">
+    <div class="condition">
+      <input type="text" placeholder="请输入角色关键字" [(ngModel)]="name" (ngModelChange)="searchRole()"/>
+      <a class="btn bgo" (click)="createRole()">新建</a>
+    </div>
+    <table class="table">
+      <tr>
+        <th>序号</th>
+        <th>用户名</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let role of roleInfo;let i=index;">
+        <td>{{i+1}}</td>
+        <td>{{role.roleName}}</td>
+        <td>{{role.createTime}}</td>
+        <td>
+          <img src="assets/user/xiugai.png" (click)="editRole(role)"/>
+          <img src="assets/user/shanchu.png" style="margin-left: 20px" (click)="deleteRole(role.id)"/>
+        </td>
+      </tr>
+    </table>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)"  class="page"></page>
+    <app-tips [(show)]="showDelete" [content]="content" (deleteChange)="deleteChange($event)"></app-tips>
+  </div>
+</div>

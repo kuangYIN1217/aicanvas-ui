@@ -1,21 +1,30 @@
 <div class=" container userBody">
+  <uniform-tips *ngIf="showTip" [tipMargin]="tipMargin" [tipWidth]="tipWidth" [tipContent]="tipContent"  [tipType]="tipType" (showTipChange)="showTipChange(event)"></uniform-tips>
   <span class="userTitle">用户信息</span>
   <div class="userContent">
     <div class="row">
       <span class="key">用户名：</span>
-      <span class="value">admin</span>
+      <span class="value">{{login}}</span>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="login!='admin'">
       <span class="key">密码：</span>
-      <span class="value">admin</span>
+      <input type="text" class="password" [(ngModel)]="password" style="margin-left: 14px;" (ngModelChange)="changePsw()"/>
     </div>
     <div class="row">
       <span class="key">用户类型：</span>
-      <span class="value">超级管理员</span>
+      <span class="value">{{userType=='system'?'超级管理员':'普通用户'}}</span>
     </div>
     <div class="row">
-      <span class="key" style="vertical-align: top;margin-top: 10px">权限结构：</span>
+      <span class="key">用户角色：</span>
+      <span class="value">{{userRole}}</span>
+    </div>
+    <div class="row">
+      <span class="key" style="vertical-align: top;margin-top: 8px">权限结构：</span>
       <ul id="userTree" class="ztree"></ul>
+    </div>
+    <div class="createBtn" *ngIf="authority!='system'">
+      <a class="btn bgo" (click)="save()">保存</a>
+      <a class="btn bgg" (click)="back()">取消</a>
     </div>
   </div>
 </div>

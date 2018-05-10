@@ -47,6 +47,8 @@ import {UserComponent} from "./user/user.component";
 import {UserInfoComponent} from "./user-info/user-info.component";
 import {UserManageComponent} from "./user-manage/user-manage.component";
 import {AuthorityManageComponent} from "./authority-manage/authority-manage.component";
+import {CreateUserComponent} from "./user-manage/createUser/createUser.component";
+import {CreateUserRoleComponent} from "./authority-manage/createUserRole/createUserRole.component";
 
 
 const routes: Routes = [
@@ -105,6 +107,9 @@ const routes: Routes = [
   {path: 'userinfo', component: UserInfoComponent},
   {path: 'usermanage', component: UserManageComponent},
   {path: 'authoritymanage', component: AuthorityManageComponent},
+  {path: 'createuser', component: CreateUserComponent},
+  {path: 'createuserrole', component: CreateUserRoleComponent},
+
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },
 ];

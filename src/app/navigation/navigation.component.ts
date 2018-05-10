@@ -14,12 +14,17 @@ declare var $:any;
 
 })
 export class NavigationComponent {
+  userInfo:boolean = true;
   // needhide = 0;
-  focusTab: number;
+  focusTab: number=12;
   collapse: number = 0;
   sceneArray: SceneInfo[] = [];
   focusCollapse: string = "0";
   username: string = "";
+  userAuthority:string='';
+  menuAuthority:any[]=[];
+  Index:number=0;
+  modelList:any[]=[{"id":1,"url":"/datasetssave"},{"id":2,"url":"/algchains"},{"id":3,"url":"/datasets"},{"id":3,"url":"/inferenceModel"},{"id":4,"url":"/jobcreation"},{"id":5,"url":"/algplugins"}]
   // location: Location;
   show_menu:boolean=false;
   changeCollapse() {
@@ -28,11 +33,10 @@ export class NavigationComponent {
 
   changeTab(nextFocus: number , url?) {
     this.focusTab = nextFocus;
-    this.router.navigate(['/'], {skipLocationChange: true})
-      .then(() => {
+      if(this.focusTab<10){
+        this.userInfo = false;
+      }
         this.router.navigate([url]);
-      });
-
   }
 
   constructor(private location: Location,private router:Router) {
@@ -41,11 +45,23 @@ export class NavigationComponent {
       this.router.navigate(['/login'])
     }
   }
+  ngOnChanges(...args: any[]) {
+
+  }
   //response
   response(data){
     console.log(data)
   }
-
+  backIndex(){
+    for(let i=0;i<this.menuAuthority.length;i++){
+      if(this.menuAuthority[i].hasAuthority){
+          this.focusTab = i+1;
+          let url = this.modelList[i].url;
+          this.router.navigate([url])
+          break;
+      }
+    }
+  }
   ngAfterContentChecked(){
     // this.location = location;
     // console.log("navigation initial");
@@ -55,6 +71,8 @@ export class NavigationComponent {
     }
     if (localStorage['username']) {
       this.username = localStorage['username'];
+      this.userAuthority = localStorage['userAuthority'];
+      this.menuAuthority = JSON.parse(localStorage['allAuthority']);
     } else {
       this.username = "Loading";
     }
@@ -63,40 +81,58 @@ export class NavigationComponent {
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/datasetssave')||this.location.isCurrentPathEqualTo('/overview')||this.location.isCurrentPathEqualTo('/runningtask')) {
       this.focusTab = 1;
+      this.userInfo = false;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/algchains') || this.location.path(false).indexOf('/algchainDetail/') != -1) {
       this.focusTab = 2;
+      this.userInfo = false;
       // this.needhide = 0;
     } else if (this.location.path(false).indexOf('/algchains/') != -1) {
       this.collapse = 1;
+      this.userInfo = false;
       let scene_id_str = this.location.path(false).split('/algchains/')[1];
       //console.log(scene_id_str);
       this.focusCollapse = scene_id_str;
       this.focusTab = 2;
+      this.userInfo = false;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/jobcreation')||this.location.isCurrentPathEqualTo('/createjob') || this.location.path(false).indexOf('/jobDetail/') != -1) {
-      this.focusTab = 3;
+      this.focusTab = 5;
+      this.userInfo = false;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/datasets')||this.location.isCurrentPathEqualTo('/enterdataset')) {
-      this.focusTab = 4;
+      this.focusTab = 3;
+      this.userInfo = false;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/inferenceModel')||this.location.path().match(/\/inferenceModel/)) {
-      this.focusTab = 5;
+      this.focusTab = 4;
+      this.userInfo = false;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/algplugins') || this.location.path(false).indexOf('/algpluginDetail/') != -1) {
       this.focusTab = 6;
+      this.userInfo = false;
+      // this.needhide = 0;
+    }else if (this.location.isCurrentPathEqualTo('/userinfo')) {
+      this.focusTab = 12;
+      this.userInfo = true;
+      // this.needhide = 0;
+    }else if (this.location.isCurrentPathEqualTo('/usermanage') || this.location.isCurrentPathEqualTo('/createuser')) {
+      this.focusTab = 13;
+      this.userInfo = true;
+      // this.needhide = 0;
+    }else if (this.location.isCurrentPathEqualTo('/authoritymanage') || this.location.isCurrentPathEqualTo('/createuserrole')) {
+      this.focusTab = 14;
+      this.userInfo = true;
       // this.needhide = 0;
     }
 /*    else if (this.location.isCurrentPathEqualTo('/boostedtree')) {
       this.focusTab = 9;
     }*/
   }
-
   logout() {
     localStorage.removeItem("authenticationToken");
     localStorage.removeItem("username");
     this.router.navigate(['/login'])
-
     // window.location.href = "/login";
   }
 }

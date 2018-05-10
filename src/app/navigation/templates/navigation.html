@@ -1,7 +1,7 @@
     <div class="header" [style.display]="focusTab==0?'none':''">
-<!--        <div class="logo">
-            <img src="assets/navigation/logo.png">
-        </div>-->
+        <div class="logo" *ngIf="userInfo">
+            <img src="assets/navigation/logo.png" style="margin-left: 36px;">
+        </div>
         <p>DeepThinker算法建模训练平台</p>
         <div class="entry user">
             <img src="assets/navigation/admin.png">
@@ -12,33 +12,51 @@
             <span (click)="logout()">退出</span>
         </div>
     </div>
-    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content">
-      <div class="nav_element" style="height: 120px;">
-        <img src="assets/navigation/logo1.png" class="logo">
+    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav" *ngIf="!userInfo">
+      <div class="nav_element" style="height: 120px;" *ngIf="!userInfo">
+        <img src="assets/navigation/logo1.png" class="logo1">
       </div>
-        <div class="nav_element" id="nav1" [class.focusTab] = "focusTab==1" routerLinkActive="active"  (click)="changeTab(1 , '/datasetssave');focusCollapse='0'">
+        <div class="nav_element" [class.focusTab] = "focusTab==1" routerLinkActive="active" *ngIf="menuAuthority[0].hasAuthority" (click)="changeTab(1 , '/datasetssave');focusCollapse='0'">
             <img [src]="focusTab!=1?'assets/navigation/icon_xxzl_01_n.png':'assets/navigation/icon_xxzl_01_h.png'" class="nav-icon">
             <a href="#" onclick="return false">信息总览</a>
         </div>
-      <div class="nav_element"  [class.focusTab] = "focusTab==2" routerLinkActive="active"  (click)="changeTab(2 , '/algchains');focusCollapse='0'">
+      <div class="nav_element"  [class.focusTab] = "focusTab==2" routerLinkActive="active" *ngIf="menuAuthority[1].hasAuthority" (click)="changeTab(2 , '/algchains');focusCollapse='0'">
         <img [src]="focusTab!=2?'assets/navigation/icon_cj_02_n.png':'assets/navigation/icon_cj_02_h.png'" class="nav-icon">
         <a href="#" onclick="return false">场景管理</a>
       </div>
-      <div class="nav_element"  [class.focusTab] = "focusTab==4" routerLinkActive="active"  (click)="changeTab(4 , '/datasets');focusCollapse='0'">
+      <div class="nav_element"  [class.focusTab] = "focusTab==3" routerLinkActive="active" *ngIf="menuAuthority[2].hasAuthority" (click)="changeTab(3 , '/datasets');focusCollapse='0'">
         <img [src]="focusTab!=4?'assets/navigation/icon_sjj_04_n.png':'assets/navigation/icon_sjj_04_h.png'" class="nav-icon">
         <a href="#" onclick="return false">数据集管理</a>
       </div>
-      <div class="nav_element"  [class.focusTab] = "focusTab==3" routerLinkActive="active"  (click)="changeTab(3 , '/jobcreation');focusCollapse='0'">
+      <div class="nav_element"  [class.focusTab] = "focusTab==5" routerLinkActive="active" *ngIf="menuAuthority[4].hasAuthority" (click)="changeTab(5 , '/jobcreation');focusCollapse='0'">
         <img [src]="focusTab!=3?'assets/navigation/icon_xlrw_03_n.png':'assets/navigation/icon_xlrw_03_h.png'"  class="nav-icon">
         <a href="#" onclick="return false" >训练任务管理</a>
       </div>
-      <div class="nav_element"  [class.focusTab] = "focusTab==5" routerLinkActive="active"  (click)="changeTab(5 , '/inferenceModel');focusCollapse='0'">
+      <div class="nav_element"  [class.focusTab] = "focusTab==4" routerLinkActive="active" *ngIf="menuAuthority[3].hasAuthority" (click)="changeTab(4 , '/inferenceModel');focusCollapse='0'">
         <img [src]="focusTab!=5?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'" class="nav-icon">
         <a href="#" onclick="return false">模型服务管理</a>
       </div>
-      <div class="nav_element"  [class.focusTab] = "focusTab==6" routerLinkActive="active"  (click)="changeTab(6 , '/algplugins');focusCollapse='0'">
+      <div class="nav_element"  [class.focusTab] = "focusTab==6" routerLinkActive="active" *ngIf="menuAuthority[5].hasAuthority" (click)="changeTab(6 , '/algplugins');focusCollapse='0'">
         <img [src]="focusTab!=6?'assets/navigation/icon_zj_06_n.png':'assets/navigation/icon_zj_06_h.png'"  class="nav-icon">
         <a href="#" onclick="return false">算法组件库</a>
       </div>
    </nav>
+    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav1" *ngIf="userInfo">
+<!--      <div class="nav_element" style="height: 120px;">
+        <img src="assets/navigation/logo1.png" class="logo">
+      </div>-->
+      <div class="nav_element nav_element1" [class.focusTab1] = "focusTab==11" routerLinkActive="active" style="height: 70px;" (click)="backIndex();focusCollapse='0'">
+        <img src="assets/user/fanhui.png" style="position: absolute;left: 50%;margin-left: -54px;"/>
+        <a href="#" onclick="return false" style="color: #ff7c35;">返回平台</a>
+      </div>
+      <div class="nav_element nav_element1"  [class.focusTab1] = "focusTab==12" routerLinkActive="active"  (click)="changeTab(12 , '/userinfo');focusCollapse='0'">
+        <a href="#" onclick="return false">用户信息</a>
+      </div>
+      <div class="nav_element nav_element1" *ngIf="userAuthority=='system'" [class.focusTab1] = "focusTab==13" routerLinkActive="active"  (click)="changeTab(13 , '/usermanage');focusCollapse='0'">
+        <a href="#" onclick="return false">用户管理</a>
+      </div>
+      <div class="nav_element nav_element1" *ngIf="userAuthority=='system'" [class.focusTab1] = "focusTab==14" routerLinkActive="active"  (click)="changeTab(14 , '/authoritymanage');focusCollapse='0'">
+        <a href="#" onclick="return false" >角色管理</a>
+      </div>
+    </nav>
     <router-outlet></router-outlet>

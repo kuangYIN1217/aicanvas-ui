@@ -29,10 +29,11 @@ export class JobService {
     return headers;
   }
 
-  createJob(chainId,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird,datasetBackupName,jobPriority) {
+  createJob(chainId,chainName,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird,datasetBackupName,jobPriority) {
     let path = "/api/job";
     let senseId = {
       "chainId": chainId,
+      "chainName":chainName,
       "dataId": dataId,
       "jobName": jobName,
       "senceId": senceId,

@@ -78,6 +78,8 @@ import { UserComponent } from './user/user.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { AuthorityManageComponent } from './authority-manage/authority-manage.component';
+import {CreateUserComponent} from "./user-manage/createUser/createUser.component";
+import {CreateUserRoleComponent} from "./authority-manage/createUserRole/createUserRole.component";
 @NgModule({
   declarations: [
     AppComponent, AlgChainsComponent, DatasetsComponent,
@@ -140,7 +142,9 @@ import { AuthorityManageComponent } from './authority-manage/authority-manage.co
     UserComponent,
     UserInfoComponent,
     UserManageComponent,
-    AuthorityManageComponent
+    AuthorityManageComponent,
+    CreateUserComponent,
+    CreateUserRoleComponent
     //InputReadonlyDirective
   ],
   imports: [

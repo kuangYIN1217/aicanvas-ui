@@ -1,0 +1,95 @@
+.userBody{
+  background: #fff !important;
+}
+.userTitle{
+  font-size: 16px;
+  color: #333333;
+  display: block;
+  border-left:3px solid #0768ab;
+  padding-left:7px;
+  margin:30px 0 42px 22px;
+}
+.userContent{
+  padding:0 20px;
+}
+.condition{
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.condition input{
+  width:280px;
+  height:36px;
+  box-sizing: border-box;
+  border: solid 1px #d3d3d3;
+  border-radius: 5px;
+  padding-left: 10px;
+  float: left;
+  color: #999999;
+  outline: none;
+}
+.condition input:focus{
+  border:1px solid #23a880 !important;
+}
+.btn{
+  padding:0px 22px;
+  height:30px;
+  line-height: 30px;
+  display: inline-block;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  float: right;
+  cursor: pointer;
+}
+.bgo{
+  background:#ff7c35 ;
+  color: #fff;
+}
+.bgg{
+  background: #eeeeee;
+  color: #333;
+  border:1px solid #d3d3d3;
+  margin-left: 18px;
+}
+.table{
+  border-collapse: collapse;
+  border: solid 1px #eeeeee;
+  width:100%;
+  margin: 0;
+  padding:0;
+  table-layout:fixed;
+}
+.table tr{
+  text-align: left;
+  background: #eeeeee;
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  font-family: "MicrosoftYaHei";
+  border-top:1px solid #d3d3d3;
+  color: #666666;
+}
+.table th {
+  height: 36px;
+  background: #ffffff;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 36px;
+  color: #333333;
+  text-align: left;
+  font-weight: normal;
+}
+.table tr td {
+  padding-left: 20px;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
+}
+.table tr:nth-child(odd) {
+  background: #ffffff;
+}
+.table img{
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -103,6 +103,7 @@ export class JobCreationComponent {
   notTrain:boolean = false;
   taskStatusArr:any[]=["请选择任务状态","未启动","运行","停止","完成","异常","模型发布中","模型发布成功","模型发布失败"];
   taskStatus:string='';
+  chainName:string='';
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
     this.username = localStorage['username'];
     this.taskStatus = this.taskStatusArr[0];
@@ -630,7 +631,7 @@ export class JobCreationComponent {
         return false
       }
     }
-    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,0,0)
+    this.jobService.createJob(chainId, this.chainName,dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,0,0)
       .subscribe(
         (createdJob) => {
           //let job: any = createdJob;
@@ -747,6 +748,7 @@ export class JobCreationComponent {
     for (let i in this.PluginInfo) {
       if (name == this.PluginInfo[i].chain_name) {
         this.firstChainId = this.PluginInfo[i].id;
+        this.chainName = this.PluginInfo[i].chain_name;
       }
     }
     if (name == '--请选择--') {

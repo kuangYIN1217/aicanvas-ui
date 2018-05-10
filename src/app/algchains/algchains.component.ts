@@ -49,8 +49,10 @@ export class AlgChainsComponent{
     uploadShow:number=0;
     s_remove: boolean = false;
     deleteId:number;
+    allAuthority:any[]=[];
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
       window.scrollTo(0,0);
+      this.allAuthority = JSON.parse(localStorage['allAuthority']);
     }
     ngOnInit(){
       window.$ReadOnly = false;

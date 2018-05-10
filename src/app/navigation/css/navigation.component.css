@@ -24,6 +24,11 @@
   z-index: 100;
 }*/
 .logo{
+  width: 100% !important;
+  height:auto !important;
+  display: block;
+}
+.logo1{
   width: 80% !important;
   height:auto !important;
   margin:30px auto 0 !important;
@@ -70,19 +75,29 @@
 
 }
 /*nav*/
-nav{
-    width: 9%;
-    float: left;
 
-    overflow: hidden;
-    background-color: #232323;
+.nav{
+  width: 9%;
+  float: left;
+  overflow: hidden;
+  background-color: #232323;
   position: fixed;
   top: -30px;
   left: 0;
   bottom:0;
   z-index: 1112;
 }
-
+.nav1{
+  width: 9%;
+  float: left;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  bottom:0;
+  z-index: 1112;
+}
 /*
 .nav_element:first-child{
   margin-top: 6.29vh;
@@ -94,12 +109,14 @@ nav{
   height: 50px;
   position: relative;
   display: flex;
-  /*justify-content: center;*/
   align-items: center;
   cursor: pointer;
   border-left:4px solid #232323;
   outline: none;
-
+}
+.nav_element1{
+  border-left:none !important;
+  justify-content: center;
 }
 .nav_element .nav-icon{
     width: 18px;
@@ -149,7 +166,11 @@ nav{
    background-color: #333333;
    border-left:solid 4px #ee8348;
 }
-.focusTab1 a,.focusTab a{
+.focusTab1{
+  background-color: #ffffff;
+  border:none;
+}
+.focusTab a{
   color: #ffffff;
 }
 .nav_element .selectDown{

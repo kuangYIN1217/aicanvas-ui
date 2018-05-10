@@ -46,6 +46,7 @@ export class CreateJobComponent{
   job:any={};
   markEdit:boolean = false;
   page:number=0;
+  chainName:string='';
   constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
     this.username = localStorage['username'];
         this.datasetsService.getDataSetType()
@@ -366,8 +367,9 @@ export class CreateJobComponent{
   }
   $scene_select_change(name) {
     for (let i in this.PluginInfo) {
-      if (name == this.PluginInfo[i].chain_name) {
+      if (name == this.PluginInfo[i].id) {
         this.firstSceneId = this.PluginInfo[i].id;
+        this.chainName = this.PluginInfo[i].chain_name;
       }
     }
   }
@@ -465,7 +467,7 @@ export class CreateJobComponent{
     }
   }
   createJob(chainId, dataId,chosenSceneId){
-    this.jobService.createJob(chainId, dataId, this.jobName, chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
+    this.jobService.createJob(chainId,this.chainName, dataId, this.jobName, chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
       .subscribe(
         (createdJob) => {
           this.router.navigate(['/jobcreation']);

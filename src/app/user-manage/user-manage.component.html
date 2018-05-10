@@ -1,3 +1,36 @@
-<p>
-  user-manage works!
-</p>
+<div class=" container userBody">
+  <span class="userTitle">用户管理</span>
+  <div class="userContent">
+      <div class="condition">
+        <input type="text" placeholder="请输入用户名关键字" [(ngModel)]="name" (ngModelChange)="searchName()"/>
+        <a class="btn bgg" href="javascript:void(0)" (click)="deleteUser()">删除</a>
+        <a class="btn bgo" href="javascript:void(0)" (click)="createUser()">新建</a>
+      </div>
+    <table class="table">
+      <tr>
+        <th>
+          <img [src]="allSelect?'assets/user/xuanzhong.png':'assets/user/weixuan.png'" (click)="selectAll()" style="vertical-align: middle;"/>
+        </th>
+        <th>序号</th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>角色</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      <tr *ngFor="let user of userInfo;let i=index;">
+        <td><img [src]="user.selected?'assets/user/xuanzhong.png':'assets/user/weixuan.png'" (click)="selectUser(user)" style="vertical-align: middle;"/></td>
+        <td>{{i+1}}</td>
+        <td>{{user.login}}</td>
+        <td>******</td>
+        <td>{{user.roleName}}</td>
+        <td>{{user.createTime}}</td>
+        <td>
+          <img src="assets/user/xiugai.png" (click)="editUser(user)" style="margin-top: 9.5px"/>
+        </td>
+      </tr>
+    </table>
+    <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)"  class="page"></page>
+    <app-tips [(show)]="showDelete" [content]="content" (deleteChange)="deleteChange($event)"></app-tips>
+  </div>
+</div>
