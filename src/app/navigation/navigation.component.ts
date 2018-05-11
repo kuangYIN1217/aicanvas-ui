@@ -69,7 +69,7 @@ export class NavigationComponent {
       // sceneService.getAllScenes()
       //     .subscribe(sceneArray => this.sceneArray = sceneArray);
     }
-    if (localStorage['username']) {
+    if (localStorage['username']&&localStorage['userAuthority']&&localStorage['allAuthority']) {
       this.username = localStorage['username'];
       this.userAuthority = localStorage['userAuthority'];
       this.menuAuthority = JSON.parse(localStorage['allAuthority']);
