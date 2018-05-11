@@ -79,8 +79,9 @@ export class CreateUserRoleComponent{
                   }
                 },
                 callback:{
-                  onCheck:function(){
+                  onCheck:function(event, treeId, treeNode){
                     var zTree = $.fn.zTree.getZTreeObj("roleTree");
+                    this.linkageTree(zTree,treeNode);
                     this.checkedNodes = zTree.getCheckedNodes();
                   }.bind(this)
                 }
@@ -150,8 +151,9 @@ export class CreateUserRoleComponent{
             }
           },
           callback:{
-            onCheck:function(){
+            onCheck:function(event, treeId, treeNode){
               var zTree = $.fn.zTree.getZTreeObj("roleTree");
+              this.linkageTree(zTree,treeNode);
               this.checkedNodes = zTree.getCheckedNodes();
             }.bind(this)
           }
@@ -166,6 +168,36 @@ export class CreateUserRoleComponent{
   }
   showIconForTree(treeId, treeNode) {
     return !treeNode;
+  }
+  linkageTree(zTree,treeNode){
+    if(treeNode.checked){
+      if(treeNode.level==1){
+        var name = treeNode.name;
+        var arr =treeNode.getParentNode().children;
+        for(var i=0;i<arr.length;i++){
+          if((arr[i].name=="数据标注（图像）"&&name=="数据标注（图像）")||(arr[i].name=="数据备份"&&name=="数据备份")){
+            var node1 =zTree.getNodeByParam("name","我的数据集（增删改数据集）");
+            zTree.checkNode(node1, true, true);
+          }
+          if((arr[i].name=="执行训练任务"&&name=="执行训练任务")||(arr[i].name=="查看算法链"&&name=="查看算法链")||(arr[i].name=="查看训练数据集"&&name=="查看训练数据集")||(arr[i].name=="编辑算法链"&&name=="编辑算法链")||(arr[i].name=="推演"&&name=="推演")||(arr[i].name=="模型发布"&&name=="模型发布")){
+            var node1 =zTree.getNodeByParam("name","增删改训练任务");
+            zTree.checkNode(node1, true, true);
+          }
+          if(arr[i].name=="编辑算法链"&&name=="编辑算法链"){
+            var node2 =zTree.getNodeByParam("name","查看算法链");
+            zTree.checkNode(node2, true, true);
+          }
+          if((arr[i].name=="推演"&&name=="推演")||(arr[i].name=="模型发布"&&name=="模型发布")){
+            var node2 =zTree.getNodeByParam("name","执行训练任务");
+            zTree.checkNode(node2, true, true);
+          }
+          if(arr[i].name=="模型发布"&&name=="模型发布"){
+            var node3 =zTree.getNodeByParam("name","推演");
+            zTree.checkNode(node3, true, true);
+          }
+        }
+      }
+    }
   }
   create(){
     if(!this.createFlag){

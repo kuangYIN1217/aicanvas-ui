@@ -25,11 +25,11 @@
             </div>
               <!--<div class="tab_item sm_tab_item" ><a href="#" class="back">导入</a>-->
                <!--</div>-->
-              <div class="tab_item sm_tab_item" (click)="createJob()"> <a href="#" onclick="return false;" class="back">新建任务</a></div>
+              <div class="tab_item sm_tab_item" (click)="createJob()" *ngIf="operateJobAuthority"> <a href="#" onclick="return false;" class="back">新建任务</a></div>
             </div>
           </div>
         <div class="tab_content"  *ngIf="jobPageStatus!='createJob'">
-            <taskStatus [statuss]="taskStatus" [jobName]="jobName" [pageNumber]="pageNumber" [isTrain]="isTrain" [notTrain]="notTrain" (nooperate)="nooperate($event)"></taskStatus>
+            <taskStatus [statuss]="taskStatus" [jobName]="jobName" [operateJobAuthority]="operateJobAuthority" [runJobAuthority]="runJobAuthority" [deductionAuthority]="deductionAuthority" [pageNumber]="pageNumber" [isTrain]="isTrain" [notTrain]="notTrain" (nooperate)="nooperate($event)"></taskStatus>
         </div>
     </div>
     <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">

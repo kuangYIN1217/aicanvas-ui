@@ -47,6 +47,7 @@ export class CreateJobComponent{
   markEdit:boolean = false;
   page:number=0;
   chainName:string='';
+  loading:boolean = false;
   constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
     this.username = localStorage['username'];
         this.datasetsService.getDataSetType()
@@ -461,6 +462,7 @@ export class CreateJobComponent{
       return false;
     }
     if(!this.markEdit){
+      this.loading = true;
       this.createJob(chainId, dataId,chosenSceneId);
     }else{
       this.saveJob(chainId, dataId,chosenSceneId);
@@ -471,10 +473,12 @@ export class CreateJobComponent{
       .subscribe(
         (createdJob) => {
           this.router.navigate(['/jobcreation']);
+          this.loading = false;
           this.click_flag = true;
         },
         (error) =>{
           if(error.status==417){
+            this.loading = false;
             this.s_error_show = true;
             this.s_error_message = error.text();
             this.s_error_level = "error";

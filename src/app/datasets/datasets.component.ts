@@ -41,12 +41,32 @@ export class DatasetsComponent{
   dataLineNum: number =0;
   windowWidth:number =0;
   rollFlag: number =0;
+  allAuthority:any[]=[];
+  privateDatasets:boolean = false;
+  publicDatasets:boolean = false;
+  dataBackUP:boolean = false;
   constructor (private datasetservice: DatasetsService) {
     this.pageParams.pageMaxItem = this.s_size;
     this.pageParams.curPage = this.s_page;
     // 获取datasetType
     this.getDataSetsTypes();
     this.username = localStorage['username'];
+    this.allAuthority = JSON.parse(localStorage['allAuthority']);
+    for(let i=0;i<this.allAuthority.length;i++){
+      if(this.allAuthority[i].basAuthority.id=='5'){
+        for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='6'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.publicDatasets = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='7'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.privateDatasets = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='9'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.dataBackUP = true;
+          }
+        }
+      }
+    }
     this.initTable();
   }
 

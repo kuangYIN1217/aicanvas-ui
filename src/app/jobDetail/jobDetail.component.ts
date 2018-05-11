@@ -122,14 +122,45 @@ export class JobDetailComponent {
     }];
     return dataProvider;
   }
-
   showTip:boolean = false;
   tipWidth:string='';
   tipContent:string='';
   tipType:string='';
   tipMargin:string='';
   pageNumber:string='';
+  allAuthority:any[]=[];
+  runJobAuthority:boolean = false;
+  operateJobAuthority:boolean = false;
+  lookChainsAuthority:boolean = false;
+  editChainsAuthority:boolean = false;
+  deductionAuthority:boolean = false;
+  lookDatasetsAuthority:boolean = false;
   constructor(private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
+    this.allAuthority = JSON.parse(localStorage['allAuthority']);
+    for(let i=0;i<this.allAuthority.length;i++){
+      if(this.allAuthority[i].basAuthority.id=='11'){
+        for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='12'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.operateJobAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='13'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.runJobAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='14'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.lookChainsAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='15'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.editChainsAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='16'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.deductionAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='21'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.lookDatasetsAuthority = true;
+          }
+        }
+      }
+    }
     if (location.path(false).indexOf('/jobDetail/') != -1) {
       let jobPath = location.path(false).split('/jobDetail/')[1].split('/')[0];
       this.pageNumber = location.path(false).split('/jobDetail/')[1].split('/')[1];

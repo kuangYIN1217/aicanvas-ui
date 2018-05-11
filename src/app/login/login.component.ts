@@ -20,6 +20,200 @@ export class LoginComponent implements OnInit{
     msg_show = false;
     tabIndex:number=0;
     hg:any;
+    authority:any[]=[
+      {
+        "basAuthority":{
+          "id":19,
+          "authorityName":"用户管理",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":null,
+        "hasAuthority":true
+      },
+      {
+        "basAuthority":{
+          "id":20,
+          "authorityName":"角色权限管理",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":null,
+        "hasAuthority":true
+      },
+      {
+        "basAuthority":{
+          "id":1,
+          "authorityName":"信息总览",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":null,
+        "hasAuthority":true
+      },
+      {
+        "basAuthority":{
+          "id":2,
+          "authorityName":"场景管理",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":[
+          {
+            "basAuthority":{
+              "id":3,
+              "authorityName":"公共场景",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":4,
+              "authorityName":"我的场景",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          }
+        ],
+        "hasAuthority":true
+      },
+      {
+        "basAuthority":{
+          "id":5,
+          "authorityName":"数据集管理",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":[
+          {
+            "basAuthority":{
+              "id":6,
+              "authorityName":"公共数据集",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":7,
+              "authorityName":"我的数据集（增删改数据集）",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":8,
+              "authorityName":"数据标注（图像）",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":9,
+              "authorityName":"数据备份",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          }
+        ],
+        "hasAuthority":true
+      },
+      {
+        "basAuthority":{
+          "id":10,
+          "authorityName":"模型发布管理",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":null,
+        "hasAuthority":true
+      },
+      {
+        "basAuthority":{
+          "id":11,
+          "authorityName":"训练任务管理",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":[
+          {
+            "basAuthority":{
+              "id":12,
+              "authorityName":"增删改训练任务",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":13,
+              "authorityName":"执行训练任务",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":14,
+              "authorityName":"查看算法链",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":15,
+              "authorityName":"编辑算法链",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":16,
+              "authorityName":"推演",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":17,
+              "authorityName":"模型发布",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":true
+          },
+          {
+            "basAuthority":{
+              "id":21,
+              "authorityName":"查看训练数据集",
+              "authorityType":"2"
+            },
+            "childAuthorityTreeDtos":null,
+            "hasAuthority":null
+          }
+        ],
+        "hasAuthority":true
+      },
+      {
+        "basAuthority":{
+          "id":18,
+          "authorityName":"算法组件库",
+          "authorityType":"1"
+        },
+        "childAuthorityTreeDtos":null,
+        "hasAuthority":true
+      }
+    ];
     constructor(private resourcesService: ResourcesService, private userService: UserService,private router: Router){
         if((!localStorage['authenticationToken'])||localStorage['authenticationToken']==""){
             // this.logined = 0;
@@ -117,13 +311,19 @@ export class LoginComponent implements OnInit{
         //console.log(returnToken);
         if(returnToken=="fail"){
             this.showMessage("登陆失败");
-        }else if(returnToken&&returnToken.Jwt.id_token){
+        }/*else if(returnToken&&returnToken.Jwt.id_token){
           localStorage['authenticationToken'] = returnToken.Jwt.id_token;
           localStorage['username']= username;
           localStorage['userAuthority']= returnToken.Authority.basRole.type;
           localStorage['allAuthority']= JSON.stringify(returnToken.Authority.authorityTreeList);
           this.router.navigate(['/userinfo'])
           // window.location.href = "/overview";
+        }*/else if(returnToken){
+          localStorage['authenticationToken'] = returnToken.id_token;
+          localStorage['username']= username;
+          localStorage['userAuthority']= "system";
+          localStorage['allAuthority']= JSON.stringify(this.authority);
+          this.router.navigate(['/userinfo'])
         }
     }
 

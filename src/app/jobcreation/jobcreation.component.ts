@@ -104,8 +104,40 @@ export class JobCreationComponent {
   taskStatusArr:any[]=["请选择任务状态","未启动","运行","停止","完成","异常","模型发布中","模型发布成功","模型发布失败"];
   taskStatus:string='';
   chainName:string='';
+  allAuthority:any[]=[];
+  runJobAuthority:boolean = false;
+  operateJobAuthority:boolean = false;
+  lookChainsAuthority:boolean = false;
+  editChainsAuthority:boolean = false;
+  deductionAuthority:boolean = false;
+  lookDatasetsAuthority:boolean = false;
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
     this.username = localStorage['username'];
+    this.allAuthority = JSON.parse(localStorage['allAuthority']);
+    for(let i=0;i<this.allAuthority.length;i++){
+      if(this.allAuthority[i].basAuthority.id=='11'){
+        for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='12'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.operateJobAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='13'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.runJobAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='14'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.lookChainsAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='15'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.editChainsAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='16'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.deductionAuthority = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='21'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.lookDatasetsAuthority = true;
+          }
+        }
+      }
+    }
     this.taskStatus = this.taskStatusArr[0];
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));

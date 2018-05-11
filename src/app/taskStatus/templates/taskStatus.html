@@ -28,14 +28,14 @@
       <td title="{{jobInfo.jobPriority}}">{{jobInfo.jobPriority}}</td>
       <td class="operation" style="position: relative">
         <a *ngIf="jobInfo.trainable != 0" class="operationBtn see-detail" routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}/{{pageNow==0?pageNumber:pageNow}}"  title="查看详情"></a>
-        <a *ngIf="jobInfo.trainable == 0" class="operationBtn model" (click)="goModel(jobInfo.id)" title="推演"></a>
-        <a *ngIf="jobInfo.status=='模型发布中' && jobInfo.trainable != 0" class="operationBtn unstart"></a>
-        <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0" class="operationBtn stop" (click)="stop(jobInfo.jobPath)" title="停止"></a>
-        <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0" class="operationBtn start" (click)="start(jobInfo.jobPath)" title="运行"></a>
+        <a *ngIf="jobInfo.trainable == 0&&deductionAuthority" class="operationBtn model" (click)="goModel(jobInfo.id)" title="推演"></a>
+        <a *ngIf="jobInfo.status=='模型发布中' && jobInfo.trainable != 0&&runJobAuthority" class="operationBtn unstart"></a>
+        <a *ngIf="jobInfo.status=='运行' && jobInfo.trainable != 0 &&runJobAuthority" class="operationBtn stop" (click)="stop(jobInfo.jobPath)" title="停止"></a>
+        <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0 &&runJobAuthority" class="operationBtn start" (click)="start(jobInfo.jobPath)" title="运行"></a>
         <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable != 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.ifPublicSence}}/{{jobInfo.id}}" class="see-model operationBtn" title="查看已发布模型"></a>
         <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable == 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.jobPath}}/{{jobInfo.id}}" class="see-model operationBtn" title="查看已发布模型"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'"  class="operationBtn edit" title="修改任务" (click)="editJob(jobInfo)"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'"  (click)="deleteJob(jobInfo.id,jobInfo.jobName)" class="operationBtn delete" title="删除任务"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'&&operateJobAuthority"  class="operationBtn edit" title="修改任务" (click)="editJob(jobInfo)"></a>
+        <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'&&operateJobAuthority"  (click)="deleteJob(jobInfo.id,jobInfo.jobName)" class="operationBtn delete" title="删除任务"></a>
       </td>
     </tr>
   </table>

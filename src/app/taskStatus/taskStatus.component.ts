@@ -55,8 +55,13 @@ export class TaskStatusComponent{
     @Input() pageNumber:number=0;
     @Input() isTrain:boolean = false;
     @Input() notTrain:boolean = false;
+    @Input() operateJobAuthority:boolean = false;
+    @Input() runJobAuthority:boolean = false;
+    @Input() deductionAuthority:boolean = false;
+
     @Output() nooperate: EventEmitter<any> = new EventEmitter();
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig){
+
 
     }
     getPageData(paraParam) {

@@ -50,9 +50,21 @@ export class AlgChainsComponent{
     s_remove: boolean = false;
     deleteId:number;
     allAuthority:any[]=[];
+    privateScense:boolean = false;
+    publicScense:boolean = false;
     constructor(private algchainService: AlgChainService,private sceneService: SceneService, private pluginService: PluginService , private location: Location,private route: ActivatedRoute ,private router: Router, private toastyService:ToastyService, private toastyConfig: ToastyConfig){
       window.scrollTo(0,0);
       this.allAuthority = JSON.parse(localStorage['allAuthority']);
+      for(let i=0;i<this.allAuthority.length;i++){
+          if(this.allAuthority[i].basAuthority.id=='2'){
+            if(this.allAuthority[i].childAuthorityTreeDtos[0].hasAuthority){
+                this.publicScense = true;
+            }
+            if(this.allAuthority[i].childAuthorityTreeDtos[1].hasAuthority){
+                this.privateScense = true;
+            }
+          }
+      }
     }
     ngOnInit(){
       window.$ReadOnly = false;

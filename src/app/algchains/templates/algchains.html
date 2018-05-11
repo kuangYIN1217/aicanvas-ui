@@ -1,8 +1,8 @@
 <div class="container">
     <div class="tabDiv sceneManage" [style.display]="ifShowNetwork==0?'':'none'">
         <div class="tabs">
-            <div class="tab_item" [class.focus]="showSence==0" (click)="mysenceClick()">我的场景</div>
-            <div class="tab_item" [class.focus]="showSence==1" (click)="publicsenceClick()">公共场景</div>
+            <div class="tab_item" [class.focus]="showSence==0" (click)="mysenceClick()" *ngIf="privateScense">我的场景</div>
+            <div class="tab_item" [class.focus]="showSence==1" (click)="publicsenceClick()" *ngIf="publicScense">公共场景</div>
             <div class="tab_item upload" (click)="uploadSence()">上传场景</div>
             <!--<input type="file" id="file" name="file" ng2FileSelect [uploader]="uploader" accept=".zip" (change)="selectedFileOnChanged($event)"/>-->
         </div>

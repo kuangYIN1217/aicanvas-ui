@@ -60,7 +60,23 @@ export class EnterDatasetComponent {
   dataLineNum: number =0;
   windowWidth: number;
   loading:boolean = false;
+  allAuthority:any[]=[];
+  dataBackUP:boolean = false;
+  dataMark:boolean = false;
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
+    this.allAuthority = JSON.parse(localStorage['allAuthority']);
+    for(let i=0;i<this.allAuthority.length;i++){
+      if(this.allAuthority[i].basAuthority.id=='5'){
+        for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='9'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.dataBackUP = true;
+          }
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='8'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.dataMark = true;
+          }
+        }
+      }
+    }
     this.getDataSetsTypes();
   }
 

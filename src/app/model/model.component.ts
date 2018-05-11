@@ -68,8 +68,19 @@ export class ModelComponent {
   showType:string='';
   jobId:number=0;
   isPublic:boolean = false;
+  allAuthority:any[]=[];
+  publishModelAuthority:boolean = false;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
-
+    this.allAuthority = JSON.parse(localStorage['allAuthority']);
+    for(let i=0;i<this.allAuthority.length;i++){
+      if(this.allAuthority[i].basAuthority.id=='11'){
+        for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='17'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+            this.publishModelAuthority = true;
+          }
+        }
+      }
+    }
   }
   Headers:Headers = this.modelService.getHeaders();
   public uploader:FileUploader = new FileUploader({

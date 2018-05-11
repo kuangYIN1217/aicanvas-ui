@@ -22,8 +22,8 @@
           </select>
           <!--<img src="../assets/taskStatus/select.png">-->
         </div>
-        <div class="upload-dataset" (click)="$data_backup()" style="margin-right: 20px;background: #23a880;">数据备份</div>
-        <div class="upload-dataset" style="background: #23a880" (click)="$mark_click()" *ngIf="filePath.length==2">数据标注</div>
+        <div class="upload-dataset" (click)="$data_backup()" style="margin-right: 20px;background: #23a880;" *ngIf="dataBackUP">数据备份</div>
+        <div class="upload-dataset" style="background: #23a880" (click)="$mark_click()" *ngIf="filePath.length==2&&dataMark">数据标注</div>
         <div class="upload-dataset" (click)="$create_click()" *ngIf="filePath.length!=2">新建文件夹</div>
         <div class="upload-dataset" (click)="$upload_click()">上传文件</div>
       </div>
