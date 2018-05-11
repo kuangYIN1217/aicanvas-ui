@@ -40,6 +40,10 @@ export class InferenceModelComponent{
   showTip:boolean = false;
   tipMargin:string='';
   isPublic:boolean;
+  lookFailReason:any[]=[];
+  saveShowFail:any[]=[];
+  first:boolean = false;
+  pageShowFailReason:boolean = false;
   constructor(private sceneService: SceneService,private modelService: modelService,private route: ActivatedRoute , private router: Router) {
       //this.getAllModel(-1,-1,this.s_nav_selected,this.page-1,this.pageMaxItem);
     console.log(this.s_nav_selected);
@@ -59,17 +63,43 @@ export class InferenceModelComponent{
       }
     });
   }
-  failChange(event){
-    if(event!=""){
-      this.showTip = true;
-      this.tipWidth = "100%";
-      this.tipType = "error";
-      this.tipMargin = "0 auto 20px";
-      this.tipContent = "失败原因："+event+"！";
+  pageShowFailReasonChange(event){
+      this.pageShowFailReason = event;
+      if(!this.pageShowFailReason){
+        this.saveShowFail=[];
+      }
+  };
+  showFailReasonChange(event){
+    let result = JSON.parse(event);
+    this.lookFailReason = result.list;
+    if(!this.first&&this.pageShowFailReason){
+      this.first = true;
+      for(let i=0;i<this.lookFailReason.length;i++){
+        if(this.lookFailReason[i].id==result.id){
+          this.lookFailReason[i].selected = true;
+        }
+      }
+      this.saveShowFail = this.lookFailReason;
+    }else{
+      for(let i=0;i<this.saveShowFail.length;i++){
+        if(this.saveShowFail[i].id==result.id){
+          this.saveShowFail[i].selected = true;
+        }
+      }
+    }
+
+  }
+  close(id){
+    for(let i=0;i<this.saveShowFail.length;i++){
+      if(this.saveShowFail[i].id==id){
+        this.saveShowFail[i].selected = false;
+      }
     }
   }
   $nav_click(index) {
     this.s_nav_selected = index;
+    this.first = false;
+    this.saveShowFail=[];
   }
   $search_change(){
     this.judgeJob();

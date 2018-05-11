@@ -16,8 +16,8 @@ export class PublicModelComponent{
   @Input() jobName:any='';
   @Input() senceName:any='';
   @Input() jobId:any=0;
-  @Output() showIdChange: EventEmitter<any> = new EventEmitter();
-  @Output() failChange: EventEmitter<any> = new EventEmitter();
+  @Output() showFailReasonChange: EventEmitter<any> = new EventEmitter();
+  @Output() pageShowFailReasonChange: EventEmitter<any> = new EventEmitter();
   dataIndex:number=0;
   modelList:any[]=[];
   page: number = 1;
@@ -26,6 +26,8 @@ export class PublicModelComponent{
   totalPage:number = 0;
   curPage:number = 1;
   pageNow:number;
+  lookFailReason:any[]=[];
+  pageShowFailReason:boolean = false;
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
@@ -35,6 +37,8 @@ export class PublicModelComponent{
   getPageData(paraParam){
     this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,paraParam.curPage-1,paraParam.pageMaxItem);
     this.pageNow=paraParam.curPage;
+    this.pageShowFailReason = false;
+    this.pageShowFailReasonChange.emit(this.pageShowFailReason);
   }
   getAllModel(jobName,senceName,number,jobId,page,size){
     this.modelService.getAllModel(jobName,senceName,number,jobId,page,size)
@@ -42,6 +46,21 @@ export class PublicModelComponent{
         if(result&&result.content.length>0){
           this.dataIndex=1;
           this.modelList = result.content;
+          if(!this.pageShowFailReason){
+            this.pageShowFailReason = true;
+          }
+          for(let i=0;i<this.modelList.length;i++){
+              if(this.modelList[i].status=="发布失败"){
+                let obj:any={};
+                obj.id = this.modelList[i].id;
+                obj.jobName = this.modelList[i].jobName;
+                obj.version = this.modelList[i].version;
+                obj.failReason = this.modelList[i].failReason;
+                obj.ifShowFailReason = this.modelList[i].ifShowFailReason;
+                this.lookFailReason.push(obj);
+              }
+          }
+          this.pageShowFailReasonChange.emit(this.pageShowFailReason);
           let page = new Page();
           page.pageMaxItem = result.size;
           page.curPage = result.number+1;
@@ -63,7 +82,16 @@ export class PublicModelComponent{
       "overflow-x":"scroll"
     }
   }
-  publishFail(failReason){
-    this.failChange.emit(failReason);
+  delete(modelId){
+    this.modelService.deleteModel(modelId)
+      .subscribe(result=>{
+        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.pageNow,this.pageMaxItem);
+      })
+  }
+  publishFail(id){
+    let obj:any={};
+    obj.id = id;
+    obj.list = this.lookFailReason;
+    this.showFailReasonChange.emit(JSON.stringify(obj));
   }
 }

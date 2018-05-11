@@ -5,7 +5,13 @@
       <div class="item" (click)="$nav_click(0)" [ngClass] = "{'selected': s_nav_selected === 0}">公共模型服务</div>
     </div>
     <div class="table_section" id="table_section">
-      <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin"(showTipChange)="showTipChange(event)"></uniform-tips>
+      <div *ngIf="s_nav_selected === 0">
+        <div class="tips-content" *ngFor="let item of saveShowFail" [style.display]="item.selected?'':'none'">
+          <img src="assets/uniform-tips/cuowu.png" class="icon"/>
+          <span>任务名称{{item.jobName}}v{{item.version}}发布失败--{{item.failReason}}</span>
+          <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close(item.id)"/>
+        </div>
+      </div>
       <div class="search">
         <div class="searchContainer">
           <input type="text" name="jobName" [(ngModel)]="jobName" class="search-input" placeholder="输入训练任务关键字" (ngModelChange)="jobName=$event;$search_change()"/>
@@ -16,7 +22,7 @@
         </div>
       </div>
       <my-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===1" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></my-model>
-      <public-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===0" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></public-model>
+      <public-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===0"  (showFailReasonChange)="showFailReasonChange($event)" (pageShowFailReasonChange)="pageShowFailReasonChange($event)"></public-model>
     </div>
   </div>
 </div>
