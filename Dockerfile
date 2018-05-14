@@ -16,7 +16,3 @@ WORKDIR $APP_HOME
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=0 $APP_HOME/dist .
 CMD sed -i "s/&REPLACE_HOST_DT&:&REPLACE_PORT_DT&/$HOST_IP_DT:$HOST_PORT_DT/g" ./main.bundle.js;sed -i "s/&REPLACE_HOST_DS&:&REPLACE_PORT_DS&/$HOST_IP_DS:$HOST_PORT_DS/g" ./main.bundle.js; nginx -g "daemon off;"
-#COPY ./run.sh /run.sh
-#CMD /.run.sh
-
-
