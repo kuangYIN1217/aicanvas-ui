@@ -67,7 +67,7 @@ const routes: Routes = [
   {path: 'modelDetail', component: ModelDetailComponent},
   {path: 'network/:scene_id', component: NetworkComponent},
   {path: 'jobDetail/:job_id', component: JobDetailComponent},
-  {path: 'jobDetail/:job_id/:page', component: JobDetailComponent},
+  {path: 'jobDetail/:job_id/:page/:job', component: JobDetailComponent},
   // {path: 'jobcreation?pageNo=:page', component: JobDetailComponent},
   {path: 'jobDetail/:jobPath', component: JobDetailComponent},
   {path: 'jobDetail', component: JobDetailComponent},

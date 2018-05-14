@@ -3,7 +3,7 @@ import {Location} from "@angular/common";
 import {JobService} from "../common/services/job.service";
 import {JobInfo, JobParameter, PluginInfo, UserInfo} from "../common/defs/resources";
 import {AmChartsService} from "amcharts3-angular2";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AlgChainService} from "../common/services/algChain.service";
 import {Editable_param, Parameter} from "../common/defs/parameter";
 import {PluginService} from "../common/services/plugin.service";
@@ -135,7 +135,8 @@ export class JobDetailComponent {
   editChainsAuthority:boolean = false;
   deductionAuthority:boolean = false;
   lookDatasetsAuthority:boolean = false;
-  constructor(private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
+  jobInfo:any={};
+  constructor(private route: ActivatedRoute ,private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
       if(this.allAuthority[i].basAuthority.id=='11'){
@@ -161,22 +162,16 @@ export class JobDetailComponent {
         }
       }
     }
-    if (location.path(false).indexOf('/jobDetail/') != -1) {
-      let jobPath = location.path(false).split('/jobDetail/')[1].split('/')[0];
-      this.pageNumber = location.path(false).split('/jobDetail/')[1].split('/')[1];
-      if (jobPath) {
-        jobPath = unescape(jobPath);
-        this.jobPath = jobPath;
-        // jobService.getJob(jobPath)
-        //     .subscribe(jobParam => this.jobParam = jobParam);
-        this.initJobDetailByPath();
-      }
-    }
+
   }
   lookDataset(){
     this.show = true;
     this.valid = 'valid';
     this.train = 'train';
+  }
+  editJob(){
+    this.jobInfo.edit = true;
+    this.router.navigate(['../createjob'], {queryParams: {"job": JSON.stringify(this.jobInfo),"page": this.pageNumber}});
   }
   back() {
     if (this.pageNumber!='') {
@@ -377,6 +372,32 @@ export class JobDetailComponent {
   }
 
   ngOnInit() {
+    /*    if (location.path(false).indexOf('/jobDetail/') != -1) {
+     let jobPath = location.path(false).split('/jobDetail/')[1].split('/')[0];
+     this.pageNumber = location.path(false).split('/jobDetail/')[1].split('/')[1];
+     let jobInfo = location.path(false).split('/jobDetail/')[1].split('/')[2];
+     this.jobInfo = JSON.parse(jobInfo);
+     console.log(this.jobInfo);
+     if (jobPath) {
+     jobPath = unescape(jobPath);
+     this.jobPath = jobPath;
+     // jobService.getJob(jobPath)
+     //     .subscribe(jobParam => this.jobParam = jobParam);
+     this.initJobDetailByPath();
+     }
+     }*/
+    this.route.queryParams.subscribe(params =>{
+      if(JSON.stringify(params)!='{}'){
+        this.jobInfo = JSON.parse(params['job']);
+        this.pageNumber = params['page'];
+        let jobPath = this.jobInfo.jobPath;
+        if (jobPath) {
+          jobPath = unescape(jobPath);
+          this.jobPath = jobPath;
+          this.initJobDetailByPath();
+        }
+      }
+    });
     window.$ReadOnly = false;
     this.lossChart = this.AmCharts.makeChart("lossGraph", {
       "type": "serial",
