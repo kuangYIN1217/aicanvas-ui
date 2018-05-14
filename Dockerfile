@@ -15,9 +15,9 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=0 $APP_HOME/dist .
-#CMD sed -i "s/&REPLACEHOST&/$HOST_IP/g" ./main.bundle.js; nginx -g "daemon off;"
-#CMD sed -i "s/&REPLACE_HOST&:&REPLACE_PORT&/$HOST_IP:$HOST_PORT/g" ./main.bundle.js; nginx -g "daemon off;"
-COPY ./run.sh /run.sh
-CMD /run.sh
+CMD sed -i "s/&REPLACEHOST&/$HOST_IP/g" ./main.bundle.js; nginx -g "daemon off;"
+CMD sed -i "s/&REPLACE_HOST&:&REPLACE_PORT&/$HOST_IP:$HOST_PORT/g" ./main.bundle.js; nginx -g "daemon off;"
+#COPY ./run.sh /run.sh
+#CMD /.run.sh
 
 
