@@ -52,7 +52,7 @@ export class NavigationComponent {
       this.focusTab = 0;
       this.router.navigate(['/login'])
     }
-    if (sessionStorage['userInfo']) {
+    if (sessionStorage['userInfo']=='true') {
       this.userInfo = sessionStorage['userInfo'];
     }
   }
@@ -106,7 +106,7 @@ export class NavigationComponent {
       this.focusCollapse = scene_id_str;
       this.focusTab = 2;
       // this.needhide = 0;
-    } else if (this.location.isCurrentPathEqualTo('/jobcreation')||this.location.isCurrentPathEqualTo('/createjob') || this.location.path(false).indexOf('/jobDetail/') != -1|| this.location.path(false).indexOf('/model/') != -1) {
+    } else if (this.location.path().match('/jobcreation')||this.location.isCurrentPathEqualTo('/createjob') ||this.location.path().match('/createjob')|| this.location.path().match(/\/jobDetail/)|| this.location.path().match(/\/model/)) {
       this.focusTab = 5;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/datasets')||this.location.isCurrentPathEqualTo('/enterdataset')) {

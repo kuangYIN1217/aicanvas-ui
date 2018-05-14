@@ -317,7 +317,6 @@ export class PopupComponent {
     });
   }
   selectedFileOnChanged(event:any){
-    //console.log(this.uploader.queue);
     if((this.uploader.queue.length-this.saveLoad.length)>5){
       this.showTip = true;
       this.tipMargin = "20px auto 0";
@@ -331,7 +330,7 @@ export class PopupComponent {
       return false;
     }else{
       for(let j=0;j<this.uploader.queue.length;j++){
-        if(Number(j)>2){
+        if(Number(j)>2&&this.showUpload.length>2){
           this.uploader.queue[3].remove();
           this.showTip = true;
           this.tipMargin = "20px auto 0";
@@ -353,7 +352,11 @@ export class PopupComponent {
               //obj.type = this.uploader.queue[j].file.type;
               this.saveLoad.push(this.uploader.queue[j]);
               this.showUpload.push(this.uploader.queue[j]);
-              this.showUpload[j].status = "上传中";
+              if(this.showUpload.length-1<j){
+                this.showUpload[this.showUpload.length-1].status = "上传中";
+              }else{
+                this.showUpload[j].status = "上传中";
+              }
               //this.fileType = this.judgeType(this.showUpload[j]);
               let element = this.uploader.queue[j];
               // element.alias = "photo";
@@ -362,7 +365,6 @@ export class PopupComponent {
               //console.log(element.url);
               this.getProgress(j);
             }else{
-              //this.uploader.queue[j].remove();
               continue;
             }
           }else{
@@ -401,10 +403,19 @@ export class PopupComponent {
           }
         };
         this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
-          this.showUpload[j].status = "上传成功";
+          if(this.showUpload.length-1<j){
+            this.showUpload[this.showUpload.length-1].status = "上传成功";
+          }else{
+            this.showUpload[j].status = "上传成功";
+          }
         };
         this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
-          this.showUpload[j].status = "上传失败";
+          if(this.showUpload.length-1<j){
+            this.showUpload[this.showUpload.length-1].status = "上传失败";
+          }else{
+            this.showUpload[j].status = "上传失败";
+          }
+
           if(status==400){
             this.showTip = true;
             this.tipMargin = "20px auto 0";
@@ -426,7 +437,11 @@ export class PopupComponent {
                 this.showTip = true;
                 this.tipType = "warnning";
                 this.tipContent = "已有同名文件或文件夹，请重新上传！";
-                this.showUpload[j].status = "上传失败";
+                if(this.showUpload.length-1<j){
+                  this.showUpload[this.showUpload.length-1].status = "上传失败";
+                }else{
+                  this.showUpload[j].status = "上传失败";
+                }
                 return false
               }else{
                 this.uploader.queue[j].upload();

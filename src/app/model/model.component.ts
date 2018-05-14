@@ -283,7 +283,6 @@ export class ModelComponent {
                 obj.modelId = result.content[i].id;
                 obj.version = result.content[i].version;
                 obj.failReason = result.content[i].failReason;
-                obj.selected = true;
                 this.saveTips.push(obj);
               }
             }
@@ -363,12 +362,13 @@ export class ModelComponent {
   close(modelId,id){
       this.modelService.updateIfShowFailReason(modelId)
         .subscribe(result=>{
-          for(let i=0;i<this.saveTips.length;i++){
-            if(this.saveTips[i].id==id){
-              this.saveTips[i].selected = false;
+          if(result.text()=='true'){
+            for(let i=0;i<this.saveTips.length;i++){
+              if(this.saveTips[i].id==id){
+                this.saveTips.splice(i,1);
+              }
             }
           }
-          console.log(result);
         })
   }
   getPageData(paraParam){

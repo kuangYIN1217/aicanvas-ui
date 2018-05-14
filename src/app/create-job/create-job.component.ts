@@ -397,11 +397,15 @@ export class CreateJobComponent{
       return false;
     }
     if (!dataId || dataId == -1) {
-      this.s_error_show = true;
-      this.s_error_message = '请选择数据集';
-      this.s_error_level = "error";
-      this.click_flag = true;
-      return false;
+      if(this.student==15||this.student==11){
+
+      }else{
+        this.s_error_show = true;
+        this.s_error_message = '请选择数据集';
+        this.s_error_level = "error";
+        this.click_flag = true;
+        return false;
+      }
     }
     if(this.gpuorder=='-1'){
       this.s_error_show = true;

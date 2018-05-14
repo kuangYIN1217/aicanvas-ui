@@ -1,7 +1,7 @@
 <div class="container">
   <div style="padding: 0 30px;">
     <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" (showTipChange)="showTipChange(event)"></uniform-tips>
-    <div class="tips-content" *ngFor="let item of saveTips" [style.display]="item.selected?'':'none'">
+    <div class="tips-content" *ngFor="let item of saveTips">
       <img src="assets/uniform-tips/cuowu.png" class="icon"/>
       <span>训练任务{{item.jobName}}v{{item.version}}版本模型发布失败--{{item.failReason}}</span>
       <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close(item.modelId,item.id)"/>

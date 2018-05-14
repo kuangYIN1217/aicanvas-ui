@@ -177,12 +177,12 @@ export class modelService {
       });
   }
   updateIfShowFailReason(modelId){
-    let path = "/api/changeModelIfShowFailReason?modelId="+modelId;
+    let path = "/api/changeModelIfShowFailReason/"+modelId;
     let headers = this.getHeaders();
-    return this.http.put(this.SERVER_URL+path, { headers : headers})
+    return this.http.get(this.SERVER_URL+path, { headers : headers})
       .map((response: Response) => {
-        if (response && response.json()){
-          return response.json();
+        if (response){
+          return response;
         }
       });
   }
