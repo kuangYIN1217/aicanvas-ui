@@ -1,9 +1,9 @@
     <div class="header" [style.display]="focusTab==0?'none':''">
-        <div class="logo" *ngIf="userInfo">
+        <div class="logo" *ngIf="userInfo=='true'">
             <img src="assets/navigation/logo.png" style="margin-left: 36px;">
         </div>
         <p>DeepThinker算法建模训练平台</p>
-        <div class="entry user">
+        <div class="entry user" (click)="enterUser()">
             <img src="assets/navigation/admin.png">
             <span>{{username}}</span>
         </div>
@@ -12,8 +12,8 @@
             <span (click)="logout()">退出</span>
         </div>
     </div>
-    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav" *ngIf="!userInfo">
-      <div class="nav_element" style="height: 120px;" *ngIf="!userInfo">
+    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav" *ngIf="userInfo=='false'">
+      <div class="nav_element" style="height: 120px;" *ngIf="userInfo=='false'">
         <img src="assets/navigation/logo1.png" class="logo1">
       </div>
         <div class="nav_element" [class.focusTab] = "focusTab==1" routerLinkActive="active" *ngIf="menuAuthority[0].hasAuthority" (click)="changeTab(1 , '/datasetssave');focusCollapse='0'">
@@ -25,15 +25,15 @@
         <a href="#" onclick="return false">场景管理</a>
       </div>
       <div class="nav_element"  [class.focusTab] = "focusTab==3" routerLinkActive="active" *ngIf="menuAuthority[2].hasAuthority" (click)="changeTab(3 , '/datasets');focusCollapse='0'">
-        <img [src]="focusTab!=4?'assets/navigation/icon_sjj_04_n.png':'assets/navigation/icon_sjj_04_h.png'" class="nav-icon">
+        <img [src]="focusTab!=3?'assets/navigation/icon_sjj_04_n.png':'assets/navigation/icon_sjj_04_h.png'" class="nav-icon">
         <a href="#" onclick="return false">数据集管理</a>
       </div>
       <div class="nav_element"  [class.focusTab] = "focusTab==5" routerLinkActive="active" *ngIf="menuAuthority[4].hasAuthority" (click)="changeTab(5 , '/jobcreation');focusCollapse='0'">
-        <img [src]="focusTab!=3?'assets/navigation/icon_xlrw_03_n.png':'assets/navigation/icon_xlrw_03_h.png'"  class="nav-icon">
+        <img [src]="focusTab!=5?'assets/navigation/icon_xlrw_03_n.png':'assets/navigation/icon_xlrw_03_h.png'"  class="nav-icon">
         <a href="#" onclick="return false" >训练任务管理</a>
       </div>
       <div class="nav_element"  [class.focusTab] = "focusTab==4" routerLinkActive="active" *ngIf="menuAuthority[3].hasAuthority" (click)="changeTab(4 , '/inferenceModel');focusCollapse='0'">
-        <img [src]="focusTab!=5?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'" class="nav-icon">
+        <img [src]="focusTab!=4?'assets/navigation/icon_mx_05_n.png':'assets/navigation/icon_mx_05_h.png'" class="nav-icon">
         <a href="#" onclick="return false">模型服务管理</a>
       </div>
       <div class="nav_element"  [class.focusTab] = "focusTab==6" routerLinkActive="active" *ngIf="menuAuthority[5].hasAuthority" (click)="changeTab(6 , '/algplugins');focusCollapse='0'">
@@ -41,7 +41,7 @@
         <a href="#" onclick="return false">算法组件库</a>
       </div>
    </nav>
-    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav1" *ngIf="userInfo">
+    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav1" *ngIf="userInfo=='true'">
 <!--      <div class="nav_element" style="height: 120px;">
         <img src="assets/navigation/logo1.png" class="logo">
       </div>-->

@@ -70,6 +70,7 @@ export class ModelComponent {
   isPublic:boolean = false;
   allAuthority:any[]=[];
   publishModelAuthority:boolean = false;
+  saveTips:any[]=[];
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -267,6 +268,27 @@ export class ModelComponent {
       .subscribe(jobDetail => {
         this.isPublic = jobDetail.ifPublicSence;
         this.job = jobDetail;
+        let number:number=0;
+        if(Number(this.job.sences)<100){
+          number = 0;
+        }else{
+          number = 1;
+        }
+        this.modelService.getAllModel(this.job.jobName,this.job.sencesName,number,this.job.id)
+          .subscribe(result=>{
+            for(let i=0;i<result.content.length;i++){
+              if(result.content[i].ifShowFailReason){
+                let obj:any={};
+                obj.jobName = this.job.jobName;
+                obj.modelId = result.content[i].id;
+                obj.version = result.content[i].version;
+                obj.failReason = result.content[i].failReason;
+                obj.selected = true;
+                this.saveTips.push(obj);
+              }
+            }
+            console.log(this.saveTips);
+          })
     });
   }
   getDataset(){
@@ -292,11 +314,12 @@ export class ModelComponent {
          this.tipContent = "模型已开始发布！详情可查看：";
         },
         (error)=>{
-          this.showTip = true;
-          this.tipType = 'error';
-          this.tipWidth = "100%";
-          this.tipMargin = "20px auto 0";
-          this.tipContent = "模型发布失败！失败原因："+error.text();
+          if(error.status==417){
+            let obj:any={};
+            obj.jobName = this.job.jobName;
+            obj.failReason = error.text();
+            this.saveTips.push(obj);
+          }
         }
       )
   }
@@ -323,7 +346,6 @@ export class ModelComponent {
       .subscribe(model => {
         if(model.content.length>0){
           this.ModelInfo = model.content;
-          //console.log(this.ModelInfo);
           if(this.ModelInfo[0].percent==1) {
             clearInterval(this.perInterval);
           }
@@ -337,6 +359,17 @@ export class ModelComponent {
         this.pageParams = page;
         //console.log(this.pageParams);
       });
+  }
+  close(modelId,id){
+      this.modelService.updateIfShowFailReason(modelId)
+        .subscribe(result=>{
+          for(let i=0;i<this.saveTips.length;i++){
+            if(this.saveTips[i].id==id){
+              this.saveTips[i].selected = false;
+            }
+          }
+          console.log(result);
+        })
   }
   getPageData(paraParam){
     this.getData(paraParam.job_id,paraParam.curPage-1,paraParam.pageMaxItem);

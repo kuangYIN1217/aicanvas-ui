@@ -11,7 +11,7 @@
       <a href="#" onclick="return false" class="btn bgo" (click)="pre()" [ngClass]="{bggray:(markPhoto.length==1)||(showPhoto.fileId==markPhoto[0].fileId)}">上个文件</a>
       <a href="#" onclick="return false" class="btn bgo" (click)="next()" [ngClass]="{bggray:(markPhoto.length==1)||(showPhoto.fileId==markPhoto[markPhoto.length-1].fileId)}">下个文件</a>
       <a href="javascript:void(0)" id="min" class="btn bgo fr" style="margin-right: 20px" (click)="minFun()">缩小</a>
-      <a href="javascript:void(0)" class="zoom fr"><input type="text" value={{zoom}} [(ngModel)]="zoom"/><span>%</span></a>
+      <a href="javascript:void(0)" class="zoom fr"><input type="text" value={{zoom}} [(ngModel)]="zoom" readonly/><span>%</span></a>
       <a href="javascript:void(0)" id="max" class="btn bgo fr" (click)="maxFun()">放大</a>
     </div>
     <div class="mark-content" id="mark-content">

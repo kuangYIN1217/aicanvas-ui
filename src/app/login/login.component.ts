@@ -225,7 +225,7 @@ export class LoginComponent implements OnInit{
             // console.log(userService.getAccount());
             //console.log("already logined : ");
             //console.log(token);
-          this.router.navigate(['/userinfo']);
+          this.router.navigate(['/datasetssave']);
             // window.location.href = "/#/overview";
         }
     }
@@ -323,7 +323,7 @@ export class LoginComponent implements OnInit{
           localStorage['username']= username;
           localStorage['userAuthority']= "system";
           localStorage['allAuthority']= JSON.stringify(this.authority);
-          this.router.navigate(['/userinfo'])
+          this.router.navigate(['/datasetssave'])
         }
     }
 
