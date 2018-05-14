@@ -88,11 +88,11 @@ export class TaskStatusComponent{
      });*/
          if(this.pageNumber!=0||this.pageMax!=10){
            this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
-           clearInterval(this.interval1)
+           clearInterval(this.interval1);
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 10000);
          }else{
            // this.interval = setInterval(() =>this.updatePage(), 3000);
-           clearInterval(this.interval1)
+           clearInterval(this.interval1);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null), 10000);
          }
@@ -108,7 +108,12 @@ export class TaskStatusComponent{
     this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
   }
   sortPriority(){
-
+    if (this.s_sort_type == 'jobPriority,desc') {
+      this.s_sort_type = 'jobPriority,asc';
+    } else {
+      this.s_sort_type = 'jobPriority,desc';
+    }
+    this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
   }
   ngOnChanges(...args: any[]){
        this.getSceneId();
@@ -146,6 +151,11 @@ export class TaskStatusComponent{
       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
 
     }
+    lookDetail(job){
+      this.router.navigate(['../jobDetail'], {queryParams: {"job": JSON.stringify(job),"page": this.pageNow==0?this.pageNumber:this.pageNow}});
+      /*routerLinkActive="active" routerLink="/jobDetail/{{jobInfo.jobPath}}/{{pageNow==0?pageNumber:pageNow}}/{{JSON.stringify(jobInfo)}}"*/
+    }
+
     editJob(job){
       job.edit = true;
       this.router.navigate(['../createjob'], {queryParams: {"job": JSON.stringify(job),"page": this.pageNow}});
