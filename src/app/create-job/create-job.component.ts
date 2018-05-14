@@ -67,7 +67,6 @@ export class CreateJobComponent{
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.job = JSON.parse(params['job']);
-        console.log(params['job']);
         this.page = params['page'];
         this.jobName = this.job.jobName;
         this.markEdit = this.job.edit;

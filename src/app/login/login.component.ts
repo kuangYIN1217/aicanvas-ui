@@ -199,7 +199,7 @@ export class LoginComponent implements OnInit{
               "authorityType":"2"
             },
             "childAuthorityTreeDtos":null,
-            "hasAuthority":null
+            "hasAuthority":true
           }
         ],
         "hasAuthority":true
