@@ -11,6 +11,14 @@
           <span>任务名称{{item.jobName}}v{{item.version}}发布失败--{{item.failReason}}</span>
           <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close(item.id)"/>
         </div>
+        <div class="shrink" *ngIf="saveShowFail.length>2&&showMore" (click)="toggle()">
+          <img src="assets/jobcreation/look_more.png"/>
+          <span>查看更多</span>
+        </div>
+        <div class="shrink" *ngIf="saveShowFail.length>2&&!showMore">
+          <img src="assets/jobcreation/shouqi.png"/>
+          <span>收起消息</span>
+        </div>
       </div>
       <div class="search">
         <div class="searchContainer">

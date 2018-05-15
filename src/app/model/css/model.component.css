@@ -228,6 +228,19 @@ a{
   cursor: pointer;
 }
 
+.shrink{
+  color: #ff7c35;
+  font-size: 14px;
+  margin:10px 0;
+}
+.shrink img,.shrink span{
+  display: inline-block;
+  vertical-align: middle;
+}
+.shrink span{
+  margin-left: 4px;
+}
+
 
 
 

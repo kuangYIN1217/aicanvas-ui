@@ -23,6 +23,7 @@ export class PopupComponent {
   SERVER_URL = SERVER_URL_DATASETS;
   SERVER_URL1 = SERVER_URL;
   @Input() d_dataTypes: any;
+  @Input() d_tableData:any;
   s_select_datasetType: any; // type
   s_name: any;
   // 上传地址GET /api/dataSetUpload
@@ -415,7 +416,6 @@ export class PopupComponent {
           }else{
             this.showUpload[j].status = "上传失败";
           }
-
           if(status==400){
             this.showTip = true;
             this.tipMargin = "20px auto 0";
@@ -429,7 +429,9 @@ export class PopupComponent {
           //form.append(key2, value2);
         };
         //this.uploader.uploadAll();
-        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,"/home/deepthinker/dataset")
+        let path = this.d_tableData[0].dataPath;
+        console.log(path.split('dataset')[0]+"dataset");
+        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,path.split('dataset')[0]+"dataset")
           .subscribe(result=>{
             //console.log(result);
             for(var key in result[0]){

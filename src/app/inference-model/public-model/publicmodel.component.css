@@ -20,6 +20,12 @@
 .delete{
   background:url("../../../assets/api/shanchu.png") no-repeat;
 }
+.republish{
+  background:url("../../../assets/api/chongxinfabu.png") no-repeat;
+}
+.restart{
+  background:url("../../../assets/api/chongqifuwu.png") no-repeat;
+}
 .opearate{
   width:20px;
   height:20px;
