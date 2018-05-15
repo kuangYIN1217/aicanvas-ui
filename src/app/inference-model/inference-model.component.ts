@@ -66,7 +66,7 @@ export class InferenceModelComponent{
   }
   showFailReasonArrChange(event){
     this.saveShowFail = JSON.parse(event);
-    console.log(this.saveShowFail);
+    sessionStorage['checked']='';
   }
   showFailReasonChange(event){
     let result = JSON.parse(event);
@@ -76,8 +76,8 @@ export class InferenceModelComponent{
           this.lookFailReason[i].selected = true;
         }
       }
+      sessionStorage['checked']=JSON.stringify(this.lookFailReason);
       this.saveShowFail = this.lookFailReason;
-
   }
   close(id){
     for(let i=0;i<this.saveShowFail.length;i++){

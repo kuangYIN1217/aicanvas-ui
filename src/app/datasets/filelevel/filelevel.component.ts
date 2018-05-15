@@ -70,7 +70,8 @@ export class FileLevelComponent{
     }
   }
   outputImg(item){
-    return item.slice(26);
+    let path = item.split("dataset")[1];
+    return path.substring(1);
   }
   updateName(item,i){
     if(item.flag==undefined||item.flag!=1) {
