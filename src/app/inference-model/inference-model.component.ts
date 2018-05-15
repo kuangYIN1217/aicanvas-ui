@@ -44,9 +44,9 @@ export class InferenceModelComponent{
   saveShowFail:any[]=[];
   first:boolean = false;
   pageShowFailReason:boolean = false;
+  showMore:boolean = true;
   constructor(private sceneService: SceneService,private modelService: modelService,private route: ActivatedRoute , private router: Router) {
-      //this.getAllModel(-1,-1,this.s_nav_selected,this.page-1,this.pageMaxItem);
-    console.log(this.s_nav_selected);
+
   }
   ngOnInit() {
     calc_height(document.getElementById('table_section'));
@@ -62,6 +62,9 @@ export class InferenceModelComponent{
         this.jobId = params["jobId"];
       }
     });
+  }
+  toggle(){
+    this.showMore = !this.showMore;
   }
   pageShowFailReasonChange(event){
       this.pageShowFailReason = event;

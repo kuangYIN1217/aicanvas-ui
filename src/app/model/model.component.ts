@@ -71,6 +71,7 @@ export class ModelComponent {
   allAuthority:any[]=[];
   publishModelAuthority:boolean = false;
   saveTips:any[]=[];
+  showMore:boolean = true;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -163,7 +164,9 @@ export class ModelComponent {
       }
     }
     this.uploader.queue[this.times-1].upload(); // 开始上传
-    //console.log(this.container);
+  }
+  toggle(){
+    this.showMore = !this.showMore;
   }
   getDataSetPath(event){
     for(var key in event){
@@ -302,7 +305,6 @@ export class ModelComponent {
         this.modelPredictionIds.push(this.ModelInfo[i].id);
       }
     }
-    //console.log(this.modelPredictionIds);
     this.modelService.publishModel(this.job_id,this.modelPredictionIds)
       .subscribe(
         (result)=>{
@@ -314,9 +316,12 @@ export class ModelComponent {
         },
         (error)=>{
           if(error.status==417){
+            let result = error.json();
             let obj:any={};
             obj.jobName = this.job.jobName;
-            obj.failReason = error.text();
+            obj.modelId = result.id;
+            obj.version = result.version;
+            obj.failReason = result.failReason;
             this.saveTips.push(obj);
           }
         }

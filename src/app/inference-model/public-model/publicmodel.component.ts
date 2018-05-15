@@ -40,6 +40,35 @@ export class PublicModelComponent{
     this.pageShowFailReason = false;
     this.pageShowFailReasonChange.emit(this.pageShowFailReason);
   }
+  rePublish(item){
+    this.modelService.rePublishModel(item.jobId,item.id)
+      .subscribe(
+        (result)=>{
+
+      },
+        (error)=>{
+            if(error.status==417){
+              let result = error.json();
+              let obj:any={};
+              obj.jobName = result.jobName;
+              obj.modelId = result.id;
+              obj.version = result.version;
+              obj.failReason = result.failReason;
+              obj.ifShowFailReason = result.ifShowFailReason;
+              this.lookFailReason.push(obj);
+              let obj1:any={};
+              obj1.id = result.id;
+              obj1.list = this.lookFailReason;
+              this.showFailReasonChange.emit(JSON.stringify(obj1));
+            }
+        })
+  }
+  reStart(modelId){
+    this.modelService.reStartModel(modelId)
+      .subscribe(result=>{
+        console.log(result);
+      })
+  }
   getAllModel(jobName,senceName,number,jobId,page,size){
     this.modelService.getAllModel(jobName,senceName,number,jobId,page,size)
       .subscribe(result=>{

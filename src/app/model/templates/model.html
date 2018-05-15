@@ -6,6 +6,14 @@
       <span>训练任务{{item.jobName}}v{{item.version}}版本模型发布失败--{{item.failReason}}</span>
       <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close(item.modelId,item.id)"/>
     </div>
+    <div class="shrink" *ngIf="saveTips.length>2&&showMore" (click)="toggle()">
+      <img src="assets/jobcreation/look_more.png"/>
+      <span>查看更多</span>
+    </div>
+    <div class="shrink" *ngIf="saveTips.length>2&&!showMore">
+      <img src="assets/jobcreation/shouqi.png"/>
+      <span>收起消息</span>
+    </div>
   </div>
   <div class="button_location">
     <a href="#" class="btn gray" onclick="return false" (click)="back()">返回</a>

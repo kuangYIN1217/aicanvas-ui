@@ -20,15 +20,17 @@
       <td title="{{item.senceName}}">{{item.senceName}}</td>
       <td>{{item.version}}</td>
       <td>{{item.status}}</td>
-      <td>{{item.serviceStatus}}</td>
+      <td>{{item.serviceStatus==null?'-':item.serviceStatus}}</td>
       <td title="{{item.restfulUrl}}">{{item.restfulUrl}}</td>
       <td>{{item.size}}</td>
       <td>{{item.user.login}}</td>
       <td>{{item.createTime}}</td>
       <td>
-        <a href="javascript:void(0)" class="opearate delete" (click)="delete(item.id)" title="删除模型" *ngIf="item.status!='发布中'"></a>
         <a href="{{item.apiUrl}}" target="_blank" class="opearate see" *ngIf="item.status=='发布成功'" title="查看模型"></a>
         <a href="javascript:void(0)" class="opearate fail" *ngIf="item.status=='发布失败'" (click)="publishFail(item.id)" title="查看失败原因"></a>
+        <a href="javascript:void(0)" class="opearate delete" (click)="delete(item.id)" title="删除模型" *ngIf="item.status!='发布中'"></a>
+        <a href="javascript:void(0)" class="opearate republish" (click)="rePublish(item)" title="重新发布" *ngIf="item.serviceStatus==null"></a>
+        <a href="javascript:void(0)" class="opearate restart" (click)="reStart(item.id)" title="重启服务" *ngIf="item.serviceStatus=='服务异常'"></a>
       </td>
     </tr>
   </table>

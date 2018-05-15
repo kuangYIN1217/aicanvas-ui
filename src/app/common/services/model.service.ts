@@ -104,6 +104,30 @@ export class modelService {
         }
       });
   }
+  rePublishModel(jobId,modelId){
+    let path = "/api/modelPublish";
+    let modelVo = JSON.stringify({
+      "jobId": jobId,
+      "modelId": modelId
+    });
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL+path,modelVo,{ headers : headers})
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
+  }
+  reStartModel(modelId){
+    let path = "/api/publishModelAgain/"+modelId;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path,{ headers : headers})
+      .map((response: Response) => {
+        if (response) {
+          return response;
+        }
+      });
+  }
     saveModelAndUpload(name, jobId, file) {
         let path = "/api/model";
         let body = JSON.stringify({
