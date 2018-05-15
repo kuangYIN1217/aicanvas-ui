@@ -205,6 +205,8 @@ export class CreateJobComponent{
   }
   chooseScene(index,sceneIndex,scene){
     this.fileCount = 0;
+    this.dataId = -1;
+    document.getElementById("backup_dataset").innerHTML = "";
     for(let i=0;i<this.showScene.length;i++){
       for(let j=0;j<this.showScene[i].length;j++){
         this.showScene[i][j].selected = false;
