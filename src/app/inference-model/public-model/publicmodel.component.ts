@@ -17,6 +17,7 @@ export class PublicModelComponent{
   @Input() senceName:any='';
   @Input() jobId:any=0;
   @Output() showFailReasonChange: EventEmitter<any> = new EventEmitter();
+  @Output() showFailReasonArrChange: EventEmitter<any> = new EventEmitter();
   dataIndex:number=0;
   modelList:any[]=[];
   page: number = 1;
@@ -83,6 +84,7 @@ export class PublicModelComponent{
                 this.lookFailReason.push(obj);
               }
           }
+          this.showFailReasonArrChange.emit(JSON.stringify(this.lookFailReason));
           let page = new Page();
           page.pageMaxItem = result.size;
           page.curPage = result.number+1;

@@ -30,7 +30,7 @@
         </div>
       </div>
       <my-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===1" (showIdChange)="showIdChange($event)" (failChange)="failChange($event)"></my-model>
-      <public-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===0"  (showFailReasonChange)="showFailReasonChange($event)"></public-model>
+      <public-model  [s_nav_selected]="s_nav_selected" [jobName]="job" [senceName]="sence" [jobId]="jobId" *ngIf="s_nav_selected===0"  (showFailReasonChange)="showFailReasonChange($event)" (showFailReasonArrChange)="showFailReasonArrChange($event)"></public-model>
     </div>
   </div>
 </div>

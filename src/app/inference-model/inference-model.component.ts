@@ -64,6 +64,10 @@ export class InferenceModelComponent{
   toggle(){
     this.showMore = !this.showMore;
   }
+  showFailReasonArrChange(event){
+    this.saveShowFail = JSON.parse(event);
+    console.log(this.saveShowFail);
+  }
   showFailReasonChange(event){
     let result = JSON.parse(event);
     this.lookFailReason = result.list;
