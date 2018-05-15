@@ -1,25 +1,26 @@
 <div class="mymodel-table">
   <table class="table">
     <tr>
-      <th style="width: 5%;">序号</th>
-      <th style="width: 12%;">任务名称</th>
-      <th style="width: 10%;">场景名称</th>
-      <th style="width: 6%;">服务版本号</th>
+      <th style="width: 6%;">序号</th>
+      <th style="width: 10%;">任务名称</th>
+      <th style="width: 8%;">场景名称</th>
+      <th style="width: 8%;">服务版本号</th>
       <th style="width: 8%;">发布状态</th>
-      <th style="width: 22%;">RESTful API地址</th>
+      <th style="width: 8%;">服务状态</th>
+      <th style="width: 18%;">RESTful API地址</th>
       <th style="width: 7%;">存储空间</th>
-      <th style="width: 8%;">创建者</th>
-      <th style="width: 14%;">创建时间</th>
-      <th style="width: 8%;">操作</th>
+      <th style="width: 7%;">创建者</th>
+      <th style="width: 10%;">创建时间</th>
+      <th style="width: 10%;">操作</th>
     </tr>
-    <cpt-nodata [style.display]="dataIndex == 0?'':'none'" [colspan]="10"></cpt-nodata>
+    <cpt-nodata [style.display]="dataIndex == 0?'':'none'" [colspan]="11"></cpt-nodata>
     <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
       <td>{{i+1}}</td>
       <td title="{{item.jobName}}">{{item.jobName}}</td>
       <td title="{{item.senceName}}">{{item.senceName}}</td>
       <td>{{item.version}}</td>
       <td>{{item.status}}</td>
-<!--      <td style="width: 232px;padding-left: 36px">{{item.gRPC}}</td>-->
+      <td>{{item.serviceStatus==null?'-':item.serviceStatus}}</td>
       <td title="{{item.restfulUrl}}">{{item.restfulUrl}}</td>
       <td>{{item.size}}</td>
       <td>{{item.user.login}}</td>

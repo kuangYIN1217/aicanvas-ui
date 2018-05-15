@@ -18,7 +18,7 @@
   <div class="button_location">
     <a href="#" class="btn gray" onclick="return false" (click)="back()">返回</a>
     <a href="#" class="btn green" onclick="return false" (click)="deduction()">新增推演</a>
-    <a class="btn green" href="javascript:void(0)" (click)="publish()" *ngIf="(job?.sencesName=='命名实体识别'||job?.sencesName=='图像分类')&&publishModelAuthority">模型发布</a>
+    <a class="btn green" href="javascript:void(0)" (click)="publish()" *ngIf="(job?.sencesName=='命名实体识别'||job?.sencesName=='图像分类'||job?.sencesName=='文本分类'||job?.sencesName=='语义词向量'||job?.sencesName=='神经语义分割'||job?.sencesName=='图像检测'||job?.sencesName=='情感分析')&&publishModelAuthority">模型发布</a>
   </div>
   <!--<publish-model [(showModel)]="showModel" [publishStatus]="publishStatus" [errorInfo]="errorInfo"></publish-model>-->
   <div class="nav">

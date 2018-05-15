@@ -100,6 +100,7 @@ export class TaskStatusComponent{
     //this.getSceneId();
    }
   sortTime(){
+    document.getElementById("jobPrioritySort").setAttribute("src","assets/taskStatus/taskStatusSort.png");
     if (this.s_sort_type == 'createTime,desc') {
       this.s_sort_type = 'createTime,asc';
       document.getElementById("timeSort").setAttribute("src","assets/taskStatus/up.png");
@@ -110,10 +111,13 @@ export class TaskStatusComponent{
     this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
   }
   sortPriority(){
+    document.getElementById("timeSort").setAttribute("src","assets/taskStatus/taskStatusSort.png");
     if (this.s_sort_type == 'jobPriority,desc') {
       this.s_sort_type = 'jobPriority,asc';
+      document.getElementById("jobPrioritySort").setAttribute("src","assets/taskStatus/up.png");
     } else {
       this.s_sort_type = 'jobPriority,desc';
+      document.getElementById("jobPrioritySort").setAttribute("src","assets/taskStatus/down.png");
     }
     this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
   }

@@ -42,8 +42,6 @@ export class InferenceModelComponent{
   isPublic:boolean;
   lookFailReason:any[]=[];
   saveShowFail:any[]=[];
-  first:boolean = false;
-  pageShowFailReason:boolean = false;
   showMore:boolean = true;
   constructor(private sceneService: SceneService,private modelService: modelService,private route: ActivatedRoute , private router: Router) {
 
@@ -66,30 +64,15 @@ export class InferenceModelComponent{
   toggle(){
     this.showMore = !this.showMore;
   }
-  pageShowFailReasonChange(event){
-      this.pageShowFailReason = event;
-      if(!this.pageShowFailReason){
-        this.saveShowFail=[];
-      }
-  };
   showFailReasonChange(event){
     let result = JSON.parse(event);
     this.lookFailReason = result.list;
-    if(!this.first&&this.pageShowFailReason){
-      this.first = true;
       for(let i=0;i<this.lookFailReason.length;i++){
         if(this.lookFailReason[i].id==result.id){
           this.lookFailReason[i].selected = true;
         }
       }
       this.saveShowFail = this.lookFailReason;
-    }else{
-      for(let i=0;i<this.saveShowFail.length;i++){
-        if(this.saveShowFail[i].id==result.id){
-          this.saveShowFail[i].selected = true;
-        }
-      }
-    }
 
   }
   close(id){
@@ -101,7 +84,6 @@ export class InferenceModelComponent{
   }
   $nav_click(index) {
     this.s_nav_selected = index;
-    this.first = false;
     this.saveShowFail=[];
   }
   $search_change(){

@@ -221,9 +221,11 @@ export class CreateJobComponent{
         this.arr = results;
         if(this.markEdit){
           for(let i=0;i<this.arr.length;i++){
-            if((this.job.chainName!="")&&(this.job.chainName.indexOf(this.arr[i].chain_name)!=-1)){
-              this.firstSceneId = this.arr[i].id;
-              break;
+            if(this.job.chainName){
+              if((this.job.chainName!="")&&(this.job.chainName.indexOf(this.arr[i].chain_name)!=-1)){
+                this.firstSceneId = this.arr[i].id;
+                break;
+              }
             }
           }
         }
@@ -468,6 +470,7 @@ export class CreateJobComponent{
       this.loading = true;
       this.createJob(chainId, dataId,chosenSceneId);
     }else{
+      this.loading = true;
       this.saveJob(chainId, dataId,chosenSceneId);
     }
   }
@@ -494,10 +497,12 @@ export class CreateJobComponent{
       .subscribe(
         (editJob) => {
           this.router.navigate(['/jobcreation']);
+          this.loading = false;
           this.click_flag = true;
         },
         (error) =>{
           if(error.status==417){
+            this.loading = false;
             this.s_error_show = true;
             this.s_error_message = error.text();
             this.s_error_level = "error";

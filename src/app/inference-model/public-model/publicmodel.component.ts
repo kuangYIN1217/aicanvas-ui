@@ -17,7 +17,6 @@ export class PublicModelComponent{
   @Input() senceName:any='';
   @Input() jobId:any=0;
   @Output() showFailReasonChange: EventEmitter<any> = new EventEmitter();
-  @Output() pageShowFailReasonChange: EventEmitter<any> = new EventEmitter();
   dataIndex:number=0;
   modelList:any[]=[];
   page: number = 1;
@@ -27,7 +26,6 @@ export class PublicModelComponent{
   curPage:number = 1;
   pageNow:number;
   lookFailReason:any[]=[];
-  pageShowFailReason:boolean = false;
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
@@ -37,8 +35,6 @@ export class PublicModelComponent{
   getPageData(paraParam){
     this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,paraParam.curPage-1,paraParam.pageMaxItem);
     this.pageNow=paraParam.curPage;
-    this.pageShowFailReason = false;
-    this.pageShowFailReasonChange.emit(this.pageShowFailReason);
   }
   rePublish(item){
     this.modelService.rePublishModel(item.jobId,item.id)
@@ -66,18 +62,16 @@ export class PublicModelComponent{
   reStart(modelId){
     this.modelService.reStartModel(modelId)
       .subscribe(result=>{
-        console.log(result);
+        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page-1,this.pageMaxItem);
       })
   }
   getAllModel(jobName,senceName,number,jobId,page,size){
     this.modelService.getAllModel(jobName,senceName,number,jobId,page,size)
       .subscribe(result=>{
+        this.lookFailReason=[];
         if(result&&result.content.length>0){
           this.dataIndex=1;
           this.modelList = result.content;
-          if(!this.pageShowFailReason){
-            this.pageShowFailReason = true;
-          }
           for(let i=0;i<this.modelList.length;i++){
               if(this.modelList[i].status=="发布失败"){
                 let obj:any={};
@@ -89,7 +83,6 @@ export class PublicModelComponent{
                 this.lookFailReason.push(obj);
               }
           }
-          this.pageShowFailReasonChange.emit(this.pageShowFailReason);
           let page = new Page();
           page.pageMaxItem = result.size;
           page.curPage = result.number+1;

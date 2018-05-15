@@ -1,19 +1,19 @@
 <div class="mymodel-table">
   <table class="table">
     <tr>
-      <th>序号</th>
-      <th>任务名称</th>
-      <th>场景名称</th>
-      <th>服务版本号</th>
-      <th>发布状态</th>
-      <th>服务状态</th>
-      <th>RESTful API地址</th>
-      <th>存储空间</th>
-      <th>创建者</th>
-      <th>创建时间</th>
-      <th>操作</th>
+      <th style="width: 6%;">序号</th>
+      <th style="width: 10%;">任务名称</th>
+      <th style="width: 8%;">场景名称</th>
+      <th style="width: 8%;">服务版本号</th>
+      <th style="width: 8%;">发布状态</th>
+      <th style="width: 8%;">服务状态</th>
+      <th style="width: 18%;">RESTful API地址</th>
+      <th style="width: 7%;">存储空间</th>
+      <th style="width: 7%;">创建者</th>
+      <th style="width: 10%;">创建时间</th>
+      <th style="width: 10%;">操作</th>
     </tr>
-    <cpt-nodata *ngIf="dataIndex == 0" [colspan]="10"></cpt-nodata>
+    <cpt-nodata *ngIf="dataIndex == 0" [colspan]="11"></cpt-nodata>
     <tr  [style.display]="dataIndex == 1?'':'none'" *ngFor="let item of modelList;let i=index">
       <td>{{i+1}}</td>
       <td title="{{item.jobName}}">{{item.jobName}}</td>
