@@ -92,13 +92,21 @@ export class CreateJobComponent{
             this.getChainAndDataset(this.job.sences);
           });
         this.firstSceneId = this.job.chainId;
-        this.gpuorder = this.job.gpuNum;
+        if(this.job.gpuNum==null){
+          this.gpuorder = '-1';
+        }else{
+          this.gpuorder = this.job.gpuNum;
+        }
         if(this.job.practiceRate>0){
           this.dataFirst = this.job.practiceRate;
           this.dataSecond = this.job.alidateRate;
           this.dataThird = this.job.testRate;
         }
-        this.jobPriority = this.job.jobPriority;
+        if(this.job.jobPriority==null){
+          this.jobPriority = '-1';
+        }else{
+          this.jobPriority = this.job.jobPriority;
+        }
       }
     });
     if(!this.markEdit){
@@ -249,7 +257,7 @@ export class CreateJobComponent{
   }
 
   chooseImg(item){
-    if(item.flag != 1){
+    if(item.flag==undefined||item.flag != 1){
       for(let i=0;i<this.datasetsType.length;i++){
         this.datasetsType[i].flag = 2;
       }
