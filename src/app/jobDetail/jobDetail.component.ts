@@ -307,6 +307,19 @@ export class JobDetailComponent {
               clearInterval(this.interval);
             }
           }
+          if(this.job.status == '异常'){
+            this.jobService.getJobDetailById(this.job.id)
+              .subscribe(result=>{
+                console.log(result);
+                this.showTip = true;
+                this.tipMargin = "0 auto 20px";
+                this.tipWidth = "100%";
+                this.tipType = "error";
+                this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;
+              })
+          }else{
+            this.showTip = false;
+          }
           this.user = this.job.user;
         });
       }, 1000);
@@ -395,6 +408,13 @@ export class JobDetailComponent {
         this.datasetPath = this.jobInfo.datasetPath;
         this.pageNumber = params['page'];
         let jobPath = this.jobInfo.jobPath;
+        if(this.jobInfo.status=='异常'){
+          this.showTip = true;
+          this.tipMargin = "0 auto 20px";
+          this.tipWidth = "100%";
+          this.tipType = "error";
+          this.tipContent = this.jobInfo.jobName+"任务运行异常 ——"+this.jobInfo.failReason;
+        }
         if (jobPath) {
           jobPath = unescape(jobPath);
           this.jobPath = jobPath;
