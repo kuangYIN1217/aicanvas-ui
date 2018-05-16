@@ -548,7 +548,7 @@ export class MarkComponent{
       $this.cxt.putImageData($this.imgData,0,0);
     };
     this.img.crossOrigin = 'anonymous';
-    this.img.src = `${SERVER_URL}/download/${(this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName).slice(26)}`;
+    this.img.src = `${SERVER_URL}/download/${(this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName).split('dataset')[1].substring(1)}`;
   }
   pre(){
     this.zoom = 100;

@@ -1,16 +1,16 @@
 <div class="container">
   <div style="padding: 0 30px;">
     <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" (showTipChange)="showTipChange(event)"></uniform-tips>
-    <div class="tips-content" *ngFor="let item of saveTips">
+    <div class="tips-content" *ngFor="let item of ShowSaveTips">
       <img src="assets/uniform-tips/cuowu.png" class="icon"/>
       <span>训练任务{{item.jobName}}v{{item.version}}版本模型发布失败--{{item.failReason}}</span>
       <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close(item.modelId,item.id)"/>
     </div>
-    <div class="shrink" *ngIf="saveTips.length>2&&showMore" (click)="toggle()">
+    <div class="shrink" *ngIf="ShowSaveTips.length>2&&showMore" (click)="toggle()">
       <img src="assets/jobcreation/look_more.png"/>
       <span>查看更多</span>
     </div>
-    <div class="shrink" *ngIf="saveTips.length>2&&!showMore">
+    <div class="shrink" *ngIf="ShowSaveTips.length>2&&!showMore" (click)="toggle()">
       <img src="assets/jobcreation/shouqi.png"/>
       <span>收起消息</span>
     </div>

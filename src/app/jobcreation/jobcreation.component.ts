@@ -694,7 +694,7 @@ export class JobCreationComponent {
     this.showTip = true;
     this.tipWidth = "100%";
     this.tipType = "error";
-    this.tipContent = "测试版本下最多同时运行三个任务！";
+    this.tipContent = "测试版本下最多同时运行五个任务！";
     this.tipMargin = "0 auto";
   }
   nodeClicked() {
@@ -730,18 +730,6 @@ export class JobCreationComponent {
     }
   }
 
-
-  checkStatus(status, sence, jobPath) {
-    if (status == 'Finished') {
-      this.modelService.getStatue(jobPath).subscribe(data => {
-        this.router.navigate(['../model'], {queryParams: {sence: sence}});
-      });
-      //TODO if success give alert
-
-    } else {
-      return false;
-    }
-  }
 
   getTotals(num) {
     if (this.PluginInfo.length % num == 0) {

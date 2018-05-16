@@ -32,7 +32,7 @@
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
-  margin-right: 8px;
+  margin-right: 4px;
 }
 .fail{
   background:url("../../../assets/api/chakanshibai.png") no-repeat;

@@ -20,7 +20,7 @@ export class PublicModelComponent{
   @Output() showFailReasonArrChange: EventEmitter<any> = new EventEmitter();
   dataIndex:number=0;
   modelList:any[]=[];
-  page: number = 1;
+  page: number = 0;
   pageMaxItem: number = 10;
   pageParams=new Page();
   totalPage:number = 0;
@@ -32,17 +32,18 @@ export class PublicModelComponent{
 
   }
   ngOnChanges(...args: any[]) {
-    this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page-1,this.pageMaxItem);
+    this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
   }
   getPageData(paraParam){
     this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,paraParam.curPage-1,paraParam.pageMaxItem);
-    this.pageNow=paraParam.curPage;
+    this.page = paraParam.curPage-1;
+    this.pageMaxItem = paraParam.pageMaxItem;
   }
   rePublish(item){
     this.modelService.rePublishModel(item.jobId,item.id)
       .subscribe(
         (result)=>{
-
+          this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
       },
         (error)=>{
             if(error.status==417){
@@ -64,7 +65,7 @@ export class PublicModelComponent{
   reStart(modelId){
     this.modelService.reStartModel(modelId)
       .subscribe(result=>{
-        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page-1,this.pageMaxItem);
+        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
       })
   }
   getAllModel(jobName,senceName,number,jobId,page,size){
@@ -101,7 +102,7 @@ export class PublicModelComponent{
   delete(modelId){
     this.modelService.deleteModel(modelId)
       .subscribe(result=>{
-        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.pageNow,this.pageMaxItem);
+        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
       })
   }
   publishFail(id){
