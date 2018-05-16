@@ -125,7 +125,10 @@ export class CreateJobComponent{
         for(let i=num;i>0;i--){
           arr.push(this.scenes[this.scenes.length-i]);
         }
-        this.showScene.push(arr);
+        if(arr.length>0){
+          this.showScene.push(arr);
+        }
+
   }
   getDataSets(type,creator){
     this.datasetsService.createJobGetDatasets(type,'')
