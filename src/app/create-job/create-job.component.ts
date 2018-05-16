@@ -411,13 +411,6 @@ export class CreateJobComponent{
         return false;
       }
     }
-    if(this.gpuorder=='-1'){
-      this.s_error_show = true;
-      this.s_error_message = '请选择GPU编号';
-      this.s_error_level = "error";
-      this.click_flag = true;
-      return false;
-    }
     if(!this.dataFirst){
       if(this.student==15||this.student==11){
 
@@ -460,13 +453,6 @@ export class CreateJobComponent{
         this.click_flag = true;
         return false
       }
-    }
-    if (!this.jobPriority || this.jobPriority == "-1") {
-      this.s_error_show = true;
-      this.s_error_message = '请设置优先级';
-      this.s_error_level = "error";
-      this.click_flag = true;
-      return false;
     }
     if(!this.markEdit){
       this.loading = true;

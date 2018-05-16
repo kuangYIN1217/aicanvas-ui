@@ -47,7 +47,7 @@
         </div>-->
         <div class="row" style="margin-bottom: 10px">
           <div class="row_tr">
-            <span class="span"><label class="mustColor">*</label>GPU分配：</span>
+            <span class="span">GPU分配：</span>
             <label>个数</label>
             <select class="order" [(ngModel)]="gpuorder" (ngModelChange)="gpuorder=$event;gpuChange()">
               <option value="-1">--请选择--</option>
@@ -94,12 +94,12 @@
         </div>
         <div class="row">
           <div class="row_tr">
-            <span class="span height"><label class="mustColor">*</label>所选记录数：</span><span class="middle height">{{fileCount}}</span>
+            <span class="span height">所选记录数：</span><span class="middle height">{{fileCount}}</span>
           </div>
         </div>
         <div class="row" style="margin-bottom: 10px">
           <div class="row_tr">
-            <span class="span"><label class="mustColor">*</label>设置优先级：</span>
+            <span class="span">设置优先级：</span>
             <select class="select" name="scene_select" [(ngModel)]="jobPriority">
               <option selected value="-1">--请选择优先级(依次从高到低)--</option>
               <option *ngFor="let item of priorityArr" value={{item}}>{{item}}</option>

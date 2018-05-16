@@ -600,7 +600,6 @@ export class MarkComponent{
   }
   getSrc(item){
     let path = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
-    //console.log(path);
     let url = path.split('dataset')[1];
     return `${SERVER_URL}/download/${url.substring(1)}`;
   }

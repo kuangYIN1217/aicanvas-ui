@@ -74,6 +74,8 @@ export class InferenceModelComponent{
   }
   showFailReasonArrChange(event){
     this.saveShowFail = JSON.parse(event);
+    this.failReason=[];
+    this.showFailReason=[];
   }
   showFailReasonChange(event){
     let result = JSON.parse(event);
@@ -126,6 +128,8 @@ export class InferenceModelComponent{
   $nav_click(index) {
     this.s_nav_selected = index;
     this.saveShowFail=[];
+    this.failReason=[];
+    this.showFailReason=[];
   }
   $search_change(){
     this.judgeJob();

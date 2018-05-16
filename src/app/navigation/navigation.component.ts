@@ -109,7 +109,7 @@ export class NavigationComponent {
     } else if (this.location.path().match('/jobcreation')||this.location.isCurrentPathEqualTo('/createjob') ||this.location.path().match('/createjob')|| this.location.path().match(/\/jobDetail/)|| this.location.path().match(/\/model/)) {
       this.focusTab = 5;
       // this.needhide = 0;
-    } else if (this.location.isCurrentPathEqualTo('/datasets')||this.location.path().match('/enterdataset')) {
+    } else if (this.location.isCurrentPathEqualTo('/datasets')||this.location.path().match('/enterdataset')||this.location.path().match('/mark')) {
       this.focusTab = 3;
       // this.needhide = 0;
     } else if (this.location.isCurrentPathEqualTo('/inferenceModel')||this.location.path().match(/\/inferenceModel/)) {

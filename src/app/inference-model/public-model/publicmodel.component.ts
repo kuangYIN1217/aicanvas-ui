@@ -98,16 +98,6 @@ export class PublicModelComponent{
         }
       })
   }
-  getWidth(){
-    return{
-      "width":"2200px"
-    }
-  }
-  getScroll(){
-    return{
-      "overflow-x":"scroll"
-    }
-  }
   delete(modelId){
     this.modelService.deleteModel(modelId)
       .subscribe(result=>{
