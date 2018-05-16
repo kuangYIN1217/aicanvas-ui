@@ -27,6 +27,7 @@ export class PublicModelComponent{
   curPage:number = 1;
   pageNow:number;
   lookFailReason:any[]=[];
+  first:boolean = false;
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
@@ -73,6 +74,7 @@ export class PublicModelComponent{
         if(result&&result.content.length>0){
           this.dataIndex=1;
           this.modelList = result.content;
+          this.first = true;
           for(let i=0;i<this.modelList.length;i++){
               if(this.modelList[i].status=="发布失败"){
                 let obj:any={};
@@ -113,9 +115,17 @@ export class PublicModelComponent{
       })
   }
   publishFail(id){
-    let obj:any={};
-    obj.id = id;
-    obj.list = this.lookFailReason;
-    this.showFailReasonChange.emit(JSON.stringify(obj));
+    if(this.first){
+      let obj:any={};
+      obj.id = id;
+      obj.list = this.lookFailReason;
+      this.showFailReasonChange.emit(JSON.stringify(obj));
+    }else{
+      let obj:any={};
+      obj.id = id;
+      obj.list = [];
+      this.showFailReasonChange.emit(JSON.stringify(obj));
+    }
+    this.first = false;
   }
 }

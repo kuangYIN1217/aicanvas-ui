@@ -195,9 +195,9 @@ export class DatasetsDetailComponent{
         return 'assets/datasets/file/sjxq_wjj.png';
       }else if(key.indexOf("image")!=-1){
         let temp = item[key].split('$');
-        let path = temp[0].substring(26);
+        let path = temp[0].split('dataset')[1];
         //let path = item[key].substring(26);
-        return `${SERVER_URL}/download/${path}`;
+        return `${SERVER_URL}/download/${path.substring(1)}`;
       }else if(key.indexOf("txt")!=-1){
         return 'assets/datasets/file/wb.png';
       }else if(key.indexOf("video")!=-1){

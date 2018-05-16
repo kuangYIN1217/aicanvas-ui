@@ -601,7 +601,8 @@ export class MarkComponent{
   getSrc(item){
     let path = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
     //console.log(path);
-    return `${SERVER_URL}/download/${path.slice(26)}`;
+    let url = path.split('dataset')[1];
+    return `${SERVER_URL}/download/${url.substring(1)}`;
   }
   getMarkDiv(){
     let height = $("#mark-content").height();

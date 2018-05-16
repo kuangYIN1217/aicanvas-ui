@@ -43,6 +43,9 @@ export class InferenceModelComponent{
   lookFailReason:any[]=[];
   saveShowFail:any[]=[];
   showMore:boolean = true;
+  failReason:any[]=[];
+  showFailReason:any[]=[];
+  showIndex:number=0;
   constructor(private sceneService: SceneService,private modelService: modelService,private route: ActivatedRoute , private router: Router) {
 
   }
@@ -62,28 +65,62 @@ export class InferenceModelComponent{
     });
   }
   toggle(){
+    if(this.showMore){
+      this.showFailReason = this.failReason;
+    }else{
+      this.showFailReason = this.failReason.slice(0,2);
+    }
     this.showMore = !this.showMore;
   }
   showFailReasonArrChange(event){
     this.saveShowFail = JSON.parse(event);
-    sessionStorage['checked']='';
   }
   showFailReasonChange(event){
     let result = JSON.parse(event);
-    this.lookFailReason = result.list;
-      for(let i=0;i<this.lookFailReason.length;i++){
-        if(this.lookFailReason[i].id==result.id){
-          this.lookFailReason[i].selected = true;
-        }
+    if(result.list.length>0){
+      this.lookFailReason = result.list;
+    }
+    for(let i=0;i<this.lookFailReason.length;i++){
+      if(this.lookFailReason[i].id==result.id){
+        this.lookFailReason[i].selected = true;
       }
-      sessionStorage['checked']=JSON.stringify(this.lookFailReason);
+    }
       this.saveShowFail = this.lookFailReason;
+      this.failReason=[];
+      this.showFailReason=[];
+    for(let i=0;i<this.saveShowFail.length;i++){
+      if(this.saveShowFail[i].selected){
+          this.failReason.push(this.saveShowFail[i]);
+      }
+    }
+    if(this.failReason.length>2){
+      this.showMore = true;
+      this.showFailReason = this.failReason.slice(0,2);
+    }else{
+      this.showFailReason = this.failReason;
+    }
   }
   close(id){
     for(let i=0;i<this.saveShowFail.length;i++){
       if(this.saveShowFail[i].id==id){
         this.saveShowFail[i].selected = false;
       }
+    }
+    for(let i=0;i<this.failReason.length;i++) {
+      if (this.failReason[i].id == id) {
+        this.failReason.splice(i, 1);
+      }
+    }
+      for(let i=0;i<this.showFailReason.length;i++){
+        if(this.showFailReason[i].id==id){
+          this.showFailReason.splice(i,1);
+        }
+    }
+    if(this.failReason.length>2){
+      this.showMore = true;
+      this.showFailReason = this.failReason.slice(0,2);
+    }else{
+      this.showFailReason = this.failReason;
     }
   }
   $nav_click(index) {

@@ -4,7 +4,7 @@
       <div class="error">
         <cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>
       </div>
-      <h3>{{markEdit?'新建任务':'修改任务'}}</h3>
+      <h3>{{!markEdit?'新建任务':'修改任务'}}</h3>
       <div class="allContent">
         <div class="row">
           <div class="row_tr">
