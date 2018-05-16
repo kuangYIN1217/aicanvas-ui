@@ -135,6 +135,9 @@ export class JobDetailComponent {
   deductionAuthority:boolean = false;
   lookDatasetsAuthority:boolean = false;
   jobInfo:any={};
+
+  dataId:string='';
+  datasetPath:string='';
   constructor(private route: ActivatedRoute ,private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -388,6 +391,8 @@ export class JobDetailComponent {
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.jobInfo = JSON.parse(params['job']);
+        this.dataId = this.jobInfo.dataSet;
+        this.datasetPath = this.jobInfo.datasetPath;
         this.pageNumber = params['page'];
         let jobPath = this.jobInfo.jobPath;
         if (jobPath) {

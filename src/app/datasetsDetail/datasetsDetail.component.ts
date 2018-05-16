@@ -21,6 +21,8 @@ export class DatasetsDetailComponent{
   @Input() test:string;
   @Input() train:string;
   @Input() valid:string;
+  @Input() dataId:string='';
+  @Input() datasetPath:string='';
   @Output() showChange: EventEmitter<any> = new EventEmitter();
   @Output() uploadPathChange: EventEmitter<any> = new EventEmitter();
   data:any={};
@@ -72,20 +74,19 @@ export class DatasetsDetailComponent{
       //console.log(this.jobPath);
       this.dataPath.push('全部文件');
       this.arr = this.dataPath;
-      console.log(this.arr);
       this.index=1;
       this.label=["train","valid"];
       this.getFile(this.jobPath,this.label);
       this.getTestResult(this.jobPath,[this.train,this.valid],null,this.judgeSearch(),this.page,this.pageMaxItem);
     }
     if(this.jobPath){
-      this.jobService.getDataId(this.jobPath)
-        .subscribe(result=>{
-          this.datasetservice.getDataInfo(result)
+     // this.jobService.getDataId(this.jobPath)
+       // .subscribe(result=>{
+          this.jobService.getDatasetBackupInfo(this.dataId,this.datasetPath)
             .subscribe(rep=>{
                 this.dataInfo = rep;
             });
-        })
+        //})
     }
   }
   select_name(event){
@@ -129,7 +130,6 @@ export class DatasetsDetailComponent{
       this.indexLevel = 0;
     }
     this.data = JSON.parse(result.text());
-    console.log(this.data);
 /*    for(var key in this.data.content){
       this.dataKey.push(key);
       this.dataSet.push(this.data.content[key]);

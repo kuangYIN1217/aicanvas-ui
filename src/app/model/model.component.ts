@@ -73,6 +73,7 @@ export class ModelComponent {
   saveTips:any[]=[];
   showSaveTips:any[]=[];
   showMore:boolean = true;
+
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -272,6 +273,7 @@ export class ModelComponent {
                 this.saveTips.push(obj);
               }
             }
+            console.log(this.saveTips);
             if(this.saveTips.length>2){
               this.showMore = true;
               this.showSaveTips = this.saveTips.slice(0,2);

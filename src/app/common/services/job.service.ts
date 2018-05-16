@@ -293,6 +293,16 @@ export class JobService {
         }
       });
   }
+  getDatasetBackupInfo(dataId,backupPath){
+    let path = "/api/getDatasetBackupInfo/" + dataId +"?datasetPath="+backupPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
   getDataId(jobPath){
     let path = "/api/findDatasetId/" + jobPath;
     let headers = this.getHeaders();
