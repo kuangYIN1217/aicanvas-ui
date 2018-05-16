@@ -309,7 +309,7 @@ export class EnterDatasetComponent {
       this.datasetservice.backupDataset(this.backup)
         .subscribe((result)=>{
           this.loading = false;
-          this.downloadPath = result.substring(26);
+          this.downloadPath = result.split('dataset')[1].substring(1);
           this.downloadBackup(this.downloadPath);
         },
           (error)=>{

@@ -64,7 +64,7 @@
         </div>
         <div class="row" style="height: auto;line-height: normal;">
           <div class="row_tr">
-            <span class="span">数据集：</span>
+            <span class="span"><label class="mustColor">*</label>数据集：</span>
             <div>
               <div class="classification">
                 <img *ngFor="let item of datasetsType" [src]="getImage(item)"/>
@@ -80,7 +80,7 @@
         </div>
         <div class="row" style="margin-bottom: 10px">
           <div class="row_tr">
-            <span class="span">训练 / 验证 /测试集比例：</span>
+            <span class="span"><label class="mustColor">*</label>训练 / 验证 /测试集比例：</span>
             <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
             <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
             <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>
