@@ -167,7 +167,7 @@ export class CreateJobComponent{
       if(this.dataId==this.d_dataSets[i].dataId){
         this.fileCount = this.d_dataSets[i].selfTypeFileCount;
         if(reg.test(this.d_dataSets[i].dataName)){
-          document.getElementById("backup_dataset").innerHTML = this.d_dataSets[i].dataName;
+          document.getElementById("backup_dataset").innerHTML = "";
           this.datasetBackupName = this.d_dataSets[i].dataName;
           break;
         }else{
