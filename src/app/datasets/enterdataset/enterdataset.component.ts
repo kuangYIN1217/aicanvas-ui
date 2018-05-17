@@ -270,13 +270,6 @@ export class EnterDatasetComponent {
           }
           this.searchBool = false;
           this.searchFile = false;
-          // let page = new Page();
-          // page.pageMaxItem = this.d_tableData_page.size;
-          // page.curPage = this.d_tableData_page.number+1;
-          // page.totalPage = this.d_tableData_page.totalPages;
-          // page.totalNum = this.d_tableData_page.totalElements;
-          // this.pageParams = page;
-          //console.log(result);
         }else{
           this.d_tableData=[];
         }
@@ -287,7 +280,7 @@ export class EnterDatasetComponent {
     let show = pa[1].substring(1);
     if(show.length>0&&this.filePath.length==0){
       let obj:any={};
-      obj.path1 = pa[0]+''+pa[1];
+      obj.path1 = pa[0]+'dataset'+pa[1];
       obj.showpath = show;
       this.filePath.push(obj);
     }
