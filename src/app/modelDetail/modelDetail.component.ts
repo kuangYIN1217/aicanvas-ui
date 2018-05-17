@@ -37,7 +37,7 @@ export class ModelDetailComponent{
         method: "POST",
         itemAlias: "file",
         headers: [
-          {Authorization: 'Bearer '+ localStorage['authenticationToken']}
+          {name: "Authorization", value:'Bearer '+ localStorage['authenticationToken']}
         ]
     });
     ngOnInit(){
