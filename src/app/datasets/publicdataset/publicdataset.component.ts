@@ -79,6 +79,7 @@ export class PublicDatasetComponent {
         url:this.url,
         method: "POST",
         itemAlias: "file",
+        Authorization: 'Bearer '+ localStorage['authenticationToken']
       });
     });
   }

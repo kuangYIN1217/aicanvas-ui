@@ -315,6 +315,7 @@ export class PopupComponent {
       url:this.url1,
       method: "POST",
       itemAlias: "file",
+      Authorization: 'Bearer '+ localStorage['authenticationToken']
     });
   }
   selectedFileOnChanged(event:any){

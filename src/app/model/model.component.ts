@@ -91,6 +91,7 @@ export class ModelComponent {
     url: SERVER_URL+"/api/model/upload",
     method: "POST",
     itemAlias: "file",
+    Authorization: 'Bearer '+ localStorage['authenticationToken']
   });
   ngOnInit() {
     let init_flag = true;
