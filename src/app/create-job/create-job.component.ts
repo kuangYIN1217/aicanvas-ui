@@ -70,7 +70,7 @@ export class CreateJobComponent{
         this.page = params['page'];
         this.jobName = this.job.jobName;
         this.markEdit = this.job.edit;
-        this.sceneService.getAllScenes(-1)
+        this.sceneService.getAllScenes(2)
           .subscribe(scenes => {
             this.getScenes(scenes);
             let breakFor:boolean = false;
@@ -110,7 +110,7 @@ export class CreateJobComponent{
       }
     });
     if(!this.markEdit){
-      this.sceneService.getAllScenes(-1)
+      this.sceneService.getAllScenes(2)
         .subscribe(scenes => {
           this.getScenes(scenes);
         });

@@ -208,7 +208,7 @@ export class AlgChainsComponent{
     }
     showNetwork(sceneId){
       console.log(sceneId);
-      this.sceneService.getAllScenes(-1)
+      this.sceneService.getAllScenes(2)
         .subscribe(sceneArray => {
           for(let i=0;i<sceneArray.length;i++) {
             if (sceneId == sceneArray[i].id) {
