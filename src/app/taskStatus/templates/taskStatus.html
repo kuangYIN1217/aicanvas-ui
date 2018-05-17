@@ -34,7 +34,7 @@
         <a *ngIf="jobInfo.status!='运行' && jobInfo.trainable != 0 &&runJobAuthority" class="operationBtn start" (click)="start(jobInfo.jobPath)" title="运行"></a>
         <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable != 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.ifPublicSence}}/{{jobInfo.id}}" class="see-model operationBtn" title="查看已发布模型"></a>
         <a *ngIf="jobInfo.status.indexOf('模型')!=-1&& jobInfo.trainable == 0" (click)="deployNav()" routerLinkActive="active" routerLink="/inferenceModel/{{jobInfo.jobPath}}/{{jobInfo.id}}" class="see-model operationBtn" title="查看已发布模型"></a>
-        <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'&&operateJobAuthority"  class="operationBtn edit" title="修改任务" (click)="editJob(jobInfo)"></a>
+        <a *ngIf="jobInfo.status!='运行'&&jobInfo.status!='模型发布中'&&jobInfo.trainable != 0&&operateJobAuthority"  class="operationBtn edit" title="修改任务" (click)="editJob(jobInfo)"></a>
         <a *ngIf="jobInfo.status.indexOf('模型')==-1&& jobInfo.status!='运行'&&operateJobAuthority"  (click)="deleteJob(jobInfo.id,jobInfo.jobName)" class="operationBtn delete" title="删除任务"></a>
       </td>
     </tr>
