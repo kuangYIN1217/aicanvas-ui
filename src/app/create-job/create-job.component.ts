@@ -492,6 +492,9 @@ export class CreateJobComponent{
         });
   }
   saveJob(chainId, dataId,chosenSceneId){
+    if(this.datasetBackupName==""){
+      this.datasetBackupName = this.job.datasetBackupName;
+    }
     this.jobService.saveJob(this.job.id,chainId, dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
       .subscribe(
         (editJob) => {
