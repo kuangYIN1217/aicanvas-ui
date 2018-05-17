@@ -24,6 +24,7 @@ export class UserService {
         // headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Content-Type','application/json');
         headers.append('Accept','application/json');
+        if(this.getAuthorization()!="Bearer undefined")
         headers.append('Authorization',this.getAuthorization());
         return headers;
     }
