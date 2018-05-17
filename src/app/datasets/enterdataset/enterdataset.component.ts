@@ -282,15 +282,22 @@ export class EnterDatasetComponent {
       })
   }
   getFilePath(path){
-    let pa = path.split("/");
-    if(pa.length>5&&this.filePath.length==0){
+    let pa = path.split("dataset");
+    let show = pa[1].substring(1);
+    if(show.length>0&&this.filePath.length==0){
+      let obj:any={};
+      obj.path1 = pa[0]+'dataset'+pa[1];
+      obj.showpath = show;
+      this.filePath.push(obj);
+    }
+/*    if(pa.length>5&&this.filePath.length==0){
       for(let i=4;i<pa.length-1;i++){
         let obj:any={};
         obj.path1 = pa.slice(0,i+1).join("/");
         obj.showpath = pa[i];
         this.filePath.push(obj);
       }
-    }
+    }*/
   }
   $data_backup(){
     this.backup=[];
