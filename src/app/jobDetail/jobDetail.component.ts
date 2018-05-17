@@ -75,7 +75,6 @@ export class JobDetailComponent {
   runPath:string;
   step: number = 2;
   page: number=0;
-  gpuNum:any;
   paramjson: any = PARAM;
   input_content:string;
   // progress logs
@@ -136,6 +135,9 @@ export class JobDetailComponent {
   deductionAuthority:boolean = false;
   lookDatasetsAuthority:boolean = false;
   jobInfo:any={};
+
+  dataId:string='';
+  datasetPath:string='';
   constructor(private route: ActivatedRoute ,private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -305,6 +307,19 @@ export class JobDetailComponent {
               clearInterval(this.interval);
             }
           }
+          if(this.job.status == '异常'){
+            this.jobService.getJobDetailById(this.job.id)
+              .subscribe(result=>{
+                console.log(result);
+                this.showTip = true;
+                this.tipMargin = "0 auto 20px";
+                this.tipWidth = "100%";
+                this.tipType = "error";
+                this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;
+              })
+          }else{
+            this.showTip = false;
+          }
           this.user = this.job.user;
         });
       }, 1000);
@@ -389,8 +404,17 @@ export class JobDetailComponent {
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.jobInfo = JSON.parse(params['job']);
+        this.dataId = this.jobInfo.dataSet;
+        this.datasetPath = this.jobInfo.datasetPath;
         this.pageNumber = params['page'];
         let jobPath = this.jobInfo.jobPath;
+        if(this.jobInfo.status=='异常'){
+          this.showTip = true;
+          this.tipMargin = "0 auto 20px";
+          this.tipWidth = "100%";
+          this.tipType = "error";
+          this.tipContent = this.jobInfo.jobName+"任务运行异常 ——"+this.jobInfo.failReason;
+        }
         if (jobPath) {
           jobPath = unescape(jobPath);
           this.jobPath = jobPath;
@@ -903,47 +927,29 @@ export class JobDetailComponent {
       return;
     }
     this.s_start_stop_click = false;
-    // todo 判断当前运行job数量 > 3 不允许
+    // todo 判断当前运行job数量 > 5 不允许
     this.jobService.getAllJobs('运行', null , null , null , null,null,"id,asc" ).subscribe(rep => {
-/*      if (rep.totalElements >= 3) {
+      if (rep.totalElements >= 5) {
         this.showTip = true;
         this.tipMargin = "0 auto 20px";
         this.tipWidth = "100%";
         this.tipType = "warnning";
-        this.tipContent = "测试版本下最多同时运行三个任务！";
-        /!*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*!/
+        this.tipContent = "测试版本下最多同时运行五个任务！";
+        /*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*/
         return;
-      }else {*/
-/*        this.gpuNum = null;
-        this.gpu_show = true;*/
+      }else {
         this.runPath = jobPath;
         this.s_progress_show = true;
         this.jobService.runJob(this.runPath)
           .subscribe(result =>{
             this.initJobDetailByPath(true);
           })
-      //}
+      }
     })
   }
   showTipChange(event){
     this.showTip = event;
   }
-/*  sure(event){
-    this.gpuNum = event;
-    this.jobService.runJob(this.runPath,this.gpuNum)
-      .then(result => {
-        this.initJobDetailByPath(true);
-      }).catch((error) => {
-      // this.s_start_stop_click = true;
-      addErrorToast(this.toastyService,'输入的gpu编号不合法');
-      });
-  }*/
-/*  showChange(event){
-    this.gpu_show = event;
-    if (!event) {
-      this.s_start_stop_click = true;
-    }
-  }*/
   goModel(){
     this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id}})
   }

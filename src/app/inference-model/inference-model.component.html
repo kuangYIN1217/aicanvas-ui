@@ -6,16 +6,16 @@
     </div>
     <div class="table_section" id="table_section">
       <div *ngIf="s_nav_selected === 0">
-        <div class="tips-content" *ngFor="let item of saveShowFail" [style.display]="item.selected?'':'none'">
+        <div class="tips-content" *ngFor="let item of showFailReason">
           <img src="assets/uniform-tips/cuowu.png" class="icon"/>
           <span>任务名称{{item.jobName}}v{{item.version}}发布失败--{{item.failReason}}</span>
           <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close(item.id)"/>
         </div>
-        <div class="shrink" *ngIf="saveShowFail.length>2&&showMore" (click)="toggle()">
+        <div class="shrink" *ngIf="failReason.length>2&&showMore" (click)="toggle()">
           <img src="assets/jobcreation/look_more.png"/>
           <span>查看更多</span>
         </div>
-        <div class="shrink" *ngIf="saveShowFail.length>2&&!showMore">
+        <div class="shrink" *ngIf="failReason.length>2&&!showMore" (click)="toggle()">
           <img src="assets/jobcreation/shouqi.png"/>
           <span>收起消息</span>
         </div>

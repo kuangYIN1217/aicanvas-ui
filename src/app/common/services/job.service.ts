@@ -187,6 +187,26 @@ export class JobService {
           }
         });
   }
+  getFailReason(){
+    let path = "/api/queryJobsNeedShowFailReason";
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
+        }
+      });
+  }
+  updateFailReason(id){
+    let path = "/api/updateJobFailReason/"+id;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL + path, {headers: headers})
+      .map((response: Response) => {
+        if (response && response) {
+          return response;
+        }
+      });
+  }
   getJobDetail(jobPath: string) {
     let path = "/api/jobDetail/" + jobPath;
     let headers = this.getHeaders();
@@ -290,6 +310,16 @@ export class JobService {
       .map((response: Response) => {
         if (response) {
           return response;
+        }
+      });
+  }
+  getDatasetBackupInfo(dataId,backupPath){
+    let path = "/api/getDatasetBackupInfo/" + dataId +"?datasetPath="+backupPath;
+    let headers = this.getHeaders();
+    return this.http.get(this.SERVER_URL+path, { headers : headers} )
+      .map((response: Response) => {
+        if (response && response.json()) {
+          return response.json();
         }
       });
   }

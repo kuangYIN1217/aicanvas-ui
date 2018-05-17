@@ -71,7 +71,9 @@ export class ModelComponent {
   allAuthority:any[]=[];
   publishModelAuthority:boolean = false;
   saveTips:any[]=[];
+  showSaveTips:any[]=[];
   showMore:boolean = true;
+
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -147,12 +149,6 @@ export class ModelComponent {
         this.container1.push(response);
       }
       this.container.push(response);
-      //console.log(this.container);
-      //console.log(this.container1);
-      /*        if( this.responsePath.length==this.uploader.queue.length){
-       console.log( this.responsePath);
-       this.saveModelAndUpload( this.responsePath);
-       }*/
     };
     this.uploader.queue[this.times-1].onError = (response: any, status: any, headers: any) => {
       if(status==417){
@@ -166,6 +162,11 @@ export class ModelComponent {
     this.uploader.queue[this.times-1].upload(); // 开始上传
   }
   toggle(){
+    if(this.showMore){
+      this.showSaveTips = this.saveTips;
+    }else{
+      this.showSaveTips = this.saveTips.slice(0,2);
+    }
     this.showMore = !this.showMore;
   }
   getDataSetPath(event){
@@ -182,7 +183,6 @@ export class ModelComponent {
       this.container1.push('assets/model/txt.png');
     }
     }
-    //console.log(this.container);
   }
   outputImg(item){
     let arr = item.split('/');
@@ -196,18 +196,9 @@ export class ModelComponent {
         return;
       }
       this.upload_click_flag = false;
-      //console.log(this.uploader.queue);
       if(this.container.length>0){
-        //console.log(this.container);
         this.saveModelAndUpload(this.container);
         this.container = [];
-       /*for(let i in this.uploader.queue){
-          this.uploadName.push(this.uploader.queue[i].file.name);
-        }
-        console.log(this.uploadName);
-        this.responsePath=[];
-      }else if(this.dataSetPath.length>0){
-        */
       }else{
         this.showShort = true;
         this.tipType = 'warnning';
@@ -251,18 +242,11 @@ export class ModelComponent {
           this.tipWidth = "100%";
           this.tipMargin = "20px auto 0";
           this.tipContent = "推演结果异常!";
-          //addErrorToast(this.toastyService, '推演结果异常！');
-          //console.log(result.content[0].percent);
-         // clearInterval(this.interval);
         }
         clearInterval(this.interval);
         this.result = result.content;
         this.type = this.result[0].resultType;
-        //console.log(this.type);
         this.runId=modelId;
-        //console.log(this.type);
-        //console.log(this.result);
-        //console.log(this.runId);
       }
     })
   }
@@ -289,7 +273,12 @@ export class ModelComponent {
                 this.saveTips.push(obj);
               }
             }
-            console.log(this.saveTips);
+            if(this.saveTips.length>2){
+              this.showMore = true;
+              this.showSaveTips = this.saveTips.slice(0,2);
+            }else{
+              this.showSaveTips = this.saveTips;
+            }
           })
     });
   }
@@ -361,7 +350,6 @@ export class ModelComponent {
         page.totalPage = model.totalPages;
         page.totalNum = model.totalElements;
         this.pageParams = page;
-        //console.log(this.pageParams);
       });
   }
   close(modelId,id){
@@ -371,6 +359,7 @@ export class ModelComponent {
             for(let i=0;i<this.saveTips.length;i++){
               if(this.saveTips[i].id==id){
                 this.saveTips.splice(i,1);
+                this.showSaveTips.splice(i,1);
               }
             }
           }
@@ -392,8 +381,6 @@ export class ModelComponent {
     // }
     this.container.splice(index,1);
     this.container1.splice(index,1);
-    // console.log(this.container);
-    // console.log(this.uploader.queue);
   }
   clickBtn() {
     //this.router.navigate(['../modelDetail'],{queryParams:{"model_id":this.item}});

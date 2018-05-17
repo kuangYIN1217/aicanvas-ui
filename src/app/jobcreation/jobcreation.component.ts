@@ -111,6 +111,11 @@ export class JobCreationComponent {
   editChainsAuthority:boolean = false;
   deductionAuthority:boolean = false;
   lookDatasetsAuthority:boolean = false;
+  failReason:any[]=[];
+  showFailReason:any[]=[];
+  intervalFailReason: any;
+  showMore:boolean = true;
+  showHtml:string='true';
   constructor(private sceneService: SceneService, private jobService: JobService, private  modelService: modelService, private algChainService: AlgChainService, private pluginService: PluginService, private userService: UserService, private router: Router, private route: ActivatedRoute, private toastyService: ToastyService, private toastyConfig: ToastyConfig, private datasetsService: DatasetsService, private location: Location,private resourcesService: ResourcesService) {
     this.username = localStorage['username'];
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
@@ -139,6 +144,8 @@ export class JobCreationComponent {
       }
     }
     this.taskStatus = this.taskStatusArr[0];
+    this.getFailReason();
+    this.intervalFailReason = setInterval(() =>this.getFailReason(), 10000);
     pluginService.getLayerDict()
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
@@ -162,6 +169,45 @@ export class JobCreationComponent {
         this.datasetsType = result;
         this.datasetsType[0].flag = 1;
         //console.log(this.datasetsType);
+      })
+  }
+  toggle(){
+    if(this.showMore){
+      this.showFailReason = this.failReason;
+    }else{
+      this.showFailReason = this.failReason.slice(0,2);
+    }
+    this.showMore = !this.showMore;
+    sessionStorage['show'] = this.showMore;
+    this.showHtml = sessionStorage['show'];
+  }
+  getFailReason(){
+    this.jobService.getFailReason()
+      .subscribe(result=>{
+        this.failReason = result;
+        if(sessionStorage['show']!=undefined){
+          if(sessionStorage['show']=='true'){
+            this.showFailReason = this.failReason.slice(0,2);
+          }else{
+            this.showFailReason = this.failReason;
+          }
+        }else{
+          if(this.failReason.length>2){
+            this.showMore = true;
+            this.showHtml = 'true';
+            this.showFailReason = this.failReason.slice(0,2);
+          }else{
+            this.showFailReason = this.failReason;
+          }
+        }
+      })
+  }
+  close(id){
+    this.jobService.updateFailReason(id)
+      .subscribe(result=>{
+        if(result.text()=='true'){
+            this.getFailReason();
+        }
       })
   }
   selectStatus(){
@@ -274,6 +320,8 @@ export class JobCreationComponent {
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
+    clearInterval(this.intervalFailReason);
+    sessionStorage.removeItem('show');
   }
   searchLeft(){
     this.focus=1;
@@ -694,7 +742,7 @@ export class JobCreationComponent {
     this.showTip = true;
     this.tipWidth = "100%";
     this.tipType = "error";
-    this.tipContent = "测试版本下最多同时运行三个任务！";
+    this.tipContent = "测试版本下最多同时运行五个任务！";
     this.tipMargin = "0 auto";
   }
   nodeClicked() {
@@ -730,18 +778,6 @@ export class JobCreationComponent {
     }
   }
 
-
-  checkStatus(status, sence, jobPath) {
-    if (status == 'Finished') {
-      this.modelService.getStatue(jobPath).subscribe(data => {
-        this.router.navigate(['../model'], {queryParams: {sence: sence}});
-      });
-      //TODO if success give alert
-
-    } else {
-      return false;
-    }
-  }
 
   getTotals(num) {
     if (this.PluginInfo.length % num == 0) {

@@ -309,7 +309,7 @@ export class EnterDatasetComponent {
       this.datasetservice.backupDataset(this.backup)
         .subscribe((result)=>{
           this.loading = false;
-          this.downloadPath = result.substring(26);
+          this.downloadPath = result.split('dataset')[1].substring(1);
           this.downloadBackup(this.downloadPath);
         },
           (error)=>{
@@ -431,8 +431,18 @@ export class EnterDatasetComponent {
           if(bool==false){
             this.saveLoad.push(this.uploader.queue[j]);
             this.showUpload.push(this.uploader.queue[j]);
-            this.showUpload[j].status = "上传中";
-            this.fileType = this.judgeType(this.showUpload[j],datasetType);
+            if(this.showUpload.length-1<j){
+              this.showUpload[this.showUpload.length-1].status = "上传中";
+            }else{
+              this.showUpload[j].status = "上传中";
+            }
+            let show:any;
+            if(this.showUpload.length-1<j){
+              show = this.showUpload[this.showUpload.length-1];
+            }else{
+              show = this.showUpload[j];
+            }
+            this.fileType = this.judgeType(show,datasetType);
             if(this.fileType=="no support"){
               this.show = true;
               this.tipWidth = "426px";
@@ -482,11 +492,18 @@ export class EnterDatasetComponent {
         this.uploader.queue[j].cancel();
       };*/
       this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
-        this.showUpload[j].status = "上传成功";
+        if(this.showUpload.length-1<j){
+          this.showUpload[this.showUpload.length-1].status = "上传成功";
+        }else{
+          this.showUpload[j].status = "上传成功";
+        }
       };
       this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
-        this.showUpload[j].status = "上传失败";
-        //console.log(status);
+        if(this.showUpload.length-1<j){
+          this.showUpload[this.showUpload.length-1].status = "上传失败";
+        }else{
+          this.showUpload[j].status = "上传失败";
+        }
         if(status=="400"){
           this.show = true;
           this.tipType = "warnning";
@@ -508,7 +525,11 @@ export class EnterDatasetComponent {
               this.show = true;
               this.tipType = "warnning";
               this.tipContent = "已有同名文件或文件夹，请重新上传！";
-              this.showUpload[j].status = "上传失败";
+              if(this.showUpload.length-1<j){
+                this.showUpload[this.showUpload.length-1].status = "上传失败";
+              }else{
+                this.showUpload[j].status = "上传失败";
+              }
               return false
             }else{
               this.uploader.queue[j].upload();

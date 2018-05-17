@@ -65,7 +65,7 @@ export class PublicLevelComponent{
     }
   }
   outputImg(item){
-    return item.slice(26);
+    return item.split('dataset')[1].substring(1);
   }
 
   enterfile(item){
@@ -124,7 +124,7 @@ export class PublicLevelComponent{
       this.audioShow = true;
       this.audioSrc = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
     }else if(item.fileType=='图片文件'){
-      this.image = (item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).slice(26);
+      this.image = (item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName).split('dataset')[1].substring(1);
       this.photoShow = true;
     }
   }

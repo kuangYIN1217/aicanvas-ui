@@ -81,11 +81,6 @@ export class TaskStatusComponent{
   }
    ngOnInit(){
      calc_height(document.getElementsByClassName('taskStatusContainer')[0]);
-/*     this.route.queryParams.subscribe(params =>{
-       this.pageNumber = params['pageNumber'];
-       this.getAlljobs(this.statuss,this.pageNumber,this.pageMaxItem,null);
-       console.log(this.pageNumber);
-     });*/
          if(this.pageNumber!=0||this.pageMax!=10){
            this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
            clearInterval(this.interval1);
@@ -96,8 +91,6 @@ export class TaskStatusComponent{
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null), 10000);
          }
-
-    //this.getSceneId();
    }
   sortTime(){
     document.getElementById("jobPrioritySort").setAttribute("src","assets/taskStatus/taskStatusSort.png");
@@ -210,43 +203,20 @@ export class TaskStatusComponent{
       sessionStorage.removeItem('curPage');
       sessionStorage.removeItem('curMax');
     }
-    checkStatus(status,sence , jobPath){
-        if(status=='Finished'){
-            this.modelService.getStatue(jobPath).subscribe(data=>{
-                this.router.navigate(['../model'],{queryParams: { sence: sence }});
-            });
-            //TODO if success give alert
-
-        }else{
-            return false;
-        }
-    }
     start(jobPath: string){
-      // todo 判断当前运行job数量 > 3 不允许
+      // todo 判断当前运行job数量 > 5 不允许
       this.jobService.getAllJobs('运行', null , null , null , null,null,this.s_sort_type ).subscribe(rep => {
-        //if (rep.totalElements >= 3) {
-          //this.nooperate.emit(false);
-          //addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');
-          //return;
-        //} else {
+        if (rep.totalElements >= 5) {
+          this.nooperate.emit(false);
+          //addWarningToast(this.toastyService , '测试版本下最多同时运行五个任务！');
+          return;
+        } else {
           this.runPath = jobPath;
           this.jobService.runJob(jobPath)
             .subscribe(reply => this.start_reply(reply));
-       // }
+        }
       })
     }
-/*  sure(event){
-    this.gpuNum = event;
-    this.jobService.runJob(this.runPath,this.gpuNum)
-      .then(result => {
-        this.start_reply(true);
-      }).catch((error) => {
-        addErrorToast(this.toastyService,'输入的gpu编号不合法');
-      });
-  }
-  showChange(event){
-    this.gpu_show = event;
-  }*/
     start_reply(reply){
         if(reply==200){
 

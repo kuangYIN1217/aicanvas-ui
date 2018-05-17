@@ -1,16 +1,16 @@
 <div class="container">
   <div style="padding: 0 30px;">
     <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" (showTipChange)="showTipChange(event)"></uniform-tips>
-    <div class="tips-content" *ngFor="let item of saveTips">
+    <div class="tips-content" *ngFor="let item of showSaveTips">
       <img src="assets/uniform-tips/cuowu.png" class="icon"/>
       <span>训练任务{{item.jobName}}v{{item.version}}版本模型发布失败--{{item.failReason}}</span>
       <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close(item.modelId,item.id)"/>
     </div>
-    <div class="shrink" *ngIf="saveTips.length>2&&showMore" (click)="toggle()">
+    <div class="shrink" *ngIf="showSaveTips.length>2&&showMore" (click)="toggle()">
       <img src="assets/jobcreation/look_more.png"/>
       <span>查看更多</span>
     </div>
-    <div class="shrink" *ngIf="saveTips.length>2&&!showMore">
+    <div class="shrink" *ngIf="showSaveTips.length>2&&!showMore" (click)="toggle()">
       <img src="assets/jobcreation/shouqi.png"/>
       <span>收起消息</span>
     </div>
@@ -18,7 +18,7 @@
   <div class="button_location">
     <a href="#" class="btn gray" onclick="return false" (click)="back()">返回</a>
     <a href="#" class="btn green" onclick="return false" (click)="deduction()">新增推演</a>
-    <a class="btn green" href="javascript:void(0)" (click)="publish()" *ngIf="(job?.sencesName=='命名实体识别'||job?.sencesName=='图像分类'||job?.sencesName=='文本分类'||job?.sencesName=='语义词向量'||job?.sencesName=='神经语义分割'||job?.sencesName=='图像检测'||job?.sencesName=='情感分析')&&publishModelAuthority">模型发布</a>
+    <a class="btn green" href="javascript:void(0)" (click)="publish()" *ngIf="(job?.sencesName=='命名实体识别'||job?.sencesName=='图像分类'||job?.sencesName=='文本分类'||job?.sencesName=='语义词向量'||job?.sencesName=='图像语义分割'||job?.sencesName=='图像检测'||job?.sencesName=='情感分析')&&publishModelAuthority">模型发布</a>
   </div>
   <!--<publish-model [(showModel)]="showModel" [publishStatus]="publishStatus" [errorInfo]="errorInfo"></publish-model>-->
   <div class="nav">

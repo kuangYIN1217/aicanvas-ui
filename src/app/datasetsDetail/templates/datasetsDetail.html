@@ -8,7 +8,7 @@
           <div class="dataset-text first">
             <span>数据集分类：</span>
             <span *ngIf="jobPath==undefined">{{dataList?.dataTypeName}}</span>
-            <span *ngIf="jobPath!=undefined">{{dataInfo?.dataTypeName}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.datasetTypeName}}</span>
           </div>
           <div class="dataset-text second">
             <span>数据集类型：</span>
@@ -27,10 +27,10 @@
           </div>-->
         </div>
         <div class="dataset-detailbox">
-          <div class="dataset-text second">
+          <div class="dataset-text third">
             <span>数据集名称：</span>
             <span *ngIf="jobPath==undefined">{{dataList?.fileCount}}</span>
-            <span *ngIf="jobPath!=undefined">{{dataInfo?.dataName}}</span>
+            <span *ngIf="jobPath!=undefined">{{dataInfo?.backupName}}</span>
           </div>
           <div class="dataset-text first" *ngIf="dataList?.creator=='admin'">
             <span>创建人：</span>

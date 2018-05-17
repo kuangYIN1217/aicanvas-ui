@@ -92,13 +92,21 @@ export class CreateJobComponent{
             this.getChainAndDataset(this.job.sences);
           });
         this.firstSceneId = this.job.chainId;
-        this.gpuorder = this.job.gpuNum;
+        if(this.job.gpuNum==null){
+          this.gpuorder = '-1';
+        }else{
+          this.gpuorder = this.job.gpuNum;
+        }
         if(this.job.practiceRate>0){
           this.dataFirst = this.job.practiceRate;
           this.dataSecond = this.job.alidateRate;
           this.dataThird = this.job.testRate;
         }
-        this.jobPriority = this.job.jobPriority;
+        if(this.job.jobPriority==null){
+          this.jobPriority = '-1';
+        }else{
+          this.jobPriority = this.job.jobPriority;
+        }
       }
     });
     if(!this.markEdit){
@@ -125,7 +133,10 @@ export class CreateJobComponent{
         for(let i=num;i>0;i--){
           arr.push(this.scenes[this.scenes.length-i]);
         }
-        this.showScene.push(arr);
+        if(arr.length>0){
+          this.showScene.push(arr);
+        }
+
   }
   getDataSets(type,creator){
     this.datasetsService.createJobGetDatasets(type,'')
@@ -246,7 +257,7 @@ export class CreateJobComponent{
   }
 
   chooseImg(item){
-    if(item.flag != 1){
+    if(item.flag==undefined||item.flag != 1){
       for(let i=0;i<this.datasetsType.length;i++){
         this.datasetsType[i].flag = 2;
       }
@@ -411,13 +422,6 @@ export class CreateJobComponent{
         return false;
       }
     }
-    if(this.gpuorder=='-1'){
-      this.s_error_show = true;
-      this.s_error_message = '请选择GPU编号';
-      this.s_error_level = "error";
-      this.click_flag = true;
-      return false;
-    }
     if(!this.dataFirst){
       if(this.student==15||this.student==11){
 
@@ -460,13 +464,6 @@ export class CreateJobComponent{
         this.click_flag = true;
         return false
       }
-    }
-    if (!this.jobPriority || this.jobPriority == "-1") {
-      this.s_error_show = true;
-      this.s_error_message = '请设置优先级';
-      this.s_error_level = "error";
-      this.click_flag = true;
-      return false;
     }
     if(!this.markEdit){
       this.loading = true;

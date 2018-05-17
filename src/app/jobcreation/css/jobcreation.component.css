@@ -1009,3 +1009,52 @@ select{
 }
 
 
+
+.tips-content img,.tips-content span{
+  display: inline-block;
+  vertical-align: middle;
+}
+.icon{
+  margin:9px 15px 0 20px;
+  float: left;
+}
+.tips-content{
+  width:100%;
+  background:#f9e8e4 ;
+  border: 1px solid #ee8059;
+  font-size: 12px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin:20px auto 0;
+  box-sizing: border-box;
+}
+.margin{
+  margin:0 auto 20px !important;
+}
+.tips-content span{
+  color: #333;
+}
+.tips-content span,.tips-content a{
+  padding:9px 0;
+  float: left;
+}
+.close{
+  margin-right: 12px;
+  margin-top: 12px;
+  float: right;
+  cursor: pointer;
+}
+
+.shrink{
+  color: #ff7c35;
+  font-size: 14px;
+  margin:10px 0;
+}
+.shrink img,.shrink span{
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.shrink span{
+  margin-left: 4px;
+}

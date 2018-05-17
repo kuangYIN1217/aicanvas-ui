@@ -548,7 +548,7 @@ export class MarkComponent{
       $this.cxt.putImageData($this.imgData,0,0);
     };
     this.img.crossOrigin = 'anonymous';
-    this.img.src = `${SERVER_URL}/download/${(this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName).slice(26)}`;
+    this.img.src = `${SERVER_URL}/download/${(this.showPhoto.dataSetFileDirectoryPath.parentPath+"/"+this.showPhoto.fileName).split('dataset')[1].substring(1)}`;
   }
   pre(){
     this.zoom = 100;
@@ -600,8 +600,8 @@ export class MarkComponent{
   }
   getSrc(item){
     let path = item.dataSetFileDirectoryPath.parentPath+"/"+item.fileName;
-    //console.log(path);
-    return `${SERVER_URL}/download/${path.slice(26)}`;
+    let url = path.split('dataset')[1];
+    return `${SERVER_URL}/download/${url.substring(1)}`;
   }
   getMarkDiv(){
     let height = $("#mark-content").height();

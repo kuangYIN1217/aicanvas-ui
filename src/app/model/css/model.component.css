@@ -236,6 +236,7 @@ a{
 .shrink img,.shrink span{
   display: inline-block;
   vertical-align: middle;
+  cursor: pointer;
 }
 .shrink span{
   margin-left: 4px;
