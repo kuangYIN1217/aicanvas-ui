@@ -53,15 +53,15 @@ export class DatasetsComponent{
     this.username = localStorage['username'];
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
-      if(this.allAuthority[i].basAuthority.id=='5'){
+      if(this.allAuthority[i].basAuthority.id=='7'){
         for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='6'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='8'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.publicDatasets = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='7'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='9'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.privateDatasets = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='9'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='11'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.dataBackUP = true;
           }
         }

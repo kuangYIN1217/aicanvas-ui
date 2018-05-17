@@ -120,24 +120,24 @@ export class JobCreationComponent {
     this.username = localStorage['username'];
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
-      if(this.allAuthority[i].basAuthority.id=='11'){
+      if(this.allAuthority[i].basAuthority.id=='13'){
         for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='12'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='14'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.operateJobAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='13'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='15'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.runJobAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='14'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='17'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.lookChainsAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='15'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='18'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.editChainsAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='16'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='19'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.deductionAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='21'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='16'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.lookDatasetsAuthority = true;
           }
         }

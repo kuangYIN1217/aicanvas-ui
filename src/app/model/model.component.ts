@@ -77,9 +77,9 @@ export class ModelComponent {
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
-      if(this.allAuthority[i].basAuthority.id=='11'){
+      if(this.allAuthority[i].basAuthority.id=='13'){
         for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='17'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='20'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.publishModelAuthority = true;
           }
         }
@@ -273,6 +273,7 @@ export class ModelComponent {
                 this.saveTips.push(obj);
               }
             }
+
             if(this.saveTips.length>2){
               this.showMore = true;
               this.showSaveTips = this.saveTips.slice(0,2);

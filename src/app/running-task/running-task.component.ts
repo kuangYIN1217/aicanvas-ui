@@ -15,6 +15,7 @@ export class RunningTaskComponent{
   id: number;
   statuss: string = '运行';
   constructor(private sceneService: SceneService,private route: ActivatedRoute, private router: Router) {
+
     this.sceneService.getAllScenes(2)
       .subscribe(
         (scenes) => {

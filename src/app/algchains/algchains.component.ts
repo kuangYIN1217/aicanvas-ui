@@ -56,12 +56,14 @@ export class AlgChainsComponent{
       window.scrollTo(0,0);
       this.allAuthority = JSON.parse(localStorage['allAuthority']);
       for(let i=0;i<this.allAuthority.length;i++){
-          if(this.allAuthority[i].basAuthority.id=='2'){
-            if(this.allAuthority[i].childAuthorityTreeDtos[0].hasAuthority){
+          if(this.allAuthority[i].basAuthority.id=='4'){
+            for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
+              if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='5'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
                 this.publicScense = true;
-            }
-            if(this.allAuthority[i].childAuthorityTreeDtos[1].hasAuthority){
+              }
+              if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='6'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
                 this.privateScense = true;
+              }
             }
           }
       }

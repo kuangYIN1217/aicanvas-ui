@@ -141,24 +141,24 @@ export class JobDetailComponent {
   constructor(private route: ActivatedRoute ,private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
-      if(this.allAuthority[i].basAuthority.id=='11'){
+      if(this.allAuthority[i].basAuthority.id=='13'){
         for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='12'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='14'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.operateJobAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='13'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='15'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.runJobAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='14'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='17'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.lookChainsAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='15'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='18'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.editChainsAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='16'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='19'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.deductionAuthority = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='21'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='16'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.lookDatasetsAuthority = true;
           }
         }
@@ -315,7 +315,7 @@ export class JobDetailComponent {
                 this.tipMargin = "0 auto 20px";
                 this.tipWidth = "100%";
                 this.tipType = "error";
-                this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;
+                this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;;
               })
           }else{
             this.showTip = false;

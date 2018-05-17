@@ -66,12 +66,12 @@ export class EnterDatasetComponent {
   constructor(private datasetservice: DatasetsService,private route: ActivatedRoute, private router: Router){
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
-      if(this.allAuthority[i].basAuthority.id=='5'){
+      if(this.allAuthority[i].basAuthority.id=='7'){
         for(let j=0;j<this.allAuthority[i].childAuthorityTreeDtos.length;j++){
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='9'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='11'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.dataBackUP = true;
           }
-          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='8'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
+          if(this.allAuthority[i].childAuthorityTreeDtos[j].basAuthority.id=='10'&&this.allAuthority[i].childAuthorityTreeDtos[j].hasAuthority){
             this.dataMark = true;
           }
         }
@@ -286,7 +286,7 @@ export class EnterDatasetComponent {
     let show = pa[1].substring(1);
     if(show.length>0&&this.filePath.length==0){
       let obj:any={};
-      obj.path1 = pa[0]+'dataset'+pa[1];
+      obj.path1 = pa[0]+''+pa[1];
       obj.showpath = show;
       this.filePath.push(obj);
     }
