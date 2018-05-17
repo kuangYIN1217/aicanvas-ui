@@ -110,7 +110,9 @@ export class EnterDatasetComponent {
         url:this.url,
         method: "POST",
         itemAlias: "file",
-        Authorization: 'Bearer '+ localStorage['authenticationToken']
+        headers: [
+          {Authorization: 'Bearer '+ localStorage['authenticationToken']}
+        ]
       });
     });
   }

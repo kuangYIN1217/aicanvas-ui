@@ -36,7 +36,9 @@ export class ModelDetailComponent{
         url: SERVER_URL+"/api/model/upload",
         method: "POST",
         itemAlias: "file",
-        Authorization: 'Bearer '+ localStorage['authenticationToken']
+        headers: [
+          {Authorization: 'Bearer '+ localStorage['authenticationToken']}
+        ]
     });
     ngOnInit(){
         this.route.queryParams.subscribe(params => {

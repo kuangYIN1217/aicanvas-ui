@@ -29,7 +29,9 @@ export class SenceComponent {
     url: SERVER_URL+"/api/sence/upload?user=admin",
     method: "POST",
     itemAlias: "file",
-    Authorization: 'Bearer '+ localStorage['authenticationToken']
+    headers: [
+      {Authorization: 'Bearer '+ localStorage['authenticationToken']}
+      ]
   });
   selectedFileOnChanged(event:any) {
     //console.log(event.target.value);
