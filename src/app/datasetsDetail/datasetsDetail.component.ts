@@ -141,7 +141,6 @@ export class DatasetsDetailComponent{
     }
     this.filterArr = this.dataArr;*/
     this.filterArr = this.data.content;
-    //console.log(this.filterArr);
     let page = new Page();
     page.pageMaxItem = this.data.size;
     page.curPage = this.data.number+1;
