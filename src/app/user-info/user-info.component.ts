@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {calc_height} from "../common/ts/calc_height";
 import {UserService} from "../common/services/user.service";
+import set = Reflect.set;
+import {ActivatedRoute, Router} from "@angular/router";
 declare var $:any;
 @Component({
   selector: 'app-user-info',
@@ -23,7 +25,7 @@ export class UserInfoComponent{
   tipContent:string='';
   tipType:string='';
   tipMargin:string='';
-  constructor(private userService:UserService) {
+  constructor(private userService:UserService,private router: Router,private route: ActivatedRoute) {
     this.username = localStorage['username'];
     this.authority = localStorage['userAuthority'];
   }
@@ -91,13 +93,19 @@ export class UserInfoComponent{
     this.createFlag = false;
     this.userService.editUser(this.userId,this.username,this.password)
       .subscribe(result=>{
-        if(result==true){
+        if(result.isSuccess==true){
           this.showTip = true;
           this.tipWidth = "634px";
           this.tipType = "success";
           this.tipMargin = "20px 0 0 22px";
-          this.tipContent = "密码修改成功";
+          this.tipContent = "密码修改成功,请在3秒后重新登陆";
           this.createFlag = true;
+          setTimeout(function () {
+            localStorage.removeItem("authenticationToken");
+            var url = window.location.href;
+            var subUrl = url.substr(0, url.indexOf('#') + 1) + '/';
+            window.location.href = subUrl;
+          },3000);
         }
       })
   }

@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit{
     }
     validToken(returnToken,username){
         //console.log(returnToken);
-        if(returnToken=="fail"){
+        if(returnToken.isSuccess==false){
             this.showMessage("登陆失败");
         }/*else if(returnToken&&returnToken.Jwt.id_token){
           localStorage['authenticationToken'] = returnToken.Jwt.id_token;
