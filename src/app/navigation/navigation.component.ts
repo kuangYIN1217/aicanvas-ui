@@ -90,6 +90,11 @@ export class NavigationComponent {
     } else {
       this.username = "Loading";
     }
+    if (sessionStorage['userInfo']=='true') {
+      this.userInfo = sessionStorage['userInfo'];
+    }else{
+      this.userInfo = 'false';
+    }
     if (this.location.isCurrentPathEqualTo('/login') || this.location.isCurrentPathEqualTo('')) {
       this.focusTab = 0;
       // this.needhide = 0;
@@ -135,6 +140,7 @@ export class NavigationComponent {
   logout() {
     localStorage.removeItem("authenticationToken");
     localStorage.removeItem("username");
+    sessionStorage.removeItem("userInfo");
     this.router.navigate(['/login'])
     // window.location.href = "/login";
   }
