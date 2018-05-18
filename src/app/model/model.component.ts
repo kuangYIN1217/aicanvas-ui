@@ -188,10 +188,10 @@ export class ModelComponent {
     }
   }
   outputImg(item){
-    let arr = item.split('/');
-    let path = arr.slice(4).join('/');
+    let arr = item.split('model/');
+    // let path = arr.slice(4).join('/');
     //console.log(path);
-    return path;
+    return arr[1];
   }
   // D: 定义事件，上传文件
     uploadFile() {

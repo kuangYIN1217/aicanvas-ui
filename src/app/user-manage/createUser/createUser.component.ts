@@ -180,7 +180,7 @@ export class CreateUserComponent{
     if(this.editIndex){
       this.userService.editUser(this.userId,this.username,this.password)
         .subscribe(result=>{
-          if(result==true){
+          if(result.isSuccess==true){
             this.createFlag = true;
             this.router.navigate(['../usermanage']);
           }
