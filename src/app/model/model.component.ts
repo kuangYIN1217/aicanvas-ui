@@ -188,9 +188,12 @@ export class ModelComponent {
     }
   }
   outputImg(item){
-    let arr = item.split('model/');
-    // let path = arr.slice(4).join('/');
-    //console.log(path);
+    let arr:any[]=[];
+    if(item.indexOf('/model/')==-1){
+      arr = item.split('backup_dataset');
+    }else{
+      arr = item.split('model/');
+    }
     return arr[1];
   }
   // D: 定义事件，上传文件

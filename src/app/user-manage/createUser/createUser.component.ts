@@ -147,8 +147,7 @@ export class CreateUserComponent{
     if(!this.createFlag){
       return false
     }
-      let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]{4,23}/;
-    //[\u4e00-\u9fa5]
+      let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[^\u4e00-\u9fa5 0-9a-zA-Z]/;
       if(!reg.test(this.username)){
         this.showTip = true;
         this.tipWidth = "634px";

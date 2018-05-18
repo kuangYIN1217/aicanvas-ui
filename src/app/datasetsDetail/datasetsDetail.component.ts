@@ -17,7 +17,7 @@ import {Page} from "../common/defs/resources";
 export class DatasetsDetailComponent{
   @Input() show: boolean = false;
   @Input() dataList:any={};
-  @Input() jobPath:string;
+  @Input() jobPath:string='';
   @Input() test:string;
   @Input() train:string;
   @Input() valid:string;
@@ -79,7 +79,7 @@ export class DatasetsDetailComponent{
       this.getFile(this.jobPath,this.label);
       this.getTestResult(this.jobPath,[this.train,this.valid],null,this.judgeSearch(),this.page,this.pageMaxItem);
     }
-    if(this.jobPath){
+    if(this.jobPath!=undefined){
      // this.jobService.getDataId(this.jobPath)
        // .subscribe(result=>{
           this.jobService.getDatasetBackupInfo(this.dataId,this.datasetPath)
@@ -224,7 +224,6 @@ export class DatasetsDetailComponent{
     //}
   }
   enterPath(item) {
-    console.log(item);
     if (!this.fileFlag) {
       return;
     }
@@ -245,10 +244,8 @@ export class DatasetsDetailComponent{
         this.index++;
         if(this.dataArr.length==this.dataPath.length){
           this.arr = this.dataPath.slice(0,this.index);
-          console.log(this.arr);
         }else{
           this.arr = this.dataPath;
-          console.log(this.arr);
         }
       }else if((key.indexOf("image")!=-1||key.indexOf("txt")!=-1)&&this.test == 'test'){
         //for(let i=0;i<this.uploadPath.length;i++){

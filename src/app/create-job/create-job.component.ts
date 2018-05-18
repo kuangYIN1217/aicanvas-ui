@@ -61,7 +61,9 @@ export class CreateJobComponent{
         let temp:any={'id':-1,'totalGlobalMem': 0};
         this.gpus.unshift(temp);
       });
-    this.getDataSets(1,this.username);
+    if(!this.markEdit){
+      this.getDataSets(1,this.username);
+    }
   }
   ngOnInit(){
     calc_height(document.getElementsByClassName('allContent')[0]);
@@ -153,7 +155,7 @@ export class CreateJobComponent{
         this.d_dataSets = result.content;
         if(this.markEdit){
           for(let i=0;i<this.d_dataSets.length;i++){
-            if((this.job.datasetBackupName!="")&&(this.job.datasetBackupName.indexOf(this.d_dataSets[i].dataName)!=-1)){
+            if(this.job.datasetBackupName!=""){
               this.d_dataSets.unshift(this.backupDataset);
               break;
             }
@@ -254,7 +256,7 @@ export class CreateJobComponent{
         break;
       }
     }
-    this.getDataSets(this.datasetType,this.username);
+    //this.getDataSets(this.datasetType,this.username);
     document.getElementById("dataKeyword").removeAttribute("readonly");
     this.sceneReadOnly();
   }
@@ -271,6 +273,8 @@ export class CreateJobComponent{
       }else{
         this.searchDataSets(item.id,this.dataKeyword,this.username);
       }
+    }else{
+      this.getDataSets(item.id,this.username);
     }
   }
   getImage(item){
