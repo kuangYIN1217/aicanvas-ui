@@ -20,6 +20,12 @@ export class UserManageComponent{
   showDelete:boolean = false;
   content:string='';
   deleteId:string='';
+
+  tipWidth:string='';
+  tipContent:string='';
+  tipType:string='';
+  showTip:boolean = false;
+  tipMargin:string='';
   constructor(private router: Router, private route: ActivatedRoute,private userService:UserService) {
   }
   ngOnInit() {
@@ -87,8 +93,19 @@ export class UserManageComponent{
       }
     }
     this.deleteId = id.substring(0,id.length-1);
-    this.showDelete = true;
-    this.content = "是否确定删除该用户?"
+    if(this.deleteId==''){
+      this.showTip = true;
+      this.tipWidth = "100%";
+      this.tipType = "warnning";
+      this.tipContent = "请选择要删除的用户！";
+      this.tipMargin = "0 auto";
+    }else{
+      this.showDelete = true;
+      this.content = "是否确定删除该用户?"
+    }
+  }
+  showTipChange(event){
+    this.showTip = false;
   }
   deleteChange(event){
     this.userService.deleteUser(this.deleteId)

@@ -29,7 +29,7 @@ export class CreateJobComponent{
   d_dataSets: any = [];
   dataId: number=-1;
   fileCount:number=0;
-  jobPriority:string='-1';
+  jobPriority:string='0';
   firstSceneId:string='-1';
   gpuorder:any='-1';
   priorityArr:any[]=["1","2","3","4","5","6","7","8","9","10"];
@@ -112,7 +112,7 @@ export class CreateJobComponent{
           this.dataThird = this.job.testRate;
         }
         if(this.job.jobPriority==null){
-          this.jobPriority = '-1';
+          this.jobPriority = '0';
         }else{
           this.jobPriority = this.job.jobPriority;
         }

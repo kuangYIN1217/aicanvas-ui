@@ -1,4 +1,7 @@
 <div class=" container userBody">
+  <div style="padding: 20px 20px 0 20px;">
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" (showTipChange)="showTipChange(event)"></uniform-tips>
+  </div>
   <span class="userTitle">用户管理</span>
   <div class="userContent">
       <div class="condition">
