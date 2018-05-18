@@ -207,6 +207,25 @@ export class JobService {
         }
       });
   }
+  getBackupDatasetFileCount(jobPath){
+    let path = "/api/getDatasetFileSizeAndCount";
+    let dataSetFileDTO = JSON.stringify({
+      "jobPath": jobPath,
+      "label": [
+        "train","valid","test"
+      ],
+      "namePart": "-1",
+    });
+    let headers = this.getHeaders();
+    return this.http.post(this.SERVER_URL + path, dataSetFileDTO, {headers: headers})
+      .map((response: Response) => {
+        if (response && response.json()) {
+          if (response.status == 200) {
+            return response.json();
+          }
+        }
+      });
+  }
   getJobDetail(jobPath: string) {
     let path = "/api/jobDetail/" + jobPath;
     let headers = this.getHeaders();

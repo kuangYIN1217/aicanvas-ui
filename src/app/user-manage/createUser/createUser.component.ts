@@ -107,8 +107,9 @@ export class CreateUserComponent{
             if(this.showTree[i].hasAuthority==true){
               let obj:any={};
               obj.name = this.showTree[i].basAuthority.authorityName;
+              obj.isParent = true;
+              obj.open = true;
               if(this.showTree[i].childAuthorityTreeDtos!=null){
-                obj.open = true;
                 obj.children=[];
                 for(let j=0;j<this.showTree[i].childAuthorityTreeDtos.length;j++){
                   if(this.showTree[i].childAuthorityTreeDtos[j].hasAuthority==true){
@@ -118,7 +119,7 @@ export class CreateUserComponent{
                   }
                 }
               }else{
-                obj.isParent = true;
+                obj.collapse = false;
               }
               zNodes.push(obj);
             }
@@ -129,9 +130,15 @@ export class CreateUserComponent{
           view: {
             showIcon: this.showIconForTree
           },
+          callback:{
+            beforeCollapse:this.beforeCollapse,
+          }
         };
         $.fn.zTree.init($("#userTree"), setting, zNodes);
       })
+  }
+  beforeCollapse(treeId, treeNode){
+    return (treeNode.collapse !== false);
   }
   showIconForTree(treeId, treeNode) {
     return !treeNode;

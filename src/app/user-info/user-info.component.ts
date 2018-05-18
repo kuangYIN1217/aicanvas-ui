@@ -32,6 +32,9 @@ export class UserInfoComponent{
   showIconForTree(treeId, treeNode) {
     return !treeNode;
   }
+  beforeCollapse(treeId, treeNode){
+    return (treeNode.collapse !== false);
+  }
   ngOnInit() {
     this.userService.getUserDetail(this.username).subscribe(result=>{
       this.userAuthority = result;
@@ -47,8 +50,9 @@ export class UserInfoComponent{
           if(data[i].hasAuthority==true){
             let obj:any={};
             obj.name = data[i].basAuthority.authorityName;
+            obj.open = true;
+            obj.isParent = true;
             if(data[i].childAuthorityTreeDtos!=null){
-              obj.open = true;
               obj.children=[];
               for(let j=0;j<data[i].childAuthorityTreeDtos.length;j++){
                 if(data[i].childAuthorityTreeDtos[j].hasAuthority==true){
@@ -58,15 +62,18 @@ export class UserInfoComponent{
                 }
               }
             }else{
-              obj.isParent = true;
+              obj.collapse = false;
             }
             zNodes.push(obj);
           }
         }
         var setting = {
           view: {
-            showIcon: this.showIconForTree
+            showIcon: this.showIconForTree,
           },
+          callback:{
+            beforeCollapse:this.beforeCollapse,
+          }
         };
         $(document).ready(function(){
           $.fn.zTree.init($("#userTree"), setting, zNodes);
