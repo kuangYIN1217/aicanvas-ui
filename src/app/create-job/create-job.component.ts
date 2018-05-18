@@ -48,6 +48,7 @@ export class CreateJobComponent{
   page:number=0;
   chainName:string='';
   loading:boolean = false;
+  backupDataset:any={};
   constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
     this.username = localStorage['username'];
         this.datasetsService.getDataSetType()
@@ -90,6 +91,14 @@ export class CreateJobComponent{
             }
             this.sceneIndex = this.sceneIndex-1;
             this.getChainAndDataset(this.job.sences);
+            this.jobService.getBackupDatasetFileCount(this.job.jobPath)
+              .subscribe(result=>{
+                this.backupDataset.dataName = this.job.datasetBackupName;
+                this.backupDataset.dataId = this.job.dataSet;
+                this.backupDataset.fileCount = result.count;
+                this.dataId = this.backupDataset.dataId;
+                this.fileCount = this.backupDataset.fileCount;
+              })
           });
         this.firstSceneId = this.job.chainId;
         if(this.job.gpuNum==null){
@@ -143,15 +152,9 @@ export class CreateJobComponent{
       .subscribe(result=>{
         this.d_dataSets = result.content;
         if(this.markEdit){
-          let dataset:any={};
-          dataset.dataName = this.job.datasetBackupName;
           for(let i=0;i<this.d_dataSets.length;i++){
             if((this.job.datasetBackupName!="")&&(this.job.datasetBackupName.indexOf(this.d_dataSets[i].dataName)!=-1)){
-              dataset.dataId = this.d_dataSets[i].dataId;
-              dataset.fileCount = this.d_dataSets[i].fileCount;
-              this.d_dataSets.unshift(dataset);
-              this.dataId = this.d_dataSets[0].dataId;
-              this.fileCount = this.d_dataSets[0].fileCount;
+              this.d_dataSets.unshift(this.backupDataset);
               break;
             }
           }
@@ -165,7 +168,7 @@ export class CreateJobComponent{
     }
     for(let i in this.d_dataSets){
       if(this.dataId==this.d_dataSets[i].dataId){
-        this.fileCount = this.d_dataSets[i].selfTypeFileCount;
+        this.fileCount = this.d_dataSets[i].fileCount;
         if(reg.test(this.d_dataSets[i].dataName)){
           document.getElementById("backup_dataset").innerHTML = "";
           this.datasetBackupName = this.d_dataSets[i].dataName;
