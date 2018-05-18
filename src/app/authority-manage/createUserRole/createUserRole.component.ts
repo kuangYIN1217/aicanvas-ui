@@ -204,7 +204,8 @@ export class CreateUserRoleComponent{
       return false
     }
     let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]{4,23}/;
-    if(!reg.test(this.rolename)){
+    let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
+    if(notChinese.test(this.rolename)||!reg.test(this.rolename)){
       this.showTip = true;
       this.tipWidth = "634px";
       this.tipType = "warnning";

@@ -221,7 +221,6 @@ ul, ol {
   /*border-bottom:none !important;*/
 /*}*/
 .pass{
-    margin-bottom: 40px;
     border: 1px solid #e5e5e5;
     overflow: hidden;
     border-radius: 5px;
@@ -289,6 +288,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
     background: #ff9861;
     /*background: linear-gradient(rgba(253,155,102,0.7), rgb(254,125,52));*/
     border:1px solid #ffffff !important;
+    margin-top: 40px;
 }
 .forget{
     overflow: hidden;

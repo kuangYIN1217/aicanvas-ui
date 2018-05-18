@@ -147,8 +147,10 @@ export class CreateUserComponent{
     if(!this.createFlag){
       return false
     }
-      let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[^\u4e00-\u9fa5 0-9a-zA-Z]/;
-      if(!reg.test(this.username)){
+      let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]{4,23}/;
+      let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
+      //let notChinese = /^[\u4E00-\u9FA5]$/g;
+      if(notChinese.test(this.username)||!reg.test(this.username)){
         this.showTip = true;
         this.tipWidth = "634px";
         this.tipType = "warnning";
@@ -157,7 +159,7 @@ export class CreateUserComponent{
         this.createFlag = true;
         return false
       }
-    if(!reg.test(this.password)){
+    if(notChinese.test(this.username)||!reg.test(this.username)){
       this.showTip = true;
       this.tipWidth = "634px";
       this.tipType = "warnning";

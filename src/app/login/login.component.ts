@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit{
     msg_show = false;
     tabIndex:number=0;
     hg:any;
+    errorInfo:string="";
     constructor(private resourcesService: ResourcesService, private userService: UserService,private router: Router){
         if((!localStorage['authenticationToken'])||localStorage['authenticationToken']==""){
             // this.logined = 0;
@@ -116,7 +117,7 @@ export class LoginComponent implements OnInit{
     validToken(returnToken,username){
         //console.log(returnToken);
         if(returnToken.isSuccess==false){
-            this.showMessage("登陆失败");
+            this.errorInfo = returnToken.message;
         }/*else if(returnToken&&returnToken.Jwt.id_token){
           localStorage['authenticationToken'] = returnToken.Jwt.id_token;
           localStorage['username']= username;
