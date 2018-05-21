@@ -258,7 +258,8 @@ export class ModelComponent {
   }
   getJobDetail(job_id){
     this.jobService.getJobDetailById(job_id)
-      .subscribe(jobDetail => {
+      .subscribe(jobInfo => {
+        let jobDetail = jobInfo.jobDetail;
         this.isPublic = jobDetail.ifPublicSence;
         this.job = jobDetail;
         let number:number=0;

@@ -187,7 +187,8 @@ export class JobDetailComponent {
    * 获取jobDetail
    */
   initJobDetailByPath(flag?) {
-    this.jobService.getJobDetail(this.jobPath).subscribe(jobDetail => {
+    this.jobService.getJobDetail(this.jobPath).subscribe(jobInfo => {
+      let jobDetail = jobInfo.jobDetail;
       if (jobDetail) {
         this.job = jobDetail;
         if(this.job.status=="运行"&&this.job.percent==0){
@@ -199,7 +200,7 @@ export class JobDetailComponent {
         if (flag) {
           this.initData();
         }
-        this.user = this.job.user;
+        this.user = jobInfo.user;
         // 处理jobDetail
         this.resolveJobDetail(this.job, this.jobPath);
       }
@@ -294,8 +295,8 @@ export class JobDetailComponent {
     this.jobService.resetLog(jobPath).subscribe(data => {
       this.updatePage(jobPath, this.index);
       this.interval = setInterval(() => {
-        this.jobService.getJobDetail(jobPath).subscribe(jobDetail => {
-          this.job = jobDetail;
+        this.jobService.getJobDetail(jobPath).subscribe(jobInfo => {
+          this.job = jobInfo.jobDetail;
           if(this.job.percent>0){
             this.s_progress_show = false;
           }
@@ -320,7 +321,7 @@ export class JobDetailComponent {
           }else{
             this.showTip = false;
           }
-          this.user = this.job.user;
+          this.user = jobInfo.user;
         });
       }, 1000);
     });
@@ -927,7 +928,6 @@ export class JobDetailComponent {
       return;
     }
     this.s_start_stop_click = false;
-    // todo 判断当前运行job数量 > 5 不允许
     this.jobService.getAllJobs('运行', null , null , null , null,null,"id,asc" ).subscribe(rep => {
       if (rep.totalElements >= 5) {
         this.showTip = true;
