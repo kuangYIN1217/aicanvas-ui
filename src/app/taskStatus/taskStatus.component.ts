@@ -24,6 +24,7 @@ export class TaskStatusComponent{
     id:number;
     interval: any;
     interval1: any;
+    taskStatusArr:any[]=["未启动","运行","停止","完成","异常"];
     dataIndex:number=1;
     Jobs: JobInfo[] = [];
     pageParams=new Page();
@@ -173,6 +174,7 @@ export class TaskStatusComponent{
         })
     }
     getAlljobs(status,page,size,sceneId){
+      if(this.taskStatusArr.indexOf(status)>0) this.trainable = 1;
         this.jobService.getAllJobs(status,page,size,sceneId,this.jobName,this.trainable,this.s_sort_type)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
