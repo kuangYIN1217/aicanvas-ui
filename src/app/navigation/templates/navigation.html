@@ -12,7 +12,7 @@
             <span (click)="logout()">退出</span>
         </div>
     </div>
-    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav" *ngIf="userInfo=='false'">
+    <nav class="nav-content nav" *ngIf="userInfo=='false'&&focusTab!=0">
       <div class="nav_element" style="height: 120px;" *ngIf="userInfo=='false'">
         <img src="assets/navigation/logo1.png" class="logo1">
       </div>
@@ -41,7 +41,7 @@
         <a href="#" onclick="return false">算法组件库</a>
       </div>
    </nav>
-    <nav [style.display]="(focusTab!=0)?'':'none'" class="nav-content nav1" *ngIf="userInfo=='true'">
+    <nav  class="nav-content nav1" *ngIf="userInfo=='true'&&focusTab!=0">
 <!--      <div class="nav_element" style="height: 120px;">
         <img src="assets/navigation/logo1.png" class="logo">
       </div>-->
