@@ -364,7 +364,7 @@ export class EnterDatasetComponent {
     this.showTip = true;
     this.tipType = "warnning";
     this.tipWidth = "100%";
-    this.tipContent = "您选择的文件格式暂不支持数据标注！";
+    this.tipContent = this.d_tableData.length>0?"您选择的文件格式暂不支持数据标注！":"当前文件夹为空！";
   }
   $select_change(){
     this.searchFile = true;
