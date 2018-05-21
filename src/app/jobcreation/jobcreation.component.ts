@@ -17,13 +17,12 @@ declare var $: any;
 import {calc_height} from '../common/ts/calc_height'
 import {nextTick} from "q";
 import {ResourcesService} from "../common/services/resources.service";
-import {BasHttpService} from "../common/services/basHttp.service";
 @Component({
   moduleId: module.id,
   selector: 'jobcreation',
   styleUrls: ['./css/jobcreation.component.css'],
   templateUrl: './templates/jobcreation.html',
-  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService, DatasetsService,ResourcesService,BasHttpService]
+  providers: [UserService, JobService, SceneService, PluginService, modelService, AlgChainService, DatasetsService,ResourcesService]
 })
 export class JobCreationComponent {
   creator: any;
