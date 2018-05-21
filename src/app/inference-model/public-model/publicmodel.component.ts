@@ -28,8 +28,9 @@ export class PublicModelComponent{
   pageNow:number;
   lookFailReason:any[]=[];
   first:boolean = false;
+  username:string='';
   constructor(private sceneService: SceneService,private modelService: modelService){
-
+    this.username = localStorage['username'];
   }
   ngOnChanges(...args: any[]) {
     this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);

@@ -23,7 +23,7 @@
       <td>{{item.serviceStatus==null?'-':item.serviceStatus}}</td>
       <td title="{{item.restfulUrl}}">{{item.restfulUrl}}</td>
       <td>{{item.size}}</td>
-      <td>{{item.user.login}}</td>
+      <td>{{username}}</td>
       <td>{{item.createTime}}</td>
       <td>
         <a href="{{item.apiUrl}}" target="_blank" class="opearate see" *ngIf="item.status=='发布成功'" title="查看模型"></a>
