@@ -83,7 +83,7 @@ export class NavigationComponent {
       // sceneService.getAllScenes()
       //     .subscribe(sceneArray => this.sceneArray = sceneArray);
     }
-    if (localStorage['username']&&localStorage['userAuthority']&&localStorage['allAuthority']) {
+    if (localStorage['username']&&localStorage['userAuthority']&&localStorage['allAuthority']){
       this.username = localStorage['username'];
       this.userAuthority = localStorage['userAuthority'];
       this.menuAuthority = JSON.parse(localStorage['allAuthority']);
@@ -140,6 +140,7 @@ export class NavigationComponent {
   logout() {
     localStorage.removeItem("authenticationToken");
     localStorage.removeItem("username");
+    localStorage.removeItem("allAuthority");
     sessionStorage.removeItem("userInfo");
     this.router.navigate(['/login'])
     // window.location.href = "/login";
