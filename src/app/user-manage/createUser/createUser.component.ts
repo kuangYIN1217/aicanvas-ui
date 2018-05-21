@@ -159,7 +159,7 @@ export class CreateUserComponent{
         this.createFlag = true;
         return false
       }
-    if(notChinese.test(this.username)||!reg.test(this.username)){
+    if(notChinese.test(this.password)||!reg.test(this.password)){
       this.showTip = true;
       this.tipWidth = "634px";
       this.tipType = "warnning";

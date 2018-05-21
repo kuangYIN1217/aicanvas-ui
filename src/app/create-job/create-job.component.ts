@@ -96,7 +96,7 @@ export class CreateJobComponent{
             this.jobService.getBackupDatasetFileCount(this.job.jobPath)
               .subscribe(result=>{
                 this.backupDataset.dataName = this.job.datasetBackupName;
-                this.backupDataset.dataId = this.job.dataSet;
+                this.backupDataset.dataId = this.job.dataSet+'_backup';
                 this.backupDataset.fileCount = result.count;
                 this.dataId = this.backupDataset.dataId;
                 this.fileCount = this.backupDataset.fileCount;
@@ -501,6 +501,9 @@ export class CreateJobComponent{
   saveJob(chainId, dataId,chosenSceneId){
     if(this.datasetBackupName==""){
       this.datasetBackupName = this.job.datasetBackupName;
+    }
+    if(dataId.indexOf("_backup")!=-1){
+      dataId = dataId.split("_")[0];
     }
     this.jobService.saveJob(this.job.id,chainId, dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
       .subscribe(
