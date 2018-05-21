@@ -1,20 +1,21 @@
 .error-content {
   position: relative;
-  padding:0 45px;
-  height: 30px;
-  line-height: 30px;
   border-radius: 3px;
   color: #666666;
   font-size: 12px;
-  overflow: hidden;
   margin: 20px 57px 0 57px;
+  display: flex;
+  align-items: center;
 }
 .error-content label {
   font-size: 14px;
   color: #333;
+  margin-left: 18px;
+}
+.error-content span{
+  display: inline-block;
+  margin:10px 0;
 }
 .error-content img {
-  position: absolute;
-  left: 18px;
-  top: 5px;
+  margin-left: 18px;
 }

@@ -1,5 +1,5 @@
 <div class="error-content" *ngIf="show" [ngStyle]="ngStyle()">
   <img [src]="'assets/uniform-tips/' + (level === 'error' ? 'cuowu.png' : 'tishi.png')" alt="">
   <label>{{level === 'error' ? '错误！' : '提示！'}}</label>
-  {{message}}
+  <span>{{message}}</span>
 </div>

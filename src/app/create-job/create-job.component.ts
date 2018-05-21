@@ -167,6 +167,7 @@ export class CreateJobComponent{
     let reg=new RegExp(/_\d{14}$/);
     if(this.dataId==-1){
       this.datasetBackupName = null;
+      document.getElementById("backup_dataset").innerHTML = "";
     }
     for(let i in this.d_dataSets){
       if(this.dataId==this.d_dataSets[i].dataId){
