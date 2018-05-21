@@ -101,7 +101,7 @@ export class TaskStatusComponent{
       this.s_sort_type = 'createTime,desc';
       document.getElementById("timeSort").setAttribute("src","assets/taskStatus/down.png");
     }
-    this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
+    this.getAlljobs(this.statuss,this.pageNow,this.pageMax,this.sceneId);
   }
   sortPriority(){
     document.getElementById("timeSort").setAttribute("src","assets/taskStatus/taskStatusSort.png");
@@ -112,7 +112,7 @@ export class TaskStatusComponent{
       this.s_sort_type = 'jobPriority,desc';
       document.getElementById("jobPrioritySort").setAttribute("src","assets/taskStatus/down.png");
     }
-    this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
+    this.getAlljobs(this.statuss,this.pageNow,this.pageMax,this.sceneId);
   }
   ngOnChanges(...args: any[]){
        this.getSceneId();
