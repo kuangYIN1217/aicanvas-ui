@@ -102,6 +102,8 @@ export class JobCreationComponent {
   isTrain:boolean = false;
   notTrain:boolean = false;
   taskStatusArr:any[]=["请选择任务状态","未启动","运行","停止","完成","异常","模型发布中","模型发布成功","模型发布失败"];
+  taskStatusArr1:any[]=["请选择任务状态","模型发布中","模型发布成功","模型发布失败"];
+  taskStatusArr2:any[]=["请选择任务状态","未启动","运行","停止","完成","异常","模型发布中","模型发布成功","模型发布失败"];
   taskStatus:string='';
   chainName:string='';
   allAuthority:any[]=[];
@@ -211,7 +213,6 @@ export class JobCreationComponent {
       })
   }
   selectStatus(){
-
   }
   dataKeywordChange(){
     let type:number;
@@ -853,5 +854,13 @@ export class JobCreationComponent {
   }
   chooseTuiyan(){
     this.notTrain = !this.notTrain;
+    if(this.notTrain==false){
+      this.taskStatusArr =this.taskStatusArr2;
+    }else {
+      this.taskStatusArr =this.taskStatusArr1;
+      if(this.taskStatusArr1.indexOf(this.taskStatus)<0){
+        this.taskStatus = '请选择任务状态';
+      }
+    }
   }
 }
