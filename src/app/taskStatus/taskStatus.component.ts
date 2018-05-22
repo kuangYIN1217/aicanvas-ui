@@ -67,13 +67,11 @@ export class TaskStatusComponent{
     }
     getPageData(paraParam) {
       clearInterval(this.interval);
-      /*clearInterval(this.interval1);*/
       clearInterval(this.interval1)
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
       this.interval = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 10000);
       this.pageNow=paraParam.curPage-1;
       this.pageMax=paraParam.pageMaxItem;
-      //console.log('触发', paraParam);
       this.getPage();
     }
   getPage(){
@@ -87,10 +85,10 @@ export class TaskStatusComponent{
            clearInterval(this.interval1);
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 10000);
          }else{
-           // this.interval = setInterval(() =>this.updatePage(), 3000);
+           //this.interval = setInterval(() =>this.updatePage(), 3000);
            clearInterval(this.interval1);
-           this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null);
-           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,null), 10000);
+           this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
+           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId), 10000);
          }
    }
   sortTime(){
@@ -149,7 +147,6 @@ export class TaskStatusComponent{
    }
     updatePage(){
       this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
-
     }
     lookDetail(job){
       this.router.navigate(['../jobDetail'], {queryParams: {"job": JSON.stringify(job),"page": this.pageNow==0?this.pageNumber:this.pageNow}});

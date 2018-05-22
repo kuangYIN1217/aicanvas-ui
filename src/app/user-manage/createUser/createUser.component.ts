@@ -149,7 +149,7 @@ export class CreateUserComponent{
     }
       //let reg =   /^[0-9a-zA-Z]*$/g;
       let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
-      let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/im;
+      let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.-\\\/;'\[\]]/im;
       if(noSpecial.test(this.username)||notChinese.test(this.username)||(/^[0-9]*$/.test(this.username))||(/^[a-zA-Z]*$/.test(this.username))){
         this.showTip = true;
         this.tipWidth = "634px";
