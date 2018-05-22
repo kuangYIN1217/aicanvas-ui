@@ -235,6 +235,7 @@ export class PopupComponent {
     });
   }
   $hide_click () {
+    this.uploader.cancelAll();
     this.saveLoad=[];
     this.show = false;
     this.showTip = false;
