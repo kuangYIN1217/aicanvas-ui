@@ -120,7 +120,7 @@
         <td>没有合适的文件？试试使用<a href="javascript:void(0)" class="dataset" (click)="getDataset()">数据集文件</a> </td>
       </tr>
     </table>
-    <datasets-detail [(show)]="show" [jobPath]="jobPath" [test]="test" (uploadPathChange)="getDataSetPath($event)"></datasets-detail>
+    <datasets-detail [(show)]="show" [jobPath]="jobPath" [test]="test" [dataId]="dataId" [datasetPath]="datasetPath" (uploadPathChange)="getDataSetPath($event)"></datasets-detail>
     <a href="#" class="back" onclick="return false" (click)="uploadFile()" style="float:left;margin: 30px;">推演</a>
   </div>
   <div [style.display]="!showAdd?'':'none'">

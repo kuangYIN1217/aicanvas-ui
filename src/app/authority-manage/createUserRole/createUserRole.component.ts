@@ -203,10 +203,10 @@ export class CreateUserRoleComponent{
     if(!this.createFlag){
       return false
     }
-    let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]/;
+    //let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]/;
     let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
     let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/im;
-    if(noSpecial.test(this.rolename)||notChinese.test(this.rolename)||!reg.test(this.rolename)){
+    if(noSpecial.test(this.rolename)||notChinese.test(this.rolename)||(/^[0-9]*$/.test(this.rolename))||(/^[a-zA-Z]*$/.test(this.rolename))){
       this.showTip = true;
       this.tipWidth = "634px";
       this.tipType = "warnning";
