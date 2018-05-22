@@ -534,7 +534,7 @@ export class EnterDatasetComponent {
                 this.showUpload[j].status = "上传失败";
               }
               return false
-            }else{
+            }else if(this.uploader.queue[j]!=undefined){
               this.uploader.queue[j].upload();
             }
           }
@@ -611,6 +611,7 @@ export class EnterDatasetComponent {
     }*/
   }
   close(){
+    this.uploader.cancelAll();
     this.uploadShow = false;
     this.show = false;
     this.uploader.queue=[];
