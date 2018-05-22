@@ -856,6 +856,8 @@ export class JobCreationComponent {
       if(this.taskStatusArr1.indexOf(this.taskStatus)<0){
         this.taskStatus = '请选择任务状态';
       }
+    }else{
+      this.taskStatusArr = this.taskStatusArr2;
     }
   }
   chooseTuiyan(){
