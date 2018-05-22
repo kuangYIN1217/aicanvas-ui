@@ -172,7 +172,7 @@ export class TaskStatusComponent{
         })
     }
     getAlljobs(status,page,size,sceneId){
-      if(this.taskStatusArr.indexOf(status)>0) this.trainable = 1;
+      if(this.taskStatusArr.indexOf(status)>=0) this.trainable = 1;
         this.jobService.getAllJobs(status,page,size,sceneId,this.jobName,this.trainable,this.s_sort_type)
             .subscribe(Jobs => {
                 this.Jobs = Jobs.content;
