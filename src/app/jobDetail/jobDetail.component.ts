@@ -311,7 +311,6 @@ export class JobDetailComponent {
           if(this.job.status == '异常'){
             this.jobService.getJobDetailById(this.job.id)
               .subscribe(result=>{
-                console.log(result);
                 this.showTip = true;
                 this.tipMargin = "0 auto 20px";
                 this.tipWidth = "100%";

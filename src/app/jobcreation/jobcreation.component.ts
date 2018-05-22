@@ -854,10 +854,10 @@ export class JobCreationComponent {
   }
   chooseTuiyan(){
     this.notTrain = !this.notTrain;
-    if(this.notTrain==false){
-      this.taskStatusArr =this.taskStatusArr2;
+    if(this.notTrain == false){
+      this.taskStatusArr = this.taskStatusArr2;
     }else {
-      this.taskStatusArr =this.taskStatusArr1;
+      this.taskStatusArr = this.taskStatusArr1;
       if(this.taskStatusArr1.indexOf(this.taskStatus)<0){
         this.taskStatus = '请选择任务状态';
       }
