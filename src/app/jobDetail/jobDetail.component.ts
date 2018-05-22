@@ -951,7 +951,7 @@ export class JobDetailComponent {
     this.showTip = event;
   }
   goModel(){
-    this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id}})
+    this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id,'dataId':this.dataId,'datasetPath':this.datasetPath}})
   }
 
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {

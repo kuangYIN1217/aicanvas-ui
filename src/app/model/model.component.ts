@@ -73,7 +73,8 @@ export class ModelComponent {
   saveTips:any[]=[];
   showSaveTips:any[]=[];
   showMore:boolean = true;
-
+  dataId:string='';
+  datasetPath:string='';
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -100,6 +101,8 @@ export class ModelComponent {
     this.route.queryParams.subscribe(params => {
       if(init_flag) {
         this.job_id = params['job_id'];
+        this.dataId = params['dataId'];
+        this.datasetPath = params['datasetPath'];
         this.selectChange(this.job_id);
         this.getJobDetail(this.job_id);
         init_flag = false;
@@ -292,7 +295,11 @@ export class ModelComponent {
   }
   getDataset(){
     this.show = true;
-    this.test = 'test';
+    if(this.job.sencesName=='图像检测'){
+      this.test = 'train';
+    }else{
+      this.test = 'test';
+    }
     this.jobPath = this.job.jobPath;
   }
   publish(){

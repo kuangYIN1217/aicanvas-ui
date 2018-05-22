@@ -70,6 +70,15 @@ export class DatasetsDetailComponent{
       this.getFile(this.jobPath,this.label);
       this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch(),this.page,this.pageMaxItem);
     }
+    if(this.test == 'train'){
+      //console.log(this.jobPath);
+      this.dataPath.push('全部文件');
+      this.arr = this.dataPath;
+      this.index=1;
+      this.label=["train"];
+      this.getFile(this.jobPath,this.label);
+      this.getTestResult(this.jobPath,[this.test],null,this.judgeSearch(),this.page,this.pageMaxItem);
+    }
     if(this.train == 'train'){
       //console.log(this.jobPath);
       this.dataPath.push('全部文件');
