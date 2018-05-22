@@ -199,19 +199,28 @@ export class CreateUserRoleComponent{
       }
     }
   }
+  errorTip(text){
+    this.showTip = true;
+    this.tipWidth = "634px";
+    this.tipType = "warnning";
+    this.tipMargin = "20px 0 0 22px";
+    this.tipContent = "请填写"+text+"（字母、数字组合）！";
+  }
   create(){
     if(!this.createFlag){
       return false
     }
     //let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]/;
-    let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
-    let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/im;
-    if(noSpecial.test(this.rolename)||notChinese.test(this.rolename)||(/^[0-9]*$/.test(this.rolename))||(/^[a-zA-Z]*$/.test(this.rolename))){
-      this.showTip = true;
-      this.tipWidth = "634px";
-      this.tipType = "warnning";
-      this.tipMargin = "20px 0 0 22px";
-      this.tipContent = "请填写用户名（字母、数字组合）！";
+    //let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
+    //let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/im;
+    let reg = /^[0-9a-zA-Z]+$/;
+    if(reg.test(this.rolename)){
+      if((/^[0-9]*$/.test(this.rolename))||(/^[a-zA-Z]*$/.test(this.rolename))){
+        this.errorTip("用户名");
+        return false
+      }
+    }else{
+      this.errorTip("用户名");
       return false
     }
     for(let i=0;i<this.allAuthority.length;i++){

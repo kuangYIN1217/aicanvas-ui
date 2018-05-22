@@ -143,29 +143,38 @@ export class CreateUserComponent{
   showIconForTree(treeId, treeNode) {
     return !treeNode;
   }
+  errorTip(text){
+    this.showTip = true;
+    this.tipWidth = "634px";
+    this.tipType = "warnning";
+    this.tipMargin = "20px 0 0 22px";
+    this.tipContent = "请填写"+text+"（字母、数字组合）！";
+  }
   create(){
     if(!this.createFlag){
       return false
     }
+
       //let reg =   /^[0-9a-zA-Z]*$/g;
-      let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
-      let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.-\\\/;'\[\]]/im;
-      if(noSpecial.test(this.username)||notChinese.test(this.username)||(/^[0-9]*$/.test(this.username))||(/^[a-zA-Z]*$/.test(this.username))){
-        this.showTip = true;
-        this.tipWidth = "634px";
-        this.tipType = "warnning";
-        this.tipMargin = "20px 0 0 22px";
-        this.tipContent = "请填写用户名（字母、数字组合）！";
-        this.createFlag = true;
+      //let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
+      //let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.-\\\/;'\[\]]/im;
+    let reg = /^[0-9a-zA-Z]+$/;
+    if(reg.test(this.username)){
+      if((/^[0-9]*$/.test(this.username))||(/^[a-zA-Z]*$/.test(this.username))){
+        this.errorTip("用户名");
         return false
       }
-    if(noSpecial.test(this.password)||notChinese.test(this.password)||(/^[0-9]*$/.test(this.password))||(/^[a-zA-Z]*$/.test(this.password))){
-      this.showTip = true;
-      this.tipWidth = "634px";
-      this.tipType = "warnning";
-      this.tipMargin = "20px 0 0 22px";
-      this.tipContent = "请填写用户密码（字母、数字组合）！";
-      this.createFlag = true;
+    }else{
+      this.errorTip("用户名");
+      return false
+    }
+    if(reg.test(this.password)){
+      if((/^[0-9]*$/.test(this.password))||(/^[a-zA-Z]*$/.test(this.password))){
+        this.errorTip("密码");
+        return false
+      }
+    }else{
+      this.errorTip("密码");
       return false
     }
     if(this.role==''){
