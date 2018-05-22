@@ -33,7 +33,11 @@ export class PublicModelComponent{
 
   }
   ngOnChanges(...args: any[]) {
-    this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
+    if(this.jobName!=-1||this.senceName!=-1){
+      this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,0,10);
+    }else{
+      this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
+    }
   }
   getPageData(paraParam){
     this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,paraParam.curPage-1,paraParam.pageMaxItem);

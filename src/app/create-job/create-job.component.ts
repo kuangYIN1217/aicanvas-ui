@@ -61,9 +61,7 @@ export class CreateJobComponent{
         let temp:any={'id':-1,'totalGlobalMem': 0};
         this.gpus.unshift(temp);
       });
-    if(!this.markEdit){
-      this.getDataSets(1,this.username);
-    }
+
   }
   ngOnInit(){
     calc_height(document.getElementsByClassName('allContent')[0]);
@@ -93,14 +91,18 @@ export class CreateJobComponent{
             }
             this.sceneIndex = this.sceneIndex-1;
             this.getChainAndDataset(this.job.sences);
-            this.jobService.getBackupDatasetFileCount(this.job.jobPath)
-              .subscribe(result=>{
-                this.backupDataset.dataName = this.job.datasetBackupName;
-                this.backupDataset.dataId = this.job.dataSet+'_backup';
-                this.backupDataset.fileCount = result.count;
-                this.dataId = this.backupDataset.dataId;
-                this.fileCount = this.backupDataset.fileCount;
-              })
+            if(this.job.sences==11||this.job.sences==15){
+
+            }else{
+              this.jobService.getBackupDatasetFileCount(this.job.jobPath)
+                .subscribe(result=>{
+                  this.backupDataset.dataName = this.job.datasetBackupName;
+                  this.backupDataset.dataId = this.job.dataSet+'_backup';
+                  this.backupDataset.fileCount = result.count;
+                  this.dataId = this.backupDataset.dataId;
+                  this.fileCount = this.backupDataset.fileCount;
+                })
+            }
           });
         this.firstSceneId = this.job.chainId;
         if(this.job.gpuNum==null){
@@ -120,6 +122,9 @@ export class CreateJobComponent{
         }
       }
     });
+/*    if(!this.markEdit){
+      this.getDataSets(1,this.username);
+    }*/
     if(!this.markEdit){
       this.sceneService.getAllScenes(2)
         .subscribe(scenes => {
@@ -150,18 +155,22 @@ export class CreateJobComponent{
 
   }
   getDataSets(type,creator){
-    this.datasetsService.createJobGetDatasets(type,'')
-      .subscribe(result=>{
-        this.d_dataSets = result.content;
-        if(this.markEdit){
-          for(let i=0;i<this.d_dataSets.length;i++){
-            if(this.job.datasetBackupName!=""){
-              this.d_dataSets.unshift(this.backupDataset);
-              break;
+    if(this.job.sences==11||this.job.sences==15){
+
+    }else{
+      this.datasetsService.createJobGetDatasets(type,'')
+        .subscribe(result=>{
+          this.d_dataSets = result.content;
+          if(this.markEdit){
+            for(let i=0;i<this.d_dataSets.length;i++){
+              if(this.job.datasetBackupName!=""){
+                this.d_dataSets.unshift(this.backupDataset);
+                break;
+              }
             }
           }
-        }
-      });
+        });
+    }
   }
   dataChange(){
     let reg=new RegExp(/_\d{14}$/);
@@ -232,6 +241,13 @@ export class CreateJobComponent{
     this.showScene[sceneIndex][index].selected = true;
     this.student = scene.id;
     this.getChainAndDataset(scene.id)
+    if(this.student==11||this.student==15){
+      this.d_dataSets = [];
+      for(let i=0;i<this.datasetsType.length;i++){
+        this.datasetsType[i].flag=2;
+        this.getImage(this.datasetsType[i]);
+      }
+    }
   }
   getChainAndDataset(id){
     this.sceneService.getChainByScene(id)

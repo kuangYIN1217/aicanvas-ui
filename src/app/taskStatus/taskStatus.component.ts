@@ -69,7 +69,7 @@ export class TaskStatusComponent{
       clearInterval(this.interval);
       clearInterval(this.interval1);
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
-      this.interval = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 4000);
+      this.interval = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 10000);
       this.pageNow=paraParam.curPage-1;
       this.pageMax=paraParam.pageMaxItem;
       this.getPage();
@@ -83,12 +83,12 @@ export class TaskStatusComponent{
          if(this.pageNumber!=0||this.pageMax!=10){
            this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
            clearInterval(this.interval1);
-           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 4000);
+           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 10000);
          }else{
            //this.interval = setInterval(() =>this.updatePage(), 4000);
            clearInterval(this.interval1);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
-           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId), 4000);
+           this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId), 10000);
          }
    }
   sortTime(){
@@ -119,13 +119,14 @@ export class TaskStatusComponent{
        this.pageChange = this.pageNumber;
        sessionStorage['curPage'] = this.pageNumber;
        sessionStorage['curMax'] = this.pageMax;
+       clearInterval(this.interval);
+       clearInterval(this.interval1);
        if((this.jobName!=null||this.jobName!=''||this.jobName!=undefined)&&this.pageNumber){
          this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId);
          //this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 10000);
        }else{
          this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId);
-         clearInterval(this.interval);
-         this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId), 4000);
+         this.interval1 = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMax,this.sceneId), 10000);
        }
    }
   chooseTrainMethod(){
