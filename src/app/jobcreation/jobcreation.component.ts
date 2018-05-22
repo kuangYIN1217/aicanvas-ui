@@ -224,7 +224,7 @@ export class JobCreationComponent {
     this.searchDataSets(type,this.dataKeyword,this.username);
   }
   searchDataSets(type,name,creator){
-    this.datasetsService.searchDatasets(type,name,'')
+    this.datasetsService.searchDatasets(type,name,creator+',system')
       .subscribe(result=>{
         this.d_dataSets = result.content;
         if(this.d_dataSets.length>0){
@@ -233,7 +233,7 @@ export class JobCreationComponent {
       });
   }
   getDataSets(type,creator){
-    this.datasetsService.createJobGetDatasets(type,'')
+    this.datasetsService.createJobGetDatasets(type,creator+',system')
       .subscribe(result=>{
         this.d_dataSets = result.content;
         this.dataId = this.d_dataSets[0].dataId;
