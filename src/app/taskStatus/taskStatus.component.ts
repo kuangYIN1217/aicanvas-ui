@@ -67,7 +67,7 @@ export class TaskStatusComponent{
     }
     getPageData(paraParam) {
       clearInterval(this.interval);
-      clearInterval(this.interval1)
+      clearInterval(this.interval1);
       this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId);
       this.interval = setInterval(() =>this.getAlljobs(this.statuss,paraParam.curPage-1,paraParam.pageMaxItem,this.sceneId), 4000);
       this.pageNow=paraParam.curPage-1;
@@ -85,7 +85,7 @@ export class TaskStatusComponent{
            clearInterval(this.interval1);
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.pageNumber,this.pageMax,this.sceneId), 4000);
          }else{
-           //this.interval = setInterval(() =>this.updatePage(), 3000);
+           //this.interval = setInterval(() =>this.updatePage(), 4000);
            clearInterval(this.interval1);
            this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId);
            this.interval = setInterval(() =>this.getAlljobs(this.statuss,this.page-1,this.pageMaxItem,this.sceneId), 4000);

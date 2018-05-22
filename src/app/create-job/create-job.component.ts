@@ -503,8 +503,10 @@ export class CreateJobComponent{
     if(this.datasetBackupName==""){
       this.datasetBackupName = this.job.datasetBackupName;
     }
-    if(dataId.indexOf("_backup")!=-1){
-      dataId = dataId.split("_")[0];
+    if(dataId!=-1){
+      if(dataId.indexOf("_backup")!=-1){
+        dataId = dataId.split("_")[0];
+      }
     }
     this.jobService.saveJob(this.job.id,chainId, dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
       .subscribe(
