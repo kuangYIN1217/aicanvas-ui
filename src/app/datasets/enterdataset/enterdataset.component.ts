@@ -495,16 +495,16 @@ export class EnterDatasetComponent {
         this.uploader.queue[j].cancel();
       };*/
       this.uploader.queue[j].onSuccess = (response: any, status: any, headers: any) => {
-        if(this.showUpload.length-1<j){
+        if(this.showUpload.length-1<j&&this.showUpload.length-1>=0&&this.showUpload[this.showUpload.length-1]!=undefined){
           this.showUpload[this.showUpload.length-1].status = "上传成功";
-        }else{
+        }else if(this.showUpload[j]!=undefined){
           this.showUpload[j].status = "上传成功";
         }
       };
       this.uploader.queue[j].onError = (response: any, status: any, headers: any) => {
-        if(this.showUpload.length-1<j){
+        if(this.showUpload.length-1<j&&this.showUpload.length-1>=0&&this.showUpload[this.showUpload.length-1]!=undefined){
           this.showUpload[this.showUpload.length-1].status = "上传失败";
-        }else{
+        }else if(this.showUpload[j]!=undefined){
           this.showUpload[j].status = "上传失败";
         }
         if(status=="400"){
