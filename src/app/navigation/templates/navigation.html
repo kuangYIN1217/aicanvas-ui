@@ -12,8 +12,8 @@
             <span (click)="logout()">退出</span>
         </div>
     </div>
-    <nav class="nav-content nav" *ngIf="userInfo=='false'&&focusTab!=0">
-      <div class="nav_element" style="height: 120px;" *ngIf="userInfo=='false'">
+    <nav class="nav-content nav" [style.display]="(userInfo=='false'&&focusTab!=0)?'':'none'">
+      <div class="nav_element" style="height: 120px;" [style.display]="userInfo=='false'?'':'none'">
         <img src="assets/navigation/logo1.png" class="logo1">
       </div>
         <div class="nav_element" [class.focusTab] = "focusTab==1" routerLinkActive="active" *ngIf="menuAuthority[0].hasAuthority" (click)="changeTab(1 , '/datasetssave');focusCollapse='0'">
@@ -41,7 +41,7 @@
         <a href="#" onclick="return false">算法组件库</a>
       </div>
    </nav>
-    <nav  class="nav-content nav1" *ngIf="userInfo=='true'&&focusTab!=0">
+    <nav  class="nav-content nav1" [style.display]="(userInfo=='true'&&focusTab!=0)?'':'none'">
 <!--      <div class="nav_element" style="height: 120px;">
         <img src="assets/navigation/logo1.png" class="logo">
       </div>-->
