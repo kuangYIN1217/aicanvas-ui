@@ -430,30 +430,33 @@ export class PopupComponent {
         };
         this.uploader.onBuildItemForm = (item, form) => {
           form.append("fileType", this.fileType);
-          //form.append(key2, value2);
         };
-        //this.uploader.uploadAll();
-        let path = this.d_tableData[0].dataPath;
-        console.log(path.split('dataset')[0]+"dataset");
-        this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,path.split('dataset')[0]+"dataset")
-          .subscribe(result=>{
-            //console.log(result);
-            for(var key in result[0]){
-              if(result[0][key]=="exist"){
-                this.showTip = true;
-                this.tipType = "warnning";
-                this.tipContent = "已有同名文件或文件夹，请重新上传！";
-                if(this.showUpload.length-1<j){
-                  this.showUpload[this.showUpload.length-1].status = "上传失败";
+        if(this.d_tableData.length<=0){
+          this.uploader.queue[j].upload();
+        } else{
+          let path = this.d_tableData[0].dataPath;
+          console.log(path.split('dataset')[0]+"dataset");
+          this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,path.split('dataset')[0]+"dataset")
+            .subscribe(result=>{
+              //console.log(result);
+              for(var key in result[0]){
+                if(result[0][key]=="exist"){
+                  this.showTip = true;
+                  this.tipType = "warnning";
+                  this.tipContent = "已有同名文件或文件夹，请重新上传！";
+                  if(this.showUpload.length-1<j){
+                    this.showUpload[this.showUpload.length-1].status = "上传失败";
+                  }else{
+                    this.showUpload[j].status = "上传失败";
+                  }
+                  return false
                 }else{
-                  this.showUpload[j].status = "上传失败";
+                  this.uploader.queue[j].upload();
                 }
-                return false
-              }else{
-                this.uploader.queue[j].upload();
               }
-            }
-          })
+            })
+        }
+
         //this.uploader.queue[j].upload();
       }
   }
