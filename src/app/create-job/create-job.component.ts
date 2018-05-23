@@ -158,7 +158,7 @@ export class CreateJobComponent{
     if(this.job.sences==11||this.job.sences==15){
 
     }else{
-      this.datasetsService.createJobGetDatasets(type,'')
+      this.datasetsService.createJobGetDatasets(type,creator+",system")
         .subscribe(result=>{
           this.d_dataSets = result.content;
           if(this.markEdit){
@@ -385,7 +385,7 @@ export class CreateJobComponent{
     this.searchDataSets(type,this.dataKeyword,this.username);
   }
   searchDataSets(type,name,creator){
-    this.datasetsService.searchDatasets(type,name,'')
+    this.datasetsService.searchDatasets(type,name,creator+',system')
       .subscribe(result=>{
         this.d_dataSets = result.content;
       });

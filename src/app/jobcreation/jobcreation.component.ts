@@ -192,6 +192,94 @@ export class JobCreationComponent {
         }
       })
   }
+  dataKeywordChange(){
+    let type:number;
+    for(let i=0;i<this.datasetsType.length;i++){
+      if(this.datasetsType[i].flag==1){
+        type = this.datasetsType[i].id;
+      }
+    }
+    this.searchDataSets(type,this.dataKeyword,this.username);
+  }
+  searchDataSets(type,name,creator){
+    this.datasetsService.searchDatasets(type,name,creator+',system')
+      .subscribe(result=>{
+        this.d_dataSets = result.content;
+        if(this.d_dataSets.length>0){
+          this.dataId = this.d_dataSets[0].dataId;
+        }
+      });
+  }
+  getDataSets(type,creator){
+    this.datasetsService.createJobGetDatasets(type,creator+',system')
+      .subscribe(result=>{
+        this.d_dataSets = result.content;
+        this.dataId = this.d_dataSets[0].dataId;
+        this.fileCount = this.d_dataSets[0].fileCount;
+      });
+  }
+  getImage(item){
+    if(item.id==1){
+      if(item.flag==undefined||item.flag==2){
+        return 'assets/datasets/createfile/tp_hui.png';
+      }
+      else
+        return 'assets/datasets/createfile/tp_lv.png';
+    }else if(item.id==2){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/yp_hui.png';
+      else
+        return 'assets/datasets/createfile/yp_lv.png';
+    }else if(item.id==3){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/wb_hui.png';
+      else
+        return 'assets/datasets/createfile/wb_lv.png';
+    }else if(item.id==4){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/sp_hui.png';
+      else
+        return 'assets/datasets/createfile/sp_lv.png';
+    }else if(item.id==5){
+      if(item.flag==undefined||item.flag==2)
+        return 'assets/datasets/createfile/qt_hui.png';
+      else
+        return 'assets/datasets/createfile/qt_lv.png';
+    }
+  }
+  chooseImg(item){
+    //console.log(item);
+    if(item.flag != 1){
+      for(let i=0;i<this.datasetsType.length;i++){
+        this.datasetsType[i].flag = 2;
+      }
+      item.flag = 1;
+      this.getImage(item);
+      if(this.dataKeyword==''){
+        this.getDataSets(item.id,this.username);
+      }else{
+        this.searchDataSets(item.id,this.dataKeyword,this.username);
+      }
+    }
+  }
+  getCore(){
+    let reg=new RegExp(/^[1-9]\d*$|^0$/);
+    if(Number(this.auditing)>this.core){
+      this.s_error_show = true;
+      this.s_error_message = '核数不能超过'+this.core;
+      this.s_error_level = "error";
+    }else if(!reg.test(this.auditing)&&this.auditing!=''&&this.auditing!=null){
+      this.s_error_show = true;
+      this.s_error_message = '核数格式错误';
+      this.s_error_level = "error";
+    }else if(this.auditing==0){
+      this.s_error_show = true;
+      this.s_error_message = '核数必须大于0';
+      this.s_error_level = "error";
+    }else{
+      this.s_error_show = false;
+    }
+  }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if(params['page']!=undefined){
