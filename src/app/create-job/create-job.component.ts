@@ -49,6 +49,10 @@ export class CreateJobComponent{
   chainName:string='';
   loading:boolean = false;
   backupDataset:any={};
+  oldDatasetType:string='';
+  newDatasetType:string='';
+  onceGetDatasetType:boolean = true;
+  onceAddDataset:boolean = true;
   constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
     this.username = localStorage['username'];
         this.datasetsService.getDataSetType()
@@ -68,6 +72,7 @@ export class CreateJobComponent{
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.job = JSON.parse(params['job']);
+        console.log(this.job);
         this.page = params['page'];
         this.jobName = this.job.jobName;
         this.markEdit = this.job.edit;
@@ -161,15 +166,21 @@ export class CreateJobComponent{
       this.datasetsService.createJobGetDatasets(type,creator+",system")
         .subscribe(result=>{
           this.d_dataSets = result.content;
-          if(this.markEdit){
-            for(let i=0;i<this.d_dataSets.length;i++){
-              if(this.job.datasetBackupName!=""){
-                this.d_dataSets.unshift(this.backupDataset);
-                break;
-              }
-            }
+          if(this.markEdit&&this.onceAddDataset){
+            this.onceAddDataset = false;
+            this.addBackupDataset();
+          }else if(this.markEdit&&(this.oldDatasetType==this.newDatasetType)){
+              this.addBackupDataset();
           }
         });
+    }
+  }
+  addBackupDataset(){
+    for(let i=0;i<this.d_dataSets.length;i++){
+      if(this.job.datasetBackupName!=""){
+        this.d_dataSets.unshift(this.backupDataset);
+        break;
+      }
     }
   }
   dataChange(){
@@ -270,6 +281,12 @@ export class CreateJobComponent{
         this.datasetType = this.scenes_match_dataset[i].dataSetId;
         //$(".classification img").eq(this.datasetType-1).click();
         this.chooseImg(this.datasetsType[this.datasetType-1]);
+        if(this.markEdit&&this.onceGetDatasetType){
+          this.oldDatasetType = this.datasetsType[this.datasetType-1];
+          this.onceGetDatasetType = false;
+        }else{
+          this.newDatasetType = this.datasetsType[this.datasetType-1];
+        }
         break;
       }
     }
