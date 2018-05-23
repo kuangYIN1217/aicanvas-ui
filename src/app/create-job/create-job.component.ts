@@ -72,7 +72,7 @@ export class CreateJobComponent{
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.job = JSON.parse(params['job']);
-        console.log(this.job);
+        this.chainName = this.job.chainName;
         this.page = params['page'];
         this.jobName = this.job.jobName;
         this.markEdit = this.job.edit;
@@ -541,7 +541,7 @@ export class CreateJobComponent{
         dataId = dataId.split("_")[0];
       }
     }
-    this.jobService.saveJob(this.job.id,chainId, dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
+    this.jobService.saveJob(this.job.id,chainId, this.chainName,dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
       .subscribe(
         (editJob) => {
           this.router.navigate(['/jobcreation']);

@@ -58,11 +58,12 @@ export class JobService {
         }
       });
   }
-  saveJob(jobId,chainId,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird,datasetBackupName,jobPriority) {
+  saveJob(jobId,chainId,chainName,dataId,jobName,senceId,auditing,cmemory,gmemory,gpuorder,dataFirst,dataSecond,dataThird,datasetBackupName,jobPriority) {
     let path = "/api/updateJobInfo";
     let createJobDTO = {
       "jobId":jobId,
       "chainId": chainId,
+      "chainName":chainName,
       "dataId": dataId,
       "jobName": jobName,
       "senceId": senceId,
