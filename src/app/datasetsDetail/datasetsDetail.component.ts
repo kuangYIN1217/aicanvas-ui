@@ -247,6 +247,8 @@ export class DatasetsDetailComponent{
           this.getResult(item[key]);
         }else if(this.test=='test'){
           this.getTestResult(this.jobPath,[this.test],item[key],this.judgeSearch(),this.page,this.pageMaxItem);
+        }else if(this.test=='train'){
+          this.getTestResult(this.jobPath,[this.test],item[key],this.judgeSearch(),this.page,this.pageMaxItem);
         }else if(this.train=='train'){
           this.getTestResult(this.jobPath,[this.train,this.valid],item[key],this.judgeSearch(),this.page,this.pageMaxItem);
         }
@@ -256,7 +258,7 @@ export class DatasetsDetailComponent{
         }else{
           this.arr = this.dataPath;
         }
-      }else if((key.indexOf("image")!=-1||key.indexOf("txt")!=-1)&&this.test == 'test'){
+      }else if((key.indexOf("image")!=-1||key.indexOf("txt")!=-1)&&(this.test == 'test'||this.test == 'train')){
         //for(let i=0;i<this.uploadPath.length;i++){
           //this.uploadPath.push(item[key]);
         this.indexLevel = 0;
