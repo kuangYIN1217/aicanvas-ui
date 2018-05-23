@@ -49,6 +49,10 @@ export class CreateJobComponent{
   chainName:string='';
   loading:boolean = false;
   backupDataset:any={};
+  oldDatasetType:string='';
+  newDatasetType:string='';
+  onceGetDatasetType:boolean = true;
+  onceAddDataset:boolean = true;
   constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
     this.username = localStorage['username'];
         this.datasetsService.getDataSetType()
@@ -68,6 +72,7 @@ export class CreateJobComponent{
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.job = JSON.parse(params['job']);
+        this.chainName = this.job.chainName;
         this.page = params['page'];
         this.jobName = this.job.jobName;
         this.markEdit = this.job.edit;
@@ -161,15 +166,21 @@ export class CreateJobComponent{
       this.datasetsService.createJobGetDatasets(type,creator+",system")
         .subscribe(result=>{
           this.d_dataSets = result.content;
-          if(this.markEdit){
-            for(let i=0;i<this.d_dataSets.length;i++){
-              if(this.job.datasetBackupName!=""){
-                this.d_dataSets.unshift(this.backupDataset);
-                break;
-              }
-            }
+          if(this.markEdit&&this.onceAddDataset){
+            this.onceAddDataset = false;
+            this.addBackupDataset();
+          }else if(this.markEdit&&(this.oldDatasetType==this.newDatasetType)){
+              this.addBackupDataset();
           }
         });
+    }
+  }
+  addBackupDataset(){
+    for(let i=0;i<this.d_dataSets.length;i++){
+      if(this.job.datasetBackupName!=""){
+        this.d_dataSets.unshift(this.backupDataset);
+        break;
+      }
     }
   }
   dataChange(){
@@ -270,6 +281,12 @@ export class CreateJobComponent{
         this.datasetType = this.scenes_match_dataset[i].dataSetId;
         //$(".classification img").eq(this.datasetType-1).click();
         this.chooseImg(this.datasetsType[this.datasetType-1]);
+        if(this.markEdit&&this.onceGetDatasetType){
+          this.oldDatasetType = this.datasetsType[this.datasetType-1];
+          this.onceGetDatasetType = false;
+        }else{
+          this.newDatasetType = this.datasetsType[this.datasetType-1];
+        }
         break;
       }
     }
@@ -385,7 +402,7 @@ export class CreateJobComponent{
     this.searchDataSets(type,this.dataKeyword,this.username);
   }
   searchDataSets(type,name,creator){
-    this.datasetsService.searchDatasets(type,name,creator+',system')
+    this.datasetsService.searchDatasets(type,name,creator+',system',0,10000)
       .subscribe(result=>{
         this.d_dataSets = result.content;
       });
@@ -524,7 +541,7 @@ export class CreateJobComponent{
         dataId = dataId.split("_")[0];
       }
     }
-    this.jobService.saveJob(this.job.id,chainId, dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
+    this.jobService.saveJob(this.job.id,chainId, this.chainName,dataId, this.jobName,chosenSceneId,0,0,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,this.datasetBackupName,this.jobPriority)
       .subscribe(
         (editJob) => {
           this.router.navigate(['/jobcreation']);

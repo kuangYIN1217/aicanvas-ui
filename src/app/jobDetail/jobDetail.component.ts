@@ -315,7 +315,10 @@ export class JobDetailComponent {
                 this.tipMargin = "0 auto 20px";
                 this.tipWidth = "100%";
                 this.tipType = "error";
-                this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;;
+                if(result.failReason==null){
+                  result.failReason = "训练任务中断，请稍后重试!";
+                }
+                this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;
               })
           }else{
             this.showTip = false;
@@ -413,7 +416,11 @@ export class JobDetailComponent {
           this.tipMargin = "0 auto 20px";
           this.tipWidth = "100%";
           this.tipType = "error";
-          this.tipContent = this.jobInfo.jobName+"任务运行异常 ——"+this.jobInfo.failReason;
+          if(this.jobInfo.failReason==null){
+            this.tipContent = this.jobInfo.jobName+"任务运行异常 —— 训练任务中断，请稍后重试!";
+          }else{
+            this.tipContent = this.jobInfo.jobName+"任务运行异常 —— "+this.jobInfo.failReason;
+          }
         }
         if (jobPath) {
           jobPath = unescape(jobPath);
@@ -928,22 +935,22 @@ export class JobDetailComponent {
     }
     this.s_start_stop_click = false;
     this.jobService.getAllJobs('运行', null , null , null , null,null,"id,asc" ).subscribe(rep => {
-      if (rep.totalElements >= 5) {
+/*      if (rep.totalElements >= 5) {
         this.showTip = true;
         this.tipMargin = "0 auto 20px";
         this.tipWidth = "100%";
         this.tipType = "warnning";
         this.tipContent = "测试版本下最多同时运行五个任务！";
-        /*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*/
+        /!*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*!/
         return;
-      }else {
+      }else {*/
         this.runPath = jobPath;
         this.s_progress_show = true;
         this.jobService.runJob(this.runPath)
           .subscribe(result =>{
             this.initJobDetailByPath(true);
           })
-      }
+      //}
     })
   }
   showTipChange(event){

@@ -206,15 +206,15 @@ export class TaskStatusComponent{
     start(jobPath: string){
       // todo 判断当前运行job数量 > 5 不允许
       this.jobService.getAllJobs('运行', null , null , null , null,null,this.s_sort_type ).subscribe(rep => {
-        if (rep.totalElements >= 5) {
-          this.nooperate.emit(false);
+        //if (rep.totalElements >= 5) {
+          //this.nooperate.emit(false);
           //addWarningToast(this.toastyService , '测试版本下最多同时运行五个任务！');
-          return;
-        } else {
+         // return;
+        //} else {
           this.runPath = jobPath;
           this.jobService.runJob(jobPath)
             .subscribe(reply => this.start_reply(reply));
-        }
+        //}
       })
     }
     start_reply(reply){

@@ -180,20 +180,20 @@ export class CreateUserRoleComponent{
             zTree.checkNode(node1, true, true);
           }
           if((arr[i].name=="执行训练任务"&&name=="执行训练任务")||(arr[i].name=="查看算法链"&&name=="查看算法链")||(arr[i].name=="查看训练数据集"&&name=="查看训练数据集")||(arr[i].name=="编辑算法链"&&name=="编辑算法链")||(arr[i].name=="推演"&&name=="推演")||(arr[i].name=="模型发布"&&name=="模型发布")){
-            var node1 =zTree.getNodeByParam("name","增删改训练任务");
-            zTree.checkNode(node1, true, true);
+            var node2 =zTree.getNodeByParam("name","增删改训练任务");
+            zTree.checkNode(node2, true, true);
           }
           if(arr[i].name=="编辑算法链"&&name=="编辑算法链"){
-            var node2 =zTree.getNodeByParam("name","查看算法链");
-            zTree.checkNode(node2, true, true);
+            var node3 =zTree.getNodeByParam("name","查看算法链");
+            zTree.checkNode(node3, true, true);
           }
           if((arr[i].name=="推演"&&name=="推演")||(arr[i].name=="模型发布"&&name=="模型发布")){
-            var node2 =zTree.getNodeByParam("name","执行训练任务");
-            zTree.checkNode(node2, true, true);
+            var node4 =zTree.getNodeByParam("name","执行训练任务");
+            zTree.checkNode(node4, true, true);
           }
           if(arr[i].name=="模型发布"&&name=="模型发布"){
-            var node3 =zTree.getNodeByParam("name","推演");
-            zTree.checkNode(node3, true, true);
+            var node5 =zTree.getNodeByParam("name","推演");
+            zTree.checkNode(node5, true, true);
           }
         }
       }

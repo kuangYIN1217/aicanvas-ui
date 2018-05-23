@@ -288,8 +288,8 @@ export class DatasetsService {
         }
       });
   }
-  searchDatasets(type,name,creator){
-    let path = "/api/dataSets?type="+type+"&name="+name+"&creator="+creator;
+  searchDatasets(type,name,creator,page?,size?){
+    let path = "/api/dataSets?type="+type+"&name="+name+"&creator="+creator+"&page="+page+"&size="+size;
     let headers = this.getHeaders();
     return this.http.get(this.SERVER_URL + path,{headers: headers})
       .map((response: Response) => {

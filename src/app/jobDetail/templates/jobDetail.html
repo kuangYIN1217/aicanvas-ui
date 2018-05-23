@@ -15,7 +15,6 @@
       <a href="#" class="button" onclick="return false" (click)="downloadLog()" *ngIf="job?.status!='未启动'" >下载训练日志</a>
     </div>
     <div class="btn-item" *ngIf="job?.status=='运行'" [style.display]="lookIt==1?'none':''">
-      <a href="#" class="button" onclick="return false" *ngIf="jobInfo.status!='运行'&&jobInfo.status!='模型发布中'&&operateJobAuthority" (click)="editJob()">修改</a>
       <a href="#" class="button" onclick="return false" (click)="stop(job?.jobPath)" *ngIf="runJobAuthority">停止</a>
       <a href="#" class="button" onclick="return false" (click)="changeTab(job?.chainId,1,job?.status)" *ngIf="lookChainsAuthority">查看训练算法</a>
       <a href="#" class="button" onclick="return false" (click)="lookDataset()" *ngIf="lookDatasetsAuthority">查看训练数据集</a>
