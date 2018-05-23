@@ -402,7 +402,7 @@ export class CreateJobComponent{
     this.searchDataSets(type,this.dataKeyword,this.username);
   }
   searchDataSets(type,name,creator){
-    this.datasetsService.searchDatasets(type,name,creator+',system')
+    this.datasetsService.searchDatasets(type,name,creator+',system',0,10000)
       .subscribe(result=>{
         this.d_dataSets = result.content;
       });
