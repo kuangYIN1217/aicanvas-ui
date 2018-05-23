@@ -47,7 +47,7 @@
             <taskStatus [statuss]="taskStatus" [jobName]="jobName" [operateJobAuthority]="operateJobAuthority" [runJobAuthority]="runJobAuthority" [deductionAuthority]="deductionAuthority" [pageNumber]="pageNumber" [isTrain]="isTrain" [notTrain]="notTrain" (nooperate)="nooperate($event)"></taskStatus>
         </div>
     </div>
-    <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">
+<!--    <div class="createJob" [style.display]="jobPageStatus=='createJob'?'':'none'">
         <div id="step_content" class="step_content">
           <div class="error">
           <cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>
@@ -72,7 +72,7 @@
             <div class="row_tr">
               <span class="span"><label class="mustColor">*</label>算法链选择：</span>
               <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)">
-                <option selected value="-1">--请选择--</option>
+                <option selected value="-1">&#45;&#45;请选择&#45;&#45;</option>
                 <option *ngFor="let chain of arr" value={{chain.chain_name}}>{{chain.chain_name}}</option>
               </select>
             </div>
@@ -82,7 +82,7 @@
               <span class="span"><label class="mustColor">*</label>CPU分配：</span>
               <label>核数</label><input name="auditing" [(ngModel)]="auditing" class="auditing" (keydown)="onlyNum($event)" (blur)="getCore()" id="cpu"/>
               <label class="memoryText">内存</label><input name="cmemory" [(ngModel)]="cmemory" class="memory" (blur)="memory()" (keydown)="onlyNum($event)" id="memory"/>
-              <!--<label class="totalMemory">(共{{cpu}}GB)</label>-->
+              &lt;!&ndash;<label class="totalMemory">(共{{cpu}}GB)</label>&ndash;&gt;
               <label class="totalMemory">GB</label>
             </div>
           </div>
@@ -91,11 +91,11 @@
               <span class="span"><label class="mustColor">*</label>GPU分配：</span>
               <label>个数</label>
               <select class="order" [(ngModel)]="gpuorder" (ngModelChange)="gpuorder=$event;gpuChange()">
-                <option value="">--请选择--</option>
+                <option value="">&#45;&#45;请选择&#45;&#45;</option>
                 <option *ngFor="let item of gpus;let i=index" value="{{item.id+1}}">{{item.id+1}}</option>
               </select>
-              <!--<label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memoryg()" (keydown)="onlyNum($event)"/>
-              <label class="totalMemory">(共{{gpu}}GB)</label>-->
+              &lt;!&ndash;<label class="gmemoryText">内存</label><input name="gmemory" [(ngModel)]="gmemory" class="memory" (blur)="memoryg()" (keydown)="onlyNum($event)"/>
+              <label class="totalMemory">(共{{gpu}}GB)</label>&ndash;&gt;
             </div>
           </div>
           <div class="row" style="height: 20px; line-height: 20px">
@@ -112,7 +112,7 @@
                   <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
                 </div>
                 <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
-<!--                  <option selected value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+&lt;!&ndash;                  <option selected value="-1">&#45;&#45;请选择&#45;&#45;</option>&ndash;&gt;
                   <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
                 </select>
               </div>
@@ -141,12 +141,12 @@
             <div class="row_tr">
               <span class="span">&nbsp;</span>
                 <a href="#" onclick="return false" (click)="nextStep()" class="smallBtn createBtn" style="color:#fff; background: #ff7c35; border: 1px solid #ff7c35;">创建</a>
-                <!--<a href="#" onclick="return false"  (click)="nextStep()" class="smallBtn createBtn" *ngIf="createBtn==0">创建</a>-->
+                &lt;!&ndash;<a href="#" onclick="return false"  (click)="nextStep()" class="smallBtn createBtn" *ngIf="createBtn==0">创建</a>&ndash;&gt;
                 <a href="#" onclick="return false" (click)="goHistory()" class="smallBtn">返回</a>
             </div>
           </div>
         </div>
     </div>
   <ng2-toasty class="toasty" [position]="'top-center'"></ng2-toasty>
-</div>
+</div>-->
 </div>

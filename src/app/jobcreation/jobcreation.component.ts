@@ -152,26 +152,6 @@ export class JobCreationComponent {
       .subscribe(dictionary => this.getDictionary(dictionary));
     this.pluginService.getTranParamTypes()
       .subscribe(editable_params => this.getTranParamTypes(editable_params));
-    this.resourcesService.getCpuInfo()
-      .subscribe(result=>{
-        this.cpu = (Math.ceil(result.tot_memory/1024/1024/1024/8))*8;
-        this.core = result.cores;
-        $("#cpu").attr('placeholder',`1-${this.core}`);
-        $("#memory").attr('placeholder',`1-${this.cpu}`);
-      })
-    this.getDataSets(1,this.username);
-    // if (location.path(false).indexOf('/jobcreation/') != -1) {
-    //   this.pageNo = location.path(false).split('/jobcreation/')[1];
-    //   if(this.pageNo){
-    //     console.log(this.pageNo);
-    //   }
-    // }
-    this.datasetsService.getDataSetType()
-      .subscribe(result=>{
-        this.datasetsType = result;
-        this.datasetsType[0].flag = 1;
-        //console.log(this.datasetsType);
-      })
   }
   toggle(){
     if(this.showMore){
@@ -212,112 +192,13 @@ export class JobCreationComponent {
         }
       })
   }
-  selectStatus(){
-  }
-  dataKeywordChange(){
-    let type:number;
-    for(let i=0;i<this.datasetsType.length;i++){
-      if(this.datasetsType[i].flag==1){
-        type = this.datasetsType[i].id;
-      }
-    }
-    this.searchDataSets(type,this.dataKeyword,this.username);
-  }
-  searchDataSets(type,name,creator){
-    this.datasetsService.searchDatasets(type,name,'')
-      .subscribe(result=>{
-        this.d_dataSets = result.content;
-        if(this.d_dataSets.length>0){
-          this.dataId = this.d_dataSets[0].dataId;
-        }
-      });
-  }
-  getDataSets(type,creator){
-    this.datasetsService.createJobGetDatasets(type,'')
-      .subscribe(result=>{
-        this.d_dataSets = result.content;
-        this.dataId = this.d_dataSets[0].dataId;
-        this.fileCount = this.d_dataSets[0].fileCount;
-      });
-  }
-  getImage(item){
-    if(item.id==1){
-      if(item.flag==undefined||item.flag==2){
-        return 'assets/datasets/createfile/tp_hui.png';
-      }
-      else
-        return 'assets/datasets/createfile/tp_lv.png';
-    }else if(item.id==2){
-      if(item.flag==undefined||item.flag==2)
-        return 'assets/datasets/createfile/yp_hui.png';
-      else
-        return 'assets/datasets/createfile/yp_lv.png';
-    }else if(item.id==3){
-      if(item.flag==undefined||item.flag==2)
-        return 'assets/datasets/createfile/wb_hui.png';
-      else
-        return 'assets/datasets/createfile/wb_lv.png';
-    }else if(item.id==4){
-      if(item.flag==undefined||item.flag==2)
-        return 'assets/datasets/createfile/sp_hui.png';
-      else
-        return 'assets/datasets/createfile/sp_lv.png';
-    }else if(item.id==5){
-      if(item.flag==undefined||item.flag==2)
-        return 'assets/datasets/createfile/qt_hui.png';
-      else
-        return 'assets/datasets/createfile/qt_lv.png';
-    }
-  }
-  chooseImg(item){
-    //console.log(item);
-    if(item.flag != 1){
-      for(let i=0;i<this.datasetsType.length;i++){
-        this.datasetsType[i].flag = 2;
-      }
-      item.flag = 1;
-      this.getImage(item);
-      if(this.dataKeyword==''){
-        this.getDataSets(item.id,this.username);
-      }else{
-        this.searchDataSets(item.id,this.dataKeyword,this.username);
-      }
-    }
-  }
-  getCore(){
-    let reg=new RegExp(/^[1-9]\d*$|^0$/);
-    if(Number(this.auditing)>this.core){
-      this.s_error_show = true;
-      this.s_error_message = '核数不能超过'+this.core;
-      this.s_error_level = "error";
-    }else if(!reg.test(this.auditing)&&this.auditing!=''&&this.auditing!=null){
-      this.s_error_show = true;
-      this.s_error_message = '核数格式错误';
-      this.s_error_level = "error";
-    }else if(this.auditing==0){
-      this.s_error_show = true;
-      this.s_error_message = '核数必须大于0';
-      this.s_error_level = "error";
-    }else{
-      this.s_error_show = false;
-    }
-  }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if(params['page']!=undefined){
         this.pageNumber = params['page'];
       }
-      //console.log(this.pageNumber);
     });
-    //this.router.navigate(['../taskStatus'],{queryParams: { pageNumber: this.pageNumber}});
   }
-
-  /*ngAfterViewChecked(){
-   console.log(this.name_validation,this.plugin_validation,this.data_validation);
-   if(this.name_validation&&this.plugin_validation&&this.data_validation){
-   this.createBtn=1;
-   }
-   }*/
   ngOnDestroy() {
     // 退出时停止更新
     clearInterval(this.interval);
@@ -341,71 +222,6 @@ export class JobCreationComponent {
     this.editable_params = editable_params;
   }
 
-  changeChosenSceneId() {
-/*    if(this.student==15||this.student==11){
-      document.getElementById('data').setAttribute('disabled', 'disabled');
-    }*/
-    //this.fileCount=0;
-    this.sceneReadOnly();
-    let id = this.student;
-    //console.log(id);
-    this.chosenSceneId = id;
-    this.firstChainId = null;
-    //this.dataId = null;
-    this.auditing=null;
-    this.gpuorder='';
-    // this.gmemory=null;
-    this.cmemory=null;
-    this.dataFirst=null;
-    this.dataSecond=null;
-    this.dataThird=null;
-    this.sceneService.getChainByScene(id)
-      .subscribe(results => {
-        this.PluginInfo = results;
-        this.arr = results;
-        this.data = Math.floor(this.PluginInfo.length / this.pageMaxItem) + 1;
-        this.length = this.PluginInfo.length;
-        if (this.result && this.length != 0) {
-          if (this.length % this.pageMaxItem == 0) {
-            this.result = this.length / this.pageMaxItem;
-          } else {
-            this.result = Math.floor(this.length / this.pageMaxItem) + 1;
-          }
-        } else if (this.length == 0) {
-          this.result = 1;
-        }
-      });
-    this.pageMaxItem = 10;
-    for (let scene of this.scenes) {
-      if (scene.id == id) {
-        this.chosen_scene = scene;
-        break;
-      }
-    }
-  }
-
-  dataChange(event?:any) {
-    for(let i in this.d_dataSets){
-      if(this.dataId==this.d_dataSets[i].dataId){
-        this.fileCount = this.d_dataSets[i].selfTypeFileCount;
-      }
-    }
-    //console.log(this.fileCount);
-    if (this.dataId) {
-      this.s_error_show = false;
-      this.data_validation = true;
-    } else {
-      this.data_validation = false;
-    }
-
-    //this.judgeClick();
-  }
-  clickStatus(statu, id) {
-    this.selected = statu;
-    this.item = id;
-    //console.log(id)
-  }
-
   output(statu) {
     if (statu == 1) {
       return "是";
@@ -417,31 +233,6 @@ export class JobCreationComponent {
   // createJob
   createJob() {
     this.router.navigate(['../createjob']);
-/*    this.jobName = null;
-    this.auditing = null;
-    this.cmemory = null;
-    // this.gmemory = null;
-    this.dataFirst = null;
-    this.dataSecond = null;
-    this.dataThird = null;
-    this.sceneService.getAllScenes(-1)
-      .subscribe(scenes => {
-        this.createJob_getScene(scenes);
-        this.student = scenes[0].id;
-        this.sceneReadOnly();
-        this.sceneService.getChainByScene(this.student)
-          .subscribe(result => {
-            this.PluginInfo = result;
-            this.arr = result;
-            this.arr = this.PluginInfo.slice(0, 10);
-          })
-      });
-    this.jobService.getAllGpu()
-      .subscribe(result=>{
-          this.gpus = result;
-          let temp:any={'id':-1,'totalGlobalMem': 0};
-          this.gpus.unshift(temp);
-      });*/
   }
   sceneReadOnly(){
     if(this.student==11||this.student==15){
@@ -453,99 +244,6 @@ export class JobCreationComponent {
       document.getElementById('valid').removeAttribute('readonly');
       document.getElementById('test').removeAttribute('readonly');
     }
-  }
-  gpuChange(){
-    //console.log(this.gpuorder);
-    for(let i=0;i<this.gpus.length;i++){
-      if(this.gpuorder==this.gpus[i].id+1){
-        this.gpu = Math.ceil(this.gpus[i].totalGlobalMem/1024/1024/1024);
-        //console.log(this.gpu);
-      }
-    }
-  }
-  onlyNum(e) {
-    let ev = event||e;
-    if(!(ev.keyCode==46)&&!(ev.keyCode==8)&&!(ev.keyCode==37)&&!(ev.keyCode==39))
-      if(!((ev.keyCode>=48&&ev.keyCode<=57)||(ev.keyCode>=96&&ev.keyCode<=105)))
-        ev.returnValue=false;
-  }
-  memory(){
-    let reg=new RegExp(/^[1-9]\d*$|^0$/);
-    if(Number(this.cmemory)>this.cpu){
-      this.s_error_show = true;
-      this.s_error_message = '内存不能超过'+this.cpu+'GB';
-      this.s_error_level = "error";
-    }else if(!reg.test(this.cmemory)&&this.cmemory!=''&&this.cmemory!=null){
-      this.s_error_show = true;
-      this.s_error_message = '内存格式错误';
-      this.s_error_level = "error";
-    }else if(this.cmemory==0){
-      this.s_error_show = true;
-      this.s_error_message = '内存必须大于0';
-      this.s_error_level = "error";
-    }else{
-      this.s_error_show = false;
-    }
-  }
-  memoryg(){
-    if(Number(this.gmemory)>this.gpu){
-      this.s_error_show = true;
-      this.s_error_message = '内存不能超过'+this.gpu+'GB';
-      this.s_error_level = "error";
-    }else{
-      this.s_error_show = false;
-    }
-  }
-  tips(){
-    this.s_error_show = true;
-    this.s_error_message = '训练/验证/测试集比例之和必须等于100%！';
-    this.s_error_level = "error";
-    return false;
-  }
-  dataset(){
-    if(Number(this.dataFirst)>=100){
-      this.tips();
-    };
-    if(Number(this.dataSecond)>=100){
-      this.tips();
-    };
-    if(Number(this.dataThird)>=100){
-      this.tips();
-    };
-    if((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100){
-      this.tips();
-    }else if((Number(this.dataFirst)+Number(this.dataSecond))>=100){
-      this.tips();
-    }else if((Number(this.dataFirst)+Number(this.dataThird))>=100){
-      this.tips();
-    }
-    else if((Number(this.dataSecond)+Number(this.dataThird))>=100){
-      this.tips();
-    }else{
-      this.s_error_show = false;
-      if(Number(this.dataFirst)>0&&Number(this.dataSecond)>0&&(Number(this.dataFirst)+Number(this.dataSecond)<100)){
-        this.dataThird = 100-Number(this.dataFirst)-Number(this.dataSecond);
-      };
-      if(Number(this.dataFirst)>0&&Number(this.dataThird)>0&&(Number(this.dataFirst)+Number(this.dataThird)<100)){
-        this.dataSecond = 100-Number(this.dataFirst)-Number(this.dataThird);
-      };
-      if(Number(this.dataSecond)>0&&Number(this.dataThird)>0&&(Number(this.dataSecond)+Number(this.dataThird)<100)){
-        this.dataFirst = 100-Number(this.dataSecond)-Number(this.dataThird);
-      };
-    }
-    let reg=new RegExp(/^[1-9]\d*$|^0$/);
-    if(this.student==11||this.student==15){
-
-    }else{
-      if(!reg.test(this.auditing)){
-        this.s_error_show = true;
-        this.s_error_message = '数据集格式错误';
-        this.s_error_level = "error";
-      }
-    }
-  }
-  getPluginName(name) {
-
   }
 
   goHistory() {
@@ -574,10 +272,6 @@ export class JobCreationComponent {
     })
   }
 
-  nextStep() {
-    this.createJobBySenceId(this.chosenSceneId, this.firstChainId, this.dataId);
-  }
-
   nameChange() {
     if (this.jobName) {
       this.name_validation = true;
@@ -599,143 +293,6 @@ export class JobCreationComponent {
       this.createBtn = 0;
     }
   }*/
-
-  // 第一次点击下一步时，创建job，存储下来
-  createJobBySenceId(chosenSceneId, chainId, dataId) {
-    if (!this.click_flag) {
-      return;
-    }
-    this.click_flag = false;
-    if (!this.jobName) {
-      // alert("请输入任务名称")
-      this.s_error_show = true;
-      this.s_error_message = '请输入任务名称';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请输入任务名称" );
-      this.click_flag = true;
-      return false;
-    }
-    if (!chainId || this.firstSceneId == '-1') {
-      // alert("请选择算法链");
-      this.s_error_show = true;
-      this.s_error_message = '请选择算法链';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择算法链" );
-      this.click_flag = true;
-      return false;
-    }
-    if ((!dataId || dataId == -1)&&(this.student!=15)&&(this.student!=11)) {
-      // alert("请选择算法链");
-      this.s_error_show = true;
-      this.s_error_message = '请选择数据集';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
-    }
-    //this.createBtn = 1;
-    if(!this.auditing){
-      this.s_error_show = true;
-      this.s_error_message = '请输入CPU核数';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
-    }
-    if(!this.cmemory){
-      this.s_error_show = true;
-      this.s_error_message = '请输入内存';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
-    }
-    if(!this.gpuorder||this.gpuorder==-1){
-      this.s_error_show = true;
-      this.s_error_message = '请选择GPU编号';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
-    }
-/*    if(!this.gmemory){
-      this.s_error_show = true;
-      this.s_error_message = '请输入GPU内存';
-      this.s_error_level = "error";
-      //addWarningToast(this.toastyService , "请选择数据集" );
-      this.click_flag = true;
-      return false;
-    }*/
-    if(!this.dataFirst){
-      if(this.student==15||this.student==11){
-
-      }else{
-        this.s_error_show = true;
-        this.s_error_message = '请输入训练集比例';
-        this.s_error_level = "error";
-        //addWarningToast(this.toastyService , "请选择数据集" );
-        this.click_flag = true;
-        return false;
-      }
-    }
-    if(!this.dataSecond){
-      if(this.student==15||this.student==11){
-
-      }else {
-        this.s_error_show = true;
-        this.s_error_message = '请输入验证集比例';
-        this.s_error_level = "error";
-        //addWarningToast(this.toastyService , "请选择数据集" );
-        this.click_flag = true;
-        return false;
-      }
-    }
-    if(!this.dataThird){
-      if(this.student==15||this.student==11){
-
-      }else {
-        this.s_error_show = true;
-        this.s_error_message = '请输入测试集比例';
-        this.s_error_level = "error";
-        //addWarningToast(this.toastyService , "请选择数据集" );
-        this.click_flag = true;
-        return false;
-      }
-    }
-    this.dataset();
-    if(this.student==15||this.student==11){
-
-    }else{
-      if(((Number(this.dataFirst)+Number(this.dataSecond)+Number(this.dataThird))>100)||Number(this.dataFirst)<=0||Number(this.dataSecond)<=0||Number(this.dataThird)<=0){
-        this.tips();
-        this.click_flag = true;
-        return false
-      }
-    }
-    this.jobService.createJob(chainId, this.chainName,dataId, this.jobName, chosenSceneId,this.auditing,this.cmemory,0,this.gpuorder,this.dataFirst,this.dataSecond,this.dataThird,0,0)
-      .subscribe(
-        (createdJob) => {
-          //let job: any = createdJob;
-          //this.createdJob = job;
-          this.createdJob = createdJob;
-          // alert("任务创建成功");
-          //addSuccessToast(this.toastyService, "任务创建成功", '消息提示', 800);
-          location.reload();
-          // this.jobPageStatus='jobPageStatus';
-          //console.log(this.createdJob.chainId);
-          // this.createJobBySenceId2(this.createdJob.chainId);
-          this.click_flag = true;
-          this.jobName = null;
-        },
-        (error) =>{
-          if(error.status==417){
-            this.s_error_show = true;
-            this.s_error_message = error.text();
-            this.s_error_level = "error";
-            this.click_flag = true;
-          }
-        });
-  }
   showTipChange(event){
     this.showTip = false;
   }
