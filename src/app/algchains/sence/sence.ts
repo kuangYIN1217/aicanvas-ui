@@ -26,7 +26,7 @@ export class SenceComponent {
 
   }
   public uploader:FileUploader = new FileUploader({
-    url: SERVER_URL+"/api/sence/upload?user=admin",
+    url: SERVER_URL+"/api/sence/upload?user="+localStorage['username'],
     method: "POST",
     itemAlias: "file",
     headers: [
