@@ -127,12 +127,39 @@ export class UserService {
         }
       });
   }
-  editUser(id,name,password){
+  userInfoEditUser(id,name,password){
     let path = "/api/userManager/user";
     let basUser = {
-      "id":id,
-      "login": name,
-      "password": password,
+      "basUser": {
+        "id": id,
+        "login": name,
+        "password": password,
+      }
+    }
+    let headers = this.getHeaders();
+    return this.http.put(this.SERVER_URL+path,basUser,{ headers: headers })
+      .map((response: Response)=> {
+        if (response && response.json()) {
+          return response.json()
+        }
+      });
+  }
+  editUser(id,name,password,roleId,tree){
+    let path = "/api/userManager/user";
+    let basUser = {
+      "basUser": {
+        "id": id,
+        "login": name,
+        "password": password,
+      },
+      "roleList": [
+        {
+          "authorityTreeList": tree,
+          "basRole": {
+            "id":roleId
+          }
+        }
+      ]
     }
     let headers = this.getHeaders();
     return this.http.put(this.SERVER_URL+path,basUser,{ headers: headers })

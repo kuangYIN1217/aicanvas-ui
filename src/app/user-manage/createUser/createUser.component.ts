@@ -30,12 +30,6 @@ export class CreateUserComponent{
   userId:number=0;
   constructor(private userService:UserService,private router: Router,private route: ActivatedRoute) {
     this.creator = localStorage['username'];
-    if(!this.editIndex){
-      this.userService.getRoleList(this.role)
-        .subscribe(result=>{
-          this.roleList = result;
-        })
-    }
   }
 
   ngOnInit() {
@@ -50,19 +44,21 @@ export class CreateUserComponent{
         this.page = params["page"];
         this.size = params["size"];
         this.editIndex = true;
-        this.userService.getRoleList(this.role)
-          .subscribe(result=>{
-            this.roleList = result;
-            for(let i=0;i<this.roleList.length;i++){
-              if(this.roleList[i].roleName==this.role){
-                this.roleId = this.roleList[i].id;
-                break;
-              }
-            }
-            this.selectRole();
-          })
       }
-    })
+    });
+    this.userService.getRoleList('')
+      .subscribe(result=>{
+        this.roleList = result;
+        if(this.editIndex){
+          for(let i=0;i<this.roleList.length;i++){
+            if(this.roleList[i].roleName==this.role){
+              this.roleId = this.roleList[i].id;
+              break;
+            }
+          }
+          this.selectRole();
+        }
+      })
   }
   judgeUserName(){
     this.userService.judgeUserName(this.username)
@@ -90,6 +86,10 @@ export class CreateUserComponent{
       }else{
         this.roleId = 0;
       }
+    }
+    if(this.role==''){
+      this.roleId = 0;
+      $.fn.zTree.destroy();
     }
     if(this.roleId==0){
 
@@ -168,15 +168,19 @@ export class CreateUserComponent{
       this.errorTip("用户名");
       return false
     }
-    if(reg.test(this.password)){
-      if((/^[0-9]*$/.test(this.password))||(/^[a-zA-Z]*$/.test(this.password))){
-        this.errorTip("密码");
-        return false
+      if(this.editIndex&&this.password!=''&&this.password.indexOf('******')!=-1){
+
+      }else{
+        if(reg.test(this.password)){
+          if((/^[0-9]*$/.test(this.password))||(/^[a-zA-Z]*$/.test(this.password))){
+            this.errorTip("密码");
+            return false
+          }
+        }else{
+          this.errorTip("密码");
+          return false
+        }
       }
-    }else{
-      this.errorTip("密码");
-      return false
-    }
     if(this.role==''){
       this.showTip = true;
       this.tipWidth = "634px";
@@ -188,7 +192,7 @@ export class CreateUserComponent{
     }
     this.createFlag = false;
     if(this.editIndex){
-      this.userService.editUser(this.userId,this.username,this.password)
+      this.userService.editUser(this.userId,this.username,this.password,this.roleId,this.showTree)
         .subscribe(result=>{
           if(result.isSuccess==true){
             this.createFlag = true;

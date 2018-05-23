@@ -21,18 +21,32 @@ export class LoginComponent implements OnInit{
     tabIndex:number=0;
     hg:any;
     errorInfo:string="";
+    firstAuthorityId:number=0;
+    menuAuthority:any[]=[];
+    modelList:any[]=[{"id":3,"url":"/datasetssave","focusTab":1},{"id":4,"url":"/algchains","focusTab":2},{"id":7,"url":"/datasets","focusTab":3},{"id":12,"url":"/inferenceModel","focusTab":4},{"id":13,"url":"/jobcreation","focusTab":5},{"id":21,"url":"/algplugins","focusTab":6}];
     constructor(private resourcesService: ResourcesService, private userService: UserService,private router: Router){
         if((!localStorage['authenticationToken'])||localStorage['authenticationToken']==""){
             // this.logined = 0;
             // console.log(sessionStorage['authenticationToken']);
         }else{
             let token = localStorage['authenticationToken'];
-            // modal for going to overview
-            // userService.getAccount().subscribe(account => console.log(account));
-            // console.log(userService.getAccount());
-            //console.log("already logined : ");
-            //console.log(token);
-          this.router.navigate(['/datasetssave']);
+/*            if(localStorage['allAuthority']!='null'){
+              this.menuAuthority = JSON.parse(localStorage['allAuthority']);
+              for(let i=0;i<this.menuAuthority.length;i++){
+                if(this.menuAuthority[i].hasAuthority==true){
+                  this.firstAuthorityId = this.menuAuthority[i].basAuthority.id;
+                  break;
+                }
+              }
+              for(let i=0;i<this.modelList.length;i++){
+                if(this.modelList[i].id==this.firstAuthorityId){
+                  this.router.navigate([this.modelList[i].url]);
+                  break;
+                }
+              }
+            }*/
+
+          //this.router.navigate(['/datasetssave']);
             // window.location.href = "/#/overview";
         }
     }
@@ -118,6 +132,7 @@ export class LoginComponent implements OnInit{
         //console.log(returnToken);
         if(returnToken.isSuccess==false){
             this.errorInfo = returnToken.message;
+            console.log(this.errorInfo);
         }/*else if(returnToken&&returnToken.Jwt.id_token){
           localStorage['authenticationToken'] = returnToken.Jwt.id_token;
           localStorage['username']= username;
@@ -130,7 +145,19 @@ export class LoginComponent implements OnInit{
           localStorage['username']= username;
           localStorage['userAuthority']= returnToken.Authority.basRole.type;
           localStorage['allAuthority']= JSON.stringify(returnToken.Authority.authorityTreeList);
-          this.router.navigate(['/datasetssave'])
+          console.log(returnToken.Authority.authorityTreeList);
+          for(let i=0;i<returnToken.Authority.authorityTreeList.length;i++){
+            if(returnToken.Authority.authorityTreeList[i].hasAuthority==true&&(returnToken.Authority.authorityTreeList[i].basAuthority.authorityName!='用户管理'&&returnToken.Authority.authorityTreeList[i].basAuthority.authorityName!='角色权限管理')){
+              this.firstAuthorityId = returnToken.Authority.authorityTreeList[i].basAuthority.id;
+              break;
+            }
+          }
+          for(let i=0;i<this.modelList.length;i++){
+              if(this.modelList[i].id==this.firstAuthorityId){
+                this.router.navigate([this.modelList[i].url]);
+                break;
+              }
+          }
         }
     }
 

@@ -3,7 +3,7 @@ import {Location, LocationStrategy, PathLocationStrategy} from "@angular/common"
 import {ResourcesService} from "../common/services/resources.service";
 import {SceneService} from "../common/services/scene.service";
 import {SceneInfo} from "../common/defs/resources";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 declare var $:any;
 @Component({
@@ -24,7 +24,7 @@ export class NavigationComponent {
   userAuthority:string='';
   menuAuthority:any[]=[];
   Index:number=0;
-  modelList:any[]=[{"id":1,"url":"/datasetssave"},{"id":2,"url":"/algchains"},{"id":3,"url":"/datasets"},{"id":3,"url":"/inferenceModel"},{"id":4,"url":"/jobcreation"},{"id":5,"url":"/algplugins"}]
+  modelList:any[]=[{"id":3,"url":"/datasetssave","focusTab":1},{"id":4,"url":"/algchains","focusTab":2},{"id":7,"url":"/datasets","focusTab":3},{"id":12,"url":"/inferenceModel","focusTab":4},{"id":13,"url":"/jobcreation","focusTab":5},{"id":21,"url":"/algplugins","focusTab":6}];
   // location: Location;
   show_menu:boolean=false;
   changeCollapse() {
@@ -47,7 +47,7 @@ export class NavigationComponent {
         this.router.navigate([url]);
   }
 
-  constructor(private location: Location,private router:Router) {
+  constructor(private location: Location,private router:Router,private route: ActivatedRoute) {
     if (!localStorage['username']) {
       this.focusTab = 0;
       this.router.navigate(['/login'])
@@ -56,7 +56,6 @@ export class NavigationComponent {
       this.userInfo = sessionStorage['userInfo'];
     }
   }
-
   ngOnChanges(...args: any[]) {
 
   }
@@ -71,7 +70,7 @@ export class NavigationComponent {
       if(this.menuAuthority[i].hasAuthority){
           this.focusTab = i+1;
           let url = this.modelList[i].url;
-          this.router.navigate([url])
+          this.router.navigate([url]);
           break;
       }
     }
@@ -126,10 +125,10 @@ export class NavigationComponent {
     }else if (this.location.isCurrentPathEqualTo('/userinfo')) {
       this.focusTab = 12;
       // this.needhide = 0;
-    }else if (this.location.isCurrentPathEqualTo('/usermanage') || this.location.isCurrentPathEqualTo('/createuser')) {
+    }else if (this.location.path().match(/\/usermanage/) || this.location.path().match(/\/createuser/)) {
       this.focusTab = 13;
       // this.needhide = 0;
-    }else if (this.location.isCurrentPathEqualTo('/authoritymanage') || this.location.isCurrentPathEqualTo('/createuserrole')) {
+    }else if (this.location.path().match(/\/authoritymanage/) || this.location.path().match(/\/createuserrole/)) {
       this.focusTab = 14;
       // this.needhide = 0;
     }

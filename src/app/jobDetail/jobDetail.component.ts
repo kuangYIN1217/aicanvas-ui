@@ -138,6 +138,7 @@ export class JobDetailComponent {
 
   dataId:string='';
   datasetPath:string='';
+  jobId:string='';
   constructor(private route: ActivatedRoute ,private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -370,7 +371,6 @@ export class JobDetailComponent {
           return rep;
         }
       });
-      //console.log(temp_data);
       this.AmCharts.updateChart(this.lossChart, () => {
         if (temp_data && temp_data.length > 0) {
           this.lossChart.dataProvider = temp_data;
@@ -386,7 +386,6 @@ export class JobDetailComponent {
         }
       });
     });
-
   }
 
   ngOnInit() {
@@ -407,6 +406,7 @@ export class JobDetailComponent {
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.jobInfo = JSON.parse(params['job']);
+        this.jobId = this.jobInfo.id;
         this.dataId = this.jobInfo.dataSet;
         this.datasetPath = this.jobInfo.datasetPath;
         this.pageNumber = params['page'];
@@ -957,7 +957,7 @@ export class JobDetailComponent {
     this.showTip = event;
   }
   goModel(){
-    this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id,'dataId':this.dataId,'datasetPath':this.datasetPath}})
+    this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id,'dataId':this.dataId,'jobId':this.jobId,'datasetPath':this.datasetPath}})
   }
 
   set2dArray(parameter: Parameter, i1: number, j1: number, value: string) {

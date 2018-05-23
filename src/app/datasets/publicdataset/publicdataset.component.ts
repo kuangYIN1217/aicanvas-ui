@@ -196,17 +196,30 @@ export class PublicDatasetComponent {
               this.filePath.push(obj);
             }
           }
+          for(let i=0;i<this.filePath.length-1;i++){
+            for(let j=i+1;j<this.filePath.length;j++){
+              if(this.filePath[i].path1===this.filePath[j].path1&&this.filePath[i].showpath===this.filePath[j].showpath)
+                this.filePath.splice(j,1);
+            }
+          }
           this.searchBool = false;
           this.searchFile = false;
           //console.log(result);
         }else{
           this.d_tableData=[];
         }
-
       })
   }
   getFilePath(path){
-    let pa = path.split("/");
+    let pa = path.split("dataset");
+    let show = pa[1].substring(1);
+    if(show.length>0&&this.filePath.length==0){
+      let obj:any={};
+      obj.path1 = pa[0]+'dataset'+pa[1];
+      obj.showpath = show;
+      this.filePath.push(obj);
+    }
+/*    let pa = path.split("/");
     if(pa.length>5&&this.filePath.length==0){
       for(let i=4;i<pa.length-1;i++){
         let obj:any={};
@@ -214,7 +227,7 @@ export class PublicDatasetComponent {
         obj.showpath = pa[i];
         this.filePath.push(obj);
       }
-    }
+    }*/
   }
   $mark_click(){
     for(let i=0;this.d_tableData[1]!=undefined;i++){

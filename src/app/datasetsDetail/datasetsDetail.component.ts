@@ -22,6 +22,7 @@ export class DatasetsDetailComponent{
   @Input() train:string;
   @Input() valid:string;
   @Input() dataId:string='';
+  @Input() jobId:string='';
   @Input() datasetPath:string='';
   @Output() showChange: EventEmitter<any> = new EventEmitter();
   @Output() uploadPathChange: EventEmitter<any> = new EventEmitter();
@@ -91,7 +92,7 @@ export class DatasetsDetailComponent{
     if(this.jobPath!=undefined){
      // this.jobService.getDataId(this.jobPath)
        // .subscribe(result=>{
-          this.jobService.getDatasetBackupInfo(this.dataId,this.datasetPath)
+          this.jobService.getDatasetBackupInfo(this.dataId,this.jobId,this.datasetPath)
             .subscribe(rep=>{
                 this.dataInfo = rep;
             });

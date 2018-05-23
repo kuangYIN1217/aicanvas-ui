@@ -356,6 +356,9 @@ input{
 input:focus{
   border:1px solid #23a880 !important;
 }
+#dataKeyword:focus{
+  border:1px solid #d3d3d3 !important;
+}
 .dataset .input input{
   width: 490px;
   height: 26px;
@@ -839,7 +842,6 @@ select{
   margin-right: 14px;
   display: inline-block;
   height:30px;
-  cursor: pointer;
 }
 #data{
   margin-left:0;

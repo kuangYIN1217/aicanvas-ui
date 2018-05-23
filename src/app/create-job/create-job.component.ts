@@ -270,6 +270,7 @@ export class CreateJobComponent{
             if(this.job.chainName){
               if((this.job.chainName!="")&&(this.job.chainName.indexOf(this.arr[i].chain_name)!=-1)){
                 this.firstSceneId = this.arr[i].id;
+                this.chainName = this.job.chainName;
                 break;
               }
             }

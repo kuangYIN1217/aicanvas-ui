@@ -12,11 +12,7 @@
       </div>
       <div class="info">
         <label><span>*</span>用户角色：</label>
-        <select [(ngModel)]="role" (ngModelChange)="selectRole()" *ngIf="!editIndex">
-          <option value="">请选择用户角色</option>
-          <option value="{{item.roleName}}" *ngFor="let item of roleList">{{item.roleName}}</option>
-        </select>
-        <select [(ngModel)]="role" (ngModelChange)="selectRole()" disabled="disabled" *ngIf="editIndex">
+        <select [(ngModel)]="role" (ngModelChange)="selectRole()">
           <option value="">请选择用户角色</option>
           <option value="{{item.roleName}}" *ngFor="let item of roleList">{{item.roleName}}</option>
         </select>

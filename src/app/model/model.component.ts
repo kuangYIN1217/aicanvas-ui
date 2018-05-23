@@ -66,7 +66,6 @@ export class ModelComponent {
   tipMargin:string='';
   showShort:boolean = false;
   showType:string='';
-  jobId:number=0;
   isPublic:boolean = false;
   allAuthority:any[]=[];
   publishModelAuthority:boolean = false;
@@ -74,6 +73,7 @@ export class ModelComponent {
   showSaveTips:any[]=[];
   showMore:boolean = true;
   dataId:string='';
+  jobId:string='';
   datasetPath:string='';
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
@@ -102,6 +102,7 @@ export class ModelComponent {
       if(init_flag) {
         this.job_id = params['job_id'];
         this.dataId = params['dataId'];
+        this.jobId = params['jobId'];
         this.datasetPath = params['datasetPath'];
         this.selectChange(this.job_id);
         this.getJobDetail(this.job_id);

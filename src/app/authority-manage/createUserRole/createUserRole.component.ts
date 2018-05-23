@@ -25,6 +25,7 @@ export class CreateUserRoleComponent{
   editIndex:boolean = false;
   roleId:number=0;
   creator:string='';
+  ifCheckTree:boolean = false;
   constructor(private userService:UserService,private router: Router,private route: ActivatedRoute) {
     this.creator = localStorage['username'];
   }
@@ -42,6 +43,7 @@ export class CreateUserRoleComponent{
         this.userService.getUserAuthorityById(this.roleInfo.id)
           .subscribe(result=>{
             this.allAuthority = result.authorityTreeList;
+            console.log(this.allAuthority);
             var zNodes=[];
             if(this.editIndex&&result.authorityTreeList){
               for(let i=0;i<result.authorityTreeList.length;i++){
@@ -83,6 +85,7 @@ export class CreateUserRoleComponent{
                     var zTree = $.fn.zTree.getZTreeObj("roleTree");
                     this.linkageTree(zTree,treeNode);
                     this.checkedNodes = zTree.getCheckedNodes();
+                    this.ifCheckTree = true;
                   }.bind(this)
                 }
               };
@@ -206,23 +209,7 @@ export class CreateUserRoleComponent{
     this.tipMargin = "20px 0 0 22px";
     this.tipContent = "请填写"+text+"（字母、数字组合）！";
   }
-  create(){
-    if(!this.createFlag){
-      return false
-    }
-    //let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]/;
-    //let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
-    //let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/im;
-    let reg = /^[0-9a-zA-Z]+$/;
-    if(reg.test(this.rolename)){
-      if((/^[0-9]*$/.test(this.rolename))||(/^[a-zA-Z]*$/.test(this.rolename))){
-        this.errorTip("用户名");
-        return false
-      }
-    }else{
-      this.errorTip("用户名");
-      return false
-    }
+  checkZtree(){
     for(let i=0;i<this.allAuthority.length;i++){
       this.allAuthority[i].hasAuthority = null;
       if(this.allAuthority[i].childAuthorityTreeDtos!=null){
@@ -245,8 +232,28 @@ export class CreateUserRoleComponent{
         }
       }
     }
+  }
+  create(){
+    if(!this.createFlag){
+      return false
+    }
+    //let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]/;
+    //let notChinese = new RegExp("[\\u4E00-\\u9FFF]+","g");
+    //let noSpecial =  /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/im;
+    let reg = /^[0-9a-zA-Z]+$/;
+    if(reg.test(this.rolename)){
+      if((/^[0-9]*$/.test(this.rolename))||(/^[a-zA-Z]*$/.test(this.rolename))){
+        this.errorTip("用户名");
+        return false
+      }
+    }else{
+      this.errorTip("用户名");
+      return false
+    }
+
     this.createFlag = false;
     if(!this.editIndex){
+      this.checkZtree();
       this.userService.createRole(this.creator,this.rolename,this.allAuthority)
         .subscribe(result=>{
           if(result=='true'){
@@ -255,6 +262,9 @@ export class CreateUserRoleComponent{
           }
         })
     }else{
+      if(this.ifCheckTree){
+        this.checkZtree();
+      }
       this.userService.editRole(this.rolename,this.roleId,this.allAuthority)
         .subscribe(result=>{
           if(result=='true'){

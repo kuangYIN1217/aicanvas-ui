@@ -83,22 +83,29 @@ export class UserInfoComponent{
     })
     calc_height(document.getElementsByClassName('userContent')[0]);
   }
+  errorTip(text){
+    this.showTip = true;
+    this.tipWidth = "634px";
+    this.tipType = "warnning";
+    this.tipMargin = "20px 0 0 22px";
+    this.tipContent = "请填写"+text+"（字母、数字组合）！";
+  }
   save(){
     if(!this.createFlag){
       return false
     }
-    let reg = /(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]{4,23}/;
-    if(!reg.test(this.password)){
-      this.showTip = true;
-      this.tipWidth = "634px";
-      this.tipType = "warnning";
-      this.tipMargin = "20px 0 0 22px";
-      this.tipContent = "请填写用户密码（字母、数字组合）！";
-      this.createFlag = true;
+    let reg = /^[0-9a-zA-Z]+$/;
+    if(reg.test(this.password)){
+      if((/^[0-9]*$/.test(this.password))||(/^[a-zA-Z]*$/.test(this.password))){
+        this.errorTip("密码");
+        return false
+      }
+    }else{
+      this.errorTip("密码");
       return false
     }
     this.createFlag = false;
-    this.userService.editUser(this.userId,this.username,this.password)
+    this.userService.userInfoEditUser(this.userId,this.username,this.password)
       .subscribe(result=>{
         if(result.isSuccess==true){
           this.showTip = true;
