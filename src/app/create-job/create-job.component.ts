@@ -309,12 +309,12 @@ export class CreateJobComponent{
     this.sceneReadOnly();
   }
   hasChain(){
-    if(!$("#chain").attr("disabled")&&this.student!=11&&this.student!=15){
+    if(!$("#chain").attr("disabled")){
       $("#chain").addClass("addBorder");
     }
   }
   hasDataset(){
-    if(!$("#data").attr("disabled")&&this.student!=11&&this.student!=15){
+    if(!$("#data").attr("disabled")){
       $("#data").addClass("addBorder");
     }
   }
