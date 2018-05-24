@@ -67,6 +67,7 @@ export class NavigationComponent {
     sessionStorage['userInfo'] = 'false';
     this.userInfo = sessionStorage['userInfo'];
     for(let i=0;i<this.menuAuthority.length;i++){
+      console.log(this.menuAuthority);
       if(this.menuAuthority[i].hasAuthority){
           this.focusTab = i+1;
           let url = this.modelList[i].url;
