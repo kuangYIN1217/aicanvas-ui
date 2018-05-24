@@ -171,9 +171,9 @@ export class AlgchainAloneComponent{
             if (this.page>1){
                 this.page--;
                 this.arr = this.modalTab.slice(num*this.page-num,num*this.page);
-               // console.log(this.arr);
+
             }else{
-               // alert('已经是首页');
+
               addInfoToast(this.toastyService , "已经是首页" );
             }
         }else if(this.showSystemPlugin==0){

@@ -435,7 +435,7 @@ export class PopupComponent {
           this.uploader.queue[j].upload();
         } else{
           let path = this.d_tableData[0].dataPath;
-          console.log(path.split('dataset')[0]+"dataset");
+          //console.log(path.split('dataset')[0]+"dataset");
           this.datasetservice.deleteRepeatName(this.uploader.queue[j].file.name,path.split('dataset')[0]+"dataset")
             .subscribe(result=>{
               //console.log(result);

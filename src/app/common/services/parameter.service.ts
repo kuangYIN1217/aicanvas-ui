@@ -46,11 +46,11 @@ export class ParameterService {
 
     // Demo of how to convert between json and typescript object.
     var jsonstr = JSON.stringify(PARAM_LIST);
-    console.log('jsonstr=' + jsonstr);
+    //console.log('jsonstr=' + jsonstr);
 
     // Parse json string back to js object.
     var jsObjs = JSON.parse(jsonstr);
-    console.log('jsObjs:' + jsObjs, jsObjs)
+    //console.log('jsObjs:' + jsObjs, jsObjs)
 
     return plainToClass(Parameter, jsObjs);
   }

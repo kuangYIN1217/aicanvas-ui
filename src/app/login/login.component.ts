@@ -30,6 +30,23 @@ export class LoginComponent implements OnInit{
             // console.log(sessionStorage['authenticationToken']);
         }else{
             let token = localStorage['authenticationToken'];
+            if((!localStorage['allAuthority'])||localStorage['allAuthority']==""||localStorage['allAuthority']=="null"){
+
+            }else{
+              let authority =JSON.parse(localStorage['allAuthority']);
+              for(let i=0;i<authority.length;i++){
+                if(authority[i].hasAuthority==true){
+                  this.firstAuthorityId = authority[i].basAuthority.id;
+                  break;
+                }
+              }
+              for(let i=0;i<this.modelList.length;i++){
+                if(this.modelList[i].id==this.firstAuthorityId){
+                  this.router.navigate([this.modelList[i].url]);
+                  break;
+                }
+              }
+            }
 /*            if(localStorage['allAuthority']!='null'){
               this.menuAuthority = JSON.parse(localStorage['allAuthority']);
               for(let i=0;i<this.menuAuthority.length;i++){
@@ -143,9 +160,8 @@ export class LoginComponent implements OnInit{
         }*/else if(returnToken){
           localStorage['authenticationToken'] = returnToken.Jwt.id_token;
           localStorage['username']= username;
-          localStorage['userAuthority']= returnToken.Authority.basRole.type;
-          localStorage['allAuthority']= JSON.stringify(returnToken.Authority.authorityTreeList);
-          console.log(returnToken.Authority.authorityTreeList);
+          localStorage['userAuthority'] = returnToken.Authority.basRole.type;
+          localStorage['allAuthority'] = JSON.stringify(returnToken.Authority.authorityTreeList);
           for(let i=0;i<returnToken.Authority.authorityTreeList.length;i++){
             if(returnToken.Authority.authorityTreeList[i].hasAuthority==true&&(returnToken.Authority.authorityTreeList[i].basAuthority.authorityName!='用户管理'&&returnToken.Authority.authorityTreeList[i].basAuthority.authorityName!='角色权限管理')){
               this.firstAuthorityId = returnToken.Authority.authorityTreeList[i].basAuthority.id;

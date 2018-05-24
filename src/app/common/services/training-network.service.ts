@@ -57,9 +57,9 @@ export class TrainingNetworkService {
 
     getTrainingNetwork(): TrainingNetwork[] {
      var jsObjs = JSON.parse(TRAINIG_NETWORK_JSON);
-        console.log('jsObjs:'+ jsObjs, jsObjs)
+        //console.log('jsObjs:'+ jsObjs, jsObjs)
         var twdata = plainToClass(TrainingNetwork, jsObjs);
-        console.log(twdata);
-        return twdata;      
+        //console.log(twdata);
+        return twdata;
     }
 }

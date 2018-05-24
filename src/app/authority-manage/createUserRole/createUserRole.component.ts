@@ -43,7 +43,7 @@ export class CreateUserRoleComponent{
         this.userService.getUserAuthorityById(this.roleInfo.id)
           .subscribe(result=>{
             this.allAuthority = result.authorityTreeList;
-            console.log(this.allAuthority);
+            //console.log(this.allAuthority);
             var zNodes=[];
             if(this.editIndex&&result.authorityTreeList){
               for(let i=0;i<result.authorityTreeList.length;i++){

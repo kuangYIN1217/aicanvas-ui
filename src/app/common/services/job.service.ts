@@ -300,7 +300,7 @@ export class JobService {
       "jobId": jobId,
       "pluginArr": JSON.stringify(pluginIdArr),
     });
-    console.log(body);
+    //console.log(body);
     let headers = this.getHeaders();
     return this.http.post(this.SERVER_URL + path, body, {headers: headers})
       .map((response: Response) => {
