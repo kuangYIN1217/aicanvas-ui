@@ -108,7 +108,7 @@ const routes: Routes = [
   {path: 'usermanage', component: UserManageComponent},
   {path: 'authoritymanage', component: AuthorityManageComponent},
   {path: 'createuser', component: CreateUserComponent},
-  {path: 'createuserrole', component: CreateUserRoleComponent},
+  {path: 'createrole', component: CreateUserRoleComponent},
 
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   // { path: 'detail/:id', component: HeroDetailComponent },

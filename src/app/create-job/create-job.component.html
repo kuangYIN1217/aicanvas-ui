@@ -68,7 +68,7 @@
             <div>
               <div class="classification">
                 <img *ngFor="let item of datasetsType" [src]="getImage(item)"/>
-                <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" id="dataKeyword" readonly (ngModelChange)="dataKeyword=$event;dataKeywordChange()"/>
+                <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" id="dataKeyword" readonly (ngModelChange)="dataKeyword=$event;dataKeywordChange()" (blur)="leaveInput()" (focus)="enterInput()"/>
               </div>
               <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
                 <option selected value=-1>--请选择数据集--</option>
@@ -81,9 +81,9 @@
         <div class="row" style="margin-bottom: 10px">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>训练 / 验证 /测试集比例：</span>
-            <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
-            <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
-            <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>
+            <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (focus)="hasTrain()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
+            <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (focus)="hasValid()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
+            <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (focus)="hasTest()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>
           </div>
         </div>
         <div class="row height">

@@ -43,7 +43,7 @@ export class AuthorityManageComponent{
     this.getAllRole(this.name,this.page,this.pageMaxItem);
   }
   createRole(){
-    this.router.navigate(['../createuserrole']);
+    this.router.navigate(['../createrole']);
   }
   ngOnInit() {
     calc_height(document.getElementsByClassName('userContent')[0]);
@@ -56,7 +56,7 @@ export class AuthorityManageComponent{
     this.getAllRole(this.name,this.page,this.pageMaxItem);
   }
   editRole(item){
-    this.router.navigate(['../createuserrole'],{queryParams: {"roleInfo": JSON.stringify(item),"page":this.page,"size":this.pageMaxItem}});
+    this.router.navigate(['../createrole'],{queryParams: {"roleInfo": JSON.stringify(item),"page":this.page,"size":this.pageMaxItem}});
   }
   deleteRole(id){
     this.userService.checkRoleHasUser(id)

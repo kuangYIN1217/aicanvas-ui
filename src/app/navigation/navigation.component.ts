@@ -129,7 +129,7 @@ export class NavigationComponent {
     }else if (this.location.path().match(/\/usermanage/) || this.location.path().match(/\/createuser/)) {
       this.focusTab = 13;
       // this.needhide = 0;
-    }else if (this.location.path().match(/\/authoritymanage/) || this.location.path().match(/\/createuserrole/)) {
+    }else if (this.location.path().match(/\/authoritymanage/) || this.location.path().match(/\/createrole/)) {
       this.focusTab = 14;
       // this.needhide = 0;
     }

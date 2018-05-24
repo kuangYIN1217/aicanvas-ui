@@ -354,7 +354,7 @@ input{
   border-radius: 4px;
 }
 input:focus{
-  border:1px solid #23a880 !important;
+  border:1px solid #23a880
 }
 .dataset .input input{
   width: 490px;
@@ -363,13 +363,18 @@ input:focus{
 .dataset .input input:focus{
   border:1px solid #23a880;
 }
+.addBorder{
+  border:1px solid #23a880 !important;
+}
 .dataset .input select{
   width: 490px;
   height: 36px;
   margin-top: -18px;
   padding-left: 10px;
 }
-
+#dataKeyword:focus,#train:focus,#valid:focus,#test:focus{
+  border:1px solid #d3d3d3;
+}
 .row .select {
   width: 490px;
   height: 36px;

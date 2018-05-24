@@ -295,7 +295,29 @@ export class CreateJobComponent{
     document.getElementById("dataKeyword").removeAttribute("readonly");
     this.sceneReadOnly();
   }
-
+  enterInput(){
+    if(!$("#dataKeyword").attr("readonly")&&this.student!=11&&this.student!=15){
+        $("#dataKeyword").addClass("addBorder");
+    }
+  }
+  hasTrain(){
+    if(!$("#train").attr("readonly")&&this.student!=11&&this.student!=15){
+        $("#train").addClass("addBorder");
+    }
+  }
+  hasValid(){
+    if(!$("#valid").attr("readonly")&&this.student!=11&&this.student!=15){
+      $("#valid").addClass("addBorder");
+    }
+  }
+  hasTest(){
+    if(!$("#test").attr("readonly")&&this.student!=11&&this.student!=15){
+      $("#test").addClass("addBorder");
+    }
+  }
+  leaveInput(){
+    $("#dataKeyword").removeClass("addBorder");
+  }
   chooseImg(item){
     if(item.flag==undefined||item.flag != 1){
       for(let i=0;i<this.datasetsType.length;i++){
@@ -350,6 +372,9 @@ export class CreateJobComponent{
     }
   }
   dataset(){
+    $("#train").removeClass("addBorder");
+    $("#valid").removeClass("addBorder");
+    $("#test").removeClass("addBorder");
     if(Number(this.dataFirst)>=100){
       this.tips();
     };
