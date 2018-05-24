@@ -19,9 +19,16 @@ import { Parameter, TrainingNetwork } from "../defs/parameter";
 export class ResourcesService {
     SERVER_URL: string = SERVER_URL;
     constructor(private http: Http) { }
-    getAuthorization(){
-        return 'Bearer '+ localStorage['authenticationToken'];
+  getAuthorization(){
+    if(localStorage['authenticationToken']!=undefined){
+      return 'Bearer '+ localStorage['authenticationToken'];
     }
+    else {
+      var url = window.location.href;
+      var subUrl = url.substr(0, url.indexOf('#') + 1) + '/';
+      window.location.href = subUrl;
+    }
+  }
     getHeaders(){
         let headers = new Headers();
         headers.append('Content-Type','application/json');
