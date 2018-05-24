@@ -29,6 +29,7 @@ export class CreateJobComponent{
   d_dataSets: any = [];
   dataId: number=-1;
   fileCount:number=0;
+  backupDatasetFileCount:number=0;
   jobPriority:string='0';
   firstSceneId:string='-1';
   gpuorder:any='-1';
@@ -41,6 +42,7 @@ export class CreateJobComponent{
   dataKeyword:string='';
   click_flag: boolean = true;
   datasetBackupName:string="";
+  backupName:string="";
   scenes_match_dataset:any[]=[{"scenesId":"3","dataSetId":1},{"scenesId":"20","dataSetId":1},{"scenesId":"4","dataSetId":1},{"scenesId":"1","dataSetId":1},{"scenesId":"2","dataSetId":1},{"scenesId":"12","dataSetId":1},{"scenesId":"5","dataSetId":3},{"scenesId":"9","dataSetId":3},{"scenesId":"6","dataSetId":3},{"scenesId":"7","dataSetId":3},{"scenesId":"10","dataSetId":3},{"scenesId":"8","dataSetId":3}]
   datasetType:number;
   job:any={};
@@ -55,10 +57,6 @@ export class CreateJobComponent{
   onceAddDataset:boolean = true;
   constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
     this.username = localStorage['username'];
-        this.datasetsService.getDataSetType()
-          .subscribe(result=>{
-            this.datasetsType = result;
-          });
     this.jobService.getAllGpu()
       .subscribe(result=>{
         this.gpus = result;
@@ -76,6 +74,7 @@ export class CreateJobComponent{
         this.page = params['page'];
         this.jobName = this.job.jobName;
         this.markEdit = this.job.edit;
+        this.backupName = this.job.datasetBackupName;
         this.sceneService.getAllScenes(2)
           .subscribe(scenes => {
             this.getScenes(scenes);
@@ -103,6 +102,7 @@ export class CreateJobComponent{
                 .subscribe(result=>{
                   this.backupDataset.dataName = this.job.datasetBackupName;
                   this.backupDataset.dataId = this.job.dataSet+'_backup';
+                  this.backupDatasetFileCount = result.count;
                   this.backupDataset.fileCount = result.count;
                   this.dataId = this.backupDataset.dataId;
                   this.fileCount = this.backupDataset.fileCount;
@@ -134,6 +134,10 @@ export class CreateJobComponent{
       this.sceneService.getAllScenes(2)
         .subscribe(scenes => {
           this.getScenes(scenes);
+        });
+      this.datasetsService.getDataSetType()
+        .subscribe(result=>{
+          this.datasetsType = result;
         });
     }
   }
@@ -186,7 +190,7 @@ export class CreateJobComponent{
   dataChange(){
     let reg=new RegExp(/_\d{14}$/);
     if(this.dataId==-1){
-      this.datasetBackupName = null;
+      this.datasetBackupName = '';
       document.getElementById("backup_dataset").innerHTML = "";
     }
     for(let i in this.d_dataSets){
@@ -251,7 +255,7 @@ export class CreateJobComponent{
     }
     this.showScene[sceneIndex][index].selected = true;
     this.student = scene.id;
-    this.getChainAndDataset(scene.id)
+    this.getChainAndDataset(scene.id);
     if(this.student==11||this.student==15){
       this.d_dataSets = [];
       for(let i=0;i<this.datasetsType.length;i++){
@@ -277,20 +281,24 @@ export class CreateJobComponent{
           }
         }
       });
-    for(let i=0;i<this.scenes_match_dataset.length;i++){
-      if(this.scenes_match_dataset[i].scenesId==id){
-        this.datasetType = this.scenes_match_dataset[i].dataSetId;
-        //$(".classification img").eq(this.datasetType-1).click();
-        this.chooseImg(this.datasetsType[this.datasetType-1]);
-        if(this.markEdit&&this.onceGetDatasetType){
-          this.oldDatasetType = this.datasetsType[this.datasetType-1];
-          this.onceGetDatasetType = false;
-        }else{
-          this.newDatasetType = this.datasetsType[this.datasetType-1];
+    this.datasetsService.getDataSetType()
+      .subscribe(result=>{
+        this.datasetsType = result;
+        for(let i=0;i<this.scenes_match_dataset.length;i++){
+          if(this.scenes_match_dataset[i].scenesId==id){
+            this.datasetType = this.scenes_match_dataset[i].dataSetId;
+            //$(".classification img").eq(this.datasetType-1).click();
+            this.chooseImg(this.datasetsType[this.datasetType-1]);
+            if(this.markEdit&&this.onceGetDatasetType){
+              this.oldDatasetType = this.datasetsType[this.datasetType-1];
+              this.onceGetDatasetType = false;
+            }else{
+              this.newDatasetType = this.datasetsType[this.datasetType-1];
+            }
+            break;
+          }
         }
-        break;
-      }
-    }
+      });
     //this.getDataSets(this.datasetType,this.username);
     document.getElementById("dataKeyword").removeAttribute("readonly");
     this.sceneReadOnly();
@@ -425,13 +433,28 @@ export class CreateJobComponent{
         type = this.datasetsType[i].id;
       }
     }
+    document.getElementById("backup_dataset").innerHTML = "";
+    this.datasetBackupName = '';
+    this.dataId = -1;
+    if(this.dataKeyword==''){
+      this.setSearchDataset();
+    }
     this.searchDataSets(type,this.dataKeyword,this.username);
   }
   searchDataSets(type,name,creator){
     this.datasetsService.searchDatasets(type,name,creator+',system',0,10000)
       .subscribe(result=>{
         this.d_dataSets = result.content;
+        if(this.backupName!=''&&this.backupName.indexOf(this.dataKeyword)!=-1){
+          this.setSearchDataset();
+        }
       });
+  }
+  setSearchDataset(){
+    this.backupDataset.dataName = this.job.datasetBackupName;
+    this.backupDataset.dataId = this.job.dataSet+'_backup';
+    this.backupDataset.fileCount = this.backupDatasetFileCount;
+    this.d_dataSets.unshift(this.backupDataset);
   }
   sceneReadOnly(){
     if(this.student==11||this.student==15){

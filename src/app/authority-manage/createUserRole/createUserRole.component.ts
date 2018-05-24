@@ -243,11 +243,11 @@ export class CreateUserRoleComponent{
     let reg = /^[0-9a-zA-Z]+$/;
     if(reg.test(this.rolename)){
       if((/^[0-9]*$/.test(this.rolename))||(/^[a-zA-Z]*$/.test(this.rolename))){
-        this.errorTip("用户名");
+        this.errorTip("用户角色");
         return false
       }
     }else{
-      this.errorTip("用户名");
+      this.errorTip("用户角色");
       return false
     }
 

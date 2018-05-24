@@ -37,6 +37,9 @@
   display: inline-block;
   vertical-align: middle;
 }
+.searchContainer input:focus{
+  border:1px solid #23a880 !important;
+}
 .selectContainer select{
   border-radius: 5px;
   border: 1px solid #d3d3d3;
