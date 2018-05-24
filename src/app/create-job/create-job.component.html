@@ -30,7 +30,7 @@
         <div class="row">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>算法链选择：</span>
-            <select class="select" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)">
+            <select class="select" id="chain" name="scene_select" [(ngModel)]="firstSceneId" (ngModelChange)="$scene_select_change($event)" (focus)="hasChain()" (blur)="noChain()" disabled="disabled">
               <option selected value="-1">--请选择算法链--</option>
               <option *ngFor="let chain of arr" value={{chain.id}}>{{chain.chain_name}}</option>
             </select>
@@ -70,7 +70,7 @@
                 <img *ngFor="let item of datasetsType" [src]="getImage(item)"/>
                 <input type="text" placeholder="请输入数据集名称关键字" [(ngModel)] = "dataKeyword" id="dataKeyword" readonly (ngModelChange)="dataKeyword=$event;dataKeywordChange()" (blur)="leaveInput()" (focus)="enterInput()"/>
               </div>
-              <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()">
+              <select class="select" id='data' name="scene_select" [(ngModel)] = "dataId" (ngModelChange)="dataChange()" (focus)="hasDataset()" (blur)="noDataset()" disabled="disabled">
                 <option selected value=-1>--请选择数据集--</option>
                 <option *ngFor="let dataset of d_dataSets" [value]="dataset.dataId">{{dataset.dataName}}{{dataset.creator === 'system' ? ' (公共) ' : ''}}  </option>
               </select>
@@ -81,9 +81,9 @@
         <div class="row" style="margin-bottom: 10px" [style.display]="(student!=11&&student!=15)?'':'none'">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>训练 / 验证 /测试集比例：</span>
-            <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (focus)="hasTrain()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
-            <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (focus)="hasValid()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
-            <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (focus)="hasTest()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>
+            <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (focus)="hasTrain()" (keydown)="onlyNum($event)" placeholder="请输入数字" readonly="readonly"/><label class="maohao">：</label>
+            <input class="smallSel" id='valid' name="scene_select" [(ngModel)] = "dataSecond" (blur)="dataset()" (focus)="hasValid()" (keydown)="onlyNum($event)" placeholder="请输入数字" readonly="readonly"/><label class="maohao">：</label>
+            <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (focus)="hasTest()" (keydown)="onlyNum($event)" placeholder="请输入数字" readonly="readonly"/>
           </div>
         </div>
         <div class="row height" [style.display]="(student!=11&&student!=15)?'':'none'">

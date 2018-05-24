@@ -29,6 +29,7 @@ export class PublicModelComponent{
   lookFailReason:any[]=[];
   first:boolean = false;
   username:string='';
+  loading:boolean = false;
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
@@ -45,12 +46,15 @@ export class PublicModelComponent{
     this.pageMaxItem = paraParam.pageMaxItem;
   }
   rePublish(item){
+    this.loading = true;
     this.modelService.rePublishModel(item.jobId,item.id)
       .subscribe(
         (result)=>{
+          this.loading = false;
           this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
       },
         (error)=>{
+          this.loading = false;
             if(error.status==417){
               let result = error.json();
               let obj:any={};
@@ -68,8 +72,10 @@ export class PublicModelComponent{
         })
   }
   reStart(modelId){
+    this.loading = true;
     this.modelService.reStartModel(modelId)
       .subscribe(result=>{
+        this.loading = false;
         this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
       })
   }

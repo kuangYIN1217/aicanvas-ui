@@ -372,7 +372,7 @@ input:focus{
   margin-top: -18px;
   padding-left: 10px;
 }
-#dataKeyword:focus,#train:focus,#valid:focus,#test:focus{
+#dataKeyword:focus,#train:focus,#valid:focus,#test:focus,#data:focus,#chain:focus{
   border:1px solid #d3d3d3;
 }
 .row .select {

@@ -249,6 +249,7 @@ export class CreateJobComponent{
   chooseScene(index,sceneIndex,scene){
     this.fileCount = 0;
     this.dataId = -1;
+    this.firstSceneId = "-1";
     document.getElementById("backup_dataset").innerHTML = "";
     for(let i=0;i<this.showScene.length;i++){
       for(let j=0;j<this.showScene[i].length;j++){
@@ -303,7 +304,25 @@ export class CreateJobComponent{
       });
     //this.getDataSets(this.datasetType,this.username);
     document.getElementById("dataKeyword").removeAttribute("readonly");
+    document.getElementById("data").removeAttribute("disabled");
+    document.getElementById("chain").removeAttribute("disabled");
     this.sceneReadOnly();
+  }
+  hasChain(){
+    if(!$("#chain").attr("disabled")&&this.student!=11&&this.student!=15){
+      $("#chain").addClass("addBorder");
+    }
+  }
+  hasDataset(){
+    if(!$("#data").attr("disabled")&&this.student!=11&&this.student!=15){
+      $("#data").addClass("addBorder");
+    }
+  }
+  noDataset(){
+    $("#data").removeClass("addBorder");
+  }
+  noChain(){
+    $("#chain").removeClass("addBorder");
   }
   enterInput(){
     if(!$("#dataKeyword").attr("readonly")&&this.student!=11&&this.student!=15){
