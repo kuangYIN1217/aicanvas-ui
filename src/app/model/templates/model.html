@@ -115,7 +115,7 @@
           </div>
         </td>
       </tr>
-      <tr>
+      <tr [style.display]="(job?.sencesName!='命名实体识别'&&job?.sencesName!='情感分析')?'':'none'">
         <td class="first_column"></td>
         <td>没有合适的文件？试试使用<a href="javascript:void(0)" class="dataset" (click)="getDataset()">数据集文件</a> </td>
       </tr>
