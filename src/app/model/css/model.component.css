@@ -243,6 +243,21 @@ a{
 .shrink span{
   margin-left: 4px;
 }
+.loading{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 6666;
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -moz-flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

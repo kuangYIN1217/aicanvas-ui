@@ -75,6 +75,7 @@ export class ModelComponent {
   dataId:string='';
   jobId:string='';
   datasetPath:string='';
+  loading:boolean = false;
   constructor(private modelService: modelService, private route: ActivatedRoute, private router: Router, private _location: Location,private jobService:JobService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -304,6 +305,7 @@ export class ModelComponent {
     this.jobPath = this.job.jobPath;
   }
   publish(){
+    this.loading = true;
     this.modelPredictionIds=[];
     if(this.ModelInfo.length>0){
       for(let i=0;i<this.ModelInfo.length;i++){
@@ -313,6 +315,7 @@ export class ModelComponent {
     this.modelService.publishModel(this.job_id,this.modelPredictionIds)
       .subscribe(
         (result)=>{
+         this.loading = false;
          this.showTip = true;
          this.tipType = 'success';
          this.tipWidth = "100%";
@@ -320,6 +323,7 @@ export class ModelComponent {
          this.tipContent = "模型已开始发布！详情可查看：";
         },
         (error)=>{
+          this.loading = false;
           if(error.status==417){
             let result = error.json();
             let obj:any={};

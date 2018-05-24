@@ -36,3 +36,6 @@
   </table>
 </div>
 <page [pageParams]="pageParams" (changeCurPage)="getPageData($event)" class="page"></page>
+<div *ngIf="loading" class="loading">
+  <img src="assets/datasets/loading.gif"/>
+</div>
