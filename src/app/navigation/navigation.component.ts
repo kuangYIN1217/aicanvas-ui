@@ -140,7 +140,7 @@ export class NavigationComponent {
   logout() {
     localStorage.removeItem("authenticationToken");
     localStorage.removeItem("username");
-    localStorage.removeItem("allAuthority");
+    // localStorage.removeItem("allAuthority");
     sessionStorage.removeItem("userInfo");
     this.router.navigate(['/login'])
     // window.location.href = "/login";
