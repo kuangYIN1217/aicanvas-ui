@@ -15,9 +15,6 @@ declare var $:any
 export class CreateJobComponent{
   jobName: string="";
   name_validation: boolean = false;
-  s_error_show: boolean = false;
-  s_error_message: string = '';
-  s_error_level: string = 'error';
   scenes: SceneInfo[] = [];
   showScene:any[]=[];
   sceneIndex:number=0;
@@ -55,6 +52,11 @@ export class CreateJobComponent{
   newDatasetType:string='';
   onceGetDatasetType:boolean = true;
   onceAddDataset:boolean = true;
+  showTip:boolean = false;
+  tipContent:string='';
+  tipType:string='';
+  tipWidth:string='';
+  tipMargin:string='';
   constructor(private sceneService: SceneService,private datasetsService: DatasetsService,private jobService: JobService,private route: ActivatedRoute ,private router: Router) {
     this.username = localStorage['username'];
     this.jobService.getAllGpu()
@@ -371,10 +373,13 @@ export class CreateJobComponent{
         return 'assets/datasets/createfile/qt_lv.png';
     }
   }
+  showTipChange(event){
+    this.showTip = event;
+  }
   nameChange() {
     if (this.jobName) {
       this.name_validation = true;
-      this.s_error_show = false;
+      this.showTip = false;
     } else {
       this.name_validation = false;
     }
@@ -402,7 +407,7 @@ export class CreateJobComponent{
     else if((Number(this.dataSecond)+Number(this.dataThird))>=100){
       this.tips();
     }else{
-      this.s_error_show = false;
+      this.showTip = false;
       if(Number(this.dataFirst)>0&&Number(this.dataSecond)>0&&(Number(this.dataFirst)+Number(this.dataSecond)<100)){
         this.dataThird = 100-Number(this.dataFirst)-Number(this.dataSecond);
       };
@@ -421,9 +426,11 @@ export class CreateJobComponent{
         ev.returnValue=false;
   }
   tips(){
-    this.s_error_show = true;
-    this.s_error_message = '训练/验证/测试集比例之和必须等于100%！';
-    this.s_error_level = "error";
+    this.showTip = true;
+    this.tipType = 'warnning';
+    this.tipWidth = "100%";
+    this.tipMargin = "20px auto 0";
+    this.tipContent = "训练/验证/测试集比例之和必须等于100%！";
     return false;
   }
   dataKeywordChange(){
@@ -488,16 +495,20 @@ export class CreateJobComponent{
     }
     this.click_flag = false;
     if (!this.jobName) {
-      this.s_error_show = true;
-      this.s_error_message = '请输入任务名称';
-      this.s_error_level = "error";
+      this.showTip = true;
+      this.tipType = 'warnning';
+      this.tipWidth = "100%";
+      this.tipMargin = "20px auto 0";
+      this.tipContent = "请输入任务名称！";
       this.click_flag = true;
       return false;
     }
     if (this.firstSceneId == '-1') {
-      this.s_error_show = true;
-      this.s_error_message = '请选择算法链';
-      this.s_error_level = "error";
+      this.showTip = true;
+      this.tipType = 'warnning';
+      this.tipWidth = "100%";
+      this.tipMargin = "20px auto 0";
+      this.tipContent = "请选择算法链！";
       this.click_flag = true;
       return false;
     }
@@ -505,9 +516,11 @@ export class CreateJobComponent{
       if(this.student==15||this.student==11){
 
       }else{
-        this.s_error_show = true;
-        this.s_error_message = '请选择数据集';
-        this.s_error_level = "error";
+        this.showTip = true;
+        this.tipType = 'warnning';
+        this.tipWidth = "100%";
+        this.tipMargin = "20px auto 0";
+        this.tipContent = "请选择数据集！";
         this.click_flag = true;
         return false;
       }
@@ -516,9 +529,11 @@ export class CreateJobComponent{
       if(this.student==15||this.student==11){
 
       }else{
-        this.s_error_show = true;
-        this.s_error_message = '请输入训练集比例';
-        this.s_error_level = "error";
+        this.showTip = true;
+        this.tipType = 'warnning';
+        this.tipWidth = "100%";
+        this.tipMargin = "20px auto 0";
+        this.tipContent = "请输入训练集比例！";
         this.click_flag = true;
         return false;
       }
@@ -527,9 +542,11 @@ export class CreateJobComponent{
       if(this.student==15||this.student==11){
 
       }else {
-        this.s_error_show = true;
-        this.s_error_message = '请输入验证集比例';
-        this.s_error_level = "error";
+        this.showTip = true;
+        this.tipType = 'warnning';
+        this.tipWidth = "100%";
+        this.tipMargin = "20px auto 0";
+        this.tipContent = "请输入验证集比例！";
         this.click_flag = true;
         return false;
       }
@@ -538,9 +555,11 @@ export class CreateJobComponent{
       if(this.student==15||this.student==11){
 
       }else {
-        this.s_error_show = true;
-        this.s_error_message = '请输入测试集比例';
-        this.s_error_level = "error";
+        this.showTip = true;
+        this.tipType = 'warnning';
+        this.tipWidth = "100%";
+        this.tipMargin = "20px auto 0";
+        this.tipContent = "请输入测试集比例！";
         this.click_flag = true;
         return false;
       }
@@ -574,9 +593,11 @@ export class CreateJobComponent{
         (error) =>{
           if(error.status==417){
             this.loading = false;
-            this.s_error_show = true;
-            this.s_error_message = error.text();
-            this.s_error_level = "error";
+            this.showTip = true;
+            this.tipType = 'error';
+            this.tipWidth = "100%";
+            this.tipMargin = "20px auto 0";
+            this.tipContent = error.text();
             this.click_flag = true;
           }
         });
@@ -600,9 +621,11 @@ export class CreateJobComponent{
         (error) =>{
           if(error.status==417){
             this.loading = false;
-            this.s_error_show = true;
-            this.s_error_message = error.text();
-            this.s_error_level = "error";
+            this.showTip = true;
+            this.tipType = 'error';
+            this.tipWidth = "100%";
+            this.tipMargin = "20px auto 0";
+            this.tipContent = error.text();
             this.click_flag = true;
           }
         });

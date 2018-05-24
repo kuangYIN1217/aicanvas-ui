@@ -92,7 +92,6 @@ export class TaskStatusComponent{
          }
    }
   sortTime(){
-    document.getElementById("jobPrioritySort").setAttribute("src","assets/taskStatus/taskStatusSort.png");
     if (this.s_sort_type == 'createTime,desc') {
       this.s_sort_type = 'createTime,asc';
       document.getElementById("timeSort").setAttribute("src","assets/taskStatus/up.png");
@@ -102,6 +101,17 @@ export class TaskStatusComponent{
     }
     this.getAlljobs(this.statuss,this.pageNow,this.pageMax,this.sceneId);
   }
+/*  sortTime(){
+    document.getElementById("jobPrioritySort").setAttribute("src","assets/taskStatus/taskStatusSort.png");
+    if (this.s_sort_type == 'createTime,desc') {
+      this.s_sort_type = 'createTime,asc';
+      document.getElementById("timeSort").setAttribute("src","assets/taskStatus/up.png");
+    } else {
+      this.s_sort_type = 'createTime,desc';
+      document.getElementById("timeSort").setAttribute("src","assets/taskStatus/down.png");
+    }
+    this.getAlljobs(this.statuss,this.pageNow,this.pageMax,this.sceneId);
+  }*/
   sortPriority(){
     document.getElementById("timeSort").setAttribute("src","assets/taskStatus/taskStatusSort.png");
     if (this.s_sort_type == 'jobPriority,desc') {

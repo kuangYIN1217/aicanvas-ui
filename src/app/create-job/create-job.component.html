@@ -1,8 +1,8 @@
 <div class="container">
   <div class="createJob">
     <div id="step_content" class="step_content">
-      <div class="error">
-        <cpt-error [show]="s_error_show" [message]="s_error_message" [level]="s_error_level"></cpt-error>
+      <div style="width: 684px;margin-left: 20px">
+        <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" (showTipChange)="showTipChange(event)"></uniform-tips>
       </div>
       <h3>{{!markEdit?'新建任务':'修改任务'}}</h3>
       <div class="allContent">
@@ -62,7 +62,7 @@
             <label class="textIntroduce">注：图像类算法建议选择GPU分配</label>
           </div>
         </div>
-        <div class="row" style="height: auto;line-height: normal;">
+        <div class="row" style="height: auto;line-height: normal;" [style.display]="(student!=11&&student!=15)?'':'none'">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>数据集：</span>
             <div>
@@ -78,7 +78,7 @@
             </div>
           </div>
         </div>
-        <div class="row" style="margin-bottom: 10px">
+        <div class="row" style="margin-bottom: 10px" [style.display]="(student!=11&&student!=15)?'':'none'">
           <div class="row_tr">
             <span class="span"><label class="mustColor">*</label>训练 / 验证 /测试集比例：</span>
             <input class="smallSel" id='train' name="scene_select" [(ngModel)] = "dataFirst" (blur)="dataset()" (focus)="hasTrain()" (keydown)="onlyNum($event)" placeholder="请输入数字"/><label class="maohao">：</label>
@@ -86,13 +86,13 @@
             <input class="smallSel" id='test' name="scene_select" [(ngModel)] = "dataThird" (blur)="dataset()" (focus)="hasTest()" (keydown)="onlyNum($event)" placeholder="请输入数字"/>
           </div>
         </div>
-        <div class="row height">
+        <div class="row height" [style.display]="(student!=11&&student!=15)?'':'none'">
           <div class="row_tr">
             <label class="textIntroduce height">注：训练/验证集用于训练任务，测试集用于推演服务；建议比例：70%：20%：10%
             </label>
           </div>
         </div>
-        <div class="row">
+        <div class="row" [style.display]="(student!=11&&student!=15)?'':'none'">
           <div class="row_tr">
             <span class="span height">所选记录数：</span><span class="middle height">{{fileCount}}</span>
           </div>
