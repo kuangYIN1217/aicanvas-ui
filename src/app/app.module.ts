@@ -74,7 +74,6 @@ import {PublicModelComponent} from "./inference-model/public-model/publicmodel.c
 import {BoostedTreeComponent} from "./boostedTree/boostedTree.component";
 import { RunningTaskComponent } from './running-task/running-task.component';
 import { CreateJobComponent } from './create-job/create-job.component';
-import { UserComponent } from './user/user.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { AuthorityManageComponent } from './authority-manage/authority-manage.component';
@@ -139,7 +138,6 @@ import {CreateUserRoleComponent} from "./authority-manage/createUserRole/createU
     BoostedTreeComponent,
     RunningTaskComponent,
     CreateJobComponent,
-    UserComponent,
     UserInfoComponent,
     UserManageComponent,
     AuthorityManageComponent,

@@ -7,9 +7,9 @@
             <img src="assets/navigation/admin.png">
             <span>{{username}}</span>
         </div>
-        <div class="entry logout">
+        <div class="entry logout" (click)="logout()">
             <img src="assets/navigation/out.png">
-            <span (click)="logout()">退出</span>
+            <span>退出</span>
         </div>
     </div>
     <nav class="nav-content nav" [style.display]="(userInfo=='false'&&focusTab!=0)?'':'none'">

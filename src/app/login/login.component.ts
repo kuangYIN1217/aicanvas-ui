@@ -117,22 +117,28 @@ export class LoginComponent implements OnInit{
         var username = $('#username').val();
         var pwd = $('#password').val();
         var valid = $('#surePwd').val();
-        // console.log(valid);
-        // if (valid!=this.validCode){
-        //     this.showMessage("验证码错误");
-        //     $('surePwd').value="";
-        //     this.changeValidCode();
-        // }else{
-            // let token: string = "";
-         this.userService.authorize(username, pwd)
-            .subscribe(returnToken => this.validToken(returnToken,username));
-        // }
+        if(username==''||username==undefined){
+          this.errorInfo = "请填写用户名！";
+          return false
+        }
+        if(pwd==''||pwd==undefined){
+          this.errorInfo = "请填写密码！";
+          return false
+        }
+      this.userService.judgeUserName(username)
+        .subscribe(result=>{
+          if(result=="false"){
+            this.errorInfo = "无该用户名！";
+          }else{
+            this.userService.authorize(username, pwd)
+              .subscribe(returnToken => this.validToken(returnToken,username));
+          }
+        })
     }
     validToken(returnToken,username){
         //console.log(returnToken);
         if(returnToken.isSuccess==false){
             this.errorInfo = returnToken.message;
-            console.log(this.errorInfo);
         }/*else if(returnToken&&returnToken.Jwt.id_token){
           localStorage['authenticationToken'] = returnToken.Jwt.id_token;
           localStorage['username']= username;

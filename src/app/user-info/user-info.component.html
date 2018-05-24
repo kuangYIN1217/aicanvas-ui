@@ -14,7 +14,7 @@
       <span class="key">用户类型：</span>
       <span class="value">{{userType=='system'?'超级管理员':'普通用户'}}</span>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="login!='admin'">
       <span class="key">用户角色：</span>
       <span class="value">{{userRole}}</span>
     </div>
