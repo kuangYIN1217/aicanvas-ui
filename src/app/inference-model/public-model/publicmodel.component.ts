@@ -29,32 +29,43 @@ export class PublicModelComponent{
   lookFailReason:any[]=[];
   first:boolean = false;
   username:string='';
-  loading:boolean = false;
+  interval:any;
+  interval1:any;
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
   ngOnChanges(...args: any[]) {
+    clearInterval(this.interval);
+    clearInterval(this.interval1);
     if(this.jobName!=-1||this.senceName!=-1){
       this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,0,10);
+      this.interval1 = setInterval(()=>{
+        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,0,10);
+      },5000)
     }else{
       this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
+      this.interval1 = setInterval(()=>{
+        this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
+      },5000)
     }
   }
   getPageData(paraParam){
     this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,paraParam.curPage-1,paraParam.pageMaxItem);
     this.page = paraParam.curPage-1;
     this.pageMaxItem = paraParam.pageMaxItem;
+    clearInterval(this.interval);
+    clearInterval(this.interval1);
+    this.interval = setInterval(()=>{
+      this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
+    },5000)
   }
   rePublish(item){
-    this.loading = true;
     this.modelService.rePublishModel(item.jobId,item.id)
       .subscribe(
         (result)=>{
-          this.loading = false;
           this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
       },
         (error)=>{
-          this.loading = false;
             if(error.status==417){
               let result = error.json();
               let obj:any={};
@@ -72,10 +83,8 @@ export class PublicModelComponent{
         })
   }
   reStart(modelId){
-    this.loading = true;
     this.modelService.reStartModel(modelId)
       .subscribe(result=>{
-        this.loading = false;
         this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
       })
   }
@@ -109,6 +118,11 @@ export class PublicModelComponent{
           this.dataIndex=0;
         }
       })
+  }
+  ngOnDestroy(){
+    // 退出时停止更新
+    clearInterval(this.interval);
+    clearInterval(this.interval1);
   }
   delete(modelId){
     this.modelService.deleteModel(modelId)

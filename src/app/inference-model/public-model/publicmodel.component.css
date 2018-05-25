@@ -37,6 +37,12 @@
 .fail{
   background:url("../../../assets/api/chakanshibai.png") no-repeat;
 }
+.failReason{
+  position: relative;
+  top:2px;
+  left:4px;
+  cursor: pointer;
+}
 .loading{
   position: fixed;
   width: 100%;

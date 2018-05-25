@@ -947,9 +947,16 @@ export class JobDetailComponent {
         this.runPath = jobPath;
         this.s_progress_show = true;
         this.jobService.runJob(this.runPath)
-          .subscribe(result =>{
+          .subscribe((result) =>{
             this.initJobDetailByPath(true);
-          })
+          },
+            (error)=>{
+              if(error.status==417){
+                this.s_progress_show = false;
+                this.s_start_stop_click = true;
+              }
+            }
+          )
       //}
     })
   }
