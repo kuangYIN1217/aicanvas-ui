@@ -10,6 +10,7 @@ export class UniformTipsComponent{
 @Input() tipType:string='';
 @Input() tipContent:any;
 @Input() tipWidth:string='';
+@Input() spanWidth:string='';
 @Input() content:string='';
 @Input() tipMargin:string='';
 @Input() jobId:number=0;
@@ -26,6 +27,13 @@ export class UniformTipsComponent{
 /*  findModel(){
     this.router.navigate(['../inferenceModel'],{queryParams: {'isPublic':this.isPublic,"jobId":this.jobId}});
   }*/
+  spanStyle(){
+    if(this.spanWidth!=''){
+      return {
+        width:this.spanWidth,
+      }
+    }
+  }
   ngStyle() {
     if (this.tipType == 'success') {
       return {

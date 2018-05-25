@@ -2,7 +2,7 @@
   <div class="createJob">
     <div id="step_content" class="step_content">
       <div style="width: 684px;margin-left: 20px">
-        <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" (showTipChange)="showTipChange(event)"></uniform-tips>
+        <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [spanWidth]="spanWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" (showTipChange)="showTipChange(event)"></uniform-tips>
       </div>
       <h3>{{!markEdit?'新建任务':'修改任务'}}</h3>
       <div class="allContent">
