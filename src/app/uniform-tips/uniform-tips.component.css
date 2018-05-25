@@ -3,7 +3,6 @@
   vertical-align: middle;
 }
 .icon{
-  margin:9px 15px 0 20px;
   float: left;
 }
 .tips-content{
@@ -24,8 +23,6 @@
   float: left;
 }
 .close{
-  margin-right: 12px;
-  margin-top: 12px;
   float: right;
   cursor: pointer;
 }

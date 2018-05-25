@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit{
     msg_show = false;
     tabIndex:number=0;
     hg:any;
-    errorInfo:string="";
+    erroruser:string="";
+    errorpassword:string="";
     firstAuthorityId:number=0;
     modelList:any[]=[{"id":3,"url":"/datasetssave","focusTab":1},{"id":4,"url":"/algchains","focusTab":2},{"id":7,"url":"/datasets","focusTab":3},{"id":12,"url":"/inferenceModel","focusTab":4},{"id":13,"url":"/jobcreation","focusTab":5},{"id":21,"url":"/algplugins","focusTab":6}];
     constructor(private resourcesService: ResourcesService, private userService: UserService,private router: Router){
@@ -114,22 +115,24 @@ export class LoginComponent implements OnInit{
     }
 
     login(){
+        this.erroruser='';
+        this.errorpassword='';
         var username = $('#username').val();
         var pwd = $('#password').val();
         var valid = $('#surePwd').val();
         if(username==''||username==undefined){
-          this.errorInfo = "请填写用户名！";
-          return false
-        }
-        if(pwd==''||pwd==undefined){
-          this.errorInfo = "请填写密码！";
+          this.erroruser = "请填写用户名";
           return false
         }
       this.userService.judgeUserName(username)
         .subscribe(result=>{
           if(result=="false"){
-            this.errorInfo = "无该用户名！";
+            this.erroruser = "无该用户名";
           }else{
+            if(pwd==''||pwd==undefined){
+              this.errorpassword = "请填写密码";
+              return false
+            }
             this.userService.authorize(username, pwd)
               .subscribe(returnToken => this.validToken(returnToken,username));
           }
@@ -138,7 +141,7 @@ export class LoginComponent implements OnInit{
     validToken(returnToken,username){
         //console.log(returnToken);
         if(returnToken.isSuccess==false){
-            this.errorInfo = returnToken.message;
+            this.errorpassword = returnToken.message;
         }/*else if(returnToken&&returnToken.Jwt.id_token){
           localStorage['authenticationToken'] = returnToken.Jwt.id_token;
           localStorage['username']= username;

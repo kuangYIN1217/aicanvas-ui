@@ -1,6 +1,6 @@
 <div class="tips-content" [ngStyle]="ngStyle()">
-  <img [src]="getTipType()" class="icon"/>
-  <span [ngStyle]="spanStyle()">{{tipContent}}</span>
+  <img [src]="getTipType()" class="icon" id="icon"/>
+  <span [ngStyle]="spanStyle()" id="tipContent">{{tipContent}}</span>
   <a *ngIf="tipContent=='模型已开始发布！详情可查看：'" href='javascript:void(0)' routerLinkActive='active' routerLink='/inferenceModel/{{isPublic}}/{{jobId}}'>模型服务管理</a>
-  <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close()" *ngIf="tipType!='warnning'"/>
+  <img src="../assets/uniform-tips/guanbi.png" class="close" (click)="close()" [style.display]="(tipType!='warnning')?'':'none'" [ngStyle]="deleteStyle()" (load)="iconStyle()"/>
 </div>

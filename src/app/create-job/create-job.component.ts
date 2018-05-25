@@ -617,7 +617,7 @@ export class CreateJobComponent{
             this.tipType = 'error';
             this.tipWidth = "100%";
             this.tipMargin = "20px auto 0";
-            this.spanWidth = "87%";
+            this.spanWidth = "84%";
             this.tipContent = error.text();
             this.click_flag = true;
           }
@@ -644,7 +644,7 @@ export class CreateJobComponent{
             this.loading = false;
             this.showTip = true;
             this.tipType = 'error';
-            this.spanWidth = "87%";
+            this.spanWidth = "84%";
             this.tipWidth = "100%";
             this.tipMargin = "20px auto 0";
             this.tipContent = error.text();

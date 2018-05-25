@@ -198,6 +198,7 @@ ul, ol {
     border: 1px solid #e5e5e5;
     overflow: hidden;
     border-radius: 5px;
+    position: relative;
 }
 .user span,.pass span{
     display: inline-block;
@@ -209,9 +210,16 @@ ul, ol {
     width:20px;
     height:20px;
 }
+.user label,.pass label{
+  position: absolute;
+  top:18px;
+  right:16px;
+  color: #ff9861;
+}
 #username,#password{
     float: left;
     margin-top:9px;
+    position: absolute;
     /*outline: none !important;*/
 }
 /*#username:focus,#password:focus{*/
@@ -224,6 +232,7 @@ ul, ol {
     border: 1px solid #e5e5e5;
     overflow: hidden;
     border-radius: 5px;
+    position: relative;
 }
 input{
 	text-indent: 20px;

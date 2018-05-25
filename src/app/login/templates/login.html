@@ -57,17 +57,18 @@
 					<div class="user">
 						<span><img src="assets/login/yonghuming.png"/></span>
 						<input type="text" name="uer" id="username" placeholder="请输入用户名"/>
+            <label class="error_tip">{{erroruser}}</label>
 					</div>
 					<div class="pass">
 						<span><img src="assets/login/mima.png"/></span>
 						<input type="password" name="pwd" id="password" placeholder="请输入密码"/>
+            <label class="error_tip">{{errorpassword}}</label>
 					</div>
 					<!--<p>验证码:</p>-->
 					<!--<div class="yzm">-->
 						<!--<input type="text" name="surePwd" id="surePwd" placeholder="请输入验证码"/>-->
 						<!--<canvas id="code" (click)="changeValidCode()"></canvas>&lt;!&ndash;<a id="change" >换一张？</a>&ndash;&gt;-->
 					<!--</div>-->
-          <div style="font-size: 14px;color: #fe1c1c;margin-top: 12px">{{errorInfo}}</div>
 					<input type="button" value="登录" id="submit" name="submit" (click) = "login()">
 <!--					<div class="forget">
 						<div class="remember">

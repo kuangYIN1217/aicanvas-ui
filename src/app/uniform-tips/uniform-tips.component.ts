@@ -16,6 +16,7 @@ export class UniformTipsComponent{
 @Input() jobId:number=0;
 @Input() isPublic:boolean = false;
 @Output() showTipChange: EventEmitter<any> = new EventEmitter();
+  iconTop:string='';
   constructor(private route: ActivatedRoute , private router: Router) { }
   ngOnChanges(...args: any[]) {
     if(this.tipType=='warnning'){
@@ -32,6 +33,16 @@ export class UniformTipsComponent{
       return {
         width:this.spanWidth,
       }
+    }
+  }
+  iconStyle(){
+    let height = document.getElementById("tipContent").offsetHeight;
+    document.getElementById("icon").style.margin = (height-16)/2+"px "+"15px 0 20px"
+  }
+  deleteStyle(){
+    let height = document.getElementById("tipContent").offsetHeight;
+    return {
+      margin:(height-12)/2+"px "+"10px 0 0",
     }
   }
   ngStyle() {
