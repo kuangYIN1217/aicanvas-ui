@@ -426,6 +426,12 @@ export class PopupComponent {
             this.tipWidth = "426px";
             this.tipType = "error";
             this.tipContent = "已有同名文件或文件夹，请重新上传！";
+          }if(response.toString()!=''&&status!=400){
+            this.showTip = true;
+            this.tipMargin = "20px auto 0";
+            this.tipWidth = "426px";
+            this.tipType = "error";
+            this.tipContent = response.toString();
           }
         };
         this.uploader.onBuildItemForm = (item, form) => {
