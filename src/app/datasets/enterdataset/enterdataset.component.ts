@@ -507,6 +507,13 @@ export class EnterDatasetComponent {
         }else if(this.showUpload[j]!=undefined){
           this.showUpload[j].status = "上传失败";
         }
+        if(response.toString()!=''&&status!=400){
+          this.showTip = true;
+          this.tipMargin = "20px auto 0";
+          this.tipWidth = "426px";
+          this.tipType = "error";
+          this.tipContent = response.toString();
+        }
         if(status=="400"){
           this.show = true;
           this.tipType = "warnning";
