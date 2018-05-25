@@ -115,6 +115,7 @@ export class LoginComponent implements OnInit{
     }
 
     login(){
+        sessionStorage['userInfo'] = 'false';
         this.erroruser='';
         this.errorpassword='';
         var username = $('#username').val();

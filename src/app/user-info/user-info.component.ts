@@ -94,15 +94,19 @@ export class UserInfoComponent{
     if(!this.createFlag){
       return false
     }
-    let reg = /^[0-9a-zA-Z]+$/;
-    if(reg.test(this.password)){
-      if((/^[0-9]*$/.test(this.password))||(/^[a-zA-Z]*$/.test(this.password))){
+    if(this.password!=''&&this.password.indexOf('******')!=-1){
+
+    }else{
+      let reg = /^[0-9a-zA-Z]+$/;
+      if(reg.test(this.password)){
+        if((/^[0-9]*$/.test(this.password))||(/^[a-zA-Z]*$/.test(this.password))){
+          this.errorTip("密码");
+          return false
+        }
+      }else{
         this.errorTip("密码");
         return false
       }
-    }else{
-      this.errorTip("密码");
-      return false
     }
     this.createFlag = false;
     this.userService.userInfoEditUser(this.userId,this.username,this.password)
