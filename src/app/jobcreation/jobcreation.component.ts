@@ -388,7 +388,7 @@ export class JobCreationComponent {
     this.showTip = true;
     this.tipWidth = "100%";
     this.tipType = "error";
-    this.tipContent = "测试版本下最多同时运行五个任务！";
+    this.tipContent = "当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？";
     this.tipMargin = "0 auto";
   }
   nodeClicked() {

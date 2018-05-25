@@ -48,8 +48,10 @@ export class TaskStatusComponent{
     trainable:number;
     showDelete:boolean = false;
     content:string='';
+    type:string='';
     deleteId:number=0;
     s_sort_type:string="createTime,desc";
+    canRun:boolean = false;
     @Input() statuss:string;
     @Input() sceneId:number;
     @Input() jobName:string = null;
@@ -61,6 +63,7 @@ export class TaskStatusComponent{
     @Input() deductionAuthority:boolean = false;
 
     @Output() nooperate: EventEmitter<any> = new EventEmitter();
+    currentJobPath:string='';
     constructor(private sceneService: SceneService,private  modelService:modelService,private jobService: JobService, private location: Location, private route: ActivatedRoute ,private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig){
 
 
@@ -171,6 +174,7 @@ export class TaskStatusComponent{
     deleteJob(id,name){
         this.deleteId = id;
         this.showDelete = true;
+        this.type = "delete";
         this.content = "是否确定删除该训练任务"+name+"?"
     }
     deleteChange(event){
@@ -213,13 +217,23 @@ export class TaskStatusComponent{
       sessionStorage.removeItem('curPage');
       sessionStorage.removeItem('curMax');
     }
+    runChange(event){
+      this.runPath = this.currentJobPath;
+      this.jobService.runJob(this.currentJobPath)
+        .subscribe(reply => this.start_reply(reply));
+
+    }
     start(jobPath: string){
       // todo 判断当前运行job数量 > 5 不允许
+      this.currentJobPath = jobPath;
       this.jobService.getAllJobs('运行', null , null , null , null,null,this.s_sort_type ).subscribe(rep => {
         if (rep.totalElements >= 5) {
-          this.nooperate.emit(false);
-          addWarningToast(this.toastyService , '当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？');
-          return;
+          this.showDelete = true;
+          this.content = "当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？";
+          this.type="run";
+          return false
+          //this.nooperate.emit(false);
+          //addWarningToast(this.toastyService , '当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？');
         } else {
           this.runPath = jobPath;
           this.jobService.runJob(jobPath)
