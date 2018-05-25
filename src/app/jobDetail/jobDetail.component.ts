@@ -935,15 +935,15 @@ export class JobDetailComponent {
     }
     this.s_start_stop_click = false;
     this.jobService.getAllJobs('运行', null , null , null , null,null,"id,asc" ).subscribe(rep => {
-/*      if (rep.totalElements >= 5) {
+      if (rep.totalElements >= 5) {
         this.showTip = true;
         this.tipMargin = "0 auto 20px";
         this.tipWidth = "100%";
         this.tipType = "warnning";
-        this.tipContent = "测试版本下最多同时运行五个任务！";
-        /!*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*!/
+        this.tipContent = "当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？";
+        /*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*/
         return;
-      }else {*/
+      }else {
         this.runPath = jobPath;
         this.s_progress_show = true;
         this.jobService.runJob(this.runPath)
@@ -957,7 +957,7 @@ export class JobDetailComponent {
               }
             }
           )
-      //}
+      }
     })
   }
   showTipChange(event){

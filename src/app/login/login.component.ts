@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit{
     modelList:any[]=[{"id":3,"url":"/datasetssave","focusTab":1},{"id":4,"url":"/algchains","focusTab":2},{"id":7,"url":"/datasets","focusTab":3},{"id":12,"url":"/inferenceModel","focusTab":4},{"id":13,"url":"/jobcreation","focusTab":5},{"id":21,"url":"/algplugins","focusTab":6}];
     constructor(private resourcesService: ResourcesService, private userService: UserService,private router: Router){
         if((!localStorage['authenticationToken'])||localStorage['authenticationToken']==""){
-            // this.logined = 0;
+
         }else{
             let token = localStorage['authenticationToken'];
             if((!localStorage['allAuthority'])||localStorage['allAuthority']==""||localStorage['allAuthority']=="null"){
