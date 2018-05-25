@@ -31,6 +31,7 @@ export class PublicModelComponent{
   username:string='';
   interval:any;
   interval1:any;
+  loading:boolean = false;
   constructor(private sceneService: SceneService,private modelService: modelService){
 
   }
@@ -125,10 +126,16 @@ export class PublicModelComponent{
     clearInterval(this.interval1);
   }
   delete(modelId){
+    this.loading = true;
     this.modelService.deleteModel(modelId)
-      .subscribe(result=>{
+      .subscribe((result)=>{
+        this.loading = false;
         this.getAllModel(this.jobName,this.senceName,this.s_nav_selected,this.jobId,this.page,this.pageMaxItem);
-      })
+      },
+        (error)=>{
+          this.loading = false;
+        }
+      )
   }
   publishFail(id){
     if(this.first){
