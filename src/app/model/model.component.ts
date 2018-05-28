@@ -375,12 +375,9 @@ export class ModelComponent {
       this.modelService.updateIfShowFailReason(modelId)
         .subscribe(result=>{
           if(result.text()=='true'){
-            for(let i=0;i<this.saveTips.length;i++){
-              if(this.saveTips[i].modelId==modelId){
-                this.saveTips.splice(i,1);
-                this.showSaveTips.splice(i,1);
-              }
-            }
+            this.showSaveTips = [];
+            this.saveTips = [];
+            this.getJobDetail(this.job_id);
           }
         })
   }
