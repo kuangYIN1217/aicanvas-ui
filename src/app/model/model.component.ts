@@ -276,12 +276,12 @@ export class ModelComponent {
         this.modelService.getAllModel(this.job.jobName,this.job.sencesName,number,this.job.id)
           .subscribe(result=>{
             for(let i=0;i<result.content.length;i++){
-              if(result.content[i].ifShowFailReason){
+              if(result.content[i].model.ifShowFailReason){
                 let obj:any={};
                 obj.jobName = this.job.jobName;
-                obj.modelId = result.content[i].id;
-                obj.version = result.content[i].version;
-                obj.failReason = result.content[i].failReason;
+                obj.modelId = result.content[i].model.id;
+                obj.version = result.content[i].model.version;
+                obj.failReason = result.content[i].model.failReason;
                 this.saveTips.push(obj);
               }
             }
