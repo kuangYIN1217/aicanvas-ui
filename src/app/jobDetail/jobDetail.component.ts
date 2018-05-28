@@ -314,7 +314,7 @@ export class JobDetailComponent {
               clearInterval(this.interval);
             }
           }
-          if(this.job.status == '异常'){
+          if(this.job.status == '异常'&&this.jobInfo.ifShowFailReason==true){
             this.jobService.getJobDetailById(this.job.id)
               .subscribe(result=>{
                 this.showTip = true;
@@ -400,7 +400,7 @@ export class JobDetailComponent {
         this.datasetPath = this.jobInfo.datasetPath;
         this.pageNumber = params['page'];
         let jobPath = this.jobInfo.jobPath;
-        if(this.jobInfo.status=='异常'){
+        if(this.jobInfo.status=='异常'&&this.jobInfo.ifShowFailReason==true){
           this.showTip = true;
           this.tipMargin = "0 auto 20px";
           this.tipWidth = "100%";

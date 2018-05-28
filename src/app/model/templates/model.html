@@ -1,6 +1,6 @@
 <div class="container">
   <div style="padding: 0 30px;">
-    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" [jobName]="jobName" [senceName]="senceName" (showTipChange)="showTipChange(event)"></uniform-tips>
+    <uniform-tips *ngIf="showTip" [tipWidth]="tipWidth" [tipContent]="tipContent" [tipType]="tipType" [tipMargin]="tipMargin" [jobId]="job_id" [isPublic]="isPublic" [jobName]="job.jobName" [senceName]="job.sencesName" (showTipChange)="showTipChange(event)"></uniform-tips>
     <div class="tips-content" *ngFor="let item of showSaveTips">
       <img src="assets/uniform-tips/cuowu.png" class="icon"/>
       <span><div>训练任务{{item.jobName}}v{{item.version}}版本模型发布失败--{{item.failReason}}！详见：</div><a href='javascript:void(0)' routerLinkActive='active' routerLink='/inferenceModel/{{isPublic}}/{{jobId}}/{{job?.jobName}}/{{job?.sencesName}}'>模型服务管理</a></span>

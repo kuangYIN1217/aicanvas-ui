@@ -21,6 +21,8 @@ export class UniformTipsComponent{
   iconTop:string='';
   constructor(private route: ActivatedRoute , private router: Router) { }
   ngOnChanges(...args: any[]) {
+    console.log(this.jobName);
+    console.log(this.senceName);
     if(this.tipType=='warnning'){
       setTimeout(()=>{
         this.showTipChange.emit(false);
