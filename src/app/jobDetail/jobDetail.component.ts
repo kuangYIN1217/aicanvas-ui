@@ -400,7 +400,13 @@ export class JobDetailComponent {
         this.datasetPath = this.jobInfo.datasetPath;
         this.pageNumber = params['page'];
         let jobPath = this.jobInfo.jobPath;
-        if(this.jobInfo.status=='异常'&&this.jobInfo.ifShowFailReason==true){
+        let ifShowFailReason:string='';
+        if(sessionStorage['ifShowFailReason']!=undefined&&sessionStorage['ifShowFailReason']!=''){
+          ifShowFailReason = sessionStorage['ifShowFailReason'];
+        }else{
+          ifShowFailReason = String(this.jobInfo.ifShowFailReason);
+        }
+        if(this.jobInfo.status=='异常'&&ifShowFailReason=='true'){
           this.showTip = true;
           this.tipMargin = "0 auto 20px";
           this.tipWidth = "100%";
@@ -562,6 +568,7 @@ export class JobDetailComponent {
     if (this.interval) {
       clearInterval(this.interval);
     }
+    sessionStorage.removeItem('ifShowFailReason');
     this.websocket.stopWebsocket();
     this.AmCharts.destroyChart(this.lossChart);
     this.AmCharts.destroyChart(this.metricsChart);
@@ -962,7 +969,7 @@ export class JobDetailComponent {
     if(this.tipType=='error'){
       this.jobService.updateFailReason(this.jobId)
         .subscribe(result=>{
-
+          sessionStorage['ifShowFailReason'] = false;
         })
     }
   }
