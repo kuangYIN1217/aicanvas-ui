@@ -601,7 +601,7 @@ export class JobDetailComponent {
           this.initJobDetailByPath(true);
         },
         (error)=>{
-          if(error.status==417){
+            if(error.status==417){
             this.s_progress_show = false;
             this.s_start_stop_click = true;
           }
@@ -938,6 +938,7 @@ export class JobDetailComponent {
         this.showDelete = true;
         this.content = "当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？";
         this.type="run";
+        this.s_start_stop_click = true;
         return;
       }else {
         this.runPath = jobPath;
