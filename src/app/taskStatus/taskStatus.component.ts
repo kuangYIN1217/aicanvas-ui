@@ -219,7 +219,7 @@ export class TaskStatusComponent{
     }
     runChange(event){
       this.runPath = this.currentJobPath;
-      this.jobService.runJob(this.currentJobPath)
+      this.jobService.runJob(this.runPath)
         .subscribe(reply => this.start_reply(reply));
 
     }

@@ -139,6 +139,10 @@ export class JobDetailComponent {
   dataId:string='';
   datasetPath:string='';
   jobId:string='';
+
+  showDelete:boolean = false;
+  content:string='';
+  type:string='';
   //ifPublicSence:boolean = false;
   constructor(private route: ActivatedRoute ,private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
@@ -317,9 +321,6 @@ export class JobDetailComponent {
                 this.tipMargin = "0 auto 20px";
                 this.tipWidth = "100%";
                 this.tipType = "error";
-                if(result.failReason==null){
-                  result.failReason = "训练任务中断，请稍后重试!";
-                }
                 this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;
               })
           }else{
@@ -390,20 +391,6 @@ export class JobDetailComponent {
   }
 
   ngOnInit() {
-    /*    if (location.path(false).indexOf('/jobDetail/') != -1) {
-     let jobPath = location.path(false).split('/jobDetail/')[1].split('/')[0];
-     this.pageNumber = location.path(false).split('/jobDetail/')[1].split('/')[1];
-     let jobInfo = location.path(false).split('/jobDetail/')[1].split('/')[2];
-     this.jobInfo = JSON.parse(jobInfo);
-     console.log(this.jobInfo);
-     if (jobPath) {
-     jobPath = unescape(jobPath);
-     this.jobPath = jobPath;
-     // jobService.getJob(jobPath)
-     //     .subscribe(jobParam => this.jobParam = jobParam);
-     this.initJobDetailByPath();
-     }
-     }*/
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.jobInfo = JSON.parse(params['job']);
@@ -418,11 +405,7 @@ export class JobDetailComponent {
           this.tipMargin = "0 auto 20px";
           this.tipWidth = "100%";
           this.tipType = "error";
-          if(this.jobInfo.failReason==null){
-            this.tipContent = this.jobInfo.jobName+"任务运行异常 —— 训练任务中断，请稍后重试!";
-          }else{
-            this.tipContent = this.jobInfo.jobName+"任务运行异常 —— "+this.jobInfo.failReason;
-          }
+          this.tipContent = this.jobInfo.jobName+"任务运行异常 —— "+this.jobInfo.failReason;
         }
         if (jobPath) {
           jobPath = unescape(jobPath);
@@ -611,7 +594,21 @@ export class JobDetailComponent {
       })
     })
   }
+  runChange(event){
+    this.s_progress_show = true;
+    this.jobService.runJob(this.jobInfo.jobPath)
+      .subscribe((result) =>{
+          this.initJobDetailByPath(true);
+        },
+        (error)=>{
+          if(error.status==417){
+            this.s_progress_show = false;
+            this.s_start_stop_click = true;
+          }
+        }
+      )
 
+  }
   goback() {
     this.step = 2;
     this.changeIndex = 0;
@@ -938,12 +935,9 @@ export class JobDetailComponent {
     this.s_start_stop_click = false;
     this.jobService.getAllJobs('运行', null , null , null , null,null,"id,asc" ).subscribe(rep => {
       if (rep.totalElements >= 5) {
-        this.showTip = true;
-        this.tipMargin = "0 auto 20px";
-        this.tipWidth = "100%";
-        this.tipType = "warnning";
-        this.tipContent = "当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？";
-        /*addWarningToast(this.toastyService , '测试版本下最多同时运行三个任务！');*/
+        this.showDelete = true;
+        this.content = "当前仅支持5个任务并行，是否中断第5个任务运行，优先运行该任务？";
+        this.type="run";
         return;
       }else {
         this.runPath = jobPath;
