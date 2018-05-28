@@ -61,6 +61,8 @@ export class InferenceModelComponent{
           this.s_nav_selected = 1;
         }
         this.jobId = params["jobId"];
+        this.jobName = params["jobName"];
+        this.senceName = params["senceName"];
       }
     });
   }

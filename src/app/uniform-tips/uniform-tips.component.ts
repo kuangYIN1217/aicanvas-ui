@@ -15,6 +15,8 @@ export class UniformTipsComponent{
 @Input() tipMargin:string='';
 @Input() jobId:number=0;
 @Input() isPublic:boolean = false;
+@Input() jobName:string='';
+@Input() senceName:string='';
 @Output() showTipChange: EventEmitter<any> = new EventEmitter();
   iconTop:string='';
   constructor(private route: ActivatedRoute , private router: Router) { }

@@ -197,6 +197,9 @@ a{
   display: inline-block;
   vertical-align: middle;
 }
+.tips-content span div,.tips-content span a{
+  display: inline-block;
+}
 .icon{
   margin:9px 15px 0 20px;
   float: left;
@@ -215,13 +218,13 @@ a{
   margin:0 auto 20px !important;
 }
 .tips-content span{
-  width:80%;
   color: #333;
   word-break: break-all;
-}
-.tips-content span,.tips-content a{
   padding:9px 0;
   float: left;
+}
+.tips-content span{
+
 }
 .close{
   margin-right: 12px;

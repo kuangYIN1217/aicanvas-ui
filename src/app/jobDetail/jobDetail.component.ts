@@ -139,6 +139,7 @@ export class JobDetailComponent {
   dataId:string='';
   datasetPath:string='';
   jobId:string='';
+  //ifPublicSence:boolean = false;
   constructor(private route: ActivatedRoute ,private modelService: modelService,private pluginService: PluginService, private algchainService: AlgChainService, private jobService: JobService, private location: Location, private AmCharts: AmChartsService, private router: Router, private websocket: WebSocketService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
     this.allAuthority = JSON.parse(localStorage['allAuthority']);
     for(let i=0;i<this.allAuthority.length;i++){
@@ -406,6 +407,7 @@ export class JobDetailComponent {
     this.route.queryParams.subscribe(params =>{
       if(JSON.stringify(params)!='{}'){
         this.jobInfo = JSON.parse(params['job']);
+        //this.ifPublicSence = this.jobInfo.ifPublicSence;
         this.jobId = this.jobInfo.id;
         this.dataId = this.jobInfo.dataSet;
         this.datasetPath = this.jobInfo.datasetPath;
@@ -962,6 +964,12 @@ export class JobDetailComponent {
   }
   showTipChange(event){
     this.showTip = event;
+    if(this.tipType=='error'){
+      this.jobService.updateFailReason(this.jobId)
+        .subscribe(result=>{
+
+        })
+    }
   }
   goModel(){
     this.router.navigate(['/model'], {queryParams: {'job_id': this.job.id,'dataId':this.dataId,'jobId':this.jobId,'datasetPath':this.datasetPath}})

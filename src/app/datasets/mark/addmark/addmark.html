@@ -5,7 +5,7 @@
       <img src="assets/datasets/createfile/gb.png" (click)="close()" style="cursor: pointer"/>
     </div>
     <div class='add_mark_content'>
-      <input type="text" placeholder="请输入标注文本" name="markName" [(ngModel)]="markName" (keyup)="isName()" [ngClass]="{marginBottom: tip}"/>
+      <input type="text" placeholder="请输入标注文本" name="markName" [(ngModel)]="markName" (blur)="isName()" [ngClass]="{marginBottom: tip}"/>
       <span class="must" *ngIf="tip">标注文本必填</span>
       <div class="add_mark_label">
         <div class="add_mark_label_title">

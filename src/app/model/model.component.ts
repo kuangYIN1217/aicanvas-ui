@@ -104,6 +104,7 @@ export class ModelComponent {
         this.job_id = params['job_id'];
         this.dataId = params['dataId'];
         this.jobId = params['jobId'];
+        //this.isPublic = params['ifPublicSence'];
         this.datasetPath = params['datasetPath'];
         this.selectChange(this.job_id);
         this.getJobDetail(this.job_id);

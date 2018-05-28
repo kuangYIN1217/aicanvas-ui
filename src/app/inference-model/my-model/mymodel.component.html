@@ -27,7 +27,7 @@
       <td>{{item.model.createTime}}</td>
       <td>
         <a href="javascript:void(0)" class="opearate delete" (click)="delete(item.model.id)" title="删除模型" *ngIf="item.model.status!='发布中'"></a>
-        <a href="{{item.model.apiUrl}}" target="_blank" class="opearate see" *ngIf="item.model.status=='发布成功'" title="查看模型"></a>
+        <a href="{{item.model.apiUrl}}" target="_blank" class="opearate see" *ngIf="item.model.status=='发布成功'" title="查看API说明文档"></a>
         <a href="javascript:void(0)" class="opearate fail" *ngIf="item.model.status=='发布失败'" (click)="publishFail(item.model.failReason)" title="查看失败原因"></a>
         <!--<img src="assets/taskStatus/chakan-.png" alt="" class="middle" (click)="lookapi()">-->
       </td>
