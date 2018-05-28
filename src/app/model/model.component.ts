@@ -371,12 +371,12 @@ export class ModelComponent {
         this.pageParams = page;
       });
   }
-  close(modelId,id){
+  close(modelId){
       this.modelService.updateIfShowFailReason(modelId)
         .subscribe(result=>{
           if(result.text()=='true'){
             for(let i=0;i<this.saveTips.length;i++){
-              if(this.saveTips[i].id==id){
+              if(this.saveTips[i].modelId==modelId){
                 this.saveTips.splice(i,1);
                 this.showSaveTips.splice(i,1);
               }
