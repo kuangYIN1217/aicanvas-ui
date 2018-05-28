@@ -322,7 +322,7 @@ export class JobDetailComponent {
                 this.tipMargin = "0 auto 20px";
                 this.tipWidth = "100%";
                 this.tipType = "error";
-                this.tipContent = result.jobName+"任务运行异常 ——"+result.failReason;
+                this.tipContent = result.jobDetail.jobName+"任务运行异常 ——"+result.jobDetail.failReason;
               })
           }else{
             this.showTip = false;

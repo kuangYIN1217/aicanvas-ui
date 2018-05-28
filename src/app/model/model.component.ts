@@ -285,7 +285,6 @@ export class ModelComponent {
                 this.saveTips.push(obj);
               }
             }
-
             if(this.saveTips.length>2){
               this.showMore = true;
               this.showSaveTips = this.saveTips.slice(0,2);
