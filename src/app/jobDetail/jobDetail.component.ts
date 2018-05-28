@@ -317,6 +317,7 @@ export class JobDetailComponent {
           if(this.job.status == '异常'&&this.jobInfo.ifShowFailReason==true){
             this.jobService.getJobDetailById(this.job.id)
               .subscribe(result=>{
+                sessionStorage.removeItem('ifShowFailReason');
                 this.showTip = true;
                 this.tipMargin = "0 auto 20px";
                 this.tipWidth = "100%";

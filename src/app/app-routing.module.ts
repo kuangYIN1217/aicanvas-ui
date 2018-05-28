@@ -85,6 +85,7 @@ const routes: Routes = [
   {path: 'nav', component: NavigationComponent},
   {path: 'inferenceModel', component: InferenceModelComponent},
   {path: 'inferenceModel/:isPublic/:jobId/:jobName/:senceName', component: InferenceModelComponent},
+  {path: 'inferenceModel/:isPublic/:jobId', component: InferenceModelComponent},
   {path: 'gpu', component: GpuComponent},
   {path: 'showall', component: ShowAllComponent},
   {path: 'api', component: ApiComponent},
