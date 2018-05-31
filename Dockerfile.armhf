@@ -1,9 +1,9 @@
-FROM node:alpine
+FROM jermine/alpine:armhf-3.7
 MAINTAINER Jermine.hu@qq.com
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . $APP_HOME
-RUN  npm install -g cnpm --registry=https://registry.npm.taobao.org ;\
+RUN apk add --no-cache nodejs && npm install -g cnpm --registry=https://registry.npm.taobao.org ;\
      cnpm install -g yarn ;\
      yarn install -g @angular/cli ;\
      yarn install ;\
